@@ -3,3 +3,7 @@
 -D hxnodejs-no-version-warning
 -js bin/client.js
 Main
+
+--next
+--cwd server
+build.hxml
