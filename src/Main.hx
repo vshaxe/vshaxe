@@ -5,9 +5,13 @@ class Main {
     @:expose("activate")
     static function main(context:ExtensionContext) {
         var serverModule = context.asAbsolutePath("bin/server.js");
-        var serverOptions = {
-            run: {module: serverModule},
-            debug: {module: serverModule, options: {execArgv: ["--nolazy", "--debug=6004"]}}
+        // var serverOptions = {
+        //     run: {module: serverModule},
+        //     debug: {module: serverModule, options: {execArgv: ["--nolazy", "--debug=6004"]}}
+        // };
+        var serverOptions = cast {
+            command: "node",
+            args: [serverModule],
         };
         var clientOptions = {
             documentSelector: "haxe"
