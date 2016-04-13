@@ -1,0 +1,46 @@
+{
+	"name": "vshaxe",
+	"description": "Haxe language server for Visual Studio Code",
+	"version": "0.0.1",
+    "publisher": "Dan Korostelev",
+	"author": "Dan Korostelev",
+	"license": "MIT",
+    "engines": {
+        "vscode": "^0.10.11"
+    },
+	"dependencies": {
+        "vscode-languageclient": "^2.0.0"
+	},
+    "main": "bin/client.js",
+    "activationEvents": [
+        "onLanguage:haxe"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "haxe",
+                "aliases": ["Haxe", "haxe"],
+                "extensions": [".hx"],
+                "configuration": "./haxe.configuration.json"
+            },
+            {
+                "id": "hxml",
+                "aliases": ["HXML", "hxml"],
+                "extensions": [".hxml"],
+                "configuration": "./hxml.configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "haxe",
+                "scopeName": "source.haxe",
+                "path": "./syntaxes/Haxe.tmLanguage"
+            },
+            {
+                "language": "hxml",
+                "scopeName": "source.hxml",
+                "path": "./syntaxes/Hxml.tmLanguage"
+            }
+        ]
+    }
+}

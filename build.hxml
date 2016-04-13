@@ -1,0 +1,5 @@
+-cp src
+-lib hxnodejs
+-D hxnodejs-no-version-warning
+-js bin/client.js
+Main
