@@ -5,7 +5,10 @@ class Main {
     @:expose("activate")
     static function main(context:ExtensionContext) {
         var serverModule = context.asAbsolutePath("bin/server.js");
-        var serverOptions = {module: serverModule};
+        var serverOptions = {
+            run: {module: serverModule},
+            debug: {module: serverModule, options: {execArgv: ["--nolazy", "--debug=6004"]}}
+        };
         var clientOptions = {
             documentSelector: "haxe"
         };
@@ -26,7 +29,10 @@ typedef NodeModule = {
     @:optional var options:ChildProcessForkOptions;
 }
 
-typedef ServerOptions = NodeModule;
+typedef ServerOptions = {
+    run: NodeModule,
+    debug: NodeModule,
+}
 
 typedef LanguageClientOptions = {
     @:optional var documentSelector:EitherType<String,Array<String>>;
