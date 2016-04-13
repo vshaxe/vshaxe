@@ -56,6 +56,6 @@ extern class ExtensionContext {
     var subscriptions:Array<Disposable>;
 }
 
-class TextDocument {}
-class FileSystemWatcher {}
+extern class TextDocument {}
+extern class FileSystemWatcher {}
 
