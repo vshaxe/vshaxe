@@ -53,6 +53,12 @@ extern class VscodeCommands {
 
 extern class VscodeWindow {
     function showInformationMessage(message:String, items:haxe.extern.Rest<String>):js.Promise.Thenable<String>;
+    function createOutputChannel(name:String):OutputChannel;
+}
+
+extern class OutputChannel {
+    function append(value:String):Void;
+    function appendLine(value:String):Void;
 }
 
 @:enum abstract TransportKind(Int) {
@@ -90,6 +96,7 @@ extern class LanguageClient {
     function new(name:String, serverOptions:ServerOptions, languageOptions:LanguageClientOptions, ?forceDebug:Bool);
     function start():Disposable;
     function stop():Void;
+    function onNotification(type:{method:String}, handler:Dynamic->Void):Void;
 }
 
 typedef Disposable = {
