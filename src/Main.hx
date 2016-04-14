@@ -2,6 +2,7 @@ import haxe.extern.EitherType;
 import js.node.ChildProcess;
 
 class Main {
+    @:keep
     @:expose("activate")
     static function main(context:ExtensionContext) {
         var serverModule = context.asAbsolutePath("bin/server.js");
