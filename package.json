@@ -44,12 +44,12 @@
             {
                 "language": "haxe",
                 "scopeName": "source.haxe",
-                "path": "./syntaxes/Haxe.tmLanguage"
+                "path": "./syntaxes/haxe.json"
             },
             {
                 "language": "hxml",
                 "scopeName": "source.hxml",
-                "path": "./syntaxes/Hxml.tmLanguage"
+                "path": "./syntaxes/hxml.json"
             }
         ],
         "debuggers": [
