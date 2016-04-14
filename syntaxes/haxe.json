@@ -1,60 +1,51 @@
 {
+  "scopeName": "source.haxe",
   "fileTypes": [
     "hx"
   ],
-  "foldingStartMarker": "(\\{\\s*(//.*)?$|^\\s*// \\{\\{\\{|#if)",
-  "foldingStopMarker": "^\\s*(\\}|// \\}\\}\\}$|#end)",
-  "keyEquivalent": "^~H",
   "name": "Haxe",
   "patterns": [
     {
-      "include": "#all"
+      "include": "#package"
+    },
+    {
+      "include": "#import"
+    },
+    {
+      "include": "#import-using"
+    },
+    {
+      "include": "#type-abstract"
+    },
+    {
+      "include": "#type-class"
+    },
+    {
+      "include": "#type-enum"
+    },
+    {
+      "include": "#type-interface"
+    },
+    {
+      "include": "#type-typedef"
+    },
+    {
+      "include": "#meta-static"
+    },
+    {
+      "include": "#method"
+    },
+    {
+      "include": "#variable"
+    },
+    {
+      "include": "#block"
+    },
+    {
+      "include": "#block-contents"
     }
   ],
   "repository": {
-    "all": {
-      "patterns": [
-        {
-          "include": "#package"
-        },
-        {
-          "include": "#import"
-        },
-        {
-          "include": "#import-using"
-        },
-        {
-          "include": "#type-abstract"
-        },
-        {
-          "include": "#type-class"
-        },
-        {
-          "include": "#type-enum"
-        },
-        {
-          "include": "#type-interface"
-        },
-        {
-          "include": "#type-typedef"
-        },
-        {
-          "include": "#meta-static"
-        },
-        {
-          "include": "#method"
-        },
-        {
-          "include": "#variable"
-        },
-        {
-          "include": "#block"
-        },
-        {
-          "include": "#block-contents"
-        }
-      ]
-    },
     "arrays": {
       "begin": "(\\[)",
       "beginCaptures": {
@@ -1270,7 +1261,5 @@
         }
       ]
     }
-  },
-  "scopeName": "source.haxe",
-  "uuid": "26aaa7a3-8392-4ff1-8c99-3c8c63e7f8b0"
+  }
 }
