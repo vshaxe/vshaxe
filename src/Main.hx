@@ -15,7 +15,10 @@ class Main {
             args: [serverModule],
         };
         var clientOptions = {
-            documentSelector: "haxe"
+            documentSelector: "haxe",
+            synchronize: {
+                configurationSection: "haxe"
+            }
         };
         var client = new LanguageClient("Haxe", serverOptions, clientOptions);
         context.subscriptions.push(client.start());

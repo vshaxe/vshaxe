@@ -16,6 +16,16 @@
         "onLanguage:haxe"
     ],
     "contributes": {
+        "configuration": {
+            "title": "Haxe configuration",
+            "properties": {
+                "haxe.buildFile": {
+                    "type": "string",
+                    "default": "build.hxml",
+                    "description": "Default HXML file used for IDE support"
+                }
+            }
+        },
         "languages": [
             {
                 "id": "haxe",
