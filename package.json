@@ -26,6 +26,13 @@
                 }
             }
         },
+        "commands": [
+            {
+                "title": "Restart language server",
+                "command": "haxe.restartLanguageServer",
+                "category": "Haxe"
+            }
+        ],
         "languages": [
             {
                 "id": "haxe",

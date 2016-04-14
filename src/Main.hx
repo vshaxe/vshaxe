@@ -20,9 +20,39 @@ class Main {
                 configurationSection: "haxe"
             }
         };
-        var client = new LanguageClient("Haxe", serverOptions, clientOptions);
-        context.subscriptions.push(client.start());
+
+        var disposable = null;
+
+        inline function start() {
+            var client = new LanguageClient("Haxe", serverOptions, clientOptions);
+            disposable = client.start();
+            context.subscriptions.push(disposable);
+        }
+
+        start();
+
+        context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", function() {
+            if (disposable != null) {
+                context.subscriptions.remove(disposable);
+                disposable.dispose();
+            }
+            start();
+        }));
     }
+}
+
+@:jsRequire("vscode")
+extern class Vscode {
+    static var commands(default,never):VscodeCommands;
+    static var window(default,never):VscodeWindow;
+}
+
+extern class VscodeCommands {
+    function registerCommand(command:String, callback:Void->Void):Disposable;
+}
+
+extern class VscodeWindow {
+    function showInformationMessage(message:String, items:haxe.extern.Rest<String>):js.Promise.Thenable<String>;
 }
 
 @:enum abstract TransportKind(Int) {
@@ -59,6 +89,7 @@ typedef SynchronizeOptions = {
 extern class LanguageClient {
     function new(name:String, serverOptions:ServerOptions, languageOptions:LanguageClientOptions, ?forceDebug:Bool);
     function start():Disposable;
+    function stop():Void;
 }
 
 typedef Disposable = {
