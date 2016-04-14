@@ -59,6 +59,12 @@
                     "languageIds": ["haxe"]
                 }
             }
+        ],
+        "jsonValidation": [
+            {
+                "fileMatch": "haxelib.json",
+                "url": "./haxelib_json_schema.json"
+            }
         ]
     }
 }
