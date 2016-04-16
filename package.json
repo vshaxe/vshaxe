@@ -70,7 +70,7 @@
         "jsonValidation": [
             {
                 "fileMatch": "haxelib.json",
-                "url": "./haxelib_json_schema.json"
+                "url": "http://json.schemastore.org/haxelib"
             }
         ]
     }
