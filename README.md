@@ -6,6 +6,8 @@ leveraging [Haxe Language Server](https://github.com/nadako/haxe-languageserver)
 **Status**: just like the server, the extension is very much work in progress.
 For general usage, see Jeff Ward's [vscode-haxe](https://github.com/jcward/vscode-haxe) extension as it's more mature at the moment.
 
+Because of the server, the extension only works with latest development version of Haxe (3.3) due to new [`-D display-stdin` feature](https://github.com/HaxeFoundation/haxe/pull/5120).
+
 ## Hacking
 
 1. Clone this repo to `~/.vscode/extensions`.
