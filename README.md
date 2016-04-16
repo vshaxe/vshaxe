@@ -15,6 +15,7 @@ For general usage, see Jeff Ward's [vscode-haxe](https://github.com/jcward/vscod
 5. Right now, by default, extension looks for the `build.hxml` file in the workspace root and uses that file
 for completion. So it should only contain arguments that are used for completion (i.e. no --each/--next/-cmd/etc.)
 6. You can specify custom hxml file to use with `"haxe.buildFile"` setting.
+7. Language server runs haxe completion server on port `6000`. If you want to debug it, you can kill haxe process while language server is running, and then run `haxe -v --wait 6000` from the console. Language server should connect to it.
 
 ## Build task
 
