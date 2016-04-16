@@ -19,3 +19,15 @@ Example `tasks.json` file (the problem matcher is submitted to https://github.co
     }
 }
 ```
+
+## Type hint
+![Type hint](images/type.png)
+
+## Goto definition
+![Goto definition](images/position.png)
+
+## Completion
+![Field completion](images/field.png)
+
+## Peek definition
+![Peek definition](images/peek.png)
