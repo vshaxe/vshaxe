@@ -8,13 +8,13 @@ For general usage, see Jeff Ward's [vscode-haxe](https://github.com/jcward/vscod
 
 ## Hacking
 
-1) Clone this repo to `~/.vscode/extensions`.
-2) Init and update `server` submodule.
-3) Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
-4) Do `haxe build.hxml` (that will build both client and server)
-5) Right now, by default, extension looks for the `build.hxml` file in the workspace root and uses that file
+1. Clone this repo to `~/.vscode/extensions`.
+2. Init and update `server` submodule.
+3. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
+4. Do `haxe build.hxml` (that will build both client and server)
+5. Right now, by default, extension looks for the `build.hxml` file in the workspace root and uses that file
 for completion. So it should only contain arguments that are used for completion (i.e. no --each/--next/-cmd/etc.)
-6) You can specify custom hxml file to use with `"haxe.buildFile"` setting.
+6. You can specify custom hxml file to use with `"haxe.buildFile"` setting.
 
 ## Build task
 
