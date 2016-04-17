@@ -1,421 +1,454 @@
 {
-  "scopeName": "source.haxe",
-  "fileTypes": [
-    "hx"
-  ],
-  "foldingStartMarker": "(\\{\\s*(//.*)?$|^\\s*// \\{\\{\\{|#if)",
-  "foldingStopMarker": "^\\s*(\\}|// \\}\\}\\}$|#end)",
-  "firstLineMatch": "^#!.*\\b(haxe)",
   "name": "Haxe",
+  "scopeName": "source.hx",
+  "fileTypes": ["hx"],
+  "uuid": "67c72f9f-862c-4e48-8951-dcc22c0bb4ea",
   "patterns": [
-    {
-      "comment": "Haxe import/using",
-      "begin": "(?<!\\.)\\b(import|using)(?!\\s*:)\\b",
-      "beginCaptures": {
-        "1": {
-          "name": "keyword.control.haxe"
-        }
-      },
-      "patterns": [
-        {
-          "comment": "(default|*|name) (in|as) alias",
-          "captures": {
-            "1": {
-              "name": "entity.name.type.module.haxe"
-            },
-            "2": {
-              "name": "variable.language.import-all.haxe"
-            },
-            "3": {
-              "name": "keyword.control.haxe"
-            },
-            "4": {
-              "name": "entity.name.type.module.haxe"
-            }
-          },
-          "match": "(?x) (?: \\b([A-Z][a-zA-Z_$0-9]*)\\b | (\\*) | \\b(?:[a-zA-Z_$][a-zA-Z_$0-9]*)\\b) \\s* (\\b (?:in|as) \\b) \\s* (?: \\b([A-Z][a-zA-Z_$0-9]*)\\b | \\b(?:[a-zA-Z_$][a-zA-Z_$0-9]*)\\b)"
-        },
-        {
-          "match": "\\*",
-          "name": "variable.language.import-all.haxe"
-        },
-        {
-          "include": "#strings"
-        },
-        {
-          "include": "#comments"
-        },
-        {
-          "include": "#types"
-        }
-      ],
-      "end": "(?=;|$)",
-      "name": "meta.import.haxe"
-    },
-    {
-      "match": "(?<!\\.)\\b(super|this)(?!\\s*:)\\b|(?<=\\?)(?:\\s*)(super|this)(?=\\s*:)",
-      "captures": {
-        "1": {
-          "name": "variable.language.haxe"
-        },
-        "2": {
-          "name": "variable.language.haxe"
-        }
-      }
-    },
-    {
-      "match": "(=>)",
-      "captures": {
-        "0": {
-          "name": "meta.operator.arrow.haxe"
-        }
-      }
-    },
-    {
-      "begin": "(?x)\n\\b(class)\\b",
-      "beginCaptures": {
-        "1": {
-          "name": "storage.type.class.haxe"
-        },
-        "2": {
-          "name": "entity.name.type.haxe"
-        }
-      },
-      "end": "(?=\\{)",
-      "patterns": [
-        {
-          "include": "#comments"
-        },
-        {
-          "include": "#metadatas"
-        },
-        {
-          "include": "#properties"
-        },
-        {
-          "include": "#types"
-        },
-        {
-          "include": "#parents"
-        }
-      ]
-    },
-    {
-      "begin": "(?x)\n\\b(typedef|enum|abstract|interface)\\b",
-      "beginCaptures": {
-        "1": {
-          "name": "storage.type.modifier.haxe"
-        },
-        "2": {
-          "name": "entity.name.type.haxe"
-        }
-      },
-      "end": "(?=\\{|;)",
-      "patterns": [
-        {
-          "include": "#comments"
-        },
-        {
-          "include": "#metadatas"
-        },
-        {
-          "include": "#properties"
-        },
-        {
-          "include": "#types"
-        },
-        {
-          "include": "#parents"
-        }
-      ]
-    },
-    {
-      "captures": {
-        "1": {
-          "name": "keyword.control.new.haxe"
-        },
-        "2": {
-          "name": "entity.name.type.instance.haxe"
-        }
-      },
-      "match": "(new)\\s+(\\$?\\w+(?:\\.\\w*)?)",
-      "name": "meta.class.instance.constructor"
-    },
-    {
-      "include": "#strings"
-    },
-    {
-      "include": "#comments"
-    },
-    {
-      "include": "#metadatas"
-    },
-    {
-      "begin": "(?:#if|#else|#elseif|#end)",
-      "name": "constant.variable.conditional.keyword.control.directive.haxe",
-      "end": "(?=$)"
-    },
-    {
-      "match": "(?<!\\.)\\b(class|enum|function|interface|typedef|abstract)(?!\\s*:)\\b",
-      "name": "storage.type.haxe"
-    },
-    {
-      "match": "(?<!\\.)\\b(extends|implements|private|extern|public|static|dynamic|override|inline)(?!\\s*:)\\b",
-      "name": "storage.modifier.haxe"
-    },
-    {
-      "match": "(?<!\\.)\\b(var)(?!\\s*:)\\b",
-      "name": "storage.type.var.haxe"
-    },
-    {
-      "match": "(?<!\\.)\\b(untyped|cast|break|case|catch|continue|do|else|finally|for|in|if|import|from|package|return|switch|throw|try|while|with)(?!\\s*:)\\b",
-      "name": "keyword.control.haxe"
-    },
-    {
-      "match": "(?<!\\.)\\b(default)\\b",
-      "name": "keyword.control.haxe"
-    },
-    {
-      "match": "\\$(?:[A-Za-z0-9_]+\\b)?",
-      "name": "support.variable.macro.haxe"
-    },
-    {
-      "match": "\\.\\.\\.",
-      "name": "keyword.operator.spread.haxe"
-    },
-    {
-      "match": "(?<!\\.)\\b(true|false)(?!\\s*:)\\b|(?<=\\?)(?:\\s*)(true|false)(?=\\s*:)",
-      "captures": {
-        "1": {
-          "name": "constant.language.boolean.$1.haxe"
-        },
-        "2": {
-          "name": "constant.language.boolean.$2.haxe"
-        }
-      }
-    },
-    {
-      "match": "(?<!\\.)\\b(null)(?!\\s*:)\\b|(?<=\\?)(?:\\s*)(null)(?=\\s*:)",
-      "captures": {
-        "1": {
-          "name": "constant.language.null.haxe"
-        },
-        "2": {
-          "name": "constant.language.null.haxe"
-        }
-      }
-    },
-    {
-      "match": "(?<!\\.)\\b([A-Z][A-Z0-9_]+)(?!\\s*:)\\b|(?<=\\?)(?:\\s*)([A-Z][A-Z0-9_]+)(?=\\s*:)",
-      "captures": {
-        "1": {
-          "name": "constant.other.haxe"
-        },
-        "2": {
-          "name": "constant.other.haxe"
-        }
-      }
-    },
-    {
-      "begin": "(?<=[\\[=(?:+,!]|^|return|=>|&&|\\|\\|)\\s*(/)(?![/*+{}?])(?=.*/)",
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.definition.string.begin.haxe"
-        }
-      },
-      "end": "(/)[gimuy]*",
-      "endCaptures": {
-        "1": {
-          "name": "punctuation.definition.string.end.haxe"
-        }
-      },
-      "name": "string.regexp.haxe",
-      "patterns": [
-        {
-          "include": "source.haxe.regexp"
-        }
-      ]
-    },
-    {
-      "include": "#operators"
-    },
-    {
-      "include": "#method_calls"
-    },
-    {
-      "include": "#function_calls"
-    },
-    {
-      "include": "#numbers"
-    },
-    {
-      "include": "#object_variable"
-    },
-    {
-      "include": "#properties"
-    },
-    {
-      "include": "#types"
-    },
-    {
-      "match": "(?<!\\$)\\b[0-9]+[\\w$]*",
-      "name": "invalid.illegal.identifier.haxe"
-    },
-    {
-      "match": "\\;",
-      "name": "punctuation.terminator.statement.haxe"
-    },
-    {
-      "match": ",",
-      "name": "meta.delimiter.object.comma.haxe"
-    },
-    {
-      "match": "\\.",
-      "name": "meta.delimiter.method.period.haxe"
-    },
-    {
-      "captures": {
-        "1": {
-          "name": "punctuation.section.scope.begin.haxe"
-        },
-        "2": {
-          "name": "punctuation.section.scope.end.haxe"
-        }
-      },
-      "comment": "Allows the special return snippet to fire.",
-      "match": "({)(})"
-    },
-    {
-      "begin": "{",
-      "beginCaptures": {
-        "0": {
-          "name": "meta.brace.curly.haxe"
-        }
-      },
-      "end": "}",
-      "endCaptures": {
-        "0": {
-          "name": "meta.brace.curly.haxe"
-        }
-      },
-      "patterns": [
-        {
-          "include": "$self"
-        }
-      ]
-    },
-    {
-      "begin": "\\(",
-      "beginCaptures": {
-        "0": {
-          "name": "meta.brace.round.haxe"
-        }
-      },
-      "end": "\\)",
-      "endCaptures": {
-        "0": {
-          "name": "meta.brace.round.haxe"
-        }
-      },
-      "patterns": [
-        {
-          "include": "$self"
-        }
-      ]
-    },
-    {
-      "match": "\\[|\\]",
-      "name": "meta.brace.square.haxe"
-    },
-    {
-      "match": "\\A#!.*$",
-      "name": "comment.line.shebang.haxe"
-    }
+    {"include": "#all"}
   ],
   "repository": {
-    "numbers": {
+    "all": {
+      "patterns": [
+        {"include": "#package"},
+        {"include": "#import"},
+        {"include": "#import-using"},
+        {"include": "#type-abstract"},
+        {"include": "#type-class"},
+        {"include": "#type-enum"},
+        {"include": "#type-interface"},
+        {"include": "#type-typedef"},
+        {"include": "#meta-static"},
+        {"include": "#method"},
+        {"include": "#variable"},
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "array": {
+      "begin": "\\[",
+      "beginCaptures": {
+        "0": {"name": "punctuation.definition.array.begin.hx"}
+      },
+      "end": "\\]",
+      "endCaptures": {
+        "0": {"name": "punctuation.definition.array.end.hx"}
+      },
+      "name": "meta.array.literal.hx",
+      "patterns": [
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "block": {
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": {"name": "punctuation.definition.block.begin.hx"}
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": {"name": "punctuation.definition.block.end.hx"}
+      },
+      "patterns": [
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "block-contents": {
+      "patterns": [
+        {"include": "#regex"},
+        {"include": "#array"},
+        {"include": "#parameters"},
+        {"include": "#constants"},
+        {"include": "#comments"},
+        {"include": "#strings"},
+        {"include": "#macro"},
+        {"include": "#modifiers"},
+        {"include": "#keywords"},
+        {"include": "#keywords-reification"},
+        {"include": "#conditional-compilation"},
+        {"include": "#operator-assignment"},
+        {"include": "#operators"},
+        {"include": "#punctuation-separator"},
+        {"include": "#punctuation-terminator"},
+        {"include": "#punctuation-brackets"},
+        {"include": "#support-class-name"}
+      ]
+    },
+    "comments": {
       "patterns": [
         {
-          "match": "\\b(?<!\\$)0(x|X)[0-9a-fA-F]+\\b(?!\\$)",
-          "name": "constant.numeric.hex.haxe"
+          "begin": "\/\\*\\*(?!/)",
+          "beginCaptures": {
+            "0": {"name": "punctuation.definition.comment.hx"}
+          },
+          "end": "\\*\/",
+          "endCaptures": {
+            "0": {"name": "punctuation.definition.comment.hx"}
+          },
+          "name": "comment.block.documentation.hx"
         },
         {
-          "match": "\\b(?<!\\$)0(b|B)[01]+\\b(?!\\$)",
-          "name": "constant.numeric.binary.haxe"
+          "begin": "\/\\*",
+          "beginCaptures": {
+            "0": {"name": "punctuation.definition.comment.hx"}
+          },
+          "end": "\\*\/",
+          "endCaptures": {
+            "0": {"name": "punctuation.definition.comment.hx"}
+          },
+          "name": "comment.block.hx"
         },
         {
-          "match": "\\b(?<!\\$)0(o|O)?[0-7]+\\b(?!\\$)",
-          "name": "constant.numeric.octal.haxe"
-        },
-        {
-          "match": "(?x)\n(?<!\\$)(?:\n  (?:\\b[0-9]+(\\.)[0-9]+[eE][+-]?[0-9]+\\b)| # 1.1E+3\n  (?:\\b[0-9]+(\\.)[eE][+-]?[0-9]+\\b)|       # 1.E+3\n  (?:\\B(\\.)[0-9]+[eE][+-]?[0-9]+\\b)|       # .1E+3\n  (?:\\b[0-9]+[eE][+-]?[0-9]+\\b)|            # 1E+3\n  (?:\\b[0-9]+(\\.)[0-9]+\\b)|                # 1.1\n  (?:\\b[0-9]+(\\.)\\B)|                      # 1.\n  (?:\\B(\\.)[0-9]+\\b)|                      # .1\n  (?:\\b[0-9]+\\b(?!\\.))                     # 1\n)(?!\\$)",
+          "match": "(\/\/).*$\\n?",
           "captures": {
-            "0": {
-              "name": "constant.numeric.decimal.haxe"
-            },
-            "1": {
-              "name": "meta.delimiter.decimal.period.haxe"
-            },
-            "2": {
-              "name": "meta.delimiter.decimal.period.haxe"
-            },
-            "3": {
-              "name": "meta.delimiter.decimal.period.haxe"
-            },
-            "4": {
-              "name": "meta.delimiter.decimal.period.haxe"
-            },
-            "5": {
-              "name": "meta.delimiter.decimal.period.haxe"
-            },
-            "6": {
-              "name": "meta.delimiter.decimal.period.haxe"
-            }
-          }
+            "1": {"name": "punctuation.definition.comment.hx"}
+          },
+          "name": "comment.line.double-slash.hx"
         }
       ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "match": "\\b(true|false|null)\\b",
+          "name": "constant.language.hx"
+        },
+        {
+          "match": "\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)\\b",
+          "name": "constant.numeric.hx"
+        }
+      ]
+    },
+    "entity-name-class": {
+      "match": "\\b([_A-Za-z]\\w*)\\b",
+      "name": "entity.name.type.class.hx"
+    },
+    "entity-name-function": {
+      "match": "([_A-Za-z]\\w*)\\b(?=\\s*[\\(])",
+      "name": "entity.name.function.hx"
+    },
+    "import": {
+      "begin": "\\b(import)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.import.hx"}
+      },
+      "end": ";",
+      "endCaptures": {
+        "0": {"name": "punctuation.terminator.hx"}
+      },
+      "name": "meta.import.hx",
+      "patterns": [
+        {
+          "captures": {
+            "1": {"name": "support.package.hx"},
+            "3": {"name": "support.class.hx"}
+          },
+          "match": "((\\b[a-z]\\w*\\.)*)((\\b[A-Z]\\w*\\.?|\\*)+)(\\b[_a-z]\\w*|\\*)?"
+        }
+      ]
+    },
+    "import-using": {
+      "begin": "\\b(using)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.using.hx"}
+      },
+      "end": ";",
+      "endCaptures": {
+        "0": {"name": "punctuation.terminator.hx"}
+      },
+      "name": "meta.using.hx",
+      "patterns": [
+        {
+          "captures": {
+            "1": {"name": "support.package.hx"},
+            "3": {"name": "support.class.hx"}
+          },
+          "match": "(([a-z]\\w*\\.)*)(([A-Z]\\w*\\.?)+)"
+        }
+      ]
+    },
+    "conditional-compilation": {
+      "patterns": [
+        {
+          "match": "(#(end|else))",
+          "name": "keyword.control.directive.conditional.hx"
+        },
+        {
+          "match": "((#(if|elseif))\\s+([a-zA-Z0-9_]*)\\s)",
+          "captures": {
+            "0": {"name": "meta.control.directive.conditional.hx"},
+            "2": {"name": "keyword.control.directive.conditional.hx"}
+          }
+        },
+        {
+          "begin": "((#(if|elseif))\\s*?\\()",
+          "beginCaptures": {
+            "0": {"name": "meta.control.directive.conditional.hx"},
+            "2": {"name": "keyword.control.directive.conditional.hx"}
+          },
+          "end": "(\\))",
+          "name": "meta.control.directive.conditional.hx"
+        },
+        {
+          "match": "(#([a-zA-Z0-9_]*))\\s",
+          "name": "meta.control.directive.conditional.hx"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "match": "\\b(try|catch|throw)\\b",
+          "name": "keyword.control.catch-exception.hx"
+        },
+        {
+          "match": "\\b(if|return|while|for|return|break|case|default|continue|do|while|for|switch|if|else)\\b",
+          "name": "keyword.control.flow-control.hx"
+        },
+        {
+          "match": "\\.\\.\\.",
+          "name": "keyword.control.directive.hx"
+        },
+        {
+          "match": "\\b(cast|untyped)\\b",
+          "name": "keyword.other.untyped.hx"
+        },
+        {
+          "match": "\\btrace\\b",
+          "name": "keyword.other.trace.hx"
+        },
+        {
+          "match": "\\b(this|super)\\b",
+          "name": "variable.language.hx"
+        },
+        {
+          "match": "\\bnew\\b",
+          "name": "keyword.control.new.hx"
+        },
+        {
+          "match": "\\bvar\\b",
+          "name": "storage.type.variable.hx"
+        },
+        {
+          "match": "\\bfunction\\b",
+          "name": "storage.type.function.hx"
+        },
+        {
+          "match": "\\b(abstract|class|enum|interface|typedef)\\b",
+          "name": "storage.type.hx"
+        }
+      ]
+    },
+    "keywords-abstract": {
+      "patterns": [
+        {
+          "match": "\\b(from|to)\\b",
+          "name": "keyword.other.hx"
+        }
+      ]
+    },
+    "keywords-accessor": {
+      "patterns": [
+        {
+          "match": "\\b(default|get|set|dynamic|never|null)\\b",
+          "name": "keyword.other.hx"
+        }
+      ]
+    },
+    "keywords-reification": {
+      "patterns": [
+        {
+          "captures": {
+            "1": {"name": "punctuation.definition.variable.hx"},
+            "2": {"name": "support.reification.hx"}
+          },
+          "match": "(\\$)([iea])\\("
+        },
+        {
+          "captures": {
+            "2": {"name": "punctuation.definition.variable.hx"},
+            "3": {"name": "support.reification.hx"}
+          },
+          "match": "((\\$)([a-zA-Z.]*))"
+        }
+      ]
+    },
+    "macro": {
+      "patterns": [
+        {
+          "captures": {
+            "2": {"name": "punctuation.definition.variable.hx"},
+            "3": {"name": "storage.modifier.macro.hx"}
+          },
+          "match": "((@:)(require|final|hack|native|coreApi|fakeEnum|macro|build|keep|keepSub|overload|extern|optional|feature|noCompletion|noUsing|allow|access|generic|publicFields|expose|defineFeature|runtime|initPackage|bind|bitmap|file|font|sound|ns|protected|getter|setter|meta|debug|noDebug|headerCode|headerClassCode|cppFileCode|functionCode|functionTailCode|buildXml|cppNamespaceCode|headerNamespaceCode|noStack|depend|include|internal|volatile|transient|functionBody|classContents|remove|jsRequire|pythonImport)\\b)"
+        },
+        {
+          "captures": {
+            "2": {"name": "punctuation.definition.variable.hx"},
+            "3": {"name": "support.macro.hx"}
+          },
+          "match": "((@:?)([a-zA-Z_]*))"
+        }
+      ]
+    },
+    "meta-static": {
+      "begin": "static",
+      "beginCaptures": {
+        "0": {"name": "storage.modifier.hx"}
+      },
+      "end": "(?<=[\\};])",
+      "name": "meta.static.hx",
+      "patterns": [
+        {"include": "#modifiers"},
+        {"include": "#method"},
+        {"include": "#variable"},
+        {"include": "#punctuation-terminator"}
+      ]
+    },
+    "method": {
+      "begin": "(?=function)",
+      "end": "(?<=[\\};])",
+      "name": "meta.method.hx",
+      "patterns": [
+        {"include": "#method-name"},
+        {"include": "#method-name-post"},
+        {"include": "#method-block"}
+      ]
+    },
+    "method-block": {
+      "begin": "(?<=\\{)",
+      "beginCaptures": {
+        "1": {"name": "punctuation.definition.block.begin.hx"}
+      },
+      "end": "(\\})",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.end.hx"}
+      },
+      "name": "meta.method.block.hx",
+      "patterns": [
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "method-name": {
+      "begin": "\\b(function)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.function.hx"}
+      },
+      "end": "[_A-Za-z]\\w*",
+      "endCaptures": {
+        "0": {"name": "entity.name.function.hx"}
+      },
+      "name": "meta.method.name.hx"
+    },
+    "method-name-post": {
+      "begin": "(?<=\\w)",
+      "end": "(\\{)|(;)",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.begin.hx"},
+        "2": {"name": "punctuation.terminator.hx"}
+      },
+      "patterns": [
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "modifiers": {
+      "match": "\\b(public|private|static|dynamic|inline|macro|extern|override)\\b",
+      "name": "storage.modifier.hx"
+    },
+    "modifiers-inheritance": {
+      "match": "\\b(implements|extends)\\b",
+      "name": "storage.modifier.hx"
+    },
+    "operator-assignment": {
+      "match": "(=)",
+      "name": "keyword.operator.assignment.hx"
+    },
+    "operator-optional": {
+      "match": "(\\?)(?!\\s)",
+      "name": "punctuation.definition.variable.hx"
     },
     "operators": {
       "patterns": [
         {
-          "match": "%=|\\+=|-=|\\*=|(?<!\\()/=",
-          "name": "keyword.operator.assignment.compound.haxe"
+          "match": "(!|&&|\\|\\|)",
+          "name": "keyword.operator.logical.hx"
         },
         {
-          "match": "&=|\\^=|<<=|>>=|>>>=|\\|=",
-          "name": "keyword.operator.assignment.compound.bitwise.haxe"
+          "match": "(~|&|\\||\\^|<<|>>|>>>)",
+          "name": "keyword.operator.bitwise.hx"
         },
         {
-          "match": "!==|!=|<=|>=|===|==|<|>",
-          "name": "keyword.operator.comparison.haxe"
+          "match": "(==|!=|<=|>=|<>|<|>)",
+          "name": "keyword.operator.comparison.hx"
         },
         {
-          "match": "&&|!|\\|\\|",
-          "name": "keyword.operator.logical.haxe"
+          "match": "(\\-\\-|\\+\\+)",
+          "name": "keyword.operator.increment-decrement.hx"
         },
         {
-          "match": "&|\\||\\^|~",
-          "name": "keyword.operator.bitwise.haxe"
-        },
+          "match": "(\\-|\\+|\\*|\\\/|%)",
+          "name": "keyword.operator.arithmetic.hx"
+        }
+      ]
+    },
+    "package": {
+      "captures": {
+        "1": {"name": "storage.type.package.hx"},
+        "2": {"name": "support.package.hx"},
+        "4": {"name": "punctuation.terminator.hx"}
+      },
+      "match": "\\b(package)(\\s+([\\w.*]*))?\\s*(;)",
+      "name": "meta.package.hx"
+    },
+    "parameters": {
+      "begin": "\\(",
+      "beginCaptures": {
+        "0": {"name": "punctuation.definition.parameters.begin.hx"}
+      },
+      "end": "\\)",
+      "endCaptures": {
+        "0": {"name": "punctuation.definition.parameters.end.hx"}
+      },
+      "name": "meta.parameters.hx",
+      "patterns": [
+        {"include": "#operator-optional"},
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "punctuation-brackets": {
+      "patterns": [
         {
-          "match": "\\?|:",
-          "name": "keyword.operator.haxe"
-        },
+          "match": "[\\(\\<\\)\\>]",
+          "name": "punctuation.definition.other.hx"
+        }
+      ]
+    },
+    "punctuation-separator": {
+      "match": "[,:.?]",
+      "name": "punctuation.separator.hx"
+    },
+    "punctuation-terminator": {
+      "match": ";",
+      "name": "punctuation.terminator.hx"
+    },
+    "regex": {
+      "begin": "~\/",
+      "beginCaptures": {
+        "1": {"name": "string.regexp.begin.hx"}
+      },
+      "end": "(\/[gimsu]*)|(\\n$)",
+      "endCaptures": {
+        "1": {"name": "string.regexp.end.hx"},
+        "2": {"name": "invalid.illegal.hx"}
+      },
+      "name": "string.regexp.hx",
+      "patterns": [
         {
-          "match": "=",
-          "name": "keyword.operator.assignment.haxe"
-        },
-        {
-          "match": "--",
-          "name": "keyword.operator.decrement.haxe"
-        },
-        {
-          "match": "\\+\\+",
-          "name": "keyword.operator.increment.haxe"
-        },
-        {
-          "match": "%|\\*|/|-|\\+",
-          "name": "keyword.operator.haxe"
+          "match": "\\\\.",
+          "name": "constant.character.escape.hx"
         }
       ]
     },
@@ -423,463 +456,399 @@
       "patterns": [
         {
           "begin": "\"",
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.string.begin.haxe"
-            }
-          },
+          "beginCaptures": [
+            {"name": "punctuation.definition.string.begin.hx"}
+          ],
           "end": "\"",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.string.end.haxe"
-            }
-          },
-          "name": "string.quoted.double.haxe",
+          "endCaptures": [
+            {"name": "punctuation.definition.string.end.hx"}
+          ],
+          "name": "string.quoted.double.hx",
           "patterns": [
             {
               "match": "\\\\.",
-              "name": "constant.character.escape.haxe"
+              "name": "constant.character.escape.hx"
             }
           ]
         },
         {
           "begin": "'",
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.string.begin.haxe"
-            }
-          },
+          "beginCaptures": [
+            {"name": "punctuation.definition.string.begin.hx"}
+          ],
           "end": "'",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.string.end.haxe"
-            }
-          },
-          "name": "string.quoted.single.haxe",
+          "endCaptures": [
+            {"name": "punctuation.definition.string.end.hx"}
+          ],
+          "name": "string.quoted.single.hx",
           "patterns": [
-            {
-              "include": "#string_interpolations"
-            },
             {
               "match": "\\\\.",
-              "name": "constant.character.escape.haxe"
-            }
-          ]
-        }
-      ]
-    },
-    "function_params": {
-      "patterns": [
-        {
-          "begin": "\\(",
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.parameters.begin.bracket.round.haxe"
-            }
-          },
-          "end": "\\)",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.parameters.end.bracket.round.haxe"
-            }
-          },
-          "name": "meta.parameters.haxe",
-          "patterns": [
+              "name": "constant.character.escape.hx"
+            },
             {
-              "match": "(\\.\\.\\.)([a-zA-Z_$][\\w$]*)",
+              "match": "\\$\\$",
+              "name": "constant.character.escape.hx"
+            },
+            {
               "captures": {
-                "1": {
-                  "name": "keyword.operator.spread.haxe"
-                },
-                "2": {
-                  "name": "variable.parameter.rest.function.haxe"
-                }
-              }
-            },
-            {
-              "include": "$self"
-            },
-            {
-              "match": "[a-zA-Z_$][\\w$]*",
-              "name": "variable.parameter.function.haxe"
-            }
-          ]
-        }
-      ]
-    },
-    "function_body": {
-      "patterns": [
-        {
-          "begin": "{",
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.function.body.begin.bracket.curly.haxe"
-            }
-          },
-          "end": "}",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.function.body.end.bracket.curly.haxe"
-            }
-          },
-          "patterns": [
-            {
-              "include": "$self"
-            }
-          ]
-        }
-      ]
-    },
-    "function_innards": {
-      "patterns": [
-        {
-          "match": "(?:\\b(async)\\b\\s*)?\\b(function)\\b(?:\\s*(\\*))?",
-          "captures": {
-            "1": {
-              "name": "storage.modifier.async.haxe"
-            },
-            "2": {
-              "name": "storage.type.function.haxe"
-            },
-            "3": {
-              "name": "storage.modifier.generator.haxe"
-            }
-          }
-        },
-        {
-          "match": "[a-zA-Z_$][\\w$]*(?=\\s*\\()",
-          "name": "entity.name.function.haxe"
-        },
-        {
-          "include": "#function_params"
-        },
-        {
-          "include": "#comments"
-        },
-        {
-          "include": "#metadatas"
-        }
-      ]
-    },
-    "arrow_function_innards": {
-      "patterns": [
-        {
-          "match": "=>",
-          "name": "storage.type.function.arrow.haxe"
-        },
-        {
-          "include": "#function_params"
-        },
-        {
-          "match": "([a-zA-Z_$][\\w$]*)(?=\\s*=>)",
-          "captures": {
-            "0": {
-              "name": "meta.parameters.haxe"
-            },
-            "1": {
-              "name": "variable.parameter.function.haxe"
-            }
-          }
-        },
-        {
-          "match": "(\\d[\\w$]*)",
-          "captures": {
-            "0": {
-              "name": "meta.parameters.haxe"
-            },
-            "1": {
-              "name": "invalid.illegal.identifier.haxe"
-            }
-          }
-        }
-      ]
-    },
-    "arguments": {
-      "patterns": [
-        {
-          "begin": "\\(",
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.arguments.begin.bracket.round.haxe"
-            }
-          },
-          "end": "\\)",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.arguments.end.bracket.round.haxe"
-            }
-          },
-          "name": "meta.arguments.haxe",
-          "patterns": [
-            {
-              "include": "$self"
-            }
-          ]
-        }
-      ]
-    },
-    "method_calls": {
-      "patterns": [
-        {
-          "begin": "(\\.)\\s*([\\w$]+)\\s*(?=\\()",
-          "beginCaptures": {
-            "1": {
-              "name": "meta.delimiter.method.period.haxe"
-            },
-            "2": {
-              "patterns": [
-                {
-                  "match": "[a-zA-Z_$][\\w$]*",
-                  "name": "entity.name.function.haxe"
-                },
-                {
-                  "match": "\\d[\\w$]*",
-                  "name": "invalid.illegal.identifier.haxe"
-                }
-              ]
-            }
-          },
-          "end": "(?<=\\))",
-          "name": "meta.method-call.haxe",
-          "patterns": [
-            {
-              "include": "#arguments"
-            }
-          ]
-        }
-      ]
-    },
-    "function_calls": {
-      "patterns": [
-        {
-          "begin": "([\\w$]+)\\s*(?=\\()",
-          "beginCaptures": {
-            "1": {
-              "patterns": [
-                {
-                  "match": "(?x)\n\\b(trace)\\b",
-                  "name": "support.function.haxe"
-                },
-                {
-                  "match": "[a-zA-Z_$][\\w$]*",
-                  "name": "entity.name.function.haxe"
-                },
-                {
-                  "match": "\\d[\\w$]*",
-                  "name": "invalid.illegal.identifier.haxe"
-                }
-              ]
-            }
-          },
-          "end": "(?<=\\))",
-          "name": "meta.function-call.haxe",
-          "patterns": [
-            {
-              "include": "#arguments"
-            }
-          ]
-        }
-      ]
-    },
-    "object_variable": {
-      "patterns": [
-        {
-          "comment": "`obj` in `obj.prop`, `obj.methodCall()`",
-          "match": "(?:([A-Z][\\w$]*)|([a-zA-Z_$][\\w$]*)|(\\d\\w*))(?=\\s*\\.\\s*[a-zA-Z_$]\\w*)",
-          "captures": {
-            "1": {
-              "name": "entity.name.type.haxe"
-            },
-            "2": {
-              "name": "variable.other.object.haxe"
-            },
-            "3": {
-              "name": "invalid.illegal.identifier.haxe"
-            }
-          }
-        }
-      ]
-    },
-    "properties": {
-      "patterns": [
-        {
-          "comment": "`prop` in `obj.prop`, `func().prop`",
-          "match": "(\\.)\\s*(?:([0-9]+[\\w$]*)|([A-Z][A-Z0-9_$]*\\b\\$*)|(\\$*[A-Z][\\w$]*)|(\\$*[a-zA-Z_$][\\w$]*(?=\\.|\\[))|(\\$*[a-zA-Z_$][\\w$]*))",
-          "captures": {
-            "1": {
-              "name": "meta.delimiter.property.period.haxe"
-            },
-            "2": {
-              "name": "invalid.illegal.identifier.haxe"
-            },
-            "3": {
-              "name": "constant.other.property.haxe"
-            },
-            "4": {
-              "name": "entity.name.type.haxe"
-            },
-            "5": {
-              "name": "variable.other.property.haxe"
-            }
-          }
-        }
-      ]
-    },
-    "metadatas": {
-      "patterns": [
-        {
-          "match": "(@\\:?[a-zA-Z_$][\\w$]*\\b\\s*)",
-          "captures": {
-            "0": {
-              "name": "constant.other.symbol.metadata.haxe"
-            }
-          }
-        }
-      ]
-    },
-    "parents": {
-      "patterns": [
-        {
-          "match": "(\\bextends\\b|\\bimplements\\b)\\s+",
-          "captures": {
-            "1": {
-              "name": "storage.modifier.haxe"
-            }
-          }
-        }
-      ]
-    },
-    "types": {
-      "patterns": [
-        {
-          "match": "(\\b[A-Z][\\w$]*)",
-          "captures": {
-            "1": {
-              "name": "entity.name.type.haxe"
-            }
-          }
-        }
-      ]
-    },
-    "string_interpolations": {
-      "patterns": [
-        {
-          "match": "(\\$)([a-zA-Z_][a-zA-Z0-9_]*)",
-          "captures": {
-            "0": {
-              "name": "constant.other.name.embedded.haxe"
-            }
-          }
-        },
-        {
-          "begin": "\\$\\{",
-          "captures": {
-            "0": {
-              "name": "punctuation.section.embedded.haxe"
-            }
-          },
-          "end": "\\}",
-          "name": "source.haxe.embedded.source",
-          "patterns": [
-            {
-              "begin": "{",
-              "beginCaptures": {
-                "0": {
-                  "name": "meta.brace.curly.haxe"
-                }
+                "1": {"name": "variable.other.hx"},
+                "2": {"name": "variable.other.hx"},
+                "3": {"name": "variable.other.hx"},
+                "4": {"name": "variable.other.hx"}
               },
-              "end": "}",
-              "endCaptures": {
-                "0": {
-                  "name": "meta.brace.curly.haxe"
-                }
-              },
-              "patterns": [
-                {
-                  "include": "$self"
-                }
-              ]
+              "comment": "String interpolation : \"${test.ole}\"",
+              "match": "(\\$)(\\{)([^}]*)(\\})"
             },
             {
-              "include": "$self"
+              "captures": {
+                "1": {"name": "variable.other.hx"},
+                "2": {"name": "variable.other.hx"}
+              },
+              "comment": "String interpolation : \"$test\"",
+              "match": "(\\$)(\\w*)"
             }
           ]
         }
       ]
     },
-    "docblock": {
+    "support-class-name": {
+      "captures": {
+        "1": { "name": "support.package.hx" },
+        "3": { "name": "support.class.hx" }
+      },
+      "match": "\\b(([a-z][a-zA-Z0-9]*\\.)*)(([A-Z]\\w*\\.?)+)\\b"
+    },
+    "type-abstract": {
+      "begin": "(?=abstract)",
+      "end": "(?<=\\})|(;)",
+      "endCaptures": {
+        "1": {"name": "punctuation.terminator.hx"}
+      },
+      "name": "meta.type.abstract.hx",
       "patterns": [
-        {
-          "match": "(?<!\\w)@(abstract|access|alias|augments|author|async|attribute|arg|argument|beta|borrows|bubbes|callback|class|classdesc|config|const|constant|constructs|constructor|copyright|chainable|default|defaultvalue|deprecated|desc|description|enum|emits|event|example|exports|external|extends|extension|extensionfor|extension_for|for|file|fileoverview|fires|final|function|global|host|ignore|implements|inheritdoc|inner|instance|interface|kind|lends|license|listens|main|member|memberof|method|mixex|mixin(?:s|)|module|name|namespace|override|overview|param|private|prop|property|protected|readonly|readOnly|requires|required|return|returns|see|since|static|summary|submodule|this|throws|todo|tutorial|type|typedef|var|variation|version|virtual|uses|writeOnce)\\b",
-          "name": "storage.type.class.haxedoc"
-        },
-        {
-          "match": "({\\b(?:[a-zA-Z_$][a-zA-Z_$0-9]*)\\b})\\s\\b([a-zA-Z_$][a-zA-Z_$0-9]*)\\b\\s*((?:(?!\\*\\/).)*)",
-          "captures": {
-            "0": {
-              "name": "other.meta.haxedoc"
-            },
-            "1": {
-              "name": "entity.name.type.instance.haxedoc"
-            },
-            "2": {
-              "name": "variable.other.haxedoc"
-            },
-            "3": {
-              "name": "other.description.haxedoc"
-            }
-          }
-        }
+        {"include": "#type-abstract-name"},
+        {"include": "#type-abstract-name-post"},
+        {"include": "#type-abstract-block"}
       ]
     },
-    "comments": {
+    "type-abstract-block": {
+      "begin": "(?<=\\{)",
+      "end": "(\\})",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.end.hx"}
+      },
+      "name": "meta.type.block.hx",
       "patterns": [
-        {
-          "begin": "/\\*\\*(?!/)",
-          "captures": {
-            "0": {
-              "name": "punctuation.definition.comment.haxe"
-            }
-          },
-          "patterns": [
-            {
-              "include": "#docblock"
-            }
-          ],
-          "end": "\\*/",
-          "name": "comment.block.documentation.haxe"
-        },
-        {
-          "begin": "/\\*",
-          "captures": {
-            "0": {
-              "name": "punctuation.definition.comment.haxe"
-            }
-          },
-          "end": "\\*/",
-          "name": "comment.block.haxe"
-        },
-        {
-          "begin": "(^[ \\t]+)?(?=//)",
-          "beginCaptures": {
-            "1": {
-              "name": "punctuation.whitespace.comment.leading.haxe"
-            }
-          },
-          "end": "(?!\\G)",
-          "patterns": [
-            {
-              "begin": "//",
-              "beginCaptures": {
-                "0": {
-                  "name": "punctuation.definition.comment.haxe"
-                }
-              },
-              "end": "\\n",
-              "name": "comment.line.double-slash.haxe"
-            }
-          ]
-        }
+        {"include": "#meta-static"},
+        {"include": "#method"},
+        {"include": "#modifiers"},
+        {"include": "#variable"},
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "type-abstract-name": {
+      "begin": "\\b(abstract)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.class.hx"}
+      },
+      "end": "([_A-Za-z]\\w*)",
+      "endCaptures": {
+        "1": {"name": "entity.name.type.class.hx"}
+      },
+      "name": "meta.type.name.hx"
+    },
+    "type-abstract-name-post": {
+      "begin": "(?<=\\w)",
+      "end": "([\\{;])",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.begin.hx"}
+      },
+      "patterns": [
+        {"include": "#parameters"},
+        {"include": "#keywords-abstract"},
+        {"include": "#punctuation-brackets"},
+        {"include": "#punctuation-separator"},
+        {"include": "#support-class-name"}
+      ]
+    },
+    "type-class": {
+      "begin": "(?=class)",
+      "end": "(?<=\\})|(;)",
+      "endCaptures": {
+        "1": { "name": "punctuation.terminator.hx" }
+      },
+      "name": "meta.type.class.hx",
+      "patterns": [
+        {"include": "#type-class-name"},
+        {"include": "#type-class-name-post"},
+        {"include": "#type-class-block"}
+      ]
+    },
+    "type-class-block": {
+      "begin": "(?<=\\{)",
+      "end": "(\\})",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.end.hx"}
+      },
+      "name": "meta.type.block.hx",
+      "patterns": [
+        {"include": "#meta-static"},
+        {"include": "#method"},
+        {"include": "#modifiers"},
+        {"include": "#variable"},
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "type-class-name": {
+      "begin": "\\b(class)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.class.hx"}
+      },
+      "end": "([_A-Za-z]\\w*)",
+      "endCaptures": {
+        "1": {"name": "entity.name.type.class.hx"}
+      },
+      "name": "meta.type.name.hx"
+    },
+    "type-class-name-post": {
+      "begin": "(?<=\\w)",
+      "end": "([\\{;])",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.begin.hx"}
+      },
+      "patterns": [
+        {"include": "#type-parameters"},
+        {"include": "#modifiers-inheritance"},
+        {"include": "#punctuation-brackets"},
+        {"include": "#punctuation-separator"},
+        {"include": "#support-class-name"}
+      ]
+    },
+    "type-enum": {
+      "begin": "(?=enum)",
+      "end": "(?<=\\})|(;)",
+      "endCaptures": {
+        "1": {"name": "punctuation.terminator.hx"}
+      },
+      "name": "meta.type.enum.hx",
+      "patterns": [
+        {"include": "#type-enum-name"},
+        {"include": "#type-enum-name-post"},
+        {"include": "#type-enum-block"}
+      ]
+    },
+    "type-enum-block": {
+      "begin": "(?<=\\{)",
+      "end": "(\\})",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.end.hx"}
+      },
+      "name": "meta.type.block.hx",
+      "patterns": [
+        {"include": "#type-parameters"},
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "type-enum-name": {
+      "begin": "\\b(enum)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.class.hx"}
+      },
+      "end": "([_A-Za-z]\\w*)",
+      "endCaptures": {
+        "1": {"name": "entity.name.type.class.hx"}
+      },
+      "name": "meta.type.name.hx"
+    },
+    "type-enum-name-post": {
+      "begin": "(?<=\\w)",
+      "end": "([\\{;])",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.begin.hx"}
+      },
+      "patterns": [
+        {"include": "#type-parameters"},
+        {"include": "#punctuation-brackets"},
+        {"include": "#punctuation-separator"},
+        {"include": "#support-class-name"}
+      ]
+    },
+    "type-interface": {
+      "begin": "(?=interface)",
+      "end": "(?<=\\})|(;)",
+      "endCaptures": {
+        "1": {"name": "punctuation.terminator.hx"}
+      },
+      "name": "meta.type.interface.hx",
+      "patterns": [
+        {"include": "#type-interface-name"},
+        {"include": "#type-interface-name-post"},
+        {"include": "#type-interface-block"}
+      ]
+    },
+    "type-interface-block": {
+      "begin": "(?<=\\{)",
+      "end": "(\\})",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.end.hx"}
+      },
+      "name": "meta.type.block.hx",
+      "patterns": [
+        {"include": "#method"},
+        {"include": "#variable"},
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "type-interface-name": {
+      "begin": "\\b(interface)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.class.hx"}
+      },
+      "end": "([_A-Za-z]\\w*)",
+      "endCaptures": {
+        "1": {"name": "entity.name.type.class.hx"}
+      },
+      "name": "meta.type.name.hx"
+    },
+    "type-interface-name-post": {
+      "begin": "(?<=\\w)",
+      "end": "([\\{;])",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.begin.hx"}
+      },
+      "patterns": [
+        {"include": "#modifiers-inheritance"},
+        {"include": "#punctuation-brackets"},
+        {"include": "#punctuation-separator"},
+        {"include": "#support-class-name"}
+      ]
+    },
+    "type-parameters": {
+      "begin": "(\\<)",
+      "beginCaptures": {
+        "1": {"name": "punctuation.definition.parameters.begin.hx"}
+      },
+      "end": "(\\>)",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.parameters.end.hx"}
+      },
+      "name": "meta.type.parameters.hx",
+      "patterns": [
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "type-typedef": {
+      "begin": "(?=typedef)",
+      "end": "(?<=\\})|(;)",
+      "endCaptures": {
+        "1": {"name": "punctuation.terminator.hx"}
+      },
+      "name": "meta.type.typedef.hx",
+      "patterns": [
+        {"include": "#type-typedef-name"},
+        {"include": "#type-typedef-name-post"},
+        {"include": "#type-typedef-block"}
+      ]
+    },
+    "type-typedef-block": {
+      "begin": "(?<=\\{)",
+      "end": "(\\})",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.end.hx"}
+      },
+      "name": "meta.type.block.hx",
+      "patterns": [
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "type-typedef-name": {
+      "begin": "\\b(typedef)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.class.hx"}
+      },
+      "end": "([_A-Za-z]\\w*)",
+      "endCaptures": {
+        "1": {"name": "entity.name.type.class.hx"}
+      },
+      "name": "meta.type.name.hx"
+    },
+    "type-typedef-name-post": {
+      "begin": "(?<=\\w)",
+      "end": "(\\{)|(?=;)",
+      "endCaptures": {
+        "1": {"name": "punctuation.definition.block.begin.hx"}
+      },
+      "patterns": [
+        {"include": "#punctuation-brackets"},
+        {"include": "#punctuation-separator"},
+        {"include": "#operator-assignment"},
+        {"include": "#support-class-name"}
+      ]
+    },
+    "variable": {
+      "begin": "(?=var)",
+      "end": "(;)",
+      "endCaptures": {
+        "1": {"name": "punctuation.terminator.hx"}
+      },
+      "name": "meta.variable.hx",
+      "patterns": [
+        {"include": "#variable-name"},
+        {"include": "#variable-assign"},
+        {"include": "#variable-name-post"}
+      ]
+    },
+    "variable-accessors": {
+      "begin": "\\(",
+      "beginCaptures": {
+        "0": {"name": "punctuation.definition.parameters.begin.hx"}
+      },
+      "end": "\\)",
+      "endCaptures": {
+        "0": {"name": "punctuation.definition.parameters.end.hx"}
+      },
+      "name": "meta.parameters.hx",
+      "patterns": [
+        {"include": "#operator-optional"},
+        {"include": "#keywords-accessor"},
+        {"include": "#punctuation-separator"}
+      ]
+    },
+    "variable-assign": {
+      "begin": "=",
+      "beginCaptures": {
+        "0": {"name": "keyword.operator.assignment.hx"}
+      },
+      "end": "(?=;)",
+      "patterns": [
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "variable-name": {
+      "begin": "\\b(var)\\b",
+      "beginCaptures": {
+        "1": {"name": "storage.type.variable.hx"}
+      },
+      "end": "([_a-zA-Z]\\w*)",
+      "endCaptures": {
+        "1": {"name": "entity.name.variable.hx"}
+      },
+      "name": "meta.variable.name.hx"
+    },
+    "variable-name-post": {
+      "begin": "(?<=\\w)",
+      "end": "(?=;)|(?==)",
+      "patterns": [
+        {"include": "#variable-accessors"},
+        {"include": "#block-contents"}
       ]
     }
   }
