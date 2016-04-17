@@ -217,10 +217,6 @@
       }
     },
     {
-      "match": "\\b(Infinity|NaN|undefined)\\b",
-      "name": "constant.language.haxe"
-    },
-    {
       "begin": "(?<=[\\[=(?:+,!]|^|return|=>|&&|\\|\\|)\\s*(/)(?![/*+{}?])(?=.*/)",
       "beginCaptures": {
         "1": {
