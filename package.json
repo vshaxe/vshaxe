@@ -59,6 +59,12 @@
                 "path": "./syntaxes/hxml.json"
             }
         ],
+        "snippets": [
+            {
+                "language": "haxe",
+                "path": "./snippets/haxe.json"
+            }
+        ],
         "debuggers": [
             {
                 "type": "haxe",

@@ -1,0 +1,11 @@
+{
+    "Doc comment": {
+        "prefix": "doc",
+        "body": [
+            "/**",
+            "\t$0",
+            "**/"
+        ],
+        "description": "Haxe documentation comment"
+    }
+}
