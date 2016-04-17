@@ -21,6 +21,9 @@ class Main {
 
         inline function start() {
             var client = new LanguageClient("Haxe", serverOptions, clientOptions);
+            client.onReady().then(function(_) {
+                Vscode.window.setStatusBarMessage("Haxe language server started", 2000);
+            });
             disposable = client.start();
             context.subscriptions.push(disposable);
         }
@@ -49,6 +52,7 @@ extern class VscodeCommands {
 
 extern class VscodeWindow {
     function showInformationMessage(message:String, items:haxe.extern.Rest<String>):js.Promise.Thenable<String>;
+    function setStatusBarMessage(text:String, ?hideAfterTimeout:Int):Disposable;
     function createOutputChannel(name:String):OutputChannel;
 }
 
@@ -93,6 +97,7 @@ extern class LanguageClient {
     function start():Disposable;
     function stop():Void;
     function onNotification(type:{method:String}, handler:Dynamic->Void):Void;
+    function onReady():js.Promise<Void>;
 }
 
 typedef Disposable = {
