@@ -1,6 +1,7 @@
 // quick and dirty externs for VS Code API
 import haxe.extern.EitherType;
 import js.node.ChildProcess.ChildProcessForkOptions;
+import js.Promise;
 
 @:jsRequire("vscode")
 extern class Vscode {
@@ -14,8 +15,8 @@ extern class VscodeCommands {
 }
 
 extern class VscodeWindow {
-    function showInformationMessage(message:String, items:haxe.extern.Rest<String>):js.Promise.Thenable<String>;
-    function showErrorMessage(message:String, items:haxe.extern.Rest<String>):js.Promise.Thenable<String>;
+    function showInformationMessage(message:String, items:haxe.extern.Rest<String>):Thenable<String>;
+    function showErrorMessage(message:String, items:haxe.extern.Rest<String>):Thenable<String>;
     function setStatusBarMessage(text:String, ?hideAfterTimeout:Int):Disposable;
     function createOutputChannel(name:String):OutputChannel;
 }
@@ -65,7 +66,7 @@ extern class LanguageClient {
     function start():Disposable;
     function stop():Void;
     function onNotification(type:{method:String}, handler:Dynamic->Void):Void;
-    function onReady():js.Promise<Void>;
+    function onReady():Promise<Void>;
 }
 
 typedef Disposable = {
