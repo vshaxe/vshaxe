@@ -17,7 +17,7 @@ extern class VscodeCommands {
 typedef QuickPickItem = {
     @:optional var description : String;
     @:optional var detail:Null<String>;
-    @:optional var label:String;
+    var label:String;
 }
 
 typedef QuickPickOptions = {
@@ -39,7 +39,7 @@ extern class VscodeWindow {
     function showErrorMessage(message:String, items:haxe.extern.Rest<String>):Thenable<String>;
     function setStatusBarMessage(text:String, ?hideAfterTimeout:Int):Disposable;
     function createOutputChannel(name:String):OutputChannel;
-    function showQuickPick(items:Array<String>, ?options:QuickPickOptions):Thenable<String>;
+    function showQuickPick(items:Array<QuickPickItem>, ?options:QuickPickOptions):Thenable<QuickPickItem>;
     function showInputBox(options:InputBoxOptions):Thenable<String>;
 }
 

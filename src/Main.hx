@@ -1,5 +1,7 @@
 import Vscode;
 
+using StringTools;
+
 class Main {
     var context:ExtensionContext;
     var serverDisposable:Disposable;
@@ -9,6 +11,34 @@ class Main {
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.scaffoldProject", scaffoldProject));
         startLanguageServer();
+    }
+
+    function buildHxml() {
+        var workspaceRoot = Vscode.workspace.rootPath;
+        if (workspaceRoot == null) {
+            return;
+        }
+        var hxmls = [];
+        function loop(path) {
+            var fullPath = workspaceRoot + path;
+            if (sys.FileSystem.isDirectory(fullPath)) {
+                for (file in sys.FileSystem.readDirectory(fullPath)) {
+                    if (file.endsWith(".hxml")) {
+                        hxmls.push({label: file, description: path});
+                    } else {
+                        loop(path + "/" + file);
+                    }
+                }
+            }
+        }
+        loop("");
+        var pick:Dynamic = Vscode.window.showQuickPick(hxmls);
+        pick.then(function(s) {
+           if (s == null) {
+               return;
+           }
+           // now what?
+        });
     }
 
     function startLanguageServer() {
