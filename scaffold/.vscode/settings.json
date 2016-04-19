@@ -1,0 +1,3 @@
+{
+    "haxe.displayArguments": ["build.hxml"] // use build file for completion as well, since it's simple enough to work
+}

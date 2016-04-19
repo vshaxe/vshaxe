@@ -1,10 +1,19 @@
 import haxe.extern.EitherType;
 import js.node.ChildProcess;
+import js.node.Fs;
 
 class Main {
-    @:keep
-    @:expose("activate")
-    static function main(context:ExtensionContext) {
+    var context:ExtensionContext;
+    var serverDisposable:Disposable;
+
+    function new(ctx) {
+        context = ctx;
+        context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
+        context.subscriptions.push(Vscode.commands.registerCommand("haxe.scaffoldProject", scaffoldProject));
+        startLanguageServer();
+    }
+
+    function startLanguageServer() {
         var serverModule = context.asAbsolutePath("./server_wrapper.js");
         var serverOptions = {
             run: {module: serverModule},
@@ -16,27 +25,48 @@ class Main {
                 configurationSection: "haxe"
             }
         };
+        var client = new LanguageClient("Haxe", serverOptions, clientOptions);
+        client.onReady().then(function(_) {
+            Vscode.window.setStatusBarMessage("Haxe language server started", 2000);
+        });
+        serverDisposable = client.start();
+        context.subscriptions.push(serverDisposable);
+    }
 
-        var disposable = null;
-
-        inline function start() {
-            var client = new LanguageClient("Haxe", serverOptions, clientOptions);
-            client.onReady().then(function(_) {
-                Vscode.window.setStatusBarMessage("Haxe language server started", 2000);
-            });
-            disposable = client.start();
-            context.subscriptions.push(disposable);
+    function restartLanguageServer() {
+        if (serverDisposable != null) {
+            context.subscriptions.remove(serverDisposable);
+            serverDisposable.dispose();
         }
+        startLanguageServer();
+    }
 
-        start();
-
-        context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", function() {
-            if (disposable != null) {
-                context.subscriptions.remove(disposable);
-                disposable.dispose();
+    function scaffoldProject() {
+        var workspaceRoot = Vscode.workspace.rootPath;
+        if (Fs.readdirSync(workspaceRoot).length > 0) {
+            Vscode.window.showErrorMessage("Workspace must be empty to scaffold a Haxe project");
+            return;
+        }
+        var scaffoldSource = context.asAbsolutePath("./scaffold");
+        function copy(from, to) {
+            var fromPath = scaffoldSource + from;
+            var toPath = workspaceRoot + to;
+            if (sys.FileSystem.isDirectory(fromPath)) {
+                sys.FileSystem.createDirectory(toPath);
+                for (file in sys.FileSystem.readDirectory(fromPath))
+                    copy(from + "/" + file, to + "/" + file);
+            } else {
+                sys.io.File.copy(fromPath, toPath);
             }
-            start();
-        }));
+        }
+        copy("", "");
+        Vscode.window.setStatusBarMessage("Haxe project scaffolded", 2000);
+    }
+
+    @:keep
+    @:expose("activate")
+    static function main(context:ExtensionContext) {
+        new Main(context);
     }
 }
 
@@ -44,6 +74,7 @@ class Main {
 extern class Vscode {
     static var commands(default,never):VscodeCommands;
     static var window(default,never):VscodeWindow;
+    static var workspace(default,never):VscodeWorkspace;
 }
 
 extern class VscodeCommands {
@@ -52,8 +83,13 @@ extern class VscodeCommands {
 
 extern class VscodeWindow {
     function showInformationMessage(message:String, items:haxe.extern.Rest<String>):js.Promise.Thenable<String>;
+    function showErrorMessage(message:String, items:haxe.extern.Rest<String>):js.Promise.Thenable<String>;
     function setStatusBarMessage(text:String, ?hideAfterTimeout:Int):Disposable;
     function createOutputChannel(name:String):OutputChannel;
+}
+
+extern class VscodeWorkspace {
+    var rootPath(default,never):String;
 }
 
 extern class OutputChannel {

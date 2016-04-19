@@ -13,7 +13,9 @@
 	},
     "main": "bin/client.js",
     "activationEvents": [
-        "onLanguage:haxe"
+        "onLanguage:haxe",
+        "onCommand:haxe.restartLanguageServer",
+        "onCommand:haxe.scaffoldProject"
     ],
     "contributes": {
         "configuration": {
@@ -31,6 +33,11 @@
             {
                 "title": "Restart language server",
                 "command": "haxe.restartLanguageServer",
+                "category": "Haxe"
+            },
+            {
+                "title": "Scaffold project",
+                "command": "haxe.scaffoldProject",
                 "category": "Haxe"
             }
         ],
