@@ -19,10 +19,11 @@
         "configuration": {
             "title": "Haxe configuration",
             "properties": {
-                "haxe.buildFile": {
-                    "type": "string",
-                    "default": "build.hxml",
-                    "description": "Default HXML file used for IDE support"
+                "haxe.displayArguments": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Command-line arguments passed to haxe completion server. Can contain hxml files. Relative paths will be resolved against workspace root.",
+                    "items": {"type": "string"}
                 }
             }
         },
