@@ -41,10 +41,16 @@ class Main {
 
     function scaffoldProject() {
         var workspaceRoot = Vscode.workspace.rootPath;
+
+        if (workspaceRoot == null) {
+            Vscode.window.showErrorMessage("Please open an empty folder to scaffold Haxe project into");
+            return;
+        }
         if (sys.FileSystem.readDirectory(workspaceRoot).length > 0) {
             Vscode.window.showErrorMessage("Workspace must be empty to scaffold a Haxe project");
             return;
         }
+
         var scaffoldSource = context.asAbsolutePath("./scaffold");
         function copy(from, to) {
             var fromPath = scaffoldSource + from;
