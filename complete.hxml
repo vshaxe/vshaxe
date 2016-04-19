@@ -1,3 +1,3 @@
--cp server/src
+-cp src
 -lib hxnodejs
 -js some.js
