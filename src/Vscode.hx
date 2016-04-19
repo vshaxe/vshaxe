@@ -14,11 +14,33 @@ extern class VscodeCommands {
     function registerCommand(command:String, callback:Void->Void):Disposable;
 }
 
+typedef QuickPickItem = {
+    @:optional var description : String;
+    @:optional var detail:Null<String>;
+    @:optional var label:String;
+}
+
+typedef QuickPickOptions = {
+    @:optional var matchOnDescription:Bool;
+    @:optional var matchOnDetail:Bool;
+    @:optional var placeHolder:String;
+}
+
+typedef InputBoxOptions = {
+    @:optional var password:Bool;
+    @:optional var placeHolder:String;
+    @:optional var prompt:String;
+    @:optional var validateInput:String -> String;
+    @:optional var value:String;
+}
+
 extern class VscodeWindow {
     function showInformationMessage(message:String, items:haxe.extern.Rest<String>):Thenable<String>;
     function showErrorMessage(message:String, items:haxe.extern.Rest<String>):Thenable<String>;
     function setStatusBarMessage(text:String, ?hideAfterTimeout:Int):Disposable;
     function createOutputChannel(name:String):OutputChannel;
+    function showQuickPick(items:Array<String>, ?options:QuickPickOptions):Thenable<String>;
+    function showInputBox(options:InputBoxOptions):Thenable<String>;
 }
 
 extern class VscodeWorkspace {
