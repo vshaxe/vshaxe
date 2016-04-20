@@ -18,7 +18,7 @@
     "activationEvents": [
         "onLanguage:haxe",
         "onCommand:haxe.restartLanguageServer",
-        "onCommand:haxe.scaffoldProject"
+        "onCommand:haxe.initProject"
     ],
     "contributes": {
         "configuration": {
