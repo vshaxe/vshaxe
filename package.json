@@ -2,7 +2,7 @@
 	"name": "vshaxe",
 	"description": "Haxe language server for Visual Studio Code",
 	"version": "0.0.1",
-    "publisher": "Dan Korostelev",
+    "publisher": "nadako",
 	"author": "Dan Korostelev",
 	"license": "MIT",
     "engines": {
@@ -11,6 +11,9 @@
 	"dependencies": {
         "vscode-languageclient": "^2.0.0"
 	},
+   "scripts": {
+        "vscode:prepublish": "haxe build.hxml"
+    },
     "main": "bin/client.js",
     "activationEvents": [
         "onLanguage:haxe",
