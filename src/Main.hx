@@ -9,7 +9,7 @@ class Main {
     function new(ctx) {
         context = ctx;
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
-        context.subscriptions.push(Vscode.commands.registerCommand("haxe.scaffoldProject", scaffoldProject));
+        context.subscriptions.push(Vscode.commands.registerCommand("haxe.initProject", initProject));
         startLanguageServer();
     }
 
@@ -41,11 +41,11 @@ class Main {
         startLanguageServer();
     }
 
-    function scaffoldProject() {
+    function initProject() {
         var workspaceRoot = Vscode.workspace.rootPath;
 
         if (workspaceRoot == null) {
-            Vscode.window.showErrorMessage("Please open a folder to scaffold Haxe project into");
+            Vscode.window.showErrorMessage("Please open a folder to set up a Haxe project into");
             return;
         }
 
@@ -66,7 +66,7 @@ class Main {
             return;
         }
 
-        Vscode.window.showErrorMessage("Workspace must be empty to scaffold a Haxe project");
+        Vscode.window.showErrorMessage("Workspace must be empty to set up a Haxe project");
     }
 
     function scaffoldEmpty(root:String) {

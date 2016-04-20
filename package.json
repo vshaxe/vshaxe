@@ -39,8 +39,8 @@
                 "category": "Haxe"
             },
             {
-                "title": "Scaffold project",
-                "command": "haxe.scaffoldProject",
+                "title": "Initialize VS Code project",
+                "command": "haxe.initProject",
                 "category": "Haxe"
             }
         ],
