@@ -41,15 +41,27 @@ extern class VscodeWindow {
     function createOutputChannel(name:String):OutputChannel;
     function showQuickPick<T:QuickPickItem>(items:Array<T>, ?options:QuickPickOptions):Promise<T>;
     function showInputBox(options:InputBoxOptions):Thenable<String>;
+    function showTextDocument(document:TextDocument, ?column:ViewColumn, ?preserveFocus:Bool):Thenable<TextEditor>;
 }
 
 extern class VscodeWorkspace {
     var rootPath(default,never):String;
+
+    @:overload(function(fileName:String):Thenable<TextDocument> {})
+    function openTextDocument(uri:Uri):Thenable<TextDocument>;
 }
 
 extern class OutputChannel {
+    function clear():Void;
     function append(value:String):Void;
     function appendLine(value:String):Void;
+    function show(?preserveFocus:Bool):Void;
+}
+
+@:enum abstract ViewColumn(Int) to Int {
+    var One = 1;
+    var Two = 2;
+    var Three = 3;
 }
 
 @:enum abstract TransportKind(Int) {
@@ -102,3 +114,20 @@ extern class ExtensionContext {
 
 extern class TextDocument {}
 extern class FileSystemWatcher {}
+extern class TextEditor {
+    function edit(callback:TextEditorEdit->Void):Thenable<Bool>;
+}
+extern class TextEditorEdit {
+    function insert(location:Position, value:String):Void;
+}
+
+@:jsRequire("vscode", "Uri")
+extern class Uri {
+    static function file(path:String):Uri;
+    static function parse(path:String):Uri;
+}
+
+@:jsRequire("vscode", "Position")
+extern class Position {
+    function new(line:Int, character:Int);
+}

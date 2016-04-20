@@ -13,34 +13,6 @@ class Main {
         startLanguageServer();
     }
 
-    function buildHxml() {
-        var workspaceRoot = Vscode.workspace.rootPath;
-        if (workspaceRoot == null) {
-            return;
-        }
-        var hxmls = [];
-        function loop(path) {
-            var fullPath = workspaceRoot + path;
-            if (sys.FileSystem.isDirectory(fullPath)) {
-                for (file in sys.FileSystem.readDirectory(fullPath)) {
-                    if (file.endsWith(".hxml")) {
-                        hxmls.push({label: file, description: path});
-                    } else {
-                        loop(path + "/" + file);
-                    }
-                }
-            }
-        }
-        loop("");
-        var pick = Vscode.window.showQuickPick(hxmls);
-        pick.then(function(s:QuickPickItem):Void {
-           if (s == null) {
-               return;
-           }
-           // now what?
-        });
-    }
-
     function startLanguageServer() {
         var serverModule = context.asAbsolutePath("./server_wrapper.js");
         var serverOptions = {
@@ -73,28 +45,102 @@ class Main {
         var workspaceRoot = Vscode.workspace.rootPath;
 
         if (workspaceRoot == null) {
-            Vscode.window.showErrorMessage("Please open an empty folder to scaffold Haxe project into");
-            return;
-        }
-        if (sys.FileSystem.readDirectory(workspaceRoot).length > 0) {
-            Vscode.window.showErrorMessage("Workspace must be empty to scaffold a Haxe project");
+            Vscode.window.showErrorMessage("Please open a folder to scaffold Haxe project into");
             return;
         }
 
+        if (sys.FileSystem.readDirectory(workspaceRoot).length == 0) {
+            scaffoldEmpty(workspaceRoot);
+            return;
+        }
+
+        var vscodeDir = workspaceRoot + "/.vscode";
+        if (sys.FileSystem.exists(vscodeDir)) {
+            showConfigureHint();
+            return;
+        }
+
+        var hxmls = findHxmls(workspaceRoot);
+        if (hxmls.length > 0) {
+            createWorkspaceConfiguration(vscodeDir, hxmls);
+            return;
+        }
+
+        Vscode.window.showErrorMessage("Workspace must be empty to scaffold a Haxe project");
+    }
+
+    function scaffoldEmpty(root:String) {
         var scaffoldSource = context.asAbsolutePath("./scaffold");
-        function copy(from, to) {
-            var fromPath = scaffoldSource + from;
-            var toPath = workspaceRoot + to;
+        copyRec(scaffoldSource, root);
+        Vscode.window.setStatusBarMessage("Haxe project scaffolded", 2000);
+    }
+
+    function createWorkspaceConfiguration(vscodeDir:String, hxmls:Array<QuickPickItem>) {
+        var pick = Vscode.window.showQuickPick(hxmls, {placeHolder: "Choose HXML file to use"});
+        pick.then(function(s:QuickPickItem):Void {
+            if (s == null)
+                return;
+
+            var path = s.description, file = s.label;
+            var hxmlPath = if (path.length == 0) file else path + "/" + file;
+
+            copyRec(context.asAbsolutePath("./scaffold/.vscode"), vscodeDir);
+
+            inline function replaceBuildHxml(file) {
+                var path = vscodeDir + "/" + file;
+                var content = sys.io.File.getContent(path);
+                sys.io.File.saveContent(path, content.replace('"build.hxml"', '"$hxmlPath"'));
+            }
+            replaceBuildHxml("tasks.json");
+            replaceBuildHxml("settings.json");
+
+            Vscode.workspace.openTextDocument(vscodeDir + "/settings.json").then(function(doc) {
+                Vscode.window.showTextDocument(doc);
+                Vscode.window.showInformationMessage("Please check if " + hxmlPath + " is suitable for completion and modify haxe.displayArguments if needed.");
+            });
+        });
+    }
+
+    function findHxmls(root:String):Array<QuickPickItem> {
+        var hxmls = [];
+        function loop(path:String):Void {
+            var fullPath = root + "/" + path;
+            if (sys.FileSystem.isDirectory(fullPath)) {
+                for (file in sys.FileSystem.readDirectory(fullPath)) {
+                    if (file.endsWith(".hxml"))
+                        hxmls.push({label: file, description: path});
+                    else
+                        loop(if (path.length == 0) file else path + "/" + file);
+                }
+            }
+        }
+        loop("");
+        return hxmls;
+    }
+
+    function showConfigureHint() {
+        var channel = Vscode.window.createOutputChannel("Haxe scaffold");
+        var content = sys.io.File.getContent(context.asAbsolutePath("./configureHint.txt"));
+        var tasks = sys.io.File.getContent(context.asAbsolutePath("./scaffold/.vscode/tasks.json"));
+        content = content.replace("{{tasks}}", tasks);
+        channel.clear();
+        channel.append(content);
+        channel.show();
+    }
+
+    function copyRec(from:String, to:String):Void {
+        function loop(src, dst) {
+            var fromPath = from + src;
+            var toPath = to + dst;
             if (sys.FileSystem.isDirectory(fromPath)) {
                 sys.FileSystem.createDirectory(toPath);
                 for (file in sys.FileSystem.readDirectory(fromPath))
-                    copy(from + "/" + file, to + "/" + file);
+                    loop(src + "/" + file, dst + "/" + file);
             } else {
                 sys.io.File.copy(fromPath, toPath);
             }
         }
-        copy("", "");
-        Vscode.window.setStatusBarMessage("Haxe project scaffolded", 2000);
+        loop("", "");
     }
 
     @:keep

@@ -1,0 +1,14 @@
+This workspace already has the `.vscode` folder which means we won't touch it for the greater good.
+
+Assuming you're already familiar with Visual Studio Code in general, here are some hints on configuring your
+workspace for use with Haxe.
+
+In the `settings.json` file, please set the `haxe.displayArguments` value to arguments you'd like to use
+for haxe completion. Note that it should only arguments suitable for completion such as `-cp`, `-lib`, defines and
+target output settings (or a hxml file that contains those).
+
+Also, here's an example `tasks.json` file that runs haxe build and defines a problem matcher to capture compilation errors:
+
+{{tasks}}
+
+^^^ Please read from the beginning ^^^
