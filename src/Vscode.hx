@@ -39,7 +39,7 @@ extern class VscodeWindow {
     function showErrorMessage(message:String, items:haxe.extern.Rest<String>):Thenable<String>;
     function setStatusBarMessage(text:String, ?hideAfterTimeout:Int):Disposable;
     function createOutputChannel(name:String):OutputChannel;
-    function showQuickPick(items:Array<QuickPickItem>, ?options:QuickPickOptions):Thenable<QuickPickItem>;
+    function showQuickPick<T:QuickPickItem>(items:Array<T>, ?options:QuickPickOptions):Promise<T>;
     function showInputBox(options:InputBoxOptions):Thenable<String>;
 }
 

@@ -32,8 +32,8 @@ class Main {
             }
         }
         loop("");
-        var pick:Dynamic = Vscode.window.showQuickPick(hxmls);
-        pick.then(function(s) {
+        var pick = Vscode.window.showQuickPick(hxmls);
+        pick.then(function(s:QuickPickItem):Void {
            if (s == null) {
                return;
            }
