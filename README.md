@@ -20,6 +20,18 @@ As with normal haxe command-line arguments, you can specify an `.hxml` file, jus
 so no `--each`/`--next`/`-cmd`/etc.
 6. Language server runs haxe completion server on port `6000`. If you want to debug it, you can kill haxe process while language server is running, and then run `haxe -v --wait 6000` from the console. Language server should connect to it.
 
+## Commands
+
+### Initialize VS Code project
+
+Scaffolds a very basic haxe project. Can also be used on an existing project to generate `.vscode` workspace
+folder with the build task and example vshaxe configuration.
+
+### Restart language server
+
+Restarts language server and haxe completion server. Use if anything goes wrong or to reload haxe-languageserver code when
+developing.
+
 ## Build task
 
 Example `tasks.json` file (the problem matcher is submitted to https://github.com/Microsoft/vscode/pull/5370)
