@@ -70,3 +70,6 @@ Example `tasks.json` file (the problem matcher is submitted to https://github.co
 
 ## Document symbols
 ![Document symbols](images/symbols.png)
+
+## Unused imports
+![Unused imports](images/unusedimport.png)
