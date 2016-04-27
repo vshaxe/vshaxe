@@ -454,7 +454,9 @@ extern class TextEdit {
 	var newText : String;
 	function new(range:Range, newText:String):Void;
 }
+@:jsRequire("vscode", "WorkspaceEdit")
 extern class WorkspaceEdit {
+	function new():Void;
 	var size : Float;
 	function replace(uri:Uri, range:Range, newText:String):Void;
 	function insert(uri:Uri, position:Position, newText:String):Void;

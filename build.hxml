@@ -1,3 +1,4 @@
+-cp server/src
 -cp src
 -lib hxnodejs
 -D hxnodejs-no-version-warning

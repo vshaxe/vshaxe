@@ -10,7 +10,27 @@ class Main {
         context = ctx;
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.initProject", initProject));
+        context.subscriptions.push(Vscode.commands.registerCommand("haxe.applyFixes", applyFixes));
         startLanguageServer();
+    }
+
+    function applyFixes(uri:String, version:Int, edits:Array<vscode.BasicTypes.TextEdit>) {
+        var editor = Vscode.window.activeTextEditor;
+        if (editor == null || editor.document.uri.toString() != uri)
+            return;
+
+        // TODO:
+        // if (editor.document.version != version) {
+        //     Vscode.window.showInformationMessage("Fix is outdated and cannot be applied to the document");
+        //     return;
+        // }
+
+        editor.edit(function(mutator) {
+            for (edit in edits) {
+                var range = new Range(edit.range.start.line, edit.range.start.character, edit.range.end.line, edit.range.end.character);
+                mutator.replace(range, edit.newText);
+            }
+        });
     }
 
     function startLanguageServer() {
