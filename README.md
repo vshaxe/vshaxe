@@ -67,3 +67,6 @@ Example `tasks.json` file (the problem matcher is submitted to https://github.co
 
 ## Peek definition
 ![Peek definition](images/peek.png)
+
+## Document symbols
+![Document symbols](images/symbols.png)
