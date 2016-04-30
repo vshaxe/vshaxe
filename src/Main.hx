@@ -35,9 +35,11 @@ class Main {
 
     function startLanguageServer() {
         var serverModule = context.asAbsolutePath("./server_wrapper.js");
+        var env = js.Node.process.env; 
+        if (env['BYPASS_PATH'] != null) env['PATH'] = env['BYPASS_PATH'];
         var serverOptions = {
-            run: {module: serverModule, options: {env: js.Node.process.env}},
-            debug: {module: serverModule, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--debug=6004"]}}
+            run: {module: serverModule, options: {env: env}},
+            debug: {module: serverModule, options: {env: env, execArgv: ["--nolazy", "--debug=6004"]}}
         };
         var clientOptions = {
             documentSelector: "haxe",
