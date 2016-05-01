@@ -56,7 +56,7 @@ class Main {
         var client = new LanguageClient("Haxe", serverOptions, clientOptions);
         client.onNotification({method: "vshaxe/log"}, log);
         client.onReady().then(function(_) {
-            log("Haxe language server started");
+            log("Haxe language server started\n");
         });
         serverDisposable = client.start();
         context.subscriptions.push(serverDisposable);
