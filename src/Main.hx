@@ -5,13 +5,21 @@ using StringTools;
 class Main {
     var context:ExtensionContext;
     var serverDisposable:Disposable;
+    var vshaxeChannel:OutputChannel;
 
     function new(ctx) {
         context = ctx;
+        vshaxeChannel = Vscode.window.createOutputChannel("vshaxe");
+        vshaxeChannel.show();
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.initProject", initProject));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.applyFixes", applyFixes));
         startLanguageServer();
+
+    }
+
+    function log(message:String) {
+        vshaxeChannel.append(message);
     }
 
     function applyFixes(uri:String, version:Int, edits:Array<vscode.BasicTypes.TextEdit>) {
@@ -46,8 +54,9 @@ class Main {
             }
         };
         var client = new LanguageClient("Haxe", serverOptions, clientOptions);
+        client.onNotification({method: "vshaxe/log"}, log);
         client.onReady().then(function(_) {
-            Vscode.window.setStatusBarMessage("Haxe language server started", 2000);
+            log("Haxe language server started");
         });
         serverDisposable = client.start();
         context.subscriptions.push(serverDisposable);
