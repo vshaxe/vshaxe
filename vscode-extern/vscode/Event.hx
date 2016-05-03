@@ -1,3 +1,3 @@
 package vscode;
 
-typedef Event<T> = {}
+typedef Event<T> = (T->Dynamic)->?Dynamic->?Array<Disposable>->Disposable;
