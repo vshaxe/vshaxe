@@ -1,4 +1,3 @@
-import Vscode;
 import vscode.*;
 
 using StringTools;

@@ -1,4 +1,5 @@
 -cp server/src
+-cp vscode-extern
 -cp src
 -lib hxnodejs
 -js some.js
