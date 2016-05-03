@@ -1,3 +1,6 @@
 [submodule "server"]
 	path = server
 	url = https://github.com/nadako/haxe-languageserver
+[submodule "vscode-extern"]
+	path = vscode-extern
+	url = git@github.com:vshaxe/vscode-extern.git
