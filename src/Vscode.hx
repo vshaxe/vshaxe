@@ -81,7 +81,7 @@ private extern class Workspace {
 	function createFileSystemWatcher(globPattern:String, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool, ?ignoreDeleteEvents:Bool):FileSystemWatcher;
 	var rootPath : String;
 	function asRelativePath(pathOrUri:haxe.extern.EitherType<String, Uri>):String;
-	function findFiles(include:String, exclude:String, ?maxResults:Float, ?token:CancellationToken):Thenable<Array<Uri>>;
+	function findFiles(include:String, exclude:String, ?maxResults:Int, ?token:CancellationToken):Thenable<Array<Uri>>;
 	function saveAll(?includeUntitled:Bool):Thenable<Bool>;
 	function applyEdit(edit:WorkspaceEdit):Thenable<Bool>;
 	var textDocuments : Array<TextDocument>;
