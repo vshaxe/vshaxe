@@ -12,7 +12,7 @@ and ton of other fixes and additions for IDE support.
 ## Hacking
 
 1. Clone this repo to `~/.vscode/extensions`.
-2. Init and update `server` submodule.
+2. Init and update the `server` and `vscode-extern` submodules.
 3. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
 4. Do `haxe build.hxml` (that will build both client and server)
 5. Use `haxe.displayArguments` configuration variable to provide haxe command-line arguments used for completion, such as `-cp`, `-lib`, etc.
