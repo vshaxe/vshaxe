@@ -4,21 +4,71 @@ import vscode.*;
 
 using StringTools;
 
+private typedef DisplayConfigurationPickItem = {
+    >QuickPickItem,
+    var index:Int;
+}
+
 class Main {
     var context:ExtensionContext;
+    var languageClient:LanguageClient;
     var serverDisposable:Disposable;
     var vshaxeChannel:OutputChannel;
+    var statusBarItem:StatusBarItem;
 
     function new(ctx) {
         context = ctx;
+
         vshaxeChannel = Vscode.window.createOutputChannel("vshaxe");
         vshaxeChannel.show();
+
+        statusBarItem = Vscode.window.createStatusBarItem(Right);
+        statusBarItem.tooltip = "Select Haxe configuration";
+        statusBarItem.command = "haxe.selectDisplayConfiguration";
+
         context.subscriptions.push(vshaxeChannel);
+        context.subscriptions.push(statusBarItem);
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.initProject", initProject));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.applyFixes", applyFixes));
+        context.subscriptions.push(Vscode.commands.registerCommand("haxe.selectDisplayConfiguration", selectDisplayConfiguration));
+        context.subscriptions.push(Vscode.workspace.onDidChangeConfiguration(onDidChangeConfiguration));
+        onDidChangeConfiguration();
         startLanguageServer();
+    }
 
+    function onDidChangeConfiguration(?_) {
+        var configs = getDisplayConfigurations();
+        if (configs == null || configs.length < 2) {
+            statusBarItem.hide();
+            return;
+        }
+        statusBarItem.text = "Haxe: " + configs[getDisplayConfigurationIndex()].join(" ");
+        statusBarItem.show();
+    }
+
+    function selectDisplayConfiguration() {
+        var configs = getDisplayConfigurations();
+        if (configs == null || configs.length < 2)
+            return;
+
+        var items:Array<DisplayConfigurationPickItem> = [];
+        for (index in 0...configs.length) {
+            var args = configs[index];
+            var label = args.join(" ");
+            items.push({
+                label: label,
+                description: label,
+                index: index,
+            });
+        }
+
+        Vscode.window.showQuickPick(items, {placeHolder: "Select haxe display configurations"}).then(function(choice:DisplayConfigurationPickItem) {
+            if (choice == null || choice.index == getDisplayConfigurationIndex())
+                return;
+            setDisplayConfigurationIndex(choice.index);
+            onDidChangeConfiguration();
+        });
     }
 
     function log(message:String) {
@@ -44,6 +94,19 @@ class Main {
         });
     }
 
+    inline function getDisplayConfigurations():Array<Array<String>> {
+        return Vscode.workspace.getConfiguration("haxe").get("displayConfigurations");
+    }
+
+    inline function setDisplayConfigurationIndex(index:Int) {
+        context.workspaceState.update("haxe.displayConfigurationIndex", index);
+        languageClient.sendNotification({method: "vshaxe/didChangeDisplayConfigurationIndex"}, {index: index});
+    }
+
+    inline function getDisplayConfigurationIndex():Int {
+        return context.workspaceState.get("haxe.displayConfigurationIndex", 0);
+    }
+
     function startLanguageServer() {
         var serverModule = context.asAbsolutePath("./server_wrapper.js");
         var serverOptions = {
@@ -54,12 +117,16 @@ class Main {
             documentSelector: "haxe",
             synchronize: {
                 configurationSection: "haxe"
+            },
+            initializationOptions: {
+                displayConfigurationIndex: getDisplayConfigurationIndex()
             }
         };
         var client = new LanguageClient("Haxe", serverOptions, clientOptions);
         client.onNotification({method: "vshaxe/log"}, log);
         client.onReady().then(function(_) {
             log("Haxe language server started\n");
+            languageClient = client;
         });
         serverDisposable = client.start();
         context.subscriptions.push(serverDisposable);

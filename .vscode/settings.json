@@ -1,3 +1,5 @@
 {
-    "haxe.displayArguments": ["complete.hxml"]
+    "haxe.displayConfigurations": [
+        ["complete.hxml"]
+    ]
 }
