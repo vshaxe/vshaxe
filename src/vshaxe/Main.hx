@@ -25,6 +25,7 @@ class Main {
         statusBarItem = Vscode.window.createStatusBarItem(Right);
         statusBarItem.tooltip = "Select Haxe configuration";
         statusBarItem.command = "haxe.selectDisplayConfiguration";
+        statusBarItem.color = "orange";
 
         context.subscriptions.push(vshaxeChannel);
         context.subscriptions.push(statusBarItem);
