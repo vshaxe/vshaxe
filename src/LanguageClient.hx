@@ -10,6 +10,7 @@ extern class LanguageClient {
     function start():Disposable;
     function stop():Void;
     function onNotification(type:{method:String}, handler:Dynamic->Void):Void;
+    function sendNotification(type:{method:String}, ?params:Dynamic):Void;
     function onReady():Promise<Void>;
 }
 
