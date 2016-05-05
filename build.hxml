@@ -5,7 +5,8 @@
 -D hxnodejs-no-version-warning
 -js bin/client.js
 -debug
-Main
+-dce full
+vshaxe.Main
 
 --next
 --cwd server

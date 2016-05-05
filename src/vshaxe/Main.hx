@@ -1,3 +1,5 @@
+package vshaxe;
+
 import vscode.*;
 
 using StringTools;
