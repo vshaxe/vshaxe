@@ -34,18 +34,38 @@ class Main {
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.applyFixes", applyFixes));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.selectDisplayConfiguration", selectDisplayConfiguration));
         context.subscriptions.push(Vscode.workspace.onDidChangeConfiguration(onDidChangeConfiguration));
-        onDidChangeConfiguration();
+        context.subscriptions.push(Vscode.window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
+        showHideStatusBarItem();
         startLanguageServer();
     }
 
-    function onDidChangeConfiguration(?_) {
-        var configs = getDisplayConfigurations();
-        if (configs == null || configs.length < 2) {
+    function showHideStatusBarItem() {
+        if (statusBarItem == null)
+            return;
+
+        if (Vscode.window.activeTextEditor == null) {
             statusBarItem.hide();
             return;
         }
-        statusBarItem.text = "Haxe: " + configs[getDisplayConfigurationIndex()].join(" ");
-        statusBarItem.show();
+
+        if (Vscode.languages.match({language: 'haxe', scheme: 'file'}, Vscode.window.activeTextEditor.document) > 0) {
+            var configs = getDisplayConfigurations();
+            if (configs != null && configs.length >= 2) {
+                statusBarItem.text = "Haxe: " + configs[getDisplayConfigurationIndex()].join(" ");
+                statusBarItem.show();
+            }
+            return;
+        }
+
+        statusBarItem.hide();
+    }
+
+    function onDidChangeActiveTextEditor(editor:TextEditor) {
+        showHideStatusBarItem();
+    }
+
+    function onDidChangeConfiguration(?_) {
+        showHideStatusBarItem();
     }
 
     function selectDisplayConfiguration() {
@@ -68,7 +88,7 @@ class Main {
             if (choice == null || choice.index == getDisplayConfigurationIndex())
                 return;
             setDisplayConfigurationIndex(choice.index);
-            onDidChangeConfiguration();
+            showHideStatusBarItem();
         });
     }
 
