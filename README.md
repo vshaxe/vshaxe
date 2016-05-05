@@ -1,13 +1,12 @@
 # Haxe for VS Code
 
 This is an extension for [Visual Studio Code](https://code.visualstudio.com) that adds support for [Haxe](http://haxe.org/) language,
-leveraging [Haxe Language Server](https://github.com/nadako/haxe-languageserver).
+leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver).
 
-**Status**: just like the server, the extension is very much work in progress.
-For general usage, see Jeff Ward's [vscode-haxe](https://github.com/jcward/vscode-haxe) extension as it's more mature at the moment.
+**Status**: Should be usable, however it's still very new.
 
-Because of the server, the extension only works with latest development version of Haxe (3.3) due to new [`-D display-stdin` feature](https://github.com/HaxeFoundation/haxe/pull/5120)
-and ton of other fixes and additions for IDE support.
+**IMPORTANT**: This requires latest Haxe development version due to usage of [`-D display-stdin`](https://github.com/HaxeFoundation/haxe/pull/5120),
+[`--wait stdio`](https://github.com/HaxeFoundation/haxe/pull/5188) and ton of other fixes and additions related to IDE support.
 
 ## Hacking
 
@@ -15,10 +14,9 @@ and ton of other fixes and additions for IDE support.
 2. Init and update the `server` and `vscode-extern` submodules.
 3. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
 4. Do `haxe build.hxml` (that will build both client and server)
-5. Use `haxe.displayArguments` configuration variable to provide haxe command-line arguments used for completion, such as `-cp`, `-lib`, etc.
+5. Use `haxe.displayConfigurations` setting to provide haxe command-line arguments used for completion, such as `-cp`, `-lib`, etc.
 As with normal haxe command-line arguments, you can specify an `.hxml` file, just beware that it should only contain arguments suitable for completion,
 so no `--each`/`--next`/`-cmd`/etc.
-6. Language server runs haxe completion server on port `6000`. If you want to debug it, you can kill haxe process while language server is running, and then run `haxe -v --wait 6000` from the console. Language server should connect to it.
 
 ## Commands
 
