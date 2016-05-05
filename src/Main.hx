@@ -11,6 +11,7 @@ class Main {
         context = ctx;
         vshaxeChannel = Vscode.window.createOutputChannel("vshaxe");
         vshaxeChannel.show();
+        context.subscriptions.push(vshaxeChannel);
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.initProject", initProject));
         context.subscriptions.push(Vscode.commands.registerCommand("haxe.applyFixes", applyFixes));
