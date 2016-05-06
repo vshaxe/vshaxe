@@ -29,7 +29,6 @@ class Main {
         statusBarItem = Vscode.window.createStatusBarItem(Right);
         statusBarItem.tooltip = "Select Haxe configuration";
         statusBarItem.command = "haxe.selectDisplayConfiguration";
-        statusBarItem.color = "orange";
 
         context.subscriptions.push(vshaxeChannel);
         context.subscriptions.push(statusBarItem);
@@ -62,7 +61,7 @@ class Main {
             var configs = getDisplayConfigurations();
             if (configs != null && configs.length >= 2) {
                 var index = getDisplayConfigurationIndex();
-                statusBarItem.text = 'Haxe: $index (${configs[index].join(" ")})';
+                statusBarItem.text = '$(gear) Haxe: $index (${configs[index].join(" ")})';
                 statusBarItem.show();
                 return;
             }
