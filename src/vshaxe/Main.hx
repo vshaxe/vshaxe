@@ -107,7 +107,7 @@ class Main {
         vshaxeChannel.append(message);
     }
 
-    function applyFixes(uri:String, version:Int, edits:Array<vscodeProtocol.BasicTypes.TextEdit>) {
+    function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
         var editor = Vscode.window.activeTextEditor;
         if (editor == null || editor.document.uri.toString() != uri)
             return;
