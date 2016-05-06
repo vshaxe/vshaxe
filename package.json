@@ -18,7 +18,8 @@
     "activationEvents": [
         "onLanguage:haxe",
         "onCommand:haxe.restartLanguageServer",
-        "onCommand:haxe.initProject"
+        "onCommand:haxe.initProject",
+        "onCommand:haxe.selectDisplayConfiguration"
     ],
     "contributes": {
         "configuration": {
@@ -45,6 +46,11 @@
             {
                 "title": "Initialize VS Code project",
                 "command": "haxe.initProject",
+                "category": "Haxe"
+            },
+            {
+                "title": "Select display configuration",
+                "command": "haxe.selectDisplayConfiguration",
                 "category": "Haxe"
             }
         ],

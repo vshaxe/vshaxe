@@ -12,8 +12,6 @@ class DisplayConfiguration {
     public function new(context:ExtensionContext) {
         this.context = context;
 
-        fixIndex();
-
         statusBarItem = window.createStatusBarItem(Right);
         statusBarItem.tooltip = "Select Haxe configuration";
         statusBarItem.command = "haxe.selectDisplayConfiguration";
@@ -24,7 +22,7 @@ class DisplayConfiguration {
         context.subscriptions.push(workspace.onDidChangeConfiguration(onDidChangeConfiguration));
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
 
-        updateStatusBarItem();
+        fixIndex();
     }
 
     function fixIndex() {
@@ -36,8 +34,18 @@ class DisplayConfiguration {
 
     function selectConfiguration() {
         var configs = getConfigurations();
-        if (configs == null || configs.length < 2)
+        if (configs == null || configs.length == 0) {
+            window.showErrorMessage("No Haxe display configurations are available. Please provide the haxe.displayConfigurations setting.", {title: "Edit settings"}).then(function(button) {
+                if (button == null)
+                    return;
+                workspace.openTextDocument(workspace.rootPath + "/.vscode/settings.json").then(function(doc) window.showTextDocument(doc));
+            });
             return;
+        }
+        if (configs.length == 1) {
+            window.showInformationMessage("Only one Haxe display configuration found: " + configs[0].join(" "));
+            return;
+        }
 
         var items:Array<DisplayConfigurationPickItem> = [];
         for (index in 0...configs.length) {
@@ -54,7 +62,6 @@ class DisplayConfiguration {
             if (choice == null || choice.index == getIndex())
                 return;
             setIndex(choice.index);
-            updateStatusBarItem();
         });
     }
 
@@ -94,8 +101,9 @@ class DisplayConfiguration {
         return context.workspaceState.get("haxe.displayConfigurationIndex", 0);
     }
 
-    inline function setIndex(index:Int) {
+    function setIndex(index:Int) {
         context.workspaceState.update("haxe.displayConfigurationIndex", index);
+        updateStatusBarItem();
         onDidChangeIndex(index);
     }
 
