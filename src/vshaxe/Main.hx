@@ -19,6 +19,8 @@ class Main {
     function new(ctx) {
         context = ctx;
 
+        fixDisplayConfigurationIndex();
+
         vshaxeChannel = Vscode.window.createOutputChannel("vshaxe");
         vshaxeChannel.show();
 
@@ -39,6 +41,13 @@ class Main {
         startLanguageServer();
     }
 
+    function fixDisplayConfigurationIndex() {
+        var index = getDisplayConfigurationIndex();
+        var configs = getDisplayConfigurations();
+        if (configs == null || index >= configs.length)
+            setDisplayConfigurationIndex(0);
+    }
+
     function showHideStatusBarItem() {
         if (statusBarItem == null)
             return;
@@ -51,7 +60,8 @@ class Main {
         if (Vscode.languages.match({language: 'haxe', scheme: 'file'}, Vscode.window.activeTextEditor.document) > 0) {
             var configs = getDisplayConfigurations();
             if (configs != null && configs.length >= 2) {
-                statusBarItem.text = "Haxe: " + configs[getDisplayConfigurationIndex()].join(" ");
+                var index = getDisplayConfigurationIndex();
+                statusBarItem.text = 'Haxe: $index (${configs[index].join(" ")})';
                 statusBarItem.show();
                 return;
             }
@@ -60,11 +70,12 @@ class Main {
         statusBarItem.hide();
     }
 
-    function onDidChangeActiveTextEditor(editor:TextEditor) {
+    function onDidChangeActiveTextEditor(_) {
         showHideStatusBarItem();
     }
 
-    function onDidChangeConfiguration(?_) {
+    function onDidChangeConfiguration(_) {
+        fixDisplayConfigurationIndex();
         showHideStatusBarItem();
     }
 
@@ -78,7 +89,7 @@ class Main {
             var args = configs[index];
             var label = args.join(" ");
             items.push({
-                label: label,
+                label: "" + index,
                 description: label,
                 index: index,
             });
@@ -121,7 +132,8 @@ class Main {
 
     inline function setDisplayConfigurationIndex(index:Int) {
         context.workspaceState.update("haxe.displayConfigurationIndex", index);
-        languageClient.sendNotification({method: "vshaxe/didChangeDisplayConfigurationIndex"}, {index: index});
+        if (languageClient != null)
+            languageClient.sendNotification({method: "vshaxe/didChangeDisplayConfigurationIndex"}, {index: index});
     }
 
     inline function getDisplayConfigurationIndex():Int {
