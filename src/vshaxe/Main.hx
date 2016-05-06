@@ -53,8 +53,8 @@ class Main {
             if (configs != null && configs.length >= 2) {
                 statusBarItem.text = "Haxe: " + configs[getDisplayConfigurationIndex()].join(" ");
                 statusBarItem.show();
+                return;
             }
-            return;
         }
 
         statusBarItem.hide();
