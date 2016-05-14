@@ -42,7 +42,7 @@ class InitProject {
             return;
         }
 
-        window.showErrorMessage("Workspace must be empty to set up a Haxe project");
+        window.showErrorMessage("To set up Haxe project, workspace must be either empty or contain HXML files to choose from");
     }
 
     function scaffoldEmpty(root:String) {
