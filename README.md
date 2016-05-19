@@ -10,8 +10,8 @@ leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver)
 
 ## Hacking
 
-1. Clone this repo to `~/.vscode/extensions`.
-2. Init and update the `server` and `vscode-extern` submodules.
+1. Recursively clone this repo in `~/.vscode/extensions`: `git clone --recursive https://github.com/vshaxe/vshaxe`.
+2. Change current directory to the cloned one: `cd ~/.vscode/extensions/vshaxe`.
 3. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
 4. Do `haxe build.hxml` (that will build both client and server)
 5. Use `haxe.displayConfigurations` setting to provide haxe command-line arguments used for completion, such as `-cp`, `-lib`, etc.
