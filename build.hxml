@@ -1,4 +1,4 @@
--cp vscode-extern
+-cp vscode-extern/src
 -cp src
 -lib hxnodejs
 -D hxnodejs-no-version-warning
