@@ -35,7 +35,7 @@ class DisplayConfiguration {
     function selectConfiguration() {
         var configs = getConfigurations();
         if (configs == null || configs.length == 0) {
-            window.showErrorMessage("No Haxe display configurations are available. Please provide the haxe.displayConfigurations setting.", {title: "Edit settings"}).then(function(button) {
+            window.showErrorMessage("No Haxe display configurations are available. Please provide the haxe.displayConfigurations setting.", ({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
                 if (button == null)
                     return;
                 workspace.openTextDocument(workspace.rootPath + "/.vscode/settings.json").then(function(doc) window.showTextDocument(doc));
