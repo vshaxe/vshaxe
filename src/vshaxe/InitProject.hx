@@ -63,7 +63,7 @@ class InitProject {
     }
 
     function findHxmls(root:String):Array<QuickPickItem> {
-        var hxmls = [];
+        var hxmls:Array<QuickPickItem> = [];
         function loop(path:String):Void {
             var fullPath = root + "/" + path;
             if (FileSystem.isDirectory(fullPath)) {
