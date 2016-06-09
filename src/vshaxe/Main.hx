@@ -25,7 +25,7 @@ class Main {
         startLanguageServer();
     }
 
-    function log(message:String) {
+    inline function log(message:String) {
         vshaxeChannel.append(message);
     }
 
