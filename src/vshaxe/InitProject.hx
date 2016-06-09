@@ -79,24 +79,37 @@ class InitProject {
         return hxmls;
     }
 
+    static function getHxmlPath(item:QuickPickItem):String {
+        var path = item.description, file = item.label;
+        return if (path.length == 0) file else path + "/" + file;
+    }
+
     function createWorkspaceConfiguration(vscodeDir:String, hxmls:Array<QuickPickItem>) {
         var pick = window.showQuickPick(hxmls, {placeHolder: "Choose HXML file to use"});
         pick.then(function(s:QuickPickItem):Void {
             if (s == null)
                 return;
 
-            var path = s.description, file = s.label;
-            var hxmlPath = if (path.length == 0) file else path + "/" + file;
+            var hxmlPath = getHxmlPath(s);
 
             copyRec(context.asAbsolutePath("./scaffold/.vscode"), vscodeDir);
 
-            inline function replaceBuildHxml(file) {
-                var path = vscodeDir + "/" + file;
-                var content = File.getContent(path);
-                File.saveContent(path, content.replace('"build.hxml"', '"$hxmlPath"'));
+            // update tasks.json
+            var tasksPath = vscodeDir + "/tasks.json";
+            File.saveContent(tasksPath, File.getContent(tasksPath).replace('"build.hxml"', '"$hxmlPath"'));
+
+            // update settings
+            var settingsPath = vscodeDir + "/settings.json";
+            var content = File.getContent(settingsPath);
+            content = content.replace('"build.hxml"', '"$hxmlPath"');
+            if (hxmls.length > 1) {
+                // also add other found hxmls, since we can switch between them
+                hxmls.remove(s);
+                var placeholder = "        //[\"build-cpp.hxml\"]";
+                var items = [for (hxml in hxmls) '        ["${getHxmlPath(hxml)}"]'];
+                content = content.replace(placeholder, items.join(",\n"));
             }
-            replaceBuildHxml("tasks.json");
-            replaceBuildHxml("settings.json");
+            File.saveContent(settingsPath, content);
 
             workspace.openTextDocument(vscodeDir + "/settings.json").then(function(doc) {
                 window.showTextDocument(doc);
