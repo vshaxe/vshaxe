@@ -35,6 +35,12 @@
                         "items": {"type": "string"}
                     }
                 },
+                "haxe.displayServerArguments": {
+                    "description": "Array of arguments passed to the haxe completion server at start. Can be used for debugging completion server issues, for example by adding \"-v\" argument.",
+                    "type": "array",
+                    "default": [],
+                    "items": {"type": "string"}
+                },
                 "haxe.enableDiagnostics": {
                     "description": "Enable automatic diagnostics of Haxe files, run automatically on open and save.",
                     "type": "boolean",
