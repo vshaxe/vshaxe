@@ -35,11 +35,34 @@
                         "items": {"type": "string"}
                     }
                 },
-                "haxe.displayServerArguments": {
-                    "description": "Array of arguments passed to the haxe completion server at start. Can be used for debugging completion server issues, for example by adding \"-v\" argument.",
-                    "type": "array",
-                    "default": [],
-                    "items": {"type": "string"}
+                "haxe.displayServer": {
+                    "description": "Haxe completion server configuration",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "haxePath": {
+                            "description": "Path to the Haxe executable used for the completion server",
+                            "type": "string",
+                            "default": "haxe"
+                        },
+                        "arguments": {
+                            "description": "Array of arguments passed to the haxe completion server at start. Can be used for debugging completion server issues, for example by adding \"-v\" argument.",
+                            "type": "array",
+                            "default": [],
+                            "items": {"type": "string"}
+                        },
+                        "env": {
+                            "description": "Additional environment variables used to start the haxe completion server",
+                            "type": "object",
+                            "default": {},
+                            "additionalProperties": {"type": "string"}
+                        },
+
+                        // TODO: how do I do definitions and refs here?
+                        "windows": {"description": "Overrides for Windows"},
+                        "linux": {"description": "Overrides for Linux"},
+                        "osx": {"description": "Overrides for Mac"}
+                    }
                 },
                 "haxe.enableDiagnostics": {
                     "description": "Enable automatic diagnostics of Haxe files, run automatically on open and save.",
