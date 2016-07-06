@@ -58,7 +58,6 @@
                             "additionalProperties": {"type": "string"}
                         },
 
-                        // TODO: how do I do definitions and refs here?
                         "windows": {"description": "Overrides for Windows"},
                         "linux": {"description": "Overrides for Linux"},
                         "osx": {"description": "Overrides for Mac"}
