@@ -1,17 +1,28 @@
 {
-	"name": "vshaxe",
-	"description": "Haxe language server for Visual Studio Code",
-	"version": "0.0.3",
+    "name": "vshaxe",
+    "version": "0.0.6",
     "publisher": "nadako",
-	"author": "Dan Korostelev",
-	"license": "MIT",
-    "engines": {
-        "vscode": "^0.10.11"
+    "engines": {"vscode": "^1.0.0"},
+    "displayName": "Haxe Support",
+    "description": "Haxe language support for Visual Studio Code",
+    "categories": ["Languages", "Linters"],
+    "galleryBanner": {
+        "theme": "dark",
+        "color": "#A84B38"
     },
-	"dependencies": {
+    "icon": "haxe-logo.png",
+    "author": "Dan Korostelev",
+    "license": "MIT",
+    "dependencies": {
         "vscode-languageclient": "^2.0.0"
-	},
-   "scripts": {
+    },
+    "bugs": "https://github.com/vshaxe/vshaxe/issues",
+    "homepage": "https://github.com/vshaxe/vshaxe/blob/master/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vshaxe/vshaxe.git"
+    },
+    "scripts": {
         "vscode:prepublish": "haxe build.hxml"
     },
     "main": "bin/client.js",

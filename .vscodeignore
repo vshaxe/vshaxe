@@ -6,5 +6,4 @@ server/**/*
 bin/*.map
 *.hxml
 images/**/*
-README.md
 node_modules/**/*.ts
