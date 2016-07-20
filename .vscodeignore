@@ -5,5 +5,4 @@ server/**/*
 .gitmodules
 bin/*.map
 *.hxml
-images/**/*
 node_modules/**/*.ts
