@@ -68,7 +68,7 @@ class Main {
         var client = new LanguageClient("Haxe", serverOptions, clientOptions);
         client.onNotification({method: "vshaxe/log"}, log);
         client.onReady().then(function(_) {
-            log("Haxe language server started\n");
+            log('Haxe language server started (${vshaxe.Macro.getGitSha()})\n');
             displayConfig.onDidChangeIndex = function(index) {
                 client.sendNotification({method: "vshaxe/didChangeDisplayConfigurationIndex"}, {index: index});
             }
