@@ -6,6 +6,7 @@ import Vscode.*;
 class Main {
     var context:ExtensionContext;
     var serverDisposable:Disposable;
+    var hxFileWatcher:FileSystemWatcher;
     var vshaxeChannel:OutputChannel;
     var displayConfig:DisplayConfiguration;
 
@@ -72,6 +73,19 @@ class Main {
             displayConfig.onDidChangeIndex = function(index) {
                 client.sendNotification({method: "vshaxe/didChangeDisplayConfigurationIndex"}, {index: index});
             }
+
+            hxFileWatcher = workspace.createFileSystemWatcher("**/*.hx", false, true, true);
+            context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {
+                var editor = window.activeTextEditor;
+                if (editor == null || editor.document.uri.fsPath != uri.fsPath)
+                    return;
+                client.sendRequest({method: "vshaxe/calculatePackage"}, {fsPath: uri.fsPath}).then(function(result:{pack:String}) {
+                    if (result.pack == "")
+                        return;
+                    editor.edit(function(edit) edit.insert(new Position(0, 0), 'package ${result.pack};\n'));
+                });
+            }));
+            context.subscriptions.push(hxFileWatcher);
         });
         serverDisposable = client.start();
         context.subscriptions.push(serverDisposable);
@@ -81,6 +95,12 @@ class Main {
         if (serverDisposable != null) {
             context.subscriptions.remove(serverDisposable);
             serverDisposable.dispose();
+            serverDisposable = null;
+        }
+        if (hxFileWatcher != null) {
+            context.subscriptions.remove(hxFileWatcher);
+            hxFileWatcher.dispose();
+            hxFileWatcher = null;
         }
         startLanguageServer();
     }
