@@ -64,6 +64,19 @@ Example `tasks.json` file (the problem matcher is submitted to https://github.co
 }
 ```
 
+## Framework notes
+
+Some frameworks support the creation of `.hxml` files, which is necessary to run the Haxe code completion engine. Below is a list of how you can get an `.hxml` file from various frameworks.
+
+Framework     | How to get .hxml                      | Example usage
+------------- | --------------------------------------|------------------------
+Lime / OpenFL | `haxelib run lime display <platform>` | `haxelib run lime display linux > build.hxml`
+Snow          | `haxelib run flow info --hxml`        | `haxelib run flow info --hxml > build.hxml`
+Kha           | See `build/project-<platform>.hxml`   | Set location in Workspace Settings
+Flambe        | `flambe haxe-flags`                   | `flambe haxe-flags > build.hxml`
+
+Feel free to file an issue with details for other frameworks.
+
 ## Hacking
 
 1. Recursively clone this repo in `~/.vscode/extensions`: `git clone --recursive https://github.com/vshaxe/vshaxe`.
