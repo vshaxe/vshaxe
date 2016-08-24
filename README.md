@@ -70,10 +70,32 @@ Some frameworks support the creation of `.hxml` files, which is necessary to run
 
 Framework     | How to get .hxml                      | Example usage
 ------------- | --------------------------------------|------------------------
-Lime / OpenFL | `haxelib run lime display <platform>` | `haxelib run lime display linux > build.hxml`
-Snow          | `haxelib run flow info --hxml`        | `haxelib run flow info --hxml > build.hxml`
-Kha           | See `build/project-<platform>.hxml`   | Set location in Workspace Settings
-Flambe        | `flambe haxe-flags`                   | `flambe haxe-flags > build.hxml`
+Lime / OpenFL | `haxelib run lime display <platform>` | `haxelib run lime display linux > completion.hxml`
+Snow          | `haxelib run flow info --hxml`        | `haxelib run flow info --hxml > completion.hxml`
+Flambe        | `flambe haxe-flags`                   | `flambe haxe-flags > completion.hxml`
+
+You then need to add `completion.hxml` to `haxe.displayConfigurations` in `settings.json` as shown below:
+
+```json
+{
+    "haxe.displayConfigurations": [
+        ["completion.hxml"]
+    ]
+}
+```
+
+**Kha** generates `.hxml` files automatically as `build/project-<platform>.hxml` on each build (so make to sure to build at least once). Also, `settings.json` needs to be adjusted to use the `build` directory:
+
+```json
+{
+    "haxe.displayConfigurations": [
+        [["--cwd", "build", "project-<platform1>.hxml"]],
+        [["--cwd", "build", "project-<platform2>.hxml"]]
+    ]
+}
+```
+
+For **Flixel**, please refer to [this](https://github.com/HaxeFlixel/flixel-docs/blob/master/documentation/00_getting_started/05-visual-studio-code.html.md) document. `flixel-tools` supports initializing a `.vscode` workspace for you.
 
 Feel free to file an issue with details for other frameworks.
 
