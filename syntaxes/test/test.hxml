@@ -68,3 +68,7 @@
 -dce invalid
 # dce arg with random whitespace
 -dce   	 	 std
+# argument inside another word
+-java some-version-test
+-java some-version
+-java some-versions
