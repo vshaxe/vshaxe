@@ -186,7 +186,7 @@
           "name": "meta.control.directive.conditional.hx"
         },
         {
-          "match": "(#(end|else))",
+          "match": "(#(end|else|error|line))",
           "name": "keyword.control.directive.conditional.hx"
         },
         {
