@@ -170,10 +170,6 @@
     "conditional-compilation": {
       "patterns": [
         {
-          "match": "(#(end|else))",
-          "name": "keyword.control.directive.conditional.hx"
-        },
-        {
           "match": "((#(if|elseif))\\s+([a-zA-Z0-9_]*)\\s)",
           "captures": {
             "0": {"name": "meta.control.directive.conditional.hx"},
@@ -188,6 +184,10 @@
           },
           "end": "(\\))",
           "name": "meta.control.directive.conditional.hx"
+        },
+        {
+          "match": "(#(end|else))",
+          "name": "keyword.control.directive.conditional.hx"
         },
         {
           "match": "(#([a-zA-Z0-9_]*))\\s",
