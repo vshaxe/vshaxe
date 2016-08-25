@@ -8,6 +8,9 @@ package net.onthewings;
 import net.onthewings.Test;
 import net.onthewings.*;
 
+import haxe.Int64 as I64;
+import haxe.Int64 in I64;
+
 using Lambda;
 using net.onthewings.Test;
 
@@ -26,7 +29,10 @@ using net.onthewings.Test;
 #end
 
 class Foo {
-	function foo() {
+	override dynamic macro extern inline static function foo() {
+
+		super.foo();
+
 		0; // Int
 		-134; // Int
 		0xFF00; // Int
@@ -47,6 +53,11 @@ class Foo {
 
 		~/[a-z]+/i; // EReg : regular expression
 
+		$type(2);
+
+		var a:Int = cast 2; // unsafe cast
+		var b:Int = cast (2, Int); // safe cast
+
 		var point = { "x" : 1, "y" : -5 };
 
 		{
@@ -56,6 +67,14 @@ class Foo {
 		    var w : String = "";
 		    var a, b : Bool, c : Int = 0;
 		}
+
+		for (i in 0...20) {}
+		while (true) {}
+
+		do {
+			break;
+			continue;
+		} while (true)
 
 		//haxe3 pattern matching
 		switch(e.expr) {
@@ -106,11 +125,18 @@ class Foo {
 		
 		//ECheckType
 		var f = (123:Float);
+
+		//Exception handling
+		try {
+			throw "error";
+		} catch (e:Dynamic) {}
 	}
 
 	//top-level class members
 	public function test();
 	private var attr(get, set) = 1;
+	private var attr2(default, null);
+	private var attr3(dynamic, never);
 
 	//pre-proc number
 	public static inline function indexOf<T>(arr:Array<T>, v:T) : Int
