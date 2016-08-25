@@ -8,10 +8,6 @@
   "foldingStopMarker": "\\n\\n",
   "patterns": [
     {
-      "match": "(^|[^a-zA-Z])(-cppia|-cpp?|-js|-as3|-swf-(header|version|lib(-extern)?)|-swf9?|-neko|-python|-php|-cs|-java|-xml|-lua|-hl|-x|-main|-lib|-D|-resource|-exclude|-version|-v|-debug|-prompt|-cmd|-dce\\s+(std|full|no)?|--flash-strict|--no-traces|--flash-use-stage|--neko-source|--gen-hx-classes|-java-lib|-net-lib|-net-std|-c-arg|--each|--next|--display|--no-output|--times|--no-inline|--no-opt|--php-front|--php-lib|--php-prefix|--remap|--help-defines|--help-metas|-help|--help|-java|-cs|--dead-code-elimination|--js-modern|--interp|--macro|--eval|--dce|--wait|--connect|--cwd|--run)",
-      "name": "keyword.other.hxml"
-    },
-    {
       "captures": {
         "1": {
           "name": "punctuation.definition.comment.hxml"
@@ -19,6 +15,10 @@
       },
       "match": "(#).*$\\n?",
       "name": "comment.line.number-sign.hxml"
+    },
+    {
+      "match": "(^|[^a-zA-Z])(-cppia|-cpp?|-js|-as3|-swf-(header|version|lib(-extern)?)|-swf9?|-neko|-python|-php|-cs|-java|-xml|-lua|-hl|-x|-main|-lib|-D|-resource|-exclude|-version|-v|-debug|-prompt|-cmd|-dce\\s+(std|full|no)?|--flash-strict|--no-traces|--flash-use-stage|--neko-source|--gen-hx-classes|-java-lib|-net-lib|-net-std|-c-arg|--each|--next|--display|--no-output|--times|--no-inline|--no-opt|--php-front|--php-lib|--php-prefix|--remap|--help-defines|--help-metas|-help|--help|-java|-cs|--dead-code-elimination|--js-modern|--interp|--macro|--eval|--dce|--wait|--connect|--cwd|--run)",
+      "name": "keyword.other.hxml"
     }
   ],
   "scopeName": "source.hxml",
