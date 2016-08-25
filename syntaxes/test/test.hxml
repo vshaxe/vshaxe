@@ -61,3 +61,10 @@
 -debug -v
 # leading whitespace:
  	-v
+# dce args
+-dce std
+-dce full
+-dce no
+-dce invalid
+# dce arg with random whitespace
+-dce   	 	 std
