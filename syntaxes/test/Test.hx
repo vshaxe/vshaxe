@@ -25,56 +25,107 @@ using net.onthewings.Test;
     #error "Custom error message" // will display an error "Custom error message"
 #end
 
-0; // Int
--134; // Int
-0xFF00; // Int
+class Foo {
+	function foo() {
+		0; // Int
+		-134; // Int
+		0xFF00; // Int
 
-123.0; // Float
-.14179; // Float
-13e50; // Float
--1e-99; // Float
+		123.0; // Float
+		.14179; // Float
+		13e50; // Float
+		-1e-99; // Float
 
-"hello"; // String
-"hello \"world\" !"; // String
-'hello "world" !'; // String
+		"hello"; // String
+		"hello \"world\" !"; // String
+		'hello "world" !'; // String
 
-true; // Bool
-false; // Bool
+		true; // Bool
+		false; // Bool
 
-null; // Unknown<0>
+		null; // Unknown<0>
 
-~/[a-z]+/i; // EReg : regular expression
+		~/[a-z]+/i; // EReg : regular expression
 
-var point = { "x" : 1, "y" : -5 };
+		var point = { "x" : 1, "y" : -5 };
 
-{
-    var x;
-    var y = 3;
-    var z : String;
-    var w : String = "";
-    var a, b : Bool, c : Int = 0;
+		{
+		    var x;
+		    var y = 3;
+		    var z : String;
+		    var w : String = "";
+		    var a, b : Bool, c : Int = 0;
+		}
+
+		//haxe3 pattern matching
+		switch(e.expr) {
+			case EConst(CString(s)) if (StringTools.startsWith(s, "foo")):
+				"1";
+			case EConst(CString(s)) if (StringTools.startsWith(s, "bar")):
+				"2";
+			case EConst(CInt(i)) if (switch(Std.parseInt(i) * 2) { case 4: true; case _: false; }):
+				"3";
+			case EConst(_):
+				"4";
+			case _:
+				"5";
+		}
+
+		switch [true, 1, "foo"] {
+			case [true, 1, "foo"]: "0";
+			case [true, 1, _]: "1";
+			case _: "_";
+		}
+
+		//macro reification
+		var e = macro var $myVar = 0;
+		var e = macro ${v}.toLowerCase();
+		var e = macro o.$myField;
+		var e = macro { $myField : 0 };
+		var e = macro $i{varName}++;
+		var e = macro $v{myStr};
+		var args = [macro "sub", macro 3];
+		var e = macro "Hello".toLowerCase($a{args});
+		(macro $i{tmp}.addAtom($v{name}, $atom)).finalize(op.pos);
+		
+		var c = macro class MyClass {
+		    public function new() { }
+		    public function $funcName() {
+		        trace($v{funcName} + " was called");
+		    }
+		}
+		
+		var c = macro interface IClass {};
+		
+		//macro class could have no name...
+		var def = macro class {
+			private inline function new(loader) this = loader;
+			private var loader(get,never) : $loaderType;
+			inline private function get_loader() : $loaderType return this;
+		};
+		
+		//ECheckType
+		var f = (123:Float);
+	}
+
+	//top-level class members
+	public function test();
+	private var attr(get, set) = 1;
+
+	//pre-proc number
+	public static inline function indexOf<T>(arr:Array<T>, v:T) : Int
+	{
+		#if (haxe_ver >= 3.1) 
+		return arr.indexOf(v);
+		#else
+			#if (flash || js)
+			return untyped arr.indexOf(v);
+			#else
+			return std.Lambda.indexOf(arr, v);
+			#end
+		#end
+	}
 }
-
-//haxe3 pattern matching
-switch(e.expr) {
-	case EConst(CString(s)) if (StringTools.startsWith(s, "foo")):
-		"1";
-	case EConst(CString(s)) if (StringTools.startsWith(s, "bar")):
-		"2";
-	case EConst(CInt(i)) if (switch(Std.parseInt(i) * 2) { case 4: true; case _: false; }):
-		"3";
-	case EConst(_):
-		"4";
-	case _:
-		"5";
-}
-
-switch [true, 1, "foo"] {
-	case [true, 1, "foo"]: "0";
-	case [true, 1, _]: "1";
-	case _: "_";
-}
-
 
 class Test <T:Void->Void> {
 	private function new():Void {
@@ -140,53 +191,3 @@ typedef Pt2 = {
 	?z:Float, //optional z
 	add : Point -> Void,
 }
-
-
-//top-level class members
-public function test();
-private var attr(get, set) = 1;
-
-
-//pre-proc number
-public static inline function indexOf<T>(arr:Array<T>, v:T) : Int
-{
-	#if (haxe_ver >= 3.1) 
-	return arr.indexOf(v);
-	#else
-		#if (flash || js)
-		return untyped arr.indexOf(v);
-		#else
-		return std.Lambda.indexOf(arr, v);
-		#end
-	#end
-}
-
-//macro reification
-var e = macro var $myVar = 0;
-var e = macro ${v}.toLowerCase();
-var e = macro o.$myField;
-var e = macro { $myField : 0 };
-var e = macro $i{varName}++;
-var e = macro $v{myStr};
-var args = [macro "sub", macro 3];
-var e = macro "Hello".toLowerCase($a{args});
-(macro $i{tmp}.addAtom($v{name}, $atom)).finalize(op.pos);
-
-var c = macro class MyClass {
-    public function new() { }
-    public function $funcName() {
-        trace($v{funcName} + " was called");
-    }
-}
-
-var c = macro interface IClass {};
-
-//macro class could have no name...
-var def = macro class {
-	private inline function new(loader) this = loader;
-	private var loader(get,never) : $loaderType;
-	inline private function get_loader() : $loaderType return this;
-};
-
-//ECheckType
-var f = (123:Float);
