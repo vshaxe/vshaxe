@@ -204,7 +204,7 @@ class EvtQueue<T : (Event, EventDispatcher)> {
     var evt : T;
 }
 
-typedef DS = Dynamic<String>;
+typedef DS = Dynamic<String> // no semicolon
 typedef Pt = {
 	var x:Float;
 	var y:Float;
@@ -217,3 +217,5 @@ typedef Pt2 = {
 	?z:Float, //optional z
 	add : Point -> Void,
 }
+
+abstract Abstract(String) from String to String {}

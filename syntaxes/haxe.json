@@ -144,6 +144,15 @@
             "3": {"name": "support.class.hx"}
           },
           "match": "((\\b[a-z]\\w*\\.)*)((\\b[A-Z]\\w*\\.?|\\*)+)(\\b[_a-z]\\w*|\\*)?"
+        },
+        {"include": "#keywords-import"}
+      ]
+    },
+    "keywords-import": {
+      "patterns": [
+        {
+          "match": "\\b(in|as)\\b",
+          "name": "keyword.other.hx"
         }
       ]
     },
