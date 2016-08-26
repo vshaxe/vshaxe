@@ -1,7 +1,7 @@
 {
   "name": "Haxe",
   "scopeName": "source.hx",
-  "fileTypes": ["hx"],
+  "fileTypes": ["hx", "dump"],
   "uuid": "67c72f9f-862c-4e48-8951-dcc22c0bb4ea",
   "patterns": [
     {"include": "#all"}

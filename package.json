@@ -102,7 +102,7 @@
             {
                 "id": "haxe",
                 "aliases": ["Haxe", "haxe"],
-                "extensions": [".hx"],
+                "extensions": [".hx", ".dump"],
                 "configuration": "./haxe.configuration.json"
             },
             {
