@@ -560,7 +560,7 @@
       "endCaptures": {
         "1": {"name": "entity.name.type.class.hx"}
       },
-      "name": "meta.type.name.hx"
+      "name": "meta.class.identifier.hx"
     },
     "type-abstract-name-post": {
       "begin": "(?<=\\w)",
@@ -614,7 +614,7 @@
       "endCaptures": {
         "1": {"name": "entity.name.type.class.hx"}
       },
-      "name": "meta.type.name.hx"
+      "name": "meta.class.identifier.hx"
     },
     "type-class-name-post": {
       "begin": "(?<=\\w)",
@@ -665,7 +665,7 @@
       "endCaptures": {
         "1": {"name": "entity.name.type.class.hx"}
       },
-      "name": "meta.type.name.hx"
+      "name": "meta.class.identifier.hx"
     },
     "type-enum-name-post": {
       "begin": "(?<=\\w)",
@@ -716,7 +716,7 @@
       "endCaptures": {
         "1": {"name": "entity.name.type.class.hx"}
       },
-      "name": "meta.type.name.hx"
+      "name": "meta.class.identifier.hx"
     },
     "type-interface-name-post": {
       "begin": "(?<=\\w)",
@@ -780,7 +780,7 @@
       "endCaptures": {
         "1": {"name": "entity.name.type.class.hx"}
       },
-      "name": "meta.type.name.hx"
+      "name": "meta.class.identifier.hx"
     },
     "type-typedef-name-post": {
       "begin": "(?<=\\w)",

@@ -158,6 +158,8 @@ class Foo {
 	}
 }
 
+interface ITest {}
+
 class Test <T:Void->Void> {
 	private function new():Void {
 		inline function innerFun(a:Int, b:Int):Int {
