@@ -151,6 +151,11 @@ class Foo {
 			#end
 		#end
 	}
+
+	// single-line conditionals
+	function foo() {
+		#if (haxe_ver >= 3.1) return true #elseif false return false #else throw "error" #end ;
+	}
 }
 
 class Test <T:Void->Void> {
