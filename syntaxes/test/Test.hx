@@ -227,7 +227,7 @@ abstract Abstract(String) from String to String {}
 // haxe --help-metas | cut -c -24 | cut -c 1- | sed '/^\s*$/d' | tr -d ' '
 
 // to get the list for the regex:
-// haxe --help-defines | cut -c -24 | cut -c 4- | sed '/^\s*$/d' | tr -d ' '|  tr '\n' '|'
+// haxe --help-metas | cut -c -24 | cut -c 4- | sed '/^\s*$/d' | tr -d ' '|  tr '\n' '|'
 
 @:abi
 @:abstract
