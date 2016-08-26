@@ -89,8 +89,8 @@ You then need to add `completion.hxml` to `haxe.displayConfigurations` in `setti
 ```json
 {
     "haxe.displayConfigurations": [
-        [["--cwd", "build", "project-<platform1>.hxml"]],
-        [["--cwd", "build", "project-<platform2>.hxml"]]
+        ["--cwd", "build", "project-<platform1>.hxml"],
+        ["--cwd", "build", "project-<platform2>.hxml"]
     ]
 }
 ```
