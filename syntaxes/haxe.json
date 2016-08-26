@@ -232,7 +232,7 @@
         },
         {
           "match": "\\bnew\\b",
-          "name": "keyword.control.new.hx"
+          "name": "keyword.operator.new.hx"
         },
         {
           "match": "\\bvar\\b",
