@@ -22,7 +22,7 @@ using net.onthewings.Test;
 // Haxe code specific for javascript plaform
 #elseif neko
 // Haxe code specific for neko plaform
-#else 
+#else
 // do something else
     #error  // will display an error "Not implemented on this platform"
     #error "Custom error message" // will display an error "Custom error message"
@@ -106,23 +106,23 @@ class Foo {
 		var args = [macro "sub", macro 3];
 		var e = macro "Hello".toLowerCase($a{args});
 		(macro $i{tmp}.addAtom($v{name}, $atom)).finalize(op.pos);
-		
+
 		var c = macro class MyClass {
 		    public function new() { }
 		    public function $funcName() {
 		        trace($v{funcName} + " was called");
 		    }
 		}
-		
+
 		var c = macro interface IClass {};
-		
+
 		//macro class could have no name...
 		var def = macro class {
 			private inline function new(loader) this = loader;
 			private var loader(get,never) : $loaderType;
 			inline private function get_loader() : $loaderType return this;
 		};
-		
+
 		//ECheckType
 		var f = (123:Float);
 
@@ -141,7 +141,7 @@ class Foo {
 	//pre-proc number
 	public static inline function indexOf<T>(arr:Array<T>, v:T) : Int
 	{
-		#if (haxe_ver >= 3.1) 
+		#if (haxe_ver >= 3.1)
 		#line 0 return arr.indexOf(v);
 		#else
 			#if (flash || js)
@@ -158,10 +158,10 @@ class Test <T:Void->Void> {
 		inline function innerFun(a:Int, b:Int):Int {
 			return readOnlyField = a + b;
 		}
-		
+
 		_innerFun(1, 2.3);
 	}
-	
+
 	static public var instance(get,null):Test;
 	static function get_instance():Test {
 		return instance != null ? instance : instance = new Test();
@@ -219,3 +219,137 @@ typedef Pt2 = {
 }
 
 abstract Abstract(String) from String to String {}
+
+// compiler-built-in-metadata
+// how to update for new meta:
+
+// use this to get the list for this source file:
+// haxe --help-metas | cut -c -24 | cut -c 1- | sed '/^\s*$/d' | tr -d ' '
+
+// to get the list for the regex:
+// haxe --help-defines | cut -c -24 | cut -c 4- | sed '/^\s*$/d' | tr -d ' '|  tr '\n' '|'
+
+@:abi
+@:abstract
+@:access
+@:allow
+@:analyzer
+@:annotation
+@:arrayAccess
+@:astSource
+@:autoBuild
+@:bind
+@:bitmap
+@:bridgeProperties
+@:build
+@:buildXml
+@:callable
+@:classCode
+@:commutative
+@:compilerGenerated
+@:const
+@:coreApi
+@:coreType
+@:cppFileCode
+@:cppInclude
+@:cppNamespaceCode
+@:dce
+@:debug
+@:decl
+@:delegate
+@:depend
+@:deprecated
+@:eager
+@:enum
+@:event
+@:expose
+@:extern
+@:fakeEnum
+@:file
+@:fileXml
+@:final
+@:fixed
+@:font
+@:forward
+@:forwardStatics
+@:from
+@:functionCode
+@:functionTailCode
+@:generic
+@:genericBuild
+@:getter
+@:hack
+@:headerClassCode
+@:headerCode
+@:headerInclude
+@:headerNamespaceCode
+@:hxGen
+@:ifFeature
+@:include
+@:internal
+@:isVar
+@:javaCanonical
+@:jsRequire
+@:keep
+@:keepInit
+@:keepSub
+@:luaRequire
+@:macro
+@:mergeBlock
+@:meta
+@:multiType
+@:native
+@:nativeChildren
+@:nativeGen
+@:nativeProperty
+@:nativeStaticExtension
+@:noCompletion
+@:noDebug
+@:noDoc
+@:noImportGlobal
+@:noPrivateAccess
+@:noStack
+@:noUsing
+@:nonVirtual
+@:notNull
+@:ns
+@:objc
+@:op
+@:optional
+@:overload
+@:phpConstants
+@:phpGlobal
+@:privateAccess
+@:property
+@:protected
+@:publicFields
+@:pure
+@:pythonImport
+@:readOnly
+@:remove
+@:require
+@:resolve
+@:rtti
+@:runtime
+@:runtimeValue
+@:scalar
+@:selfCall
+@:setter
+@:sound
+@:sourceFile
+@:stackOnly
+@:strict
+@:struct
+@:structAccess
+@:structInit
+@:suppressWarnings
+@:templatedCall
+@:throws
+@:to
+@:transient
+@:unifyMinDynamic
+@:unreflective
+@:unsafe
+@:value
+@:void
+@:volatile
