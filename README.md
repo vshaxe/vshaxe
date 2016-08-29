@@ -42,7 +42,7 @@ developing.
 
 ## Configuration
 
-The vshaxe extension supports the following settings. They can be configured in user or worspace settings file (`.vscode/settings.json`):
+The vshaxe extension supports the following settings. They can be configured in user or workspace settings file (`.vscode/settings.json`):
 
 ```js
 {
