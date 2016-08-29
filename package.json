@@ -1,11 +1,16 @@
 {
     "name": "vshaxe",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "publisher": "nadako",
-    "engines": {"vscode": "^1.0.0"},
+    "engines": {
+        "vscode": "^1.0.0"
+    },
     "displayName": "Haxe Support",
     "description": "Haxe language support for Visual Studio Code",
-    "categories": ["Languages", "Linters"],
+    "categories": [
+        "Languages",
+        "Linters"
+    ],
     "galleryBanner": {
         "theme": "dark",
         "color": "#A84B38"
@@ -43,7 +48,9 @@
                     "items": {
                         "description": "Command-line arguments passed to haxe completion server. Can contain hxml files. Relative paths will be resolved against workspace root.",
                         "type": "array",
-                        "items": {"type": "string"}
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "haxe.displayServer": {
@@ -60,18 +67,27 @@
                             "description": "Array of arguments passed to the haxe completion server at start. Can be used for debugging completion server issues, for example by adding \"-v\" argument.",
                             "type": "array",
                             "default": [],
-                            "items": {"type": "string"}
+                            "items": {
+                                "type": "string"
+                            }
                         },
                         "env": {
                             "description": "Additional environment variables used to start the haxe completion server",
                             "type": "object",
                             "default": {},
-                            "additionalProperties": {"type": "string"}
+                            "additionalProperties": {
+                                "type": "string"
+                            }
                         },
-
-                        "windows": {"description": "Overrides for Windows"},
-                        "linux": {"description": "Overrides for Linux"},
-                        "osx": {"description": "Overrides for Mac"}
+                        "windows": {
+                            "description": "Overrides for Windows"
+                        },
+                        "linux": {
+                            "description": "Overrides for Linux"
+                        },
+                        "osx": {
+                            "description": "Overrides for Mac"
+                        }
                     }
                 },
                 "haxe.enableDiagnostics": {
@@ -101,20 +117,34 @@
         "languages": [
             {
                 "id": "haxe",
-                "aliases": ["Haxe", "haxe"],
-                "extensions": [".hx"],
+                "aliases": [
+                    "Haxe",
+                    "haxe"
+                ],
+                "extensions": [
+                    ".hx"
+                ],
                 "configuration": "./haxe.configuration.json"
             },
             {
                 "id": "hxml",
-                "aliases": ["HXML", "hxml"],
-                "extensions": [".hxml"],
+                "aliases": [
+                    "HXML",
+                    "hxml"
+                ],
+                "extensions": [
+                    ".hxml"
+                ],
                 "configuration": "./hxml.configuration.json"
             },
-			{
+            {
                 "id": "Haxe AST dump",
-                "aliases": ["Haxe AST dump"],
-                "extensions": [".dump"],
+                "aliases": [
+                    "Haxe AST dump"
+                ],
+                "extensions": [
+                    ".dump"
+                ],
                 "configuration": "./haxe.configuration.json"
             }
         ],
@@ -129,7 +159,7 @@
                 "scopeName": "source.hxml",
                 "path": "./syntaxes/hxml.json"
             },
-			{
+            {
                 "language": "Haxe AST dump",
                 "scopeName": "source.hx",
                 "path": "./syntaxes/haxe.json"
@@ -145,7 +175,9 @@
             {
                 "type": "haxe",
                 "enableBreakpointsFor": {
-                    "languageIds": ["haxe"]
+                    "languageIds": [
+                        "haxe"
+                    ]
                 }
             }
         ],
