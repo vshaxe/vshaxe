@@ -37,15 +37,15 @@ typing part of the command name. All commands are prefixed with `Haxe:`.
 
 > `haxe.initProject`
 
-Scaffolds a very basic haxe project. Can also be used on an existing project to generate `.vscode` workspace
-folder with the build task and example vshaxe configuration.
+Scaffolds a very basic haxe project in an empty workspace. Can also be used on an existing project with .hxml files
+to generate `.vscode` workspace folder with the build task and example vshaxe configuration.
 
 ### Restart language server
 
 > `haxe.restartLanguageServer`
 
-Restarts language server and haxe completion server. Use if anything goes wrong or to reload haxe-languageserver code when
-developing.
+Restarts language server and haxe completion server. Use if anything goes wrong or to reload haxe-languageserver code
+when developing.
 
 ### Select display configuration
 
