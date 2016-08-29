@@ -67,6 +67,15 @@ The vshaxe extension supports the following settings. They can be configured in 
 }
 ```
 
+Multiple display configurations are useful when working with a codebase that is meant
+to be compiled for different Haxe targets, or with a different set of defines. If 
+there are more than one configuration provided in the `haxe.displayConfigurations` setting,
+when a Haxe file is open, a selection appears in the status bar allowing to switch current
+display configuration:
+
+![](images/configs.gif)
+
+
 ## Build task
 
 Example `tasks.json` file (the problem matcher is submitted to https://github.com/Microsoft/vscode/pull/5370)
