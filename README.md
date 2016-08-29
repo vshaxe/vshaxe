@@ -67,10 +67,15 @@ The vshaxe extension supports the following settings. They can be configured in 
 }
 ```
 
+Beware that display configurations specified in `haxe.displayConfigurations` should only contain arguments suitable for
+completion, such as `-cp`, `-lib`, `-D` and target output (`-js`, `-cpp`, etc.). This is particularly important when
+specifying an `.hxml` file for completion: make sure it doesn't contain `-cmd`, `--next`, `--each` and other arguments
+not suitable for completion.
+
 Multiple display configurations are useful when working with a codebase that is meant
 to be compiled for different Haxe targets, or with a different set of defines. If 
 there is more than one configuration provided in the `haxe.displayConfigurations` setting,
-when a Haxe file is open, a selection appears in the status bar allowing to switch current
+when a `.hx` file is open, a selection appears in the status bar allowing to switch current
 display configuration:
 
 ![](images/configs.gif)
@@ -141,6 +146,5 @@ Feel free to file an issue with details for other frameworks.
 2. Change current directory to the cloned one: `cd ~/.vscode/extensions/vshaxe`.
 3. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
 4. Do `haxe build.hxml` (that will build both client and server)
-5. Use `haxe.displayConfigurations` setting to provide haxe command-line arguments used for completion, such as `-cp`, `-lib`, etc.
-As with normal haxe command-line arguments, you can specify an `.hxml` file, just beware that it should only contain arguments suitable for completion,
-so no `--each`/`--next`/`-cmd`/etc.
+5. After modifying and rebuilding language server, reload it with the `Haxe: Restart language server` command.
+6. After modifying and rebuilding the extension itself, restart VSCode, reload window or run a debug instance with F5 ([standard vscode workflow](https://code.visualstudio.com/docs/extensions/debugging-extensions)). 
