@@ -40,6 +40,33 @@ folder with the build task and example vshaxe configuration.
 Restarts language server and haxe completion server. Use if anything goes wrong or to reload haxe-languageserver code when
 developing.
 
+## Configuration
+
+The vshaxe extension supports the following settings. They can be configured in user or worspace settings file (`.vscode/settings.json`):
+
+```js
+{
+    "haxe.displayConfigurations": [ // one or more configurations for the haxe completion server 
+        ["-cp", "src", "-js", "main.js"], // a configuration is array of arguments passed to the completion server
+        ["build.hxml"], // hxml file is an normal haxe argument too
+    ],
+    "haxe.displayServer": { // configuration for starting haxe completion server itself
+        "haxePath": "haxe", // path to the executable (default: `haxe`)
+        "arguments": ["-v"], // arguments before --wait (-v is useful for debugging)
+        "env": { // environment variables for the completion server
+            "HAXE_STD_PATH": "/some/path",
+            "SOME_VAR": "some_value",
+        },
+
+        // platform-specific overrides of the keys above
+        // they will be merged into the default configuration
+        "windows": {},
+        "linux": {},
+        "osx": {}
+    }
+}
+```
+
 ## Build task
 
 Example `tasks.json` file (the problem matcher is submitted to https://github.com/Microsoft/vscode/pull/5370)
