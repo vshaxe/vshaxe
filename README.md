@@ -30,15 +30,28 @@ leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver)
 
 ## Commands
 
+The vshaxe extension adds the following commands. You can invoke them by pressing `F1` or `Ctrl-P`/`Cmd-P` and
+typing part of the command name. All commands are prefixed with `Haxe:`.
+
 ### Initialize VS Code project
+
+> `haxe.initProject`
 
 Scaffolds a very basic haxe project. Can also be used on an existing project to generate `.vscode` workspace
 folder with the build task and example vshaxe configuration.
 
 ### Restart language server
 
+> `haxe.restartLanguageServer`
+
 Restarts language server and haxe completion server. Use if anything goes wrong or to reload haxe-languageserver code when
 developing.
+
+### Select display configuration
+
+> `haxe.selectDisplayConfiguration`
+
+Choose the currently active display configuration (see [Configuration](#configuration) section below for more info).
 
 ## Configuration
 
@@ -80,6 +93,7 @@ display configuration:
 
 ![](images/configs.gif)
 
+The same menu can also be shown by using `Select display configuration` command from the command palette or a keybinding.
 
 ## Build task
 
