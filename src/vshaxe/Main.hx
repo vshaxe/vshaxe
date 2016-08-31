@@ -9,6 +9,7 @@ class Main {
     var hxFileWatcher:FileSystemWatcher;
     var vshaxeChannel:OutputChannel;
     var displayConfig:DisplayConfiguration;
+    var client:LanguageClient;
 
     function new(ctx) {
         context = ctx;
@@ -22,6 +23,7 @@ class Main {
 
         context.subscriptions.push(commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
         context.subscriptions.push(commands.registerCommand("haxe.applyFixes", applyFixes));
+        context.subscriptions.push(commands.registerCommand("haxe.runGlobalDiagnostics", runGlobalDiagnostics));
 
         startLanguageServer();
     }
@@ -49,7 +51,9 @@ class Main {
         });
     }
 
-
+    function runGlobalDiagnostics() {
+        client.sendNotification({method: "vshaxe/runGlobalDiagnostics"}, {});
+    }
 
     function startLanguageServer() {
         var serverModule = context.asAbsolutePath("./server_wrapper.js");
@@ -66,7 +70,7 @@ class Main {
                 displayConfigurationIndex: displayConfig.getIndex()
             }
         };
-        var client = new LanguageClient("Haxe", serverOptions, clientOptions);
+        client = new LanguageClient("Haxe", serverOptions, clientOptions);
         client.onNotification({method: "vshaxe/log"}, log);
         client.onReady().then(function(_) {
             log("Haxe language server started\n");

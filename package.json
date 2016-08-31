@@ -112,6 +112,11 @@
                 "title": "Select display configuration",
                 "command": "haxe.selectDisplayConfiguration",
                 "category": "Haxe"
+            },
+            {
+                "title": "Run global diagnostics check",
+                "command": "haxe.runGlobalDiagnostics",
+                "category": "Haxe"
             }
         ],
         "languages": [
