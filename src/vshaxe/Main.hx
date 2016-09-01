@@ -63,7 +63,6 @@ class Main {
 
     function runGlobalDiagnostics() {
         client.sendNotification({method: "vshaxe/runGlobalDiagnostics"}, {});
-        Vscode.commands.executeCommand("workbench.actions.view.problems", {});
     }
 
     function startLanguageServer() {
