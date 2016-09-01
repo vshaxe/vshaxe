@@ -94,6 +94,11 @@
                     "description": "Enable automatic diagnostics of Haxe files, run automatically on open and save.",
                     "type": "boolean",
                     "default": true
+                },
+                "haxe.enableCodeLens": {
+                    "description": "Enable code lens to show some statistics",
+                    "type": "boolean",
+                    "default": false
                 }
             }
         },

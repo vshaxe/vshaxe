@@ -23,6 +23,7 @@ class Main {
 
         context.subscriptions.push(commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
         context.subscriptions.push(commands.registerCommand("haxe.applyFixes", applyFixes));
+        context.subscriptions.push(commands.registerCommand("haxe.showReferences", showReferences));
         context.subscriptions.push(commands.registerCommand("haxe.runGlobalDiagnostics", runGlobalDiagnostics));
 
         startLanguageServer();
@@ -49,6 +50,15 @@ class Main {
                 mutator.replace(range, edit.newText);
             }
         });
+    }
+
+    function showReferences(uri:String, position:Position, locations:Array<Location>) {
+        inline function copyPosition(position) return new Position(position.line, position.character);
+        // this is retarded
+        var locations = locations.map(function(location)
+            return new Location(Uri.parse(cast location.uri), new Range(copyPosition(location.range.start), copyPosition(location.range.end)))
+        );
+        commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations).then(function(s) trace(s), function(s) trace("err: " + s));
     }
 
     function runGlobalDiagnostics() {
