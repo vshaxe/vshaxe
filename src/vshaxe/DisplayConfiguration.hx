@@ -12,7 +12,7 @@ class DisplayConfiguration {
     public function new(context:ExtensionContext) {
         this.context = context;
 
-        statusBarItem = window.createStatusBarItem(Right);
+        statusBarItem = window.createStatusBarItem(Left);
         statusBarItem.tooltip = "Select Haxe configuration";
         statusBarItem.command = "haxe.selectDisplayConfiguration";
         context.subscriptions.push(statusBarItem);
