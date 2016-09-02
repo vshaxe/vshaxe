@@ -55,7 +55,7 @@ class Main {
     }
 
     function runGlobalDiagnostics() {
-        client.sendNotification({method: "vshaxe/runGlobalDiagnostics"}, {});
+        client.sendNotification({method: "vshaxe/runGlobalDiagnostics"});
     }
 
     function startLanguageServer() {
