@@ -18,16 +18,16 @@ class Main {
         displayConfig = new DisplayConfiguration(ctx);
         new InitProject(ctx);
 
-        registerCommand("haxe.restartLanguageServer", restartLanguageServer);
-        registerCommand("haxe.applyFixes", applyFixes);
-        registerCommand("haxe.showReferences", showReferences);
-        registerCommand("haxe.runGlobalDiagnostics", runGlobalDiagnostics);
+        registerCommand("restartLanguageServer", restartLanguageServer);
+        registerCommand("applyFixes", applyFixes);
+        registerCommand("showReferences", showReferences);
+        registerCommand("runGlobalDiagnostics", runGlobalDiagnostics);
 
         startLanguageServer();
     }
 
     function registerCommand(command:String, callback:Function) {
-        context.subscriptions.push(commands.registerCommand(command, callback));
+        context.subscriptions.push(commands.registerCommand("haxe." + command, callback));
     }
 
     function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
