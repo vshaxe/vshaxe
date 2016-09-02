@@ -100,6 +100,9 @@ class Main {
     }
 
     function restartLanguageServer() {
+        if (client != null && client.outputChannel != null)
+            client.outputChannel.dispose();
+            
         if (serverDisposable != null) {
             context.subscriptions.remove(serverDisposable);
             serverDisposable.dispose();
