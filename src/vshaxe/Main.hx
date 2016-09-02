@@ -17,20 +17,12 @@ class Main {
         displayConfig = new DisplayConfiguration(ctx);
         new InitProject(ctx);
 
-        vshaxeChannel = window.createOutputChannel("vshaxe");
-        vshaxeChannel.show();
-        context.subscriptions.push(vshaxeChannel);
-
         context.subscriptions.push(commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
         context.subscriptions.push(commands.registerCommand("haxe.applyFixes", applyFixes));
         context.subscriptions.push(commands.registerCommand("haxe.showReferences", showReferences));
         context.subscriptions.push(commands.registerCommand("haxe.runGlobalDiagnostics", runGlobalDiagnostics));
 
         startLanguageServer();
-    }
-
-    inline function log(message:String) {
-        vshaxeChannel.append(message);
     }
 
     function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
@@ -80,10 +72,9 @@ class Main {
                 displayConfigurationIndex: displayConfig.getIndex()
             }
         };
-        client = new LanguageClient("Haxe", serverOptions, clientOptions);
-        client.onNotification({method: "vshaxe/log"}, log);
+        client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
         client.onReady().then(function(_) {
-            log("Haxe language server started\n");
+            client.outputChannel.appendLine("Haxe language server started");
             displayConfig.onDidChangeIndex = function(index) {
                 client.sendNotification({method: "vshaxe/didChangeDisplayConfigurationIndex"}, {index: index});
             }
