@@ -2,6 +2,7 @@ package vshaxe;
 
 import vscode.*;
 import Vscode.*;
+import haxe.Constraints.Function;
 
 class Main {
     var context:ExtensionContext;
@@ -17,12 +18,16 @@ class Main {
         displayConfig = new DisplayConfiguration(ctx);
         new InitProject(ctx);
 
-        context.subscriptions.push(commands.registerCommand("haxe.restartLanguageServer", restartLanguageServer));
-        context.subscriptions.push(commands.registerCommand("haxe.applyFixes", applyFixes));
-        context.subscriptions.push(commands.registerCommand("haxe.showReferences", showReferences));
-        context.subscriptions.push(commands.registerCommand("haxe.runGlobalDiagnostics", runGlobalDiagnostics));
+        registerCommand("haxe.restartLanguageServer", restartLanguageServer);
+        registerCommand("haxe.applyFixes", applyFixes);
+        registerCommand("haxe.showReferences", showReferences);
+        registerCommand("haxe.runGlobalDiagnostics", runGlobalDiagnostics);
 
         startLanguageServer();
+    }
+
+    function registerCommand(command:String, callback:Function) {
+        context.subscriptions.push(commands.registerCommand(command, callback));
     }
 
     function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
