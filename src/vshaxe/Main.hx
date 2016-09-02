@@ -39,7 +39,8 @@ class Main {
         editor.edit(function(mutator) {
             for (edit in edits) {
                 var range = new Range(edit.range.start.line, edit.range.start.character, edit.range.end.line, edit.range.end.character);
-                mutator.replace(range, edit.newText);
+                mutator.delete(range);
+                mutator.insert(range.start, edit.newText);
             }
         });
     }
