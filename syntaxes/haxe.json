@@ -254,7 +254,7 @@
       "patterns": [
         {
           "match": "\\b(default|get|set|dynamic|never|null)\\b",
-          "name": "keyword.other.hx"
+          "name": "storage.type.property.hx"
         }
       ]
     },
