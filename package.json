@@ -95,6 +95,11 @@
                     "type": "boolean",
                     "default": true
                 },
+                "haxe.diagnosticsPathFilter": {
+                    "description": "A regex that paths of source files have to match to be included in diagnostics. Defaults to \"${workspacePath}\" so only files within your workspace are included. A common use case is matching a specific haxelib. Use \"(.*?)\" to see all results, including haxelibs.",
+                    "type": "string",
+                    "default": "${workspacePath}"
+                },
                 "haxe.enableCodeLens": {
                     "description": "Enable code lens to show some statistics",
                     "type": "boolean",
