@@ -96,9 +96,9 @@
                     "default": true
                 },
                 "haxe.diagnosticsPathFilter": {
-                    "description": "A regex that paths of source files have to match to be included in diagnostics.\nDefaults to \"${workspacePath}\" so only files within your workspace are included.\nYou can use \"${haxelibPath}/<library-name>\" to only show results for a specific haxelib.\nUse \".*?\" to see all results, including haxelibs.",
+                    "description": "A regex that paths of source files have to match to be included in diagnostics.\nDefaults to \"${workspaceRoot}\" so only files within your workspace are included.\nYou can use \"${haxelibPath}/<library-name>\" to only show results for a specific haxelib.\nUse \".*?\" to see all results, including haxelibs.",
                     "type": "string",
-                    "default": "${workspacePath}"
+                    "default": "${workspaceRoot}"
                 },
                 "haxe.enableCodeLens": {
                     "description": "Enable code lens to show some statistics",
