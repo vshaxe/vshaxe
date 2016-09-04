@@ -93,7 +93,7 @@ class Main {
                 if (editor.document.getText(new Range(0, 0, 0, 1)).length > 0) // skip non-empty created files (can be created by e.g. copy-pasting)
                     return;
 
-                client.sendRequest({method: "vshaxe/calculatePackage"}, {fsPath: uri.fsPath}).then(function(result:{pack:String}) {
+                client.sendRequest({method: "vshaxe/determinePackage"}, {fsPath: uri.fsPath}).then(function(result:{pack:String}) {
                     if (result.pack == "")
                         return;
                     editor.edit(function(edit) edit.insert(new Position(0, 0), 'package ${result.pack};\n'));
