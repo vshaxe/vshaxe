@@ -1,5 +1,7 @@
 # Haxe Support for Visual Studio Code
 
+[![Build Status](https://travis-ci.org/vshaxe/vshaxe.svg?branch=master)](https://travis-ci.org/vshaxe/vshaxe)
+
 This is an extension for [Visual Studio Code](https://code.visualstudio.com) that adds support for the [Haxe](http://haxe.org/) language,
 leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver).
 

@@ -1,0 +1,10 @@
+language: haxe
+sudo: false
+haxe:
+ - development
+
+install:
+ - haxelib install hxnodejs
+
+script:
+ - haxe build.hxml
