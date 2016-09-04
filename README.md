@@ -152,7 +152,7 @@ You then need to add `completion.hxml` to `haxe.displayConfigurations` in `setti
 }
 ```
 
-For **Flixel**, please refer to [this](https://github.com/HaxeFlixel/flixel-docs/blob/master/documentation/00_getting_started/05-visual-studio-code.html.md) document. `flixel-tools` supports initializing a `.vscode` workspace for you.
+For **Flixel**, please refer to [this](https://github.com/HaxeFlixel/flixel-docs/blob/dev/documentation/00_getting_started/05-visual-studio-code.html.md) document. `flixel-tools` supports initializing a `.vscode` workspace for you.
 
 Feel free to file an issue with details for other frameworks.
 
