@@ -1,4 +1,5 @@
 -cp server/src
+-cp server/test
 -cp server/protocol/src
 -cp vscode-extern/src
 -cp src
