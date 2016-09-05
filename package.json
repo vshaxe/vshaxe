@@ -114,12 +114,12 @@
                 "category": "Haxe"
             },
             {
-                "title": "Initialize VS Code Project",
+                "title": "Initialize VS Code Project...",
                 "command": "haxe.initProject",
                 "category": "Haxe"
             },
             {
-                "title": "Select Display Configuration",
+                "title": "Select Display Configuration...",
                 "command": "haxe.selectDisplayConfiguration",
                 "category": "Haxe"
             },
