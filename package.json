@@ -109,22 +109,22 @@
         },
         "commands": [
             {
-                "title": "Restart language server",
+                "title": "Restart Language Server",
                 "command": "haxe.restartLanguageServer",
                 "category": "Haxe"
             },
             {
-                "title": "Initialize VS Code project",
+                "title": "Initialize VS Code Project",
                 "command": "haxe.initProject",
                 "category": "Haxe"
             },
             {
-                "title": "Select display configuration",
+                "title": "Select Display Configuration",
                 "command": "haxe.selectDisplayConfiguration",
                 "category": "Haxe"
             },
             {
-                "title": "Run global diagnostics check",
+                "title": "Run Global Diagnostics Check",
                 "command": "haxe.runGlobalDiagnostics",
                 "category": "Haxe"
             }
