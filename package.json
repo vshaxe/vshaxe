@@ -35,7 +35,8 @@
         "onLanguage:haxe",
         "onCommand:haxe.restartLanguageServer",
         "onCommand:haxe.initProject",
-        "onCommand:haxe.selectDisplayConfiguration"
+        "onCommand:haxe.selectDisplayConfiguration",
+        "onCommand:haxe.runGlobalDiagnostics"
     ],
     "contributes": {
         "configuration": {
