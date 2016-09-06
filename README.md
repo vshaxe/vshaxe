@@ -158,9 +158,10 @@ Feel free to file an issue with details for other frameworks.
 
 ## Hacking
 
-1. Recursively clone this repo in `~/.vscode/extensions`: `git clone --recursive https://github.com/vshaxe/vshaxe`.
-2. Change current directory to the cloned one: `cd ~/.vscode/extensions/vshaxe`.
-3. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
-4. Do `haxe build.hxml` (that will build both client and server)
-5. After modifying and rebuilding language server, reload it with the `Haxe: Restart language server` command.
-6. After modifying and rebuilding the extension itself, restart VSCode, reload window or run a debug instance with F5 ([standard vscode workflow](https://code.visualstudio.com/docs/extensions/debugging-extensions)). 
+1. Navigate to the extensions folder (`C:\Users\<username>\.vscode\extensions` on Windows, `~/.vscode/extensions` otherwise)
+2. _Recursively_ clone this repo: `git clone --recursive https://github.com/vshaxe/vshaxe`.
+3. Change current directory to the cloned one: `cd vshaxe`.
+4. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
+5. Do `haxe build.hxml` (that will build both client and server)
+6. After modifying and rebuilding language server, reload it with the `Haxe: Restart language server` command (`Ctrl+Shift+P` to open the command palette).
+7. After modifying and rebuilding the extension itself, restart VSCode, reload the window or run a debug instance with F5 ([standard vscode workflow](https://code.visualstudio.com/docs/extensions/debugging-extensions)). 
