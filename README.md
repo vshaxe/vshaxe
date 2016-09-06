@@ -32,7 +32,7 @@ leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver)
 
 ## Commands
 
-The vshaxe extension adds the following commands. You can invoke them by pressing `F1` or `Ctrl-P`/`Cmd-P` and
+The vshaxe extension adds the following commands. You can invoke them by pressing `F1` or `Ctrl-Shift-P`/`Cmd-Shift-P` and
 typing part of the command name. All commands are prefixed with `Haxe:`.
 
 ### Initialize VS Code project
