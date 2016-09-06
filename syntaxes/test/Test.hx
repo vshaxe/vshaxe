@@ -321,6 +321,7 @@ abstract Abstract(String) from String to String {}
 @:notNull
 @:ns
 @:objc
+@:objcProtocol
 @:op
 @:optional
 @:overload
