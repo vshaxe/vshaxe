@@ -181,12 +181,6 @@
                 "path": "./syntaxes/haxe.json"
             }
         ],
-        "snippets": [
-            {
-                "language": "haxe",
-                "path": "./snippets/haxe.json"
-            }
-        ],
         "debuggers": [
             {
                 "type": "haxe",
