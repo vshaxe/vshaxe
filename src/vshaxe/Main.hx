@@ -79,6 +79,9 @@ class Main {
             }
         };
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
+        client.logFailedRequest = function(type, error) {
+            client.warn('Request ${type.method} failed.', error);
+        };
         client.onReady().then(function(_) {
             client.outputChannel.appendLine("Haxe language server started");
             displayConfig.onDidChangeIndex = function(index) {

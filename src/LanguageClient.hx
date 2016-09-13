@@ -15,6 +15,12 @@ extern class LanguageClient {
     function sendRequest<P,R>(type:RequestType, params:P):Thenable<R>;
     function onReady():Promise<Void>;
     var outputChannel(default,null):vscode.OutputChannel;
+
+    function info(message:String, ?data:Any):Void;
+    function warn(message:String, ?data:Any):Void;
+    function error(message:String, ?data:Any):Void;
+
+    dynamic function logFailedRequest(type:RequestType, error:Any):Void;
 }
 
 typedef RequestType = {method:String}
