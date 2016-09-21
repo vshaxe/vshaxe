@@ -152,6 +152,13 @@ You then need to add `completion.hxml` to `haxe.displayConfigurations` in `setti
 }
 ```
 
+Problem matcher (`tasks.json` file) also needs to take location of hxml file into account:
+
+```json
+    "problemMatcher": {
+        "fileLocation": ["relative", "${workspaceRoot}/build"],
+```
+
 For **Flixel**, please refer to [this](https://github.com/HaxeFlixel/flixel-docs/blob/dev/documentation/00_getting_started/05-visual-studio-code.html.md) document. `flixel-tools` supports initializing a `.vscode` workspace for you.
 
 Feel free to file an issue with details for other frameworks.
