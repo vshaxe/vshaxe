@@ -110,6 +110,11 @@
                     "description": "The port to open on the display server. Can be used to --connect Haxe build commands.",
                     "type": "integer",
                     "default": null
+                },
+                "haxe.buildCompletionCache": {
+                    "description": "Speed up completion by building the project once on startup to initialize the cache.",
+                    "type": "boolean",
+                    "default": true
                 }
             }
         },
