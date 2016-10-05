@@ -23,6 +23,7 @@ class DisplayConfiguration {
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
 
         fixIndex();
+        updateStatusBarItem();
     }
 
     function fixIndex() {
