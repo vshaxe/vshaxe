@@ -23,6 +23,10 @@ class Main {
         registerCommand("showReferences", showReferences);
         registerCommand("runGlobalDiagnostics", runGlobalDiagnostics);
 
+        var defaultWordPattern = "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)";
+        var wordPattern = defaultWordPattern + "|(@:\\w*)"; // metadata
+        languages.setLanguageConfiguration("Haxe", {wordPattern: new js.RegExp(wordPattern)});
+
         startLanguageServer();
     }
 
