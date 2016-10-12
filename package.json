@@ -19,7 +19,7 @@
     "author": "Dan Korostelev",
     "license": "MIT",
     "dependencies": {
-        "vscode-languageclient": "^2.5.0"
+        "vscode-languageclient": "^2.6.0"
     },
     "bugs": "https://github.com/vshaxe/vshaxe/issues",
     "homepage": "https://github.com/vshaxe/vshaxe/blob/master/README.md",
