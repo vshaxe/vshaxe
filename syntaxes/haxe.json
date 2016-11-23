@@ -459,13 +459,13 @@
       "patterns": [
         {
           "begin": "\"",
-          "beginCaptures": [
-            {"name": "punctuation.definition.string.begin.hx"}
-          ],
+          "beginCaptures": {
+            "0": {"name": "punctuation.definition.string.begin.hx"}
+          },
           "end": "\"",
-          "endCaptures": [
-            {"name": "punctuation.definition.string.end.hx"}
-          ],
+          "endCaptures": {
+            "0": {"name": "punctuation.definition.string.end.hx"}
+          },
           "name": "string.quoted.double.hx",
           "patterns": [
             {
@@ -476,13 +476,13 @@
         },
         {
           "begin": "'",
-          "beginCaptures": [
-            {"name": "punctuation.definition.string.begin.hx"}
-          ],
+          "beginCaptures": {
+            "0": {"name": "punctuation.definition.string.begin.hx"}
+          },
           "end": "'",
-          "endCaptures": [
-            {"name": "punctuation.definition.string.end.hx"}
-          ],
+          "endCaptures": {
+            "0": {"name": "punctuation.definition.string.end.hx"}
+          },
           "name": "string.quoted.single.hx",
           "patterns": [
             {
