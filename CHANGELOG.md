@@ -1,4 +1,4 @@
-### 1.0.0 (November 30, 2016)
+### 1.0.0 (December 1, 2016)
 
 **New Features**:
 
