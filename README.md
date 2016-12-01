@@ -7,7 +7,7 @@ leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver)
 
 **Status**: Should be usable, however it's still very new.
 
-**IMPORTANT**: This requires Haxe version 3.3-rc1 or later (e.g. development) due to usage of [`-D display-stdin`](https://github.com/HaxeFoundation/haxe/pull/5120),
+**IMPORTANT**: This requires Haxe version 3.4-rc1 or later (e.g. development) due to usage of [`-D display-stdin`](https://github.com/HaxeFoundation/haxe/pull/5120),
 [`--wait stdio`](https://github.com/HaxeFoundation/haxe/pull/5188) and ton of other fixes and additions related to IDE support.
 
 ## Features
@@ -61,7 +61,7 @@ The vshaxe extension supports the following settings. They can be configured in 
 
 ```js
 {
-    "haxe.displayConfigurations": [ // one or more configurations for the haxe completion server 
+    "haxe.displayConfigurations": [ // one or more configurations for the haxe completion server
         ["-cp", "src", "-js", "main.js"], // a configuration is array of arguments passed to the completion server
         ["build.hxml"], // hxml file is an normal haxe argument too
     ],
@@ -88,7 +88,7 @@ specifying an `.hxml` file for completion: make sure it doesn't contain `-cmd`, 
 not suitable for completion.
 
 Multiple display configurations are useful when working with a codebase that is meant
-to be compiled for different Haxe targets, or with a different set of defines. If 
+to be compiled for different Haxe targets, or with a different set of defines. If
 there is more than one configuration provided in the `haxe.displayConfigurations` setting,
 when a `.hx` file is open, a selection appears in the status bar allowing to switch current
 display configuration:
@@ -171,4 +171,4 @@ Feel free to file an issue with details for other frameworks.
 4. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
 5. Do `haxe build.hxml` (that will build both client and server)
 6. After modifying and rebuilding language server, reload it with the `Haxe: Restart language server` command (`Ctrl+Shift+P` to open the command palette).
-7. After modifying and rebuilding the extension itself, restart VSCode, reload the window or run a debug instance with F5 ([standard vscode workflow](https://code.visualstudio.com/docs/extensions/debugging-extensions)). 
+7. After modifying and rebuilding the extension itself, restart VSCode, reload the window or run a debug instance with F5 ([standard vscode workflow](https://code.visualstudio.com/docs/extensions/debugging-extensions)).
