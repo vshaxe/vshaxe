@@ -1,3 +1,9 @@
+### 1.0.1 (unreleased)
+
+**Bugfixes**:
+
+- fixed parsing types of methods with 10+ arguments ([haxe-languageserver#26](https://github.com/vshaxe/haxe-languageserver/issues/26))
+
 ### 1.0.0 (December 1, 2016)
 
 **New Features**:
