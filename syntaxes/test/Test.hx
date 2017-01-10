@@ -68,6 +68,10 @@ class Foo {
 		    var a, b : Bool, c : Int = 0;
 		}
 
+		var v = {
+			5;
+		};
+
 		for (i in 0...20) {}
 		while (true) {}
 
@@ -135,7 +139,7 @@ class Foo {
 	//top-level class members
 	public function test();
 	private var attr(get, set):Int = 1;
-	private var attr2(default, null);
+	private var attr2(default, null) = ['Test'];
 	private var attr3(dynamic, never);
 
 	//pre-proc number
