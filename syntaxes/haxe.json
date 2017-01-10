@@ -521,7 +521,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.terminator.hx"}
       },
-      "name": "meta.type.abstract.hx",
+      "name": "meta.abstract.hx",
       "patterns": [
         {"include": "#type-abstract-name"},
         {"include": "#type-abstract-name-post"},
@@ -629,7 +629,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.terminator.hx"}
       },
-      "name": "meta.type.enum.hx",
+      "name": "meta.enum.hx",
       "patterns": [
         {"include": "#type-enum-name"},
         {"include": "#type-enum-name-post"},
@@ -679,7 +679,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.terminator.hx"}
       },
-      "name": "meta.type.interface.hx",
+      "name": "meta.interface.hx",
       "patterns": [
         {"include": "#type-interface-name"},
         {"include": "#type-interface-name-post"},
@@ -745,7 +745,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.terminator.hx"}
       },
-      "name": "meta.type.typedef.hx",
+      "name": "meta.typedef.hx",
       "patterns": [
         {"include": "#type-typedef-name"},
         {"include": "#type-typedef-name-post"},

@@ -28,6 +28,30 @@ using net.onthewings.Test;
     #error "Custom error message" // will display an error "Custom error message"
 #end
 
+abstract Abstract(String) from String to String {
+	public static var fromStringMap(default, null):Map<String, FlxKey>
+		= FlxMacroUtil.buildMap("flixel.input.keyboard.FlxKey");
+}
+
+interface ITest {
+	function test():Void;
+}
+
+typedef Pt = {
+	var x:Float;
+	var y:Float;
+	@:optional var z:Float; /* optional z */
+	function add(pt:Pt):Void;
+}
+typedef Pt2 = {
+	x:Float,
+	y:Float,
+	?z:Float, //optional z
+	add : Point -> Void,
+}
+
+typedef DS = Dynamic<String> // no semicolon
+
 class Foo {
 	override dynamic macro extern inline static function foo() {
 
@@ -162,8 +186,6 @@ class Foo {
 	}
 }
 
-interface ITest {}
-
 class Test <T:Void->Void> {
 	private function new():Void {
 		inline function innerFun(a:Int, b:Int):Int {
@@ -214,22 +236,6 @@ class Colors {
 class EvtQueue<T : (Event, EventDispatcher)> {
     var evt : T;
 }
-
-typedef DS = Dynamic<String> // no semicolon
-typedef Pt = {
-	var x:Float;
-	var y:Float;
-	@:optional var z:Float; /* optional z */
-	function add(pt:Pt):Void;
-}
-typedef Pt2 = {
-	x:Float,
-	y:Float,
-	?z:Float, //optional z
-	add : Point -> Void,
-}
-
-abstract Abstract(String) from String to String {}
 
 // compiler-built-in-metadata
 // how to update for new meta:
