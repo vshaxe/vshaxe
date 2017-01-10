@@ -62,6 +62,8 @@
         {"include": "#comments"},
         {"include": "#strings"},
         {"include": "#macro"},
+        {"include": "#method"},
+        {"include": "#variable"},
         {"include": "#modifiers"},
         {"include": "#keywords"},
         {"include": "#keywords-reification"},
@@ -227,14 +229,6 @@
         {
           "match": "\\bnew\\b",
           "name": "keyword.operator.new.hx"
-        },
-        {
-          "match": "\\bvar\\b",
-          "name": "storage.type.variable.hx"
-        },
-        {
-          "match": "\\bfunction\\b",
-          "name": "storage.type.function.hx"
         },
         {
           "match": "\\b(abstract|class|enum|interface|typedef)\\b",
