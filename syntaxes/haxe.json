@@ -341,8 +341,7 @@
       "end": "[_A-Za-z]\\w*",
       "endCaptures": {
         "0": {"name": "entity.name.function.hx"}
-      },
-      "name": "storage.type.hx"
+      }
     },
     "method-name-post": {
       "begin": "(?<=\\w)",
@@ -541,7 +540,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.definition.block.end.hx"}
       },
-      "name": "meta.type.block.hx",
+      "name": "meta.block.hx",
       "patterns": [
         {"include": "#meta-static"},
         {"include": "#method"},
@@ -582,7 +581,7 @@
       "endCaptures": {
         "1": { "name": "punctuation.terminator.hx" }
       },
-      "name": "meta.type.class.hx",
+      "name": "meta.class.hx",
       "patterns": [
         {"include": "#type-class-name"},
         {"include": "#type-class-name-post"},
@@ -595,7 +594,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.definition.block.end.hx"}
       },
-      "name": "meta.type.block.hx",
+      "name": "meta.block.hx",
       "patterns": [
         {"include": "#meta-static"},
         {"include": "#method"},
@@ -649,7 +648,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.definition.block.end.hx"}
       },
-      "name": "meta.type.block.hx",
+      "name": "meta.block.hx",
       "patterns": [
         {"include": "#type-parameters"},
         {"include": "#block"},
@@ -699,7 +698,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.definition.block.end.hx"}
       },
-      "name": "meta.type.block.hx",
+      "name": "meta.block.hx",
       "patterns": [
         {"include": "#method"},
         {"include": "#variable"},
@@ -765,7 +764,7 @@
       "endCaptures": {
         "1": {"name": "punctuation.definition.block.end.hx"}
       },
-      "name": "meta.type.block.hx",
+      "name": "meta.block.hx",
       "patterns": [
         {"include": "#block"},
         {"include": "#block-contents"}
@@ -801,7 +800,6 @@
       "endCaptures": {
         "1": {"name": "punctuation.terminator.hx"}
       },
-      "name": "meta.variable.hx",
       "patterns": [
         {"include": "#variable-name"},
         {"include": "#variable-assign"},
@@ -843,8 +841,7 @@
       "end": "([_a-zA-Z]\\w*)",
       "endCaptures": {
         "1": {"name": "entity.name.variable.hx"}
-      },
-      "name": "storage.type.var.hx"
+      }
     },
     "variable-name-post": {
       "begin": "(?<=\\w)",

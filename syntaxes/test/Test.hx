@@ -134,7 +134,7 @@ class Foo {
 
 	//top-level class members
 	public function test();
-	private var attr(get, set) = 1;
+	private var attr(get, set):Int = 1;
 	private var attr2(default, null);
 	private var attr3(dynamic, never);
 
