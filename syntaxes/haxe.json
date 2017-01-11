@@ -476,33 +476,40 @@
           "endCaptures": {
             "0": {"name": "punctuation.definition.string.end.hx"}
           },
-          "name": "string.quoted.single.hx",
           "patterns": [
             {
-              "match": "\\\\.",
-              "name": "constant.character.escape.hx"
-            },
-            {
               "match": "\\$\\$",
-              "name": "constant.character.escape.hx"
+              "name": "string.quoted.single.hx"
             },
             {
-              "captures": {
-                "1": {"name": "variable.other.hx"},
-                "2": {"name": "variable.other.hx"},
-                "3": {"name": "variable.other.hx"},
-                "4": {"name": "variable.other.hx"}
+              "begin": "(\\${)",
+              "beginCaptures": {
+                "0": {"name": "punctuation.definition.block.begin.hx"}
               },
-              "comment": "String interpolation : \"${test.ole}\"",
-              "match": "(\\$)(\\{)([^}]*)(\\})"
+              "end": "(})",
+              "endCaptures": {
+                "0": {"name": "punctuation.definition.block.end.hx"}
+              },
+              "patterns": [
+                {"include": "#block-contents"}
+              ],
+              "comment": "String interpolation : \"${test.ole}\""
             },
             {
               "captures": {
-                "1": {"name": "variable.other.hx"},
+                "1": {"name": "punctuation.definition.block.begin.hx"},
                 "2": {"name": "variable.other.hx"}
               },
               "comment": "String interpolation : \"$test\"",
-              "match": "(\\$)(\\w*)"
+              "match": "(\\$)(\\w+)"
+            },
+            {
+              "match": "",
+              "name": "constant.character.escape.hx"
+            },
+            {
+              "match": ".",
+              "name": "string.quoted.single.hx"
             }
           ]
         }

@@ -70,6 +70,10 @@ class Foo {
 		"hello \"world\" !"; // String
 		'hello "world" !'; // String
 
+		'$$\n'
+		'$$variable $variable'
+		'random ${"number" + '${macro 5}' + (Math.random() * 5) /* */ }'
+
 		true; // Bool
 		false; // Bool
 
