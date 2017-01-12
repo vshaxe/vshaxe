@@ -1,4 +1,4 @@
-### ?.?.? (January 12, 2017)
+### 1.1.0 (January 12, 2017)
 
 **New Features**:
 
