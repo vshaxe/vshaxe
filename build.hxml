@@ -2,6 +2,7 @@
 -cp src
 -lib hxnodejs
 -D hxnodejs-no-version-warning
+-D analyzer-optimize
 -js bin/client.js
 -debug
 -dce full
