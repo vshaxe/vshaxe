@@ -57,7 +57,6 @@
       "patterns": [
         {"include": "#regex"},
         {"include": "#array"},
-        {"include": "#parameters"},
         {"include": "#constants"},
         {"include": "#comments"},
         {"include": "#strings"},
@@ -66,6 +65,7 @@
         {"include": "#variable"},
         {"include": "#modifiers"},
         {"include": "#keywords"},
+        {"include": "#method-call"},
         {"include": "#keywords-reification"},
         {"include": "#conditional-compilation"},
         {"include": "#operator-assignment"},
@@ -343,6 +343,22 @@
       "endCaptures": {
         "1": {"name": "punctuation.definition.block.begin.hx"},
         "2": {"name": "punctuation.terminator.hx"}
+      },
+      "patterns": [
+        {"include": "#parameters"},
+        {"include": "#block"},
+        {"include": "#block-contents"}
+      ]
+    },
+    "method-call": {
+      "begin": "(\\b[_a-z]\\w*)(\\()",
+      "beginCaptures": {
+        "1": {"name": "entity.name.function.hx"},
+        "2": {"name": "meta.brace.round.hx"}
+      },
+      "end": "(\\))",
+      "endCaptures": {
+        "1": {"name": "meta.brace.round.hx"}
       },
       "patterns": [
         {"include": "#block"},
