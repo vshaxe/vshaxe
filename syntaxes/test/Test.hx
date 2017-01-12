@@ -10,6 +10,7 @@ import net.onthewings.*;
 
 import haxe.Int64 as I64;
 import haxe.Int64 in I64;
+import haxe.macro.Expr;
 
 using Lambda;
 using net.onthewings.Test;
@@ -75,11 +76,11 @@ class Foo {
 
 		"Multi
 		line
-		string"
+		string";
 
 		'Multi
 		line
-		string'
+		string';
 
 		true; // Bool
 		false; // Bool
@@ -106,6 +107,8 @@ class Foo {
 		var v = {
 			5;
 		};
+
+		var f = function(foo) {}
 
 		for (i in 0...20) {}
 		while (true) {}

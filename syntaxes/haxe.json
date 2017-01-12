@@ -332,9 +332,9 @@
       "beginCaptures": {
         "1": {"name": "storage.type.function.hx"}
       },
-      "end": "[_A-Za-z]\\w*",
+      "end": "(\\()|([_A-Za-z]\\w*)",
       "endCaptures": {
-        "0": {"name": "entity.name.function.hx"}
+        "2": {"name": "entity.name.function.hx"}
       }
     },
     "method-name-post": {
