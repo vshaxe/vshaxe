@@ -1,3 +1,22 @@
+### ?.?.? (January 12, 2017)
+
+**New Features**:
+
+- added proper highlighting for string interpolation ([#26](https://github.com/vshaxe/vshaxe/issues/26))
+- added proper highlighting for regex literals
+- added proper highlighting for identifiers (method and variable names)
+- added highlighting for JavaDoc-tags in block comments (`@param`, `@return` etc)
+
+**Bugfixes**:
+
+- fixed diagnostics not working if project path contains a `'` ([#64](https://github.com/vshaxe/vshaxe/issues/64))
+- fixed the import insert position with file header comments ([haxe-languageserver#27](https://github.com/vshaxe/haxe-languageserver/issues/27))
+- `$type` is now highlighted as a keyword
+- `in` in `for`-loops is now highlighted as a keyword
+- fixed `*` in imports being highlighted as a class name
+- fixed highlighting for negated conditionals (e.g. `#if !js`)
+- fixed highlighting of variable initialization expressions ([#42](https://github.com/vshaxe/vshaxe/issues/42))
+
 ### 1.0.1 (December 6, 2016)
 
 **Bugfixes**:
