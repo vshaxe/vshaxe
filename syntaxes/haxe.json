@@ -183,7 +183,7 @@
     "conditional-compilation": {
       "patterns": [
         {
-          "match": "((#(if|elseif))\\s+([a-zA-Z0-9_]*)\\s)",
+          "match": "((#(if|elseif))\\s+!?\\s*([a-zA-Z0-9_]*)\\s)",
           "captures": {
             "0": {"name": "meta.preprocessor.hx"}
           }
