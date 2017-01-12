@@ -73,7 +73,8 @@
         {"include": "#punctuation-separator"},
         {"include": "#punctuation-terminator"},
         {"include": "#punctuation-brackets"},
-        {"include": "#support-class-name"}
+        {"include": "#support-class-name"},
+        {"include": "#identifier"}
       ]
     },
     "comments": {
@@ -368,6 +369,10 @@
         {"include": "#block"},
         {"include": "#block-contents"}
       ]
+    },
+    "identifier": {
+      "match": "\\b([_A-Za-z]\\w*)\\b",
+      "name": "variable.other.hx"
     },
     "modifiers": {
       "match": "\\b(public|private|static|dynamic|inline|macro|extern|override)\\b",
