@@ -64,6 +64,7 @@
         {"include": "#method"},
         {"include": "#variable"},
         {"include": "#modifiers"},
+        {"include": "#for-loop"},
         {"include": "#keywords"},
         {"include": "#method-call"},
         {"include": "#keywords-reification"},
@@ -203,6 +204,23 @@
           "match": "(#([a-zA-Z0-9_]*))\\s",
           "name": "meta.preprocessor.hx"
         }
+      ]
+    },
+    "for-loop": {
+      "begin": "\\b(for)\\b\\s*(\\()\\s*\\b([_A-Za-z]\\w*)\\b\\s+(in)",
+      "beginCaptures": {
+        "1": {"name": "keyword.control.flow-control.hx"},
+        "2": {"name": "meta.brace.bround.hx"},
+        "3": {"name": "variable.other.hx"},
+        "4": {"name": "keyword.other.in.hx"}
+      },
+      "end": "(\\))",
+      "endCaptures": {
+        "1": {"name": "meta.brace.bround.hx"}
+      },
+      "patterns": [
+        {"include": "#block"},
+        {"include": "#block-contents"}
       ]
     },
     "keywords": {

@@ -110,7 +110,8 @@ class Foo {
 
 		var f = function(foo) {}
 
-		for (i in 0...20) {}
+		for(i in 0...20) {}
+		for ( i   in 0...20) {}
 		while (true) {}
 
 		do {
