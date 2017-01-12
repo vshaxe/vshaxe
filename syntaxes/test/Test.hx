@@ -181,7 +181,16 @@ class Foo {
 	private var attr2(default, null) = ['Test'];
 	private var attr3(dynamic, never);
 
-	//pre-proc number
+	/**
+	 * IndexOf function
+	 *
+	 * @param arr an array
+	 * @param v the value to search
+	 * @return the index
+	 * @since 4.0.0-alpha.2
+	 * @see haxe.org
+	 * @deprecated
+	 */
 	public static inline function indexOf<T>(arr:Array<T>, v:T) : Int
 	{
 		#if (haxe_ver >= 3.1)

@@ -89,7 +89,10 @@
           "endCaptures": {
             "0": {"name": "punctuation.definition.comment.hx"}
           },
-          "name": "comment.block.documentation.hx"
+          "name": "comment.block.documentation.hx",
+          "patterns": [
+            {"include": "#javadoc-tags"}
+          ]
         },
         {
           "begin": "\/\\*",
@@ -100,7 +103,10 @@
           "endCaptures": {
             "0": {"name": "punctuation.definition.comment.hx"}
           },
-          "name": "comment.block.hx"
+          "name": "comment.block.hx",
+          "patterns": [
+            {"include": "#javadoc-tags"}
+          ]
         },
         {
           "match": "(\/\/).*$\\n?",
@@ -108,6 +114,30 @@
             "1": {"name": "punctuation.definition.comment.hx"}
           },
           "name": "comment.line.double-slash.hx"
+        }
+      ]
+    },
+    "javadoc-tags": {
+      "patterns": [
+        {
+          "match": "(@param)\\s+([_A-Za-z]\\w*)\\s+",
+          "captures": {
+            "1": {"name": "storage.type.class.javadoc"},
+            "2": {"name": "variable.other.javadoc"}
+          }
+        },
+        {
+          "match": "(@since)\\s+([\\w\\.-]+)\\s+",
+          "captures": {
+            "1": {"name": "storage.type.class.javadoc"},
+            "2": {"name": "constant.numeric.javadoc"}
+          }
+        },
+        {
+          "match": "@(param|exception|throws|deprecated|returns?|since|default|see)",
+          "captures": {
+            "0": {"name": "storage.type.class.javadoc"}
+          }
         }
       ]
     },
