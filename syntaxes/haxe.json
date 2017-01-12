@@ -436,7 +436,7 @@
     },
     "operator-optional": {
       "match": "(\\?)(?!\\s)",
-      "name": "punctuation.definition.variable.hx"
+      "name": "keyword.operator.optional.hx"
     },
     "operators": {
       "patterns": [

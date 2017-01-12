@@ -191,7 +191,7 @@ class Foo {
 	 * @see haxe.org
 	 * @deprecated
 	 */
-	public static inline function indexOf<T>(arr:Array<T>, v:T) : Int
+	public static inline function indexOf<T>(?arr:Array<T>, v:T) : Int
 	{
 		#if (haxe_ver >= 3.1)
 		#line 0 return arr.indexOf(v);
