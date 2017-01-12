@@ -505,20 +505,121 @@
       "name": "punctuation.terminator.hx"
     },
     "regex": {
-      "begin": "~\/",
-      "beginCaptures": {
-        "1": {"name": "string.regexp.begin.hx"}
-      },
-      "end": "(\/[gimsu]*)|(\\n$)",
-      "endCaptures": {
-        "1": {"name": "string.regexp.end.hx"},
-        "2": {"name": "invalid.illegal.hx"}
-      },
-      "name": "string.regexp.hx",
       "patterns": [
         {
-          "match": "\\\\.",
-          "name": "constant.character.escape.hx"
+          "begin": "(~\/)",
+          "end": "(/)([gimsu]*)",
+          "name": "string.regex.hx",
+          "endCaptures": {
+            "1": {"name": "punctuation.definition.string.end.hx"},
+            "2": {"name": "keyword.other.hx"}
+          },
+          "beginCaptures": {
+            "1": {"name": "punctuation.definition.string.begin.hx"}
+          },
+          "patterns": [
+            {"include": "#regexp"}
+          ]
+        }
+      ]
+    },
+    "regexp": {
+      "patterns": [
+        {
+          "name": "keyword.control.anchor.regexp",
+          "match": "\\\\[bB]|\\^|\\$"
+        },
+        {
+          "name": "keyword.other.back-reference.regexp",
+          "match": "\\\\[1-9]\\d*"
+        },
+        {
+          "name": "keyword.operator.quantifier.regexp",
+          "match": "[?+*]|\\{(\\d+,\\d+|\\d+,|,\\d+|\\d+)\\}\\??"
+        },
+        {
+          "name": "keyword.operator.or.regexp",
+          "match": "\\|"
+        },
+        {
+          "begin": "(\\()((\\?=)|(\\?!))",
+          "end": "(\\))",
+          "name": "meta.group.assertion.regexp",
+          "endCaptures": {
+            "1": {"name": "punctuation.definition.group.regexp"}
+          },
+          "beginCaptures": {
+            "1": {"name": "punctuation.definition.group.regexp"},
+            "3": {"name": "meta.assertion.look-ahead.regexp"},
+            "2": {"name": "punctuation.definition.group.assertion.regexp"},
+            "4": {"name": "meta.assertion.negative-look-ahead.regexp"}
+          },
+          "patterns": [
+            {"include": "#regexp"}
+          ]
+        },
+        {
+          "begin": "\\((\\?:)?",
+          "end": "\\)",
+          "name": "meta.group.regexp",
+          "endCaptures": {
+            "0": {"name": "punctuation.definition.group.regexp"}
+          },
+          "beginCaptures": {
+            "1": {"name": "punctuation.definition.group.capture.regexp"},
+            "0": {"name": "punctuation.definition.group.regexp"}
+          },
+          "patterns": [
+            {"include": "#regexp"}
+          ]
+        },
+        {
+          "begin": "(\\[)(\\^)?",
+          "end": "(\\])",
+          "name": "constant.other.character-class.set.regexp", 
+          "endCaptures": {
+            "1": {"name": "punctuation.definition.character-class.regexp"}
+          },
+          "beginCaptures": {
+            "1": {"name": "punctuation.definition.character-class.regexp"},
+            "2": {"name": "keyword.operator.negation.regexp"}
+          },
+          "patterns": [
+            {
+              "captures": {
+                "1": {"name": "constant.character.numeric.regexp"},
+                "3": {"name": "constant.character.escape.backslash.regexp"},
+                "2": {"name": "constant.character.control.regexp"},
+                "5": {"name": "constant.character.control.regexp"},
+                "4": {"name": "constant.character.numeric.regexp"},
+                "6": {"name": "constant.character.escape.backslash.regexp"}
+              },
+              "name": "constant.other.character-class.range.regexp",
+              "match": "(?:.|(\\\\(?:[0-7]{3}|x\\h\\h|u\\h\\h\\h\\h))|(\\\\c[A-Z])|(\\\\.))\\-(?:[^\\]\\\\]|(\\\\(?:[0-7]{3}|x\\h\\h|u\\h\\h\\h\\h))|(\\\\c[A-Z])|(\\\\.))"
+            },
+            {"include": "#regex-character-class"}
+          ]
+        },
+        {"include": "#regex-character-class"}
+      ]
+    },
+    "regex-character-class": {
+      "patterns": [
+        {
+          "name": "constant.other.character-class.regexp",
+          "match": "\\\\[wWsSdDtrnvf]|\\."
+        },
+        {
+          "name": "constant.character.numeric.regexp",
+          "match": "\\\\([0-7]{3}|x\\h\\h|u\\h\\h\\h\\h)"
+        },
+        {
+          "name": "constant.character.control.regexp",
+          "match": "\\\\c[A-Z]"
+        },
+        {
+          "name": "constant.character.escape.backslash.regexp",
+          "match": "\\\\."
         }
       ]
     },
