@@ -385,7 +385,7 @@
       "beginCaptures": {
         "1": {"name": "storage.type.function.hx"}
       },
-      "end": "(\\()|([_A-Za-z]\\w*)",
+      "end": "(\\b)|([_A-Za-z]\\w*)",
       "endCaptures": {
         "2": {"name": "entity.name.function.hx"}
       }
