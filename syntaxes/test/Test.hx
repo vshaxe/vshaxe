@@ -7,6 +7,8 @@ package net.onthewings;
 
 import net.onthewings.Test;
 import net.onthewings.*;
+import net.onthewings.Test.*;
+import net.onthewings.Test.field;
 
 import haxe.Int64 as I64;
 import haxe.Int64 in I64;

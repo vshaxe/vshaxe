@@ -175,9 +175,10 @@
         {
           "captures": {
             "1": {"name": "support.package.hx"},
-            "3": {"name": "support.class.hx"}
+            "4": {"name": "support.class.hx"},
+            "5": {"name": "support.package.hx"}
           },
-          "match": "((\\b[a-z]\\w*\\.)*)((\\b[A-Z]\\w*\\.?|\\*)+)(\\b[_a-z]\\w*|\\*)?"
+          "match": "((\\b[a-z]\\w*\\.)*)((\\b[A-Z]\\w*\\.?)|(\\*))+(\\b[_a-z]\\w*|\\*)?"
         },
         {"include": "#keywords-import"}
       ]
