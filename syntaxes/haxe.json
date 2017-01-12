@@ -478,7 +478,25 @@
           },
           "patterns": [
             {
-              "match": "\\$\\$",
+              "begin": "\\$(?=\\$)",
+              "beginCaptures": {
+                "0": {"name": "constant.character.escape.hx"}
+              },
+              "end": "\\$",
+              "endCaptures": {
+                "0": {"name": "constant.character.escape.hx"}
+              },
+              "name": "string.quoted.single.hx"
+            },
+            {
+              "begin": "\\\\(?=.)",
+              "beginCaptures": {
+                "0": {"name": "constant.character.escape.hx"}
+              },
+              "end": ".",
+              "endCaptures": {
+                "0": {"name": "constant.character.escape.hx"}
+              },
               "name": "string.quoted.single.hx"
             },
             {

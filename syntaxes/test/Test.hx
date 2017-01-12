@@ -70,9 +70,16 @@ class Foo {
 		"hello \"world\" !"; // String
 		'hello "world" !'; // String
 
-		'$$\n'
-		'$$variable $variable'
-		'random ${"number" + '${macro 5}' + (Math.random() * 5) /* */ }'
+		'$$variable $variable\''; /* */
+		'random ${"number" + '${macro 5}' + (Math.random() * 5) /* */ }';
+
+		"Multi
+		line
+		string"
+
+		'Multi
+		line
+		string'
 
 		true; // Bool
 		false; // Bool
