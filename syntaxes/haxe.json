@@ -223,6 +223,10 @@
           "name": "keyword.other.trace.hx"
         },
         {
+          "match": "\\$type\\b",
+          "name": "keyword.other.type.hx"
+        },
+        {
           "match": "\\b(this|super)\\b",
           "name": "variable.language.hx"
         },
