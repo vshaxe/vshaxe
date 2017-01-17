@@ -17,7 +17,6 @@
         {"include": "#type-enum"},
         {"include": "#type-interface"},
         {"include": "#type-typedef"},
-        {"include": "#meta-static"},
         {"include": "#method"},
         {"include": "#variable"},
         {"include": "#block"},
@@ -340,20 +339,6 @@
           },
           "match": "((@)(:?[a-zA-Z_]*))"
         }
-      ]
-    },
-    "meta-static": {
-      "begin": "static",
-      "beginCaptures": {
-        "0": {"name": "storage.modifier.hx"}
-      },
-      "end": "(?<=[\\};])",
-      "name": "meta.static.hx",
-      "patterns": [
-        {"include": "#modifiers"},
-        {"include": "#method"},
-        {"include": "#variable"},
-        {"include": "#punctuation-terminator"}
       ]
     },
     "method": {
@@ -736,7 +721,6 @@
       },
       "name": "meta.block.hx",
       "patterns": [
-        {"include": "#meta-static"},
         {"include": "#method"},
         {"include": "#modifiers"},
         {"include": "#variable"},
@@ -790,7 +774,6 @@
       },
       "name": "meta.block.hx",
       "patterns": [
-        {"include": "#meta-static"},
         {"include": "#method"},
         {"include": "#modifiers"},
         {"include": "#variable"},

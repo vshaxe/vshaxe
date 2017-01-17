@@ -1,3 +1,9 @@
+### 1.1.1 (January 17, 2017)
+
+**Bugfixes**:
+
+- fixed a highlighting-related crash when typing `static` before a field
+
 ### 1.1.0 (January 12, 2017)
 
 **New Features**:
