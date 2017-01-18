@@ -310,9 +310,9 @@
         {
           "captures": {
             "1": {"name": "punctuation.definition.reification.hx"},
-            "2": {"name": "support.reification.hx"}
+            "2": {"name": "keyword.reification.hx"}
           },
-          "match": "(\\$)([iea])\\("
+          "match": "(\\$)([eabipv])\\{"
         },
         {
           "captures": {
