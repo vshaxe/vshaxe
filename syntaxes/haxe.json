@@ -342,7 +342,7 @@
       ]
     },
     "method": {
-      "begin": "(?=function)",
+      "begin": "(?=\\bfunction\\b)",
       "end": "(?<=[\\};])",
       "name": "meta.method.hx",
       "patterns": [
@@ -972,7 +972,7 @@
       ]
     },
     "variable": {
-      "begin": "(?=var)",
+      "begin": "(?=\\bvar\\b)",
       "end": "(;)",
       "endCaptures": {
         "1": {"name": "punctuation.terminator.hx"}

@@ -113,6 +113,9 @@ class Foo {
 			5;
 		};
 
+		varName;
+		functionName;
+
 		var f = function(foo) {}
 
 		for(i in 0...20) {}
