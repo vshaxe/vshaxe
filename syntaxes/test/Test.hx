@@ -158,7 +158,7 @@ class Foo {
 		var e = macro "Hello".toLowerCase($a{args});
 		(macro $i{tmp}.addAtom($v{name}, $atom)).finalize(op.pos);
 
-		var c = macro class MyClass {
+		var c = macro class MyClass extends Foo {
 		    public function new() { }
 		    public function $funcName() {
 		        trace($v{funcName} + " was called");

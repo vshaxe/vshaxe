@@ -17,10 +17,33 @@
         {"include": "#type-enum"},
         {"include": "#type-interface"},
         {"include": "#type-typedef"},
-        {"include": "#method"},
-        {"include": "#variable"},
         {"include": "#block"},
         {"include": "#block-contents"}
+      ]
+    },
+     "block-contents": {
+      "patterns": [
+        {"include": "#regex"},
+        {"include": "#array"},
+        {"include": "#constants"},
+        {"include": "#comments"},
+        {"include": "#strings"},
+        {"include": "#metadata"},
+        {"include": "#method"},
+        {"include": "#variable"},
+        {"include": "#modifiers"},
+        {"include": "#for-loop"},
+        {"include": "#keywords"},
+        {"include": "#method-call"},
+        {"include": "#keywords-reification"},
+        {"include": "#conditional-compilation"},
+        {"include": "#operator-assignment"},
+        {"include": "#operators"},
+        {"include": "#punctuation-separator"},
+        {"include": "#punctuation-terminator"},
+        {"include": "#punctuation-brackets"},
+        {"include": "#support-class-name"},
+        {"include": "#identifier"}
       ]
     },
     "array": {
@@ -50,31 +73,6 @@
       "patterns": [
         {"include": "#block"},
         {"include": "#block-contents"}
-      ]
-    },
-    "block-contents": {
-      "patterns": [
-        {"include": "#regex"},
-        {"include": "#array"},
-        {"include": "#constants"},
-        {"include": "#comments"},
-        {"include": "#strings"},
-        {"include": "#metadata"},
-        {"include": "#method"},
-        {"include": "#variable"},
-        {"include": "#modifiers"},
-        {"include": "#for-loop"},
-        {"include": "#keywords"},
-        {"include": "#method-call"},
-        {"include": "#keywords-reification"},
-        {"include": "#conditional-compilation"},
-        {"include": "#operator-assignment"},
-        {"include": "#operators"},
-        {"include": "#punctuation-separator"},
-        {"include": "#punctuation-terminator"},
-        {"include": "#punctuation-brackets"},
-        {"include": "#support-class-name"},
-        {"include": "#identifier"}
       ]
     },
     "comments": {
@@ -267,7 +265,9 @@
         {
           "match": "\\b(abstract|class|enum|interface|typedef)\\b",
           "name": "storage.type.hx"
-        }
+        },
+        {"include":"#modifiers"},
+        {"include":"#modifiers-inheritance"}
       ]
     },
     "keywords-abstract": {
