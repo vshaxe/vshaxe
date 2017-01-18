@@ -53,6 +53,10 @@ typedef Pt2 = {
 	add : Point -> Void,
 }
 
+// Constant type params
+typedef WinHandle = hl.Abstract<"ui_window">;
+typedef WinHandle = hl.Abstract<@:const 5>;
+
 typedef DS = Dynamic<String> // no semicolon
 
 class Foo {

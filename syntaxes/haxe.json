@@ -937,6 +937,7 @@
         "1": {"name": "punctuation.definition.block.begin.hx"}
       },
       "patterns": [
+        {"include": "#type-parameters"},
         {"include": "#punctuation-brackets"},
         {"include": "#punctuation-separator"},
         {"include": "#operator-assignment"},
