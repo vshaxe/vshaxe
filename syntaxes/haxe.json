@@ -309,15 +309,15 @@
       "patterns": [
         {
           "captures": {
-            "1": {"name": "punctuation.definition.variable.hx"},
+            "1": {"name": "punctuation.definition.reification.hx"},
             "2": {"name": "support.reification.hx"}
           },
           "match": "(\\$)([iea])\\("
         },
         {
           "captures": {
-            "2": {"name": "punctuation.definition.variable.hx"},
-            "3": {"name": "support.reification.hx"}
+            "2": {"name": "punctuation.definition.reification.hx"},
+            "3": {"name": "variable.reification.hx"}
           },
           "match": "((\\$)([a-zA-Z.]*))"
         }
