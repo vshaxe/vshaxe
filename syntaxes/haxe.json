@@ -11,7 +11,7 @@
       "patterns": [
         {"include": "#package"},
         {"include": "#import"},
-        {"include": "#import-using"},
+        {"include": "#using"},
         {"include": "#type-abstract"},
         {"include": "#type-class"},
         {"include": "#type-enum"},
@@ -160,55 +160,36 @@
       "match": "([_A-Za-z]\\w*)\\b(?=\\s*[\\(])",
       "name": "entity.name.function.hx"
     },
+    "package": {
+      "match": "\\b(package)(\\s+([\\w.*]*))?\\s*(;)?",
+      "name": "meta.package.hx",
+      "captures": {
+        "1": {"name": "storage.type.package.hx"},
+        "2": {"name": "support.package.hx"},
+        "4": {"name": "punctuation.terminator.hx"}
+      }
+    },
     "import": {
-      "begin": "\\b(import)\\b",
-      "beginCaptures": {
-        "1": {"name": "storage.type.import.hx"}
-      },
-      "end": ";",
-      "endCaptures": {
-        "0": {"name": "punctuation.terminator.hx"}
-      },
-      "name": "meta.import.hx",
-      "patterns": [
-        {
-          "captures": {
-            "1": {"name": "support.package.hx"},
-            "4": {"name": "support.class.hx"},
-            "5": {"name": "support.package.hx"}
-          },
-          "match": "((\\b[a-z]\\w*\\.)*)((\\b[A-Z]\\w*\\.?)|(\\*))+(\\b[_a-z]\\w*|\\*)?"
-        },
-        {"include": "#keywords-import"}
-      ]
+      "match": "(import)\\s+(?:((\\b[a-z]\\w*\\.?)*)((\\b[A-Z]\\w*\\.?)|(\\*))?(\\b[_a-z]\\w*|\\*)?(?:\\s+(as|in)\\s+(\\b[A-Z]\\w*)?)?)?\\s*(;)?",
+      "captures": {
+        "1": {"name": "storage.type.import.hx"},
+        "2": {"name": "support.package.hx"},
+        "5": {"name": "support.class.hx"},
+        "6": {"name": "support.package.hx"},
+        "7": {"name": "support.package.hx"},
+        "8": {"name": "keyword.other.hx"},
+        "9": {"name": "support.class.hx"},
+        "10": {"name": "punctuation.terminator.hx"}
+      }
     },
-    "keywords-import": {
-      "patterns": [
-        {
-          "match": "\\b(in|as)\\b",
-          "name": "keyword.other.hx"
-        }
-      ]
-    },
-    "import-using": {
-      "begin": "\\b(using)\\b",
-      "beginCaptures": {
-        "1": {"name": "storage.type.using.hx"}
-      },
-      "end": ";",
-      "endCaptures": {
-        "0": {"name": "punctuation.terminator.hx"}
-      },
-      "name": "meta.using.hx",
-      "patterns": [
-        {
-          "captures": {
-            "1": {"name": "support.package.hx"},
-            "3": {"name": "support.class.hx"}
-          },
-          "match": "(([a-z]\\w*\\.)*)(([A-Z]\\w*\\.?)+)"
-        }
-      ]
+    "using": {
+      "match": "(using)\\s+((?:[a-z]\\w*\\.?)*)((?:[A-Z]\\w*\\.?)+)?(;)?",
+      "captures": {
+        "1": {"name": "storage.type.using.hx"},
+        "2": {"name": "support.package.hx"},
+        "3": {"name": "support.class.hx"},
+        "4": {"name": "punctuation.terminator.hx"}
+      }
     },
     "conditional-compilation": {
       "patterns": [
@@ -447,15 +428,6 @@
           "name": "keyword.operator.arithmetic.hx"
         }
       ]
-    },
-    "package": {
-      "captures": {
-        "1": {"name": "storage.type.package.hx"},
-        "2": {"name": "support.package.hx"},
-        "4": {"name": "punctuation.terminator.hx"}
-      },
-      "match": "\\b(package)(\\s+([\\w.*]*))?\\s*(;)",
-      "name": "meta.package.hx"
     },
     "parameters": {
       "begin": "\\(",
