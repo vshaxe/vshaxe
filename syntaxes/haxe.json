@@ -278,14 +278,6 @@
         }
       ]
     },
-    "keywords-accessor": {
-      "patterns": [
-        {
-          "match": "\\b(default|get|set|dynamic|never|null)\\b",
-          "name": "storage.type.property.hx"
-        }
-      ]
-    },
     "keywords-reification": {
       "patterns": [
         {
@@ -969,7 +961,24 @@
       "patterns": [
         {"include": "#operator-optional"},
         {"include": "#keywords-accessor"},
+        {"include": "#accessor-method"},
         {"include": "#punctuation-separator"}
+      ]
+    },
+    "keywords-accessor": {
+      "patterns": [
+        {
+          "match": "\\b(default|get|set|dynamic|never|null)\\b",
+          "name": "storage.type.property.hx"
+        }
+      ]
+    },
+    "accessor-method": {
+      "patterns": [
+        {
+          "match": "\\b(get|set)_[_A-Za-z]\\w*\\b",
+          "name": "entity.name.function.hx"
+        }
       ]
     },
     "variable-assign": {
