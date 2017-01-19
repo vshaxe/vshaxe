@@ -150,14 +150,6 @@
         }
       ]
     },
-    "entity-name-class": {
-      "match": "\\b([_A-Za-z]\\w*)\\b",
-      "name": "entity.name.type.class.hx"
-    },
-    "entity-name-function": {
-      "match": "([_A-Za-z]\\w*)\\b(?=\\s*[\\(])",
-      "name": "entity.name.function.hx"
-    },
     "package": {
       "match": "\\b(package)(\\s+([\\w.*]*))?\\s*(;)?",
       "name": "meta.package.hx",
