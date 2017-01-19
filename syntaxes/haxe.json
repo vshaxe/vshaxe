@@ -311,6 +311,7 @@
       "end": "(?<=[\\};])",
       "name": "meta.method.hx",
       "patterns": [
+        {"include": "#keywords-reification"},
         {"include": "#method-name"},
         {"include": "#method-name-post"},
         {"include": "#method-block"}
