@@ -650,7 +650,7 @@
     },
     "constant-name": {
       "name": "variable.other.hx",
-      "match": "\\b([_A-Z][_A-Z0-9]*)\\b"
+      "match": "\\b([_A-Z][_A-Z0-9]+)\\b"
     },
     "support-class-name": {
       "captures": {
