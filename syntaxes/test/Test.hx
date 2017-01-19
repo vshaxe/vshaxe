@@ -217,6 +217,10 @@ class Foo {
 		#end
 	}
 
+	function g() {
+		f(function() return b < c);
+	}
+
 	// single-line conditionals
 	function foo() {
 		#if (haxe_ver >= 3.1) return true #elseif false return false #else throw "error" #end ;

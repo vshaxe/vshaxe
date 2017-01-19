@@ -313,6 +313,7 @@
       "patterns": [
         {"include": "#keywords-reification"},
         {"include": "#method-name"},
+        {"include": "#type-parameters"},
         {"include": "#method-name-post"},
         {"include": "#method-block"}
       ]
@@ -347,7 +348,6 @@
         "2": {"name": "punctuation.terminator.hx"}
       },
       "patterns": [
-        {"include": "#type-parameters"},
         {"include": "#parameters"},
         {"include": "#block"},
         {"include": "#block-contents"}
