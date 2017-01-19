@@ -332,12 +332,9 @@
       ]
     },
     "method-name": {
-      "begin": "\\b(function)\\b",
-      "beginCaptures": {
-        "1": {"name": "storage.type.function.hx"}
-      },
-      "end": "(\\b)|([_A-Za-z]\\w*)",
-      "endCaptures": {
+      "match": "\\b(function)\\b\\s*([_A-Za-z]\\w*)?",
+      "captures": {
+        "1": {"name": "storage.type.function.hx"},
         "2": {"name": "entity.name.function.hx"}
       }
     },
@@ -349,6 +346,7 @@
         "2": {"name": "punctuation.terminator.hx"}
       },
       "patterns": [
+        {"include": "#type-parameters"},
         {"include": "#parameters"},
         {"include": "#block"},
         {"include": "#block-contents"}
