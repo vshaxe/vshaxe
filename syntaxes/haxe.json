@@ -187,24 +187,24 @@
         {
           "match": "((#(if|elseif))\\s+!?\\s*([a-zA-Z0-9_]*)\\s)",
           "captures": {
-            "0": {"name": "meta.preprocessor.hx"}
+            "0": {"name": "punctuation.definition.tag"}
           }
         },
         {
           "begin": "((#(if|elseif))\\s*?\\()",
           "beginCaptures": {
-            "0": {"name": "meta.preprocessor.hx"}
+            "0": {"name": "punctuation.definition.tag"}
           },
           "end": "(\\))",
-          "name": "meta.preprocessor.hx"
+          "name": "punctuation.definition.tag"
         },
         {
           "match": "(#(end|else|error|line))",
-          "name": "meta.preprocessor.hx"
+          "name": "punctuation.definition.tag"
         },
         {
           "match": "(#([a-zA-Z0-9_]*))\\s",
-          "name": "meta.preprocessor.hx"
+          "name": "punctuation.definition.tag"
         }
       ]
     },
