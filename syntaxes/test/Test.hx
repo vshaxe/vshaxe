@@ -119,6 +119,9 @@ class Foo {
 
 		varName;
 		functionName;
+		UPPER_CASE;
+		Math.PI;
+		Math.POSITIVE_INFINITY;
 
 		var f = function(foo) {}
 

@@ -42,6 +42,7 @@
         {"include": "#punctuation-separator"},
         {"include": "#punctuation-terminator"},
         {"include": "#punctuation-brackets"},
+        {"include": "#constant-name"},
         {"include": "#support-class-name"},
         {"include": "#identifier"}
       ]
@@ -313,7 +314,6 @@
       "patterns": [
         {"include": "#keywords-reification"},
         {"include": "#method-name"},
-        {"include": "#type-parameters"},
         {"include": "#method-name-post"},
         {"include": "#method-block"}
       ]
@@ -648,12 +648,16 @@
         }
       ]
     },
+    "constant-name": {
+      "name": "variable.other.hx",
+      "match": "\\b([_A-Z][_A-Z0-9]*)\\b"
+    },
     "support-class-name": {
       "captures": {
-        "1": { "name": "support.package.hx" },
-        "3": { "name": "support.class.hx" }
+        "1": {"name": "support.package.hx"},
+        "3": {"name": "support.class.hx"}
       },
-      "match": "\\b(([a-z][a-zA-Z0-9]*\\.)*)(([A-Z]\\w*\\.?)+)\\b"
+      "match": "\\b(([a-z][a-zA-Z0-9]*\\.)*)([A-Z]\\w*)\\b"
     },
     "type-abstract": {
       "begin": "(?=abstract)",
