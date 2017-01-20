@@ -101,7 +101,7 @@ class InitProject {
             // update settings
             var settingsPath = vscodeDir + "/settings.json";
             var content = File.getContent(settingsPath);
-            content = content.replace('"build.hxml"', '"$hxmlPath"');
+            content = content.replace('["build.hxml"],', '["$hxmlPath"]' + ((hxmls.length > 1) ? ',':''));
             if (hxmls.length > 1) {
                 // also add other found hxmls, since we can switch between them
                 hxmls.remove(s);
