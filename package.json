@@ -178,17 +178,17 @@
             {
                 "language": "haxe",
                 "scopeName": "source.hx",
-                "path": "./syntaxes/haxe.json"
+                "path": "./syntaxes/haxe.tmLanguage"
             },
             {
                 "language": "hxml",
                 "scopeName": "source.hxml",
-                "path": "./syntaxes/hxml.json"
+                "path": "./syntaxes/hxml.tmLanguage"
             },
             {
                 "language": "Haxe AST dump",
                 "scopeName": "source.hx",
-                "path": "./syntaxes/haxe.json"
+                "path": "./syntaxes/haxe.tmLanguage"
             }
         ],
         "debuggers": [
