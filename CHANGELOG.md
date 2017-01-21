@@ -26,6 +26,7 @@
 - untyped functions like `__js__` are now highlighted as keywords ([#25](https://github.com/vshaxe/vshaxe/issues/25))
 - `...` in `IntIterator` literals is now highlighted as an operator
 - `:` in type hints is now highlighted as an operator
+- `?` in ternaries is now highlighted as an operator
 
 ### 1.1.1 (January 17, 2017)
 

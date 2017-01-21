@@ -707,6 +707,14 @@ repository:
       name: keyword.operator.intiterator.hx
     - match: ':'
       name: keyword.operator.type-annotation.hx
+    - begin: '\?'
+      beginCaptures:
+        '0': {name: keyword.operator.ternary.hx}
+      end: ':'
+      endCaptures:
+        '0': {name: keyword.operator.ternary.hx}
+      patterns:
+      - include: '#block-contents'
   punctuation-separator:
     match: '[,:.?]'
     name: punctuation.separator.hx
