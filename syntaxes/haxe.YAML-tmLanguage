@@ -450,7 +450,7 @@ repository:
     patterns:
     - begin: (@)(:(abi|abstract|access|allow|analyzer|annotation|arrayAccess|astSource|autoBuild|bind|bitmap|bridgeProperties|build|buildXml|callable|classCode|commutative|compilerGenerated|const|coreApi|coreType|cppFileCode|cppInclude|cppNamespaceCode|dce|debug|decl|delegate|depend|deprecated|eager|enum|event|expose|extern|fakeEnum|file|fileXml|final|fixed|font|forward|forwardStatics|from|functionCode|functionTailCode|generic|genericBuild|getter|hack|headerClassCode|headerCode|headerInclude|headerNamespaceCode|hxGen|ifFeature|include|internal|isVar|javaCanonical|jsRequire|keep|keepInit|keepSub|luaRequire|macro|mergeBlock|meta|multiType|native|nativeChildren|nativeGen|nativeProperty|nativeStaticExtension|noCompletion|noDebug|noDoc|noImportGlobal|noPrivateAccess|noStack|noUsing|nonVirtual|notNull|ns|objc|objcProtocol|op|optional|overload|phpConstants|phpGlobal|privateAccess|property|protected|publicFields|pure|pythonImport|readOnly|remove|require|resolve|rtti|runtime|runtimeValue|scalar|selfCall|setter|sound|sourceFile|stackOnly|strict|struct|structAccess|structInit|suppressWarnings|templatedCall|throws|to|transient|unifyMinDynamic|unreflective|unsafe|value|void|volatile)\b)\s*(\()
       beginCaptures:
-        '1': {name: punctuation.definition.variable.hx}
+        '1': {name: punctuation.metadata.hx}
         '2': {name: storage.modifier.metadata.hx}
         '3': {name: meta.brace.round.hx}
       end: \)
@@ -460,12 +460,12 @@ repository:
       - include: '#block-contents'
     - match: ((@)(:(abi|abstract|access|allow|analyzer|annotation|arrayAccess|astSource|autoBuild|bind|bitmap|bridgeProperties|build|buildXml|callable|classCode|commutative|compilerGenerated|const|coreApi|coreType|cppFileCode|cppInclude|cppNamespaceCode|dce|debug|decl|delegate|depend|deprecated|eager|enum|event|expose|extern|fakeEnum|file|fileXml|final|fixed|font|forward|forwardStatics|from|functionCode|functionTailCode|generic|genericBuild|getter|hack|headerClassCode|headerCode|headerInclude|headerNamespaceCode|hxGen|ifFeature|include|internal|isVar|javaCanonical|jsRequire|keep|keepInit|keepSub|luaRequire|macro|mergeBlock|meta|multiType|native|nativeChildren|nativeGen|nativeProperty|nativeStaticExtension|noCompletion|noDebug|noDoc|noImportGlobal|noPrivateAccess|noStack|noUsing|nonVirtual|notNull|ns|objc|objcProtocol|op|optional|overload|phpConstants|phpGlobal|privateAccess|property|protected|publicFields|pure|pythonImport|readOnly|remove|require|resolve|rtti|runtime|runtimeValue|scalar|selfCall|setter|sound|sourceFile|stackOnly|strict|struct|structAccess|structInit|suppressWarnings|templatedCall|throws|to|transient|unifyMinDynamic|unreflective|unsafe|value|void|volatile)\b))
       captures:
-        '2': {name: punctuation.definition.variable.hx}
+        '2': {name: punctuation.metadata.hx}
         '3': {name: storage.modifier.metadata.hx}
     - begin: (@)(:?[a-zA-Z_]*)\s*(\()
       beginCaptures:
-        '1': {name: punctuation.definition.variable.hx}
-        '2': {name: support.metadata.hx}
+        '1': {name: punctuation.metadata.hx}
+        '2': {name: variable.metadata.hx}
         '3': {name: meta.brace.round.hx}
       end: \)
       endCaptures:
@@ -474,8 +474,8 @@ repository:
       - include: '#block-contents'
     - match: (@)(:?[a-zA-Z_]*)
       captures:
-        '1': {name: punctuation.definition.variable.hx}
-        '2': {name: support.metadata.hx}
+        '1': {name: punctuation.metadata.hx}
+        '2': {name: variable.metadata.hx}
   method:
     begin: (?=\bfunction\b)
     end: (?<=[\};])

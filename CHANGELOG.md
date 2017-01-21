@@ -17,6 +17,7 @@
 **Changes and improvements**:
 
 - improved highlighting for macro reification
+- improved highlighting for metadata
 - accessor methods in property declarations are now highlighted (`get_property`, `set_property`)
 - `UPPER_CASE` identifiers are now highlighted as variables instead of class names
 - conditionals are now highlighted in a much more distinguishable gray-ish color
