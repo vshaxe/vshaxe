@@ -44,8 +44,8 @@ repository:
     - include: '#punctuation-braces'
     - include: '#macro-reification'
     - include: '#conditional-compilation'
-    - include: '#operator-assignment'
     - include: '#operators'
+    - include: '#operator-assignment'
     - include: '#punctuation-separator'
     - include: '#punctuation-terminator'
     - include: '#punctuation-brackets'
@@ -683,12 +683,14 @@ repository:
     name: keyword.operator.assignment.hx
   operators:
     patterns:
-    - match: (!|&&|\|\|)
+    - match: (&&|\|\|)
       name: keyword.operator.logical.hx
-    - match: (~|&|\||\^|<<|>>|>>>)
+    - match: (~|&|\||\^|>>>|<<|>>)
       name: keyword.operator.bitwise.hx
-    - match: (==|!=|<=|>=|<>|<|>)
+    - match: (==|!=|<=|>=|<|>)
       name: keyword.operator.comparison.hx
+    - match: (!)
+      name: keyword.operator.logical.hx
     - match: (\-\-|\+\+)
       name: keyword.operator.increment-decrement.hx
     - match: (\-|\+|\*|\/|%)

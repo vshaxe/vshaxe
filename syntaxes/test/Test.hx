@@ -141,6 +141,32 @@ class Foo {
 			continue;
 		} while (true)
 
+		=
+		==
+		!=
+		<=
+		>=
+		<
+		>
+		!
+		&&
+		||
+		~
+		&
+		|
+		^
+		<<
+		>>
+		>>>
+		--
+		++
+		...
+		+
+		-
+		*
+		/
+		%
+
 		//haxe3 pattern matching
 		switch(e.expr) {
 			case EConst(CString(s)) if (StringTools.startsWith(s, "foo")):
