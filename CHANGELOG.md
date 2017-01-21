@@ -18,6 +18,7 @@
 - `UPPER_CASE` identifiers are now highlighted as variables instead of class names
 - conditionals are now highlighted in a much more distinguishable gray-ish color
 - `--macro` and `-main` arguments are now highlighted as Haxe code in `.hxml` files
+- the `is` operator is now highlighted as a keyword ([#29](https://github.com/vshaxe/vshaxe/issues/29))
 
 ### 1.1.1 (January 17, 2017)
 

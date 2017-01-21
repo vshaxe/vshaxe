@@ -229,6 +229,35 @@ class Foo {
 	function foo() {
 		#if (haxe_ver >= 3.1) return true #elseif false return false #else throw "error" #end ;
 	}
+
+	function isOperator() {
+		// 'is' should be highlighted
+		(Math.random() * 5 is String);
+		trace(("" is String));
+		super(("" is String));
+		for (i in 0...("" is String)) {}
+		while (("" is String)) {}
+		switch ("" is String) { case _:}
+		new Test(("" is String));
+		@:native(("" is String))
+		@:custom(("" is String))
+
+		// 'is' should not be highlighted
+		Math.random() * 5 is String;
+		trace("" is String);
+		super("" is String);
+		while ("" is String) {}
+		switch "" is String { case _:}
+		for ("" is String) {}
+		new Test("" is String);
+		@:native("" is String)
+		@:custom("" is String)
+
+		var is:Int;
+
+		// Std.is() still needs to be a method name
+		(Std.is());
+	}
 }
 
 class Test <T:Void->Void> {

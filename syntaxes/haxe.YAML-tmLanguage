@@ -41,6 +41,7 @@ repository:
     - include: '#for-loop'
     - include: '#keywords'
     - include: '#method-call'
+    - include: '#punctuation-braces'
     - include: '#macro-reification'
     - include: '#conditional-compilation'
     - include: '#operator-assignment'
@@ -467,14 +468,34 @@ repository:
         name: string.quoted.single.hx
   metadata:
     patterns:
-    - captures:
+    - begin: (@)(:(abi|abstract|access|allow|analyzer|annotation|arrayAccess|astSource|autoBuild|bind|bitmap|bridgeProperties|build|buildXml|callable|classCode|commutative|compilerGenerated|const|coreApi|coreType|cppFileCode|cppInclude|cppNamespaceCode|dce|debug|decl|delegate|depend|deprecated|eager|enum|event|expose|extern|fakeEnum|file|fileXml|final|fixed|font|forward|forwardStatics|from|functionCode|functionTailCode|generic|genericBuild|getter|hack|headerClassCode|headerCode|headerInclude|headerNamespaceCode|hxGen|ifFeature|include|internal|isVar|javaCanonical|jsRequire|keep|keepInit|keepSub|luaRequire|macro|mergeBlock|meta|multiType|native|nativeChildren|nativeGen|nativeProperty|nativeStaticExtension|noCompletion|noDebug|noDoc|noImportGlobal|noPrivateAccess|noStack|noUsing|nonVirtual|notNull|ns|objc|objcProtocol|op|optional|overload|phpConstants|phpGlobal|privateAccess|property|protected|publicFields|pure|pythonImport|readOnly|remove|require|resolve|rtti|runtime|runtimeValue|scalar|selfCall|setter|sound|sourceFile|stackOnly|strict|struct|structAccess|structInit|suppressWarnings|templatedCall|throws|to|transient|unifyMinDynamic|unreflective|unsafe|value|void|volatile)\b)\s*(\()
+      beginCaptures:
+        '1': {name: punctuation.definition.variable.hx}
+        '2': {name: storage.modifier.metadata.hx}
+        '3': {name: meta.brace.round.hx}
+      end: \)
+      endCaptures:
+        '0': {name: meta.brace.round.hx}
+      patterns:
+      - include: '#block-contents'
+    - match: ((@)(:(abi|abstract|access|allow|analyzer|annotation|arrayAccess|astSource|autoBuild|bind|bitmap|bridgeProperties|build|buildXml|callable|classCode|commutative|compilerGenerated|const|coreApi|coreType|cppFileCode|cppInclude|cppNamespaceCode|dce|debug|decl|delegate|depend|deprecated|eager|enum|event|expose|extern|fakeEnum|file|fileXml|final|fixed|font|forward|forwardStatics|from|functionCode|functionTailCode|generic|genericBuild|getter|hack|headerClassCode|headerCode|headerInclude|headerNamespaceCode|hxGen|ifFeature|include|internal|isVar|javaCanonical|jsRequire|keep|keepInit|keepSub|luaRequire|macro|mergeBlock|meta|multiType|native|nativeChildren|nativeGen|nativeProperty|nativeStaticExtension|noCompletion|noDebug|noDoc|noImportGlobal|noPrivateAccess|noStack|noUsing|nonVirtual|notNull|ns|objc|objcProtocol|op|optional|overload|phpConstants|phpGlobal|privateAccess|property|protected|publicFields|pure|pythonImport|readOnly|remove|require|resolve|rtti|runtime|runtimeValue|scalar|selfCall|setter|sound|sourceFile|stackOnly|strict|struct|structAccess|structInit|suppressWarnings|templatedCall|throws|to|transient|unifyMinDynamic|unreflective|unsafe|value|void|volatile)\b))
+      captures:
         '2': {name: punctuation.definition.variable.hx}
         '3': {name: storage.modifier.metadata.hx}
-      match: ((@)(:(abi|abstract|access|allow|analyzer|annotation|arrayAccess|astSource|autoBuild|bind|bitmap|bridgeProperties|build|buildXml|callable|classCode|commutative|compilerGenerated|const|coreApi|coreType|cppFileCode|cppInclude|cppNamespaceCode|dce|debug|decl|delegate|depend|deprecated|eager|enum|event|expose|extern|fakeEnum|file|fileXml|final|fixed|font|forward|forwardStatics|from|functionCode|functionTailCode|generic|genericBuild|getter|hack|headerClassCode|headerCode|headerInclude|headerNamespaceCode|hxGen|ifFeature|include|internal|isVar|javaCanonical|jsRequire|keep|keepInit|keepSub|luaRequire|macro|mergeBlock|meta|multiType|native|nativeChildren|nativeGen|nativeProperty|nativeStaticExtension|noCompletion|noDebug|noDoc|noImportGlobal|noPrivateAccess|noStack|noUsing|nonVirtual|notNull|ns|objc|objcProtocol|op|optional|overload|phpConstants|phpGlobal|privateAccess|property|protected|publicFields|pure|pythonImport|readOnly|remove|require|resolve|rtti|runtime|runtimeValue|scalar|selfCall|setter|sound|sourceFile|stackOnly|strict|struct|structAccess|structInit|suppressWarnings|templatedCall|throws|to|transient|unifyMinDynamic|unreflective|unsafe|value|void|volatile)\b))
-    - captures:
-        '2': {name: punctuation.definition.variable.hx}
-        '3': {name: support.metadata.hx}
-      match: ((@)(:?[a-zA-Z_]*))
+    - begin: (@)(:?[a-zA-Z_]*)\s*(\()
+      beginCaptures:
+        '1': {name: punctuation.definition.variable.hx}
+        '2': {name: support.metadata.hx}
+        '3': {name: meta.brace.round.hx}
+      end: \)
+      endCaptures:
+        '0': {name: meta.brace.round.hx}
+      patterns:
+      - include: '#block-contents'
+    - match: (@)(:?[a-zA-Z_]*)
+      captures:
+        '1': {name: punctuation.definition.variable.hx}
+        '2': {name: support.metadata.hx}
   method:
     begin: (?=\bfunction\b)
     end: (?<=[\};])
@@ -592,6 +613,14 @@ repository:
     - include: '#block-contents'
   keywords:
     patterns:
+    - begin: (?<=trace|$type|catch|if|while|for|super|cast)\s*(\()
+      beginCaptures:
+        '2': {name: meta.brace.round.hx}
+      end: \)
+      endCaptures:
+        '0': {name: meta.brace.round.hx}
+      patterns:
+      - include: '#block-contents'
     - match: \b(try|catch|throw)\b
       name: keyword.control.catch-exception.hx
     - match: \b(if|else|return|do|while|for|break|continue|switch|case|default)\b
@@ -610,6 +639,18 @@ repository:
       name: storage.type.hx
     - include: '#modifiers'
     - include: '#modifiers-inheritance'
+  punctuation-braces:
+    begin: \(
+    beginCaptures:
+      '0': {name: meta.brace.round.hx}
+    end: \)
+    endCaptures:
+      '0': {name: meta.brace.round.hx}
+    patterns:
+    - include: '#method-call'
+    - match: \bis\b
+      name: keyword.other.hx
+    - include: '#block-contents'
   modifiers-inheritance:
     match: \b(implements|extends)\b
     name: storage.modifier.hx
@@ -681,10 +722,21 @@ repository:
     match: '\b([_A-Z][_A-Z0-9]+)\b'
     name: variable.other.hx
   support-class-name:
-    captures:
-      '1': {name: support.package.hx}
-      '3': {name: support.class.hx}
-    match: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b
+    patterns:
+    - begin: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b\s*(\()
+      beginCaptures:
+        '1': {name: support.package.hx}
+        '3': {name: support.class.hx}
+        '4': {name: meta.brace.round.hx}
+      end: \)
+      endCaptures:
+        '0': {name: meta.brace.round.hx}
+      patterns:
+      - include: '#block-contents'
+    - match: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b
+      captures:
+        '1': {name: support.package.hx}
+        '3': {name: support.class.hx}
   identifier:
     match: '\b([_A-Za-z]\w*)\b'
     name: variable.other.hx
