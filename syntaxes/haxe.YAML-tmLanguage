@@ -638,14 +638,17 @@ repository:
     # the correct scope is meta.preprocessor, but at least in the default theme,
     # the gray of punctuation.definition.tag looks _much_ better
     patterns:
-    - captures:
+    - match: ((#(if|elseif))\s+!?\s*([a-zA-Z0-9_]*)\s)
+      captures:
         '0': {name: punctuation.definition.tag}
-      match: ((#(if|elseif))\s+!?\s*([a-zA-Z0-9_]*)\s)
     - begin: ((#(if|elseif))\s*?\()
       beginCaptures:
         '0': {name: punctuation.definition.tag}
-      end: (\))
+      end: (\)|\n)
       name: punctuation.definition.tag
+      patterns:
+      - begin: \(
+        end: \)
     - match: (#(end|else|error|line))
       name: punctuation.definition.tag
     - match: '(#([a-zA-Z0-9_]*))\s'
