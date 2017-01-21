@@ -517,10 +517,11 @@ repository:
     - include: '#block'
     - include: '#block-contents'
   method-name:
-    match: \b(function)\b\s*([_A-Za-z]\w*)?
+    match: \b(function)\b\s*(?:(new)|([_A-Za-z]\w*))?
     captures:
       '1': {name: storage.type.function.hx}
-      '2': {name: entity.name.function.hx}
+      '2': {name: storage.type.hx}
+      '3': {name: entity.name.function.hx}
   method-name-post:
     begin: (?<=[\w\s])
     end: (\{)|(;)
