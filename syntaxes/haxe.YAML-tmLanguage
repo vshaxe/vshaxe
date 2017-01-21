@@ -604,6 +604,14 @@ repository:
       - include: '#block-contents'
     - match: \b(try|catch|throw)\b
       name: keyword.control.catch-exception.hx
+    - begin: \b(case|default)\b
+      beginCaptures:
+        '1': {name: keyword.control.flow-control.hx}
+      end: ':'
+      endCaptures:
+        '1': punctuation.definition.section.case-statement.hx
+      patterns:
+      - include: '#block-contents'
     - match: \b(if|else|return|do|while|for|break|continue|switch|case|default)\b
       name: keyword.control.flow-control.hx
     - match: \b(cast|untyped)\b
@@ -697,6 +705,8 @@ repository:
       name: keyword.operator.arithmetic.hx
     - match: \.\.\.
       name: keyword.operator.intiterator.hx
+    - match: ':'
+      name: keyword.operator.type-annotation.hx
   punctuation-separator:
     match: '[,:.?]'
     name: punctuation.separator.hx

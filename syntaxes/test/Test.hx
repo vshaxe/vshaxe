@@ -177,7 +177,7 @@ class Foo {
 				"3";
 			case EConst(_):
 				"4";
-			case _:
+			default:
 				"5";
 		}
 
