@@ -5,8 +5,6 @@
 This is an extension for [Visual Studio Code](https://code.visualstudio.com) that adds support for the [Haxe](http://haxe.org/) language,
 leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver).
 
-**Status**: Should be usable, however it's still very new.
-
 **IMPORTANT**: This requires Haxe version 3.4-rc1 or later (e.g. development) due to usage of [`-D display-stdin`](https://github.com/HaxeFoundation/haxe/pull/5120),
 [`--wait stdio`](https://github.com/HaxeFoundation/haxe/pull/5188) and ton of other fixes and additions related to IDE support.
 
@@ -21,14 +19,29 @@ leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver)
 ### Completion
 ![Field completion](images/field.png)
 
+### Documentation
+![Documentation](images/documentation.png)
+
+### Code Lens
+![Code Lens](images/codeLens.png)
+
 ### Peek definition
 ![Peek definition](images/peek.png)
 
 ### Document symbols
 ![Document symbols](images/symbols.png)
 
+### Workspace symbols
+![Workspace symbols](images/workspaceSymbols.png)
+
 ### Unused imports
 ![Unused imports](images/unusedimport.png)
+
+### Import suggestions
+![Import suggestions](images/importSuggestions.png)
+
+### Dead Code Detection
+![Dead Code Detection](images/deadCodeDetection.png)
 
 ## Commands
 
@@ -54,6 +67,12 @@ when developing.
 > `haxe.selectDisplayConfiguration`
 
 Choose the currently active display configuration (see [Configuration](#configuration) section below for more info).
+
+### Run Global Diagnostics Check
+
+> `haxe.runGlobalDiagnostics`
+
+Runs diagnostics (unused import / dead code detection) on all files in the workspace.
 
 ## Configuration
 
