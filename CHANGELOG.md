@@ -1,3 +1,24 @@
+### ?.?.? (to be released)
+
+**Bugfixes**:
+
+- fixed highlighting of variables with VSCode 1.9.0
+- fixed highlighting of identifiers starting with `var` / `function` ([#76](https://github.com/vshaxe/vshaxe/issues/76))
+- fixed unfinished `package`/`import`/`using` statements breaking subsequent highlighting
+- fixed modifiers not being highlighted everywhere (e.g. `extends` in class reification)
+- fixed highlighting of metadata and const values in typedef type parameters
+- fixed highlighting of method declarations with type parameters
+- fixed invalid `settings.json` being generated with only one `.hxml` file ([#47](https://github.com/vshaxe/vshaxe/issues/47))
+- fixed highlighting of conditionals with nested braces
+
+**Changes and improvements**:
+
+- improved highlighting for macro reification
+- accessor methods in property declarations are now highlighted (`get_property`, `set_property`)
+- `UPPER_CASE` identifiers are now highlighted as variables instead of class names
+- conditionals are now highlighted in a much more distinguishable gray-ish color
+- `--macro` and `-main` arguments are now highlighted as Haxe code in `.hxml` files
+
 ### 1.1.1 (January 17, 2017)
 
 **Bugfixes**:
