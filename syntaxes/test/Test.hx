@@ -189,6 +189,11 @@ class Foo {
 		try {
 			throw "error";
 		} catch (e:Dynamic) {}
+
+		// untyped functions
+		untyped __js__('alert("Haxe is great!")');
+		untyped __php__("echo '<pre>'; print_r($value); echo '</pre>';");
+		untyped __call__("array", 1,2,3);
 	}
 
 	//top-level class members
@@ -226,7 +231,7 @@ class Foo {
 	}
 
 	// single-line conditionals
-	function foo() {
+	function foo () {
 		#if (haxe_ver >= 3.1) return true #elseif false return false #else throw "error" #end ;
 	}
 
@@ -241,6 +246,7 @@ class Foo {
 		new Test(("" is String));
 		@:native(("" is String))
 		@:custom(("" is String))
+		untyped __call__(("" is String));
 
 		// 'is' should not be highlighted
 		Math.random() * 5 is String;
@@ -252,6 +258,7 @@ class Foo {
 		new Test("" is String);
 		@:native("" is String)
 		@:custom("" is String)
+		untyped __call__("" is String);
 
 		var is:Int;
 

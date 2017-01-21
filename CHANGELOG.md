@@ -20,6 +20,7 @@
 - conditionals are now highlighted in a much more distinguishable gray-ish color
 - `--macro` and `-main` arguments are now highlighted as Haxe code in `.hxml` files
 - the `is` operator is now highlighted as a keyword ([#29](https://github.com/vshaxe/vshaxe/issues/29))
+- untyped functions like `__js__` are now highlighted as keywords ([#25](https://github.com/vshaxe/vshaxe/issues/25))
 
 ### 1.1.1 (January 17, 2017)
 

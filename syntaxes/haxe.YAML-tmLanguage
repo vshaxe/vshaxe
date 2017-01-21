@@ -655,10 +655,13 @@ repository:
     match: \b(implements|extends)\b
     name: storage.modifier.hx
   method-call:
-    begin: (\b[_a-z]\w*)(\()
+    # for a starting point, run this on the haxe repo:
+    # egrep -oh -r --include=*.hx '__[a-z][A-Za-z_]+__\s*\(' | sort | uniq | cut -c 3- | rev | cut -c 4- | rev
+    begin: \b(?:(__(?:addressOf|as|call|checked|cpp|cs|define_feature|delete|feature|field|fixed|foreach|forin|global|has_next|hkeys|in|int|is|java|js|keys|lock|lua|lua_table|new|php|physeq|prefix|ptr|resources|rethrow|set|setfield|sizeof|type|typeof|unprotect|unsafe|valueOf|var|vector|vmem_get|vmem_set|vmem_sign|instanceof|strict_eq|strict_neq)__)|([_a-z]\w*))\s*(\()
     beginCaptures:
-      '1': {name: entity.name.function.hx}
-      '2': {name: meta.brace.round.hx}
+      '1': {name: keyword.other.untyped-function.hx}
+      '2': {name: entity.name.function.hx}
+      '3': {name: meta.brace.round.hx}
     end: (\))
     endCaptures:
       '1': {name: meta.brace.round.hx}
