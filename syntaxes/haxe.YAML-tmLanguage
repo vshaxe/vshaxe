@@ -105,13 +105,15 @@ repository:
     end: ([_A-Za-z]\w*)
     endCaptures:
       '1': {name: entity.name.type.class.hx}
-    name: storage.type.hx
+    patterns:
+    - include: '#comments'
   type-abstract-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
+    - include: '#comments'
     - include: '#parameters'
     - include: '#keywords-abstract'
     - include: '#punctuation-brackets'
@@ -150,12 +152,15 @@ repository:
     endCaptures:
       '1': {name: entity.name.type.class.hx}
     name: meta.class.identifier.hx
+    patterns:
+    - include: '#comments'
   type-class-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
+    - include: '#comments'
     - include: '#type-parameters'
     - include: '#modifiers-inheritance'
     - include: '#punctuation-brackets'
@@ -190,13 +195,15 @@ repository:
     end: ([_A-Za-z]\w*)
     endCaptures:
       '1': {name: entity.name.type.class.hx}
-    name: storage.type.hx
+    patterns:
+    - include: '#comments'
   type-enum-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
+    - include: '#comments'
     - include: '#type-parameters'
     - include: '#punctuation-brackets'
     - include: '#punctuation-separator'
@@ -228,13 +235,15 @@ repository:
     end: ([_A-Za-z]\w*)
     endCaptures:
       '1': {name: entity.name.type.class.hx}
-    name: storage.type.hx
+    patterns:
+    - include: '#comments'
   type-interface-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
+    - include: '#comments'
     - include: '#modifiers-inheritance'
     - include: '#punctuation-brackets'
     - include: '#punctuation-separator'
@@ -267,13 +276,15 @@ repository:
     end: ([_A-Za-z]\w*)
     endCaptures:
       '1': {name: entity.name.type.class.hx}
-    name: storage.type.hx
+    patterns:
+    - include: '#comments'
   type-typedef-name-post:
     begin: (?<=\w)
     end: (\{)|(?=;)
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
+    - include: '#comments'
     - include: '#type-parameters'
     - include: '#punctuation-brackets'
     - include: '#punctuation-separator'

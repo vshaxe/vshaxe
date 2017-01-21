@@ -31,6 +31,12 @@ using net.onthewings.Test;
     #error "Custom error message" // will display an error "Custom error message"
 #end
 
+class /**/ Main /**/ extends /**/ openfl.display.DisplayObject /**/ {} /**/
+abstract /**/ Abstract /**/ (/**/ String /**/) /**/ from /**/ String /**/ to /**/ /**/ String /**/ {}
+interface /**/ ITest /**/ extends /**/ IBase /**/ {} /**/
+typedef /**/ WinHandle /**/ = /**/ hl.Abstract /**/ <@:const 5 /**/>;
+enum /**/ Color /**/ </**/ T> /**/ {} /**/
+
 abstract Abstract(String) from String to String {
 	public static var fromStringMap(default, null):Map<String, FlxKey>
 		= FlxMacroUtil.buildMap("flixel.input.keyboard.FlxKey");
