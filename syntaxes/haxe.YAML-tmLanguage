@@ -53,20 +53,21 @@ repository:
     - include: '#support-class-name'
     - include: '#identifier'
   package:
+    match: \b(package)(\s+([\w.*]*))?\s*(;)?
     captures:
       '1': {name: storage.type.package.hx}
       '2': {name: support.package.hx}
       '4': {name: punctuation.terminator.hx}
-    match: \b(package)(\s+([\w.*]*))?\s*(;)?
     name: meta.package.hx
   using:
+    match: (using)\s+((?:[a-z]\w*\.?)*)((?:[A-Z]\w*\.?)+)?(;)?
     captures:
       '1': {name: storage.type.using.hx}
       '2': {name: support.package.hx}
       '3': {name: support.class.hx}
       '4': {name: punctuation.terminator.hx}
-    match: (using)\s+((?:[a-z]\w*\.?)*)((?:[A-Z]\w*\.?)+)?(;)?
   import:
+    match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b[A-Z]\w*)?)?)?\s*(;)?
     captures:
       '1': {name: storage.type.import.hx}
       '2': {name: support.package.hx}
@@ -76,7 +77,6 @@ repository:
       '8': {name: keyword.other.hx}
       '9': {name: support.class.hx}
       '10': {name: punctuation.terminator.hx}
-    match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b[A-Z]\w*)?)?)?\s*(;)?
   type-parameters:
     begin: (\<)
     beginCaptures:
@@ -350,14 +350,14 @@ repository:
         '1': {name: punctuation.definition.character-class.regexp}
       name: constant.other.character-class.set.regexp
       patterns:
-      - captures:
+      - match: (?:.|(\\(?:[0-7]{3}|x\h\h|u\h\h\h\h))|(\\c[A-Z])|(\\.))\-(?:[^\]\\]|(\\(?:[0-7]{3}|x\h\h|u\h\h\h\h))|(\\c[A-Z])|(\\.))
+        captures:
           '1': {name: constant.character.numeric.regexp}
           '2': {name: constant.character.control.regexp}
           '3': {name: constant.character.escape.backslash.regexp}
           '4': {name: constant.character.numeric.regexp}
           '5': {name: constant.character.control.regexp}
           '6': {name: constant.character.escape.backslash.regexp}
-        match: (?:.|(\\(?:[0-7]{3}|x\h\h|u\h\h\h\h))|(\\c[A-Z])|(\\.))\-(?:[^\]\\]|(\\(?:[0-7]{3}|x\h\h|u\h\h\h\h))|(\\c[A-Z])|(\\.))
         name: constant.other.character-class.range.regexp
       - include: '#regex-character-class'
     - include: '#regex-character-class'
@@ -398,23 +398,23 @@ repository:
       name: comment.block.hx
       patterns:
       - include: '#javadoc-tags'
-    - captures:
+    - match: (//).*$\n?
+      captures:
         '1': {name: punctuation.definition.comment.hx}
-      match: (//).*$\n?
       name: comment.line.double-slash.hx
   javadoc-tags:
     patterns:
-    - captures:
+    - match: (@param)\s+([_A-Za-z]\w*)\s+
+      captures:
         '1': {name: storage.type.class.javadoc}
         '2': {name: variable.other.javadoc}
-      match: (@param)\s+([_A-Za-z]\w*)\s+
-    - captures:
+    - match: (@since)\s+([\w\.-]+)\s+
+      captures:
         '1': {name: storage.type.class.javadoc}
         '2': {name: constant.numeric.javadoc}
-      match: (@since)\s+([\w\.-]+)\s+
-    - captures:
+    - match: '@(param|exception|throws|deprecated|returns?|since|default|see)'
+      captures:
         '0': {name: storage.type.class.javadoc}
-      match: '@(param|exception|throws|deprecated|returns?|since|default|see)'
   strings:
     patterns:
     - begin: '"'
@@ -458,10 +458,10 @@ repository:
         patterns:
         - include: '#block-contents'
       # String interpolation : "$test"'
-      - captures:
+      - match: (\$)(\w+)
+        captures:
           '1': {name: punctuation.definition.block.begin.hx}
           '2': {name: variable.other.hx}
-        match: (\$)(\w+)
       - match: ''
         name: constant.character.escape.hx
       - match: .
@@ -517,10 +517,10 @@ repository:
     - include: '#block'
     - include: '#block-contents'
   method-name:
+    match: \b(function)\b\s*([_A-Za-z]\w*)?
     captures:
       '1': {name: storage.type.function.hx}
       '2': {name: entity.name.function.hx}
-    match: \b(function)\b\s*([_A-Za-z]\w*)?
   method-name-post:
     begin: (?<=[\w\s])
     end: (\{)|(;)
@@ -667,14 +667,14 @@ repository:
     - include: '#block-contents'
   macro-reification:
     patterns:
-    - captures:
+    - match: (\$)([eabipv])\{
+      captures:
         '1': {name: punctuation.definition.reification.hx}
         '2': {name: keyword.reification.hx}
-      match: (\$)([eabipv])\{
-    - captures:
+    - match: ((\$)([a-zA-Z.]*))
+      captures:
         '2': {name: punctuation.definition.reification.hx}
         '3': {name: variable.reification.hx}
-      match: ((\$)([a-zA-Z.]*))
   conditional-compilation:
     # the correct scope is meta.preprocessor, but at least in the default theme,
     # the gray of punctuation.definition.tag looks _much_ better
