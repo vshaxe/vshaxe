@@ -128,11 +128,9 @@ repository:
     - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  
   keywords-abstract:
     match: \b(from|to)\b
     name: keyword.other.hx
-  
   type-class:
     begin: (?=class)
     end: (?<=\})|(;)
