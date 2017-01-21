@@ -260,16 +260,6 @@ repository:
     - include: '#block'
     - include: '#block-contents'
   type-typedef:
-    begin: (?=typedef)
-    end: (?<=\})|(;)
-    endCaptures:
-      '1': {name: punctuation.terminator.hx}
-    name: meta.typedef.hx
-    patterns:
-    - include: '#type-typedef-name'
-    - include: '#type-typedef-name-post'
-    - include: '#type-typedef-block'
-  type-typedef-name:
     begin: \b(typedef)\b
     beginCaptures:
       '1': {name: storage.type.class.hx}
@@ -278,27 +268,6 @@ repository:
       '1': {name: entity.name.type.class.hx}
     patterns:
     - include: '#comments'
-  type-typedef-name-post:
-    begin: (?<=\w)
-    end: (\{)|(?=;)
-    endCaptures:
-      '1': {name: punctuation.definition.block.begin.hx}
-    patterns:
-    - include: '#comments'
-    - include: '#type-parameters'
-    - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#operator-assignment'
-    - include: '#support-class-name'
-  type-typedef-block:
-    begin: (?<=\{)
-    end: (\})
-    endCaptures:
-      '1': {name: punctuation.definition.block.end.hx}
-    name: meta.block.hx
-    patterns:
-    - include: '#block'
-    - include: '#block-contents'
   regex:
     begin: (~/)
     beginCaptures:
