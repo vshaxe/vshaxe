@@ -1,12 +1,10 @@
 fileTypes: [hx, dump]
 name: Haxe
+scopeName: source.hx
+uuid: 67c72f9f-862c-4e48-8951-dcc22c0bb4ea
 patterns:
 - include: '#all'
 repository:
-  accessor-method:
-    patterns:
-    - match: '\b(get|set)_[_A-Za-z]\w*\b'
-      name: entity.name.function.hx
   all:
     patterns:
     - include: '#package'
@@ -17,17 +15,6 @@ repository:
     - include: '#type-enum'
     - include: '#type-interface'
     - include: '#type-typedef'
-    - include: '#block'
-    - include: '#block-contents'
-  array:
-    begin: \[
-    beginCaptures:
-      '0': {name: punctuation.definition.array.begin.hx}
-    end: \]
-    endCaptures:
-      '0': {name: punctuation.definition.array.end.hx}
-    name: meta.array.literal.hx
-    patterns:
     - include: '#block'
     - include: '#block-contents'
   block:
@@ -54,7 +41,7 @@ repository:
     - include: '#for-loop'
     - include: '#keywords'
     - include: '#method-call'
-    - include: '#keywords-reification'
+    - include: '#macro-reification'
     - include: '#conditional-compilation'
     - include: '#operator-assignment'
     - include: '#operators'
@@ -64,71 +51,20 @@ repository:
     - include: '#constant-name'
     - include: '#support-class-name'
     - include: '#identifier'
-  comments:
-    patterns:
-    - begin: /\*\*(?!/)
-      beginCaptures:
-        '0': {name: punctuation.definition.comment.hx}
-      end: \*/
-      endCaptures:
-        '0': {name: punctuation.definition.comment.hx}
-      name: comment.block.documentation.hx
-      patterns:
-      - include: '#javadoc-tags'
-    - begin: /\*
-      beginCaptures:
-        '0': {name: punctuation.definition.comment.hx}
-      end: \*/
-      endCaptures:
-        '0': {name: punctuation.definition.comment.hx}
-      name: comment.block.hx
-      patterns:
-      - include: '#javadoc-tags'
-    - captures:
-        '1': {name: punctuation.definition.comment.hx}
-      match: (//).*$\n?
-      name: comment.line.double-slash.hx
-  conditional-compilation:
-    # the correct scope is meta.preprocessor, but at least in the default theme,
-    # the gray of punctuation.definition.tag looks _much_ better
-    patterns:
-    - captures:
-        '0': {name: punctuation.definition.tag}
-      match: ((#(if|elseif))\s+!?\s*([a-zA-Z0-9_]*)\s)
-    - begin: ((#(if|elseif))\s*?\()
-      beginCaptures:
-        '0': {name: punctuation.definition.tag}
-      end: (\))
-      name: punctuation.definition.tag
-    - match: (#(end|else|error|line))
-      name: punctuation.definition.tag
-    - match: '(#([a-zA-Z0-9_]*))\s'
-      name: punctuation.definition.tag
-  constant-name:
-    match: '\b([_A-Z][_A-Z0-9]+)\b'
-    name: variable.other.hx
-  constants:
-    patterns:
-    - match: \b(true|false|null)\b
-      name: constant.language.hx
-    - match: '\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)\b'
-      name: constant.numeric.hx
-  for-loop:
-    begin: \b(for)\b\s*(\()\s*\b([_A-Za-z]\w*)\b\s+(in)
-    beginCaptures:
-      '1': {name: keyword.control.flow-control.hx}
-      '2': {name: meta.brace.bround.hx}
-      '3': {name: variable.other.hx}
-      '4': {name: keyword.other.in.hx}
-    end: (\))
-    endCaptures:
-      '1': {name: meta.brace.bround.hx}
-    patterns:
-    - include: '#block'
-    - include: '#block-contents'
-  identifier:
-    match: '\b([_A-Za-z]\w*)\b'
-    name: variable.other.hx
+  package:
+    captures:
+      '1': {name: storage.type.package.hx}
+      '2': {name: support.package.hx}
+      '4': {name: punctuation.terminator.hx}
+    match: \b(package)(\s+([\w.*]*))?\s*(;)?
+    name: meta.package.hx
+  using:
+    captures:
+      '1': {name: storage.type.using.hx}
+      '2': {name: support.package.hx}
+      '3': {name: support.class.hx}
+      '4': {name: punctuation.terminator.hx}
+    match: (using)\s+((?:[a-z]\w*\.?)*)((?:[A-Z]\w*\.?)+)?(;)?
   import:
     captures:
       '1': {name: storage.type.import.hx}
@@ -140,163 +76,219 @@ repository:
       '9': {name: support.class.hx}
       '10': {name: punctuation.terminator.hx}
     match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b[A-Z]\w*)?)?)?\s*(;)?
-  javadoc-tags:
-    patterns:
-    - captures:
-        '1': {name: storage.type.class.javadoc}
-        '2': {name: variable.other.javadoc}
-      match: (@param)\s+([_A-Za-z]\w*)\s+
-    - captures:
-        '1': {name: storage.type.class.javadoc}
-        '2': {name: constant.numeric.javadoc}
-      match: (@since)\s+([\w\.-]+)\s+
-    - captures:
-        '0': {name: storage.type.class.javadoc}
-      match: '@(param|exception|throws|deprecated|returns?|since|default|see)'
-  keywords:
-    patterns:
-    - match: \b(try|catch|throw)\b
-      name: keyword.control.catch-exception.hx
-    - match: \b(if|return|while|for|return|break|case|default|continue|do|while|for|switch|if|else)\b
-      name: keyword.control.flow-control.hx
-    - match: \b(cast|untyped)\b
-      name: keyword.other.untyped.hx
-    - match: \btrace\b
-      name: keyword.other.trace.hx
-    - match: \$type\b
-      name: keyword.other.type.hx
-    - match: \b(this|super)\b
-      name: variable.language.hx
-    - match: \bnew\b
-      name: keyword.operator.new.hx
-    - match: \b(abstract|class|enum|interface|typedef)\b
-      name: storage.type.hx
-    - include: '#modifiers'
-    - include: '#modifiers-inheritance'
-  keywords-abstract:
-    match: \b(from|to)\b
-    name: keyword.other.hx
-  keywords-accessor:
-    match: \b(default|get|set|dynamic|never|null)\b
-    name: storage.type.property.hx
-  keywords-reification:
-    patterns:
-    - captures:
-        '1': {name: punctuation.definition.reification.hx}
-        '2': {name: keyword.reification.hx}
-      match: (\$)([eabipv])\{
-    - captures:
-        '2': {name: punctuation.definition.reification.hx}
-        '3': {name: variable.reification.hx}
-      match: ((\$)([a-zA-Z.]*))
-  metadata:
-    patterns:
-    - captures:
-        '2': {name: punctuation.definition.variable.hx}
-        '3': {name: storage.modifier.metadata.hx}
-      match: ((@)(:(abi|abstract|access|allow|analyzer|annotation|arrayAccess|astSource|autoBuild|bind|bitmap|bridgeProperties|build|buildXml|callable|classCode|commutative|compilerGenerated|const|coreApi|coreType|cppFileCode|cppInclude|cppNamespaceCode|dce|debug|decl|delegate|depend|deprecated|eager|enum|event|expose|extern|fakeEnum|file|fileXml|final|fixed|font|forward|forwardStatics|from|functionCode|functionTailCode|generic|genericBuild|getter|hack|headerClassCode|headerCode|headerInclude|headerNamespaceCode|hxGen|ifFeature|include|internal|isVar|javaCanonical|jsRequire|keep|keepInit|keepSub|luaRequire|macro|mergeBlock|meta|multiType|native|nativeChildren|nativeGen|nativeProperty|nativeStaticExtension|noCompletion|noDebug|noDoc|noImportGlobal|noPrivateAccess|noStack|noUsing|nonVirtual|notNull|ns|objc|objcProtocol|op|optional|overload|phpConstants|phpGlobal|privateAccess|property|protected|publicFields|pure|pythonImport|readOnly|remove|require|resolve|rtti|runtime|runtimeValue|scalar|selfCall|setter|sound|sourceFile|stackOnly|strict|struct|structAccess|structInit|suppressWarnings|templatedCall|throws|to|transient|unifyMinDynamic|unreflective|unsafe|value|void|volatile)\b))
-    - captures:
-        '2': {name: punctuation.definition.variable.hx}
-        '3': {name: support.metadata.hx}
-      match: ((@)(:?[a-zA-Z_]*))
-  method:
-    begin: (?=\bfunction\b)
-    end: (?<=[\};])
-    name: meta.method.hx
-    patterns:
-    - include: '#keywords-reification'
-    - include: '#method-name'
-    - include: '#method-name-post'
-    - include: '#method-block'
-  method-block:
-    begin: (?<=\{)
+  type-parameters:
+    begin: (\<)
     beginCaptures:
+      '1': {name: punctuation.definition.parameters.begin.hx}
+    end: (\>)
+    endCaptures:
+      '1': {name: punctuation.definition.parameters.end.hx}
+    name: meta.type.parameters.hx
+    patterns:
+    - include: '#block'
+    - include: '#block-contents'
+  type-abstract:
+    begin: (?=abstract)
+    end: (?<=\})|(;)
+    endCaptures:
+      '1': {name: punctuation.terminator.hx}
+    name: meta.abstract.hx
+    patterns:
+    - include: '#type-abstract-name'
+    - include: '#type-abstract-name-post'
+    - include: '#type-abstract-block'
+  type-abstract-name:
+    begin: \b(abstract)\b
+    beginCaptures:
+      '1': {name: storage.type.class.hx}
+    end: ([_A-Za-z]\w*)
+    endCaptures:
+      '1': {name: entity.name.type.class.hx}
+    name: storage.type.hx
+  type-abstract-name-post:
+    begin: (?<=\w)
+    end: ([\{;])
+    endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
+    patterns:
+    - include: '#parameters'
+    - include: '#keywords-abstract'
+    - include: '#punctuation-brackets'
+    - include: '#punctuation-separator'
+    - include: '#support-class-name'
+  type-abstract-block:
+    begin: (?<=\{)
     end: (\})
     endCaptures:
       '1': {name: punctuation.definition.block.end.hx}
-    name: meta.method.block.hx
+    name: meta.block.hx
     patterns:
+    - include: '#method'
+    - include: '#modifiers'
+    - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  method-call:
-    begin: (\b[_a-z]\w*)(\()
-    beginCaptures:
-      '1': {name: entity.name.function.hx}
-      '2': {name: meta.brace.round.hx}
-    end: (\))
+  
+  keywords-abstract:
+    match: \b(from|to)\b
+    name: keyword.other.hx
+  
+  type-class:
+    begin: (?=class)
+    end: (?<=\})|(;)
     endCaptures:
-      '1': {name: meta.brace.round.hx}
+      '1': {name: punctuation.terminator.hx}
+    name: meta.class.hx
     patterns:
-    - include: '#block'
-    - include: '#block-contents'
-  method-name:
-    captures:
-      '1': {name: storage.type.function.hx}
-      '2': {name: entity.name.function.hx}
-    match: \b(function)\b\s*([_A-Za-z]\w*)?
-  method-name-post:
-    begin: (?<=[\w\s])
-    end: (\{)|(;)
+    - include: '#type-class-name'
+    - include: '#type-class-name-post'
+    - include: '#type-class-block'
+  type-class-name:
+    begin: \b(class)\b
+    beginCaptures:
+      '1': {name: storage.type.class.hx}
+    end: ([_A-Za-z]\w*)
+    endCaptures:
+      '1': {name: entity.name.type.class.hx}
+    name: meta.class.identifier.hx
+  type-class-name-post:
+    begin: (?<=\w)
+    end: ([\{;])
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
-      '2': {name: punctuation.terminator.hx}
     patterns:
-    - include: '#parameters'
-    - include: '#block'
-    - include: '#block-contents'
-  modifiers:
-    match: \b(public|private|static|dynamic|inline|macro|extern|override)\b
-    name: storage.modifier.hx
-  modifiers-inheritance:
-    match: \b(implements|extends)\b
-    name: storage.modifier.hx
-  operator-assignment:
-    match: (=)
-    name: keyword.operator.assignment.hx
-  operator-optional:
-    match: '(\?)(?!\s)'
-    name: keyword.operator.optional.hx
-  operators:
-    patterns:
-    - match: (!|&&|\|\|)
-      name: keyword.operator.logical.hx
-    - match: (~|&|\||\^|<<|>>|>>>)
-      name: keyword.operator.bitwise.hx
-    - match: (==|!=|<=|>=|<>|<|>)
-      name: keyword.operator.comparison.hx
-    - match: (\-\-|\+\+)
-      name: keyword.operator.increment-decrement.hx
-    - match: (\-|\+|\*|\/|%)
-      name: keyword.operator.arithmetic.hx
-  package:
-    captures:
-      '1': {name: storage.type.package.hx}
-      '2': {name: support.package.hx}
-      '4': {name: punctuation.terminator.hx}
-    match: \b(package)(\s+([\w.*]*))?\s*(;)?
-    name: meta.package.hx
-  parameters:
-    begin: \(
-    beginCaptures:
-      '0': {name: punctuation.definition.parameters.begin.hx}
-    end: \)
+    - include: '#type-parameters'
+    - include: '#modifiers-inheritance'
+    - include: '#punctuation-brackets'
+    - include: '#punctuation-separator'
+    - include: '#support-class-name'
+  type-class-block:
+    begin: (?<=\{)
+    end: (\})
     endCaptures:
-      '0': {name: punctuation.definition.parameters.end.hx}
-    name: meta.parameters.hx
+      '1': {name: punctuation.definition.block.end.hx}
+    name: meta.block.hx
     patterns:
-    - include: '#operator-optional'
+    - include: '#method'
+    - include: '#modifiers'
+    - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  punctuation-brackets:
-    match: '[\(\<\)\>]'
-    name: punctuation.definition.other.hx
-  punctuation-separator:
-    match: '[,:.?]'
-    name: punctuation.separator.hx
-  punctuation-terminator:
-    match: ;
-    name: punctuation.terminator.hx
+  type-enum:
+    begin: (?=enum)
+    end: (?<=\})|(;)
+    endCaptures:
+      '1': {name: punctuation.terminator.hx}
+    name: meta.enum.hx
+    patterns:
+    - include: '#type-enum-name'
+    - include: '#type-enum-name-post'
+    - include: '#type-enum-block'
+  type-enum-name:
+    begin: \b(enum)\b
+    beginCaptures:
+      '1': {name: storage.type.class.hx}
+    end: ([_A-Za-z]\w*)
+    endCaptures:
+      '1': {name: entity.name.type.class.hx}
+    name: storage.type.hx
+  type-enum-name-post:
+    begin: (?<=\w)
+    end: ([\{;])
+    endCaptures:
+      '1': {name: punctuation.definition.block.begin.hx}
+    patterns:
+    - include: '#type-parameters'
+    - include: '#punctuation-brackets'
+    - include: '#punctuation-separator'
+    - include: '#support-class-name'
+  type-enum-block:
+    begin: (?<=\{)
+    end: (\})
+    endCaptures:
+      '1': {name: punctuation.definition.block.end.hx}
+    name: meta.block.hx
+    patterns:
+    - include: '#type-parameters'
+    - include: '#block'
+    - include: '#block-contents'
+  type-interface:
+    begin: (?=interface)
+    end: (?<=\})|(;)
+    endCaptures:
+      '1': {name: punctuation.terminator.hx}
+    name: meta.interface.hx
+    patterns:
+    - include: '#type-interface-name'
+    - include: '#type-interface-name-post'
+    - include: '#type-interface-block'
+  type-interface-name:
+    begin: \b(interface)\b
+    beginCaptures:
+      '1': {name: storage.type.class.hx}
+    end: ([_A-Za-z]\w*)
+    endCaptures:
+      '1': {name: entity.name.type.class.hx}
+    name: storage.type.hx
+  type-interface-name-post:
+    begin: (?<=\w)
+    end: ([\{;])
+    endCaptures:
+      '1': {name: punctuation.definition.block.begin.hx}
+    patterns:
+    - include: '#modifiers-inheritance'
+    - include: '#punctuation-brackets'
+    - include: '#punctuation-separator'
+    - include: '#support-class-name'
+  type-interface-block:
+    begin: (?<=\{)
+    end: (\})
+    endCaptures:
+      '1': {name: punctuation.definition.block.end.hx}
+    name: meta.block.hx
+    patterns:
+    - include: '#method'
+    - include: '#variable'
+    - include: '#block'
+    - include: '#block-contents'
+  type-typedef:
+    begin: (?=typedef)
+    end: (?<=\})|(;)
+    endCaptures:
+      '1': {name: punctuation.terminator.hx}
+    name: meta.typedef.hx
+    patterns:
+    - include: '#type-typedef-name'
+    - include: '#type-typedef-name-post'
+    - include: '#type-typedef-block'
+  type-typedef-name:
+    begin: \b(typedef)\b
+    beginCaptures:
+      '1': {name: storage.type.class.hx}
+    end: ([_A-Za-z]\w*)
+    endCaptures:
+      '1': {name: entity.name.type.class.hx}
+    name: storage.type.hx
+  type-typedef-name-post:
+    begin: (?<=\w)
+    end: (\{)|(?=;)
+    endCaptures:
+      '1': {name: punctuation.definition.block.begin.hx}
+    patterns:
+    - include: '#type-parameters'
+    - include: '#punctuation-brackets'
+    - include: '#punctuation-separator'
+    - include: '#operator-assignment'
+    - include: '#support-class-name'
+  type-typedef-block:
+    begin: (?<=\{)
+    end: (\})
+    endCaptures:
+      '1': {name: punctuation.definition.block.end.hx}
+    name: meta.block.hx
+    patterns:
+    - include: '#block'
+    - include: '#block-contents'
   regex:
     begin: (~/)
     beginCaptures:
@@ -370,6 +362,60 @@ repository:
         name: constant.other.character-class.range.regexp
       - include: '#regex-character-class'
     - include: '#regex-character-class'
+  array:
+    begin: \[
+    beginCaptures:
+      '0': {name: punctuation.definition.array.begin.hx}
+    end: \]
+    endCaptures:
+      '0': {name: punctuation.definition.array.end.hx}
+    name: meta.array.literal.hx
+    patterns:
+    - include: '#block'
+    - include: '#block-contents'
+  constants:
+    patterns:
+    - match: \b(true|false|null)\b
+      name: constant.language.hx
+    - match: '\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)\b'
+      name: constant.numeric.hx
+  comments:
+    patterns:
+    - begin: /\*\*(?!/)
+      beginCaptures:
+        '0': {name: punctuation.definition.comment.hx}
+      end: \*/
+      endCaptures:
+        '0': {name: punctuation.definition.comment.hx}
+      name: comment.block.documentation.hx
+      patterns:
+      - include: '#javadoc-tags'
+    - begin: /\*
+      beginCaptures:
+        '0': {name: punctuation.definition.comment.hx}
+      end: \*/
+      endCaptures:
+        '0': {name: punctuation.definition.comment.hx}
+      name: comment.block.hx
+      patterns:
+      - include: '#javadoc-tags'
+    - captures:
+        '1': {name: punctuation.definition.comment.hx}
+      match: (//).*$\n?
+      name: comment.line.double-slash.hx
+  javadoc-tags:
+    patterns:
+    - captures:
+        '1': {name: storage.type.class.javadoc}
+        '2': {name: variable.other.javadoc}
+      match: (@param)\s+([_A-Za-z]\w*)\s+
+    - captures:
+        '1': {name: storage.type.class.javadoc}
+        '2': {name: constant.numeric.javadoc}
+      match: (@since)\s+([\w\.-]+)\s+
+    - captures:
+        '0': {name: storage.type.class.javadoc}
+      match: '@(param|exception|throws|deprecated|returns?|since|default|see)'
   strings:
     patterns:
     - begin: '"'
@@ -421,236 +467,52 @@ repository:
         name: constant.character.escape.hx
       - match: .
         name: string.quoted.single.hx
-  support-class-name:
-    captures:
-      '1': {name: support.package.hx}
-      '3': {name: support.class.hx}
-    match: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b
-  type-abstract:
-    begin: (?=abstract)
-    end: (?<=\})|(;)
-    endCaptures:
-      '1': {name: punctuation.terminator.hx}
-    name: meta.abstract.hx
+  metadata:
     patterns:
-    - include: '#type-abstract-name'
-    - include: '#type-abstract-name-post'
-    - include: '#type-abstract-block'
-  type-abstract-block:
+    - captures:
+        '2': {name: punctuation.definition.variable.hx}
+        '3': {name: storage.modifier.metadata.hx}
+      match: ((@)(:(abi|abstract|access|allow|analyzer|annotation|arrayAccess|astSource|autoBuild|bind|bitmap|bridgeProperties|build|buildXml|callable|classCode|commutative|compilerGenerated|const|coreApi|coreType|cppFileCode|cppInclude|cppNamespaceCode|dce|debug|decl|delegate|depend|deprecated|eager|enum|event|expose|extern|fakeEnum|file|fileXml|final|fixed|font|forward|forwardStatics|from|functionCode|functionTailCode|generic|genericBuild|getter|hack|headerClassCode|headerCode|headerInclude|headerNamespaceCode|hxGen|ifFeature|include|internal|isVar|javaCanonical|jsRequire|keep|keepInit|keepSub|luaRequire|macro|mergeBlock|meta|multiType|native|nativeChildren|nativeGen|nativeProperty|nativeStaticExtension|noCompletion|noDebug|noDoc|noImportGlobal|noPrivateAccess|noStack|noUsing|nonVirtual|notNull|ns|objc|objcProtocol|op|optional|overload|phpConstants|phpGlobal|privateAccess|property|protected|publicFields|pure|pythonImport|readOnly|remove|require|resolve|rtti|runtime|runtimeValue|scalar|selfCall|setter|sound|sourceFile|stackOnly|strict|struct|structAccess|structInit|suppressWarnings|templatedCall|throws|to|transient|unifyMinDynamic|unreflective|unsafe|value|void|volatile)\b))
+    - captures:
+        '2': {name: punctuation.definition.variable.hx}
+        '3': {name: support.metadata.hx}
+      match: ((@)(:?[a-zA-Z_]*))
+  method:
+    begin: (?=\bfunction\b)
+    end: (?<=[\};])
+    name: meta.method.hx
+    patterns:
+    - include: '#macro-reification'
+    - include: '#method-name'
+    - include: '#method-name-post'
+    - include: '#method-block'
+  method-block:
     begin: (?<=\{)
+    beginCaptures:
+      '1': {name: punctuation.definition.block.begin.hx}
     end: (\})
     endCaptures:
       '1': {name: punctuation.definition.block.end.hx}
-    name: meta.block.hx
+    name: meta.method.block.hx
     patterns:
-    - include: '#method'
-    - include: '#modifiers'
-    - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  type-abstract-name:
-    begin: \b(abstract)\b
-    beginCaptures:
-      '1': {name: storage.type.class.hx}
-    end: ([_A-Za-z]\w*)
-    endCaptures:
-      '1': {name: entity.name.type.class.hx}
-    name: storage.type.hx
-  type-abstract-name-post:
-    begin: (?<=\w)
-    end: ([\{;])
+  method-name:
+    captures:
+      '1': {name: storage.type.function.hx}
+      '2': {name: entity.name.function.hx}
+    match: \b(function)\b\s*([_A-Za-z]\w*)?
+  method-name-post:
+    begin: (?<=[\w\s])
+    end: (\{)|(;)
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
+      '2': {name: punctuation.terminator.hx}
     patterns:
     - include: '#parameters'
-    - include: '#keywords-abstract'
-    - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#support-class-name'
-  type-class:
-    begin: (?=class)
-    end: (?<=\})|(;)
-    endCaptures:
-      '1': {name: punctuation.terminator.hx}
-    name: meta.class.hx
-    patterns:
-    - include: '#type-class-name'
-    - include: '#type-class-name-post'
-    - include: '#type-class-block'
-  type-class-block:
-    begin: (?<=\{)
-    end: (\})
-    endCaptures:
-      '1': {name: punctuation.definition.block.end.hx}
-    name: meta.block.hx
-    patterns:
-    - include: '#method'
-    - include: '#modifiers'
-    - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  type-class-name:
-    begin: \b(class)\b
-    beginCaptures:
-      '1': {name: storage.type.class.hx}
-    end: ([_A-Za-z]\w*)
-    endCaptures:
-      '1': {name: entity.name.type.class.hx}
-    name: meta.class.identifier.hx
-  type-class-name-post:
-    begin: (?<=\w)
-    end: ([\{;])
-    endCaptures:
-      '1': {name: punctuation.definition.block.begin.hx}
-    patterns:
-    - include: '#type-parameters'
-    - include: '#modifiers-inheritance'
-    - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#support-class-name'
-  type-enum:
-    begin: (?=enum)
-    end: (?<=\})|(;)
-    endCaptures:
-      '1': {name: punctuation.terminator.hx}
-    name: meta.enum.hx
-    patterns:
-    - include: '#type-enum-name'
-    - include: '#type-enum-name-post'
-    - include: '#type-enum-block'
-  type-enum-block:
-    begin: (?<=\{)
-    end: (\})
-    endCaptures:
-      '1': {name: punctuation.definition.block.end.hx}
-    name: meta.block.hx
-    patterns:
-    - include: '#type-parameters'
-    - include: '#block'
-    - include: '#block-contents'
-  type-enum-name:
-    begin: \b(enum)\b
-    beginCaptures:
-      '1': {name: storage.type.class.hx}
-    end: ([_A-Za-z]\w*)
-    endCaptures:
-      '1': {name: entity.name.type.class.hx}
-    name: storage.type.hx
-  type-enum-name-post:
-    begin: (?<=\w)
-    end: ([\{;])
-    endCaptures:
-      '1': {name: punctuation.definition.block.begin.hx}
-    patterns:
-    - include: '#type-parameters'
-    - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#support-class-name'
-  type-interface:
-    begin: (?=interface)
-    end: (?<=\})|(;)
-    endCaptures:
-      '1': {name: punctuation.terminator.hx}
-    name: meta.interface.hx
-    patterns:
-    - include: '#type-interface-name'
-    - include: '#type-interface-name-post'
-    - include: '#type-interface-block'
-  type-interface-block:
-    begin: (?<=\{)
-    end: (\})
-    endCaptures:
-      '1': {name: punctuation.definition.block.end.hx}
-    name: meta.block.hx
-    patterns:
-    - include: '#method'
-    - include: '#variable'
-    - include: '#block'
-    - include: '#block-contents'
-  type-interface-name:
-    begin: \b(interface)\b
-    beginCaptures:
-      '1': {name: storage.type.class.hx}
-    end: ([_A-Za-z]\w*)
-    endCaptures:
-      '1': {name: entity.name.type.class.hx}
-    name: storage.type.hx
-  type-interface-name-post:
-    begin: (?<=\w)
-    end: ([\{;])
-    endCaptures:
-      '1': {name: punctuation.definition.block.begin.hx}
-    patterns:
-    - include: '#modifiers-inheritance'
-    - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#support-class-name'
-  type-parameters:
-    begin: (\<)
-    beginCaptures:
-      '1': {name: punctuation.definition.parameters.begin.hx}
-    end: (\>)
-    endCaptures:
-      '1': {name: punctuation.definition.parameters.end.hx}
-    name: meta.type.parameters.hx
-    patterns:
-    - include: '#block'
-    - include: '#block-contents'
-  type-typedef:
-    begin: (?=typedef)
-    end: (?<=\})|(;)
-    endCaptures:
-      '1': {name: punctuation.terminator.hx}
-    name: meta.typedef.hx
-    patterns:
-    - include: '#type-typedef-name'
-    - include: '#type-typedef-name-post'
-    - include: '#type-typedef-block'
-  type-typedef-block:
-    begin: (?<=\{)
-    end: (\})
-    endCaptures:
-      '1': {name: punctuation.definition.block.end.hx}
-    name: meta.block.hx
-    patterns:
-    - include: '#block'
-    - include: '#block-contents'
-  type-typedef-name:
-    begin: \b(typedef)\b
-    beginCaptures:
-      '1': {name: storage.type.class.hx}
-    end: ([_A-Za-z]\w*)
-    endCaptures:
-      '1': {name: entity.name.type.class.hx}
-    name: storage.type.hx
-  type-typedef-name-post:
-    begin: (?<=\w)
-    end: (\{)|(?=;)
-    endCaptures:
-      '1': {name: punctuation.definition.block.begin.hx}
-    patterns:
-    - include: '#type-parameters'
-    - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#operator-assignment'
-    - include: '#support-class-name'
-  using:
-    captures:
-      '1': {name: storage.type.using.hx}
-      '2': {name: support.package.hx}
-      '3': {name: support.class.hx}
-      '4': {name: punctuation.terminator.hx}
-    match: (using)\s+((?:[a-z]\w*\.?)*)((?:[A-Z]\w*\.?)+)?(;)?
-  variable:
-    begin: (?=\bvar\b)
-    end: (;)
-    endCaptures:
-      '1': {name: punctuation.terminator.hx}
-    patterns:
-    - include: '#variable-name'
-    - include: '#variable-assign'
-    - include: '#variable-name-post'
-  variable-accessors:
+  parameters:
     begin: \(
     beginCaptures:
       '0': {name: punctuation.definition.parameters.begin.hx}
@@ -660,9 +522,27 @@ repository:
     name: meta.parameters.hx
     patterns:
     - include: '#operator-optional'
-    - include: '#keywords-accessor'
-    - include: '#accessor-method'
-    - include: '#punctuation-separator'
+    - include: '#block'
+    - include: '#block-contents'
+  operator-optional:
+    match: '(\?)(?!\s)'
+    name: keyword.operator.optional.hx
+  variable:
+    begin: (?=\bvar\b)
+    end: (;)
+    endCaptures:
+      '1': {name: punctuation.terminator.hx}
+    patterns:
+    - include: '#variable-name'
+    - include: '#variable-assign'
+    - include: '#variable-name-post'
+  variable-name:
+    begin: \b(var)\b
+    beginCaptures:
+      '1': {name: storage.type.variable.hx}
+    end: ([_a-zA-Z]\w*)
+    endCaptures:
+      '1': {name: variable.other.hx}
   variable-assign:
     begin: '='
     beginCaptures:
@@ -671,18 +551,139 @@ repository:
     patterns:
     - include: '#block'
     - include: '#block-contents'
-  variable-name:
-    begin: \b(var)\b
-    beginCaptures:
-      '1': {name: storage.type.variable.hx}
-    end: ([_a-zA-Z]\w*)
-    endCaptures:
-      '1': {name: variable.other.hx}
   variable-name-post:
     begin: (?<=\w)
     end: (?=;)|(?==)
     patterns:
     - include: '#variable-accessors'
     - include: '#block-contents'
-scopeName: source.hx
-uuid: 67c72f9f-862c-4e48-8951-dcc22c0bb4ea
+  variable-accessors:
+    begin: \(
+    beginCaptures:
+      '0': {name: punctuation.definition.parameters.begin.hx}
+    end: \)
+    endCaptures:
+      '0': {name: punctuation.definition.parameters.end.hx}
+    name: meta.parameters.hx
+    patterns:
+    - include: '#keywords-accessor'
+    - include: '#accessor-method'
+    - include: '#punctuation-separator'
+  keywords-accessor:
+    match: \b(default|get|set|dynamic|never|null)\b
+    name: storage.type.property.hx
+  accessor-method:
+    patterns:
+    - match: '\b(get|set)_[_A-Za-z]\w*\b'
+      name: entity.name.function.hx
+  modifiers:
+    match: \b(public|private|static|dynamic|inline|macro|extern|override)\b
+    name: storage.modifier.hx
+  for-loop:
+    begin: \b(for)\b\s*(\()\s*\b([_A-Za-z]\w*)\b\s+(in)
+    beginCaptures:
+      '1': {name: keyword.control.flow-control.hx}
+      '2': {name: meta.brace.bround.hx}
+      '3': {name: variable.other.hx}
+      '4': {name: keyword.other.in.hx}
+    end: (\))
+    endCaptures:
+      '1': {name: meta.brace.bround.hx}
+    patterns:
+    - include: '#block'
+    - include: '#block-contents'
+  keywords:
+    patterns:
+    - match: \b(try|catch|throw)\b
+      name: keyword.control.catch-exception.hx
+    - match: \b(if|else|return|do|while|for|break|continue|switch|case|default)\b
+      name: keyword.control.flow-control.hx
+    - match: \b(cast|untyped)\b
+      name: keyword.other.untyped.hx
+    - match: \btrace\b
+      name: keyword.other.trace.hx
+    - match: \$type\b
+      name: keyword.other.type.hx
+    - match: \b(this|super)\b
+      name: variable.language.hx
+    - match: \bnew\b
+      name: keyword.operator.new.hx
+    - match: \b(abstract|class|enum|interface|typedef)\b
+      name: storage.type.hx
+    - include: '#modifiers'
+    - include: '#modifiers-inheritance'
+  modifiers-inheritance:
+    match: \b(implements|extends)\b
+    name: storage.modifier.hx
+  method-call:
+    begin: (\b[_a-z]\w*)(\()
+    beginCaptures:
+      '1': {name: entity.name.function.hx}
+      '2': {name: meta.brace.round.hx}
+    end: (\))
+    endCaptures:
+      '1': {name: meta.brace.round.hx}
+    patterns:
+    - include: '#block'
+    - include: '#block-contents'
+  macro-reification:
+    patterns:
+    - captures:
+        '1': {name: punctuation.definition.reification.hx}
+        '2': {name: keyword.reification.hx}
+      match: (\$)([eabipv])\{
+    - captures:
+        '2': {name: punctuation.definition.reification.hx}
+        '3': {name: variable.reification.hx}
+      match: ((\$)([a-zA-Z.]*))
+  conditional-compilation:
+    # the correct scope is meta.preprocessor, but at least in the default theme,
+    # the gray of punctuation.definition.tag looks _much_ better
+    patterns:
+    - captures:
+        '0': {name: punctuation.definition.tag}
+      match: ((#(if|elseif))\s+!?\s*([a-zA-Z0-9_]*)\s)
+    - begin: ((#(if|elseif))\s*?\()
+      beginCaptures:
+        '0': {name: punctuation.definition.tag}
+      end: (\))
+      name: punctuation.definition.tag
+    - match: (#(end|else|error|line))
+      name: punctuation.definition.tag
+    - match: '(#([a-zA-Z0-9_]*))\s'
+      name: punctuation.definition.tag
+  operator-assignment:
+    match: (=)
+    name: keyword.operator.assignment.hx
+  operators:
+    patterns:
+    - match: (!|&&|\|\|)
+      name: keyword.operator.logical.hx
+    - match: (~|&|\||\^|<<|>>|>>>)
+      name: keyword.operator.bitwise.hx
+    - match: (==|!=|<=|>=|<>|<|>)
+      name: keyword.operator.comparison.hx
+    - match: (\-\-|\+\+)
+      name: keyword.operator.increment-decrement.hx
+    - match: (\-|\+|\*|\/|%)
+      name: keyword.operator.arithmetic.hx
+  punctuation-separator:
+    match: '[,:.?]'
+    name: punctuation.separator.hx
+  punctuation-terminator:
+    match: ;
+    name: punctuation.terminator.hx
+  punctuation-brackets:
+    match: '[\(\<\)\>]'
+    name: punctuation.definition.other.hx
+  constant-name:
+    match: '\b([_A-Z][_A-Z0-9]+)\b'
+    name: variable.other.hx
+  support-class-name:
+    captures:
+      '1': {name: support.package.hx}
+      '3': {name: support.class.hx}
+    match: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b
+  identifier:
+    match: '\b([_A-Za-z]\w*)\b'
+    name: variable.other.hx
