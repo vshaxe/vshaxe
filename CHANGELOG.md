@@ -10,6 +10,7 @@
 - fixed highlighting of method declarations with type parameters
 - fixed invalid `settings.json` being generated with only one `.hxml` file ([#47](https://github.com/vshaxe/vshaxe/issues/47))
 - fixed highlighting of conditionals with nested braces
+- fixed quick fix saying "Remove import" for usings ([#32](https://github.com/vshaxe/vshaxe/issues/32))
 
 **Changes and improvements**:
 
