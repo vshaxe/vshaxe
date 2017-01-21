@@ -13,6 +13,7 @@
 - fixed quick fix saying "Remove import" for usings ([#32](https://github.com/vshaxe/vshaxe/issues/32))
 - fixed comments not being highlighted in type declarations ([#50](https://github.com/vshaxe/vshaxe/issues/50))
 - fixed typedefs without semicolons breaking highlighting ([#24](https://github.com/vshaxe/vshaxe/issues/24))
+- fixed `...` in `IntIterator` literals not being highlighted as an operator
 
 **Changes and improvements**:
 

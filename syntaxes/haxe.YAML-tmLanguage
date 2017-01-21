@@ -693,6 +693,8 @@ repository:
       name: keyword.operator.increment-decrement.hx
     - match: (\-|\+|\*|\/|%)
       name: keyword.operator.arithmetic.hx
+    - match: \.\.\.
+      name: keyword.operator.intiterator.hx
   punctuation-separator:
     match: '[,:.?]'
     name: punctuation.separator.hx
