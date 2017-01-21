@@ -123,6 +123,7 @@ class Foo {
 		Math.PI;
 		Math.POSITIVE_INFINITY;
 
+		var f = function(foo) {}
 		var f = function (foo) {}
 
 		for(i in 0...20) {}
