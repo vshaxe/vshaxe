@@ -52,9 +52,12 @@ repository:
     - include: '#operator-assignment'
     - include: '#punctuation-terminator'
     - include: '#punctuation-comma'
+    - include: '#identifiers'
+  identifiers:
+    patterns:
     - include: '#constant-name'
     - include: '#type-name'
-    - include: '#identifier'
+    - include: '#identifier-name'
   package:
     match: \b(package)(\s+([\w.*]*))?\s*(;)?
     captures:
@@ -197,16 +200,8 @@ repository:
     name: meta.block.hx
     patterns:
     - include: '#global'
-    - include: '#enum-value'
-  enum-value:
-    begin: '\b([_A-Za-z]\w*)\b'
-    beginCaptures:
-      '1': {name: variable.other.enummember.hx}
-    end: ';'
-    endCaptures:
-      '0': {name: punctuation.terminator.hx}
-    patterns:
     - include: '#parameters'
+    - include: '#identifiers'
   interface:
     begin: (?=interface)
     end: (?<=\})|(;)
@@ -291,7 +286,7 @@ repository:
     - include: '#punctuation-comma'
     - include: '#operator-optional'
     - include: '#typedef-simple-field-type-hint'
-    - include: '#identifier'
+    - include: '#identifier-name'
     - include: '#strings'
   typedef-simple-field-type-hint:
     begin: ':'
@@ -729,7 +724,7 @@ repository:
         '1': {name: keyword.control.flow-control.hx}
       end: ':'
       endCaptures:
-        '1': punctuation.definition.section.case-statement.hx
+        '1': {name: punctuation.definition.section.case-statement.hx}
       patterns:
       - include: '#block-contents'
     - match: \b(if|else|return|do|while|for|break|continue|switch|case|default)\b
@@ -907,6 +902,6 @@ repository:
     patterns:
     - include: '#type'
     - include: '#punctuation-comma'
-  identifier:
+  identifier-name:
     match: '\b([_A-Za-z]\w*)\b'
     name: variable.other.hx

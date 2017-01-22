@@ -362,7 +362,7 @@ enum Color<T1, T2> {
     Blue;
     Grey( v : T1 );
     Rgb( r : Int, g : T1, ?b : T2 = null );
-    Alpha( a : Int, col : Color );
+    ALPHA( a : Int, col : Color );
 }
 
 class Colors {
