@@ -72,8 +72,8 @@ typedef DS = Dynamic<String>;
 private class Signal2<T1, T2> extends FlxBaseSignal<T1->T2->Void>
 {
 	public function dispatch2(/**/?/**/value1/**/:/**/T1/**/<T2>/**/ = /**/ "",
-		/**/ value2:T2 = SomeClass.Constant,
-		value2:{ foo: Dynamic<String> }):Void
+		/**/ @:const value2:T2 = SomeClass.Constant,
+		value2:/**/{ /**/ ?foo /**/ : /**/ Dynamic /**/ <String> /**/ }):Void
 	{
 	}
 }
@@ -157,7 +157,7 @@ class Foo {
 		var v:Dynamic<{ "x":Int, y:Int }>;
 		var v:{ foo:Dynamic<Float> };
 		var v/**/:/**/Foo/**/, /**/ b:Dynamic<Float> = a < b;
-		var v:{ foo:Dynamic<Float> }, b, c:Foo = a < b;
+		var v:{ foo:Dynamic<Float>, "bar":String }, b, c:Foo = a < b;
 
 		for(i in 0...20) {}
 		for ( i   in 0...20) {}

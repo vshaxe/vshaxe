@@ -273,6 +273,34 @@ repository:
     patterns:
     - include: '#block'
     - include: '#block-contents'
+  type-typedef-block-simple:
+    begin: \{
+    beginCaptures:
+      '0': {name: punctuation.definition.block.begin.hx}
+    end: \}
+    endCaptures:
+      '0': {name: punctuation.definition.block.end.hx}
+    name: meta.block.hx
+    patterns:
+    - include: '#type-typedef-block-simple-field'
+    - include: '#punctuation-comma'
+  type-typedef-block-simple-field:
+    begin: (?<=\{|,)
+    end: (?=\}|,)
+    patterns:
+    - include: '#comments'
+    - include: '#operator-optional'
+    - include: '#operator-'
+    - include: '#identifier'
+    - include: '#strings'
+    - include: '#type-typedef-block-simple-type-hint'
+  type-typedef-block-simple-type-hint:
+    begin: ':'
+    beginCaptures:
+      '0': {name: keyword.operator.type.annotation.hx}
+    end: (?=\}|,)
+    patterns:
+    - include: '#type'
   regex:
     begin: (~/)
     beginCaptures:
@@ -560,6 +588,7 @@ repository:
     - include: '#parameter-type-hint'
     - include: '#parameter-assign'
     - include: '#punctuation-comma'
+    - include: '#comments'
   parameter-name:
     begin: (?<=\(|,)
     end: ([_a-zA-Z]\w*)
@@ -567,6 +596,7 @@ repository:
       '1': {name: variable.parameter.hx}
     patterns:
     - include: '#comments'
+    - include: '#metadata'
     - include: '#operator-optional'
   parameter-type-hint:
     begin: ':'
@@ -813,6 +843,7 @@ repository:
     - include: '#type-parameters'
     - match: '->'
       name: keyword.operator.type.function.hx
+    - include: '#type-typedef-block-simple'
   type-name:
     patterns:
     - match: \b(Any|Array|ArrayAccess|Bool|Class|Date|DateTools|Dynamic|Enum|EnumValue|EReg|Float|IMap|Int|IntIterator|Iterable|Iterator|Lambda|List|ListIterator|ListNode|Map|Math|Null|Reflect|Std|String|StringBuf|StringTools|Sys|Type|UInt|ValueType|Void|Xml|XmlType)\b
