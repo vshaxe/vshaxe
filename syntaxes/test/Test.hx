@@ -264,7 +264,7 @@ class Foo {
 		//Exception handling
 		try {
 			throw "error";
-		} catch (e:Dynamic) {}
+		} catch (e:Dynamic<T>) {}
 
 		// untyped functions
 		untyped __js__('alert("Haxe is great!")');

@@ -727,7 +727,7 @@ repository:
         '0': {name: meta.brace.round.hx}
       patterns:
       - include: '#block-contents'
-      - include: '#operator-type-hint'
+      - include: '#type-check'
     - match: \b(try|catch|throw)\b
       name: keyword.control.catch-exception.hx
     - begin: \b(case|default)\b
@@ -766,13 +766,14 @@ repository:
     # is-operator, only allowed with mandatory braces
     - match: \bis\b
       name: keyword.other.hx
-    # ECheckType
-    - begin: (?=:)
-      end: (?=\))
-      patterns:
-      - include: '#operator-type-hint'
-      - include: '#type'
+    - include: '#type-check'
     - include: '#block-contents'
+  type-check:
+    begin: (?=:)
+    end: (?=\))
+    patterns:
+    - include: '#operator-type-hint'
+    - include: '#type'
   modifiers-inheritance:
     match: \b(implements|extends)\b
     name: storage.modifier.hx
