@@ -250,6 +250,7 @@ class Foo {
 		var ct = new foo.CanvasTexture(12, "foo");
 		eq(ct.i, 12);
 		eq(ct.s, "foo");
+		( { name:"test" } )
 		
 		//macro class could have no name...
 		var def = macro class {

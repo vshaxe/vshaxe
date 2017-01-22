@@ -779,8 +779,9 @@ repository:
     # is-operator, only allowed with mandatory braces
     - match: \bis\b
       name: keyword.other.hx
-    - include: '#type-check'
+    - include: '#block'
     - include: '#block-contents'
+    - include: '#type-check'
   type-check:
     begin: (?=:)
     end: (?=\))
