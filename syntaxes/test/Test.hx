@@ -63,8 +63,7 @@ typedef Pt2 = {
 typedef WinHandle = hl.Abstract<"ui_window">;
 typedef WinHandle = hl.Abstract<@:const 5>;
 
-typedef DS = Dynamic<String> // no semicolon
-
+typedef DS = Dynamic<String>;
 
 private class Signal2<T1, T2> extends FlxBaseSignal<T1->T2->Void>
 {
