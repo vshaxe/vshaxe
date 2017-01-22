@@ -67,7 +67,8 @@ typedef DS = Dynamic<String>;
 
 private class Signal2<T1, T2> extends FlxBaseSignal<T1->T2->Void>
 {
-	public function dispatch2(value1:T1, value2:T2):Void
+	public function dispatch2(?value1:T1<T2> = "", value2:T2 = SomeClass.Constant,
+		value2:{ foo: Dynamic<String> }):Void
 	{
 	}
 }

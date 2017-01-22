@@ -563,7 +563,34 @@ repository:
       '0': {name: punctuation.definition.parameters.end.hx}
     name: meta.parameters.hx
     patterns:
+    - include: '#parameter'
+  parameter:
+    begin: (?<=\(|,)
+    end: (?=\)|,)
+    patterns:
+    - include: '#parameter-name'
+    - include: '#parameter-type-hint'
+    - include: '#parameter-assign'
+    - include: '#punctuation-comma'
+  parameter-name:
+    begin: (?<=\(|,)
+    end: ([_a-zA-Z]\w*)
+    endCaptures:
+      '1': {name: variable.parameter.hx}
+    patterns:
     - include: '#operator-optional'
+  parameter-type-hint:
+    begin: ':'
+    beginCaptures:
+      '0': {name: keyword.operator.type.annotation.hx}
+    end: (?=\)|,|=)
+    patterns:
+    - include: '#type-hint'
+  parameter-assign:
+    beginCaptures:
+      '0': {name: keyword.operator.assignment.hx}
+    end: (?=\)|,)
+    patterns:
     - include: '#block'
     - include: '#block-contents'
   operator-optional:
@@ -599,8 +626,7 @@ repository:
       '0': {name: keyword.operator.type.annotation.hx}
     end: (?=;|,|=)
     patterns:
-    - include: '#type-name'
-    - include: '#type-parameters'
+    - include: '#type-hint'
   variable-assign:
     begin: '='
     beginCaptures:
@@ -788,6 +814,10 @@ repository:
   constant-name:
     match: '\b([_A-Z][_A-Z0-9]+)\b'
     name: variable.other.hx
+  type-hint:
+    patterns:
+    - include: '#type-name'
+    - include: '#type-parameters'
   type-name:
     patterns:
     - match: \b(Any|Array|ArrayAccess|Bool|Class|Date|DateTools|Dynamic|Enum|EnumValue|EReg|Float|IMap|Int|IntIterator|Iterable|Iterator|Lambda|List|ListIterator|ListNode|Map|Math|Null|Reflect|Std|String|StringBuf|StringTools|Sys|Type|UInt|ValueType|Void|Xml|XmlType)\b
