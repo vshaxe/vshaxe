@@ -11,7 +11,7 @@
 - fixed invalid `settings.json` being generated with only one `.hxml` file ([#47](https://github.com/vshaxe/vshaxe/issues/47))
 - fixed highlighting of conditionals with nested braces
 - fixed quick fix saying "Remove import" for usings ([#32](https://github.com/vshaxe/vshaxe/issues/32))
-- fixed comments not being highlighted in type declarations ([#50](https://github.com/vshaxe/vshaxe/issues/50))
+- fixed comments and conditionals not being highlighted everywhere ([#50](https://github.com/vshaxe/vshaxe/issues/50))
 - fixed leading dots in `Float` literals not being highlighted (e.g. in `.52`)
 - fixed type names with leading underscores not being highlighted as such
 

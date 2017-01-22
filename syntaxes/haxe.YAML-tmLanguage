@@ -7,6 +7,7 @@ patterns:
 repository:
   all:
     patterns:
+    - include: '#global'
     - include: '#package'
     - include: '#import'
     - include: '#using'
@@ -17,6 +18,10 @@ repository:
     - include: '#type-typedef'
     - include: '#block'
     - include: '#block-contents'
+  global:
+    patterns:
+    - include: '#comments'
+    - include: '#conditional-compilation'
   block:
     begin: \{
     beginCaptures:
@@ -29,9 +34,9 @@ repository:
     - include: '#block-contents'
   block-contents:
     patterns:
+    - include: '#global'
     - include: '#regex'
     - include: '#array'
-    - include: '#comments'
     - include: '#constants'
     - include: '#strings'
     - include: '#metadata'
@@ -43,7 +48,6 @@ repository:
     - include: '#method-call'
     - include: '#punctuation-braces'
     - include: '#macro-reification'
-    - include: '#conditional-compilation'
     - include: '#operators'
     - include: '#operator-assignment'
     - include: '#punctuation-terminator'
@@ -94,14 +98,14 @@ repository:
     endCaptures:
       '1': {name: entity.name.type.class.hx}
     patterns:
-    - include: '#comments'
+    - include: '#global'
   type-abstract-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
-    - include: '#comments'
+    - include: '#global'
     - match: \b(from|to)\b
       name: keyword.other.hx
     - include: '#type'
@@ -138,7 +142,7 @@ repository:
       '1': {name: entity.name.type.class.hx}
     name: meta.class.identifier.hx
     patterns:
-    - include: '#comments'
+    - include: '#global'
   type-class-name-post:
     begin: (?<=\w)
     end: ([\{;])
@@ -177,7 +181,7 @@ repository:
     endCaptures:
       '1': {name: entity.name.type.class.hx}
     patterns:
-    - include: '#comments'
+    - include: '#global'
   type-enum-name-post:
     begin: (?<=\w)
     end: ([\{;])
@@ -213,14 +217,14 @@ repository:
     endCaptures:
       '1': {name: entity.name.type.class.hx}
     patterns:
-    - include: '#comments'
+    - include: '#global'
   type-interface-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
-    - include: '#comments'
+    - include: '#global'
     - include: '#modifiers-inheritance'
     - include: '#type'
   type-interface-block:
@@ -252,14 +256,14 @@ repository:
     endCaptures:
       '1': {name: entity.name.type.class.hx}
     patterns:
-    - include: '#comments'
+    - include: '#global'
   type-typedef-name-post:
     begin: (?<=\w)
     end: (\{)|(?=;)
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
-    - include: '#comments'
+    - include: '#global'
     - include: '#punctuation-brackets'
     - include: '#punctuation-separator'
     - include: '#operator-assignment'
@@ -271,34 +275,21 @@ repository:
       '1': {name: punctuation.definition.block.end.hx}
     name: meta.block.hx
     patterns:
-    - include: '#block'
-    - include: '#block-contents'
-  type-typedef-block-simple:
-    begin: \{
-    beginCaptures:
-      '0': {name: punctuation.definition.block.begin.hx}
-    end: \}
-    endCaptures:
-      '0': {name: punctuation.definition.block.end.hx}
-    name: meta.block.hx
-    patterns:
-    - include: '#type-typedef-block-simple-field'
+    - include: '#global'
+    - include: '#metadata'
+    - include: '#method'
+    - include: '#variable'
+    - include: '#modifiers'
     - include: '#punctuation-comma'
-  type-typedef-block-simple-field:
-    begin: (?<=\{|,)
-    end: (?=\}|,)
-    patterns:
-    - include: '#comments'
     - include: '#operator-optional'
-    - include: '#operator-'
+    - include: '#typedef-simple-field-type-hint'
     - include: '#identifier'
     - include: '#strings'
-    - include: '#type-typedef-block-simple-type-hint'
-  type-typedef-block-simple-type-hint:
+  typedef-simple-field-type-hint:
     begin: ':'
     beginCaptures:
       '0': {name: keyword.operator.type.annotation.hx}
-    end: (?=\}|,)
+    end: (?=\}|,|;)
     patterns:
     - include: '#type'
   regex:
@@ -588,14 +579,14 @@ repository:
     - include: '#parameter-type-hint'
     - include: '#parameter-assign'
     - include: '#punctuation-comma'
-    - include: '#comments'
+    - include: '#global'
   parameter-name:
     begin: (?<=\(|,)
     end: ([_a-zA-Z]\w*)
     endCaptures:
       '1': {name: variable.parameter.hx}
     patterns:
-    - include: '#comments'
+    - include: '#global'
     - include: '#metadata'
     - include: '#operator-optional'
   parameter-type-hint:
@@ -838,12 +829,17 @@ repository:
     name: variable.other.hx
   type:
     patterns:
-    - include: '#comments'
+    - include: '#global'
     - include: '#type-name'
     - include: '#type-parameters'
     - match: '->'
       name: keyword.operator.type.function.hx
-    - include: '#type-typedef-block-simple'
+    - begin: (\{)
+      beginCaptures:
+        '0': {name: punctuation.definition.block.begin.hx}
+      end: (?<=\})
+      patterns:
+      - include: '#type-typedef-block'
   type-name:
     patterns:
     - match: \b(Any|Array|ArrayAccess|Bool|Class|Date|DateTools|Dynamic|Enum|EnumValue|EReg|Float|IMap|Int|IntIterator|Iterable|Iterator|Lambda|List|ListIterator|ListNode|Map|Math|Null|Reflect|Std|String|StringBuf|StringTools|Sys|Type|UInt|ValueType|Void|Xml|XmlType)\b
@@ -870,11 +866,11 @@ repository:
     end: (>)
     endCaptures:
       '1': {name: punctuation.definition.typeparameters.end.hx}
-    name: meta.type.parameters.hx
+    name: meta.type-parameters.hx
     patterns:
     - include: '#type'
     - include: '#type-parameter-constraint'
-    - include: '#comments'
+    - include: '#global'
     - include: '#constants'
     - include: '#strings'
     - include: '#metadata'
