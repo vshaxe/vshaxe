@@ -894,6 +894,7 @@ repository:
     - include: '#type'
     - include: '#type-parameter-constraint'
     - include: '#global'
+    - include: '#array'
     - include: '#constants'
     - include: '#strings'
     - include: '#metadata'

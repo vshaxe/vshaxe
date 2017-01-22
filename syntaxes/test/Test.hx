@@ -260,7 +260,8 @@ class Foo {
 		//ECheckType
 		var f = (123:Float);
 		(null : Enum<T>);
-
+		(null : Asset<["test", 1]>);
+		
 		//Exception handling
 		try {
 			throw "error";
