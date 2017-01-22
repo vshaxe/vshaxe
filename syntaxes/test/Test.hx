@@ -295,8 +295,8 @@ class Foo {
 	{
 		#if ((haxe_ver >= 3.1) && foo)
 		#line 0 return arr.indexOf(v);
-		#else
-			#if (flash || js)
+		#if foo
+			#if !!(flash || js)
 			return untyped arr.indexOf(v);
 			#else
 			return std.Lambda.indexOf(arr, v);

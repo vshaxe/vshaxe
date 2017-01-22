@@ -818,10 +818,10 @@ repository:
     # the correct scope is meta.preprocessor, but at least in the default theme,
     # the gray of punctuation.definition.tag looks _much_ better
     patterns:
-    - match: ((#(if|elseif))\s+!?\s*([a-zA-Z0-9_]*)\s)
+    - match: ((#(if|elseif))[\s!]+([a-zA-Z0-9_]+)\s)
       captures:
         '0': {name: punctuation.definition.tag}
-    - begin: ((#(if|elseif))\s*?\()
+    - begin: ((#(if|elseif))[\s!]*\()
       beginCaptures:
         '0': {name: punctuation.definition.tag}
       end: (\)|\n)
