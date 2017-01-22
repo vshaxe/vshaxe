@@ -729,6 +729,9 @@ repository:
     name: variable.other.hx
   support-class-name:
     patterns:
+    - match: \b(Any|Array|ArrayAccess|Bool|Class|Date|DateTools|Dynamic|Enum|EnumValue|EReg|Float|IMap|Int|IntIterator|Iterable|Iterator|Lambda|List|ListIterator|ListNode|Map|Math|Null|Reflect|Std|String|StringBuf|StringTools|Sys|Type|UInt|ValueType|Void|Xml|XmlType)\b
+      captures:
+        '1': {name: support.class.builtin.hx}
     - begin: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b\s*(\()
       beginCaptures:
         '1': {name: support.package.hx}
