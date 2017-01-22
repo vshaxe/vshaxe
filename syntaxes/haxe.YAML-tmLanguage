@@ -664,7 +664,7 @@ repository:
     end: (?=;)|(?==)
     patterns:
     - include: '#variable-accessors'
-    - include: '#variable-type-hint'    
+    - include: '#variable-type-hint'
     - include: '#block-contents'
   variable-accessors:
     begin: \(
@@ -872,16 +872,6 @@ repository:
     - match: \b(Any|Array|ArrayAccess|Bool|Class|Date|DateTools|Dynamic|Enum|EnumValue|EReg|Float|IMap|Int|IntIterator|Iterable|Iterator|Lambda|List|ListIterator|ListNode|Map|Math|Null|Reflect|Std|String|StringBuf|StringTools|Sys|Type|UInt|ValueType|Void|Xml|XmlType)\b
       captures:
         '1': {name: support.class.builtin.hx}
-    - begin: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b\s*(\()
-      beginCaptures:
-        '1': {name: support.package.hx}
-        '3': {name: entity.name.type.hx}
-        '4': {name: meta.brace.round.hx}
-      end: \)
-      endCaptures:
-        '0': {name: meta.brace.round.hx}
-      patterns:
-      - include: '#block-contents'
     - match: \b(([a-z][a-zA-Z0-9]*\.)*)(_*[A-Z]\w*)\b
       captures:
         '1': {name: support.package.hx}
