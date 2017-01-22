@@ -27,6 +27,7 @@
 - `...` in `IntIterator` literals is now highlighted as an operator
 - `:` in type hints is now highlighted as an operator
 - `?` in ternaries is now highlighted as an operator
+- names of toplevel types are now colored differently in some themes (e.g. Monokai)
 
 ### 1.1.1 (January 17, 2017)
 

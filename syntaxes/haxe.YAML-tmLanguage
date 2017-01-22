@@ -706,7 +706,7 @@ repository:
     - match: \.\.\.
       name: keyword.operator.intiterator.hx
     - match: ':'
-      name: keyword.operator.type-annotation.hx
+      name: keyword.operator.type.annotation.hx
     - begin: '\?'
       beginCaptures:
         '0': {name: keyword.operator.ternary.hx}
