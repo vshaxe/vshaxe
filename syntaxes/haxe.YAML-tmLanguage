@@ -617,7 +617,7 @@ repository:
     begin: (?<=\))\s*(:)
     beginCaptures:
       '1': {name: keyword.operator.type.annotation.hx}
-    end: (?=\{|;)
+    end: (?=\{|;|[a-z0-9])
     patterns:
     - include: '#type'
   operator-optional:
