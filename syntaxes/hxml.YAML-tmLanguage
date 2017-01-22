@@ -16,9 +16,10 @@ patterns:
   end: \n
   patterns:
   - include: 'source.hx'
-- match: (?:^|[^a-zA-Z])(-main)\b\s*\b([A-Z]\w*)?\b
+- match: (?:^|[^a-zA-Z])(-main)\b\s*\b(?:(([a-z][a-zA-Z0-9]*\.)*)(_*[A-Z]\w*))?\b
   captures:
     '1': {name: keyword.other.hxml}
-    '2': {name: support.class.hx}
+    '2': {name: support.package.hx}
+    '4': {name: entity.name.type.hx}
 scopeName: source.hxml
 uuid: CB1B853A-C4C8-42C3-BA70-1B1605BE51C1

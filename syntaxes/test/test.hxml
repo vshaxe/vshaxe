@@ -77,4 +77,5 @@
 --macro server.setModuleCheckPolicy(['DefaultAssetLibrary'], [CheckFileContentModification])
 --macro include('haxe.ds')
 -main Main
+-main foo.unit.Main
 -main foo
