@@ -66,7 +66,7 @@ repository:
       '3': {name: entity.name.type.hx}
       '4': {name: punctuation.terminator.hx}
   import:
-    match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b_*[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b[A-Z]\w*)?)?)?\s*(;)?
+    match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b_*[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b_*[A-Z]\w*)?)?)?\s*(;)?
     captures:
       '1': {name: storage.type.import.hx}
       '2': {name: support.package.hx}
@@ -873,10 +873,22 @@ repository:
     name: meta.type.parameters.hx
     patterns:
     - include: '#type'
+    - include: '#type-parameter-constraint'
     - include: '#comments'
     - include: '#constants'
     - include: '#strings'
     - include: '#metadata'
+    - include: '#punctuation-comma'
+  type-parameter-constraint:
+    begin: '(:)\s*(\()'
+    beginCaptures:
+      '1': {name: keyword.operator.type.annotation.hx}
+      '2': {name: punctuation.definition.constraint.begin.hx}
+    end: '\)'
+    endCaptures:
+      '0': {name: punctuation.definition.constraint.end.hx}
+    patterns:
+    - include: '#type'
     - include: '#punctuation-comma'
   identifier:
     match: '\b([_A-Za-z]\w*)\b'

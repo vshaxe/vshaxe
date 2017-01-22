@@ -42,7 +42,7 @@ interface /**/ ITest /**/ extends /**/ IBase /**/ {} /**/
 typedef /**/ WinHandle /**/ = /**/ hl.Abstract /**/ <@:const 5 /**/>;
 enum /**/ Color /**/ </**/ T> /**/ {} /**/
 
-class EvtQueue<T : (Event, EventDispatcher)> {
+class EvtQueue<T:(Iterable<T:({ public function foo():Void; }, EventManager)>, Measurable)> {
     var evt : T;
 }
 
