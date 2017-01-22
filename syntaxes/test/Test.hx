@@ -83,6 +83,7 @@ class Foo {
 		0xFF00; // Int
 
 		123.0; // Float
+		123.; // Float
 		.14179; // Float
 		13e50; // Float
 		-1e-99; // Float
@@ -114,6 +115,10 @@ class Foo {
 		~/^[1-9]\d{0,2}$/g;
 		~/^Null<(\$\d+)>$/;
 		~/^@(param|default|exception|throws|deprecated|return|returns|since|see)\s+([^@]+)/gm;
+
+		0...10;
+		0...array.length;
+		a...b;
 
 		$type(2);
 
