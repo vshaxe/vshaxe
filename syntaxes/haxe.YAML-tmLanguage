@@ -830,6 +830,7 @@ repository:
   type:
     patterns:
     - include: '#global'
+    - include: '#macro-reification'
     - include: '#type-name'
     - include: '#type-parameters'
     - match: '->'
