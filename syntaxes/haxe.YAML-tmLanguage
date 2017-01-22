@@ -503,6 +503,26 @@ repository:
     - include: '#method-name'
     - include: '#method-name-post'
     - include: '#method-block'
+  method-name:
+    begin: \b(function)\b\s*(?:(new)|([_A-Za-z]\w*))?
+    beginCaptures:
+      '1': {name: storage.type.function.hx}
+      '2': {name: storage.type.hx}
+      '3': {name: entity.name.function.hx}
+    end: (?=\()
+    patterns:
+    - include: '#macro-reification'
+    - include: '#type-parameters'
+  method-name-post:
+    begin: (?<=[\w\s>])
+    end: (\{)|(;)
+    endCaptures:
+      '1': {name: punctuation.definition.block.begin.hx}
+      '2': {name: punctuation.terminator.hx}
+    patterns:
+    - include: '#parameters'
+    - include: '#block'
+    - include: '#block-contents'
   method-block:
     begin: (?<=\{)
     beginCaptures:
@@ -512,25 +532,6 @@ repository:
       '1': {name: punctuation.definition.block.end.hx}
     name: meta.method.block.hx
     patterns:
-    - include: '#block'
-    - include: '#block-contents'
-  method-name:
-    begin: \b(function)\b\s*(?:(new)|([_A-Za-z]\w*))?
-    beginCaptures:
-      '1': {name: storage.type.function.hx}
-      '2': {name: storage.type.hx}
-      '3': {name: entity.name.function.hx}
-    end: (?=\()
-    patterns:
-    - include: '#type-parameters'
-  method-name-post:
-    begin: (?<=[\w\s])
-    end: (\{)|(;)
-    endCaptures:
-      '1': {name: punctuation.definition.block.begin.hx}
-      '2': {name: punctuation.terminator.hx}
-    patterns:
-    - include: '#parameters'
     - include: '#block'
     - include: '#block-contents'
   parameters:
