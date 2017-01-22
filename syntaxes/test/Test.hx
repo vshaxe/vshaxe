@@ -12,9 +12,14 @@ import net.onthewings.Test.field;
 
 import haxe.Int64 as I64;
 import haxe.Int64 in I64;
+import haxe.Int64 in __Int64;
 import haxe.macro.Expr;
+import haxe.__Int64;
+import haxe.__Int64.field;
 
 using Lambda;
+using net.onthewings.__Int64;
+using __Int64;
 using net.onthewings.Test;
 
 #if flash8
@@ -158,6 +163,8 @@ class Foo {
 		var v:{ foo:Dynamic<Float> };
 		var v/**/:/**/Foo/**/, /**/ b:Dynamic<Float> = a < b;
 		var v:{ foo:Dynamic<Float>, "bar":String }, b, c:Foo = a < b;
+
+		__Int64;
 
 		for(i in 0...20) {}
 		for ( i   in 0...20) {}

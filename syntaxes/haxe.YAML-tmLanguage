@@ -59,14 +59,14 @@ repository:
       '4': {name: punctuation.terminator.hx}
     name: meta.package.hx
   using:
-    match: (using)\s+((?:[a-z]\w*\.?)*)((?:[A-Z]\w*\.?)+)?(;)?
+    match: (using)\s+((?:[a-z]\w*\.?)*)((?:_*[A-Z]\w*\.?)+)?(;)?
     captures:
       '1': {name: storage.type.using.hx}
       '2': {name: support.package.hx}
       '3': {name: entity.name.type.hx}
       '4': {name: punctuation.terminator.hx}
   import:
-    match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b[A-Z]\w*)?)?)?\s*(;)?
+    match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b_*[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b[A-Z]\w*)?)?)?\s*(;)?
     captures:
       '1': {name: storage.type.import.hx}
       '2': {name: support.package.hx}
@@ -859,7 +859,7 @@ repository:
         '0': {name: meta.brace.round.hx}
       patterns:
       - include: '#block-contents'
-    - match: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b
+    - match: \b(([a-z][a-zA-Z0-9]*\.)*)(_*[A-Z]\w*)\b
       captures:
         '1': {name: support.package.hx}
         '3': {name: entity.name.type.hx}
