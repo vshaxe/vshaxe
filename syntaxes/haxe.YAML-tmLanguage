@@ -106,10 +106,11 @@ repository:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
     - include: '#comments'
-    - include: '#parameters'
-    - include: '#keywords-abstract'
+    - match: \b(from|to)\b
+      name: keyword.other.hx
     - include: '#punctuation-brackets'
     - include: '#type-name'
+    - include: '#type-parameters'    
   type-abstract-block:
     begin: (?<=\{)
     end: (\})
@@ -122,9 +123,6 @@ repository:
     - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  keywords-abstract:
-    match: \b(from|to)\b
-    name: keyword.other.hx
   type-class:
     begin: (?=class)
     end: (?<=\})|(;)
@@ -236,6 +234,7 @@ repository:
     - include: '#modifiers-inheritance'
     - include: '#punctuation-brackets'
     - include: '#type-name'
+    - include: '#type-parameters'
   type-interface-block:
     begin: (?<=\{)
     end: (\})
@@ -715,7 +714,7 @@ repository:
     match: ;
     name: punctuation.terminator.hx
   punctuation-brackets:
-    match: '[\(\<\)\>]'
+    match: '[\(\)]'
     name: punctuation.definition.other.hx
   constant-name:
     match: '\b([_A-Z][_A-Z0-9]+)\b'

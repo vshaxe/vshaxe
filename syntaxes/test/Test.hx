@@ -37,12 +37,12 @@ interface /**/ ITest /**/ extends /**/ IBase /**/ {} /**/
 typedef /**/ WinHandle /**/ = /**/ hl.Abstract /**/ <@:const 5 /**/>;
 enum /**/ Color /**/ </**/ T> /**/ {} /**/
 
-abstract Abstract(String) from String to String {
+abstract Abstract<T>(String<T>) from String<T> to String<T> {
 	public static var fromStringMap(default, null):Map<String, FlxKey>
 		= FlxMacroUtil.buildMap("flixel.input.keyboard.FlxKey");
 }
 
-interface ITest {
+interface ITest<T> extends IBase<T> {
 	function test():Void;
 }
 
