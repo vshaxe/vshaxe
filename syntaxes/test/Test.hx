@@ -132,6 +132,8 @@ class Foo {
 		0...array.length;
 		a...b;
 
+		{ a: "", b: -1 }
+
 		$type(2);
 
 		var a:Int = cast 2; // unsafe cast

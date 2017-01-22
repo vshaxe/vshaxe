@@ -697,7 +697,7 @@ repository:
     - include: '#block-contents'
   keywords:
     patterns:
-    - begin: (?<=trace|$type|catch|if|while|for|super|cast)\s*(\()
+    - begin: (?<=trace|$type|if|while|for|super|cast)\s*(\()
       beginCaptures:
         '2': {name: meta.brace.round.hx}
       end: \)
@@ -705,6 +705,15 @@ repository:
         '0': {name: meta.brace.round.hx}
       patterns:
       - include: '#block-contents'
+    - begin: (?<=catch)\s*(\()
+      beginCaptures:
+        '2': {name: meta.brace.round.hx}
+      end: \)
+      endCaptures:
+        '0': {name: meta.brace.round.hx}
+      patterns:
+      - include: '#block-contents'
+      - include: '#operator-type-hint'
     - match: \b(try|catch|throw)\b
       name: keyword.control.catch-exception.hx
     - begin: \b(case|default)\b
@@ -740,8 +749,10 @@ repository:
       '0': {name: meta.brace.round.hx}
     patterns:
     - include: '#method-call'
+    # is-operator, only allowed with mandatory braces
     - match: \bis\b
       name: keyword.other.hx
+    - include: '#operator-type-hint' # ECheckType
     - include: '#block-contents'
   modifiers-inheritance:
     match: \b(implements|extends)\b
@@ -792,6 +803,9 @@ repository:
   operator-assignment:
     match: (=)
     name: keyword.operator.assignment.hx
+  operator-type-hint:
+    match: (:)
+    name: keyword.operator.type.annotation.hx
   operators:
     patterns:
     - match: (&&|\|\|)
@@ -808,8 +822,6 @@ repository:
       name: keyword.operator.arithmetic.hx
     - match: \.\.\.
       name: keyword.operator.intiterator.hx
-    - match: ':'
-      name: keyword.operator.type.annotation.hx
     - begin: '\?'
       beginCaptures:
         '0': {name: keyword.operator.ternary.hx}
