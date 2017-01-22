@@ -356,12 +356,12 @@ class Test <T:Void->Void> {
 	}
 }
 
-enum Color {
+enum Color<T1, T2> {
     Red;
     Green;
     Blue;
-    Grey( v : Int );
-    Rgb( r : Int, g : Int, b : Int );
+    Grey( v : T1 );
+    Rgb( r : Int, g : T1, ?b : T2 = null );
     Alpha( a : Int, col : Color );
 }
 

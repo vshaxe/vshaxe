@@ -196,9 +196,17 @@ repository:
       '1': {name: punctuation.definition.block.end.hx}
     name: meta.block.hx
     patterns:
-    - include: '#type-parameters'
-    - include: '#block'
-    - include: '#block-contents'
+    - include: '#global'
+    - include: '#enum-value'
+  enum-value:
+    begin: '\b([_A-Za-z]\w*)\b'
+    beginCaptures:
+      '1': {name: variable.other.enummember.hx}
+    end: ';'
+    endCaptures:
+      '0': {name: punctuation.terminator.hx}
+    patterns:
+    - include: '#parameters'
   interface:
     begin: (?=interface)
     end: (?<=\})|(;)
