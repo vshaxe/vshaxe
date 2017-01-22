@@ -766,7 +766,12 @@ repository:
     # is-operator, only allowed with mandatory braces
     - match: \bis\b
       name: keyword.other.hx
-    - include: '#operator-type-hint' # ECheckType
+    # ECheckType
+    - begin: (?=:)
+      end: (?=\))
+      patterns:
+      - include: '#operator-type-hint'
+      - include: '#type'
     - include: '#block-contents'
   modifiers-inheritance:
     match: \b(implements|extends)\b

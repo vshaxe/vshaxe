@@ -259,6 +259,7 @@ class Foo {
 
 		//ECheckType
 		var f = (123:Float);
+		(null : Enum<T>);
 
 		//Exception handling
 		try {
