@@ -578,6 +578,7 @@ repository:
     endCaptures:
       '1': {name: variable.parameter.hx}
     patterns:
+    - include: '#comments'
     - include: '#operator-optional'
   parameter-type-hint:
     begin: ':'
@@ -816,6 +817,7 @@ repository:
     name: variable.other.hx
   type-hint:
     patterns:
+    - include: '#comments'
     - include: '#type-name'
     - include: '#type-parameters'
   type-name:
