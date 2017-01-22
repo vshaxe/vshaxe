@@ -85,6 +85,9 @@ class Foo {
 		.14179; // Float
 		13e50; // Float
 		-1e-99; // Float
+		-1E+99; // Float
+
+		0xFFff50;
 
 		"hello"; // String
 		"hello \"world\" !"; // String
