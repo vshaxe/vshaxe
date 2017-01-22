@@ -691,6 +691,8 @@ repository:
     name: keyword.operator.assignment.hx
   operators:
     patterns:
+    - match: '->'
+      name: keyword.operator.type.function.hx
     - match: (&&|\|\|)
       name: keyword.operator.logical.hx
     - match: (~|&|\||\^|>>>|<<|>>)
