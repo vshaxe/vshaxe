@@ -138,6 +138,7 @@ class Foo {
 
 		var a:Int = cast 2; // unsafe cast
 		var b:Int = cast (2, Int); // safe cast
+		var b:Int = cast (2, Dynamic<Int>); // safe cast
 
 		var point = { "x" : 1, "y" : -5 };
 

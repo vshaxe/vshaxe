@@ -711,7 +711,7 @@ repository:
     - include: '#block-contents'
   keywords:
     patterns:
-    - begin: (?<=trace|$type|if|while|for|super|cast)\s*(\()
+    - begin: (?<=trace|$type|if|while|for|super)\s*(\()
       beginCaptures:
         '2': {name: meta.brace.round.hx}
       end: \)
@@ -728,6 +728,19 @@ repository:
       patterns:
       - include: '#block-contents'
       - include: '#type-check'
+    # safe cast
+    - begin: (?<=cast)\s*(\()
+      beginCaptures:
+        '2': {name: meta.brace.round.hx}
+      end: \)
+      endCaptures:
+        '0': {name: meta.brace.round.hx}
+      patterns:
+      - begin: (?=,)
+        end: (?=\))
+        patterns:
+        - include: '#type'
+      - include: '#block-contents'      
     - match: \b(try|catch|throw)\b
       name: keyword.control.catch-exception.hx
     - begin: \b(case|default)\b
