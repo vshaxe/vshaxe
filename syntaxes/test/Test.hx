@@ -244,7 +244,9 @@ class Foo {
 		}
 
 		var c = macro interface IClass {};
-
+		var MMap:MMap<String, String> = new MMap<String, String>();
+		var a = new A<String>(12);
+		
 		//macro class could have no name...
 		var def = macro class {
 			private inline function new(loader) this = loader;

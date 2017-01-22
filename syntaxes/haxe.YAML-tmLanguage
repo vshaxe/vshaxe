@@ -43,6 +43,7 @@ repository:
     - include: '#method'
     - include: '#variable'
     - include: '#modifiers'
+    - include: '#new-expr'
     - include: '#for-loop'
     - include: '#keywords'
     - include: '#method-call'
@@ -687,6 +688,14 @@ repository:
   modifiers:
     match: \b(public|private|static|dynamic|inline|macro|extern|override)\b
     name: storage.modifier.hx
+  new-expr:
+    name: new.expr.hx
+    begin: \b(new)\b
+    beginCaptures:
+      '1': { name: keyword.operator.new.hx }
+    end: (?=\()
+    patterns:
+    - include: '#type'
   for-loop:
     begin: \b(for)\b\s*(\()\s*\b([_A-Za-z]\w*)\b\s+(in)
     beginCaptures:
