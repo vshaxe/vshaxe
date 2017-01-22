@@ -64,18 +64,18 @@ repository:
     captures:
       '1': {name: storage.type.using.hx}
       '2': {name: support.package.hx}
-      '3': {name: support.class.hx}
+      '3': {name: entity.name.type.hx}
       '4': {name: punctuation.terminator.hx}
   import:
     match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b[A-Z]\w*)?)?)?\s*(;)?
     captures:
       '1': {name: storage.type.import.hx}
       '2': {name: support.package.hx}
-      '5': {name: support.class.hx}
+      '5': {name: entity.name.type.hx}
       '6': {name: support.package.hx}
       '7': {name: support.package.hx}
       '8': {name: keyword.other.hx}
-      '9': {name: support.class.hx}
+      '9': {name: entity.name.type.hx}
       '10': {name: punctuation.terminator.hx}
   type-parameters:
     begin: (\<)
@@ -732,7 +732,7 @@ repository:
     - begin: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b\s*(\()
       beginCaptures:
         '1': {name: support.package.hx}
-        '3': {name: support.class.hx}
+        '3': {name: entity.name.type.hx}
         '4': {name: meta.brace.round.hx}
       end: \)
       endCaptures:
@@ -742,7 +742,7 @@ repository:
     - match: \b(([a-z][a-zA-Z0-9]*\.)*)([A-Z]\w*)\b
       captures:
         '1': {name: support.package.hx}
-        '3': {name: support.class.hx}
+        '3': {name: entity.name.type.hx}
   identifier:
     match: '\b([_A-Za-z]\w*)\b'
     name: variable.other.hx
