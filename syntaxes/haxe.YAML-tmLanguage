@@ -80,10 +80,10 @@ repository:
   type-parameters:
     begin: (\<)
     beginCaptures:
-      '1': {name: punctuation.definition.parameters.begin.hx}
+      '1': {name: punctuation.definition.typeparameters.begin.hx}
     end: (\>)
     endCaptures:
-      '1': {name: punctuation.definition.parameters.end.hx}
+      '1': {name: punctuation.definition.typeparameters.end.hx}
     name: meta.type.parameters.hx
     patterns:
     - include: '#block'
