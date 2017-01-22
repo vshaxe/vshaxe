@@ -11,11 +11,11 @@ repository:
     - include: '#package'
     - include: '#import'
     - include: '#using'
-    - include: '#type-abstract'
-    - include: '#type-class'
-    - include: '#type-enum'
-    - include: '#type-interface'
-    - include: '#type-typedef'
+    - include: '#abstract'
+    - include: '#class'
+    - include: '#enum'
+    - include: '#interface'
+    - include: '#typedef'
     - include: '#block'
     - include: '#block-contents'
   global:
@@ -80,17 +80,17 @@ repository:
       '8': {name: keyword.other.hx}
       '9': {name: entity.name.type.hx}
       '10': {name: punctuation.terminator.hx}
-  type-abstract:
+  abstract:
     begin: (?=abstract)
     end: (?<=\})|(;)
     endCaptures:
       '1': {name: punctuation.terminator.hx}
     name: meta.abstract.hx
     patterns:
-    - include: '#type-abstract-name'
-    - include: '#type-abstract-name-post'
-    - include: '#type-abstract-block'
-  type-abstract-name:
+    - include: '#abstract-name'
+    - include: '#abstract-name-post'
+    - include: '#abstract-block'
+  abstract-name:
     begin: \b(abstract)\b
     beginCaptures:
       '1': {name: storage.type.class.hx}
@@ -99,7 +99,7 @@ repository:
       '1': {name: entity.name.type.class.hx}
     patterns:
     - include: '#global'
-  type-abstract-name-post:
+  abstract-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
@@ -111,7 +111,7 @@ repository:
     - include: '#type'
     - match: '[\(\)]'
       name: punctuation.definition.other.hx
-  type-abstract-block:
+  abstract-block:
     begin: (?<=\{)
     end: (\})
     endCaptures:
@@ -123,17 +123,17 @@ repository:
     - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  type-class:
+  class:
     begin: (?=class)
     end: (?<=\})|(;)
     endCaptures:
       '1': {name: punctuation.terminator.hx}
     name: meta.class.hx
     patterns:
-    - include: '#type-class-name'
-    - include: '#type-class-name-post'
-    - include: '#type-class-block'
-  type-class-name:
+    - include: '#class-name'
+    - include: '#class-name-post'
+    - include: '#class-block'
+  class-name:
     begin: \b(class)\b
     beginCaptures:
       '1': {name: storage.type.class.hx}
@@ -143,7 +143,7 @@ repository:
     name: meta.class.identifier.hx
     patterns:
     - include: '#global'
-  type-class-name-post:
+  class-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
@@ -151,7 +151,7 @@ repository:
     patterns:
     - include: '#modifiers-inheritance'
     - include: '#type'
-  type-class-block:
+  class-block:
     begin: (?<=\{)
     end: (\})
     endCaptures:
@@ -163,17 +163,17 @@ repository:
     - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  type-enum:
+  enum:
     begin: (?=enum)
     end: (?<=\})|(;)
     endCaptures:
       '1': {name: punctuation.terminator.hx}
     name: meta.enum.hx
     patterns:
-    - include: '#type-enum-name'
-    - include: '#type-enum-name-post'
-    - include: '#type-enum-block'
-  type-enum-name:
+    - include: '#enum-name'
+    - include: '#enum-name-post'
+    - include: '#enum-block'
+  enum-name:
     begin: \b(enum)\b
     beginCaptures:
       '1': {name: storage.type.class.hx}
@@ -182,14 +182,14 @@ repository:
       '1': {name: entity.name.type.class.hx}
     patterns:
     - include: '#global'
-  type-enum-name-post:
+  enum-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
       '1': {name: punctuation.definition.block.begin.hx}
     patterns:
     - include: '#type'   
-  type-enum-block:
+  enum-block:
     begin: (?<=\{)
     end: (\})
     endCaptures:
@@ -199,17 +199,17 @@ repository:
     - include: '#type-parameters'
     - include: '#block'
     - include: '#block-contents'
-  type-interface:
+  interface:
     begin: (?=interface)
     end: (?<=\})|(;)
     endCaptures:
       '1': {name: punctuation.terminator.hx}
     name: meta.interface.hx
     patterns:
-    - include: '#type-interface-name'
-    - include: '#type-interface-name-post'
-    - include: '#type-interface-block'
-  type-interface-name:
+    - include: '#interface-name'
+    - include: '#interface-name-post'
+    - include: '#interface-block'
+  interface-name:
     begin: \b(interface)\b
     beginCaptures:
       '1': {name: storage.type.class.hx}
@@ -218,7 +218,7 @@ repository:
       '1': {name: entity.name.type.class.hx}
     patterns:
     - include: '#global'
-  type-interface-name-post:
+  interface-name-post:
     begin: (?<=\w)
     end: ([\{;])
     endCaptures:
@@ -227,7 +227,7 @@ repository:
     - include: '#global'
     - include: '#modifiers-inheritance'
     - include: '#type'
-  type-interface-block:
+  interface-block:
     begin: (?<=\{)
     end: (\})
     endCaptures:
@@ -238,17 +238,17 @@ repository:
     - include: '#variable'
     - include: '#block'
     - include: '#block-contents'
-  type-typedef:
+  typedef:
     begin: (?=typedef)
     end: (?<=\})|(;)
     endCaptures:
       '1': {name: punctuation.terminator.hx}
     name: meta.typedef.hx
     patterns:
-    - include: '#type-typedef-name'
-    - include: '#type-typedef-name-post'
-    - include: '#type-typedef-block'
-  type-typedef-name:
+    - include: '#typedef-name'
+    - include: '#typedef-name-post'
+    - include: '#typedef-block'
+  typedef-name:
     begin: \b(typedef)\b
     beginCaptures:
       '1': {name: storage.type.class.hx}
@@ -257,7 +257,7 @@ repository:
       '1': {name: entity.name.type.class.hx}
     patterns:
     - include: '#global'
-  type-typedef-name-post:
+  typedef-name-post:
     begin: (?<=\w)
     end: (\{)|(?=;)
     endCaptures:
@@ -268,7 +268,7 @@ repository:
     - include: '#punctuation-separator'
     - include: '#operator-assignment'
     - include: '#type'
-  type-typedef-block:
+  typedef-block:
     begin: (?<=\{)
     end: (\})
     endCaptures:
@@ -840,7 +840,7 @@ repository:
         '0': {name: punctuation.definition.block.begin.hx}
       end: (?<=\})
       patterns:
-      - include: '#type-typedef-block'
+      - include: '#typedef-block'
   type-name:
     patterns:
     - match: \b(Any|Array|ArrayAccess|Bool|Class|Date|DateTools|Dynamic|Enum|EnumValue|EReg|Float|IMap|Int|IntIterator|Iterable|Iterator|Lambda|List|ListIterator|ListNode|Map|Math|Null|Reflect|Std|String|StringBuf|StringTools|Sys|Type|UInt|ValueType|Void|Xml|XmlType)\b
