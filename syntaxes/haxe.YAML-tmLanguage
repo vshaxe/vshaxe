@@ -497,11 +497,14 @@ repository:
     - include: '#block'
     - include: '#block-contents'
   method-name:
-    match: \b(function)\b\s*(?:(new)|([_A-Za-z]\w*))?
-    captures:
+    begin: \b(function)\b\s*(?:(new)|([_A-Za-z]\w*))?
+    beginCaptures:
       '1': {name: storage.type.function.hx}
       '2': {name: storage.type.hx}
       '3': {name: entity.name.function.hx}
+    end: (?=\()
+    patterns:
+    - include: '#type-parameters'
   method-name-post:
     begin: (?<=[\w\s])
     end: (\{)|(;)
