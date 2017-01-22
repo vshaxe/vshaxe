@@ -2,7 +2,7 @@
 
 **Bugfixes**:
 
-- fixed highlighting of variables with VSCode 1.9.0
+- fixed highlighting of variables and single quoted strings in the upcoming VSCode 1.9.0
 - fixed highlighting of identifiers starting with `var` / `function` ([#76](https://github.com/vshaxe/vshaxe/issues/76))
 - fixed unfinished `package`/`import`/`using` statements breaking subsequent highlighting
 - fixed modifiers not being highlighted everywhere (e.g. `extends` in class reification)

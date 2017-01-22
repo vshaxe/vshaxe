@@ -454,12 +454,14 @@ repository:
       patterns:
       - match: \\.
         name: constant.character.escape.hx
-    - begin: ''''
+    - begin: (')
       beginCaptures:
-        '0': {name: punctuation.definition.string.begin.hx}
-      end: ''''
+        '0': {name: string.quoted.single.hx}
+        '1': {name: punctuation.definition.string.begin.hx}
+      end: (')
       endCaptures:
-        '0': {name: punctuation.definition.string.end.hx}
+        '0': {name: string.quoted.single.hx}
+        '1': {name: punctuation.definition.string.end.hx}
       patterns:
       - begin: \$(?=\$)
         beginCaptures:
