@@ -37,6 +37,10 @@ interface /**/ ITest /**/ extends /**/ IBase /**/ {} /**/
 typedef /**/ WinHandle /**/ = /**/ hl.Abstract /**/ <@:const 5 /**/>;
 enum /**/ Color /**/ </**/ T> /**/ {} /**/
 
+class EvtQueue<T : (Event, EventDispatcher)> {
+    var evt : T;
+}
+
 abstract Abstract<T>(String<T>) from String<T> to String<T> {
 	public static var fromStringMap(default, null):Map<String, FlxKey>
 		= FlxMacroUtil.buildMap("flixel.input.keyboard.FlxKey");
@@ -281,10 +285,6 @@ class Foo {
 		#end
 	}
 
-	function g() {
-		f(function() return b < c);
-	}
-
 	// single-line conditionals
 	function foo () {
 		#if (haxe_ver >= 3.1) return true #elseif false return false #else throw "error" #end ;
@@ -339,8 +339,6 @@ class Test <T:Void->Void> {
 
 @:native("Test") private class Test2 {}
 
-extern class Ext {}
-
 @:macro class M {
 	@:macro static function test(e:Array<Expr>):ExprOf<String> {
 		return macro "ok";
@@ -369,9 +367,13 @@ class Colors {
     }
 }
 
-class EvtQueue<T : (Event, EventDispatcher)> {
-    var evt : T;
+class Foo {
+	function g() {
+		f(function() return b < c);
+	}
 }
+
+extern class Ext<T> {}
 
 // compiler-built-in-metadata
 // how to update for new meta:
