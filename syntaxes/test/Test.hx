@@ -47,13 +47,13 @@ interface ITest<T> extends IBase<T> {
 }
 
 typedef Pt = {
-	var x:Float;
+	var x:Dynamic<Float>;
 	var y:Float;
 	@:optional var z:Float; /* optional z */
 	function add(pt:Pt):Void;
 }
 typedef Pt2 = {
-	x:Float,
+	x:Dynamic<Float>,
 	y:Float,
 	?z:Float, //optional z
 	add : Point -> Void,
@@ -139,6 +139,12 @@ class Foo {
 
 		var f = function(foo) {}
 		var f = function (foo) {}
+
+		var v:Dynamic<Float>;
+		var v:Dynamic<{ "x":Int, y:Int }>;
+		var v:{ foo:Dynamic<Float> };
+		var v:Foo, b:Dynamic<Float> = a < b;
+		var v:{ foo:Dynamic<Float> }, b, c:Foo = a < b;
 
 		for(i in 0...20) {}
 		for ( i   in 0...20) {}
@@ -238,7 +244,7 @@ class Foo {
 
 	//top-level class members
 	public function test();
-	private var attr(get, set):Int = 1;
+	private var attr(get, set):Dynamic<Float> = 1;
 	private var attr2(default, null) = ['Test'];
 	private var attr3(dynamic, never);
 	var group(get_group, set_group);

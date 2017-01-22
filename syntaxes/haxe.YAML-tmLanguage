@@ -524,6 +524,7 @@ repository:
       '1': {name: punctuation.terminator.hx}
     patterns:
     - include: '#variable-name'
+    - include: '#variable-name-next'
     - include: '#variable-assign'
     - include: '#variable-name-post'
   variable-name:
@@ -533,11 +534,26 @@ repository:
     end: ([_a-zA-Z]\w*)
     endCaptures:
       '1': {name: variable.other.hx}
+  variable-name-next:
+    begin: ','
+    beginCaptures:
+      '0': {name: punctuation.separator.comma.hx}
+    end: ([_a-zA-Z]\w*)
+    endCaptures:
+      '1': {name: variable.other.hx}
+  variable-type-hint:
+    begin: ':'
+    beginCaptures:
+      '0': {name: keyword.operator.type.annotation.hx}
+    end: (?=;|,|=)
+    patterns:
+    - include: '#type-name'
+    - include: '#type-parameters'
   variable-assign:
     begin: '='
     beginCaptures:
       '0': {name: keyword.operator.assignment.hx}
-    end: (?=;)
+    end: (?=;|,)
     patterns:
     - include: '#block'
     - include: '#block-contents'
@@ -546,6 +562,7 @@ repository:
     end: (?=;)|(?==)
     patterns:
     - include: '#variable-accessors'
+    - include: '#variable-type-hint'    
     - include: '#block-contents'
   variable-accessors:
     begin: \(
@@ -709,7 +726,7 @@ repository:
       - include: '#block-contents'
   punctuation-comma:
     match: ','
-    name: punctuation.comma.hx
+    name: punctuation.separator.comma.hx
   punctuation-terminator:
     match: ;
     name: punctuation.terminator.hx
@@ -739,10 +756,10 @@ repository:
         '1': {name: support.package.hx}
         '3': {name: entity.name.type.hx}
   type-parameters:
-    begin: (\<)
+    begin: (<)
     beginCaptures:
       '1': {name: punctuation.definition.typeparameters.begin.hx}
-    end: (\>)
+    end: (>)
     endCaptures:
       '1': {name: punctuation.definition.typeparameters.end.hx}
     name: meta.type.parameters.hx
