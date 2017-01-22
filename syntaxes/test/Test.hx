@@ -65,6 +65,14 @@ typedef WinHandle = hl.Abstract<@:const 5>;
 
 typedef DS = Dynamic<String> // no semicolon
 
+
+private class Signal2<T1, T2> extends FlxBaseSignal<T1->T2->Void>
+{
+	public function dispatch2(value1:T1, value2:T2):Void
+	{
+	}
+}
+
 class Foo {
 	override dynamic macro extern inline static function foo() {
 

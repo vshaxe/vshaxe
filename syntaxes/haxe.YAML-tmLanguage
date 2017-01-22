@@ -31,10 +31,7 @@ repository:
     patterns:
     - include: '#regex'
     - include: '#array'
-    - include: '#constants'
-    - include: '#comments'
-    - include: '#strings'
-    - include: '#metadata'
+    - include: '#simple-expressions'
     - include: '#method'
     - include: '#variable'
     - include: '#modifiers'
@@ -46,12 +43,18 @@ repository:
     - include: '#conditional-compilation'
     - include: '#operators'
     - include: '#operator-assignment'
-    - include: '#punctuation-separator'
     - include: '#punctuation-terminator'
     - include: '#punctuation-brackets'
     - include: '#constant-name'
-    - include: '#support-class-name'
+    - include: '#type-name'
     - include: '#identifier'
+  simple-expressions:
+    patterns:
+    - include: '#constants'
+    - include: '#comments'
+    - include: '#strings'
+    - include: '#metadata'
+    - include: '#punctuation-comma'
   package:
     match: \b(package)(\s+([\w.*]*))?\s*(;)?
     captures:
@@ -77,17 +80,6 @@ repository:
       '8': {name: keyword.other.hx}
       '9': {name: entity.name.type.hx}
       '10': {name: punctuation.terminator.hx}
-  type-parameters:
-    begin: (\<)
-    beginCaptures:
-      '1': {name: punctuation.definition.typeparameters.begin.hx}
-    end: (\>)
-    endCaptures:
-      '1': {name: punctuation.definition.typeparameters.end.hx}
-    name: meta.type.parameters.hx
-    patterns:
-    - include: '#block'
-    - include: '#block-contents'
   type-abstract:
     begin: (?=abstract)
     end: (?<=\})|(;)
@@ -117,8 +109,7 @@ repository:
     - include: '#parameters'
     - include: '#keywords-abstract'
     - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#support-class-name'
+    - include: '#type-name'
   type-abstract-block:
     begin: (?<=\{)
     end: (\})
@@ -164,8 +155,7 @@ repository:
     - include: '#type-parameters'
     - include: '#modifiers-inheritance'
     - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#support-class-name'
+    - include: '#type-name'
   type-class-block:
     begin: (?<=\{)
     end: (\})
@@ -206,8 +196,7 @@ repository:
     - include: '#comments'
     - include: '#type-parameters'
     - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#support-class-name'
+    - include: '#type-name'
   type-enum-block:
     begin: (?<=\{)
     end: (\})
@@ -246,8 +235,7 @@ repository:
     - include: '#comments'
     - include: '#modifiers-inheritance'
     - include: '#punctuation-brackets'
-    - include: '#punctuation-separator'
-    - include: '#support-class-name'
+    - include: '#type-name'
   type-interface-block:
     begin: (?<=\{)
     end: (\})
@@ -571,7 +559,7 @@ repository:
     patterns:
     - include: '#keywords-accessor'
     - include: '#accessor-method'
-    - include: '#punctuation-separator'
+    - include: '#punctuation-comma'
   keywords-accessor:
     match: \b(default|get|set|dynamic|never|null)\b
     name: storage.type.property.hx
@@ -720,9 +708,9 @@ repository:
         '0': {name: keyword.operator.ternary.hx}
       patterns:
       - include: '#block-contents'
-  punctuation-separator:
-    match: '[,:.?]'
-    name: punctuation.separator.hx
+  punctuation-comma:
+    match: ','
+    name: punctuation.comma.hx
   punctuation-terminator:
     match: ;
     name: punctuation.terminator.hx
@@ -732,7 +720,7 @@ repository:
   constant-name:
     match: '\b([_A-Z][_A-Z0-9]+)\b'
     name: variable.other.hx
-  support-class-name:
+  type-name:
     patterns:
     - match: \b(Any|Array|ArrayAccess|Bool|Class|Date|DateTools|Dynamic|Enum|EnumValue|EReg|Float|IMap|Int|IntIterator|Iterable|Iterator|Lambda|List|ListIterator|ListNode|Map|Math|Null|Reflect|Std|String|StringBuf|StringTools|Sys|Type|UInt|ValueType|Void|Xml|XmlType)\b
       captures:
@@ -751,6 +739,18 @@ repository:
       captures:
         '1': {name: support.package.hx}
         '3': {name: entity.name.type.hx}
+  type-parameters:
+    begin: (\<)
+    beginCaptures:
+      '1': {name: punctuation.definition.typeparameters.begin.hx}
+    end: (\>)
+    endCaptures:
+      '1': {name: punctuation.definition.typeparameters.end.hx}
+    name: meta.type.parameters.hx
+    patterns:
+    - include: '#type-name'
+    - include: '#type-parameters'
+    - include: '#simple-expressions'
   identifier:
     match: '\b([_A-Za-z]\w*)\b'
     name: variable.other.hx
