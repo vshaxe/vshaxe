@@ -8,9 +8,9 @@ package net.onthewings;
 import net.onthewings.Test;
 import net.onthewings.*;
 import net.onthewings.Test.*;
-import net.onthewings.Test.field;
+import _net.onthewings.Test.field;
 
-import haxe.Int64 as I64;
+import _ha_xe.Int64 as I64;
 import haxe.Int64 in I64;
 import haxe.Int64 in __Int64;
 import haxe.macro.Expr;
@@ -18,7 +18,7 @@ import haxe.__Int64;
 import haxe.__Int64.field;
 
 using Lambda;
-using net.onthewings.__Int64;
+using _ne_t.onthewings.__Int64;
 using __Int64;
 using net.onthewings.Test;
 
@@ -48,7 +48,7 @@ class EvtQueue<T:(Iterable<T:({ public function foo():Void; }, EventManager)>, M
 
 abstract Abstract<T>(String<T>) from String<T> to String<T> {
 	public static var fromStringMap(default, null):Map<String, FlxKey>
-		= FlxMacroUtil.buildMap("flixel.input.keyboard.FlxKey");
+		= _fo_o._FlxMacroUtil.buildMap("flixel.input.keyboard.FlxKey");
 }
 
 interface ITest<T> extends IBase<T> {

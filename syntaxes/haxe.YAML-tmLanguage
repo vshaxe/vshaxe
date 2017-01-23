@@ -67,14 +67,14 @@ repository:
       '4': {name: punctuation.terminator.hx}
     name: meta.package.hx
   using:
-    match: (using)\s+((?:[a-z]\w*\.?)*)((?:_*[A-Z]\w*\.?)+)?(;)?
+    match: (using)\s+((?:_*[a-z]\w*\.?)*)((?:_*[A-Z]\w*\.?)+)?(;)?
     captures:
       '1': {name: storage.type.using.hx}
       '2': {name: support.package.hx}
       '3': {name: entity.name.type.hx}
       '4': {name: punctuation.terminator.hx}
   import:
-    match: (import)\s+(?:((\b[a-z]\w*\.?)*)((\b_*[A-Z]\w*\.?)|(\*))?(\b[_a-z]\w*|\*)?(?:\s+(as|in)\s+(\b_*[A-Z]\w*)?)?)?\s*(;)?
+    match: (import)\s+(?:((\b_*[a-z]\w*\.?)*)((\b_*[A-Z]\w*\.?)|(\*))?(\b_*[a-z]\w*|\*)?(?:\s+(as|in)\s+(\b_*[A-Z]\w*)?)?)?\s*(;)?
     captures:
       '1': {name: storage.type.import.hx}
       '2': {name: support.package.hx}
@@ -892,7 +892,7 @@ repository:
     - match: \b(Any|Array|ArrayAccess|Bool|Class|Date|DateTools|Dynamic|Enum|EnumValue|EReg|Float|IMap|Int|IntIterator|Iterable|Iterator|Lambda|List|ListIterator|ListNode|Map|Math|Null|Reflect|Std|String|StringBuf|StringTools|Sys|Type|UInt|ValueType|Void|Xml|XmlType)\b
       captures:
         '1': {name: support.class.builtin.hx}
-    - match: \b(([a-z][a-zA-Z0-9]*\.)*)(_*[A-Z]\w*)\b
+    - match: \b((_*[a-z]\w*\.)*)(_*[A-Z]\w*)\b
       captures:
         '1': {name: support.package.hx}
         '3': {name: entity.name.type.hx}
