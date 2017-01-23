@@ -1,3 +1,9 @@
+### ?.?.? (to be released)
+
+**Bugfixes**:
+
+- fixed regex highlighting in the upcoming VSCode 1.9.0
+
 ### 1.2.0 (January 23, 2017)
 
 **Bugfixes**:

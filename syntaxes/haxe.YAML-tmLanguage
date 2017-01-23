@@ -304,7 +304,7 @@ repository:
     endCaptures:
       '1': {name: punctuation.definition.string.end.hx}
       '2': {name: keyword.other.hx}
-    name: string.regex.hx
+    name: string.regexp.hx
     patterns:
     - include: '#regexp'
   regex-character-class:
