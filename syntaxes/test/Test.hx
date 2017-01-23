@@ -251,6 +251,7 @@ class Foo {
 		eq(ct.i, 12);
 		eq(ct.s, "foo");
 		( { name:"test" } )
+		Map.new;
 		
 		//macro class could have no name...
 		var def = macro class {

@@ -690,7 +690,7 @@ repository:
     name: storage.modifier.hx
   new-expr:
     name: new.expr.hx
-    begin: \b(new)\b
+    begin: ^(?:(?!\.).)*\K\b(new)\b
     beginCaptures:
       '1': { name: keyword.operator.new.hx }
     end: (?=\()
