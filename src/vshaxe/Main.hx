@@ -51,6 +51,7 @@ class Main {
                 mutator.delete(range);
                 mutator.insert(range.start, edit.newText);
             }
+            commands.executeCommand("closeParameterHints");
         });
     }
 

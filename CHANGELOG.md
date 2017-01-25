@@ -1,5 +1,9 @@
 ### ?.?.? (to be released)
 
+**New Features**:
+
+- allow generation of inline functions in signature completion
+
 **Bugfixes**:
 
 - fixed regex highlighting in the upcoming VSCode 1.9.0
