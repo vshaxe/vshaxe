@@ -1,0 +1,588 @@
+original file
+-----------------------------------
+# just a copy-paste of the haxe --help output to test highlighting
+-cp <path> : add a directory to find source files
+-js <file> : compile code to JavaScript file
+-lua <file> : compile code to Lua file
+-swf <file> : compile code to Flash SWF file
+-as3 <directory> : generate AS3 code into target directory
+-neko <file> : compile code to Neko Binary
+-php <directory> : generate PHP code into target directory
+-cpp <directory> : generate C++ code into target directory
+-cppia <file> : generate Cppia code into target file
+-cs <directory> : generate C# code into target directory
+-java <directory> : generate Java code into target directory
+-python <file> : generate Python code as target file
+-hl <file> : compile HL code as target file
+-xml <file> : generate XML types description
+#-main <class> : select startup class
+-lib <library[:version]> : use a haxelib library
+-D <var[=value]> : define a conditional compilation flag
+-v : turn on verbose mode
+-debug : add debug information to the compiled code
+-dce [std|full|no] : set the dead code elimination mode (default std)
+-swf-version <version> : change the SWF version
+-swf-header <header> : define SWF header (width:height:fps:color)
+-swf-lib <file> : add the SWF library to the compiled SWF
+-swf-lib-extern <file> : use the SWF library for type checking
+-java-lib <file> : add an external JAR or class directory library
+-net-lib <file>[@std] : add an external .NET DLL file
+-net-std <file> : add a root std .NET DLL search path
+-c-arg <arg> : pass option <arg> to the native Java/C# compiler
+-x <file> : shortcut for compiling and executing a neko file
+-resource <file>[@name] : add a named resource file
+-prompt : prompt on error
+-cmd : run the specified command after successful compilation
+--flash-strict : more type strict flash API
+--no-traces : don't compile trace calls in the program
+--gen-hx-classes : generate hx headers for all input classes
+--next : separate several haxe compilations
+--each : append preceding parameters to all haxe compilations separated by --next
+--display : display code tips
+--no-output : compiles but does not generate any file
+--times : measure compilation times
+--no-inline : disable inlining
+--no-opt : disable code optimizations
+--php-front <filename> : select the name for the php front file
+--php-lib <filename> : select the name for the php lib folder
+--php-prefix <name> : prefix all classes with given name
+--remap <package:target> : remap a package to another one
+--interp : interpret the program using internal macro system
+#--macro  : call the given macro before typing anything else
+--eval  : evaluates argument as Haxe module code
+--wait <[host:]port> : wait on the given port for commands to run)
+--connect <[host:]port> : connect on the given port and run commands there)
+--cwd <dir> : set current working directory
+-version : print version and exit
+--help-defines : print help for all compiler specific defines
+--help-metas : print help for all compiler metadatas
+-help  Display this list of options
+--help  Display this list of options
+
+# multiple args in the same line:
+-debug -v
+# leading whitespace:
+ 	-v
+# dce args
+-dce std
+-dce full
+-dce no
+-dce invalid
+# dce arg with random whitespace
+-dce   	 	 std
+# argument inside another word
+-java some-version-test
+-java some-version
+-java some-versions
+# commented out arg
+#-java
+--macro server.setModuleCheckPolicy(['DefaultAssetLibrary'], [CheckFileContentModification])
+--macro include('haxe.ds')
+-main Main
+-main foo.unit.Main
+-main foo
+-----------------------------------
+
+># just a copy-paste of the haxe --help output to test highlighting
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>-cp <path> : add a directory to find source files
+ ^^^
+ source.hxml keyword.other.hxml
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    source.hxml
+>-js <file> : compile code to JavaScript file
+ ^^^
+ source.hxml keyword.other.hxml
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    source.hxml
+>-lua <file> : compile code to Lua file
+ ^^^^
+ source.hxml keyword.other.hxml
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     source.hxml
+>-swf <file> : compile code to Flash SWF file
+ ^^^^
+ source.hxml keyword.other.hxml
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     source.hxml
+>-as3 <directory> : generate AS3 code into target directory
+ ^^^^
+ source.hxml keyword.other.hxml
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     source.hxml
+>-neko <file> : compile code to Neko Binary
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      source.hxml
+>-php <directory> : generate PHP code into target directory
+ ^^^^
+ source.hxml keyword.other.hxml
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     source.hxml
+>-cpp <directory> : generate C++ code into target directory
+ ^^^^
+ source.hxml keyword.other.hxml
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     source.hxml
+>-cppia <file> : generate Cppia code into target file
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       source.hxml
+>-cs <directory> : generate C# code into target directory
+ ^^^
+ source.hxml keyword.other.hxml
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    source.hxml
+                             ^
+                             source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              source.hxml comment.line.number-sign.hxml
+>-java <directory> : generate Java code into target directory
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      source.hxml
+>-python <file> : generate Python code as target file
+ ^^^^^^^
+ source.hxml keyword.other.hxml
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        source.hxml
+>-hl <file> : compile HL code as target file
+ ^^^
+ source.hxml keyword.other.hxml
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    source.hxml
+>-xml <file> : generate XML types description
+ ^^^^
+ source.hxml keyword.other.hxml
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     source.hxml
+>#-main <class> : select startup class
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>-lib <library[:version]> : use a haxelib library
+ ^^^^
+ source.hxml keyword.other.hxml
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     source.hxml
+>-D <var[=value]> : define a conditional compilation flag
+ ^^
+ source.hxml keyword.other.hxml
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   source.hxml
+>-v : turn on verbose mode
+ ^^
+ source.hxml keyword.other.hxml
+   ^^^^^^^^^^^^^^^^^^^^^^^^
+   source.hxml
+>-debug : add debug information to the compiled code
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       source.hxml
+>-dce [std|full|no] : set the dead code elimination mode (default std)
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      source.hxml
+>-swf-version <version> : change the SWF version
+ ^^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             source.hxml
+>-swf-header <header> : define SWF header (width:height:fps:color)
+ ^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            source.hxml
+>-swf-lib <file> : add the SWF library to the compiled SWF
+ ^^^^^^^^
+ source.hxml keyword.other.hxml
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         source.hxml
+>-swf-lib-extern <file> : use the SWF library for type checking
+ ^^^^^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                source.hxml
+>-java-lib <file> : add an external JAR or class directory library
+ ^^^^^^^^^
+ source.hxml keyword.other.hxml
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          source.hxml
+>-net-lib <file>[@std] : add an external .NET DLL file
+ ^^^^^^^^
+ source.hxml keyword.other.hxml
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         source.hxml
+>-net-std <file> : add a root std .NET DLL search path
+ ^^^^^^^^
+ source.hxml keyword.other.hxml
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         source.hxml
+>-c-arg <arg> : pass option <arg> to the native Java/C# compiler
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       source.hxml
+                                                      ^
+                                                      source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+                                                       ^^^^^^^^^^
+                                                       source.hxml comment.line.number-sign.hxml
+>-x <file> : shortcut for compiling and executing a neko file
+ ^^
+ source.hxml keyword.other.hxml
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   source.hxml
+>-resource <file>[@name] : add a named resource file
+ ^^^^^^^^^
+ source.hxml keyword.other.hxml
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          source.hxml
+>-prompt : prompt on error
+ ^^^^^^^
+ source.hxml keyword.other.hxml
+        ^^^^^^^^^^^^^^^^^^^
+        source.hxml
+>-cmd : run the specified command after successful compilation
+ ^^^^
+ source.hxml keyword.other.hxml
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     source.hxml
+>--flash-strict : more type strict flash API
+ ^^^^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               source.hxml
+>--no-traces : don't compile trace calls in the program
+ ^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            source.hxml
+>--gen-hx-classes : generate hx headers for all input classes
+ ^^^^^^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 source.hxml
+>--next : separate several haxe compilations
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       source.hxml
+>--each : append preceding parameters to all haxe compilations separated by --next
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       source.hxml
+                                                                           ^^^^^^^
+                                                                           source.hxml keyword.other.hxml
+>--display : display code tips
+ ^^^^^^^^^
+ source.hxml keyword.other.hxml
+          ^^^^^^^^^^^^^^^^^^^^^
+          source.hxml
+>--no-output : compiles but does not generate any file
+ ^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            source.hxml
+>--times : measure compilation times
+ ^^^^^^^
+ source.hxml keyword.other.hxml
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        source.hxml
+>--no-inline : disable inlining
+ ^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+            ^^^^^^^^^^^^^^^^^^^^
+            source.hxml
+>--no-opt : disable code optimizations
+ ^^^^^^^^
+ source.hxml keyword.other.hxml
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         source.hxml
+>--php-front <filename> : select the name for the php front file
+ ^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            source.hxml
+>--php-lib <filename> : select the name for the php lib folder
+ ^^^^^^^^^
+ source.hxml keyword.other.hxml
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          source.hxml
+>--php-prefix <name> : prefix all classes with given name
+ ^^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             source.hxml
+>--remap <package:target> : remap a package to another one
+ ^^^^^^^
+ source.hxml keyword.other.hxml
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        source.hxml
+>--interp : interpret the program using internal macro system
+ ^^^^^^^^
+ source.hxml keyword.other.hxml
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         source.hxml
+>#--macro  : call the given macro before typing anything else
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>--eval  : evaluates argument as Haxe module code
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       source.hxml
+>--wait <[host:]port> : wait on the given port for commands to run)
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       source.hxml
+>--connect <[host:]port> : connect on the given port and run commands there)
+ ^^^^^^^^^
+ source.hxml keyword.other.hxml
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          source.hxml
+>--cwd <dir> : set current working directory
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      source.hxml
+>-version : print version and exit
+ ^^^^^^^^
+ source.hxml keyword.other.hxml
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+         source.hxml
+>--help-defines : print help for all compiler specific defines
+ ^^^^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               source.hxml
+>--help-metas : print help for all compiler metadatas
+ ^^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+             source.hxml
+>-help  Display this list of options
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      source.hxml
+>--help  Display this list of options
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       source.hxml
+>
+ ^
+ source.hxml
+># multiple args in the same line:
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>-debug -v
+ ^^^^^^
+ source.hxml keyword.other.hxml
+       ^^^
+       source.hxml keyword.other.hxml
+># leading whitespace:
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^^^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+> 	-v
+ ^
+ source.hxml
+  ^^^
+  source.hxml keyword.other.hxml
+># dce args
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>-dce std
+ ^^^^^^^^
+ source.hxml keyword.other.hxml
+>-dce full
+ ^^^^^^^^^
+ source.hxml keyword.other.hxml
+>-dce no
+ ^^^^^^^
+ source.hxml keyword.other.hxml
+>-dce invalid
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^
+      source.hxml
+># dce arg with random whitespace
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>-dce   	 	 std
+ ^^^^^^^^^^^^^^
+ source.hxml keyword.other.hxml
+># argument inside another word
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>-java some-version-test
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^^^^^^^^^^^^
+      source.hxml
+>-java some-version
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^^^^^^^
+      source.hxml
+>-java some-versions
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^^^^^^^^^^^^^^^
+      source.hxml
+># commented out arg
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^^^^^^^^^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>#-java
+ ^
+ source.hxml comment.line.number-sign.hxml punctuation.definition.comment.hxml
+  ^^^^^^
+  source.hxml comment.line.number-sign.hxml
+>--macro server.setModuleCheckPolicy(['DefaultAssetLibrary'], [CheckFileContentModification])
+ ^^^^^^^
+ source.hxml keyword.other.hxml
+        ^
+        source.hxml
+         ^^^^^^
+         source.hxml variable.other.hx
+               ^
+               source.hxml
+                ^^^^^^^^^^^^^^^^^^^^
+                source.hxml entity.name.function.hx
+                                    ^
+                                    source.hxml meta.brace.round.hx
+                                     ^
+                                     source.hxml meta.array.literal.hx punctuation.definition.array.begin.hx
+                                      ^
+                                      source.hxml meta.array.literal.hx string.quoted.single.hx punctuation.definition.string.begin.hx
+                                       ^
+                                       source.hxml meta.array.literal.hx string.quoted.single.hx
+                                        ^
+                                        source.hxml meta.array.literal.hx string.quoted.single.hx
+                                         ^
+                                         source.hxml meta.array.literal.hx string.quoted.single.hx
+                                          ^
+                                          source.hxml meta.array.literal.hx string.quoted.single.hx
+                                           ^
+                                           source.hxml meta.array.literal.hx string.quoted.single.hx
+                                            ^
+                                            source.hxml meta.array.literal.hx string.quoted.single.hx
+                                             ^
+                                             source.hxml meta.array.literal.hx string.quoted.single.hx
+                                              ^
+                                              source.hxml meta.array.literal.hx string.quoted.single.hx
+                                               ^
+                                               source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                ^
+                                                source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                 ^
+                                                 source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                  ^
+                                                  source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                   ^
+                                                   source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                    ^
+                                                    source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                     ^
+                                                     source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                      ^
+                                                      source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                       ^
+                                                       source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                        ^
+                                                        source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                         ^
+                                                         source.hxml meta.array.literal.hx string.quoted.single.hx
+                                                          ^
+                                                          source.hxml meta.array.literal.hx string.quoted.single.hx punctuation.definition.string.end.hx
+                                                           ^
+                                                           source.hxml meta.array.literal.hx punctuation.definition.array.end.hx
+                                                            ^
+                                                            source.hxml punctuation.separator.comma.hx
+                                                             ^
+                                                             source.hxml
+                                                              ^
+                                                              source.hxml meta.array.literal.hx punctuation.definition.array.begin.hx
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                               source.hxml meta.array.literal.hx entity.name.type.hx
+                                                                                           ^
+                                                                                           source.hxml meta.array.literal.hx punctuation.definition.array.end.hx
+                                                                                            ^
+                                                                                            source.hxml meta.brace.round.hx
+>--macro include('haxe.ds')
+ ^^^^^^^
+ source.hxml keyword.other.hxml
+        ^
+        source.hxml
+         ^^^^^^^
+         source.hxml entity.name.function.hx
+                ^
+                source.hxml meta.brace.round.hx
+                 ^
+                 source.hxml string.quoted.single.hx punctuation.definition.string.begin.hx
+                  ^
+                  source.hxml string.quoted.single.hx
+                   ^
+                   source.hxml string.quoted.single.hx
+                    ^
+                    source.hxml string.quoted.single.hx
+                     ^
+                     source.hxml string.quoted.single.hx
+                      ^
+                      source.hxml string.quoted.single.hx
+                       ^
+                       source.hxml string.quoted.single.hx
+                        ^
+                        source.hxml string.quoted.single.hx
+                         ^
+                         source.hxml string.quoted.single.hx punctuation.definition.string.end.hx
+                          ^
+                          source.hxml meta.brace.round.hx
+>-main Main
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^
+      source.hxml
+       ^^^^
+       source.hxml entity.name.type.hx
+>-main foo.unit.Main
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^
+      source.hxml
+       ^^^^^^^^^
+       source.hxml support.package.hx
+                ^^^^
+                source.hxml entity.name.type.hx
+>-main foo
+ ^^^^^
+ source.hxml keyword.other.hxml
+      ^
+      source.hxml
+       ^^^^
+       source.hxml

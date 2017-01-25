@@ -1,0 +1,10 @@
+-cp src
+-lib hxnodejs
+-D analyzer-optimize
+-dce full
+--each
+-main Build
+-js bin/build.js
+--next
+-main Test
+-js bin/test.js

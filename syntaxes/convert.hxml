@@ -1,4 +1,5 @@
+-cp src
 -main Converter
 -lib yaml
 -lib plist
--x run.n
+-neko bin/convert.n
