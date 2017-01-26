@@ -3,6 +3,7 @@ package vshaxe;
 import vscode.*;
 import Vscode.*;
 import haxe.Constraints.Function;
+using StringTools;
 
 class Main {
     var context:ExtensionContext;
@@ -44,14 +45,43 @@ class Main {
         //     window.showInformationMessage("Fix is outdated and cannot be applied to the document");
         //     return;
         // }
+        var selections = [];
+        var previousEdits:Array<TextEdit> = [];
 
         editor.edit(function(mutator) {
             for (edit in edits) {
                 var range = new Range(edit.range.start.line, edit.range.start.character, edit.range.end.line, edit.range.end.character);
                 mutator.delete(range);
-                mutator.insert(range.start, edit.newText);
+
+                var text = edit.newText;
+                var re = ~/(?!\\)\$/;
+                re.match(text);
+                var pos = re.matchedPos();
+                text = re.replace(text, "");
+                // unescape dollar signs
+                text = text.replace("\\$", "$");
+
+                var rangeStart = range.start;
+                mutator.insert(rangeStart, text);
+
+                if (pos != null) {
+                    var cursorPos = range.start.translate(0, pos.pos);
+                    // need to translate the cursor pos according to what previous edits did.
+                    // assume text edits are already sorted correctly...
+                    for (prev in previousEdits) {
+                        var lines = prev.newText.split("\n");
+                        var lineDelta = prev.range.end.line - prev.range.start.line + (lines.length - 1);
+                        var characterDelta = prev.range.end.character - prev.range.start.character + lines[lines.length - 1].length;
+                        cursorPos = cursorPos.translate(lineDelta, characterDelta);
+                    }
+                    selections.push(new vscode.Selection(cursorPos, cursorPos));
+                }
+
+                previousEdits.push(edit);
             }
             commands.executeCommand("closeParameterHints");
+        }).then(function(ok) {
+            if (ok) editor.selections = selections;
         });
     }
 

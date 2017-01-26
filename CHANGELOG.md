@@ -4,6 +4,7 @@
 
 - allow generation of anonymous functions in signature completion
 - added a `"haxe.codeGeneration"` setting
+- added an "Extract variable" code action
 
 **Bugfixes**:
 
