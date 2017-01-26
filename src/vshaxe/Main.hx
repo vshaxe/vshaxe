@@ -56,7 +56,7 @@ class Main {
                 var text = edit.newText;
                 var re = ~/(?!\\)\$/;
                 re.match(text);
-                var pos = re.matchedPos();
+                var pos = try re.matchedPos() catch (e:Any) null;
                 text = re.replace(text, "");
                 // unescape dollar signs
                 text = text.replace("\\$", "$");
