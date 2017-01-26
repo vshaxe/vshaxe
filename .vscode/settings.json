@@ -1,5 +1,15 @@
 {
     "haxe.displayConfigurations": [
         ["complete.hxml"]
+    ],
+    "astyle.cmd_options": [
+        "--mode=cs",
+        "--style=java",
+        "--pad-header",
+        "--remove-brackets",
+        "--indent-col1-comments",
+        "--indent-preproc-block",
+        "--indent-switches",
+        "--keep-one-line-statements"
     ]
 }
