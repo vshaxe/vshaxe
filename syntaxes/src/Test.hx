@@ -20,6 +20,7 @@ class Test {
         }
         if (hasError)
             Sys.exit(1);
+        Sys.println("Test done.");
     }
 
     static function removeNewlines(text:String):String {

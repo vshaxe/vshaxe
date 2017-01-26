@@ -12,10 +12,5 @@ script:
  - haxe build.hxml
 
  - cd syntaxes
- - haxe convert.hxml
- - neko bin/convert.n
-
  - npm install vscode-textmate
- - haxe test.hxml
- - node bin/build.js
- - node bin/test.js
+ - haxe all.hxml

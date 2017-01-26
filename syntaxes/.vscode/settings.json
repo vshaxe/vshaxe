@@ -1,5 +1,5 @@
 {
     "haxe.displayConfigurations": [
-        ["build.hxml"]
+        ["complete.hxml"]
     ]
 }

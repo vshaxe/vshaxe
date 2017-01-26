@@ -2,7 +2,7 @@ import sys.io.File;
 
 class Converter {
 	static function main() {
-		trace("Converting syntax files to plist...");
+		Sys.println("Converting syntax files to plist...");
 		convert("haxe.YAML-tmLanguage", "haxe.tmLanguage");
 		convert("hxml.YAML-tmLanguage", "hxml.tmLanguage");
 	}
@@ -15,7 +15,7 @@ class Converter {
 		switch (plist.Writer.write(parsed)) {
 			case Success(data):
 				File.saveContent(dest, data);
-				trace(source + " - done");
+				Sys.println(source + " - done");
 			case _: throw "Error";
 		}
 	}
