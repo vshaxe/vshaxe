@@ -115,6 +115,42 @@
                     "description": "Speed up completion by building the project once on startup to initialize the cache.",
                     "type": "boolean",
                     "default": true
+                },
+                "haxe.codeGeneration": {
+                    "description": "Options for code generation",
+                    "type": "object",
+                    "default": {},
+                    "properties": {
+                        "functions": {
+                            "description": "Options for generating functions",
+                            "type": "object",
+                            "default": {},
+                            "properties": {
+                                "anonymous": {
+                                    "description": "Options for generating anonymous functions",
+                                    "type": "object",
+                                    "default": {},
+                                    "properties": {
+                                        "returnTypeHint": {
+                                            "description": "In which case to include return type hints",
+                                            "type": "string",
+                                            "default": "never",
+                                            "enum": [
+                                                "always",
+                                                "never",
+                                                "non-void"
+                                            ]
+                                        },
+                                        "argumentTypeHints": {
+                                            "description": "Whether to include type hints for arguments",
+                                            "type": "boolean",
+                                            "default": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },

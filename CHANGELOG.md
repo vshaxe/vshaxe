@@ -2,13 +2,14 @@
 
 **New Features**:
 
-- allow generation of inline functions in signature completion
+- allow generation of anonymous functions in signature completion
+- added a `"haxe.codeGeneration"` setting
 
 **Bugfixes**:
 
 - fixed regex highlighting in the upcoming VSCode 1.9.0
 - fixed highlighting of constructor references (`Class.new`)
-- fixed highlighting package names with underscores
+- fixed highlighting of package names with underscores
 
 ### 1.2.0 (January 23, 2017)
 
