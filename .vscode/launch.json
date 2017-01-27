@@ -14,6 +14,16 @@
             "outFiles": [
                 "${workspaceRoot}/bin/*.js"
             ]
+        },
+        {
+            "name": "Attach to Server",
+            "type": "node",
+            "request": "attach",
+            "port": 6004,
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceRoot}/bin/server.js"
+            ]
         }
     ]
 }
