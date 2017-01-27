@@ -2,6 +2,7 @@
     "haxe.displayConfigurations": [
         ["complete.hxml"]
     ],
+    "astyle.additional_languages": ["haxe"],
     "astyle.cmd_options": [
         "--mode=cs",
         "--style=java",
