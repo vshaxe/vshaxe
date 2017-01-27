@@ -11,6 +11,7 @@
 - fixed regex highlighting in the upcoming VSCode 1.9.0
 - fixed highlighting of constructor references (`Class.new`)
 - fixed highlighting of package names with underscores
+- fixed indentation when writing a comment after `}` ([#83](https://github.com/vshaxe/vshaxe/issues/83))
 
 ### 1.2.0 (January 23, 2017)
 
