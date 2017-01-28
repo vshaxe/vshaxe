@@ -1,4 +1,5 @@
 {
+    "editor.insertSpaces": true,
     "haxe.displayConfigurations": [
         ["complete.hxml"]
     ],

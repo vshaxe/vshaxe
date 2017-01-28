@@ -81,7 +81,7 @@ class Main {
             }
             commands.executeCommand("closeParameterHints");
         }).then(function(ok) {
-            if (ok) editor.selections = selections;
+            if (ok && selections.length > 0) editor.selections = selections;
         });
     }
 
