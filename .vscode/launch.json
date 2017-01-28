@@ -24,6 +24,16 @@
             "outFiles": [
                 "${workspaceRoot}/bin/server.js"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Server Unit Tests",
+            "program": "${workspaceRoot}/bin/test.js",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceRoot}/bin/*.js"
+            ]
         }
     ]
 }
