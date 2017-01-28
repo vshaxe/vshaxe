@@ -6,6 +6,7 @@ haxe:
 install:
  - haxelib install hxnodejs
  - haxelib install yaml
+ - haxelib install compiletime
  - haxelib git plist https://github.com/back2dos/plist
 
 script:
