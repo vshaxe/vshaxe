@@ -1,6 +1,0 @@
--cp src
--lib hxnodejs
--lib yaml
--lib plist
-# hx-yaml wants a target
--neko dummy.n

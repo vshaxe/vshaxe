@@ -1,5 +1,0 @@
--cmd haxe convert.hxml
--cmd neko bin/convert.n
--cmd haxe test.hxml
--cmd node bin/build.js
--cmd node bin/test.js
