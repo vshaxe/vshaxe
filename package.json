@@ -5,7 +5,7 @@
     "engines": {
         "vscode": "^1.0.0"
     },
-    "displayName": "Haxe Support",
+    "displayName": "Haxe",
     "description": "Haxe language support for Visual Studio Code",
     "categories": [
         "Languages",
