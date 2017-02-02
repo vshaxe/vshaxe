@@ -7,7 +7,7 @@
 
 **Bugfixes**:
 
-- fixed regex highlighting in the upcoming VSCode 1.9.0
+- fixed regex highlighting in VSCode 1.9.0
 - fixed highlighting of constructor references (`Class.new`)
 - fixed highlighting of package names with underscores
 - fixed highlighting of comments after conditionals ([haxe-tmLanguage#1](https://github.com/vshaxe/haxe-tmLanguage/issues/1))
