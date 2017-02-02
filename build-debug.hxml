@@ -1,5 +1,8 @@
+-debug
+--each
+
 build-client.hxml
 
 --next
 --cwd server
-build.hxml
+build-debug.hxml
