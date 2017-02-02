@@ -1,8 +1,14 @@
 src/**/*
 server/**/*
+vscode-extern/**/*
 .vscode/**/*
+syntaxes/**/*
+!syntaxes/*.tmLanguage
+.travis.yml
 .gitignore
 .gitmodules
 bin/*.map
+bin/test.js
 *.hxml
 node_modules/**/*.ts
+images/Main.hx
