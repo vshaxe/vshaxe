@@ -1,4 +1,4 @@
-### 1.3.0 (to be released)
+### 1.3.0 (February 2, 2017)
 
 **New Features**:
 
