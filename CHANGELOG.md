@@ -19,6 +19,7 @@
 **Changes and improvements**:
 
 - improved handling of Haxe crashes, e.g. with invalid arugments ([haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
+- support auto closing and surrounding brackets in hxml files (for `--macro` arguments)
 
 ### 1.2.0 (January 23, 2017)
 
