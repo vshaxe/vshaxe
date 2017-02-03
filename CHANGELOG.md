@@ -1,3 +1,13 @@
+### 1.3.1 (to be released)
+
+**Bugfixes**:
+
+- fixed invalid argument name generation with type parameters ([haxe-languageserver#28](https://github.com/vshaxe/haxe-languageserver/issues/28))
+
+**Changes and improvements**:
+
+- smarter error handling ([#20](https://github.com/vshaxe/vshaxe/issues/20), [haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
+
 ### 1.3.0 (February 2, 2017)
 
 **New Features**:
