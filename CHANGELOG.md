@@ -7,7 +7,7 @@
 **Changes and improvements**:
 
 - smarter error handling ([#20](https://github.com/vshaxe/vshaxe/issues/20), [haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
-- ignore hidden files in the "init project" commnad ([#10](https://github.com/vshaxe/vshaxe/issues/10))
+- ignore hidden files in the "init project" command ([#10](https://github.com/vshaxe/vshaxe/issues/10))
 
 ### 1.3.0 (February 2, 2017)
 
@@ -29,7 +29,7 @@
 
 **Changes and improvements**:
 
-- improved handling of Haxe crashes, e.g. with invalid arugments ([haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
+- improved handling of Haxe crashes, e.g. with invalid arguments ([haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
 - support auto closing and surrounding brackets in hxml files (for `--macro` arguments)
 
 ### 1.2.0 (January 23, 2017)
