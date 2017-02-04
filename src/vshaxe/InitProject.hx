@@ -8,6 +8,7 @@ import vscode.QuickPickItem;
 import Vscode.*;
 
 using StringTools;
+using Lambda;
 
 class InitProject {
     var context:ExtensionContext;
@@ -25,14 +26,15 @@ class InitProject {
             return;
         }
 
-        if (FileSystem.readDirectory(workspaceRoot).length == 0) {
-            scaffoldEmpty(workspaceRoot);
-            return;
-        }
-
         var vscodeDir = workspaceRoot + "/.vscode";
         if (FileSystem.exists(vscodeDir)) {
             showConfigureHint();
+            return;
+        }
+
+        var emptyOrOnlyHiddenFiles = FileSystem.readDirectory(workspaceRoot).foreach(function(f) return f.startsWith("."));
+        if (emptyOrOnlyHiddenFiles) {
+            scaffoldEmpty(workspaceRoot);
             return;
         }
 

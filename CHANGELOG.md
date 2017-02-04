@@ -7,6 +7,7 @@
 **Changes and improvements**:
 
 - smarter error handling ([#20](https://github.com/vshaxe/vshaxe/issues/20), [haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
+- ignore hidden files in the "init project" commnad ([#10](https://github.com/vshaxe/vshaxe/issues/10))
 
 ### 1.3.0 (February 2, 2017)
 
