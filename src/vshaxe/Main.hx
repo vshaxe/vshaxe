@@ -3,6 +3,7 @@ package vshaxe;
 import vscode.*;
 import Vscode.*;
 import haxe.Constraints.Function;
+import js.node.Buffer;
 using StringTools;
 
 class Main {
@@ -41,15 +42,15 @@ class Main {
     /** Useful for debugging Haxe display requests, since the cursor offset is needed there. **/
     function createCursorOffsetStatusBarItem() {
         var cursorOffset = window.createStatusBarItem(Right, 100);
-        cursorOffset.tooltip = "Cursor offset";
+        cursorOffset.tooltip = "Cursor byte offset";
         context.subscriptions.push(cursorOffset);
         
         function updateOffset() {
             var editor = window.activeTextEditor;
             if (editor == null) return;
             var pos = editor.selection.start;
-            var offset = editor.document.offsetAt(pos);
-            cursorOffset.text = "Offset: " + offset;
+            var textUntilCursor = editor.document.getText(new Range(0, 0, pos.line, pos.character));
+            cursorOffset.text = "Offset: " + Buffer.byteLength(textUntilCursor);
             cursorOffset.show();
         }
         
