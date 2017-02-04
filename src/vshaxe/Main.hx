@@ -45,17 +45,21 @@ class Main {
         cursorOffset.tooltip = "Cursor byte offset";
         context.subscriptions.push(cursorOffset);
         
-        function updateOffset() {
+        function updateItem() {
             var editor = window.activeTextEditor;
-            if (editor == null) return;
+            if (editor == null || editor.document.languageId != "haxe") {
+                cursorOffset.hide();
+                return;
+            }
             var pos = editor.selection.start;
             var textUntilCursor = editor.document.getText(new Range(0, 0, pos.line, pos.character));
             cursorOffset.text = "Offset: " + Buffer.byteLength(textUntilCursor);
             cursorOffset.show();
         }
         
-        context.subscriptions.push(window.onDidChangeTextEditorSelection(function(_) updateOffset()));
-        updateOffset();
+        context.subscriptions.push(window.onDidChangeTextEditorSelection(function(_) updateItem()));
+        context.subscriptions.push(window.onDidChangeActiveTextEditor(function(_) updateItem()));
+        updateItem();
     }
 
     function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
