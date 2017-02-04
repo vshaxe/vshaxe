@@ -18,6 +18,9 @@ class Main {
 
         displayConfig = new DisplayConfiguration(ctx);
         new InitProject(ctx);
+        #if debug
+        createCursorOffsetStatusBarItem();
+        #end
 
         registerCommand("restartLanguageServer", restartLanguageServer);
         registerCommand("applyFixes", applyFixes);
@@ -33,6 +36,25 @@ class Main {
 
     function registerCommand(command:String, callback:Function) {
         context.subscriptions.push(commands.registerCommand("haxe." + command, callback));
+    }
+
+    /** Useful for debugging Haxe display requests, since the cursor offset is needed there. **/
+    function createCursorOffsetStatusBarItem() {
+        var cursorOffset = window.createStatusBarItem(Right, 100);
+        cursorOffset.tooltip = "Cursor offset";
+        context.subscriptions.push(cursorOffset);
+        
+        function updateOffset() {
+            var editor = window.activeTextEditor;
+            if (editor == null) return;
+            var pos = editor.selection.start;
+            var offset = editor.document.offsetAt(pos);
+            cursorOffset.text = "Offset: " + offset;
+            cursorOffset.show();
+        }
+        
+        context.subscriptions.push(window.onDidChangeTextEditorSelection(function(_) updateOffset()));
+        updateOffset();
     }
 
     function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
