@@ -13,5 +13,6 @@
         "--indent-preproc-block",
         "--indent-switches",
         "--keep-one-line-statements"
-    ]
+    ],
+    "files.trimTrailingWhitespace": true
 }

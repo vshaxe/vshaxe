@@ -44,7 +44,7 @@ class Main {
         var cursorOffset = window.createStatusBarItem(Right, 100);
         cursorOffset.tooltip = "Cursor byte offset";
         context.subscriptions.push(cursorOffset);
-        
+
         function updateItem() {
             var editor = window.activeTextEditor;
             if (editor == null || editor.document.languageId != "haxe") {
@@ -56,7 +56,7 @@ class Main {
             cursorOffset.text = "Offset: " + Buffer.byteLength(textUntilCursor);
             cursorOffset.show();
         }
-        
+
         context.subscriptions.push(window.onDidChangeTextEditorSelection(function(_) updateItem()));
         context.subscriptions.push(window.onDidChangeActiveTextEditor(function(_) updateItem()));
         updateItem();
@@ -173,7 +173,7 @@ class Main {
     function restartLanguageServer() {
         if (client != null && client.outputChannel != null)
             client.outputChannel.dispose();
-            
+
         if (serverDisposable != null) {
             context.subscriptions.remove(serverDisposable);
             serverDisposable.dispose();
