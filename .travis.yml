@@ -7,6 +7,7 @@ install:
  - haxelib install hxnodejs
  - haxelib install yaml
  - haxelib install compiletime
+ - haxelib git mockatoo https://github.com/misprintt/mockatoo master src
  - haxelib git plist https://github.com/back2dos/plist
 
 script:

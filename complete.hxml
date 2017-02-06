@@ -5,4 +5,7 @@
 -cp src
 -lib hxnodejs
 -lib compiletime
+-lib mockatoo
+--no-inline
+-debug
 -js some.js
