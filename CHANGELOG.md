@@ -1,13 +1,18 @@
-### 1.3.1 (to be released)
+### 1.3.1 (February 9, 2017)
 
 **Bugfixes**:
 
 - fixed invalid argument name generation with type parameters ([haxe-languageserver#28](https://github.com/vshaxe/haxe-languageserver/issues/28))
+- fixed inconsistent icon usage in field and toplevel completion
+- fixed diagnostics sometimes being reported for the wrong file
 
 **Changes and improvements**:
 
 - smarter error handling ([#20](https://github.com/vshaxe/vshaxe/issues/20), [haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
 - ignore hidden files in the "init project" command ([#10](https://github.com/vshaxe/vshaxe/issues/10))
+- some minor highlighting improvements ([haxe-tmLanguage#10](https://github.com/vshaxe/haxe-tmLanguage/issues/10))
+- added a quick fix for "invalid package" diagnostics
+- leading `*` characters are now removed from signature help docs
 
 ### 1.3.0 (February 2, 2017)
 
