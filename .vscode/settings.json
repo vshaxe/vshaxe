@@ -14,5 +14,13 @@
         "--indent-switches",
         "--keep-one-line-statements"
     ],
-    "files.trimTrailingWhitespace": true
+    "files.trimTrailingWhitespace": true,
+    "codedox": {
+        "commentprefix": "    ",
+        "commentdescription": "",
+        "commentend": "**/",
+        "alwaysMultiline": false,
+        "paramFormat": "",
+        "returnFormat": ""
+    }
 }
