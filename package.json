@@ -6,7 +6,7 @@
         "vscode": "^1.0.0"
     },
     "displayName": "Haxe",
-    "description": "Haxe language support for Visual Studio Code",
+    "description": "Haxe language support",
     "categories": [
         "Languages",
         "Linters"
