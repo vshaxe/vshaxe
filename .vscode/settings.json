@@ -1,8 +1,10 @@
 {
     "editor.insertSpaces": true,
+    "files.trimTrailingWhitespace": true,
     "haxe.displayConfigurations": [
         ["complete.hxml"]
     ],
+    "haxe.diagnosticsPathFilter": "${workspaceRoot}/(?!syntaxes/cases)",
     "astyle.additional_languages": ["haxe"],
     "astyle.cmd_options": [
         "--mode=cs",
@@ -14,7 +16,6 @@
         "--indent-switches",
         "--keep-one-line-statements"
     ],
-    "files.trimTrailingWhitespace": true,
     "codedox": {
         "commentprefix": "    ",
         "commentdescription": "",
