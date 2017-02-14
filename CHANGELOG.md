@@ -6,7 +6,7 @@
 
 **Changes and improvements**:
 
-- no longer request diagnostics if `diagnosticsPathFilter` matches
+- no longer request diagnostics if `diagnosticsPathFilter` doesn't match
 
 ### 1.3.1 (February 9, 2017)
 
