@@ -1,3 +1,9 @@
+### Unreleased
+
+**Bugfixes**:
+
+ - properly handle cancelled requests in the language server (so dead requests don't pile up inside VS Code)
+
 ### 1.3.1 (February 9, 2017)
 
 **Bugfixes**:
