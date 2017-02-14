@@ -4,6 +4,10 @@
 
  - properly handle cancelled requests in the language server (so dead requests don't pile up inside VS Code)
 
+**Changes and improvements**:
+
+- no longer request diagnostics if `diagnosticsPathFilter` matches
+
 ### 1.3.1 (February 9, 2017)
 
 **Bugfixes**:
