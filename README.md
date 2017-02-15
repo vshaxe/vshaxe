@@ -5,6 +5,8 @@
 This is an extension for [Visual Studio Code](https://code.visualstudio.com) that adds support for the [Haxe](http://haxe.org/) language,
 leveraging [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver).
 
+Instead of installing this extension directly, consider installing the [Haxe Extension Pack](https://marketplace.visualstudio.com/items?itemName=vshaxe.haxe-extension-pack). It includes some other extensions that are useful for Haxe development (for debugging, doc comment generation...).
+
 **IMPORTANT**: This requires Haxe version 3.4-rc1 or later (e.g. development) due to usage of [`-D display-stdin`](https://github.com/HaxeFoundation/haxe/pull/5120),
 [`--wait stdio`](https://github.com/HaxeFoundation/haxe/pull/5188) and ton of other fixes and additions related to IDE support.
 
