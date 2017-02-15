@@ -1,3 +1,9 @@
+### 1.3.3 (February 15, 2017)
+
+**Bugfixes**:
+
+- fixed diagnostics always being filtered if `diagnosticsPathFilter` is set
+
 ### 1.3.2 (February 14, 2017)
 
 **Bugfixes**:
