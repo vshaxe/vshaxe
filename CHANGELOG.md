@@ -1,3 +1,9 @@
+### To be released
+
+**Changes and improvements**:
+
+- diagnostics now run when the active editor is changed
+
 ### 1.3.3 (February 16, 2017)
 
 **Bugfixes**:

@@ -59,6 +59,7 @@ class Main {
 
         context.subscriptions.push(window.onDidChangeTextEditorSelection(function(_) updateItem()));
         context.subscriptions.push(window.onDidChangeActiveTextEditor(function(_) updateItem()));
+        context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
         updateItem();
     }
 
@@ -123,6 +124,11 @@ class Main {
 
     function runGlobalDiagnostics() {
         client.sendNotification({method: "vshaxe/runGlobalDiagnostics"});
+    }
+
+    function onDidChangeActiveTextEditor(editor:TextEditor) {
+        if (editor.document.languageId == "haxe")
+            client.sendNotification({method: "vshaxe/didChangeActiveTextEditor"}, {uri: editor.document.uri.toString()});
     }
 
     function startLanguageServer() {
