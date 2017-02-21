@@ -127,7 +127,7 @@ class Main {
     }
 
     function onDidChangeActiveTextEditor(editor:TextEditor) {
-        if (editor.document.languageId == "haxe")
+        if (editor != null && editor.document.languageId == "haxe")
             client.sendNotification({method: "vshaxe/didChangeActiveTextEditor"}, {uri: editor.document.uri.toString()});
     }
 
