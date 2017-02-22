@@ -4,5 +4,9 @@
 build-client.hxml
 
 --next
---cwd server
+--cwd formatter
+test.hxml
+
+--next
+--cwd ../server
 build-debug.hxml

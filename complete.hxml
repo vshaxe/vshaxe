@@ -1,6 +1,8 @@
 -cp server/src
 -cp server/test
 -cp server/protocol/src
+-cp formatter/src
+-cp formatter/test
 -cp vscode-extern/src
 -cp src
 -lib hxnodejs

@@ -34,6 +34,16 @@
             "outFiles": [
                 "${workspaceRoot}/bin/*.js"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Formatter Unit Tests",
+            "program": "${workspaceRoot}/bin/testFormatter.js",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceRoot}/bin/*.js"
+            ]
         }
     ]
 }

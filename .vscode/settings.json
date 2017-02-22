@@ -5,17 +5,6 @@
         ["complete.hxml"]
     ],
     "haxe.diagnosticsPathFilter": "${workspaceRoot}/(?!syntaxes/cases)",
-    "astyle.additional_languages": ["haxe"],
-    "astyle.cmd_options": [
-        "--mode=cs",
-        "--style=java",
-        "--pad-header",
-        "--remove-brackets",
-        "--indent-col1-comments",
-        "--indent-preproc-block",
-        "--indent-switches",
-        "--keep-one-line-statements"
-    ],
     "codedox": {
         "commentprefix": "    ",
         "commentdescription": "",
