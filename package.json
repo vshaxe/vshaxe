@@ -151,11 +151,6 @@
                             }
                         }
                     }
-                },
-                "haxe.format": {
-                    "description": "Code formatting settings",
-                    "type": "object",
-                    "default": {}
                 }
             }
         },

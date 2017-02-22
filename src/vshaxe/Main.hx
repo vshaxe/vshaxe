@@ -33,7 +33,9 @@ class Main {
         var wordPattern = defaultWordPattern + "|(@:\\w*)"; // metadata
         languages.setLanguageConfiguration("Haxe", {wordPattern: new js.RegExp(wordPattern)});
 
+        #if debug
         context.subscriptions.push(languages.registerDocumentFormattingEditProvider('haxe', this));
+        #end
 
         startLanguageServer();
     }
@@ -134,6 +136,7 @@ class Main {
             client.sendNotification({method: "vshaxe/didChangeActiveTextEditor"}, {uri: editor.document.uri.toString()});
     }
 
+    #if debug
     public function provideDocumentFormattingEdits(document:TextDocument, options:FormattingOptions, token:CancellationToken):ProviderResult<Array<TextEdit>> {
         var config = workspace.getConfiguration('haxe').get("format");
         var result = Formatter.format(document.getText(), config);
@@ -146,6 +149,7 @@ class Main {
         var fullRange = new Range(new Position(0, 0), lastPosition);
         return [new TextEdit(fullRange, formatted)];
     }
+    #end
 
     function startLanguageServer() {
         var serverModule = context.asAbsolutePath("./server_wrapper.js");

@@ -1,5 +1,6 @@
 src/**/*
 server/**/*
+formatter/**/*
 vscode-extern/**/*
 .vscode/**/*
 syntaxes/**/*
