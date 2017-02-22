@@ -1,5 +1,6 @@
 -cp vscode-extern/src
 -cp formatter/src
+-cp formatter/hxparser/src
 -cp src
 -lib hxnodejs
 -D hxnodejs-no-version-warning

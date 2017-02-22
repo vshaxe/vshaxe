@@ -2,6 +2,7 @@
 -cp server/test
 -cp server/protocol/src
 -cp formatter/src
+-cp formatter/hxparser/src
 -cp formatter/test
 -cp vscode-extern/src
 -cp src
