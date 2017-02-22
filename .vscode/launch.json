@@ -43,7 +43,8 @@
             "sourceMaps": true,
             "outFiles": [
                 "${workspaceRoot}/bin/*.js"
-            ]
+            ],
+            "cwd": "${workspaceRoot}/formatter"
         }
     ]
 }

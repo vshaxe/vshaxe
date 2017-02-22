@@ -1,10 +1,10 @@
 package vshaxe;
 
-import vscode.*;
 import Vscode.*;
 import haxe.Constraints.Function;
-import js.node.Buffer;
 import haxeFormatter.Formatter;
+import js.node.Buffer;
+import vscode.*;
 using StringTools;
 
 class Main {
