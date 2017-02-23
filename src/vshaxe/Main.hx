@@ -2,7 +2,6 @@ package vshaxe;
 
 import Vscode.*;
 import haxe.Constraints.Function;
-import haxeFormatter.Formatter;
 import js.node.Buffer;
 import vscode.*;
 using StringTools;
@@ -32,10 +31,6 @@ class Main {
         var defaultWordPattern = "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)";
         var wordPattern = defaultWordPattern + "|(@:\\w*)"; // metadata
         languages.setLanguageConfiguration("Haxe", {wordPattern: new js.RegExp(wordPattern)});
-
-        #if debug
-        context.subscriptions.push(languages.registerDocumentFormattingEditProvider('haxe', this));
-        #end
 
         startLanguageServer();
     }
@@ -135,21 +130,6 @@ class Main {
         if (editor != null && editor.document.languageId == "haxe")
             client.sendNotification({method: "vshaxe/didChangeActiveTextEditor"}, {uri: editor.document.uri.toString()});
     }
-
-    #if debug
-    public function provideDocumentFormattingEdits(document:TextDocument, options:FormattingOptions, token:CancellationToken):ProviderResult<Array<TextEdit>> {
-        var config = workspace.getConfiguration('haxe').get("format");
-        var result = Formatter.format(document.getText(), config);
-        var formatted:String;
-        switch (result) {
-            case Success(s): formatted = s;
-            case Failure(reason): return null;
-        }
-        var lastPosition = document.lineAt(document.lineCount - 1).range.end;
-        var fullRange = new Range(new Position(0, 0), lastPosition);
-        return [new TextEdit(fullRange, formatted)];
-    }
-    #end
 
     function startLanguageServer() {
         var serverModule = context.asAbsolutePath("./server_wrapper.js");

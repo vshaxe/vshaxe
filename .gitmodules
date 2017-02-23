@@ -7,6 +7,3 @@
 [submodule "syntaxes"]
 	path = syntaxes
 	url = https://github.com/vshaxe/haxe-TmLanguage
-[submodule "formatter"]
-	path = formatter
-	url = https://github.com/vshaxe/haxe-formatter
