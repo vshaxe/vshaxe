@@ -3,10 +3,10 @@
 
 build-client.hxml
 
-# --next
-# --cwd server/formatter
-# test.hxml
+--next
+--cwd server/formatter
+test.hxml
 
 --next
---cwd server
+--cwd ..
 build-debug.hxml
