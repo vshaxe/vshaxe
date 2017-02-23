@@ -39,12 +39,12 @@
             "type": "node",
             "request": "launch",
             "name": "Formatter Unit Tests",
-            "program": "${workspaceRoot}/bin/testFormatter.js",
+            "program": "${workspaceRoot}/server/formatter/bin/test.js",
             "sourceMaps": true,
             "outFiles": [
-                "${workspaceRoot}/bin/*.js"
+                "${workspaceRoot}/server/formatter/bin/*.js"
             ],
-            "cwd": "${workspaceRoot}/formatter"
+            "cwd": "${workspaceRoot}/server/formatter"
         }
     ]
 }

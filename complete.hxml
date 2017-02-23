@@ -1,9 +1,9 @@
 -cp server/src
 -cp server/test
 -cp server/protocol/src
--cp formatter/src
--cp formatter/hxparser/src
--cp formatter/test
+-cp server/formatter/src
+-cp server/formatter/hxparser/src
+-cp server/formatter/test
 -cp vscode-extern/src
 -cp src
 -lib hxnodejs
