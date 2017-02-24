@@ -1,7 +1,9 @@
 {
     "version": "0.1.0",
     "command": "haxe",
-    "args": ["build-debug.hxml"],
+    "args": [
+        "build-debug.hxml"
+    ],
     "problemMatcher": {
         "owner": "haxe",
         "pattern": {
@@ -14,5 +16,6 @@
             "severity": 6,
             "message": 7
         }
-    }
+    },
+    "_runner": "terminal"
 }
