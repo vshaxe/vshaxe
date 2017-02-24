@@ -8,7 +8,7 @@ install:
  - haxelib install yaml
  - haxelib install compiletime
  - haxelib install mconsole
- - haxelib git mockatoo https://github.com/misprintt/mockatoo master src
+ - haxelib git mockatoo https://github.com/grosmar/mockatoo master src
  - haxelib git plist https://github.com/back2dos/plist
 
 script:
