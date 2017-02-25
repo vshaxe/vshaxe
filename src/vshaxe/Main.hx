@@ -28,6 +28,8 @@ class Main {
         registerCommand("showReferences", showReferences);
         registerCommand("runGlobalDiagnostics", runGlobalDiagnostics);
 
+        context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
+
         var defaultWordPattern = "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)";
         var wordPattern = defaultWordPattern + "|(@:\\w*)"; // metadata
         languages.setLanguageConfiguration("Haxe", {wordPattern: new js.RegExp(wordPattern)});
@@ -59,7 +61,6 @@ class Main {
 
         context.subscriptions.push(window.onDidChangeTextEditorSelection(function(_) updateItem()));
         context.subscriptions.push(window.onDidChangeActiveTextEditor(function(_) updateItem()));
-        context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
         updateItem();
     }
 
