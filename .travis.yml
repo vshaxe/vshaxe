@@ -4,7 +4,7 @@ haxe:
  - development
 
 install:
- - haxelib install hxnodejs
+ - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs
  - haxelib install hxargs
  - haxelib install yaml
  - haxelib install compiletime
@@ -14,6 +14,7 @@ install:
 
 script:
  - haxe build.hxml
+ - haxe build-debug.hxml
 
  - cd syntaxes
  - npm install vscode-textmate

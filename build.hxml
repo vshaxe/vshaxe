@@ -1,12 +1,5 @@
 build-client.hxml
 
 --next
---cwd server/formatter
-test.hxml
-
---next
-cli.hxml
-
---next
---cwd ..
+--cwd server
 build.hxml
