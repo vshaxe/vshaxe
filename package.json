@@ -15,7 +15,7 @@
         "theme": "dark",
         "color": "#A84B38"
     },
-    "icon": "haxe-logo.png",
+    "icon": "images/haxe-logo.png",
     "author": "Dan Korostelev",
     "license": "MIT",
     "dependencies": {
