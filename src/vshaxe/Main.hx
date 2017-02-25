@@ -2,7 +2,6 @@ package vshaxe;
 
 import Vscode.*;
 import haxe.Constraints.Function;
-import js.node.Buffer;
 import vscode.*;
 using StringTools;
 

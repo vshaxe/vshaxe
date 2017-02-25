@@ -5,6 +5,7 @@ haxe:
 
 install:
  - haxelib install hxnodejs
+ - haxelib install hxargs
  - haxelib install yaml
  - haxelib install compiletime
  - haxelib install mconsole

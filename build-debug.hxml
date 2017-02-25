@@ -8,5 +8,8 @@ build-client.hxml
 test.hxml
 
 --next
+cli.hxml
+
+--next
 --cwd ..
 build-debug.hxml

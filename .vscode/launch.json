@@ -45,6 +45,17 @@
                 "${workspaceRoot}/server/formatter/bin/*.js"
             ],
             "cwd": "${workspaceRoot}/server/formatter"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Formatter CLI",
+            "program": "${workspaceRoot}/server/formatter/bin/cli.js",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceRoot}/server/formatter/bin/*.js"
+            ],
+            "cwd": "${workspaceRoot}/server/formatter"
         }
     ]
 }
