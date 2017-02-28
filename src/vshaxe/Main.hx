@@ -146,11 +146,11 @@ class Main {
             }));
             context.subscriptions.push(hxFileWatcher);
 
-            // #if debug
-            // client.onNotification({method: "vshaxe/updateParseTree"}, function(result:{uri:String, parseTree:String}) {
-            //     commands.executeCommand("hxparservis.updateParseTree", result.uri, result.parseTree);
-            // });
-            // #end
+            #if debug
+            client.onNotification({method: "vshaxe/updateParseTree"}, function(result:{uri:String, parseTree:String}) {
+                commands.executeCommand("hxparservis.updateParseTree", result.uri, result.parseTree);
+            });
+            #end
         });
         serverDisposable = client.start();
         context.subscriptions.push(serverDisposable);
