@@ -4,6 +4,7 @@ haxe:
  - development
 
 install:
+ - haxelib git haxe-hxparser https://github.com/vshaxe/haxe-hxparser
  - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs
  - haxelib install hxargs
  - haxelib install yaml
