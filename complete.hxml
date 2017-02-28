@@ -10,6 +10,7 @@
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo
+-lib jstack
 --no-inline
 -debug
 -js some.js

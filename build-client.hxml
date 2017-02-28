@@ -1,6 +1,7 @@
 -cp vscode-extern/src
 -cp src
 -lib hxnodejs
+-lib jstack
 -D hxnodejs-no-version-warning
 -D analyzer-optimize
 -js bin/client.js

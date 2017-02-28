@@ -12,6 +12,7 @@ install:
  - haxelib install mconsole
  - haxelib git mockatoo https://github.com/grosmar/mockatoo master src
  - haxelib git plist https://github.com/back2dos/plist
+ - haxelib install jstack
 
 script:
  - haxe build.hxml
