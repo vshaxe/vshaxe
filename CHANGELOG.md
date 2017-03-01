@@ -3,6 +3,7 @@
 **Bugfixes**:
 
 - fixed several small highlighting issues (haxe-tmLanguage[[#2](https://github.com/vshaxe/haxe-tmLanguage/issues/2), [#8](https://github.com/vshaxe/haxe-tmLanguage/issues/8), [#15](https://github.com/vshaxe/haxe-tmLanguage/issues/15)])
+- fixed signature help without argument names ([haxe#6064](https://github.com/HaxeFoundation/haxe/issues/6064))
 
 **Changes and improvements**:
 
