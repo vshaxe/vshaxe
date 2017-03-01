@@ -39,12 +39,13 @@ class InitProject {
         }
 
         var hxmls = findHxmls(workspaceRoot);
-        if (hxmls.length > 0) {
+        if (hxmls.length == 0) {
+            window.showErrorMessage("To set up Haxe project, workspace must be either empty or contain HXML files to choose from");
+        } else if (hxmls.length == 1) {
+            scaffoldVscodeSettings(vscodeDir, hxmls[0], hxmls);
+        } else {
             createWorkspaceConfiguration(vscodeDir, hxmls);
-            return;
         }
-
-        window.showErrorMessage("To set up Haxe project, workspace must be either empty or contain HXML files to choose from");
     }
 
     function scaffoldEmpty(root:String) {
@@ -91,32 +92,34 @@ class InitProject {
     function createWorkspaceConfiguration(vscodeDir:String, items:Array<QuickPickItem>) {
         var pick = window.showQuickPick(items, {placeHolder: "Choose HXML file to use"});
         pick.then(function(s:QuickPickItem):Void {
-            if (s == null)
-                return;
+            if (s != null)
+                scaffoldVscodeSettings(vscodeDir, s, items);
+        });
+    }
 
-            var selectedHxml = getHxmlPath(s);
-            copyRec(context.asAbsolutePath("./scaffold/.vscode"), vscodeDir);
+    function scaffoldVscodeSettings(vscodeDir:String, item:QuickPickItem, items:Array<QuickPickItem>) {
+        var selectedHxml = getHxmlPath(item);
+        copyRec(context.asAbsolutePath("./scaffold/.vscode"), vscodeDir);
 
-            // update tasks.json
-            var tasksPath = vscodeDir + "/tasks.json";
-            File.saveContent(tasksPath, File.getContent(tasksPath).replace('"build.hxml"', '"$selectedHxml"'));
+        // update tasks.json
+        var tasksPath = vscodeDir + "/tasks.json";
+        File.saveContent(tasksPath, File.getContent(tasksPath).replace('"build.hxml"', '"$selectedHxml"'));
 
-            // update settings
-            var settingsPath = vscodeDir + "/settings.json";
-            var content = File.getContent(settingsPath);
-            var hxmls = items.map(function(item) return getHxmlPath(item));
-            // move selected on top
-            hxmls.remove(selectedHxml);
-            hxmls.insert(0, selectedHxml);
+        // update settings
+        var settingsPath = vscodeDir + "/settings.json";
+        var content = File.getContent(settingsPath);
+        var hxmls = items.map(function(item) return getHxmlPath(item));
+        // move selected on top
+        hxmls.remove(selectedHxml);
+        hxmls.insert(0, selectedHxml);
 
-            var items = [for (hxml in hxmls) '        ["$hxml"]'];
-            content = content.replace('        ["build.hxml"]', items.join(",\n"));
-            File.saveContent(settingsPath, content);
+        var items = [for (hxml in hxmls) '        ["$hxml"]'];
+        content = content.replace('        ["build.hxml"]', items.join(",\n"));
+        File.saveContent(settingsPath, content);
 
-            workspace.openTextDocument(vscodeDir + "/settings.json").then(function(doc) {
-                window.showTextDocument(doc);
-                window.showInformationMessage("Please check if " + selectedHxml + " is suitable for completion and modify haxe.displayConfigurations if needed.");
-            });
+        workspace.openTextDocument(vscodeDir + "/settings.json").then(function(doc) {
+            window.showTextDocument(doc);
+            window.showInformationMessage("Please check if " + selectedHxml + " is suitable for completion and modify haxe.displayConfigurations if needed.");
         });
     }
 

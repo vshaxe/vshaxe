@@ -10,6 +10,7 @@
 - init project command: `.hxml` files in local haxelib repos are now ignored ([#93](https://github.com/vshaxe/vshaxe/issues/93))
 - init project command: moved the comments in the generated `settings.json` to `README.md`
 - init project command: added `-D analyzer-optimize` to the generated `build.hxml`
+- init project command: a quick pick selection is no longer required with only one `.hxml` file
 
 ### 1.3.3 (February 16, 2017)
 
