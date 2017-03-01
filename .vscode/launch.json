@@ -1,4 +1,10 @@
 {
+    "compounds": [
+        {
+            "name": "Client + Server",
+            "configurations": ["Launch Extension", "Attach to Server"]
+        }
+    ],
     "version": "0.2.0",
     "configurations": [
         {
