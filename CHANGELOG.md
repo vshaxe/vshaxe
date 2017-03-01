@@ -1,8 +1,13 @@
-### To be released
+### 1.3.4 (To be released)
+
+**Bugfixes**:
+
+- fixed several small highlighting issues (haxe-tmLanguage[[#2](https://github.com/vshaxe/haxe-tmLanguage/issues/2), [#8](https://github.com/vshaxe/haxe-tmLanguage/issues/8), [#15](https://github.com/vshaxe/haxe-tmLanguage/issues/10)])
 
 **Changes and improvements**:
 
 - diagnostics now run when the active editor is changed
+- the init project command now ignores `.hxml` files in local haxelib repos ([#93](https://github.com/vshaxe/vshaxe/issues/93))
 
 ### 1.3.3 (February 16, 2017)
 
