@@ -69,6 +69,8 @@ class InitProject {
         function loop(path:String):Void {
             var fullPath = root + "/" + path;
             if (FileSystem.isDirectory(fullPath)) {
+                if (path == ".haxelib")
+                    return;
                 for (file in FileSystem.readDirectory(fullPath)) {
                     if (file.endsWith(".hxml"))
                         hxmls.push({label: file, description: path});
