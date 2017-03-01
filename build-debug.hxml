@@ -1,4 +1,6 @@
 -debug
+-D js_unflatten
+
 --each
 
 build-client.hxml
