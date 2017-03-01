@@ -2,7 +2,7 @@
 
 **Bugfixes**:
 
-- fixed several small highlighting issues (haxe-tmLanguage[[#2](https://github.com/vshaxe/haxe-tmLanguage/issues/2), [#8](https://github.com/vshaxe/haxe-tmLanguage/issues/8), [#15](https://github.com/vshaxe/haxe-tmLanguage/issues/10)])
+- fixed several small highlighting issues (haxe-tmLanguage[[#2](https://github.com/vshaxe/haxe-tmLanguage/issues/2), [#8](https://github.com/vshaxe/haxe-tmLanguage/issues/8), [#15](https://github.com/vshaxe/haxe-tmLanguage/issues/15)])
 
 **Changes and improvements**:
 
