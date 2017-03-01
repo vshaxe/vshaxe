@@ -1,3 +1,4 @@
 -cp src
+-D analyzer-optimize
 -main Main
 -js main.js
