@@ -7,7 +7,8 @@
 **Changes and improvements**:
 
 - diagnostics now run when the active editor is changed
-- the init project command now ignores `.hxml` files in local haxelib repos ([#93](https://github.com/vshaxe/vshaxe/issues/93))
+- init project command: `.hxml` files in local haxelib repos are now ignored ([#93](https://github.com/vshaxe/vshaxe/issues/93))
+- init project command: moved the comments in the generated `settings.json` to `README.md`
 
 ### 1.3.3 (February 16, 2017)
 
