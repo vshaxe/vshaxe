@@ -13,3 +13,5 @@ bin/test.js
 *.hxml
 node_modules/**/*.ts
 images/Main.hx
+.github/**/*
+debug.lo
