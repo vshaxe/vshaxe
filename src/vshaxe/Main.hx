@@ -23,6 +23,7 @@ class Main {
         registerCommand("applyFixes", applyFixes);
         registerCommand("showReferences", showReferences);
         registerCommand("runGlobalDiagnostics", runGlobalDiagnostics);
+        registerCommand("toggleCodeLens", toggleCodeLens);
 
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
 
@@ -98,6 +99,25 @@ class Main {
 
     function runGlobalDiagnostics() {
         client.sendNotification({method: "vshaxe/runGlobalDiagnostics"});
+    }
+
+    function toggleCodeLens() {
+        var key = "enableCodeLens";
+        var config = workspace.getConfiguration("haxe");
+        var info = config.inspect(key);
+        var value = getCurrentConfigValue(info, config);
+        // editing the global config only has an effect if there's no workspace value
+        var global = info.workspaceValue == null;
+        config.update(key, !value, global);
+    }
+
+    function getCurrentConfigValue<T>(info, config:WorkspaceConfiguration):T {
+        var value = info.workspaceValue;
+        if (value == null)
+            value = info.globalValue;
+        if (value == null)
+            value = info.defaultValue;
+        return value;
     }
 
     function onDidChangeActiveTextEditor(editor:TextEditor) {

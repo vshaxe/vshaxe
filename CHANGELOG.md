@@ -1,4 +1,8 @@
-### 1.3.4 (To be released)
+### 1.4.0 (To be released)
+
+**New Features**:
+
+- added a `Toggle Code Lens` command ([#94](https://github.com/vshaxe/vshaxe/issues/94))
 
 **Bugfixes**:
 

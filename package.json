@@ -36,7 +36,8 @@
         "onCommand:haxe.restartLanguageServer",
         "onCommand:haxe.initProject",
         "onCommand:haxe.selectDisplayConfiguration",
-        "onCommand:haxe.runGlobalDiagnostics"
+        "onCommand:haxe.runGlobalDiagnostics",
+        "onCommand:haxe.toggleCodeLens"
     ],
     "contributes": {
         "configuration": {
@@ -173,6 +174,11 @@
             {
                 "title": "Run Global Diagnostics Check",
                 "command": "haxe.runGlobalDiagnostics",
+                "category": "Haxe"
+            },
+            {
+                "title": "Toggle Code Lens",
+                "command": "haxe.toggleCodeLens",
                 "category": "Haxe"
             }
         ],
