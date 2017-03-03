@@ -4,3 +4,4 @@
 *.n
 vscode.ico
 debug.log
+.haxelib/

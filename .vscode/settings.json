@@ -11,6 +11,7 @@
         "commentend": "**/",
         "alwaysMultiline": false,
         "paramFormat": "",
-        "returnFormat": ""
+        "returnFormat": "",
+        "neverAskTemplate": true
     }
 }

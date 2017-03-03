@@ -5,6 +5,7 @@
 -cp server/formatter/test
 -cp vscode-extern/src
 -cp src
+-cp build
 -lib hxnodejs
 -lib hxargs
 -lib haxe-hxparser

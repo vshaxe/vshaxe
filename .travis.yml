@@ -4,20 +4,7 @@ haxe:
  - development
 
 install:
- - haxelib git haxe-hxparser https://github.com/vshaxe/haxe-hxparser
- - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs
  - haxelib install hxargs
- - haxelib install yaml
- - haxelib install compiletime
- - haxelib install mconsole
- - haxelib git mockatoo https://github.com/grosmar/mockatoo master src
- - haxelib git plist https://github.com/back2dos/plist
- - haxelib install jstack
 
 script:
- - haxe build.hxml
- - haxe build-debug.hxml
-
- - cd syntaxes
- - npm install vscode-textmate
- - haxe all.hxml
+ - haxe -lib hxargs --cwd build --run Build --verbose --debug -t all --install
