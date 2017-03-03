@@ -34,16 +34,24 @@ class Build {
             @doc("Display this help text and exit.")
             ["--help"] => function() help = true,
         ]);
-        argHandler.parse(args);
+        try {
+            argHandler.parse(args);
+        } catch (e:Any) {
+            Sys.println('$e\n\nAvailable commands:\n${getHelp(argHandler.getDoc())}');
+            Sys.exit(1);
+        }
 
         cli = new CliTools(verbose, dryRun);
 
         if (args.length == 0 || help)
-            cli.exit(argHandler.getDoc().replace("[]", Std.string(Target.list)));
+            cli.exit(getHelp(argHandler.getDoc()));
 
         validateTargets(targets);
         build(targets, debug, installDeps);
     }
+
+    function getHelp(doc:String)
+        return doc.replace("[]", Std.string(Target.list));
 
     function validateTargets(targets:Array<Target>) {
         var validTargets = Target.list;
