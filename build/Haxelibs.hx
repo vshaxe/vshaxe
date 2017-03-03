@@ -32,6 +32,11 @@ class Haxelibs {
         installArgs: ["git", "mockatoo", "https://github.com/grosmar/mockatoo", "master", "src"]
     };
 
+    static var MConsole(default,null):Haxelib = {
+        name: "mconsole",
+        installArgs: ["install", "mconsole"]
+    };
+
     static var JStack(default,null):Haxelib = {
         name: "jstack",
         installArgs: ["install", "jstack"]

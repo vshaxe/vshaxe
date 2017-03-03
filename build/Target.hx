@@ -44,7 +44,7 @@ import Haxelibs;
             ]
         },
         LanguageServerTests => {
-            haxelibs: [Haxelibs.HaxeHxparser, Haxelibs.CompileTime, Haxelibs.Mockatoo],
+            haxelibs: [Haxelibs.HaxeHxparser, Haxelibs.CompileTime, Haxelibs.Mockatoo, Haxelibs.MConsole],
             cwd: "server",
             args: [
                 "-cp", "src",
