@@ -1,5 +1,5 @@
-import Build.Config;
-import Build.Mode;
+import Main.Config;
+import Main.Mode;
 import Target.ArrayHandle;
 
 using ArrayTools;

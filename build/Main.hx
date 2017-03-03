@@ -3,8 +3,8 @@ package;
 import builders.*;
 
 /** The build script for VSHaxe **/
-class Build {
-    static function main() new Build();
+class Main {
+    static function main() new Main();
 
     var cli:CliTools;
 
