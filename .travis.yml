@@ -8,3 +8,4 @@ install:
 
 script:
  - haxe --run Build --verbose --debug -t all --install
+ - haxe --run Build --verbose -t vshaxe

@@ -6,11 +6,16 @@ import Haxelibs;
     static var configs:Map<String, TargetArguments> = [
         All => {
             targetDependencies: [
-                Client,
-                LanguageServer,
+                VsHaxe,
                 LanguageServerTests,
                 TmLanguage,
                 Formatter,
+            ]
+        },
+        VsHaxe => {
+            targetDependencies: [
+                Client,
+                LanguageServer
             ]
         },
         Client => {
@@ -152,6 +157,7 @@ import Haxelibs;
     }
 
     var All = "all";
+    var VsHaxe = "vshaxe";
     var Client = "client";
     var LanguageServer = "language-server";
     var LanguageServerTests = "language-server-tests";
