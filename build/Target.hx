@@ -19,6 +19,9 @@ import Haxelibs;
             ]
         },
         Client => {
+            installCommands: [
+                ["npm", "install"]
+            ],
             args: [
                 "-cp", "vscode-extern/src",
                 "-cp", "src",
@@ -90,7 +93,7 @@ import Haxelibs;
         },
         TmLanguageBuildTests => {
             cwd: "syntaxes",
-            beforeBuildCommands: [
+            installCommands: [
                 ["npm", "install", "vscode-textmate"]
             ],
             args: [
@@ -180,6 +183,8 @@ typedef TargetArguments = {
     @:optional var args(default,null):Array<String>;
     @:optional var targetDependencies(default,null):Array<Target>;
     @:optional var haxelibs(default,null):Array<Haxelib>;
+    /** additional, non-haxelib install commands (npm install...) **/
+    @:optional var installCommands(default,null):Array<Array<String>>;
     @:optional var cwd:String;
     /** -debug and -D js_unflatten are implied **/
     @:optional var debugArgs(default,null):Array<String>;

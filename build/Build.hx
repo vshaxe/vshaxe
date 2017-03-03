@@ -67,6 +67,8 @@ class Build {
 
         var config = target.getConfig();
 
+        cli.runCommands(config.installCommands);
+
         // TODO: move defaults into config
         cli.run("haxelib", Haxelibs.HxNodeJS.installArgs);
 
