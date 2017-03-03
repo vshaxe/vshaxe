@@ -63,12 +63,7 @@ class Build {
     function build(targets:Array<Target>, debug:Bool, installDeps:Bool) {
         // move out of /build
         Sys.setCwd("..");
-
-        for (target in targets) {
-            if (installDeps)
-                installTarget(target, debug);
-            buildTarget(target, debug);
-        }
+        for (target in targets) buildTarget(target, debug, installDeps);
     }
 
     function installTarget(target:Target, debug:Bool) {
@@ -89,13 +84,16 @@ class Build {
         if (verbose) Sys.println('');
     }
 
-    function buildTarget(target:Target, debug:Bool) {
+    function buildTarget(target:Target, debug:Bool, installDeps:Bool) {
+        if (installDeps)
+            installTarget(target, debug);
+
         if (verbose) Sys.println('Building \'$target\'...\n');
 
         var config = target.getConfig();
 
         for (dependency in getArray(config.targetDependencies))
-            buildTarget(dependency, debug);
+            buildTarget(dependency, debug, installDeps);
 
         var args = getArray(config.args);
         if (args.length == 0)
