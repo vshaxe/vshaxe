@@ -31,12 +31,16 @@ import Haxelibs.*;
             installCommands: [
                 ["npm", "install"]
             ],
+            classPaths: [
+                "vscode-extern/src",
+                "src"
+            ],
+            defines: [
+                "hxnodejs-no-version-warning",
+                "analyzer-optimize"
+            ],
             args: [
-                "-cp", "vscode-extern/src",
-                "-cp", "src",
-                "-D", "hxnodejs-no-version-warning",
                 "-dce", "full",
-                "-D", "analyzer-optimize",
                 "-js", "bin/client.js",
                 "vshaxe.Main"
             ],
@@ -47,14 +51,18 @@ import Haxelibs.*;
         LanguageServer => {
             haxelibs: [HaxeHxparser],
             cwd: "server",
+            classPaths: [
+                "src",
+                "protocol/src",
+                "formatter/src",
+            ],
+            defines: [
+                "hxnodejs-no-version-warning"
+            ],
             args: [
-                "-cp", "src",
-                "-cp", "protocol/src",
-                "-cp", "formatter/src",
                 "-main", "haxeLanguageServer.Main",
                 "-js", "../bin/server.js",
                 "-dce", "full",
-                "-D", "hxnodejs-no-version-warning"
             ],
             debugArgs: [
                 "--no-inline"
@@ -63,15 +71,19 @@ import Haxelibs.*;
         LanguageServerTests => {
             haxelibs: [HaxeHxparser, CompileTime, Mockatoo, MConsole],
             cwd: "server",
+            classPaths: [
+                "src",
+                "test",
+                "protocol/src",
+                "formatter/src",
+            ],
+            defines: [
+                "hxnodejs-no-version-warning"
+            ],
             args: [
-                "-cp", "src",
-                "-cp", "test",
-                "-cp", "protocol/src",
-                "-cp", "formatter/src",
                 "-main", "TestMain",
                 "-js", "../bin/test.js",
                 "-dce", "full",
-                "-D", "hxnodejs-no-version-warning"
             ],
             debugArgs: [
                 "--no-inline"
@@ -90,8 +102,10 @@ import Haxelibs.*;
         TmLanguageConversion => {
             haxelibs: [Yaml, Plist],
             cwd: "syntaxes",
+            classPaths: [
+                "src"
+            ],
             args: [
-                "-cp", "src",
                 "-main", "Converter",
                 "-neko", "bin/convert.n"
             ],
@@ -105,8 +119,10 @@ import Haxelibs.*;
             installCommands: [
                 ["npm", "install", "vscode-textmate"]
             ],
+            classPaths: [
+                "src"
+            ],
             args: [
-                "-cp", "src",
                 "-main", "Build",
                 "-js", "bin/build.js"
             ],
@@ -116,12 +132,14 @@ import Haxelibs.*;
             impliesDebug: true
         },
         TmLanguageTests => {
+            cwd: "syntaxes",
             targetDependencies: [
                 TmLanguageBuildTests
             ],
-            cwd: "syntaxes",
+            classPaths: [
+                "src"
+            ],
             args: [
-                "-cp", "src",
                 "-main", "Test",
                 "-js", "bin/test.js"
             ],
@@ -139,8 +157,10 @@ import Haxelibs.*;
         FormatterCLI => {
             haxelibs: [HaxeHxparser, HxArgs],
             cwd: "server/formatter",
+            classPaths: [
+                "src"
+            ],
             args: [
-                "-cp", "src",
                 "-main", "haxeFormatter.Cli",
                 "-js", "bin/cli.js"
             ],
@@ -149,9 +169,11 @@ import Haxelibs.*;
         FormatterTests => {
             haxelibs: [HaxeHxparser],
             cwd: "server/formatter",
+            classPaths: [
+                "src",
+                "test"
+            ],
             args: [
-                "-cp", "src",
-                "-cp", "test",
                 "-main", "haxeFormatter.TestMain",
                 "-js", "bin/test.js"
             ],
@@ -189,6 +211,8 @@ import Haxelibs.*;
 }
 
 typedef TargetArguments = {
+    @:optional var classPaths(default,null):Array<String>;
+    @:optional var defines(default,null):Array<String>;
     @:optional var args(default,null):Array<String>;
     @:optional var targetDependencies(default,null):Array<Target>;
     @:optional var haxelibs(default,null):Array<Haxelib>;

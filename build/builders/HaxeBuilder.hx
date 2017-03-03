@@ -76,6 +76,16 @@ class HaxeBuilder implements IBuilder {
             args.push(lib.name);
         }
 
+        for (cp in config.classPaths.safeCopy()) {
+            args.push("-cp");
+            args.push(cp);
+        }
+
+        for (define in config.defines.safeCopy()) {
+            args.push("-D");
+            args.push(define);
+        }
+
         cli.inDir(config.cwd, function() {
             cli.runCommands(config.beforeBuildCommands);
             cli.run("haxe", args);
