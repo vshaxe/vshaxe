@@ -12,6 +12,7 @@ class Build {
         var dryRun = false;
         var verbose = false;
         var debug = false;
+        var help = false;
 
         var args = Sys.args();
         var argHandler = hxargs.Args.generate([
@@ -29,12 +30,15 @@ class Build {
 
             @doc("Build the target(s) in debug mode. Implies -debug, -D js_unflatten and -lib jstack.")
             ["--debug"] => function() debug = true,
+
+            @doc("Display this help text and exit.")
+            ["--help"] => function() help = true,
         ]);
         argHandler.parse(args);
 
         cli = new CliTools(verbose, dryRun);
 
-        if (args.length == 0)
+        if (args.length == 0 || help)
             cli.exit(argHandler.getDoc(), 0);
 
         if (targets.length == 0)
