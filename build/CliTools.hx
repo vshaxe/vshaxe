@@ -50,9 +50,13 @@ class CliTools {
         if (verbose) Sys.println(message);
     }
 
-    function exit(message, code) {
+    function exit(message, code = 0) {
         Sys.println("VSHaxe Build Script");
         Sys.println(message);
         Sys.exit(code);
+    }
+
+    function fail(message) {
+        exit(message, 1);
     }
 }

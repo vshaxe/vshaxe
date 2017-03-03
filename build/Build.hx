@@ -39,10 +39,7 @@ class Build {
         cli = new CliTools(verbose, dryRun);
 
         if (args.length == 0 || help)
-            cli.exit(argHandler.getDoc().replace("[]", Std.string(Target.list)), 0);
-
-        if (targets.length == 0)
-            cli.exit("No target(s) specified!\n", 1);
+            cli.exit(argHandler.getDoc().replace("[]", Std.string(Target.list)));
 
         validateTargets(targets);
         build(targets, debug, installDeps);
@@ -50,9 +47,13 @@ class Build {
 
     function validateTargets(targets:Array<Target>) {
         var validTargets = Target.list;
+        var targetList = 'List of valid targets:\n  ${validTargets}';
+        if (targets.length == 0)
+            cli.fail("No target(s) specified! " + targetList);
+
         for (target in targets) {
             if (validTargets.indexOf(target) == -1) {
-                cli.exit('Unknown target \'$target\'. List of valid targets:\n  $validTargets', 1);
+                cli.fail('Unknown target \'$target\'. $targetList');
             }
         }
     }
