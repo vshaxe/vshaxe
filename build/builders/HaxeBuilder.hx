@@ -20,14 +20,14 @@ class HaxeBuilder implements IBuilder {
         cli.runCommands(config.installCommands);
 
         // TODO: move defaults into config
-        cli.run("haxelib", Haxelibs.HxNodeJS.installArgs);
+        cli.run("haxelib", Haxelibs.HxNodeJS.installArgs.get());
 
         for (lib in config.haxelibs.get())
-            cli.run("haxelib", lib.installArgs);
+            cli.run("haxelib", lib.installArgs.get());
 
         // TODO: move defaults into config
         if (debug)
-            cli.run("haxelib", Haxelibs.JStack.installArgs);
+            cli.run("haxelib", Haxelibs.JStack.installArgs.get());
 
         cli.println('');
     }

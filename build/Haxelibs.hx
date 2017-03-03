@@ -2,7 +2,7 @@ package;
 
 typedef Haxelib = {
     var name(default,null):String;
-    var installArgs(default,null):Array<String>;
+    var installArgs(default,null):ArrayHandle<String>;
 }
 
 @:publicFields
