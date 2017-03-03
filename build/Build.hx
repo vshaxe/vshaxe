@@ -18,6 +18,7 @@ class Build {
         var dryRun = false;
         var verbose = false;
         var genTasks = false;
+        var display = false;
         var help = false;
         var modeStr = "build";
 
@@ -40,6 +41,9 @@ class Build {
 
             @doc("Generate a tasks.json to .vscode (and don't build anything).")
             ["--gen-tasks"] => function() genTasks = true,
+
+            @doc("Generate a complete.hxml for auto completion (and don't build anything).")
+            ["--display"] => function() display = true,
 
             @doc("Display this help text and exit.")
             ["--help"] => function() help = true,
@@ -66,8 +70,12 @@ class Build {
 
         Sys.setCwd(".."); // move out of /build
 
-        var builder:IBuilder = if (genTasks) new VSCodeTasksBuilder(cli) else new HaxeBuilder(cli);
-        builder.build(config);
+        if (genTasks && display)
+            cli.fail("Can only specify one: --gen-tasks or --display");
+
+        if (genTasks) new VSCodeTasksBuilder(cli).build(config);
+        else if (display) new DisplayHxmlBuilder(cli).build(config);
+        else new HaxeBuilder(cli).build(config);
     }
 
     function validateTargets(targets:Array<Target>) {

@@ -62,6 +62,6 @@ class CliTools {
 
     function saveContent(path, content) {
         if (verbose) println('Saving to \'$path\':\n\n$content');
-        sys.io.File.saveContent(path, content);
+        if (!dryRun) sys.io.File.saveContent(path, content);
     }
 }

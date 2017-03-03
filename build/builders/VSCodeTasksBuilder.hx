@@ -12,10 +12,10 @@ class VSCodeTasksBuilder implements IBuilder {
         for (target in config.targets) {
             base.tasks = buildTask(target, false).concat(buildTask(target, true));
         }
-        base.tasks = filterDuplicates(base.tasks);
+        base.tasks = base.tasks.filterDuplicates(function(t1, t2) return t1.taskName == t2.taskName);
 
         var tasksJson = haxe.Json.stringify(base, null, "    ");
-        tasksJson = "// This file is generated using the build script - DO NOT EDIT MANUALLY!\n" + tasksJson;
+        tasksJson = '// ${Warning.Message}\n$tasksJson';
         cli.saveContent(".vscode/tasks.json", tasksJson);
     }
 
@@ -65,18 +65,6 @@ class VSCodeTasksBuilder implements IBuilder {
         }
 
         return [task].concat(config.targetDependencies.safeCopy().flatMap(buildTask.bind(_, debug)));
-    }
-
-    static function filterDuplicates(tasks:Array<Task>):Array<Task> {
-        var uniqueTasks:Array<Task> = [];
-        for (task in tasks) {
-            var present = false;
-            for (unique in uniqueTasks) if (unique.taskName == task.taskName)
-                present = true;
-            if (!present)
-                uniqueTasks.push(task);
-        }
-        return uniqueTasks;
     }
 }
 

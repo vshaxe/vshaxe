@@ -206,7 +206,7 @@ import Haxelibs.*;
     inline public function new(name)
         this = name;
 
-    inline public function getConfig()
+    inline public function getConfig():TargetArguments
         return configs[this];
 }
 

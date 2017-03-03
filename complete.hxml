@@ -1,17 +1,23 @@
--cp server/src
--cp server/test
--cp server/protocol/src
--cp server/formatter/src
--cp server/formatter/test
+# This file is generated using the build script - DO NOT EDIT MANUALLY!
 -cp vscode-extern/src
 -cp src
--cp build
--lib hxnodejs
--lib hxargs
+-cp server/src
+-cp server/protocol/src
+-cp server/formatter/src
+-cp server/test
+-cp server/formatter/test
+-cp syntaxes/src
+-D hxnodejs-no-version-warning
+-D analyzer-optimize
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo
+-lib mconsole
+-lib hxargs
+-lib yaml
+-lib plist
+-cp build
+-lib hxnodejs
 -lib jstack
---no-inline
--debug
 -js some.js
+-debug

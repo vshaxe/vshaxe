@@ -5,6 +5,18 @@ class ArrayTools {
         return if (a == null) [] else a.copy();
     }
 
+    public static function filterDuplicates<T>(tasks:Array<T>, filter:T->T->Bool):Array<T> {
+        var uniqueTasks:Array<T> = [];
+        for (task in tasks) {
+            var present = false;
+            for (unique in uniqueTasks) if (filter(unique, task))
+                present = true;
+            if (!present)
+                uniqueTasks.push(task);
+        }
+        return uniqueTasks;
+    }
+
     /** from https://github.com/fponticelli/thx.core/blob/master/src/thx/Arrays.hx **/
 
     inline public static function flatMap<TIn, TOut>(array:Array<TIn>, callback:TIn->Array<TOut>):Array<TOut>
