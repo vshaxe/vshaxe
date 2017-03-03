@@ -7,4 +7,4 @@ install:
  - haxelib install hxargs
 
 script:
- - haxe -lib hxargs --cwd build --run Build --verbose --debug -t all --install
+ - haxe --run Build --verbose --debug -t all --install
