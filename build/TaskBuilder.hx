@@ -23,7 +23,9 @@ class TaskBuilder {
 
     public static function build(targets:Array<Target>, cli:CliTools) {
         var base = Reflect.copy(template);
-        for (target in targets) base.tasks = buildTask(target, false);
+        for (target in targets) {
+            base.tasks = buildTask(target, false).concat(buildTask(target, true));
+        }
         base.tasks = filterDuplicates(base.tasks);
 
         var tasksJson = haxe.Json.stringify(base, null, "    ");
@@ -34,8 +36,7 @@ class TaskBuilder {
     static function buildTask(target:Target, debug:Bool):Array<Task> {
         var config = target.getConfig();
         var suffix = "";
-        if (config.impliesDebug) debug = true;
-        else if (debug) suffix = " (debug)";
+        if (!config.impliesDebug && debug) suffix = " (debug)";
 
         var task:Task = {
             taskName: '$target$suffix',
@@ -43,7 +44,7 @@ class TaskBuilder {
             problemMatcher: problemMatcher
         }
 
-        if (debug) {
+        if (config.impliesDebug || debug) {
             if (config.isBuildCommand) {
                 task.isBuildCommand = true;
                 task.taskName += " - BUILD";
@@ -55,13 +56,7 @@ class TaskBuilder {
             task.args.push("--debug");
         }
 
-        var tasks = [task];
-        if (!debug)
-            for (task in buildTask(target, true))
-                tasks.push(task);
-
-        tasks = tasks.concat(config.targetDependencies.safeCopy().flatMap(buildTask.bind(_, debug)));
-        return tasks;
+        return [task].concat(config.targetDependencies.safeCopy().flatMap(buildTask.bind(_, debug)));
     }
 
     static function filterDuplicates(tasks:Array<Task>):Array<Task> {
