@@ -7,17 +7,25 @@ import Haxelibs.*;
     static var configs:Map<String, TargetArguments> = [
         All => {
             targetDependencies: [
+                Test,
+                TmLanguage
+            ]
+        },
+        Test => {
+            targetDependencies: [
                 VsHaxe,
                 LanguageServerTests,
-                TmLanguage,
-                Formatter,
-            ]
+                Formatter
+            ],
+            impliesDebug: true,
+            isTestCommand: true
         },
         VsHaxe => {
             targetDependencies: [
                 Client,
                 LanguageServer
-            ]
+            ],
+            isBuildCommand: true
         },
         Client => {
             installCommands: [
@@ -156,11 +164,11 @@ import Haxelibs.*;
 
     public static var list(get, never):Array<Target>;
 
-    public static function get_list():Array<Target> {
+    public static function get_list():Array<Target>
         return [for (name in configs.keys()) new Target(name)];
-    }
 
     var All = "all";
+    var Test = "test";
     var VsHaxe = "vshaxe";
     var Client = "client";
     var LanguageServer = "language-server";
@@ -187,10 +195,12 @@ typedef TargetArguments = {
     /** additional, non-haxelib install commands (npm install...) **/
     @:optional var installCommands(default,null):Array<Array<String>>;
     @:optional var cwd:String;
-    /** -debug and -D js_unflatten are implied **/
+    /** -debug, -D js_unflatten and -lib jstack are implied **/
     @:optional var debugArgs(default,null):Array<String>;
     @:optional var beforeBuildCommands(default,null):Array<Array<String>>;
     @:optional var afterBuildCommands(default,null):Array<Array<String>>;
     /** if this target is built in debug mode by default (tests mostly) **/
     @:optional var impliesDebug(default,null):Bool;
+    @:optional var isBuildCommand(default,null):Bool;
+    @:optional var isTestCommand(default,null):Bool;
 }

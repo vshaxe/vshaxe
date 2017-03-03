@@ -33,12 +33,12 @@ class CliTools {
 
     function setCwd(dir:String) {
         if (dir == null) return;
-        if (verbose) Sys.println("cd " + dir);
+        println("cd " + dir);
         Sys.setCwd(dir);
     }
 
     function run(command:String, args:Array<String>) {
-        if (verbose) Sys.println(command + " " + args.join(" "));
+        println(command + " " + args.join(" "));
         if (!dryRun) {
             var result = Sys.command(command, args);
             if (result != 0)
@@ -58,5 +58,10 @@ class CliTools {
 
     function fail(message) {
         exit(message, 1);
+    }
+
+    function saveContent(path, content) {
+        if (verbose) println('Saving to \'$path\':\n\n$content');
+        sys.io.File.saveContent(path, content);
     }
 }

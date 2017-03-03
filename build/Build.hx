@@ -12,6 +12,7 @@ class Build {
         var dryRun = false;
         var verbose = false;
         var debug = false;
+        var genTasks = false;
         var help = false;
 
         var args = Sys.args();
@@ -19,17 +20,20 @@ class Build {
             @doc("One or multiple targets to build. One of: [].")
             ["-t", "--target"] => function(name:String) targets.push(new Target(name)),
 
-            @doc("Installs the haxelib dependencies for the given targets.")
+            @doc("Install the haxelib dependencies for the given targets.")
             ["--install"] => function() installDeps = true,
 
-            @doc("Performs a dry run (no command invocations). Implies -verbose.")
+            @doc("Perform a dry run (no command invocations). Implies -verbose.")
             ["--dry-run"] => function() dryRun = true,
 
-            @doc("Outputs the commands that are executed.")
+            @doc("Output the commands that are executed.")
             ["--verbose"] => function() verbose = true,
 
             @doc("Build the target(s) in debug mode. Implies -debug, -D js_unflatten and -lib jstack.")
             ["--debug"] => function() debug = true,
+
+            @doc("Generate a tasks.json to .vscode (and don't build anything).")
+            ["--gen-tasks"] => function() genTasks = true,
 
             @doc("Display this help text and exit.")
             ["--help"] => function() help = true,
@@ -51,7 +55,12 @@ class Build {
             cli.exit(getHelp());
 
         validateTargets(targets);
-        build(targets, debug, installDeps);
+
+        Sys.setCwd(".."); // move out of /build
+        if (genTasks)
+            TaskBuilder.build(targets, cli);
+        else for (target in targets)
+            buildTarget(target, debug, installDeps);
     }
 
     function validateTargets(targets:Array<Target>) {
@@ -65,11 +74,6 @@ class Build {
                 cli.fail('Unknown target \'$target\'. $targetList');
             }
         }
-    }
-
-    function build(targets:Array<Target>, debug:Bool, installDeps:Bool) {
-        Sys.setCwd(".."); // move out of /build
-        for (target in targets) buildTarget(target, debug, installDeps);
     }
 
     function installTarget(target:Target, debug:Bool) {
@@ -86,19 +90,20 @@ class Build {
             cli.run("haxelib", lib.installArgs);
 
         // TODO: move defaults into config
-        if (debug || config.impliesDebug)
+        if (debug)
             cli.run("haxelib", Haxelibs.JStack.installArgs);
 
         cli.println('');
     }
 
     function buildTarget(target:Target, debug:Bool, installDeps:Bool) {
+        var config = target.getConfig();
+        debug = debug || config.impliesDebug;
+
         if (installDeps)
             installTarget(target, debug);
 
         cli.println('Building \'$target\'...\n');
-
-        var config = target.getConfig();
 
         for (dependency in config.targetDependencies.safeCopy())
             buildTarget(dependency, debug, installDeps);
@@ -116,7 +121,7 @@ class Build {
 
         var haxelibs = config.haxelibs.safeCopy();
 
-        if (debug || config.impliesDebug) {
+        if (debug) {
             var debugArgs = config.debugArgs.safeCopy();
             debugArgs = debugArgs.concat([
                 // TODO: move defaults into config

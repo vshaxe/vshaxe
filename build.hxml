@@ -1,5 +1,0 @@
-build-client.hxml
-
---next
---cwd server
-build.hxml
