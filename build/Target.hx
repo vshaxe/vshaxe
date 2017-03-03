@@ -1,6 +1,7 @@
 package;
 
 import Haxelibs;
+import Haxelibs.*;
 
 @:enum abstract Target(String) to String {
     static var configs:Map<String, TargetArguments> = [
@@ -36,7 +37,7 @@ import Haxelibs;
             ]
         },
         LanguageServer => {
-            haxelibs: [Haxelibs.HaxeHxparser],
+            haxelibs: [HaxeHxparser],
             cwd: "server",
             args: [
                 "-cp", "src",
@@ -52,7 +53,7 @@ import Haxelibs;
             ]
         },
         LanguageServerTests => {
-            haxelibs: [Haxelibs.HaxeHxparser, Haxelibs.CompileTime, Haxelibs.Mockatoo, Haxelibs.MConsole],
+            haxelibs: [HaxeHxparser, CompileTime, Mockatoo, MConsole],
             cwd: "server",
             args: [
                 "-cp", "src",
@@ -79,7 +80,7 @@ import Haxelibs;
             ]
         },
         TmLanguageConversion => {
-            haxelibs: [Haxelibs.Yaml, Haxelibs.Plist],
+            haxelibs: [Yaml, Plist],
             cwd: "syntaxes",
             args: [
                 "-cp", "src",
@@ -128,7 +129,7 @@ import Haxelibs;
             ]
         },
         FormatterCLI => {
-            haxelibs: [Haxelibs.HaxeHxparser, Haxelibs.HxArgs],
+            haxelibs: [HaxeHxparser, HxArgs],
             cwd: "server/formatter",
             args: [
                 "-cp", "src",
@@ -138,7 +139,7 @@ import Haxelibs;
             debugArgs: []
         },
         FormatterTests => {
-            haxelibs: [Haxelibs.HaxeHxparser],
+            haxelibs: [HaxeHxparser],
             cwd: "server/formatter",
             args: [
                 "-cp", "src",
