@@ -9,3 +9,5 @@ install:
 script:
  - haxe --run Build -v --debug -t all -m both
  - haxe --run Build -v -t vshaxe
+ - haxe --run Build -v -t all --gen-tasks
+ - haxe --run Build -v -t all --display
