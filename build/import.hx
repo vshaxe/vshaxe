@@ -1,1 +1,2 @@
 using ArrayTools;
+using StringTools;

@@ -16,7 +16,7 @@ class Build {
 
         var args = Sys.args();
         var argHandler = hxargs.Args.generate([
-            @doc("One or multiple targets to build. One of: [all, client, language-server, language-server-tests, tm-language-conversion, tm-language-tests, formatter-cli, formatter-tests].")
+            @doc("One or multiple targets to build. One of: [].")
             ["-t", "--target"] => function(name:String) targets.push(new Target(name)),
 
             @doc("Installs the haxelib dependencies for the given targets.")
@@ -39,7 +39,7 @@ class Build {
         cli = new CliTools(verbose, dryRun);
 
         if (args.length == 0 || help)
-            cli.exit(argHandler.getDoc(), 0);
+            cli.exit(argHandler.getDoc().replace("[]", Std.string(Target.list)), 0);
 
         if (targets.length == 0)
             cli.exit("No target(s) specified!\n", 1);
@@ -52,7 +52,7 @@ class Build {
         var validTargets = Target.list;
         for (target in targets) {
             if (validTargets.indexOf(target) == -1) {
-                cli.exit('Unknown target \'$target\'. Lists of valid targets:\n  $validTargets', 1);
+                cli.exit('Unknown target \'$target\'. List of valid targets:\n  $validTargets', 1);
             }
         }
     }
