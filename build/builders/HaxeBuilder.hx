@@ -9,7 +9,7 @@ class HaxeBuilder implements IBuilder {
 
     public function build(config:Config) {
         for (target in config.targets)
-            buildTarget(target, config.debug, config.installDeps);
+            buildTarget(target, config.debug, config.mode);
     }
 
     function installTarget(target:Target, debug:Bool) {
@@ -32,17 +32,20 @@ class HaxeBuilder implements IBuilder {
         cli.println('');
     }
 
-    function buildTarget(target:Target, debug:Bool, installDeps:Bool) {
+    function buildTarget(target:Target, debug:Bool, mode:Mode) {
         var config = target.getConfig();
         debug = debug || config.impliesDebug;
 
-        if (installDeps)
+        if (mode != Build)
             installTarget(target, debug);
+
+        if (mode == Install)
+            return;
 
         cli.println('Building \'$target\'...\n');
 
         for (dependency in config.targetDependencies.safeCopy())
-            buildTarget(dependency, debug, installDeps);
+            buildTarget(dependency, debug, mode);
 
         var args = config.args.safeCopy();
         if (args.length == 0)

@@ -11,22 +11,23 @@ class Build {
     function new() {
         var config = {
             targets: [],
-            installDeps: false,
-            debug: false
+            debug: false,
+            mode: Build
         };
 
         var dryRun = false;
         var verbose = false;
         var genTasks = false;
         var help = false;
+        var modeStr = "build";
 
         var args = Sys.args();
         var argHandler = hxargs.Args.generate([
             @doc("One or multiple targets to build. One of: [].")
             ["-t", "--target"] => function(name:String) config.targets.push(new Target(name)),
 
-            @doc("Install the haxelib dependencies for the given targets.")
-            ["--install"] => function() config.installDeps = true,
+            @doc("Build mode - accepted values are 'build', 'install', and 'both'.")
+            ["-m", "--mode"] => function(mode:String) modeStr = mode,
 
             @doc("Build the target(s) in debug mode. Implies -debug, -D js_unflatten and -lib jstack.")
             ["--debug"] => function() config.debug = true,
@@ -35,7 +36,7 @@ class Build {
             ["--dry-run"] => function() dryRun = true,
 
             @doc("Output the commands that are executed.")
-            ["--verbose"] => function() verbose = true,
+            ["-v", "--verbose"] => function() verbose = true,
 
             @doc("Generate a tasks.json to .vscode (and don't build anything).")
             ["--gen-tasks"] => function() genTasks = true,
@@ -60,6 +61,8 @@ class Build {
             cli.exit(getHelp());
 
         validateTargets(config.targets);
+        validateEnum("mode", modeStr, Mode.getConstructors());
+        config.mode = Mode.createByName(getEnumName(modeStr));
 
         Sys.setCwd(".."); // move out of /build
 
@@ -73,16 +76,29 @@ class Build {
         if (targets.length == 0)
             cli.fail("No target(s) specified! " + targetList);
 
-        for (target in targets) {
-            if (validTargets.indexOf(target) == -1) {
-                cli.fail('Unknown target \'$target\'. $targetList');
-            }
-        }
+        for (target in targets)
+            validateEnum("target", target, validTargets);
+    }
+
+    function validateEnum<T>(name:String, value:T, validValues:Array<T>) {
+        var validStrValues = [for (value in validValues) Std.string(value).toLowerCase()];
+        if (validStrValues.indexOf(Std.string(value)) == -1)
+            cli.fail('Unknown $name \'$value\'. Valid values are: $validStrValues');
+    }
+
+    function getEnumName(cliName:String):String {
+        return cliName.substr(0, 1).toUpperCase() + cliName.substr(1);
     }
 }
 
 typedef Config = {
     var targets:Array<Target>;
     var debug:Bool;
-    var installDeps:Bool;
+    var mode:Mode;
+}
+
+enum Mode {
+    Build;
+    Install;
+    Both;
 }
