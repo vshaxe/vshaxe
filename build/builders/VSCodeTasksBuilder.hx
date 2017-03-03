@@ -64,7 +64,7 @@ class VSCodeTasksBuilder implements IBuilder {
             task.args.push("--debug");
         }
 
-        return [task].concat(config.targetDependencies.safeCopy().flatMap(buildTask.bind(_, debug)));
+        return [task].concat(config.targetDependencies.get().flatMap(buildTask.bind(_, debug)));
     }
 }
 

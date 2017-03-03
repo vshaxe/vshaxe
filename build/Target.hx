@@ -37,15 +37,13 @@ import Haxelibs.*;
             ],
             defines: [
                 "hxnodejs-no-version-warning",
-                "analyzer-optimize"
+                "analyzer-optimize",
+                "JSTACK_MAIN=vshaxe.Main.main"
             ],
             args: [
                 "-dce", "full",
                 "-js", "bin/client.js",
                 "vshaxe.Main"
-            ],
-            debugArgs: [
-                "-D", "JSTACK_MAIN=vshaxe.Main.main"
             ]
         },
         LanguageServer => {
@@ -211,20 +209,26 @@ import Haxelibs.*;
 }
 
 typedef TargetArguments = {
-    @:optional var classPaths(default,null):Array<String>;
-    @:optional var defines(default,null):Array<String>;
-    @:optional var args(default,null):Array<String>;
-    @:optional var targetDependencies(default,null):Array<Target>;
-    @:optional var haxelibs(default,null):Array<Haxelib>;
+    @:optional var classPaths(default,null):ArrayHandle<String>;
+    @:optional var defines(default,null):ArrayHandle<String>;
+    @:optional var args(default,null):ArrayHandle<String>;
+    @:optional var targetDependencies(default,null):ArrayHandle<Target>;
+    @:optional var haxelibs(default,null):ArrayHandle<Haxelib>;
     /** additional, non-haxelib install commands (npm install...) **/
-    @:optional var installCommands(default,null):Array<Array<String>>;
+    @:optional var installCommands(default,null):ArrayHandle<ArrayHandle<String>>;
     @:optional var cwd:String;
     /** -debug, -D js_unflatten and -lib jstack are implied **/
-    @:optional var debugArgs(default,null):Array<String>;
-    @:optional var beforeBuildCommands(default,null):Array<Array<String>>;
-    @:optional var afterBuildCommands(default,null):Array<Array<String>>;
+    @:optional var debugArgs(default,null):ArrayHandle<String>;
+    @:optional var beforeBuildCommands(default,null):ArrayHandle<ArrayHandle<String>>;
+    @:optional var afterBuildCommands(default,null):ArrayHandle<ArrayHandle<String>>;
     /** if this target is built in debug mode by default (tests mostly) **/
     @:optional var impliesDebug(default,null):Bool;
     @:optional var isBuildCommand(default,null):Bool;
     @:optional var isTestCommand(default,null):Bool;
+}
+
+abstract ArrayHandle<T>(Array<T>) from Array<T> {
+    public function get() {
+        return if (this == null) [] else this.copy();
+    }
 }

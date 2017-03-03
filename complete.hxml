@@ -9,6 +9,7 @@
 -cp syntaxes/src
 -D hxnodejs-no-version-warning
 -D analyzer-optimize
+-D JSTACK_MAIN=vshaxe.Main.main
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo

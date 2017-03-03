@@ -22,7 +22,7 @@ class HaxeBuilder implements IBuilder {
         // TODO: move defaults into config
         cli.run("haxelib", Haxelibs.HxNodeJS.installArgs);
 
-        for (lib in config.haxelibs.safeCopy())
+        for (lib in config.haxelibs.get())
             cli.run("haxelib", lib.installArgs);
 
         // TODO: move defaults into config
@@ -44,10 +44,10 @@ class HaxeBuilder implements IBuilder {
 
         cli.println('Building \'$target\'...\n');
 
-        for (dependency in config.targetDependencies.safeCopy())
+        for (dependency in config.targetDependencies.get())
             buildTarget(dependency, debug, mode);
 
-        var args = config.args.safeCopy();
+        var args = config.args.get();
         if (args.length == 0)
             return;
 
@@ -58,10 +58,10 @@ class HaxeBuilder implements IBuilder {
             ]);
         }
 
-        var haxelibs = config.haxelibs.safeCopy();
+        var haxelibs = config.haxelibs.get();
 
         if (debug) {
-            var debugArgs = config.debugArgs.safeCopy();
+            var debugArgs = config.debugArgs.get();
             debugArgs = debugArgs.concat([
                 // TODO: move defaults into config
                 "-debug",
@@ -76,12 +76,12 @@ class HaxeBuilder implements IBuilder {
             args.push(lib.name);
         }
 
-        for (cp in config.classPaths.safeCopy()) {
+        for (cp in config.classPaths.get()) {
             args.push("-cp");
             args.push(cp);
         }
 
-        for (define in config.defines.safeCopy()) {
+        for (define in config.defines.get()) {
             args.push("-D");
             args.push(define);
         }

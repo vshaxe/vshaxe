@@ -14,11 +14,11 @@ class DisplayHxmlBuilder implements IBuilder {
        var defines = [];
        var haxelibs = [];
        forEachTarget(targetsToArgs(config.targets), function(args) {
-            classPaths = classPaths.concat(args.classPaths.safeCopy().map(function(cp) {
+            classPaths = classPaths.concat(args.classPaths.get().map(function(cp) {
                 return if (args.cwd == null) cp else haxe.io.Path.join([args.cwd, cp]);
             }));
-            defines = defines.concat(args.defines.safeCopy());
-            haxelibs = haxelibs.concat(args.haxelibs.safeCopy().map(function(haxelib) return haxelib.name));
+            defines = defines.concat(args.defines.get());
+            haxelibs = haxelibs.concat(args.haxelibs.get().map(function(haxelib) return haxelib.name));
         });
         var hxml = ['# ${Warning.Message}'];
         for (cp in classPaths) hxml.push('-cp $cp');
@@ -40,7 +40,7 @@ class DisplayHxmlBuilder implements IBuilder {
     function forEachTarget(targets:Array<TargetArguments>, callback:TargetArguments->Void) {
         for (target in targets) {
             callback(target);
-            forEachTarget(targetsToArgs(target.targetDependencies.safeCopy()), callback);
+            forEachTarget(targetsToArgs(target.targetDependencies.get()), callback);
         }
     }
 
