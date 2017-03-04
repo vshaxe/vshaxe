@@ -1,0 +1,230 @@
+{
+    "haxelibs": [
+        {
+            "name": "hxnodejs",
+            "installArgs": ["git", "hxnodejs", "https://github.com/HaxeFoundation/hxnodejs"]
+        },
+        {
+            "name": "hxargs",
+            "installArgs": ["install", "hxargs"]
+        },
+        {
+            "name": "haxe-hxparser",
+            "installArgs": ["git", "haxe-hxparser", "https://github.com/vshaxe/haxe-hxparser"]
+        },
+        {
+            "name": "compiletime",
+            "installArgs": ["install", "compiletime"]
+        },
+        {
+            "name": "mockatoo",
+            "installArgs": ["git", "mockatoo", "https://github.com/grosmar/mockatoo", "master", "src"]
+        },
+        {
+            "name": "mconsole",
+            "installArgs": ["install", "mconsole"]
+        },
+        {
+            "name": "jstack",
+            "installArgs": ["install", "jstack"]
+        },
+        {
+            "name": "yaml",
+            "installArgs": ["install", "yaml"]
+        },
+        {
+            "name": "plist",
+            "installArgs": ["git", "plist", "https://github.com/back2dos/plist"]
+        }
+    ],
+    "targets": [
+        {
+            "name": "all",
+            "targetDependencies": [
+                "test",
+                "tm-language"
+            ]
+        },
+        {
+            "name": "test",
+            "targetDependencies": [
+                "vshaxe",
+                "language-server-tests",
+                "formatter"
+            ],
+            "impliesDebug": true,
+            "isTestCommand": true
+        },
+        {
+            "name": "vshaxe",
+            "targetDependencies": [
+                "client",
+                "language-server"
+            ],
+            "isBuildCommand": true
+        },
+        {
+            "name": "client",
+            "installCommands": [
+                ["npm", "install"]
+            ],
+            "classPaths": [
+                "vscode-extern/src",
+                "src"
+            ],
+            "defines": [
+                "hxnodejs-no-version-warning",
+                "analyzer-optimize",
+                "JSTACK_MAIN=vshaxe.Main.main"
+            ],
+            "args": [
+                "-dce", "full",
+                "-js", "bin/client.js",
+                "vshaxe.Main"
+            ]
+        },
+        {
+            "name": "language-server",
+            "haxelibs": ["haxe-hxparser"],
+            "cwd": "server",
+            "classPaths": [
+                "src",
+                "protocol/src",
+                "formatter/src"
+            ],
+            "defines": [
+                "hxnodejs-no-version-warning"
+            ],
+            "args": [
+                "-main", "haxeLanguageServer.Main",
+                "-js", "../bin/server.js",
+                "-dce", "full"
+            ],
+            "debugArgs": [
+                "--no-inline"
+            ]
+        },
+        {
+            "name": "language-server-tests",
+            "haxelibs": ["haxe-hxparser", "compiletime", "mockatoo", "mconsole"],
+            "cwd": "server",
+            "classPaths": [
+                "src",
+                "test",
+                "protocol/src",
+                "formatter/src"
+            ],
+            "defines": [
+                "hxnodejs-no-version-warning"
+            ],
+            "args": [
+                "-main", "TestMain",
+                "-js", "../bin/test.js",
+                "-dce", "full"
+            ],
+            "debugArgs": [
+                "--no-inline"
+            ],
+            "afterBuildCommands": [
+                ["node", "../bin/test.js"]
+            ],
+            "impliesDebug": true
+        },
+        {
+            "name": "tm-language",
+            "targetDependencies": [
+                "tm-language-conversion",
+                "tm-language-tests"
+            ]
+        },
+        {
+            "name": "tm-language-conversion",
+            "haxelibs": ["yaml", "plist"],
+            "cwd": "syntaxes",
+            "classPaths": [
+                "src"
+            ],
+            "args": [
+                "-main", "Converter",
+                "-neko", "bin/convert.n"
+            ],
+            "afterBuildCommands": [
+                ["neko", "bin/convert.n"]
+            ],
+            "impliesDebug": true
+        },
+        {
+            "name": "tm-language-build-tests",
+            "cwd": "syntaxes",
+            "installCommands": [
+                ["npm", "install", "vscode-textmate"]
+            ],
+            "classPaths": [
+                "src"
+            ],
+            "args": [
+                "-main", "Build",
+                "-js", "bin/build.js"
+            ],
+            "afterBuildCommands": [
+                ["node", "bin/build.js"]
+            ],
+            "impliesDebug": true
+        },
+        {
+            "name": "tm-language-tests",
+            "cwd": "syntaxes",
+            "targetDependencies": [
+                "tm-language-build-tests"
+            ],
+            "classPaths": [
+                "src"
+            ],
+            "args": [
+                "-main", "Test",
+                "-js", "bin/test.js"
+            ],
+            "afterBuildCommands": [
+                ["node", "bin/test.js"]
+            ],
+            "impliesDebug": true
+        },
+        {
+            "name": "formatter",
+            "targetDependencies": [
+                "formatter-cli",
+                "formatter-tests"
+            ]
+        },
+        {
+            "name":  "formatter-cli",
+            "haxelibs": ["haxe-hxparser", "hxargs"],
+            "cwd": "server/formatter",
+            "classPaths": [
+                "src"
+            ],
+            "args": [
+                "-main", "haxeFormatter.Cli",
+                "-js", "bin/cli.js"
+            ],
+            "debugArgs": []
+        },
+        {
+            "name": "formatter-tests",
+            "haxelibs": ["haxe-hxparser"],
+            "cwd": "server/formatter",
+            "classPaths": [
+                "src",
+                "test"
+            ],
+            "args": [
+                "-main", "haxeFormatter.TestMain",
+                "-js", "bin/test.js"
+            ],
+            "afterBuildCommands": [
+                ["node", "bin/test.js"]
+            ],
+            "impliesDebug": true
+        }
+    ]
+}

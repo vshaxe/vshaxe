@@ -10,7 +10,8 @@ class VSCodeTasksBuilder implements IBuilder {
     public function build(config:Config) {
         var base = Reflect.copy(template);
         for (target in config.targets) {
-            base.tasks = buildTask(target, false).concat(buildTask(target, true));
+            var targetArgs = config.project.targets.getTarget(target);
+            base.tasks = buildTask(config.project, targetArgs, false).concat(buildTask(config.project, targetArgs, true));
         }
         base.tasks = base.tasks.filterDuplicates(function(t1, t2) return t1.taskName == t2.taskName);
 
@@ -41,14 +42,13 @@ class VSCodeTasksBuilder implements IBuilder {
         _runner: "terminal"
     }
 
-    function buildTask(target:Target, debug:Bool):Array<Task> {
-        var config = target.getConfig();
+    function buildTask(project:Project, config:TargetArguments, debug:Bool):Array<Task> {
         var suffix = "";
         if (!config.impliesDebug && debug) suffix = " (debug)";
 
         var task:Task = {
-            taskName: '$target$suffix',
-            args: ["--run", "Build", "-t", target],
+            taskName: '${config.name}$suffix',
+            args: ["--run", "Build", "-t", config.name],
             problemMatcher: problemMatcher
         }
 
@@ -64,7 +64,9 @@ class VSCodeTasksBuilder implements IBuilder {
             task.args.push("--debug");
         }
 
-        return [task].concat(config.targetDependencies.get().flatMap(buildTask.bind(_, debug)));
+        return [task].concat(config.targetDependencies.get().flatMap(
+            function(s) return buildTask(project, project.targets.getTarget(s), debug)
+        ));
     }
 }
 

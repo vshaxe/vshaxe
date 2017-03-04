@@ -4,13 +4,16 @@ import builders.*;
 
 /** The build script for VSHaxe **/
 class Main {
+    static inline var PROJECT_FILE = "project.json";
+
     static function main() new Main();
 
     var cli:CliTools;
 
     function new() {
-        var config = {
+        var config:Config = {
             targets: [],
+            project: null,
             debug: false,
             mode: Build
         };
@@ -24,8 +27,8 @@ class Main {
 
         var args = Sys.args();
         var argHandler = hxargs.Args.generate([
-            @doc("One or multiple targets to build. One of: [].")
-            ["-t", "--target"] => function(name:String) config.targets.push(new Target(name)),
+            @doc("One or multiple targets to build.")
+            ["-t", "--target"] => function(name:String) config.targets.push(name),
 
             @doc("Build mode - accepted values are 'build', 'install', and 'both'.")
             ["-m", "--mode"] => function(mode:String) modeStr = mode,
@@ -49,26 +52,27 @@ class Main {
             ["--help"] => function() help = true,
         ]);
 
-        inline function getHelp()
-            return argHandler.getDoc().replace("[]", Std.string(Target.list));
+        Sys.setCwd(".."); // move out of /build
 
         try {
             argHandler.parse(args);
         } catch (e:Any) {
-            Sys.println('$e\n\nAvailable commands:\n${getHelp()}');
+            Sys.println('$e\n\nAvailable commands:\n${argHandler.getDoc()}');
             Sys.exit(1);
         }
 
         cli = new CliTools(verbose, dryRun);
-
         if (args.length == 0 || help)
-            cli.exit(getHelp());
+            cli.exit(argHandler.getDoc());
+
+        if (!sys.FileSystem.exists(PROJECT_FILE)) cli.fail('Could not find $PROJECT_FILE.');
+        config.project = haxe.Json.parse(sys.io.File.getContent(PROJECT_FILE));
+        /*trace(haxe.Json.stringify(config.project, null, "  "));
+        trace(haxe.Json.stringify(config.project.targets["vshaxe"], null, "  "));*/
 
         validateTargets(config.targets);
         validateEnum("mode", modeStr, Mode.getConstructors());
         config.mode = Mode.createByName(getEnumName(modeStr));
-
-        Sys.setCwd(".."); // move out of /build
 
         if (genTasks && display)
             cli.fail("Can only specify one: --gen-tasks or --display");
@@ -78,14 +82,13 @@ class Main {
         else new HaxeBuilder(cli).build(config);
     }
 
-    function validateTargets(targets:Array<Target>) {
-        var validTargets = Target.list;
-        var targetList = 'List of valid targets:\n  ${validTargets}';
+    function validateTargets(targets:Array<String>) {
+        var targetList = 'List of valid targets:\n  ${targets}';
         if (targets.length == 0)
             cli.fail("No target(s) specified! " + targetList);
 
         for (target in targets)
-            validateEnum("target", target, validTargets);
+            validateEnum("target", target, targets);
     }
 
     function validateEnum<T>(name:String, value:T, validValues:Array<T>) {
@@ -100,7 +103,8 @@ class Main {
 }
 
 typedef Config = {
-    var targets:Array<Target>;
+    var targets:Array<String>;
+    var project:Project;
     var debug:Bool;
     var mode:Mode;
 }

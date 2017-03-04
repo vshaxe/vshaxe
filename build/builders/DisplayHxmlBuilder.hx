@@ -1,7 +1,5 @@
 package builders;
 
-import Target.TargetArguments;
-
 class DisplayHxmlBuilder implements IBuilder {
     var cli:CliTools;
 
@@ -13,12 +11,12 @@ class DisplayHxmlBuilder implements IBuilder {
        var classPaths = [];
        var defines = [];
        var haxelibs = [];
-       forEachTarget(targetsToArgs(config.targets), function(args) {
+       forEachTarget(config.project, targetsToArgs(config.project, config.targets), function(args) {
             classPaths = classPaths.concat(args.classPaths.get().map(function(cp) {
                 return if (args.cwd == null) cp else haxe.io.Path.join([args.cwd, cp]);
             }));
             defines = defines.concat(args.defines.get());
-            haxelibs = haxelibs.concat(args.haxelibs.get().map(function(haxelib) return haxelib.name));
+            haxelibs = haxelibs.concat(args.haxelibs.get().map(function(name) return name));
         });
         var hxml = ['# ${Warning.Message}'];
         for (cp in classPaths) hxml.push('-cp $cp');
@@ -37,13 +35,13 @@ class DisplayHxmlBuilder implements IBuilder {
         cli.saveContent("complete.hxml", hxml.join("\n"));
     }
 
-    function forEachTarget(targets:Array<TargetArguments>, callback:TargetArguments->Void) {
+    function forEachTarget(project:Project, targets:Array<TargetArguments>, callback:TargetArguments->Void) {
         for (target in targets) {
             callback(target);
-            forEachTarget(targetsToArgs(target.targetDependencies.get()), callback);
+            forEachTarget(project, targetsToArgs(project, target.targetDependencies.get()), callback);
         }
     }
 
-    function targetsToArgs(targets:Array<Target>):Array<TargetArguments>
-        return targets.map(function(target) return target.getConfig());
+    function targetsToArgs(project:Project, targets:Array<String>):Array<TargetArguments>
+        return targets.map(function(target) return project.targets.getTarget(target));
 }
