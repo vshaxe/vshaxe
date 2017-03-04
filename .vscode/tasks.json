@@ -1,7 +1,7 @@
 // This file is generated using the build script - DO NOT EDIT MANUALLY!
 {
     "suppressTaskName": true,
-    "version": "0.1.0",
+    "version": "2.0.0",
     "command": "haxe",
     "tasks": [
         {
@@ -459,6 +459,5 @@
                 "owner": "haxe"
             }
         }
-    ],
-    "_runner": "terminal"
+    ]
 }

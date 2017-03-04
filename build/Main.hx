@@ -67,8 +67,6 @@ class Main {
 
         if (!sys.FileSystem.exists(PROJECT_FILE)) cli.fail('Could not find $PROJECT_FILE.');
         config.project = haxe.Json.parse(sys.io.File.getContent(PROJECT_FILE));
-        /*trace(haxe.Json.stringify(config.project, null, "  "));
-        trace(haxe.Json.stringify(config.project.targets["vshaxe"], null, "  "));*/
 
         validateTargets(config.targets);
         validateEnum("mode", modeStr, Mode.getConstructors());

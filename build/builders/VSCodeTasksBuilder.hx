@@ -1,6 +1,27 @@
 package builders;
 
 class VSCodeTasksBuilder implements IBuilder {
+    static var problemMatcher = {
+        owner: "haxe",
+        pattern: {
+            "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
+            "file": 1,
+            "line": 2,
+            "endLine": 3,
+            "column": 4,
+            "endColumn": 5,
+            "severity": 6,
+            "message": 7
+        }
+    }
+
+    static var template = {
+        version: "2.0.0",
+        command: "haxe",
+        suppressTaskName: true,
+        tasks: []
+    }
+
     var cli:CliTools;
 
     public function new(cli) {
@@ -18,28 +39,6 @@ class VSCodeTasksBuilder implements IBuilder {
         var tasksJson = haxe.Json.stringify(base, null, "    ");
         tasksJson = '// ${Warning.Message}\n$tasksJson';
         cli.saveContent(".vscode/tasks.json", tasksJson);
-    }
-
-    static var problemMatcher = {
-        owner: "haxe",
-        pattern: {
-            "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-            "file": 1,
-            "line": 2,
-            "endLine": 3,
-            "column": 4,
-            "endColumn": 5,
-            "severity": 6,
-            "message": 7
-        }
-    }
-
-    static var template = {
-        version: "0.1.0",
-        command: "haxe",
-        suppressTaskName: true,
-        tasks: [],
-        _runner: "terminal"
     }
 
     function buildTask(project:Project, config:TargetArguments, debug:Bool):Array<Task> {
