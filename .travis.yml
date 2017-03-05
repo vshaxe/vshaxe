@@ -1,14 +1,14 @@
 language: haxe
 sudo: false
+dist: trusty
 haxe:
  - development
 
 install:
- - haxelib git json2object https://github.com/elnabo/json2object
- - haxelib install hxargs
+ - haxelib git vshaxe-build https://github.com/vshaxe/vshaxe-build
 
 script:
- - haxe --run Build -v --debug -t all -m both
- - haxe --run Build -v -t vshaxe
- - haxe --run Build -v -t all --gen-tasks
- - haxe --run Build -v -t all --display
+ - haxelib run vshaxe-build -v --debug -t all -m both
+ - haxelib run vshaxe-build -v -t vshaxe
+ - haxelib run vshaxe-build -v -t all --gen-tasks
+ - haxelib run vshaxe-build -v -t all --display
