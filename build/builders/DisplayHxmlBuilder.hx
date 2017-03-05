@@ -2,37 +2,28 @@ package builders;
 
 class DisplayHxmlBuilder extends BaseBuilder {
     override public function build(cliArgs:CliArguments) {
-       var classPaths = [];
-       var defines = [];
-       var haxelibs = [];
-       forEachTarget(resolveTargets(cliArgs.targets), function(target) {
-            classPaths = classPaths.concat(target.classPaths.get().map(function(cp) {
-                return if (target.workingDirectory == null) cp else haxe.io.Path.join([target.workingDirectory, cp]);
-            }));
-            defines = defines.concat(target.defines.get());
-            haxelibs = haxelibs.concat(target.haxelibs.get().map(function(name) return name));
+        var hxmls = resolveTargets(cliArgs.targets).map(resolveTargetHxml.bind(_, true, true));
+        hxmls.push({
+            classPaths: ["build"],
+            args: ["-debug"]
         });
-        var hxml = ['# ${Warning.Message}'];
-        for (cp in classPaths) hxml.push('-cp $cp');
-        for (define in defines) hxml.push('-D $define');
-        for (lib in haxelibs) hxml.push('-lib $lib');
+        var hxml = mergeHxmls(hxmls, true);
+        var lines = printHxmlFile(hxml);
+        lines.insert(0, '# ${Warning.Message}');
+        lines = lines.filterDuplicates(function(s1, s2) return s1 == s2);
+        lines.push("-js some.js"); // meh
 
-        var hxml = hxml.filterDuplicates(function(s1, s2) return s1 == s2);
-        // TODO: get rid of these hacks
-        hxml.push("-cp build");
-        hxml.push("-lib hxnodejs");
-        hxml.push("-lib jstack");
-        hxml.push("-js some.js");
-
-        hxml.push("-debug"); // we usually always want -debug in display configs
-
-        cli.saveContent("complete.hxml", hxml.join("\n"));
+        cli.saveContent("complete.hxml", lines.join("\n"));
     }
 
-    function forEachTarget(targets:Array<Target>, callback:Target->Void) {
-        for (target in targets) {
-            callback(target);
-            forEachTarget(resolveTargets(target.targetDependencies.get()), callback);
-        }
+    function printHxmlFile(hxml:Hxml):Array<String> {
+        if (hxml == null)
+            return [];
+
+        var lines = [];
+        for (cp in hxml.classPaths.get()) lines.push('-cp $cp');
+        for (define in hxml.defines.get()) lines.push('-D $define');
+        for (lib in hxml.haxelibs.get()) lines.push('-lib ${resolveHaxelib(lib).name}');
+        return lines;
     }
 }

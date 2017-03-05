@@ -11,18 +11,11 @@ class HaxeBuilder extends BaseBuilder {
 
         cli.runCommands(target.installCommands);
 
-        inline function getInstallArgs(lib:String)
-            return resolveHaxelib(lib).installArgs.get();
-
-        // TODO: move defaults into config
-        cli.run("haxelib", getInstallArgs("hxnodejs"));
-
-        for (lib in target.haxelibs.get())
-            cli.run("haxelib", getInstallArgs(lib));
-
-        // TODO: move defaults into config
-        if (debug)
-            cli.run("haxelib", getInstallArgs("jstack"));
+        // TODO: might wanna avoid calling resolveTargetHxml() twice
+        var libs = resolveTargetHxml(target, debug, false).haxelibs.get();
+        libs = libs.filterDuplicates(function(lib1, lib2) return lib1 == lib2);
+        for (lib in libs)
+            cli.run("haxelib", resolveHaxelib(lib).installArgs.get());
 
         cli.println('');
     }
@@ -41,53 +34,33 @@ class HaxeBuilder extends BaseBuilder {
 
         cli.println('Building \'${target.name}\'...\n');
 
-        var args = collectHxmlArgs(target);
-        if (target.debug != null)
-        args = args.concat(collectHxmlArgs(target.debug));
-
-        if (debug) {
-            args = args.concat([
-                // TODO: move defaults into config
-                "-debug",
-                "-D", "js_unflatten",
-                "-lib", "jstack"
-            ]);
-        }
-
         cli.inDir(target.workingDirectory, function() {
             cli.runCommands(target.beforeBuildCommands);
-            cli.run("haxe", args);
+            if (target.args != null)
+                cli.run("haxe", printHxml(resolveTargetHxml(target, debug, false)));
             cli.runCommands(target.afterBuildCommands);
         });
 
         cli.println("\n----------------------------------------------\n");
     }
 
-    function collectHxmlArgs(targetArgs:TargetArguments):Array<String> {
-        var args = targetArgs.args.get();
-        if (args.length == 0)
+    function printHxml(hxml:Hxml):Array<String> {
+        if (hxml == null)
             return [];
 
-        if (args.indexOf("-js") != -1) {
-            args = args.concat([
-                // TODO: move defaults into config
-                "-lib", "hxnodejs"
-            ]);
-        }
+        var args = hxml.args.get();
 
-        var haxelibs = targetArgs.haxelibs.get();
-
-        for (lib in haxelibs) {
+        for (lib in hxml.haxelibs.get()) {
             args.push("-lib");
             args.push(resolveHaxelib(lib).name);
         }
 
-        for (cp in targetArgs.classPaths.get()) {
+        for (cp in hxml.classPaths.get()) {
             args.push("-cp");
             args.push(cp);
         }
 
-        for (define in targetArgs.defines.get()) {
+        for (define in hxml.defines.get()) {
             args.push("-D");
             args.push(define);
         }

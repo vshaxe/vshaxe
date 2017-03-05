@@ -1,9 +1,13 @@
 package;
 
 import builders.*;
+import haxe.Json;
+import sys.io.File;
+import sys.FileSystem;
 
 /** The build script for VSHaxe **/
 class Main {
+    static inline var DEFAULTS_FILE = "defaults.json";
     static inline var PROJECT_FILE = "project.json";
 
     static function main() new Main();
@@ -51,8 +55,6 @@ class Main {
             ["--help"] => function() help = true,
         ]);
 
-        Sys.setCwd(".."); // move out of /build
-
         try {
             argHandler.parse(args);
         } catch (e:Any) {
@@ -64,8 +66,9 @@ class Main {
         if (args.length == 0 || help)
             cli.exit(argHandler.getDoc());
 
-        if (!sys.FileSystem.exists(PROJECT_FILE)) cli.fail('Could not find $PROJECT_FILE.');
-        var project = haxe.Json.parse(sys.io.File.getContent(PROJECT_FILE));
+        var defaults = readJson(DEFAULTS_FILE);
+        Sys.setCwd(".."); // move out of /build
+        var project = readJson(PROJECT_FILE);
 
         validateTargets(cliArgs.targets);
         validateEnum("mode", modeStr, Mode.getConstructors());
@@ -74,9 +77,14 @@ class Main {
         if (genTasks && display)
             cli.fail("Can only specify one: --gen-tasks or --display");
 
-        if (genTasks) new VSCodeTasksBuilder(cli, project).build(cliArgs);
-        else if (display) new DisplayHxmlBuilder(cli, project).build(cliArgs);
-        else new HaxeBuilder(cli, project).build(cliArgs);
+        if (genTasks) new VSCodeTasksBuilder(cli, defaults, project).build(cliArgs);
+        else if (display) new DisplayHxmlBuilder(cli, defaults, project).build(cliArgs);
+        else new HaxeBuilder(cli, defaults, project).build(cliArgs);
+    }
+
+    function readJson(file:String):Dynamic {
+        if (!FileSystem.exists(file)) cli.fail('Could not find $file.');
+        return Json.parse(File.getContent(file));
     }
 
     function validateTargets(targets:Array<String>) {

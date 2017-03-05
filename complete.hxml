@@ -7,9 +7,11 @@
 -cp server/test
 -cp server/formatter/test
 -cp syntaxes/src
+-cp build
 -D hxnodejs-no-version-warning
 -D analyzer-optimize
 -D JSTACK_MAIN=vshaxe.Main.main
+-lib hxnodejs
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo
@@ -17,8 +19,4 @@
 -lib hxargs
 -lib yaml
 -lib plist
--cp build
--lib hxnodejs
--lib jstack
 -js some.js
--debug

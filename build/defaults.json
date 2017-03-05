@@ -1,0 +1,25 @@
+{
+    "haxelibs": [
+        {
+            "name": "hxnodejs",
+            "installArgs": ["git", "hxnodejs", "https://github.com/HaxeFoundation/hxnodejs"]
+        },
+        {
+            "name": "jstack",
+            "installArgs": ["install", "jstack"]
+        }
+    ],
+    "targets": [
+        {
+            "name": "empty"
+        },
+        {
+            "name": "vshaxe-node",
+            "debug": {
+                "defines": "js_unflatten",
+                "haxelibs": ["jstack"]
+            },
+            "haxelibs": ["hxnodejs"]
+        }
+    ]
+}
