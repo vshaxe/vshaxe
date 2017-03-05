@@ -19,19 +19,25 @@
         },
         {
             "name": "vshaxe-node",
-            "debugArgs": {
-                "defines": ["js_unflatten"],
-                "haxelibs": ["jstack"]
-            },
-            "displayArgs": {
-                "classPaths": ["build"],
-                "haxelibs": ["json2object"],
-                "output": {
-                    "target": "js",
-                    "path": "dummy.js"
+            "debug": {
+                "args": {
+                    "defines": ["js_unflatten"],
+                    "haxelibs": ["jstack"]
                 }
             },
-            "haxelibs": ["hxnodejs"]
+            "display": {
+                "args": {
+                    "classPaths": ["build"],
+                    "haxelibs": ["json2object"],
+                    "output": {
+                        "target": "js",
+                        "path": "dummy.js"
+                    }
+                }
+            },
+            "args": {
+                "haxelibs": ["hxnodejs"]
+            }
         }
     ]
 }

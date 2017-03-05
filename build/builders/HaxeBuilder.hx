@@ -21,7 +21,7 @@ class HaxeBuilder extends BaseBuilder {
     }
 
     function buildTarget(target:Target, debug:Bool, mode:Mode) {
-        debug = debug || target.debug;
+        debug = debug || (target.args != null && target.args.debug);
 
         if (mode != Build)
             installTarget(target, debug);
@@ -34,7 +34,9 @@ class HaxeBuilder extends BaseBuilder {
 
         cli.println('Building \'${target.name}\'...\n');
 
-        cli.inDir(target.workingDirectory, function() {
+        var workingDirectory = null;
+        if (target.args != null) workingDirectory = target.args.workingDirectory;
+        cli.inDir(workingDirectory, function() {
             cli.runCommands(target.beforeBuildCommands);
             if (!target.composite)
                 cli.run("haxe", printHxml(resolveTargetHxml(target, debug, false, false)));
@@ -78,7 +80,7 @@ class HaxeBuilder extends BaseBuilder {
             args.push('-main');
             args.push(hxml.main);
         }
-        
+
         if (hxml.packageName != null) args.push(hxml.packageName);
 
         if (hxml.output != null) {

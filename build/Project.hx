@@ -21,9 +21,9 @@ typedef Target = {
     /** name of the target - must be unique! **/
     var name(default,null):String;
     /** arguments that only apply in debug mode **/
-    @:optional var debugArgs(default,null):TargetArguments;
+    @:optional var debug(default,null):TargetArguments;
     /** arguments that only apply for display **/
-    @:optional var displayArgs(default,null):TargetArguments;
+    @:optional var display(default,null):TargetArguments;
 
     /** VSCode tasks.json config **/
     @:optional var isBuildCommand(default,null):Bool;
@@ -31,12 +31,12 @@ typedef Target = {
 }
 
 typedef TargetArguments = {
-    >Hxml,
     @:optional var targetDependencies(default,null):Array<String>;
     /** additional, non-haxelib install commands (npm install...) **/
     @:optional var installCommands(default,null):Array<Array<String>>;
     @:optional var beforeBuildCommands(default,null):Array<Array<String>>;
     @:optional var afterBuildCommands(default,null):Array<Array<String>>;
+    @:optional var args(default,null):Hxml;
 }
 
 typedef Hxml = {

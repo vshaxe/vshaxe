@@ -39,9 +39,9 @@ class BaseBuilder implements IBuilder {
     }
 
     function resolveTargetHxml(target:Target, debug:Bool, flatten:Bool, display:Bool, recurse:Bool = true):Hxml {
-        var hxmls:Array<Hxml> = [target];
-        if (debug) hxmls.push(target.debugArgs);
-        if (display) hxmls.push(target.displayArgs);
+        var hxmls:Array<Hxml> = [target.args];
+        if (debug && target.debug != null) hxmls.push(target.debug.args);
+        if (display && target.display != null) hxmls.push(target.display.args);
 
         if (recurse) {
             var inherited = resolveInherited(target);

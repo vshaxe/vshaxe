@@ -47,8 +47,10 @@
                 "language-server-tests",
                 "formatter"
             ],
-            "debug": true,
-            "isTestCommand": true
+            "isTestCommand": true,
+            "args": {
+                "debug": true
+            }
         },
         {
             "name": "vshaxe",
@@ -64,65 +66,71 @@
             "installCommands": [
                 ["npm", "install"]
             ],
-            "classPaths": [
+            "args": {
+                "classPaths": [
                 "vscode-extern/src",
                 "src"
-            ],
-            "defines": [
-                "hxnodejs-no-version-warning",
-                "analyzer-optimize",
-                "JSTACK_MAIN=vshaxe.Main.main"
-            ],
-            "output": {
-                "target": "js",
-                "path": "bin/client.js"
-            },
-            "deadCodeElimination": "full",
-            "packageName": "vshaxe.Main"
+                ],
+                "defines": [
+                    "hxnodejs-no-version-warning",
+                    "analyzer-optimize",
+                    "JSTACK_MAIN=vshaxe.Main.main"
+                ],
+                "output": {
+                    "target": "js",
+                    "path": "bin/client.js"
+                },
+                "deadCodeElimination": "full",
+                "packageName": "vshaxe.Main"
+            }
         },
         {
             "name": "language-server",
-            "haxelibs": ["haxe-hxparser"],
-            "workingDirectory": "server",
-            "classPaths": [
-                "src",
-                "protocol/src",
-                "formatter/src"
-            ],
-            "defines": [
-                "hxnodejs-no-version-warning"
-            ],
-            "output": {
-                "target": "js",
-                "path": "../bin/server.js"
-            },
-            "deadCodeElimination": "full",
-            "main": "haxeLanguageServer.Main"
+            "args": {
+                "haxelibs": ["haxe-hxparser"],
+                "workingDirectory": "server",
+                "classPaths": [
+                    "src",
+                    "protocol/src",
+                    "formatter/src"
+                ],
+                "defines": [
+                    "hxnodejs-no-version-warning"
+                ],
+                "output": {
+                    "target": "js",
+                    "path": "../bin/server.js"
+                },
+                "deadCodeElimination": "full",
+                "main": "haxeLanguageServer.Main"
+            }
         },
         {
             "name": "language-server-tests",
-            "haxelibs": ["haxe-hxparser", "compiletime", "mockatoo", "mconsole"],
-            "workingDirectory": "server",
-            "classPaths": [
-                "src",
-                "test",
-                "protocol/src",
-                "formatter/src"
-            ],
-            "defines": [
-                "hxnodejs-no-version-warning"
-            ],
-            "output": {
-                "target": "js",
-                "path": "../bin/test.js"
+            "args": {
+                "haxelibs": ["haxe-hxparser", "compiletime", "mockatoo", "mconsole"],
+                "workingDirectory": "server",
+                "classPaths": [
+                    "src",
+                    "test",
+                    "protocol/src",
+                    "formatter/src"
+                ],
+                "defines": [
+                    "hxnodejs-no-version-warning"
+                ],
+                "output": {
+                    "target": "js",
+                    "path": "../bin/test.js"
+                },
+                "deadCodeElimination": "full",
+                "noInline": true,
+                "main": "TestMain",
+                "debug": true
             },
-            "deadCodeElimination": "full",
-            "noInline": true,
-            "main": "TestMain",
             "afterBuildCommands": [
                 ["node", "../bin/test.js"]
-            ],
-            "debug": true
+            ]
         },
         {
             "name": "tm-language",
@@ -131,63 +139,72 @@
                 "tm-language-conversion",
                 "tm-language-tests"
             ],
-            "debug": true
+            "args": {
+                "debug": true
+            }
         },
         {
             "inherit": "empty",
             "name": "tm-language-conversion",
-            "haxelibs": ["yaml", "plist"],
-            "workingDirectory": "syntaxes",
-            "classPaths": [
-                "src"
-            ],
-            "output": {
-                "target": "neko",
-                "path": "bin/convert.n"
+            "args": {
+                "haxelibs": ["yaml", "plist"],
+                "workingDirectory": "syntaxes",
+                "classPaths": [
+                    "src"
+                ],
+                "output": {
+                    "target": "neko",
+                    "path": "bin/convert.n"
+                },
+                "main": "Converter",
+
+                "debug": true
             },
-            "main": "Converter",
             "afterBuildCommands": [
                 ["neko", "bin/convert.n"]
-            ],
-            "debug": true
+            ]
         },
         {
             "name": "tm-language-build-tests",
-            "workingDirectory": "syntaxes",
             "installCommands": [
                 ["npm", "install", "vscode-textmate"]
             ],
-            "classPaths": [
+            "args": {
+                "workingDirectory": "syntaxes",
+                "classPaths": [
                 "src"
-            ],
-            "output": {
-                "target": "js",
-                "path": "bin/build.js"
+                ],
+                "output": {
+                    "target": "js",
+                    "path": "bin/build.js"
+                },
+                "main": "Build",
+                "debug": true
             },
-            "main": "Build",
             "afterBuildCommands": [
                 ["node", "bin/build.js"]
-            ],
-            "debug": true
+            ]
         },
         {
             "name": "tm-language-tests",
-            "workingDirectory": "syntaxes",
             "targetDependencies": [
                 "tm-language-build-tests"
             ],
-            "classPaths": [
-                "src"
-            ],
-            "output": {
-                "target": "js",
-                "path": "bin/test.js"
+            "args": {
+                "workingDirectory": "syntaxes",
+                "classPaths": [
+                    "src"
+                ],
+                "output": {
+                    "target": "js",
+                    "path": "bin/test.js"
+                },
+                "main": "Test",
+                "debug": true
             },
-            "main": "Test",
             "afterBuildCommands": [
                 ["node", "bin/test.js"]
-            ],
-            "debug": true
+            ]
         },
         {
             "name": "formatter",
@@ -199,34 +216,38 @@
         },
         {
             "name":  "formatter-cli",
-            "haxelibs": ["haxe-hxparser", "hxargs"],
-            "workingDirectory": "server/formatter",
-            "classPaths": [
-                "src"
-            ],
-            "output": {
-                "target": "js",
-                "path": "bin/cli.js"
-            },
-            "main": "haxeFormatter.Cli"
+            "args": {
+                "haxelibs": ["haxe-hxparser", "hxargs"],
+                "workingDirectory": "server/formatter",
+                "classPaths": [
+                    "src"
+                ],
+                "output": {
+                    "target": "js",
+                    "path": "bin/cli.js"
+                },
+                "main": "haxeFormatter.Cli"
+            }
         },
         {
             "name": "formatter-tests",
-            "haxelibs": ["haxe-hxparser"],
-            "workingDirectory": "server/formatter",
-            "classPaths": [
-                "src",
-                "test"
-            ],
-            "output": {
-                "target": "js",
-                "path": "bin/test.js"
+            "args": {
+                "haxelibs": ["haxe-hxparser"],
+                "workingDirectory": "server/formatter",
+                "classPaths": [
+                    "src",
+                    "test"
+                ],
+                "output": {
+                    "target": "js",
+                    "path": "bin/test.js"
+                },
+                "main": "haxeFormatter.TestMain",
+                "debug": true
             },
-            "main": "haxeFormatter.TestMain",
             "afterBuildCommands": [
                 ["node", "bin/test.js"]
-            ],
-            "debug": true
+            ]
         }
     ]
 }

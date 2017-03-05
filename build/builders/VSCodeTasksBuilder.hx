@@ -56,7 +56,7 @@ class VSCodeTasksBuilder extends BaseBuilder {
 
     function buildTask(target:Target, debug:Bool):Array<Task> {
         var suffix = "";
-        if (!target.debug && debug) suffix = " (debug)";
+        if ((target.args == null || !target.args.debug) && debug) suffix = " (debug)";
 
         var task:Task = {
             taskName: '${target.name}$suffix',
@@ -64,7 +64,7 @@ class VSCodeTasksBuilder extends BaseBuilder {
             problemMatcher: problemMatcher
         }
 
-        if (target.debug || debug) {
+        if ((target.args != null && target.args.debug) || debug) {
             if (target.isBuildCommand) {
                 task.isBuildCommand = true;
                 task.taskName += " - BUILD";
