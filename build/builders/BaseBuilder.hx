@@ -69,6 +69,7 @@ class BaseBuilder implements IBuilder {
         var defines = [];
         var haxelibs = [];
         var debug = false;
+        var output = null;
         var args = [];
 
         function merge(hxml:Hxml) {
@@ -79,6 +80,7 @@ class BaseBuilder implements IBuilder {
             defines = defines.concat(hxml.defines.get());
             haxelibs = haxelibs.concat(hxml.haxelibs.get());
             debug = debug || hxml.debug;
+            if (hxml.output != null) output = hxml.output; // just use the most recent one I guess?
             args = args.concat(hxml.args.get());
         }
 
@@ -90,6 +92,7 @@ class BaseBuilder implements IBuilder {
             defines: defines,
             haxelibs: haxelibs,
             debug: debug,
+            output: output,
             args: args
         };
     }

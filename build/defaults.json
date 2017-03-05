@@ -25,7 +25,11 @@
             },
             "displayArgs": {
                 "classPaths": ["build"],
-                "haxelibs": ["json2object"]
+                "haxelibs": ["json2object"],
+                "output": {
+                    "target": "js",
+                    "path": "dummy.js"
+                }
             },
             "haxelibs": ["hxnodejs"]
         }

@@ -23,4 +23,4 @@
 -lib yaml
 -lib plist
 -debug
--js some.js
+-js dummy.js

@@ -67,6 +67,11 @@ class HaxeBuilder extends BaseBuilder {
 
         if (hxml.debug) args.push("-debug");
 
+        if (hxml.output != null) {
+            args.push('-${hxml.output.target}');
+            args.push(hxml.output.path);
+        }
+
         return args;
     }
 }

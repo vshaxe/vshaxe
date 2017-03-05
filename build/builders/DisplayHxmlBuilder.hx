@@ -7,7 +7,6 @@ class DisplayHxmlBuilder extends BaseBuilder {
         var lines = printHxmlFile(hxml);
         lines.insert(0, '# ${Warning.Message}');
         lines = lines.filterDuplicates(function(s1, s2) return s1 == s2);
-        lines.push("-js some.js"); // meh
 
         cli.saveContent("complete.hxml", lines.join("\n"));
     }
@@ -21,6 +20,7 @@ class DisplayHxmlBuilder extends BaseBuilder {
         for (define in hxml.defines.get()) lines.push('-D $define');
         for (lib in hxml.haxelibs.get()) lines.push('-lib ${resolveHaxelib(lib).name}');
         if (hxml.debug) lines.push("-debug");
+        if (hxml.output != null) lines.push('-${hxml.output.target} ${hxml.output.path}');
         return lines;
     }
 }

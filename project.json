@@ -70,9 +70,12 @@
                 "analyzer-optimize",
                 "JSTACK_MAIN=vshaxe.Main.main"
             ],
+            "output": {
+                "target": "js",
+                "path": "bin/client.js"
+            },
             "args": [
                 "-dce", "full",
-                "-js", "bin/client.js",
                 "vshaxe.Main"
             ]
         },
@@ -88,9 +91,12 @@
             "defines": [
                 "hxnodejs-no-version-warning"
             ],
+            "output": {
+                "target": "js",
+                "path": "../bin/server.js"
+            },
             "args": [
                 "-main", "haxeLanguageServer.Main",
-                "-js", "../bin/server.js",
                 "-dce", "full"
             ]
         },
@@ -107,9 +113,12 @@
             "defines": [
                 "hxnodejs-no-version-warning"
             ],
+            "output": {
+                "target": "js",
+                "path": "../bin/test.js"
+            },
             "args": [
                 "-main", "TestMain",
-                "-js", "../bin/test.js",
                 "-dce", "full",
                 "--no-inline"
             ],
@@ -134,9 +143,12 @@
             "classPaths": [
                 "src"
             ],
+            "output": {
+                "target": "neko",
+                "path": "bin/convert.n"
+            },
             "args": [
-                "-main", "Converter",
-                "-neko", "bin/convert.n"
+                "-main", "Converter"
             ],
             "afterBuildCommands": [
                 ["neko", "bin/convert.n"]
@@ -152,9 +164,12 @@
             "classPaths": [
                 "src"
             ],
+            "output": {
+                "target": "js",
+                "path": "bin/build.js"
+            },
             "args": [
-                "-main", "Build",
-                "-js", "bin/build.js"
+                "-main", "Build"
             ],
             "afterBuildCommands": [
                 ["node", "bin/build.js"]
@@ -170,9 +185,12 @@
             "classPaths": [
                 "src"
             ],
+            "output": {
+                "target": "js",
+                "path": "bin/test.js"
+            },
             "args": [
-                "-main", "Test",
-                "-js", "bin/test.js"
+                "-main", "Test"
             ],
             "afterBuildCommands": [
                 ["node", "bin/test.js"]
@@ -193,9 +211,12 @@
             "classPaths": [
                 "src"
             ],
+            "output": {
+                "target": "js",
+                "path": "bin/cli.js"
+            },
             "args": [
-                "-main", "haxeFormatter.Cli",
-                "-js", "bin/cli.js"
+                "-main", "haxeFormatter.Cli"
             ]
         },
         {
@@ -206,9 +227,12 @@
                 "src",
                 "test"
             ],
+            "output": {
+                "target": "js",
+                "path": "bin/test.js"
+            },
             "args": [
-                "-main", "haxeFormatter.TestMain",
-                "-js", "bin/test.js"
+                "-main", "haxeFormatter.TestMain"
             ],
             "afterBuildCommands": [
                 ["node", "bin/test.js"]

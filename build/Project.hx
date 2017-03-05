@@ -43,8 +43,14 @@ typedef Hxml = {
     @:optional var defines(default,null):Array<String>;
     @:optional var haxelibs(default,null):Array<String>;
     @:optional var debug(default,null):Bool;
+    @:optional var output(default,null):Output;
     /** "unstructured" arguments **/
     @:optional var args(default,null):Array<String>;
+}
+
+typedef Output = {
+    var target(default,null):String;
+    var path(default,null):String;
 }
 
 // https://github.com/elnabo/json2object/issues/9
