@@ -70,7 +70,10 @@ class BaseBuilder implements IBuilder {
         var haxelibs = [];
         var debug = false;
         var output = null;
-        var args = [];
+        var deadCodeElimination = null;
+        var noInline = false;
+        var main = null;
+        var packageName = null;
 
         function merge(hxml:Hxml) {
             if (hxml == null) return;
@@ -81,7 +84,10 @@ class BaseBuilder implements IBuilder {
             haxelibs = haxelibs.concat(hxml.haxelibs.get());
             debug = debug || hxml.debug;
             if (hxml.output != null) output = hxml.output; // just use the most recent one I guess?
-            args = args.concat(hxml.args.get());
+            if (hxml.deadCodeElimination != null) deadCodeElimination = hxml.deadCodeElimination;
+            if (hxml.noInline == true) noInline = true;
+            if (hxml.main != null) main = hxml.main;
+            if (hxml.packageName != null) packageName = hxml.packageName;
         }
 
         for (hxml in hxmls) merge(hxml);
@@ -93,7 +99,10 @@ class BaseBuilder implements IBuilder {
             haxelibs: haxelibs,
             debug: debug,
             output: output,
-            args: args
+            deadCodeElimination: deadCodeElimination,
+            noInline: noInline,
+            main: main,
+            packageName: packageName
         };
     }
 }

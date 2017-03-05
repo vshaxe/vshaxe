@@ -24,3 +24,4 @@
 -lib plist
 -debug
 -js dummy.js
+--no-inline

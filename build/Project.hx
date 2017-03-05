@@ -14,6 +14,8 @@ typedef Haxelib = {
 
 typedef Target = {
     >TargetArguments,
+    /** Whether this target is just a collection of other targets **/
+    @:optional var composite(default,null):Bool;
     /** name of a target in defaults.json to base this config on **/
     @:optional var inherit(default,null):String;
     /** name of the target - must be unique! **/
@@ -44,12 +46,14 @@ typedef Hxml = {
     @:optional var haxelibs(default,null):Array<String>;
     @:optional var debug(default,null):Bool;
     @:optional var output(default,null):Output;
-    /** "unstructured" arguments **/
-    @:optional var args(default,null):Array<String>;
+    @:optional var deadCodeElimination(default,null):String; // TODO enum abstract
+    @:optional var noInline(default,null):Bool;
+    @:optional var main(default,null):String; // can only specify either main or package, but you could specify both here :/
+    @:optional var packageName(default,null):String;
 }
 
 typedef Output = {
-    var target(default,null):String;
+    var target(default,null):String; // TODO enum abstract
     var path(default,null):String;
 }
 

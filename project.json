@@ -33,6 +33,7 @@
     "targets": [
         {
             "name": "all",
+            "composite": true,
             "targetDependencies": [
                 "test",
                 "tm-language"
@@ -40,6 +41,7 @@
         },
         {
             "name": "test",
+            "composite": true,
             "targetDependencies": [
                 "vshaxe",
                 "language-server-tests",
@@ -50,6 +52,7 @@
         },
         {
             "name": "vshaxe",
+            "composite": true,
             "targetDependencies": [
                 "client",
                 "language-server"
@@ -74,10 +77,8 @@
                 "target": "js",
                 "path": "bin/client.js"
             },
-            "args": [
-                "-dce", "full",
-                "vshaxe.Main"
-            ]
+            "deadCodeElimination": "full",
+            "packageName": "vshaxe.Main"
         },
         {
             "name": "language-server",
@@ -95,10 +96,8 @@
                 "target": "js",
                 "path": "../bin/server.js"
             },
-            "args": [
-                "-main", "haxeLanguageServer.Main",
-                "-dce", "full"
-            ]
+            "deadCodeElimination": "full",
+            "main": "haxeLanguageServer.Main"
         },
         {
             "name": "language-server-tests",
@@ -117,11 +116,9 @@
                 "target": "js",
                 "path": "../bin/test.js"
             },
-            "args": [
-                "-main", "TestMain",
-                "-dce", "full",
-                "--no-inline"
-            ],
+            "deadCodeElimination": "full",
+            "noInline": true,
+            "main": "TestMain",
             "afterBuildCommands": [
                 ["node", "../bin/test.js"]
             ],
@@ -129,6 +126,7 @@
         },
         {
             "name": "tm-language",
+            "composite": true,
             "targetDependencies": [
                 "tm-language-conversion",
                 "tm-language-tests"
@@ -147,9 +145,7 @@
                 "target": "neko",
                 "path": "bin/convert.n"
             },
-            "args": [
-                "-main", "Converter"
-            ],
+            "main": "Converter",
             "afterBuildCommands": [
                 ["neko", "bin/convert.n"]
             ],
@@ -168,9 +164,7 @@
                 "target": "js",
                 "path": "bin/build.js"
             },
-            "args": [
-                "-main", "Build"
-            ],
+            "main": "Build",
             "afterBuildCommands": [
                 ["node", "bin/build.js"]
             ],
@@ -189,9 +183,7 @@
                 "target": "js",
                 "path": "bin/test.js"
             },
-            "args": [
-                "-main", "Test"
-            ],
+            "main": "Test",
             "afterBuildCommands": [
                 ["node", "bin/test.js"]
             ],
@@ -199,6 +191,7 @@
         },
         {
             "name": "formatter",
+            "composite": true,
             "targetDependencies": [
                 "formatter-cli",
                 "formatter-tests"
@@ -215,9 +208,7 @@
                 "target": "js",
                 "path": "bin/cli.js"
             },
-            "args": [
-                "-main", "haxeFormatter.Cli"
-            ]
+            "main": "haxeFormatter.Cli"
         },
         {
             "name": "formatter-tests",
@@ -231,9 +222,7 @@
                 "target": "js",
                 "path": "bin/test.js"
             },
-            "args": [
-                "-main", "haxeFormatter.TestMain"
-            ],
+            "main": "haxeFormatter.TestMain",
             "afterBuildCommands": [
                 ["node", "bin/test.js"]
             ],

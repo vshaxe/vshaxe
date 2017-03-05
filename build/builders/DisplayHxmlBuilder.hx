@@ -21,6 +21,7 @@ class DisplayHxmlBuilder extends BaseBuilder {
         for (lib in hxml.haxelibs.get()) lines.push('-lib ${resolveHaxelib(lib).name}');
         if (hxml.debug) lines.push("-debug");
         if (hxml.output != null) lines.push('-${hxml.output.target} ${hxml.output.path}');
+        if (hxml.noInline == true) lines.push('--no-inline');
         return lines;
     }
 }

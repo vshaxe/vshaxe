@@ -36,7 +36,7 @@ class HaxeBuilder extends BaseBuilder {
 
         cli.inDir(target.workingDirectory, function() {
             cli.runCommands(target.beforeBuildCommands);
-            if (target.args != null)
+            if (!target.composite)
                 cli.run("haxe", printHxml(resolveTargetHxml(target, debug, false, false)));
             cli.runCommands(target.afterBuildCommands);
         });
@@ -48,7 +48,7 @@ class HaxeBuilder extends BaseBuilder {
         if (hxml == null)
             return [];
 
-        var args = hxml.args.get();
+        var args = [];
 
         for (lib in hxml.haxelibs.get()) {
             args.push("-lib");
@@ -65,7 +65,21 @@ class HaxeBuilder extends BaseBuilder {
             args.push(define);
         }
 
+        if (hxml.deadCodeElimination != null) {
+            args.push("-dce");
+            args.push(hxml.deadCodeElimination);
+        }
+
+        if (hxml.noInline == true) args.push('--no-inline');
+
         if (hxml.debug) args.push("-debug");
+
+        if (hxml.main != null) {
+            args.push('-main');
+            args.push(hxml.main);
+        }
+        
+        if (hxml.packageName != null) args.push(hxml.packageName);
 
         if (hxml.output != null) {
             args.push('-${hxml.output.target}');
