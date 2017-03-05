@@ -177,7 +177,7 @@
             "afterBuildCommands": [
                 ["node", "bin/test.js"]
             ],
-            "impliesDebug": true
+            "debug": true
         },
         {
             "name": "formatter",
