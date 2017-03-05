@@ -11,12 +11,12 @@ class DisplayHxmlBuilder implements IBuilder {
        var classPaths = [];
        var defines = [];
        var haxelibs = [];
-       forEachTarget(config.project, targetsToArgs(config.project, config.targets), function(args) {
-            classPaths = classPaths.concat(args.classPaths.get().map(function(cp) {
-                return if (args.workingDirectory == null) cp else haxe.io.Path.join([args.workingDirectory, cp]);
+       forEachTarget(config.project, targetNamesToTargets(config.project, config.targets), function(target) {
+            classPaths = classPaths.concat(target.classPaths.get().map(function(cp) {
+                return if (target.workingDirectory == null) cp else haxe.io.Path.join([target.workingDirectory, cp]);
             }));
-            defines = defines.concat(args.defines.get());
-            haxelibs = haxelibs.concat(args.haxelibs.get().map(function(name) return name));
+            defines = defines.concat(target.defines.get());
+            haxelibs = haxelibs.concat(target.haxelibs.get().map(function(name) return name));
         });
         var hxml = ['# ${Warning.Message}'];
         for (cp in classPaths) hxml.push('-cp $cp');
@@ -35,13 +35,13 @@ class DisplayHxmlBuilder implements IBuilder {
         cli.saveContent("complete.hxml", hxml.join("\n"));
     }
 
-    function forEachTarget(project:Project, targets:Array<TargetArguments>, callback:TargetArguments->Void) {
+    function forEachTarget(project:Project, targets:Array<Target>, callback:Target->Void) {
         for (target in targets) {
             callback(target);
-            forEachTarget(project, targetsToArgs(project, target.targetDependencies.get()), callback);
+            forEachTarget(project, targetNamesToTargets(project, target.targetDependencies.get()), callback);
         }
     }
 
-    function targetsToArgs(project:Project, targets:Array<String>):Array<TargetArguments>
+    function targetNamesToTargets(project:Project, targets:Array<String>):Array<Target>
         return targets.map(function(target) return project.targets.getTarget(target));
 }

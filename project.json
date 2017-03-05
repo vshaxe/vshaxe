@@ -135,7 +135,8 @@
             "targetDependencies": [
                 "tm-language-conversion",
                 "tm-language-tests"
-            ]
+            ],
+            "impliesDebug": true
         },
         {
             "name": "tm-language-conversion",

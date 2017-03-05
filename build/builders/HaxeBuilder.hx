@@ -8,15 +8,16 @@ class HaxeBuilder implements IBuilder {
     }
 
     public function build(config:Config) {
-        for (target in config.targets)
+        for (name in config.targets) {
+            var target = config.project.targets.getTarget(name);
             buildTarget(target, config.project, config.debug, config.mode);
+        }
     }
 
-    function installTarget(target:String, project:Project, debug:Bool) {
-        cli.println('Installing Haxelibs for \'$target\'...\n');
+    function installTarget(target:Target, project:Project, debug:Bool) {
+        cli.println('Installing Haxelibs for \'${target.name}\'...\n');
 
-        var args = project.targets.getTarget(target);
-        cli.runCommands(args.installCommands);
+        cli.runCommands(target.installCommands);
 
         inline function getInstallArgs(lib:String)
             return project.haxelibs.get().getHaxelib(lib).installArgs.get();
@@ -24,7 +25,7 @@ class HaxeBuilder implements IBuilder {
         // TODO: move defaults into config
         cli.run("haxelib", getInstallArgs("hxnodejs"));
 
-        for (lib in args.haxelibs.get())
+        for (lib in target.haxelibs.get())
             cli.run("haxelib", getInstallArgs(lib));
 
         // TODO: move defaults into config
@@ -34,22 +35,21 @@ class HaxeBuilder implements IBuilder {
         cli.println('');
     }
 
-    function buildTarget(target:String, project:Project, debug:Bool, mode:Mode) {
-        var config = project.targets.getTarget(target);
-        debug = debug || config.impliesDebug;
+    function buildTarget(target:Target, project:Project, debug:Bool, mode:Mode) {
+        debug = debug || target.impliesDebug;
 
         if (mode != Build)
             installTarget(target, project, debug);
 
-        for (dependency in config.targetDependencies.get())
-            buildTarget(dependency, project, debug, mode);
+        for (dependency in target.targetDependencies.get())
+            buildTarget(project.targets.getTarget(dependency), project, debug, mode);
 
         if (mode == Install)
             return;
 
-        cli.println('Building \'$target\'...\n');
+        cli.println('Building \'${target.name}\'...\n');
 
-        var args = config.args.get();
+        var args = target.args.get();
         if (args.length == 0)
             return;
 
@@ -60,10 +60,10 @@ class HaxeBuilder implements IBuilder {
             ]);
         }
 
-        var haxelibs = config.haxelibs.get();
+        var haxelibs = target.haxelibs.get();
 
         if (debug) {
-            var debugArgs = config.debugArgs.get();
+            var debugArgs = target.debugArgs.get();
             debugArgs = debugArgs.concat([
                 // TODO: move defaults into config
                 "-debug",
@@ -78,20 +78,20 @@ class HaxeBuilder implements IBuilder {
             args.push(project.haxelibs.get().getHaxelib(lib).name);
         }
 
-        for (cp in config.classPaths.get()) {
+        for (cp in target.classPaths.get()) {
             args.push("-cp");
             args.push(cp);
         }
 
-        for (define in config.defines.get()) {
+        for (define in target.defines.get()) {
             args.push("-D");
             args.push(define);
         }
 
-        cli.inDir(config.workingDirectory, function() {
-            cli.runCommands(config.beforeBuildCommands);
+        cli.inDir(target.workingDirectory, function() {
+            cli.runCommands(target.beforeBuildCommands);
             cli.run("haxe", args);
-            cli.runCommands(config.afterBuildCommands);
+            cli.runCommands(target.afterBuildCommands);
         });
 
         cli.println("\n----------------------------------------------\n");

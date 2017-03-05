@@ -2,7 +2,7 @@ package;
 
 typedef Project = {
     var haxelibs(default,null):ArrayHandle<Haxelib>;
-    var targets(default,null):ArrayHandle<TargetArguments>;
+    var targets(default,null):ArrayHandle<Target>;
 }
 
 typedef Haxelib = {
@@ -10,7 +10,7 @@ typedef Haxelib = {
     var installArgs(default,null):ArrayHandle<String>;
 }
 
-typedef TargetArguments = {
+typedef Target = {
     var name(default,null):String;
     @:optional var classPaths(default,null):ArrayHandle<String>;
     @:optional var defines(default,null):ArrayHandle<String>;

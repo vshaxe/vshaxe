@@ -24,7 +24,7 @@ class ArrayTools {
         return null;
     }
 
-    public static function getTarget(targets:ArrayHandle<TargetArguments>, name:String):TargetArguments {
+    public static function getTarget(targets:ArrayHandle<Target>, name:String):Target {
         for (target in targets)
             if (target.name == name)
                 return target;

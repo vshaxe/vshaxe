@@ -60,29 +60,29 @@ class VSCodeTasksBuilder implements IBuilder {
         cli.saveContent(".vscode/tasks.json", tasksJson);
     }
 
-    function buildTask(project:Project, config:TargetArguments, debug:Bool):Array<Task> {
+    function buildTask(project:Project, target:Target, debug:Bool):Array<Task> {
         var suffix = "";
-        if (!config.impliesDebug && debug) suffix = " (debug)";
+        if (!target.impliesDebug && debug) suffix = " (debug)";
 
         var task:Task = {
-            taskName: '${config.name}$suffix',
-            args: makeArgs(["-t", config.name]),
+            taskName: '${target.name}$suffix',
+            args: makeArgs(["-t", target.name]),
             problemMatcher: problemMatcher
         }
 
-        if (config.impliesDebug || debug) {
-            if (config.isBuildCommand) {
+        if (target.impliesDebug || debug) {
+            if (target.isBuildCommand) {
                 task.isBuildCommand = true;
                 task.taskName += " - BUILD";
             }
-            if (config.isTestCommand) {
+            if (target.isTestCommand) {
                 task.isTestCommand = true;
                 task.taskName += " - TEST";
             }
             task.args.push("--debug");
         }
 
-        return [task].concat(config.targetDependencies.get().flatMap(
+        return [task].concat(target.targetDependencies.get().flatMap(
             function(s) return buildTask(project, project.targets.getTarget(s), debug)
         ));
     }

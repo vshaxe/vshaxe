@@ -211,7 +211,8 @@
                 "--run",
                 "Build",
                 "-t",
-                "tm-language"
+                "tm-language",
+                "--debug"
             ],
             "taskName": "tm-language",
             "problemMatcher": {
@@ -422,29 +423,6 @@
                 "--debug"
             ],
             "taskName": "formatter-cli (debug)",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "owner": "haxe"
-            }
-        },
-        {
-            "args": [
-                "--run",
-                "Build",
-                "-t",
-                "tm-language",
-                "--debug"
-            ],
-            "taskName": "tm-language (debug)",
             "problemMatcher": {
                 "pattern": {
                     "file": 1,
