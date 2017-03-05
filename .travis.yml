@@ -4,6 +4,7 @@ haxe:
  - development
 
 install:
+ - haxelib git json2object https://github.com/elnabo/json2object
  - haxelib install hxargs
 
 script:
