@@ -41,13 +41,13 @@ class HaxeBuilder implements IBuilder {
         if (mode != Build)
             installTarget(target, project, debug);
 
+        for (dependency in config.targetDependencies.get())
+            buildTarget(dependency, project, debug, mode);
+
         if (mode == Install)
             return;
 
         cli.println('Building \'$target\'...\n');
-
-        for (dependency in config.targetDependencies.get())
-            buildTarget(dependency, project, debug, mode);
 
         var args = config.args.get();
         if (args.length == 0)
