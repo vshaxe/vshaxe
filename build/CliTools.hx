@@ -12,12 +12,12 @@ class CliTools {
         if (dryRun) this.verbose = true;
     }
 
-    function runCommands(commands:ArrayHandle<ArrayHandle<String>>) {
+    function runCommands(commands:Array<Array<String>>) {
         for (command in commands.get())
             runCommand(command);
     }
 
-    function runCommand(cmd:ArrayHandle<String>) {
+    function runCommand(cmd:Array<String>) {
         var command = cmd.get();
         if (command.length == 0) return;
         var executable = command[0];

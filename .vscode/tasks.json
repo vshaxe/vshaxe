@@ -1,33 +1,32 @@
 // This file is generated using the build script - DO NOT EDIT MANUALLY!
 {
+    "suppressTaskName": true,
     "version": "2.0.0",
     "command": "haxe",
-    "suppressTaskName": true,
     "tasks": [
         {
-            "taskName": "all",
             "args": [
                 "--run",
                 "Build",
                 "-t",
                 "all"
             ],
+            "taskName": "all",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "test - TEST",
             "args": [
                 "--run",
                 "Build",
@@ -35,89 +34,89 @@
                 "test",
                 "--debug"
             ],
+            "isTestCommand": true,
+            "taskName": "test - TEST",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
-            },
-            "isTestCommand": true
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
+            }
         },
         {
-            "taskName": "vshaxe",
             "args": [
                 "--run",
                 "Build",
                 "-t",
                 "vshaxe"
             ],
+            "taskName": "vshaxe",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "client",
             "args": [
                 "--run",
                 "Build",
                 "-t",
                 "client"
             ],
+            "taskName": "client",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "language-server",
             "args": [
                 "--run",
                 "Build",
                 "-t",
                 "language-server"
             ],
+            "taskName": "language-server",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "language-server-tests",
             "args": [
                 "--run",
                 "Build",
@@ -125,66 +124,66 @@
                 "language-server-tests",
                 "--debug"
             ],
+            "taskName": "language-server-tests",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "formatter",
             "args": [
                 "--run",
                 "Build",
                 "-t",
                 "formatter"
             ],
+            "taskName": "formatter",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "formatter-cli",
             "args": [
                 "--run",
                 "Build",
                 "-t",
                 "formatter-cli"
             ],
+            "taskName": "formatter-cli",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "formatter-tests",
             "args": [
                 "--run",
                 "Build",
@@ -192,22 +191,22 @@
                 "formatter-tests",
                 "--debug"
             ],
+            "taskName": "formatter-tests",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "tm-language",
             "args": [
                 "--run",
                 "Build",
@@ -215,22 +214,22 @@
                 "tm-language",
                 "--debug"
             ],
+            "taskName": "tm-language",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "tm-language-conversion",
             "args": [
                 "--run",
                 "Build",
@@ -238,22 +237,22 @@
                 "tm-language-conversion",
                 "--debug"
             ],
+            "taskName": "tm-language-conversion",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "tm-language-tests",
             "args": [
                 "--run",
                 "Build",
@@ -261,22 +260,22 @@
                 "tm-language-tests",
                 "--debug"
             ],
+            "taskName": "tm-language-tests",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "tm-language-build-tests",
             "args": [
                 "--run",
                 "Build",
@@ -284,22 +283,22 @@
                 "tm-language-build-tests",
                 "--debug"
             ],
+            "taskName": "tm-language-build-tests",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "all (debug)",
             "args": [
                 "--run",
                 "Build",
@@ -307,22 +306,22 @@
                 "all",
                 "--debug"
             ],
+            "taskName": "all (debug)",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "vshaxe (debug) - BUILD",
             "args": [
                 "--run",
                 "Build",
@@ -330,23 +329,23 @@
                 "vshaxe",
                 "--debug"
             ],
+            "taskName": "vshaxe (debug) - BUILD",
+            "isBuildCommand": true,
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
-            },
-            "isBuildCommand": true
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
+            }
         },
         {
-            "taskName": "client (debug)",
             "args": [
                 "--run",
                 "Build",
@@ -354,22 +353,22 @@
                 "client",
                 "--debug"
             ],
+            "taskName": "client (debug)",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "language-server (debug)",
             "args": [
                 "--run",
                 "Build",
@@ -377,22 +376,22 @@
                 "language-server",
                 "--debug"
             ],
+            "taskName": "language-server (debug)",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "formatter (debug)",
             "args": [
                 "--run",
                 "Build",
@@ -400,22 +399,22 @@
                 "formatter",
                 "--debug"
             ],
+            "taskName": "formatter (debug)",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "formatter-cli (debug)",
             "args": [
                 "--run",
                 "Build",
@@ -423,22 +422,22 @@
                 "formatter-cli",
                 "--debug"
             ],
+            "taskName": "formatter-cli (debug)",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "{install-all}",
             "args": [
                 "--run",
                 "Build",
@@ -447,22 +446,22 @@
                 "--target",
                 "all"
             ],
+            "taskName": "{install-all}",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "{generate-complete-hxml}",
             "args": [
                 "--run",
                 "Build",
@@ -470,22 +469,22 @@
                 "--target",
                 "all"
             ],
+            "taskName": "{generate-complete-hxml}",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         },
         {
-            "taskName": "{generate-vscode-tasks}",
             "args": [
                 "--run",
                 "Build",
@@ -493,18 +492,19 @@
                 "--target",
                 "all"
             ],
+            "taskName": "{generate-vscode-tasks}",
             "problemMatcher": {
-                "owner": "haxe",
                 "pattern": {
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "file": 1,
-                    "line": 2,
-                    "endLine": 3,
                     "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
                     "endColumn": 5,
-                    "severity": 6,
-                    "message": 7
-                }
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
             }
         }
     ]

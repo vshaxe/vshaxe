@@ -14,6 +14,7 @@
 -D JSTACK_MAIN=vshaxe.Main.main
 -lib hxnodejs
 -lib jstack
+-lib json2object
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo

@@ -7,6 +7,10 @@
         {
             "name": "jstack",
             "installArgs": ["install", "jstack"]
+        },
+        {
+            "name": "json2object",
+            "installArgs": ["git", "json2object", "https://github.com/elnabo/json2object"]
         }
     ],
     "targets": [
@@ -20,7 +24,8 @@
                 "haxelibs": ["jstack"]
             },
             "displayArgs": {
-                "classPaths": ["build"]
+                "classPaths": ["build"],
+                "haxelibs": ["json2object"]
             },
             "haxelibs": ["hxnodejs"]
         }

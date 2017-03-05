@@ -1,10 +1,6 @@
 package;
 
 class ArrayTools {
-    public static function safeCopy<T>(a:Array<T>):Array<T> {
-        return if (a == null) [] else a.copy();
-    }
-
     public static function filterDuplicates<T>(tasks:Array<T>, filter:T->T->Bool):Array<T> {
         var uniqueTasks:Array<T> = [];
         for (task in tasks) {
@@ -15,6 +11,10 @@ class ArrayTools {
                 uniqueTasks.push(task);
         }
         return uniqueTasks;
+    }
+
+    public static function get<T>(a:Array<T>):Array<T> {
+        return if (a == null) [] else a.copy();
     }
 
     /** from https://github.com/fponticelli/thx.core/blob/master/src/thx/Arrays.hx **/

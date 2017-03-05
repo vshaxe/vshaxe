@@ -1,7 +1,7 @@
 package;
 
 import builders.*;
-import haxe.Json;
+import json2object.JsonParser;
 import sys.io.File;
 import sys.FileSystem;
 
@@ -82,9 +82,13 @@ class Main {
         else new HaxeBuilder(cli, defaults, project).build(cliArgs);
     }
 
-    function readJson(file:String):Dynamic {
+    function readJson(file:String):Project {
         if (!FileSystem.exists(file)) cli.fail('Could not find $file.');
-        return Json.parse(File.getContent(file));
+        var parser = new JsonParser<Project>();
+        var json = parser.fromJson(File.getContent(file), file);
+        if (parser.warnings.length > 0)
+            cli.fail([for (warning in parser.warnings) Std.string(warning)].join("\n"));
+        return json;
     }
 
     function validateTargets(targets:Array<String>) {
