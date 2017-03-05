@@ -5,6 +5,7 @@ import json2object.JsonParser;
 import sys.io.File;
 import sys.FileSystem;
 import haxe.io.Path;
+using json2object.ErrorUtils;
 
 /** The build script for VSHaxe **/
 class Main {
@@ -88,7 +89,7 @@ class Main {
         var parser = new JsonParser<Project>();
         var json = parser.fromJson(File.getContent(file), file);
         if (parser.warnings.length > 0)
-            cli.fail([for (warning in parser.warnings) Std.string(warning)].join("\n"));
+            cli.fail(parser.warnings.convertErrorArray());
         return json;
     }
 
