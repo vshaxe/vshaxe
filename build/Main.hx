@@ -4,6 +4,7 @@ import builders.*;
 import json2object.JsonParser;
 import sys.io.File;
 import sys.FileSystem;
+import haxe.io.Path;
 
 /** The build script for VSHaxe **/
 class Main {
@@ -68,7 +69,7 @@ class Main {
 
         var defaults = readJson(DEFAULTS_FILE);
         Sys.setCwd(".."); // move out of /build
-        var project = readJson(PROJECT_FILE);
+        var projects = [defaults].concat(findProjectFiles(".").map(readJson));
 
         validateTargets(cliArgs.targets);
         validateEnum("mode", modeStr, Mode.getConstructors());
@@ -77,9 +78,9 @@ class Main {
         if (genTasks && display)
             cli.fail("Can only specify one: --gen-tasks or --display");
 
-        if (genTasks) new VSCodeTasksBuilder(cli, defaults, project).build(cliArgs);
-        else if (display) new DisplayHxmlBuilder(cli, defaults, project).build(cliArgs);
-        else new HaxeBuilder(cli, defaults, project).build(cliArgs);
+        if (genTasks) new VSCodeTasksBuilder(cli, projects).build(cliArgs);
+        else if (display) new DisplayHxmlBuilder(cli, projects).build(cliArgs);
+        else new HaxeBuilder(cli, projects).build(cliArgs);
     }
 
     function readJson(file:String):Project {
@@ -108,6 +109,19 @@ class Main {
 
     function getEnumName(cliName:String):String {
         return cliName.substr(0, 1).toUpperCase() + cliName.substr(1);
+    }
+
+    function findProjectFiles(dir:String):Array<String> {
+        if ((dir != "." && dir != ".." && dir.startsWith(".")) || dir == "dump") return [];
+        var projectFiles = [];
+        for (file in FileSystem.readDirectory(dir)) {
+            var fullPath = Path.join([dir, file]);
+            if (FileSystem.isDirectory(fullPath))
+                projectFiles = projectFiles.concat(findProjectFiles(fullPath));
+            else if (file == PROJECT_FILE)
+                projectFiles.push(fullPath);
+        }
+        return projectFiles;
     }
 }
 

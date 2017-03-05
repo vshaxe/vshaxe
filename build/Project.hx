@@ -1,5 +1,9 @@
 package;
 
+typedef Named = {
+    public var name(default,null):String;
+}
+
 typedef Project = {
     /** name of a target in defaults.json to base all targets in this config on **/
     @:optional var inherit(default,null):String;
@@ -8,18 +12,17 @@ typedef Project = {
 }
 
 typedef Haxelib = {
-    var name(default,null):String;
+    >Named,
     var installArgs(default,null):Array<String>;
 }
 
 typedef Target = {
+    >Named,
     >TargetArguments,
     /** Whether this target is just a collection of other targets **/
     @:optional var composite(default,null):Bool;
     /** name of a target in defaults.json to base this config on **/
     @:optional var inherit(default,null):String;
-    /** name of the target - must be unique! **/
-    var name(default,null):String;
     /** arguments that only apply in debug mode **/
     @:optional var debug(default,null):TargetArguments;
     /** arguments that only apply for display **/

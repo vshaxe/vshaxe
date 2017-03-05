@@ -17,6 +17,13 @@ class ArrayTools {
         return if (a == null) [] else a.copy();
     }
 
+    public static function findNamed<T:Named>(a:Array<T>, name:String):T {
+        for (e in a)
+            if (e.name == name)
+                return e;
+        return null;
+    }
+
     /** from https://github.com/fponticelli/thx.core/blob/master/src/thx/Arrays.hx **/
 
     inline public static function flatMap<TIn, TOut>(array:Array<TIn>, callback:TIn->Array<TOut>):Array<TOut>

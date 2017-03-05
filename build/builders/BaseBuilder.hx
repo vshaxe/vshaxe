@@ -1,36 +1,32 @@
 package builders;
 
+import haxe.ds.Option;
+
 /** sounds like an RTS... **/
 class BaseBuilder implements IBuilder {
     var cli:CliTools;
-    var defaults:Project;
-    var project:Project;
+    var projects:Array<Project>;
 
-    public function new(cli:CliTools, defaults:Project, project:Project) {
+    public function new(cli:CliTools, projects:Array<Project>) {
         this.cli = cli;
-        this.defaults = defaults;
-        this.project = project;
+        this.projects = projects;
     }
 
     public function build(cliArgs:CliArguments) {}
 
     function resolveHaxelib(name:String):Haxelib {
-        for (lib in project.haxelibs)
-            if (lib.name == name)
-                return lib;
-        for (lib in defaults.haxelibs)
-            if (lib.name == name)
-                return lib;
+        for (project in projects) {
+            var lib = project.haxelibs.findNamed(name);
+            if (lib != null) return lib;
+        }
         return null;
     }
 
     function resolveTarget(name:String):Target {
-        for (target in project.targets)
-            if (target.name == name)
-                return target;
-        for (target in defaults.targets)
-            if (target.name == name)
-                return target;
+        for (project in projects) {
+            var target = project.targets.findNamed(name);
+            if (target != null) return target;
+        }
         return null;
     }
 
@@ -44,9 +40,10 @@ class BaseBuilder implements IBuilder {
         if (display && target.display != null) hxmls.push(target.display.args);
 
         if (recurse) {
-            var inherited = resolveInherited(target);
-            if (inherited != null) {
-                hxmls.push(resolveTargetHxml(inherited, debug, flatten, display, false));
+            switch (resolveInherited(target)) {
+                case Some(inherited):
+                    hxmls.push(resolveTargetHxml(inherited, debug, flatten, display, false));
+                case None:
             }
         }
 
@@ -58,10 +55,19 @@ class BaseBuilder implements IBuilder {
         return mergeHxmls(hxmls, flatten);
     }
 
-    function resolveInherited(target:Target):Target {
-        if (target.inherit != null) return resolveTarget(target.inherit);
-        if (project.inherit != null) return resolveTarget(project.inherit);
-        return null;
+    function resolveInherited(target:Target):Option<Target> {
+        if (target.inherit != null) return Some(resolveTarget(target.inherit));
+        return switch (getTargetOwner(target)) {
+            case Some(project): Some(resolveTarget(project.inherit));
+            case None: None;
+        }
+    }
+
+    function getTargetOwner(target:Target):Option<Project> {
+        for (project in projects)
+            if (project.targets.findNamed(target.name) != null)
+                return Some(project);
+        return None;
     }
 
     function mergeHxmls(hxmls:Array<Hxml>, flatten:Bool):Hxml {
