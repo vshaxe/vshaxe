@@ -20,9 +20,9 @@ class BaseBuilder implements IBuilder {
     }
 
     function resolveTarget(name:String):Target {
-        for (lib in project.targets)
-            if (lib.name == name)
-                return lib;
+        for (target in project.targets)
+            if (target.name == name)
+                return target;
         return null;
     }
 

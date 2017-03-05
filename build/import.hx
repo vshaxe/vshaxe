@@ -1,8 +1,6 @@
 import Main.Config;
 import Main.Mode;
-import Project.ArrayHandle;
-import Project.Haxelib;
-import Project.Target;
+import Project;
 
 using ArrayTools;
 using StringTools;
