@@ -23,5 +23,5 @@
 -lib yaml
 -lib plist
 -debug
--js dummy.js
+-js bin/build.js
 --no-inline

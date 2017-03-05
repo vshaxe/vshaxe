@@ -24,6 +24,10 @@ class ArrayTools {
         return null;
     }
 
+    public static function idx<T>(a:Array<T>, i:Int) {
+        return if (i >= 0) a[i] else a[a.length + i];
+    }
+
     /** from https://github.com/fponticelli/thx.core/blob/master/src/thx/Arrays.hx **/
 
     inline public static function flatMap<TIn, TOut>(array:Array<TIn>, callback:TIn->Array<TOut>):Array<TOut>

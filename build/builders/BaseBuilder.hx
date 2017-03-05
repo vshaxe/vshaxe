@@ -1,33 +1,64 @@
 package builders;
 
 import haxe.ds.Option;
+import haxe.io.Path;
 
 /** sounds like an RTS... **/
 class BaseBuilder implements IBuilder {
     var cli:CliTools;
-    var projects:Array<Project>;
+    var projects:Array<PlacedProject>;
 
-    public function new(cli:CliTools, projects:Array<Project>) {
+    public function new(cli:CliTools, projects:Array<PlacedProject>) {
         this.cli = cli;
         this.projects = projects;
+        for (project in projects) adjustWorkingDirectories(project, project.directory);
+    }
+
+    function adjustWorkingDirectories(project:PlacedProject, baseDir:String) {
+        inline function adjustDir(baseDir:String, hxml:Hxml) {
+            if (hxml == null) return;
+            hxml.workingDirectory = baseDir; // TODO: fix this if you need cwd support... :P
+                /*if (hxml.workingDirectory == null) baseDir;
+                else hxml.workingDirectory = Path.join([baseDir, hxml.workingDirectory]);*/
+        }
+
+        for (target in project.targets) {
+            var projectBaseDir = Path.join([baseDir, project.directory]);
+            adjustDir(projectBaseDir, target.args);
+            if (target.debug != null) adjustDir(projectBaseDir, target.debug.args);
+            if (target.display != null) adjustDir(projectBaseDir, target.display.args);
+            project.subProjects.map(adjustWorkingDirectories.bind(_, projectBaseDir));
+        }
     }
 
     public function build(cliArgs:CliArguments) {}
 
+    /** TODO: return Option<Haxelib> **/
     function resolveHaxelib(name:String):Haxelib {
-        for (project in projects) {
-            var lib = project.haxelibs.findNamed(name);
-            if (lib != null) return lib;
+        function loop(projects:Array<PlacedProject>):Haxelib {
+            for (project in projects) {
+                var lib = project.haxelibs.findNamed(name);
+                if (lib != null) return lib;
+                var libInSub = loop(project.subProjects);
+                if (libInSub != null) return libInSub;
+            }
+            return null;
         }
-        return null;
+        return loop(projects);
     }
 
+    /** TODO: return Option<Target> **/
     function resolveTarget(name:String):Target {
-        for (project in projects) {
-            var target = project.targets.findNamed(name);
-            if (target != null) return target;
+        function loop(projects:Array<PlacedProject>):Target {
+            for (project in projects) {
+                var target = project.targets.findNamed(name);
+                if (target != null) return target;
+                var targetInSub = loop(project.subProjects);
+                if (targetInSub != null) return targetInSub;
+            }
+            return null;
         }
-        return null;
+        return loop(projects);
     }
 
     function resolveTargets(names:Array<String>):Array<Target> {
@@ -40,9 +71,9 @@ class BaseBuilder implements IBuilder {
         if (display && target.display != null) hxmls.push(target.display.args);
 
         if (recurse) {
-            switch (resolveInherited(target)) {
-                case Some(inherited):
-                    hxmls.push(resolveTargetHxml(inherited, debug, flatten, display, false));
+            switch (resolveParent(target)) {
+                case Some(parent):
+                    hxmls.push(resolveTargetHxml(parent, debug, flatten, display, false));
                 case None:
             }
         }
@@ -55,18 +86,30 @@ class BaseBuilder implements IBuilder {
         return mergeHxmls(hxmls, flatten);
     }
 
-    function resolveInherited(target:Target):Option<Target> {
-        if (target.inherit != null) return Some(resolveTarget(target.inherit));
+    function resolveParent(target:Target):Option<Target> {
+        if (target.inherit != null) {
+            return Some(resolveTarget(target.inherit));
+        }
         return switch (getTargetOwner(target)) {
             case Some(project): Some(resolveTarget(project.inherit));
-            case None: None;
+            case None: throw 'unable to find owner of target ${target.name}';
         }
     }
 
+    function flattenProjects(project:PlacedProject):Array<PlacedProject> {
+        var projects = [project];
+        projects = projects.concat(project.subProjects.flatMap(flattenProjects));
+        return projects;
+    }
+
     function getTargetOwner(target:Target):Option<Project> {
-        for (project in projects)
-            if (project.targets.findNamed(target.name) != null)
-                return Some(project);
+        for (project in projects) {
+            var flattened = flattenProjects(project);
+            for (flattenedProject in flattened) {
+                if (flattenedProject.targets.findNamed(target.name) != null)
+                    return Some(project);
+            }
+        }
         return None;
     }
 
@@ -84,7 +127,7 @@ class BaseBuilder implements IBuilder {
         function merge(hxml:Hxml) {
             if (hxml == null) return;
             var rawClassPaths = hxml.classPaths.get();
-            if (flatten) rawClassPaths = rawClassPaths.map(function(cp) return haxe.io.Path.join([hxml.workingDirectory, cp]));
+            if (flatten) rawClassPaths = rawClassPaths.map(function(cp) return Path.join([hxml.workingDirectory, cp]));
             classPaths = classPaths.concat(rawClassPaths);
             defines = defines.concat(hxml.defines.get());
             haxelibs = haxelibs.concat(hxml.haxelibs.get());

@@ -68,9 +68,9 @@ class Main {
         if (args.length == 0 || help)
             cli.exit(argHandler.getDoc());
 
-        var defaults = readJson(DEFAULTS_FILE);
+        var defaults = toPlacedProject(".", readProjectFile(DEFAULTS_FILE));
         Sys.setCwd(".."); // move out of /build
-        var projects = [defaults].concat(findProjectFiles(".").map(readJson));
+        var projects = [defaults, findProjectFiles()];
 
         validateTargets(cliArgs.targets);
         validateEnum("mode", modeStr, Mode.getConstructors());
@@ -82,15 +82,6 @@ class Main {
         if (genTasks) new VSCodeTasksBuilder(cli, projects).build(cliArgs);
         else if (display) new DisplayHxmlBuilder(cli, projects).build(cliArgs);
         else new HaxeBuilder(cli, projects).build(cliArgs);
-    }
-
-    function readJson(file:String):Project {
-        if (!FileSystem.exists(file)) cli.fail('Could not find $file.');
-        var parser = new JsonParser<Project>();
-        var json = parser.fromJson(File.getContent(file), file);
-        if (parser.warnings.length > 0)
-            cli.fail(parser.warnings.convertErrorArray());
-        return json;
     }
 
     function validateTargets(targets:Array<String>) {
@@ -112,17 +103,40 @@ class Main {
         return cliName.substr(0, 1).toUpperCase() + cliName.substr(1);
     }
 
-    function findProjectFiles(dir:String):Array<String> {
-        if ((dir != "." && dir != ".." && dir.startsWith(".")) || dir == "dump") return [];
-        var projectFiles = [];
+    function findProjectFiles(dir:String = "."):PlacedProject {
+        var lastDir = dir.split("/").idx(-1);
+        if ((lastDir != "." && lastDir != ".." && lastDir.startsWith(".")) || ["dump", "node_modules"].indexOf(dir) != -1) return null;
+        var project:PlacedProject = null;
+        var subProjects = [];
         for (file in FileSystem.readDirectory(dir)) {
             var fullPath = Path.join([dir, file]);
-            if (FileSystem.isDirectory(fullPath))
-                projectFiles = projectFiles.concat(findProjectFiles(fullPath));
-            else if (file == PROJECT_FILE)
-                projectFiles.push(fullPath);
+            if (FileSystem.isDirectory(fullPath)) {
+                var subProject = findProjectFiles(fullPath);
+                if (subProject != null) subProjects.push(subProject);
+            } else if (file == PROJECT_FILE)
+                project = toPlacedProject(lastDir, readProjectFile(fullPath));
         }
-        return projectFiles;
+        if (project != null) project.subProjects = subProjects;
+        return project;
+    }
+
+    function readProjectFile(file:String):Project {
+        if (!FileSystem.exists(file)) cli.fail('Could not find $file.');
+        var parser = new JsonParser<Project>();
+        var json = parser.fromJson(File.getContent(file), file);
+        if (parser.warnings.length > 0)
+            cli.fail(parser.warnings.convertErrorArray());
+        return json;
+    }
+
+    function toPlacedProject(directory:String, project:Project):PlacedProject {
+        return {
+            inherit: project.inherit,
+            haxelibs: project.haxelibs,
+            targets: project.targets,
+            directory: directory,
+            subProjects: []
+        }
     }
 }
 

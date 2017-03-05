@@ -11,6 +11,13 @@ typedef Project = {
     var targets(default,null):Array<Target>;
 }
 
+/** simn is gonna love this naming... **/
+typedef PlacedProject = {
+    >Project,
+    var directory(default,null):String;
+    var subProjects:Array<PlacedProject>;
+}
+
 typedef Haxelib = {
     >Named,
     var installArgs(default,null):Array<String>;
@@ -43,7 +50,7 @@ typedef TargetArguments = {
 }
 
 typedef Hxml = {
-    @:optional var workingDirectory(default,null):String;
+    @:optional var workingDirectory:String; // not read-only, meh
     @:optional var classPaths(default,null):Array<String>;
     @:optional var defines(default,null):Array<String>;
     @:optional var haxelibs(default,null):Array<String>;

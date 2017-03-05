@@ -33,7 +33,7 @@ class CliTools {
     }
 
     function setCwd(dir:String) {
-        if (dir == null) return;
+        if (dir == null || dir.trim() == "") return;
         println("cd " + dir);
         Sys.setCwd(dir);
     }
