@@ -13,7 +13,6 @@ class Main {
     function new() {
         var config:Config = {
             targets: [],
-            project: null,
             debug: false,
             mode: Build
         };
@@ -66,7 +65,7 @@ class Main {
             cli.exit(argHandler.getDoc());
 
         if (!sys.FileSystem.exists(PROJECT_FILE)) cli.fail('Could not find $PROJECT_FILE.');
-        config.project = haxe.Json.parse(sys.io.File.getContent(PROJECT_FILE));
+        var project = haxe.Json.parse(sys.io.File.getContent(PROJECT_FILE));
 
         validateTargets(config.targets);
         validateEnum("mode", modeStr, Mode.getConstructors());
@@ -75,9 +74,9 @@ class Main {
         if (genTasks && display)
             cli.fail("Can only specify one: --gen-tasks or --display");
 
-        if (genTasks) new VSCodeTasksBuilder(cli).build(config);
-        else if (display) new DisplayHxmlBuilder(cli).build(config);
-        else new HaxeBuilder(cli).build(config);
+        if (genTasks) new VSCodeTasksBuilder(cli, project).build(config);
+        else if (display) new DisplayHxmlBuilder(cli, project).build(config);
+        else new HaxeBuilder(cli, project).build(config);
     }
 
     function validateTargets(targets:Array<String>) {
@@ -102,7 +101,6 @@ class Main {
 
 typedef Config = {
     var targets:Array<String>;
-    var project:Project;
     var debug:Bool;
     var mode:Mode;
 }

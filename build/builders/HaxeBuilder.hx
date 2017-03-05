@@ -1,16 +1,10 @@
 package builders;
 
-class HaxeBuilder implements IBuilder {
-    var cli:CliTools;
-
-    public function new(cli) {
-        this.cli = cli;
-    }
-
-    public function build(config:Config) {
+class HaxeBuilder extends BaseBuilder {
+    override public function build(config:Config) {
         for (name in config.targets) {
-            var target = config.project.targets.getTarget(name);
-            buildTarget(target, config.project, config.debug, config.mode);
+            var target = project.targets.getTarget(name);
+            buildTarget(target, project, config.debug, config.mode);
         }
     }
 

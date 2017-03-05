@@ -1,6 +1,6 @@
 package builders;
 
-class VSCodeTasksBuilder implements IBuilder {
+class VSCodeTasksBuilder extends BaseBuilder {
     static var problemMatcher = {
         owner: "haxe",
         pattern: {
@@ -40,17 +40,11 @@ class VSCodeTasksBuilder implements IBuilder {
         }
     ];
 
-    var cli:CliTools;
-
-    public function new(cli) {
-        this.cli = cli;
-    }
-
-    public function build(config:Config) {
+    override public function build(config:Config) {
         var base = Reflect.copy(template);
-        for (target in config.targets) {
-            var targetArgs = config.project.targets.getTarget(target);
-            base.tasks = buildTask(config.project, targetArgs, false).concat(buildTask(config.project, targetArgs, true));
+        for (name in config.targets) {
+            var target = project.targets.getTarget(name);
+            base.tasks = buildTask(target, false).concat(buildTask(target, true));
         }
         base.tasks = base.tasks.filterDuplicates(function(t1, t2) return t1.taskName == t2.taskName);
         base.tasks = base.tasks.concat(defaultTasks);
@@ -60,7 +54,7 @@ class VSCodeTasksBuilder implements IBuilder {
         cli.saveContent(".vscode/tasks.json", tasksJson);
     }
 
-    function buildTask(project:Project, target:Target, debug:Bool):Array<Task> {
+    function buildTask(target:Target, debug:Bool):Array<Task> {
         var suffix = "";
         if (!target.impliesDebug && debug) suffix = " (debug)";
 
@@ -83,7 +77,7 @@ class VSCodeTasksBuilder implements IBuilder {
         }
 
         return [task].concat(target.targetDependencies.get().flatMap(
-            function(s) return buildTask(project, project.targets.getTarget(s), debug)
+            function(s) return buildTask(project.targets.getTarget(s), debug)
         ));
     }
 

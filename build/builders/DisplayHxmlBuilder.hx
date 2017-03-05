@@ -1,17 +1,11 @@
 package builders;
 
-class DisplayHxmlBuilder implements IBuilder {
-    var cli:CliTools;
-
-    public function new(cli) {
-        this.cli = cli;
-    }
-
-    public function build(config:Config) {
+class DisplayHxmlBuilder extends BaseBuilder {
+    override public function build(config:Config) {
        var classPaths = [];
        var defines = [];
        var haxelibs = [];
-       forEachTarget(config.project, targetNamesToTargets(config.project, config.targets), function(target) {
+       forEachTarget(project, targetNamesToTargets(project, config.targets), function(target) {
             classPaths = classPaths.concat(target.classPaths.get().map(function(cp) {
                 return if (target.workingDirectory == null) cp else haxe.io.Path.join([target.workingDirectory, cp]);
             }));
