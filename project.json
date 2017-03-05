@@ -117,7 +117,8 @@
             "args": [
                 "-main", "TestMain",
                 "-js", "../bin/test.js",
-                "-dce", "full"
+                "-dce", "full",
+                "--no-inline"
             ],
             "afterBuildCommands": [
                 ["node", "../bin/test.js"]
