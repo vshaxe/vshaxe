@@ -191,7 +191,7 @@ Feel free to file an issue with details for other frameworks.
 3. Change current directory to the cloned one: `cd vshaxe`.
 4. Do `npm install` (to install `vscode-languageclient` module required to connect to the language server).
 5. Install the haxelib dependencies (see [.travis.yml](.travis.yml))
-6. Do `haxe build.hxml` (that will build both client and server)
+6. Do `haxe --run Build --target vshaxe --debug` (that will build both client and server)
 7. After modifying and rebuilding language server, reload it with the `Haxe: Restart language server` command (`Ctrl+Shift+P` to open the command palette).
 8. After modifying and rebuilding the extension itself, restart VSCode, reload the window or run a debug instance with F5 ([standard vscode workflow](https://code.visualstudio.com/docs/extensions/debugging-extensions)).
 
