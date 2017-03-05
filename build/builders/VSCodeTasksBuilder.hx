@@ -40,9 +40,9 @@ class VSCodeTasksBuilder extends BaseBuilder {
         }
     ];
 
-    override public function build(config:Config) {
+    override public function build(cliArgs:CliArguments) {
         var base = Reflect.copy(template);
-        for (name in config.targets) {
+        for (name in cliArgs.targets) {
             var target = resolveTarget(name);
             base.tasks = buildTask(target, false).concat(buildTask(target, true));
         }

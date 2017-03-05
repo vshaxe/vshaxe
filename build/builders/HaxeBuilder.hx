@@ -1,9 +1,9 @@
 package builders;
 
 class HaxeBuilder extends BaseBuilder {
-    override public function build(config:Config) {
-        for (name in config.targets)
-            buildTarget(resolveTarget(name), config.debug, config.mode);
+    override public function build(cliArgs:CliArguments) {
+        for (name in cliArgs.targets)
+            buildTarget(resolveTarget(name), cliArgs.debug, cliArgs.mode);
     }
 
     function installTarget(target:Target, debug:Bool) {

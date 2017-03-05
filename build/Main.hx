@@ -11,7 +11,7 @@ class Main {
     var cli:CliTools;
 
     function new() {
-        var config:Config = {
+        var cliArgs:CliArguments = {
             targets: [],
             debug: false,
             mode: Build
@@ -27,13 +27,13 @@ class Main {
         var args = Sys.args();
         var argHandler = hxargs.Args.generate([
             @doc("One or multiple targets to build.")
-            ["-t", "--target"] => function(name:String) config.targets.push(name),
+            ["-t", "--target"] => function(name:String) cliArgs.targets.push(name),
 
             @doc("Build mode - accepted values are 'build', 'install', and 'both'.")
             ["-m", "--mode"] => function(mode:String) modeStr = mode,
 
             @doc("Build the target(s) in debug mode. Implies -debug, -D js_unflatten and -lib jstack.")
-            ["--debug"] => function() config.debug = true,
+            ["--debug"] => function() cliArgs.debug = true,
 
             @doc("Perform a dry run (no command invocations). Implies -verbose.")
             ["--dry-run"] => function() dryRun = true,
@@ -67,16 +67,16 @@ class Main {
         if (!sys.FileSystem.exists(PROJECT_FILE)) cli.fail('Could not find $PROJECT_FILE.');
         var project = haxe.Json.parse(sys.io.File.getContent(PROJECT_FILE));
 
-        validateTargets(config.targets);
+        validateTargets(cliArgs.targets);
         validateEnum("mode", modeStr, Mode.getConstructors());
-        config.mode = Mode.createByName(getEnumName(modeStr));
+        cliArgs.mode = Mode.createByName(getEnumName(modeStr));
 
         if (genTasks && display)
             cli.fail("Can only specify one: --gen-tasks or --display");
 
-        if (genTasks) new VSCodeTasksBuilder(cli, project).build(config);
-        else if (display) new DisplayHxmlBuilder(cli, project).build(config);
-        else new HaxeBuilder(cli, project).build(config);
+        if (genTasks) new VSCodeTasksBuilder(cli, project).build(cliArgs);
+        else if (display) new DisplayHxmlBuilder(cli, project).build(cliArgs);
+        else new HaxeBuilder(cli, project).build(cliArgs);
     }
 
     function validateTargets(targets:Array<String>) {
@@ -99,7 +99,7 @@ class Main {
     }
 }
 
-typedef Config = {
+typedef CliArguments = {
     var targets:Array<String>;
     var debug:Bool;
     var mode:Mode;

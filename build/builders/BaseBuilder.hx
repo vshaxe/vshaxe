@@ -10,7 +10,7 @@ class BaseBuilder implements IBuilder {
         this.project = project;
     }
 
-    public function build(config:Config) {}
+    public function build(cliArgs:CliArguments) {}
 
     function resolveHaxelib(name:String):Haxelib {
         for (lib in project.haxelibs)

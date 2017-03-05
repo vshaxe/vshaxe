@@ -1,4 +1,4 @@
-import Main.Config;
+import Main.CliArguments;
 import Main.Mode;
 import Project;
 

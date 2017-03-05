@@ -1,11 +1,11 @@
 package builders;
 
 class DisplayHxmlBuilder extends BaseBuilder {
-    override public function build(config:Config) {
+    override public function build(cliArgs:CliArguments) {
        var classPaths = [];
        var defines = [];
        var haxelibs = [];
-       forEachTarget(resolveTargets(config.targets), function(target) {
+       forEachTarget(resolveTargets(cliArgs.targets), function(target) {
             classPaths = classPaths.concat(target.classPaths.get().map(function(cp) {
                 return if (target.workingDirectory == null) cp else haxe.io.Path.join([target.workingDirectory, cp]);
             }));
