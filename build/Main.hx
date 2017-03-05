@@ -10,7 +10,7 @@ using json2object.ErrorUtils;
 /** The build script for VSHaxe **/
 class Main {
     static inline var DEFAULTS_FILE = "defaults.json";
-    static inline var PROJECT_FILE = "project.json";
+    static inline var PROJECT_FILE = "vshaxe-project.json";
 
     static function main() new Main();
 

@@ -1,0 +1,64 @@
+{
+    "inherit": "vshaxe-node",
+    "haxelibs": [
+        {
+            "name": "hxargs",
+            "installArgs": ["install", "hxargs"]
+        }
+    ],
+    "targets": [
+        {
+            "name": "all",
+            "composite": true,
+            "targetDependencies": [
+                "test",
+                "tm-language"
+            ]
+        },
+        {
+            "name": "test",
+            "composite": true,
+            "targetDependencies": [
+                "vshaxe",
+                "language-server-tests",
+                "formatter"
+            ],
+            "isTestCommand": true,
+            "args": {
+                "debug": true
+            }
+        },
+        {
+            "name": "vshaxe",
+            "composite": true,
+            "targetDependencies": [
+                "client",
+                "language-server"
+            ],
+            "isBuildCommand": true
+        },
+        {
+            "name": "client",
+            "installCommands": [
+                ["npm", "install"]
+            ],
+            "args": {
+                "classPaths": [
+                "vscode-extern/src",
+                "src"
+                ],
+                "defines": [
+                    "hxnodejs-no-version-warning",
+                    "analyzer-optimize",
+                    "JSTACK_MAIN=vshaxe.Main.main"
+                ],
+                "output": {
+                    "target": "js",
+                    "path": "bin/client.js"
+                },
+                "deadCodeElimination": "full",
+                "packageName": "vshaxe.Main"
+            }
+        }
+    ]
+}
