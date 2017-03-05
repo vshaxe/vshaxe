@@ -86,7 +86,7 @@
         {
             "name": "language-server",
             "haxelibs": ["haxe-hxparser"],
-            "cwd": "server",
+            "workingDirectory": "server",
             "classPaths": [
                 "src",
                 "protocol/src",
@@ -107,7 +107,7 @@
         {
             "name": "language-server-tests",
             "haxelibs": ["haxe-hxparser", "compiletime", "mockatoo", "mconsole"],
-            "cwd": "server",
+            "workingDirectory": "server",
             "classPaths": [
                 "src",
                 "test",
@@ -140,7 +140,7 @@
         {
             "name": "tm-language-conversion",
             "haxelibs": ["yaml", "plist"],
-            "cwd": "syntaxes",
+            "workingDirectory": "syntaxes",
             "classPaths": [
                 "src"
             ],
@@ -155,7 +155,7 @@
         },
         {
             "name": "tm-language-build-tests",
-            "cwd": "syntaxes",
+            "workingDirectory": "syntaxes",
             "installCommands": [
                 ["npm", "install", "vscode-textmate"]
             ],
@@ -173,7 +173,7 @@
         },
         {
             "name": "tm-language-tests",
-            "cwd": "syntaxes",
+            "workingDirectory": "syntaxes",
             "targetDependencies": [
                 "tm-language-build-tests"
             ],
@@ -199,7 +199,7 @@
         {
             "name":  "formatter-cli",
             "haxelibs": ["haxe-hxparser", "hxargs"],
-            "cwd": "server/formatter",
+            "workingDirectory": "server/formatter",
             "classPaths": [
                 "src"
             ],
@@ -212,7 +212,7 @@
         {
             "name": "formatter-tests",
             "haxelibs": ["haxe-hxparser"],
-            "cwd": "server/formatter",
+            "workingDirectory": "server/formatter",
             "classPaths": [
                 "src",
                 "test"

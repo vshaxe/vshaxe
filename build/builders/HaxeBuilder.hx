@@ -88,7 +88,7 @@ class HaxeBuilder implements IBuilder {
             args.push(define);
         }
 
-        cli.inDir(config.cwd, function() {
+        cli.inDir(config.workingDirectory, function() {
             cli.runCommands(config.beforeBuildCommands);
             cli.run("haxe", args);
             cli.runCommands(config.afterBuildCommands);

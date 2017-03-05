@@ -19,7 +19,7 @@ typedef TargetArguments = {
     @:optional var haxelibs(default,null):ArrayHandle<String>;
     /** additional, non-haxelib install commands (npm install...) **/
     @:optional var installCommands(default,null):ArrayHandle<ArrayHandle<String>>;
-    @:optional var cwd:String;
+    @:optional var workingDirectory(default,null):String;
     /** -debug, -D js_unflatten and -lib jstack are implied **/
     @:optional var debugArgs(default,null):ArrayHandle<String>;
     @:optional var beforeBuildCommands(default,null):ArrayHandle<ArrayHandle<String>>;
@@ -30,11 +30,9 @@ typedef TargetArguments = {
     @:optional var isTestCommand(default,null):Bool;
 }
 
+@:forward(iterator)
 abstract ArrayHandle<T>(Array<T>) from Array<T> {
     public function get() {
         return if (this == null) [] else this.copy();
     }
-
-    public function iterator()
-        return this.iterator();
 }

@@ -13,7 +13,7 @@ class DisplayHxmlBuilder implements IBuilder {
        var haxelibs = [];
        forEachTarget(config.project, targetsToArgs(config.project, config.targets), function(args) {
             classPaths = classPaths.concat(args.classPaths.get().map(function(cp) {
-                return if (args.cwd == null) cp else haxe.io.Path.join([args.cwd, cp]);
+                return if (args.workingDirectory == null) cp else haxe.io.Path.join([args.workingDirectory, cp]);
             }));
             defines = defines.concat(args.defines.get());
             haxelibs = haxelibs.concat(args.haxelibs.get().map(function(name) return name));
