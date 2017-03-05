@@ -5,7 +5,7 @@ class DisplayHxmlBuilder extends BaseBuilder {
        var classPaths = [];
        var defines = [];
        var haxelibs = [];
-       forEachTarget(project, targetNamesToTargets(project, config.targets), function(target) {
+       forEachTarget(resolveTargets(config.targets), function(target) {
             classPaths = classPaths.concat(target.classPaths.get().map(function(cp) {
                 return if (target.workingDirectory == null) cp else haxe.io.Path.join([target.workingDirectory, cp]);
             }));
@@ -29,13 +29,10 @@ class DisplayHxmlBuilder extends BaseBuilder {
         cli.saveContent("complete.hxml", hxml.join("\n"));
     }
 
-    function forEachTarget(project:Project, targets:Array<Target>, callback:Target->Void) {
+    function forEachTarget(targets:Array<Target>, callback:Target->Void) {
         for (target in targets) {
             callback(target);
-            forEachTarget(project, targetNamesToTargets(project, target.targetDependencies.get()), callback);
+            forEachTarget(resolveTargets(target.targetDependencies.get()), callback);
         }
     }
-
-    function targetNamesToTargets(project:Project, targets:Array<String>):Array<Target>
-        return targets.map(function(target) return project.targets.getTarget(target));
 }

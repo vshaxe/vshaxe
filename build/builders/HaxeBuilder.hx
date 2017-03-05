@@ -2,19 +2,17 @@ package builders;
 
 class HaxeBuilder extends BaseBuilder {
     override public function build(config:Config) {
-        for (name in config.targets) {
-            var target = project.targets.getTarget(name);
-            buildTarget(target, project, config.debug, config.mode);
-        }
+        for (name in config.targets)
+            buildTarget(resolveTarget(name), config.debug, config.mode);
     }
 
-    function installTarget(target:Target, project:Project, debug:Bool) {
+    function installTarget(target:Target, debug:Bool) {
         cli.println('Installing Haxelibs for \'${target.name}\'...\n');
 
         cli.runCommands(target.installCommands);
 
         inline function getInstallArgs(lib:String)
-            return project.haxelibs.get().getHaxelib(lib).installArgs.get();
+            return resolveHaxelib(lib).installArgs.get();
 
         // TODO: move defaults into config
         cli.run("haxelib", getInstallArgs("hxnodejs"));
@@ -29,14 +27,14 @@ class HaxeBuilder extends BaseBuilder {
         cli.println('');
     }
 
-    function buildTarget(target:Target, project:Project, debug:Bool, mode:Mode) {
+    function buildTarget(target:Target, debug:Bool, mode:Mode) {
         debug = debug || target.impliesDebug;
 
         if (mode != Build)
-            installTarget(target, project, debug);
+            installTarget(target, debug);
 
         for (dependency in target.targetDependencies.get())
-            buildTarget(project.targets.getTarget(dependency), project, debug, mode);
+            buildTarget(resolveTarget(dependency), debug, mode);
 
         if (mode == Install)
             return;
@@ -69,7 +67,7 @@ class HaxeBuilder extends BaseBuilder {
 
         for (lib in haxelibs) {
             args.push("-lib");
-            args.push(project.haxelibs.get().getHaxelib(lib).name);
+            args.push(resolveHaxelib(lib).name);
         }
 
         for (cp in target.classPaths.get()) {

@@ -17,20 +17,6 @@ class ArrayTools {
         return uniqueTasks;
     }
 
-    public static function getHaxelib(libs:ArrayHandle<Haxelib>, name:String):Haxelib {
-        for (lib in libs)
-            if (lib.name == name)
-                return lib;
-        return null;
-    }
-
-    public static function getTarget(targets:ArrayHandle<Target>, name:String):Target {
-        for (target in targets)
-            if (target.name == name)
-                return target;
-        return null;
-    }
-
     /** from https://github.com/fponticelli/thx.core/blob/master/src/thx/Arrays.hx **/
 
     inline public static function flatMap<TIn, TOut>(array:Array<TIn>, callback:TIn->Array<TOut>):Array<TOut>

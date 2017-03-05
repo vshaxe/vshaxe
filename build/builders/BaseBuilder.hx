@@ -11,4 +11,22 @@ class BaseBuilder implements IBuilder {
     }
 
     public function build(config:Config) {}
+
+    function resolveHaxelib(name:String):Haxelib {
+        for (lib in project.haxelibs)
+            if (lib.name == name)
+                return lib;
+        return null;
+    }
+
+    function resolveTarget(name:String):Target {
+        for (lib in project.targets)
+            if (lib.name == name)
+                return lib;
+        return null;
+    }
+
+    function resolveTargets(names:Array<String>):Array<Target> {
+        return names.map(resolveTarget);
+    }
 }
