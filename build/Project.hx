@@ -18,10 +18,12 @@ typedef Target = {
     @:optional var inherit(default,null):String;
     /** name of the target - must be unique! **/
     var name(default,null):String;
-    /** whether this target _defaults_ mode by default (tests mostly) **/
-    @:optional var impliesDebug(default,null):Bool;
     /** arguments that only apply in debug mode **/
-    @:optional var debug(default,null):TargetArguments;
+    @:optional var debugArgs(default,null):TargetArguments;
+    /** arguments that only apply for display **/
+    @:optional var displayArgs(default,null):TargetArguments;
+
+    /** VSCode tasks.json config **/
     @:optional var isBuildCommand(default,null):Bool;
     @:optional var isTestCommand(default,null):Bool;
 }
@@ -40,6 +42,7 @@ typedef Hxml = {
     @:optional var classPaths(default,null):ArrayHandle<String>;
     @:optional var defines(default,null):ArrayHandle<String>;
     @:optional var haxelibs(default,null):ArrayHandle<String>;
+    @:optional var debug(default,null):Bool;
     /** "unstructured" arguments **/
     @:optional var args(default,null):ArrayHandle<String>;
 }

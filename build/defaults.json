@@ -15,9 +15,12 @@
         },
         {
             "name": "vshaxe-node",
-            "debug": {
+            "debugArgs": {
                 "defines": "js_unflatten",
                 "haxelibs": ["jstack"]
+            },
+            "displayArgs": {
+                "classPaths": ["build"]
             },
             "haxelibs": ["hxnodejs"]
         }

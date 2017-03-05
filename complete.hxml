@@ -1,4 +1,5 @@
 # This file is generated using the build script - DO NOT EDIT MANUALLY!
+-cp build
 -cp vscode-extern/src
 -cp src
 -cp server/src
@@ -7,11 +8,12 @@
 -cp server/test
 -cp server/formatter/test
 -cp syntaxes/src
--cp build
+-D js_unflatten
 -D hxnodejs-no-version-warning
 -D analyzer-optimize
 -D JSTACK_MAIN=vshaxe.Main.main
 -lib hxnodejs
+-lib jstack
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo
@@ -19,4 +21,5 @@
 -lib hxargs
 -lib yaml
 -lib plist
+-debug
 -js some.js

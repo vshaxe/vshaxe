@@ -12,7 +12,7 @@ class HaxeBuilder extends BaseBuilder {
         cli.runCommands(target.installCommands);
 
         // TODO: might wanna avoid calling resolveTargetHxml() twice
-        var libs = resolveTargetHxml(target, debug, false).haxelibs.get();
+        var libs = resolveTargetHxml(target, debug, false, false).haxelibs.get();
         libs = libs.filterDuplicates(function(lib1, lib2) return lib1 == lib2);
         for (lib in libs)
             cli.run("haxelib", resolveHaxelib(lib).installArgs.get());
@@ -21,7 +21,7 @@ class HaxeBuilder extends BaseBuilder {
     }
 
     function buildTarget(target:Target, debug:Bool, mode:Mode) {
-        debug = debug || target.impliesDebug;
+        debug = debug || target.debug;
 
         if (mode != Build)
             installTarget(target, debug);
@@ -37,7 +37,7 @@ class HaxeBuilder extends BaseBuilder {
         cli.inDir(target.workingDirectory, function() {
             cli.runCommands(target.beforeBuildCommands);
             if (target.args != null)
-                cli.run("haxe", printHxml(resolveTargetHxml(target, debug, false)));
+                cli.run("haxe", printHxml(resolveTargetHxml(target, debug, false, false)));
             cli.runCommands(target.afterBuildCommands);
         });
 
@@ -64,6 +64,8 @@ class HaxeBuilder extends BaseBuilder {
             args.push("-D");
             args.push(define);
         }
+
+        if (hxml.debug) args.push("-debug");
 
         return args;
     }

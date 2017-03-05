@@ -2,10 +2,6 @@
     "inherit": "vshaxe-node",
     "haxelibs": [
         {
-            "name": "hxnodejs",
-            "installArgs": ["git", "hxnodejs", "https://github.com/HaxeFoundation/hxnodejs"]
-        },
-        {
             "name": "hxargs",
             "installArgs": ["install", "hxargs"]
         },
@@ -24,10 +20,6 @@
         {
             "name": "mconsole",
             "installArgs": ["install", "mconsole"]
-        },
-        {
-            "name": "jstack",
-            "installArgs": ["install", "jstack"]
         },
         {
             "name": "yaml",
@@ -53,7 +45,7 @@
                 "language-server-tests",
                 "formatter"
             ],
-            "impliesDebug": true,
+            "debug": true,
             "isTestCommand": true
         },
         {
@@ -124,7 +116,7 @@
             "afterBuildCommands": [
                 ["node", "../bin/test.js"]
             ],
-            "impliesDebug": true
+            "debug": true
         },
         {
             "name": "tm-language",
@@ -132,7 +124,7 @@
                 "tm-language-conversion",
                 "tm-language-tests"
             ],
-            "impliesDebug": true
+            "debug": true
         },
         {
             "inherit": "empty",
@@ -149,7 +141,7 @@
             "afterBuildCommands": [
                 ["neko", "bin/convert.n"]
             ],
-            "impliesDebug": true
+            "debug": true
         },
         {
             "name": "tm-language-build-tests",
@@ -167,7 +159,7 @@
             "afterBuildCommands": [
                 ["node", "bin/build.js"]
             ],
-            "impliesDebug": true
+            "debug": true
         },
         {
             "name": "tm-language-tests",
@@ -221,7 +213,7 @@
             "afterBuildCommands": [
                 ["node", "bin/test.js"]
             ],
-            "impliesDebug": true
+            "debug": true
         }
     ]
 }

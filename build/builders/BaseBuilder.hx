@@ -18,6 +18,9 @@ class BaseBuilder implements IBuilder {
         for (lib in project.haxelibs)
             if (lib.name == name)
                 return lib;
+        for (lib in defaults.haxelibs)
+            if (lib.name == name)
+                return lib;
         return null;
     }
 
@@ -35,15 +38,20 @@ class BaseBuilder implements IBuilder {
         return names.map(resolveTarget);
     }
 
-    function resolveTargetHxml(target:Target, debug:Bool, flatten:Bool):Hxml {
-        var hxmls:Array<Hxml> = [target, target.debug];
-        if (debug) hxmls.push({ args: ["-debug"] });
+    function resolveTargetHxml(target:Target, debug:Bool, flatten:Bool, display:Bool, recurse:Bool = true):Hxml {
+        var hxmls:Array<Hxml> = [target];
+        if (debug) hxmls.push(target.debugArgs);
+        if (display) hxmls.push(target.displayArgs);
 
-        var inherited = resolveInherited(target);
-        if (inherited != null) hxmls.push(inherited);
+        if (recurse) {
+            var inherited = resolveInherited(target);
+            if (inherited != null) {
+                hxmls.push(resolveTargetHxml(inherited, debug, flatten, display, false));
+            }
+        }
 
         if (flatten) {
-            var dependencyHxmls = resolveTargets(target.targetDependencies.get()).map(resolveTargetHxml.bind(_, debug, flatten));
+            var dependencyHxmls = resolveTargets(target.targetDependencies.get()).map(resolveTargetHxml.bind(_, debug, flatten, display));
             hxmls = hxmls.concat(dependencyHxmls);
         }
 
@@ -60,6 +68,7 @@ class BaseBuilder implements IBuilder {
         var classPaths = [];
         var defines = [];
         var haxelibs = [];
+        var debug = false;
         var args = [];
 
         function merge(hxml:Hxml) {
@@ -69,6 +78,7 @@ class BaseBuilder implements IBuilder {
             classPaths = classPaths.concat(rawClassPaths);
             defines = defines.concat(hxml.defines.get());
             haxelibs = haxelibs.concat(hxml.haxelibs.get());
+            debug = debug || hxml.debug;
             args = args.concat(hxml.args.get());
         }
 
@@ -79,6 +89,7 @@ class BaseBuilder implements IBuilder {
             classPaths: classPaths,
             defines: defines,
             haxelibs: haxelibs,
+            debug: debug,
             args: args
         };
     }

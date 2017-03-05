@@ -2,11 +2,7 @@ package builders;
 
 class DisplayHxmlBuilder extends BaseBuilder {
     override public function build(cliArgs:CliArguments) {
-        var hxmls = resolveTargets(cliArgs.targets).map(resolveTargetHxml.bind(_, true, true));
-        hxmls.push({
-            classPaths: ["build"],
-            args: ["-debug"]
-        });
+        var hxmls = resolveTargets(cliArgs.targets).map(resolveTargetHxml.bind(_, true, true, true));
         var hxml = mergeHxmls(hxmls, true);
         var lines = printHxmlFile(hxml);
         lines.insert(0, '# ${Warning.Message}');
@@ -24,6 +20,7 @@ class DisplayHxmlBuilder extends BaseBuilder {
         for (cp in hxml.classPaths.get()) lines.push('-cp $cp');
         for (define in hxml.defines.get()) lines.push('-D $define');
         for (lib in hxml.haxelibs.get()) lines.push('-lib ${resolveHaxelib(lib).name}');
+        if (hxml.debug) lines.push("-debug");
         return lines;
     }
 }
