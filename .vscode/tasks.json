@@ -458,6 +458,76 @@
                 },
                 "owner": "haxe"
             }
+        },
+        {
+            "args": [
+                "--run",
+                "Build",
+                "--mode",
+                "install",
+                "--target",
+                "all"
+            ],
+            "taskName": "{install-all}",
+            "problemMatcher": {
+                "pattern": {
+                    "file": 1,
+                    "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
+                    "endColumn": 5,
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
+            }
+        },
+        {
+            "args": [
+                "--run",
+                "Build",
+                "--display",
+                "--target",
+                "all"
+            ],
+            "taskName": "{generate-complete-hxml}",
+            "problemMatcher": {
+                "pattern": {
+                    "file": 1,
+                    "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
+                    "endColumn": 5,
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
+            }
+        },
+        {
+            "args": [
+                "--run",
+                "Build",
+                "--gen-tasks",
+                "--target",
+                "all"
+            ],
+            "taskName": "{generate-vscode-tasks}",
+            "problemMatcher": {
+                "pattern": {
+                    "file": 1,
+                    "column": 4,
+                    "line": 2,
+                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
+                    "endColumn": 5,
+                    "message": 7,
+                    "endLine": 3,
+                    "severity": 6
+                },
+                "owner": "haxe"
+            }
         }
     ]
 }

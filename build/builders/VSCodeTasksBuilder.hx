@@ -22,6 +22,24 @@ class VSCodeTasksBuilder implements IBuilder {
         tasks: []
     }
 
+    static var defaultTasks = [
+        {
+            taskName: "{install-all}",
+            args: makeArgs(["--mode", "install", "--target", "all"]),
+            problemMatcher: problemMatcher
+        },
+        {
+            taskName: "{generate-complete-hxml}",
+            args: makeArgs(["--display", "--target", "all"]),
+            problemMatcher: problemMatcher
+        },
+        {
+            taskName: "{generate-vscode-tasks}",
+            args: makeArgs(["--gen-tasks", "--target", "all"]),
+            problemMatcher: problemMatcher
+        }
+    ];
+
     var cli:CliTools;
 
     public function new(cli) {
@@ -35,6 +53,7 @@ class VSCodeTasksBuilder implements IBuilder {
             base.tasks = buildTask(config.project, targetArgs, false).concat(buildTask(config.project, targetArgs, true));
         }
         base.tasks = base.tasks.filterDuplicates(function(t1, t2) return t1.taskName == t2.taskName);
+        base.tasks = base.tasks.concat(defaultTasks);
 
         var tasksJson = haxe.Json.stringify(base, null, "    ");
         tasksJson = '// ${Warning.Message}\n$tasksJson';
@@ -47,7 +66,7 @@ class VSCodeTasksBuilder implements IBuilder {
 
         var task:Task = {
             taskName: '${config.name}$suffix',
-            args: ["--run", "Build", "-t", config.name],
+            args: makeArgs(["-t", config.name]),
             problemMatcher: problemMatcher
         }
 
@@ -66,6 +85,10 @@ class VSCodeTasksBuilder implements IBuilder {
         return [task].concat(config.targetDependencies.get().flatMap(
             function(s) return buildTask(project, project.targets.getTarget(s), debug)
         ));
+    }
+
+    static function makeArgs(additionalArgs:Array<String>):Array<String> {
+        return ["--run", "Build"].concat(additionalArgs);
     }
 }
 
