@@ -16,7 +16,7 @@
         {
             "name": "vshaxe-node",
             "debugArgs": {
-                "defines": "js_unflatten",
+                "defines": ["js_unflatten"],
                 "haxelibs": ["jstack"]
             },
             "displayArgs": {
