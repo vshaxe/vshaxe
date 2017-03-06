@@ -7,7 +7,7 @@
 **Bugfixes**:
 
 - fixed several small highlighting issues (haxe-tmLanguage[[#2](https://github.com/vshaxe/haxe-tmLanguage/issues/2), [#8](https://github.com/vshaxe/haxe-tmLanguage/issues/8), [#15](https://github.com/vshaxe/haxe-tmLanguage/issues/15)])
-- fixed signature help without argument names ([haxe#6064](https://github.com/HaxeFoundation/haxe/issues/6064))
+- fixed signature help sometimes not having argument names ([haxe#6064](https://github.com/HaxeFoundation/haxe/issues/6064))
 - fixed argument name generation with anon structure types
 
 **Changes and improvements**:
@@ -18,6 +18,7 @@
 - init project command: added `-D analyzer-optimize` to the generated `build.hxml`
 - init project command: a quick pick selection is no longer required with only one `.hxml` file
 - init project command: use `version` 2.0.0 in `tasks.json` (VSCode 1.10.0)
+- still attempt display requests without any `displayConfigurations` ([#105](https://github.com/vshaxe/vshaxe/issues/105))
 
 ### 1.3.3 (February 16, 2017)
 
