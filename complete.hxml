@@ -1,5 +1,4 @@
-# This file is generated using the build script - DO NOT EDIT MANUALLY!
--cp build
+# This file is generated with vshaxe-build - DO NOT EDIT MANUALLY!
 -cp vscode-extern/src
 -cp src
 -cp server/src
@@ -14,7 +13,6 @@
 -D JSTACK_MAIN=vshaxe.Main.main
 -lib hxnodejs
 -lib jstack
--lib json2object
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo
