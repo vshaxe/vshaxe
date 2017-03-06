@@ -1,4 +1,4 @@
-// This file is generated using the build script - DO NOT EDIT MANUALLY!
+// This file is generated with vshaxe-build - DO NOT EDIT MANUALLY!
 {
     "version": "2.0.0",
     "command": "haxelib",
@@ -442,10 +442,10 @@
             "args": [
                 "run",
                 "vshaxe-build",
-                "--mode",
-                "install",
                 "--target",
-                "all"
+                "all",
+                "--mode",
+                "install"
             ],
             "problemMatcher": {
                 "owner": "haxe",
@@ -466,9 +466,9 @@
             "args": [
                 "run",
                 "vshaxe-build",
-                "--display",
                 "--target",
-                "all"
+                "all",
+                "--display"
             ],
             "problemMatcher": {
                 "owner": "haxe",
@@ -489,9 +489,9 @@
             "args": [
                 "run",
                 "vshaxe-build",
-                "--gen-tasks",
                 "--target",
-                "all"
+                "all",
+                "--gen-tasks"
             ],
             "problemMatcher": {
                 "owner": "haxe",
