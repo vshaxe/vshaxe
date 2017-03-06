@@ -17,6 +17,7 @@
 - init project command: moved the comments in the generated `settings.json` to `README.md`
 - init project command: added `-D analyzer-optimize` to the generated `build.hxml`
 - init project command: a quick pick selection is no longer required with only one `.hxml` file
+- init project command: use `version` 2.0.0 in `tasks.json` (VSCode 1.10.0)
 
 ### 1.3.3 (February 16, 2017)
 
