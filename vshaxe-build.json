@@ -1,12 +1,6 @@
 {
     "inherit": "vshaxe-node",
     "mainTarget": "all",
-    "haxelibs": [
-        {
-            "name": "hxargs",
-            "installArgs": ["install", "hxargs"]
-        }
-    ],
     "targets": [
         {
             "name": "all",
@@ -45,8 +39,8 @@
             ],
             "args": {
                 "classPaths": [
-                "vscode-extern/src",
-                "src"
+                    "vscode-extern/src",
+                    "src"
                 ],
                 "defines": [
                     "hxnodejs-no-version-warning",
