@@ -199,7 +199,7 @@
                 "extensions": [
                     ".hx"
                 ],
-                "configuration": "./haxe.configuration.json"
+                "configuration": "./configurations/haxe.configuration.json"
             },
             {
                 "id": "hxml",
@@ -210,7 +210,7 @@
                 "extensions": [
                     ".hxml"
                 ],
-                "configuration": "./hxml.configuration.json"
+                "configuration": "./configurations/hxml.configuration.json"
             },
             {
                 "id": "Haxe AST dump",
@@ -220,7 +220,7 @@
                 "extensions": [
                     ".dump"
                 ],
-                "configuration": "./haxe.configuration.json"
+                "configuration": "./configurations/haxe.configuration.json"
             }
         ],
         "grammars": [
