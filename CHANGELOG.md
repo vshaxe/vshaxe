@@ -1,4 +1,4 @@
-### 1.4.0 (March 8, 2017)
+### 1.4.0 (International Women's Day, 2017)
 
 **New Features**:
 
