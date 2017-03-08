@@ -49,7 +49,7 @@ class InitProject {
     }
 
     function scaffoldEmpty(root:String) {
-        var scaffoldSource = context.asAbsolutePath("./scaffold");
+        var scaffoldSource = context.asAbsolutePath("./scaffold/project");
         copyRec(scaffoldSource, root);
         window.setStatusBarMessage("Haxe project scaffolded", 2000);
     }
@@ -57,8 +57,8 @@ class InitProject {
     function showConfigureHint() {
         var channel = window.createOutputChannel("Haxe scaffold");
         context.subscriptions.push(channel);
-        var content = File.getContent(context.asAbsolutePath("./configureHint.txt"));
-        var tasks = File.getContent(context.asAbsolutePath("./scaffold/.vscode/tasks.json"));
+        var content = File.getContent(context.asAbsolutePath("./scaffold/configureHint.txt"));
+        var tasks = File.getContent(context.asAbsolutePath("./scaffold/project/.vscode/tasks.json"));
         content = content.replace("{{tasks}}", tasks);
         channel.clear();
         channel.append(content);
@@ -99,7 +99,7 @@ class InitProject {
 
     function scaffoldVscodeSettings(vscodeDir:String, item:QuickPickItem, items:Array<QuickPickItem>) {
         var selectedHxml = getHxmlPath(item);
-        copyRec(context.asAbsolutePath("./scaffold/.vscode"), vscodeDir);
+        copyRec(context.asAbsolutePath("./scaffold/project/.vscode"), vscodeDir);
 
         // update tasks.json
         var tasksPath = vscodeDir + "/tasks.json";
