@@ -5,13 +5,13 @@
 This is an extension for [Visual Studio Code](https://code.visualstudio.com) that adds support for the [Haxe](http://haxe.org/) language,
 leveraging the [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver).
 
-### [**How to install it?**](https://github.com/vshaxe/vshaxe/wiki/Installation)
+### [**Click here for install instructions.**](https://github.com/vshaxe/vshaxe/wiki/Installation)
 
 ![](images/demo.gif)
 
 ## Features
 
-This is just a brief overview of supported features. [**For more details, check out our extensive Documentation**](https://github.com/vshaxe/vshaxe/wiki).
+This is just a brief overview of the supported features. [**For more details, check out our extensive Documentation**](https://github.com/vshaxe/vshaxe/wiki).
 
 - [Syntax Highlighting](https://github.com/vshaxe/haxe-TmLanguage)
 - [Commands](https://github.com/vshaxe/vshaxe/wiki/Commands) (<kbd>F1</kbd> -> search "Haxe")
