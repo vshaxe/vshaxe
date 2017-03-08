@@ -44,14 +44,12 @@
                 ],
                 "defines": [
                     "hxnodejs-no-version-warning",
-                    "analyzer-optimize",
                     "JSTACK_MAIN=vshaxe.Main.main"
                 ],
                 "output": {
                     "target": "js",
                     "path": "bin/client.js"
                 },
-                "deadCodeElimination": "full",
                 "packageName": "vshaxe.Main"
             }
         }
