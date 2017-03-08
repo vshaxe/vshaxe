@@ -1,4 +1,4 @@
-### 1.4.0 (To be released)
+### 1.4.0 (March 8, 2017)
 
 **New Features**:
 

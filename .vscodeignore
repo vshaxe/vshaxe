@@ -15,5 +15,5 @@ node_modules/**/*.ts
 images/Main.hx
 .github/**/*
 .haxelib/**/*
-build/**/*
-debug.lo
+vshaxe-build.json
+debug.log

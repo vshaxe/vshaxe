@@ -1,6 +1,6 @@
 {
     "name": "vshaxe",
-    "version": "1.3.3",
+    "version": "1.4.0",
     "publisher": "nadako",
     "engines": {
         "vscode": "^1.0.0"
@@ -35,7 +35,7 @@
         "url": "https://github.com/vshaxe/vshaxe.git"
     },
     "scripts": {
-        "vscode:prepublish": "haxe --run Build -t vshaxe -t language-server-tests -t formatter-tests -t tm-language"
+        "vscode:prepublish": "haxelib run vshaxe-build -t vshaxe -t language-server-tests -t formatter-tests -t tm-language"
     },
     "main": "bin/client.js",
     "activationEvents": [
