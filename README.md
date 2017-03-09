@@ -27,5 +27,5 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Diagnostics](https://github.com/vshaxe/vshaxe/wiki/Diagnostics)
 - [Code Actions](https://github.com/vshaxe/vshaxe/wiki/Code-Actions) (<kbd>Ctrl</kbd>+<kbd>.</kbd> on light bulbs)
 - [Code Generation](https://github.com/vshaxe/vshaxe/wiki/Code-Generation) (<kbd>Ctrl</kbd>+<kbd>.</kbd> on light bulbs)
-- [Code Lens](https://github.com/vshaxe/vshaxe/wiki/Code-Lens) (<kbd>F1</kbd> -> [Toggle Code Lens](https://github.com/vshaxe/vshaxe/wiki/Commands#haxe-toggle-code-lens))
+- [Code Lens](https://github.com/vshaxe/vshaxe/wiki/Code-Lens) (<kbd>F1</kbd> -> [Haxe: Toggle Code Lens](https://github.com/vshaxe/vshaxe/wiki/Commands#haxe-toggle-code-lens))
 - [JavaScript Debugging](https://github.com/vshaxe/vshaxe/wiki/JavaScript-Debugging)
