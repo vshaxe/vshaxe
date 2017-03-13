@@ -39,7 +39,8 @@
             "sourceMaps": true,
             "outFiles": [
                 "${workspaceRoot}/bin/*.js"
-            ]
+            ],
+            "preLaunchTask": "language-server-tests"
         },
         {
             "type": "node",
@@ -50,7 +51,8 @@
             "outFiles": [
                 "${workspaceRoot}/server/formatter/bin/*.js"
             ],
-            "cwd": "${workspaceRoot}/server/formatter"
+            "cwd": "${workspaceRoot}/server/formatter",
+            "preLaunchTask": "formatter-tests"
         },
         {
             "type": "node",
@@ -61,7 +63,8 @@
             "outFiles": [
                 "${workspaceRoot}/server/formatter/bin/*.js"
             ],
-            "cwd": "${workspaceRoot}/server/formatter"
+            "cwd": "${workspaceRoot}/server/formatter",
+            "preLaunchTask": "formatter-cli (debug)"
         }
     ]
 }
