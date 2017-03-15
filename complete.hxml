@@ -7,17 +7,17 @@
 -cp server/test
 -cp server/formatter/test
 -cp syntaxes/src
+-D analyzer-optimize
 -D js_unflatten
 -D hxnodejs-no-version-warning
--D analyzer-optimize
 -D JSTACK_MAIN=vshaxe.Main.main
 -lib hxnodejs
--lib jstack
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo
 -lib mconsole
 -lib hxargs
+-lib json2object
 -lib yaml
 -lib plist
 -debug
