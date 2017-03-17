@@ -7,8 +7,6 @@
 -cp server/test
 -cp server/formatter/test
 -cp syntaxes/src
--cp C:/HaxeToolkit/haxe/lib/haxe-hxparser/git/src
--cp C:/HaxeToolkit/haxe/lib/haxe-hxparser/git/test
 -D analyzer-optimize
 -D js_unflatten
 -D hxnodejs-no-version-warning
@@ -23,6 +21,6 @@
 -lib yaml
 -lib plist
 -debug
--js bin/test.js
+-js bin/build.js
 --no-inline
--main hxParser.RoundTripTest
+-main Build
