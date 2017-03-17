@@ -7,6 +7,8 @@
 -cp server/test
 -cp server/formatter/test
 -cp syntaxes/src
+-cp server/formatter/hxparser/src
+-cp server/formatter/hxparser/test
 -D analyzer-optimize
 -D js_unflatten
 -D hxnodejs-no-version-warning
@@ -21,5 +23,6 @@
 -lib yaml
 -lib plist
 -debug
--js bin/build.js
+-js bin/test.js
 --no-inline
+-main hxParser.RoundTripTest
