@@ -371,8 +371,8 @@
                     "severity": 6
                 },
                 "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/server/formatter/hxparser"
+                    "absolute",
+                    "C:/HaxeToolkit/haxe/lib/haxe-hxparser/git"
                 ],
                 "owner": "haxe"
             }
@@ -398,8 +398,8 @@
                     "severity": 6
                 },
                 "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/server/formatter/hxparser"
+                    "absolute",
+                    "C:/HaxeToolkit/haxe/lib/haxe-hxparser/git"
                 ],
                 "owner": "haxe"
             }
@@ -425,8 +425,8 @@
                     "severity": 6
                 },
                 "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/server/formatter/hxparser"
+                    "absolute",
+                    "C:/HaxeToolkit/haxe/lib/haxe-hxparser/git"
                 ],
                 "owner": "haxe"
             }
@@ -617,7 +617,7 @@
                 },
                 "fileLocation": [
                     "relative",
-                    "${workspaceRoot}/."
+                    "${workspaceRoot}"
                 ],
                 "owner": "haxe"
             }
@@ -644,7 +644,7 @@
                 },
                 "fileLocation": [
                     "relative",
-                    "${workspaceRoot}/."
+                    "${workspaceRoot}"
                 ],
                 "owner": "haxe"
             }
@@ -671,7 +671,7 @@
                 },
                 "fileLocation": [
                     "relative",
-                    "${workspaceRoot}/."
+                    "${workspaceRoot}"
                 ],
                 "owner": "haxe"
             }
