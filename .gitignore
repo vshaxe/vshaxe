@@ -3,6 +3,6 @@
 /*.vsix
 *.n
 vscode.ico
-debug.log
 .haxelib/
 build/run.js
+*.log
