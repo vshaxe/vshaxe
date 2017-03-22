@@ -52,7 +52,7 @@
                 "${workspaceRoot}/server/formatter/bin/*.js"
             ],
             "cwd": "${workspaceRoot}/server/formatter",
-            "preLaunchTask": "formatter-tests"
+            "preLaunchTask": "formatter-tests-build"
         },
         {
             "type": "node",
