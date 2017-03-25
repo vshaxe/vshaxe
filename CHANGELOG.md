@@ -1,3 +1,9 @@
+### ?.?.? (to be released)
+
+**New Features**:
+
+- added a Haxe problem matcher (referenced with `"problemMatcher": "$haxe"`, VSCode 1.11.0+)
+
 ### 1.4.0 (International Women's Day, 2017)
 
 **New Features**:
