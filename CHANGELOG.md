@@ -4,6 +4,10 @@
 
 - added a Haxe problem matcher (referenced with `"problemMatcher": "$haxe"`, VSCode 1.11.0+)
 
+**Changes and improvements**:
+
+- use the Haxe problem matcher in "Init Project"
+
 ### 1.4.0 (International Women's Day, 2017)
 
 **New Features**:
