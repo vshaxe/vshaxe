@@ -1,4 +1,4 @@
-### ?.?.? (to be released)
+### 1.5.0 (April 4, 2017)
 
 **New Features**:
 
@@ -7,6 +7,10 @@
 **Changes and improvements**:
 
 - use the Haxe problem matcher in "Init Project"
+
+**Bugfixes**:
+
+- fixed support for Haxe 4+ (development branch)
 
 ### 1.4.0 (International Women's Day, 2017)
 
