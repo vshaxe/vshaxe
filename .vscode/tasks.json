@@ -12,23 +12,7 @@
                 "all"
             ],
             "taskName": "all",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/."
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -40,23 +24,7 @@
             ],
             "isTestCommand": true,
             "taskName": "test - TEST",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/."
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -66,23 +34,7 @@
                 "vshaxe"
             ],
             "taskName": "vshaxe",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/."
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -92,23 +44,7 @@
                 "client"
             ],
             "taskName": "client",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/."
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -119,16 +55,7 @@
             ],
             "taskName": "language-server",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server"
@@ -146,16 +73,7 @@
             ],
             "taskName": "language-server-tests",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server"
@@ -172,16 +90,7 @@
             ],
             "taskName": "formatter",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server/formatter"
@@ -198,16 +107,7 @@
             ],
             "taskName": "formatter-cli",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server/formatter"
@@ -225,16 +125,7 @@
             ],
             "taskName": "formatter-tests",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server/formatter"
@@ -252,16 +143,7 @@
             ],
             "taskName": "formatter-tests-build",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server/formatter"
@@ -279,16 +161,7 @@
             ],
             "taskName": "formatter-tests-run",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server/formatter"
@@ -306,16 +179,7 @@
             ],
             "taskName": "tm-language",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/syntaxes"
@@ -333,16 +197,7 @@
             ],
             "taskName": "tm-language-conversion",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/syntaxes"
@@ -360,16 +215,7 @@
             ],
             "taskName": "tm-language-tests",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/syntaxes"
@@ -387,16 +233,7 @@
             ],
             "taskName": "tm-language-build-tests",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/syntaxes"
@@ -413,23 +250,7 @@
                 "--debug"
             ],
             "taskName": "all (debug)",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/."
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -441,23 +262,7 @@
             ],
             "taskName": "vshaxe (debug) - BUILD",
             "isBuildCommand": true,
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/."
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -468,23 +273,7 @@
                 "--debug"
             ],
             "taskName": "client (debug)",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}/."
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -496,16 +285,7 @@
             ],
             "taskName": "language-server (debug)",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server"
@@ -523,16 +303,7 @@
             ],
             "taskName": "formatter (debug)",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server/formatter"
@@ -550,16 +321,7 @@
             ],
             "taskName": "formatter-cli (debug)",
             "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
+                "pattern": "$haxe",
                 "fileLocation": [
                     "relative",
                     "${workspaceRoot}/server/formatter"
@@ -577,23 +339,7 @@
                 "install"
             ],
             "taskName": "{install-all}",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}"
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -604,23 +350,7 @@
                 "--display"
             ],
             "taskName": "{generate-complete-hxml}",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}"
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         },
         {
             "args": [
@@ -631,23 +361,7 @@
                 "--gen-tasks"
             ],
             "taskName": "{generate-vscode-tasks}",
-            "problemMatcher": {
-                "pattern": {
-                    "file": 1,
-                    "column": 4,
-                    "line": 2,
-                    "regexp": "^(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
-                    "endColumn": 5,
-                    "message": 7,
-                    "endLine": 3,
-                    "severity": 6
-                },
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}"
-                ],
-                "owner": "haxe"
-            }
+            "problemMatcher": "$haxe"
         }
     ]
 }
