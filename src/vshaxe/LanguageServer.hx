@@ -59,7 +59,7 @@ class LanguageServer {
                 client.sendRequest({method: "vshaxe/determinePackage"}, {fsPath: uri.fsPath}).then(function(result:{pack:String}) {
                     if (result.pack == "")
                         return;
-                    editor.edit(function(edit) edit.insert(new Position(0, 0), 'package ${result.pack};\n'));
+                    editor.edit(function(edit) edit.insert(new Position(0, 0), 'package ${result.pack};\n\n'));
                 });
             }));
             context.subscriptions.push(hxFileWatcher);
