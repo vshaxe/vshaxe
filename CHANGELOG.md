@@ -1,3 +1,10 @@
+### 1.5.1 (April 21, 2017)
+
+**Bugfixes**:
+
+- fixed toplevel completion hanging in some cases [haxe-languageserver#23](https://github.com/vshaxe/haxe-languageserver/pull/23#issuecomment-295468634)
+
+
 ### 1.5.0 (April 7, 2017)
 
 **New Features**:
