@@ -153,6 +153,11 @@
                                             "description": "Whether to include type hints for arguments",
                                             "type": "boolean",
                                             "default": false
+                                        },
+                                        "useArrowSyntax": {
+                                            "description": "Whether to use arrow function syntax (Haxe 4+)",
+                                            "type": "boolean",
+                                            "default": true
                                         }
                                     }
                                 }
