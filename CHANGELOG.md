@@ -1,8 +1,14 @@
+### ?.?.? (to be released)
+
+**New Features**:
+
+- added highlighting support for Haxe 4 arrow functions ([HXP-0002](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0002-arrow-functions.md))
+
 ### 1.5.1 (April 21, 2017)
 
 **Bugfixes**:
 
-- fixed toplevel completion hanging in some cases [haxe-languageserver#23](https://github.com/vshaxe/haxe-languageserver/pull/23#issuecomment-295468634)
+- fixed toplevel completion hanging in some cases ([haxe-languageserver#23](https://github.com/vshaxe/haxe-languageserver/pull/23#issuecomment-295468634))
 
 
 ### 1.5.0 (April 7, 2017)
