@@ -1,9 +1,13 @@
-### ?.?.? (to be released)
+### 1.6.0 (to be released)
 
 **New Features**:
 
 - added highlighting support for Haxe 4 arrow functions ([HXP-0002](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0002-arrow-functions.md))
 - added a `useArrowSyntax` option for anonymous function generation
+
+**Bugfixes**:
+
+- fixed several small highlighting issues (haxe-tmLanguage[[#4](https://github.com/vshaxe/haxe-tmLanguage/issues/4), [#16](https://github.com/vshaxe/haxe-tmLanguage/issues/16), [#22](https://github.com/vshaxe/haxe-tmLanguage/issues/22)])
 
 ### 1.5.1 (April 21, 2017)
 
