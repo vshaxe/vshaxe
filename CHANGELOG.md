@@ -4,6 +4,7 @@
 
 - added highlighting support for Haxe 4 arrow functions ([HXP-0002](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0002-arrow-functions.md))
 - added a `useArrowSyntax` option for anonymous function generation
+- added a "Generate capture variables" code action
 
 **Bugfixes**:
 
