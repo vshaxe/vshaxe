@@ -8,7 +8,7 @@
 
 **Bugfixes**:
 
-- fixed several small highlighting issues (haxe-tmLanguage[[#4](https://github.com/vshaxe/haxe-tmLanguage/issues/4), [#16](https://github.com/vshaxe/haxe-tmLanguage/issues/16), [#22](https://github.com/vshaxe/haxe-tmLanguage/issues/22)])
+- fixed several small highlighting issues (haxe-tmLanguage[[#4](https://github.com/vshaxe/haxe-tmLanguage/issues/4), [#6](https://github.com/vshaxe/haxe-tmLanguage/issues/6), [#11](https://github.com/vshaxe/haxe-tmLanguage/issues/11), [#16](https://github.com/vshaxe/haxe-tmLanguage/issues/16), [#22](https://github.com/vshaxe/haxe-tmLanguage/issues/22)])
 
 ### 1.5.1 (April 21, 2017)
 
