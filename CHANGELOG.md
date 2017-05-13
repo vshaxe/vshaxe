@@ -1,4 +1,4 @@
-### 1.6.0 (to be released)
+### 1.6.0 (May 13, 2017)
 
 **New Features**:
 
