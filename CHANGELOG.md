@@ -1,3 +1,15 @@
+### 1.7.0 (May 15, 2017)
+
+**Bugfixes**:
+
+- fixed Unicode character handling for completion with Haxe 4
+
+**Changes and improvements**:
+
+- changed the required VSCode version to 1.12.0
+- added a progress indicator for Completion Cache Initialization (#108)
+- added a progress indicator for Global Diagnostics Checks
+
 ### 1.6.0 (May 13, 2017)
 
 **New Features**:
