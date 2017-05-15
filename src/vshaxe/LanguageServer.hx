@@ -64,6 +64,9 @@ class LanguageServer {
             }));
             context.subscriptions.push(hxFileWatcher);
 
+            client.onNotification({method: "vshaxe/progressStart"}, startProgress);
+            client.onNotification({method: "vshaxe/progressStop"}, stopProgress);
+
             #if debug
             client.onNotification({method: "vshaxe/updateParseTree"}, function(result:{uri:String, parseTree:String}) {
                 commands.executeCommand("hxparservis.updateParseTree", result.uri, result.parseTree);
@@ -72,6 +75,24 @@ class LanguageServer {
         });
         disposable = client.start();
         context.subscriptions.push(disposable);
+    }
+
+    var progresses = new Map<Int,Void->Void>();
+
+    function startProgress(data:{id:Int, title:String}) {
+        window.withProgress({location: Window, title: data.title}, function(_) {
+            return new js.Promise(function(resolve, _) {
+                progresses[data.id] = function() resolve(null);
+            });
+        });
+    }
+
+    function stopProgress(data:{id:Int}) {
+        var stop = progresses[data.id];
+        if (stop != null) {
+            progresses.remove(data.id);
+            stop();
+        }
     }
 
     public function restart() {
@@ -88,6 +109,12 @@ class LanguageServer {
             hxFileWatcher.dispose();
             hxFileWatcher = null;
         }
+
+        for (stop in progresses) {
+            stop();
+        }
+        progresses = new Map();
+
         start();
     }
 }
