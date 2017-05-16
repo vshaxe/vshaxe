@@ -9,6 +9,7 @@
 - changed the required VSCode version to 1.12.0
 - added a progress indicator for Completion Cache Initialization (#108)
 - added a progress indicator for Global Diagnostics Checks
+- made document symbols much more robust ([haxe-languageserver#31](https://github.com/vshaxe/haxe-languageserver/issues/31))
 
 ### 1.6.0 (May 13, 2017)
 
