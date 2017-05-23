@@ -3,6 +3,7 @@
 **Bugfixes**:
 
 - fixed Unicode character handling for completion with Haxe 4
+- fixed filtering in metadata completion ([#121](https://github.com/vshaxe/vshaxe/issues/121))
 
 **Changes and improvements**:
 
