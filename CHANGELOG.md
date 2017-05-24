@@ -1,4 +1,4 @@
-### 1.7.0 (to be released)
+### 1.7.0 (May 24, 2017)
 
 **Bugfixes**:
 
