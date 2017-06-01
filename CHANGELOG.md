@@ -1,3 +1,9 @@
+### 1.?.? (to be released)
+
+**Bugfixes**:
+
+- fixed a minor string interpolation highlighting issue ([haxe-tmLanguage#27](https://github.com/vshaxe/haxe-tmLanguage/issues/27))
+
 ### 1.7.0 (May 24, 2017)
 
 **Bugfixes**:
