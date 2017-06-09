@@ -90,9 +90,20 @@ class HaxelibExplorer {
         if (!node.isDirectory) {
             return [];
         }
-        return [for (file in FileSystem.readDirectory(node.path)) {
-            new Node(file, '${node.path}/$file');
-        }];
+
+        var children = [];
+        for (file in FileSystem.readDirectory(node.path)) {
+            if (!isExcluded(file)) {
+                children.push(new Node(file, '${node.path}/$file'));
+            }
+        };
+        return children;
+    }
+
+    function isExcluded(file:String):Bool {
+        // the proper way of doing this would be to check against the patterns in "files.exclude",
+        // but then we'd need to include a lib for glob patterns...
+        return file == ".git" || file == ".svn" || file == ".hg" || file == "CVS" || file == ".DS_Store";
     }
 
     function selectNode(node:Node) {
