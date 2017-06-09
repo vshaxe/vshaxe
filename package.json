@@ -3,7 +3,7 @@
     "version": "1.7.0",
     "publisher": "nadako",
     "engines": {
-        "vscode": "^1.12.0"
+        "vscode": "^1.13.0"
     },
     "displayName": "Haxe",
     "description": "Haxe language support",
@@ -285,6 +285,14 @@
                 "fileLocation": ["relative", "${cwd}"],
                 "pattern": "$haxe"
             }
-        ]
+        ],
+        "views": {
+            "explorer": [
+                {
+                    "id": "haxelibDependencies",
+                    "name": "Haxelib Dependencies"
+                }
+            ]
+        }
     }
 }

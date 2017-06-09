@@ -108,6 +108,10 @@ class DisplayConfiguration {
         onDidChangeIndex(index);
     }
 
+    public function getConfiguration():Array<String> {
+        return getConfigurations()[getIndex()];
+    }
+
     public dynamic function onDidChangeIndex(index:Int):Void {}
 }
 
