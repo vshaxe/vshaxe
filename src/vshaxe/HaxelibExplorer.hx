@@ -23,6 +23,7 @@ class HaxelibExplorer {
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxelibDependencies", this);
         commands.registerCommand("haxelibDependencies.selectNode", selectNode);
+        commands.registerCommand("haxelibDependencies.collapseAll", collapseAll);
     }
 
     function refreshHaxelibs():Array<Node> {
@@ -112,6 +113,15 @@ class HaxelibExplorer {
         } else {
             workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: true}));
         }
+    }
+
+    function collapseAll(node:Node) {
+        for (node in haxelibs) {
+            if (node.collapsibleState != None) {
+                node.collapsibleState = Collapsed;
+            }
+        }
+        _onDidChangeTreeData.fire();
     }
 }
 

@@ -193,6 +193,15 @@
                 "title": "Toggle Code Lens",
                 "command": "haxe.toggleCodeLens",
                 "category": "Haxe"
+            },
+            {
+                "command": "haxelibDependencies.collapseAll",
+                "title": "Collapse All Haxelibs in Explorer",
+                "category": "Haxe",
+                "icon": {
+                    "light": "resources/light/collapseAll.svg",
+                    "dark": "resources/dark/collapseAll.svg"
+                }
             }
         ],
         "languages": [
@@ -295,6 +304,15 @@
                 {
                     "id": "haxelibDependencies",
                     "name": "Haxelib Dependencies"
+                }
+            ]
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "haxelibDependencies.collapseAll",
+                    "when": "view == haxelibDependencies",
+                    "group": "navigation"
                 }
             ]
         }
