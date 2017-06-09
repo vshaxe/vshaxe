@@ -40,6 +40,7 @@ class HaxelibExplorer {
     function updateHaxelibs(configuration:Array<String>) {
         haxelibs = [];
 
+        // TODO: register a file watcher for hxml files / listen to setting.json changes
         var hxmlFile = workspace.rootPath + "/" + configuration[0]; // TODO: this isn't a safe assumption
         if (hxmlFile != null && FileSystem.exists(hxmlFile)) {
             var hxml = File.getContent(hxmlFile);
@@ -109,6 +110,7 @@ class HaxelibExplorer {
     public function onDisplayConfigurationChanged(configuration:Array<String>) {
         this.configuration = configuration;
         haxelibs = null;
+        _onDidChangeTreeData.fire();
     }
 
     public function getTreeItem(element:TreeItem):TreeItem {
