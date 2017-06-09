@@ -283,7 +283,10 @@
                 "name": "haxe",
                 "owner": "haxe",
                 "applyTo": "allDocuments",
-                "fileLocation": ["relative", "${cwd}"],
+                "fileLocation": [
+                    "relative",
+                    "${cwd}"
+                ],
                 "pattern": "$haxe"
             }
         ],

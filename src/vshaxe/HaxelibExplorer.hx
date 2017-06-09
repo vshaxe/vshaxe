@@ -35,63 +35,77 @@ class HaxelibExplorer {
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxelibDependencies", this);
-        commands.registerCommand("haxe.openHaxelibFile", openFile);
+        commands.registerCommand("haxelibDependencies.openFile", openFile);
     }
 
-    function updateHaxelibs(configuration:Array<String>) {
-        haxelibs = [];
+    function refreshHaxelibs():Array<Node> {
+        var newHaxelibs:Array<Node> = [];
+
+        for (path in resolveHaxelibs()) {
+            // don't add duplicates
+            if (newHaxelibs.find(haxelib -> haxelib.path == path) != null) {
+                continue;
+            }
+
+            var node = createHaxelibNode(path);
+            if (node != null) {
+                newHaxelibs.push(node);
+            }
+        }
+
+        return newHaxelibs;
+    }
+
+    function resolveHaxelibs():Array<String> {
+        if (configuration == null) {
+            return [];
+        }
 
         // TODO: register a file watcher for hxml files / listen to setting.json changes
         var hxmlFile = workspace.rootPath + "/" + configuration[0]; // TODO: this isn't a safe assumption
-        if (hxmlFile != null && FileSystem.exists(hxmlFile)) {
-            var hxml = File.getContent(hxmlFile);
-            // TODO: parse the hxml properly
-            ~/-lib\s+([\w:.]+)/g.map(hxml, function(ereg) {
-                var name = ereg.matched(1);
-                var path = getHaxelibPath(name);
-                if (path != null) {
-                    addHaxelib(path);
-                }
-                return "";
-            });
-
-            ~/-cp\s+(.*)/g.map(hxml, function(ereg) {
-                addHaxelib(ereg.matched(1));
-                return "";
-            });
+        if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
+            return [];
         }
+
+        var hxml = File.getContent(hxmlFile);
+        var paths = [];
+        // TODO: parse the hxml properly
+        ~/-lib\s+([\w:.]+)/g.map(hxml, function(ereg) {
+            var name = ereg.matched(1);
+            paths = paths.concat(resolveHaxelib(name));
+            return "";
+        });
+
+        ~/-cp\s+(.*)/g.map(hxml, function(ereg) {
+            paths.push(ereg.matched(1));
+            return "";
+        });
+
+        return paths;
     }
 
-    function addHaxelib(path:String) {
-        // don't add duplicates
-        if (haxelibs.find(haxelib -> haxelib.path == path) != null) {
-            return;
-        }
+    function createHaxelibNode(path:String):Node {
         var info = getHaxelibInfo(path);
         if (info == null) {
-            return;
+            return null;
         }
         var label = '${info.name} (${info.version})';
-        haxelibs.push(new Node(label, info.path));
+        return new Node(label, info.path);
     }
 
-    function getHaxelibPath(lib:String):String {
+    function resolveHaxelib(lib:String):Array<String> {
         try {
             var result:Buffer = ChildProcess.execSync('haxelib path $lib');
-            var path = null;
+            var paths = [];
             for (line in result.toString().split("\n")) {
                 var potentialPath = Path.normalize(line.trim());
                 if (FileSystem.exists(potentialPath)) {
-                    if (path == null) { // first path == path of the lib itself
-                        path = potentialPath;
-                    } else { // path of a depdendency
-                        addHaxelib(potentialPath);
-                    }
+                    paths.push(potentialPath);
                 }
             }
-            return path;
+            return paths;
         } catch(e:Any) {
-            return null;
+            return [];
         }
     }
 
@@ -122,7 +136,7 @@ class HaxelibExplorer {
     public function getChildren(?node:Node):Thenable<Array<Node>> {
         return new Promise(function(resolve, _) {
             if (haxelibs == null) {
-                updateHaxelibs(configuration);
+                haxelibs = refreshHaxelibs();
             }
 
             if (node == null) {
@@ -159,7 +173,7 @@ private class Node extends TreeItem {
             collapsibleState = Collapsed;
         } else {
             command = {
-                command: "haxe.openHaxelibFile",
+                command: "haxelibDependencies.openFile",
                 arguments: [this],
                 title: "Open File"
             };
