@@ -11,7 +11,9 @@
 -D js_unflatten
 -D hxnodejs-no-version-warning
 -D JSTACK_MAIN=vshaxe.Main.main
+-D JSTACK_FORMAT=vscode
 -lib hxnodejs
+-lib jstack
 -lib haxe-hxparser
 -lib compiletime
 -lib mockatoo

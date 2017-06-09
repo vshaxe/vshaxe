@@ -14,7 +14,7 @@ using Lambda;
 class HaxelibExplorer {
     var context:ExtensionContext;
     var configuration:Array<String>;
-    var haxelibs:Array<Haxelib>;
+    var haxelibs:Array<Node>;
     var haxelibRepo(get,never):String;
 
     function get_haxelibRepo():String {
@@ -24,10 +24,10 @@ class HaxelibExplorer {
         return _haxelibRepo;
     }
 
-    var _onDidChangeTreeData = new EventEmitter<TreeItem>();
+    var _onDidChangeTreeData = new EventEmitter<Node>();
     var _haxelibRepo:String;
 
-    public var onDidChangeTreeData:Event<TreeItem>;
+    public var onDidChangeTreeData:Event<Node>;
 
     public function new(context:ExtensionContext, configuration:Array<String>) {
         this.context = context;
@@ -35,6 +35,7 @@ class HaxelibExplorer {
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxelibDependencies", this);
+        commands.registerCommand("haxe.openHaxelibFile", openFile);
     }
 
     function updateHaxelibs(configuration:Array<String>) {
@@ -71,7 +72,7 @@ class HaxelibExplorer {
             return;
         }
         var label = '${info.name} (${info.version})';
-        haxelibs.push(new Haxelib(label, path));
+        haxelibs.push(new Node(label, info.path));
     }
 
     function getHaxelibPath(lib:String):String {
@@ -94,7 +95,7 @@ class HaxelibExplorer {
         }
     }
 
-    function getHaxelibInfo(path:String):{name:String, version:String} {
+    function getHaxelibInfo(path:String) {
         if (path.indexOf(haxelibRepo) == -1) {
             // TODO: deal with paths outside of haxelib
             return null;
@@ -103,8 +104,9 @@ class HaxelibExplorer {
         path = path.replace(haxelibRepo, "");
         var segments = path.split("/");
         var name = segments[1];
-        var version = segments[2].replace(",", ".");
-        return {name:name, version:version};
+        var version = segments[2];
+        var path = '$haxelibRepo/$name/$version';
+        return {name:name, version:version.replace(",", "."), path:path};
     }
 
     public function onDisplayConfigurationChanged(configuration:Array<String>) {
@@ -113,26 +115,54 @@ class HaxelibExplorer {
         _onDidChangeTreeData.fire();
     }
 
-    public function getTreeItem(element:TreeItem):TreeItem {
+    public function getTreeItem(element:Node):TreeItem {
         return element;
     }
 
-    public function getChildren(?element:TreeItem):Thenable<Array<TreeItem>> {
+    public function getChildren(?node:Node):Thenable<Array<Node>> {
         return new Promise(function(resolve, _) {
             if (haxelibs == null) {
                 updateHaxelibs(configuration);
             }
-            var treeItems:Array<TreeItem> = [for (lib in haxelibs) lib];
-            resolve(treeItems);
+
+            if (node == null) {
+                resolve(haxelibs);
+            } else {
+                resolve(getNodeChildren(node));
+            }
         });
+    }
+
+    function getNodeChildren(node:Node):Array<Node> {
+        if (!node.isDirectory) {
+            return [];
+        }
+        return [for (file in FileSystem.readDirectory(node.path)) {
+            new Node(file, '${node.path}/$file');
+        }];
+    }
+
+    function openFile(node:Node) {
+        workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: true}));
     }
 }
 
-private class Haxelib extends TreeItem {
+private class Node extends TreeItem {
     public var path(default,null):String;
+    public var isDirectory(default,null):Bool;
 
     public function new(label:String, path:String) {
         super(label);
         this.path = path;
+        isDirectory = FileSystem.isDirectory(path);
+        if (isDirectory) {
+            collapsibleState = Collapsed;
+        } else {
+            command = {
+                command: "haxe.openHaxelibFile",
+                arguments: [this],
+                title: "Open File"
+            };
+        }
     }
 }
