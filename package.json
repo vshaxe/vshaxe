@@ -45,7 +45,7 @@
         "onCommand:haxe.selectDisplayConfiguration",
         "onCommand:haxe.runGlobalDiagnostics",
         "onCommand:haxe.toggleCodeLens",
-        "onView:haxelibDependencies"
+        "onView:haxeDependencies"
     ],
     "contributes": {
         "configuration": {
@@ -196,7 +196,7 @@
             },
             {
                 "title": "Collapse All Haxelibs",
-                "command": "haxelibDependencies.collapseAll",
+                "command": "haxeDependencies.collapseAll",
                 "category": "Haxe",
                 "icon": {
                     "light": "resources/light/collapseAll.svg",
@@ -302,7 +302,7 @@
         "views": {
             "explorer": [
                 {
-                    "id": "haxelibDependencies",
+                    "id": "haxeDependencies",
                     "name": "Haxe Dependencies"
                 }
             ]
@@ -310,8 +310,8 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "haxelibDependencies.collapseAll",
-                    "when": "view == haxelibDependencies",
+                    "command": "haxeDependencies.collapseAll",
+                    "when": "view == haxeDependencies",
                     "group": "navigation"
                 }
             ]

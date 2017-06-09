@@ -8,7 +8,7 @@ class LanguageServer {
     var disposable:Disposable;
     var hxFileWatcher:FileSystemWatcher;
     var displayConfig:DisplayConfiguration;
-    var haxelibExplorer:HaxelibExplorer;
+    var dependencyExplorer:DependencyExplorer;
 
     public var client(default,null):LanguageClient;
 
@@ -16,7 +16,7 @@ class LanguageServer {
         this.context = context;
 
         displayConfig = new DisplayConfiguration(context);
-        haxelibExplorer = new HaxelibExplorer(context, displayConfig.getConfiguration());
+        dependencyExplorer = new DependencyExplorer(context, displayConfig.getConfiguration());
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
     }
 
@@ -48,7 +48,7 @@ class LanguageServer {
             client.outputChannel.appendLine("Haxe language server started");
             displayConfig.onDidChangeIndex = function(index) {
                 client.sendNotification({method: "vshaxe/didChangeDisplayConfigurationIndex"}, {index: index});
-                haxelibExplorer.onDisplayConfigurationChanged(displayConfig.getConfiguration());
+                dependencyExplorer.onDisplayConfigurationChanged(displayConfig.getConfiguration());
             }
 
             hxFileWatcher = workspace.createFileSystemWatcher("**/*.hx", false, true, true);

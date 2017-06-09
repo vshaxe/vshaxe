@@ -8,7 +8,7 @@ import sys.FileSystem;
 import sys.io.File;
 using StringTools;
 
-class HaxelibHelper {
+class DependencyHelper {
     static var _haxelibRepo:String;
 
     public static var haxelibRepo(get, never):String;

@@ -6,10 +6,10 @@ import vscode.*;
 import js.Promise;
 using Lambda;
 
-class HaxelibExplorer {
+class DependencyExplorer {
     var context:ExtensionContext;
     var configuration:Array<String>;
-    var haxelibs:Array<Node> = [];
+    var dependencies:Array<Node> = [];
     var refresh:Bool = true;
 
     var _onDidChangeTreeData = new EventEmitter<Node>();
@@ -21,52 +21,52 @@ class HaxelibExplorer {
         this.configuration = configuration;
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
-        window.registerTreeDataProvider("haxelibDependencies", this);
-        commands.registerCommand("haxelibDependencies.selectNode", selectNode);
-        commands.registerCommand("haxelibDependencies.collapseAll", collapseAll);
+        window.registerTreeDataProvider("haxeDependencies", this);
+        commands.registerCommand("haxeDependencies.selectNode", selectNode);
+        commands.registerCommand("haxeDependencies.collapseAll", collapseAll);
     }
 
-    function refreshHaxelibs():Array<Node> {
-        var newHaxelibs:Array<Node> = [];
+    function refreshDependencies():Array<Node> {
+        var newDependencies:Array<Node> = [];
 
-        var paths = HaxelibHelper.resolveHaxelibs(configuration);
+        var paths = DependencyHelper.resolveHaxelibs(configuration);
 
-        var stdLibPath = HaxelibHelper.getStandardLibraryPath();
+        var stdLibPath = DependencyHelper.getStandardLibraryPath();
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
             paths.push(stdLibPath);
         }
 
         for (path in paths) {
             // don't add duplicates
-            if (newHaxelibs.find(haxelib -> haxelib.path == path) != null) {
+            if (newDependencies.find(d -> d.path == path) != null) {
                 continue;
             }
 
             // reuse existing nodes if possible to preserve their collapsibleState
-            if (haxelibs != null) {
-                var oldHaxelib = haxelibs.find(haxelib -> haxelib.path == path);
-                if (oldHaxelib != null) {
-                    newHaxelibs.push(oldHaxelib);
+            if (dependencies != null) {
+                var oldDependency = dependencies.find(d -> d.path == path);
+                if (oldDependency != null) {
+                    newDependencies.push(oldDependency);
                     continue;
                 }
             }
 
             var info = if (path == stdLibPath) {
-                HaxelibHelper.getStandardLibraryInfo(path);
+                DependencyHelper.getStandardLibraryInfo(path);
             } else {
-                HaxelibHelper.getHaxelibInfo(path);
+                DependencyHelper.getHaxelibInfo(path);
             }
 
-            var node = createHaxelibNode(info);
+            var node = createNode(info);
             if (node != null) {
-                newHaxelibs.push(node);
+                newDependencies.push(node);
             }
         }
 
-        return newHaxelibs;
+        return newDependencies;
     }
 
-    function createHaxelibNode(info):Node {
+    function createNode(info):Node {
         if (info == null) {
             return null;
         }
@@ -87,12 +87,12 @@ class HaxelibExplorer {
     public function getChildren(?node:Node):Thenable<Array<Node>> {
         return new Promise(function(resolve, _) {
             if (refresh) {
-                haxelibs = refreshHaxelibs();
+                dependencies = refreshDependencies();
                 refresh = false;
             }
 
             if (node == null) {
-                resolve(haxelibs);
+                resolve(dependencies);
             } else {
                 resolve(getNodeChildren(node));
             }
@@ -128,7 +128,7 @@ class HaxelibExplorer {
     }
 
     function collapseAll(node:Node) {
-        for (node in haxelibs) {
+        for (node in dependencies) {
             if (node.collapsibleState != None) {
                 node.collapsibleState = Collapsed;
             }
@@ -150,7 +150,7 @@ private class Node extends TreeItem {
         }
 
         command = {
-            command: "haxelibDependencies.selectNode",
+            command: "haxeDependencies.selectNode",
             arguments: [this],
             title: "Open File"
         };
