@@ -44,7 +44,8 @@
         "onCommand:haxe.initProject",
         "onCommand:haxe.selectDisplayConfiguration",
         "onCommand:haxe.runGlobalDiagnostics",
-        "onCommand:haxe.toggleCodeLens"
+        "onCommand:haxe.toggleCodeLens",
+        "onView:haxelibDependencies"
     ],
     "contributes": {
         "configuration": {
