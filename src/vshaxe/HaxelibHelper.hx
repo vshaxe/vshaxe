@@ -1,17 +1,17 @@
 package vshaxe;
 
+import Vscode.*;
 import haxe.io.Path;
 import js.node.Buffer;
 import js.node.ChildProcess;
-import sys.io.File;
 import sys.FileSystem;
-import Vscode.*;
+import sys.io.File;
 using StringTools;
 
 class HaxelibHelper {
     static var _haxelibRepo:String;
 
-    public static var haxelibRepo(get,never):String;
+    public static var haxelibRepo(get, never):String;
 
     static function get_haxelibRepo():String {
         if (_haxelibRepo == null) {
@@ -33,6 +33,7 @@ class HaxelibHelper {
 
         var hxml = File.getContent(hxmlFile);
         var paths = [];
+
         // TODO: parse the hxml properly
         ~/-lib\s+([\w:.]+)/g.map(hxml, function(ereg) {
             var name = ereg.matched(1);
@@ -49,16 +50,21 @@ class HaxelibHelper {
     }
 
     public static function resolveHaxelib(lib:String):Array<String> {
-        try {
-            var result:Buffer = ChildProcess.execSync('haxelib path $lib');
-            var paths = [];
-            for (line in result.toString().split("\n")) {
-                var potentialPath = Path.normalize(line.trim());
-                if (FileSystem.exists(potentialPath)) {
-                    paths.push(potentialPath);
-                }
+        var paths = [];
+        for (line in getProcessOutput('haxelib path $lib')) {
+            var potentialPath = Path.normalize(line);
+            if (FileSystem.exists(potentialPath)) {
+                paths.push(potentialPath);
             }
-            return paths;
+        }
+        return paths;
+    }
+
+    static function getProcessOutput(command:String):Array<String> {
+        try {
+            var result:Buffer = ChildProcess.execSync(command);
+            var lines = result.toString().split("\n");
+            return [for (line in lines) line.trim()];
         } catch(e:Any) {
             return [];
         }
@@ -75,6 +81,57 @@ class HaxelibHelper {
         var name = segments[1];
         var version = segments[2];
         var path = '$haxelibRepo/$name/$version';
-        return {name:name, version:version.replace(",", "."), path:path};
+        return {name: name, version: version.replace(",", "."), path: path};
+    }
+
+    public static function getStandardLibraryPath():String {
+        // more or less a port of main.ml's get_std_class_paths()
+        var path = Sys.getEnv("HAXE_STD_PATH");
+        if (path != null) {
+            return path;
+        }
+
+        if (Sys.systemName() == "Windows") {
+            var haxePath = getHaxePath();
+            if (haxePath == null) {
+                return null;
+            }
+            return Path.join([Path.directory(haxePath), "std"]);
+        } else {
+            for (path in [
+                    "/usr/local/lib/haxe/extraLibs/",
+                    "/usr/lib/haxe/extraLibs/",
+                    "/usr/local/lib/haxe/std/",
+                    "/usr/share/haxe/std/",
+                    "/usr/lib/haxe/std/"]
+                ) {
+                if (FileSystem.exists(path)) {
+                    return path;
+                }
+            }
+        }
+        return null;
+    }
+
+    static function getDisplayConfigHaxePath() {
+        return workspace.getConfiguration("haxe").get("displayServer").haxePath;
+    }
+
+    static function getHaxePath():String {
+        var haxePath = getDisplayConfigHaxePath();
+        if (haxePath == null || !FileSystem.exists(haxePath)) {
+            haxePath = getProcessOutput("where haxe")[0];
+        }
+        return haxePath;
+    }
+
+    public static function getStandardLibraryInfo(path:String) {
+        var version = "?";
+        var result = ChildProcess.spawnSync(getDisplayConfigHaxePath(), ["-version"]);
+        var haxeVersionOutput = (result.stderr : Buffer).toString();
+        if (haxeVersionOutput != null) {
+            version = haxeVersionOutput.split(" ")[0];
+        }
+        return {name: "std", path: path, version: version};
     }
 }

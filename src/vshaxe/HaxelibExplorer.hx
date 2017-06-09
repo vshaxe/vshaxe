@@ -29,7 +29,14 @@ class HaxelibExplorer {
     function refreshHaxelibs():Array<Node> {
         var newHaxelibs:Array<Node> = [];
 
-        for (path in HaxelibHelper.resolveHaxelibs(configuration)) {
+        var paths = HaxelibHelper.resolveHaxelibs(configuration);
+
+        var stdLibPath = HaxelibHelper.getStandardLibraryPath();
+        if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
+            paths.push(stdLibPath);
+        }
+
+        for (path in paths) {
             // don't add duplicates
             if (newHaxelibs.find(haxelib -> haxelib.path == path) != null) {
                 continue;
@@ -44,7 +51,13 @@ class HaxelibExplorer {
                 }
             }
 
-            var node = createHaxelibNode(path);
+            var info = if (path == stdLibPath) {
+                HaxelibHelper.getStandardLibraryInfo(path);
+            } else {
+                HaxelibHelper.getHaxelibInfo(path);
+            }
+
+            var node = createHaxelibNode(info);
             if (node != null) {
                 newHaxelibs.push(node);
             }
@@ -53,8 +66,7 @@ class HaxelibExplorer {
         return newHaxelibs;
     }
 
-    function createHaxelibNode(path:String):Node {
-        var info = HaxelibHelper.getHaxelibInfo(path);
+    function createHaxelibNode(info):Node {
         if (info == null) {
             return null;
         }

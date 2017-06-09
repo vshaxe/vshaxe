@@ -195,8 +195,8 @@
                 "category": "Haxe"
             },
             {
+                "title": "Collapse All Haxelibs",
                 "command": "haxelibDependencies.collapseAll",
-                "title": "Collapse All Haxelibs in Explorer",
                 "category": "Haxe",
                 "icon": {
                     "light": "resources/light/collapseAll.svg",
@@ -303,7 +303,7 @@
             "explorer": [
                 {
                     "id": "haxelibDependencies",
-                    "name": "Haxelib Dependencies"
+                    "name": "Haxe Dependencies"
                 }
             ]
         },
