@@ -13,7 +13,7 @@ using StringTools;
 class HaxelibExplorer {
     var context:ExtensionContext;
     var configuration:Array<String>;
-    var libraries:Array<Haxelib>;
+    var libraries:Array<TreeItem>;
     var haxelibRepo(get,never):String;
 
     function get_haxelibRepo():String {
@@ -48,11 +48,7 @@ class HaxelibExplorer {
                 trace(name);
                 var path = getHaxelibPath(name);
                 if (path != null) {
-                    libraries.push({
-                        name: name,
-                        label: getHaxelibLabel(name, path),
-                        path: path
-                    });
+                    libraries.push(new Haxelib(name, getHaxelibLabel(name, path), path));
                 }
                 return "";
             });
@@ -111,13 +107,18 @@ class HaxelibExplorer {
             if (libraries == null) {
                 updateLibraries(configuration);
             }
-            resolve([for (library in libraries) new TreeItem(library.label)]);
+            resolve(libraries);
         });
     }
 }
 
-private typedef Haxelib = {
-    name:String,
-    label:String,
-    path:String
+private class Haxelib extends TreeItem {
+    public var name(default,null):String;
+    public var path(default,null):String;
+
+    public function new(name:String, label:String, path:String) {
+        super(label);
+        this.name = name;
+        this.path = path;
+    }
 }
