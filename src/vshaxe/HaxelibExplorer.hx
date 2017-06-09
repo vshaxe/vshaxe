@@ -14,8 +14,9 @@ using Lambda;
 class HaxelibExplorer {
     var context:ExtensionContext;
     var configuration:Array<String>;
-    var haxelibs:Array<Node>;
+    var haxelibs:Array<Node> = [];
     var haxelibRepo(get,never):String;
+    var refresh:Bool = true;
 
     function get_haxelibRepo():String {
         if (_haxelibRepo == null) {
@@ -35,7 +36,7 @@ class HaxelibExplorer {
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxelibDependencies", this);
-        commands.registerCommand("haxelibDependencies.openFile", openFile);
+        commands.registerCommand("haxelibDependencies.selectNode", selectNode);
     }
 
     function refreshHaxelibs():Array<Node> {
@@ -45,6 +46,15 @@ class HaxelibExplorer {
             // don't add duplicates
             if (newHaxelibs.find(haxelib -> haxelib.path == path) != null) {
                 continue;
+            }
+
+            // reuse existing nodes if possible to preserve their collapsibleState
+            if (haxelibs != null) {
+                var oldHaxelib = haxelibs.find(haxelib -> haxelib.path == path);
+                if (oldHaxelib != null) {
+                    newHaxelibs.push(oldHaxelib);
+                    continue;
+                }
             }
 
             var node = createHaxelibNode(path);
@@ -125,7 +135,7 @@ class HaxelibExplorer {
 
     public function onDisplayConfigurationChanged(configuration:Array<String>) {
         this.configuration = configuration;
-        haxelibs = null;
+        refresh = true;
         _onDidChangeTreeData.fire();
     }
 
@@ -135,8 +145,9 @@ class HaxelibExplorer {
 
     public function getChildren(?node:Node):Thenable<Array<Node>> {
         return new Promise(function(resolve, _) {
-            if (haxelibs == null) {
+            if (refresh) {
                 haxelibs = refreshHaxelibs();
+                refresh = false;
             }
 
             if (node == null) {
@@ -156,8 +167,12 @@ class HaxelibExplorer {
         }];
     }
 
-    function openFile(node:Node) {
-        workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: true}));
+    function selectNode(node:Node) {
+        if (node.isDirectory) {
+            node.collapsibleState = if (node.collapsibleState == Collapsed) Expanded else Collapsed;
+        } else {
+            workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: true}));
+        }
     }
 }
 
@@ -171,12 +186,12 @@ private class Node extends TreeItem {
         isDirectory = FileSystem.isDirectory(path);
         if (isDirectory) {
             collapsibleState = Collapsed;
-        } else {
-            command = {
-                command: "haxelibDependencies.openFile",
-                arguments: [this],
-                title: "Open File"
-            };
         }
+
+        command = {
+            command: "haxelibDependencies.selectNode",
+            arguments: [this],
+            title: "Open File"
+        };
     }
 }
