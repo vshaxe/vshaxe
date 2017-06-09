@@ -52,6 +52,11 @@ class HaxelibExplorer {
                 }
                 return "";
             });
+
+            ~/-cp\s+(.*)/g.map(hxml, function(ereg) {
+                addHaxelib(ereg.matched(1));
+                return "";
+            });
         }
     }
 
@@ -61,6 +66,9 @@ class HaxelibExplorer {
             return;
         }
         var info = getHaxelibInfo(path);
+        if (info == null) {
+            return;
+        }
         var label = '${info.name} (${info.version})';
         haxelibs.push(new Haxelib(label, path));
     }
