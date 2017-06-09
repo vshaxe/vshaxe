@@ -9,11 +9,12 @@ import js.Promise;
 import js.node.ChildProcess;
 import js.node.Buffer;
 using StringTools;
+using Lambda;
 
 class HaxelibExplorer {
     var context:ExtensionContext;
     var configuration:Array<String>;
-    var libraries:Array<TreeItem>;
+    var haxelibs:Array<Haxelib>;
     var haxelibRepo(get,never):String;
 
     function get_haxelibRepo():String {
@@ -36,8 +37,8 @@ class HaxelibExplorer {
         window.registerTreeDataProvider("haxelibDependencies", this);
     }
 
-    function updateLibraries(configuration:Array<String>) {
-        libraries = [];
+    function updateHaxelibs(configuration:Array<String>) {
+        haxelibs = [];
 
         var hxmlFile = workspace.rootPath + "/" + configuration[0]; // TODO: this isn't a safe assumption
         if (hxmlFile != null && FileSystem.exists(hxmlFile)) {
@@ -45,14 +46,23 @@ class HaxelibExplorer {
             // TODO: parse the hxml properly
             ~/-lib\s+([\w:.]+)/g.map(hxml, function(ereg) {
                 var name = ereg.matched(1);
-                trace(name);
                 var path = getHaxelibPath(name);
                 if (path != null) {
-                    libraries.push(new Haxelib(name, getHaxelibLabel(name, path), path));
+                    addHaxelib(path);
                 }
                 return "";
             });
         }
+    }
+
+    function addHaxelib(path:String) {
+        // don't add duplicates
+        if (haxelibs.find(haxelib -> haxelib.path == path) != null) {
+            return;
+        }
+        var info = getHaxelibInfo(path);
+        var label = '${info.name} (${info.version})';
+        haxelibs.push(new Haxelib(label, path));
     }
 
     function getHaxelibPath(lib:String):String {
@@ -62,8 +72,11 @@ class HaxelibExplorer {
             for (line in result.toString().split("\n")) {
                 var potentialPath = Path.normalize(line.trim());
                 if (FileSystem.exists(potentialPath)) {
-                    path = potentialPath;
-                    break;
+                    if (path == null) { // first path == path of the lib itself
+                        path = potentialPath;
+                    } else { // path of a depdendency
+                        addHaxelib(potentialPath);
+                    }
                 }
             }
             return path;
@@ -72,30 +85,22 @@ class HaxelibExplorer {
         }
     }
 
-    function getHaxelibVersion(path:String):String {
+    function getHaxelibInfo(path:String):{name:String, version:String} {
         if (path.indexOf(haxelibRepo) == -1) {
-            // can't assume that paths outside of haxelib follow the /<lib>/<version> naming scheme -
-            // just show the path itself for e.g. "haxelib local"
-            return path;
+            // TODO: deal with paths outside of haxelib
+            return null;
         }
 
         path = path.replace(haxelibRepo, "");
         var segments = path.split("/");
-        var version = segments[2];
-        if (version == null) {
-            return "?";
-        }
-        return version.replace(",", ".");
-    }
-
-    function getHaxelibLabel(name:String, path:String) {
-        name = name.split(":")[0];
-        return '$name (${getHaxelibVersion(path)})';
+        var name = segments[1];
+        var version = segments[2].replace(",", ".");
+        return {name:name, version:version};
     }
 
     public function onDisplayConfigurationChanged(configuration:Array<String>) {
         this.configuration = configuration;
-        libraries = null;
+        haxelibs = null;
     }
 
     public function getTreeItem(element:TreeItem):TreeItem {
@@ -104,21 +109,20 @@ class HaxelibExplorer {
 
     public function getChildren(?element:TreeItem):Thenable<Array<TreeItem>> {
         return new Promise(function(resolve, _) {
-            if (libraries == null) {
-                updateLibraries(configuration);
+            if (haxelibs == null) {
+                updateHaxelibs(configuration);
             }
-            resolve(libraries);
+            var treeItems:Array<TreeItem> = [for (lib in haxelibs) lib];
+            resolve(treeItems);
         });
     }
 }
 
 private class Haxelib extends TreeItem {
-    public var name(default,null):String;
     public var path(default,null):String;
 
-    public function new(name:String, label:String, path:String) {
+    public function new(label:String, path:String) {
         super(label);
-        this.name = name;
         this.path = path;
     }
 }
