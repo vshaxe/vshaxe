@@ -4,9 +4,11 @@ import sys.FileSystem;
 import sys.io.File;
 import Vscode.*;
 import vscode.*;
+import js.Promise;
 
 class HaxelibExplorer {
     var context:ExtensionContext;
+    var configuration:Array<String>;
     var libraries:Array<String>;
     var _onDidChangeTreeData = new EventEmitter<TreeItem>();
 
@@ -14,7 +16,7 @@ class HaxelibExplorer {
 
     public function new(context:ExtensionContext, configuration:Array<String>) {
         this.context = context;
-        updateLibraries(configuration);
+        this.configuration = configuration;
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxelibDependencies", this);
@@ -35,14 +37,20 @@ class HaxelibExplorer {
     }
 
     public function onDisplayConfigurationChanged(configuration:Array<String>) {
-        updateLibraries(configuration);
+        this.configuration = configuration;
+        libraries = null;
     }
 
     public function getTreeItem(element:TreeItem):TreeItem {
         return element;
     }
 
-    public function getChildren(?element:TreeItem):Array<TreeItem> {
-        return [for (library in libraries) new TreeItem(library)];
+    public function getChildren(?element:TreeItem):Thenable<Array<TreeItem>> {
+        return new Promise(function(resolve, _) {
+            if (libraries == null) {
+                updateLibraries(configuration);
+            }
+            resolve([for (library in libraries) new TreeItem(library)]);
+        });
     }
 }
