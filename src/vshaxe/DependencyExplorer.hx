@@ -1,16 +1,19 @@
 package vshaxe;
 
+import haxe.io.Path;
 import sys.FileSystem;
 import Vscode.*;
 import vscode.*;
 import js.Promise;
+import vshaxe.DependencyHelper;
 using Lambda;
 
 class DependencyExplorer {
     var context:ExtensionContext;
     var configuration:Array<String>;
+    var relevantHxmls:Array<String> = [];
     var dependencies:Array<Node> = [];
-    var refresh:Bool = true;
+    var refreshNeeded:Bool = true;
 
     var _onDidChangeTreeData = new EventEmitter<Node>();
 
@@ -24,12 +27,28 @@ class DependencyExplorer {
         window.registerTreeDataProvider("haxeDependencies", this);
         commands.registerCommand("haxeDependencies.selectNode", selectNode);
         commands.registerCommand("haxeDependencies.collapseAll", collapseAll);
+
+        var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
+        context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
+        context.subscriptions.push(hxmlFileWatcher.onDidChange(onDidChangeHxml));
+        context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
+        context.subscriptions.push(hxmlFileWatcher);
+    }
+
+    function onDidChangeHxml(uri:Uri) {
+        for (hxml in relevantHxmls) {
+            if (Path.normalize(uri.fsPath) == Path.normalize(hxml)) {
+                refresh();
+            }
+        }
     }
 
     function refreshDependencies():Array<Node> {
         var newDependencies:Array<Node> = [];
 
-        var paths = DependencyHelper.resolveHaxelibs(configuration);
+        var haxelibs = DependencyHelper.resolveHaxelibs(configuration);
+        var paths = haxelibs.paths;
+        relevantHxmls = haxelibs.hxmls;
 
         var stdLibPath = DependencyHelper.getStandardLibraryPath();
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
@@ -76,7 +95,11 @@ class DependencyExplorer {
 
     public function onDisplayConfigurationChanged(configuration:Array<String>) {
         this.configuration = configuration;
-        refresh = true;
+        refresh();
+    }
+
+    function refresh() {
+        refreshNeeded = true;
         _onDidChangeTreeData.fire();
     }
 
@@ -86,9 +109,9 @@ class DependencyExplorer {
 
     public function getChildren(?node:Node):Thenable<Array<Node>> {
         return new Promise(function(resolve, _) {
-            if (refresh) {
+            if (refreshNeeded) {
                 dependencies = refreshDependencies();
-                refresh = false;
+                refreshNeeded = false;
             }
 
             if (node == null) {

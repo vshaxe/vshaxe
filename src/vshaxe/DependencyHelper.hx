@@ -20,33 +20,38 @@ class DependencyHelper {
         return _haxelibRepo;
     }
 
-    public static function resolveHaxelibs(configuration:Array<String>):Array<String> {
+    public static function resolveHaxelibs(configuration:Array<String>) {
+        var result = {
+            paths: [],
+            hxmls: []
+        }
+
         if (configuration == null) {
-            return [];
+            return result;
         }
 
         // TODO: register a file watcher for hxml files / listen to setting.json changes
         var hxmlFile = workspace.rootPath + "/" + configuration[0]; // TODO: this isn't a safe assumption
+        result.hxmls.push(hxmlFile);
         if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
-            return [];
+            return result;
         }
 
         var hxml = File.getContent(hxmlFile);
-        var paths = [];
 
         // TODO: parse the hxml properly
         ~/-lib\s+([\w:.]+)/g.map(hxml, function(ereg) {
             var name = ereg.matched(1);
-            paths = paths.concat(resolveHaxelib(name));
+            result.paths = result.paths.concat(resolveHaxelib(name));
             return "";
         });
 
         ~/-cp\s+(.*)/g.map(hxml, function(ereg) {
-            paths.push(ereg.matched(1));
+            result.paths.push(ereg.matched(1));
             return "";
         });
 
-        return paths;
+        return result;
     }
 
     public static function resolveHaxelib(lib:String):Array<String> {
