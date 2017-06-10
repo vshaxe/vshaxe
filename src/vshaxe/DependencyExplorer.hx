@@ -14,6 +14,7 @@ class DependencyExplorer {
     var relevantHxmls:Array<String> = [];
     var dependencies:Array<Node> = [];
     var refreshNeeded:Bool = true;
+    var haxePath:String;
 
     var _onDidChangeTreeData = new EventEmitter<Node>();
 
@@ -33,6 +34,9 @@ class DependencyExplorer {
         context.subscriptions.push(hxmlFileWatcher.onDidChange(onDidChangeHxml));
         context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
         context.subscriptions.push(hxmlFileWatcher);
+
+        context.subscriptions.push(workspace.onDidChangeConfiguration(onDidChangeConfiguration));
+        haxePath = getHaxePath();
     }
 
     function onDidChangeHxml(uri:Uri) {
@@ -43,6 +47,18 @@ class DependencyExplorer {
         }
     }
 
+    function onDidChangeConfiguration(_) {
+        if (haxePath != getHaxePath()) {
+            haxePath = getHaxePath();
+            refresh();
+        }
+    }
+
+    function getHaxePath() {
+        var haxePath = workspace.getConfiguration("haxe").get("displayServer").haxePath;
+        return if (haxePath == null) "haxe" else haxePath;
+    }
+
     function refreshDependencies():Array<Node> {
         var newDependencies:Array<Node> = [];
 
@@ -50,7 +66,7 @@ class DependencyExplorer {
         var paths = haxelibs.paths;
         relevantHxmls = haxelibs.hxmls;
 
-        var stdLibPath = DependencyHelper.getStandardLibraryPath();
+        var stdLibPath = DependencyHelper.getStandardLibraryPath(haxePath);
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
             paths.push(stdLibPath);
         }
@@ -71,7 +87,7 @@ class DependencyExplorer {
             }
 
             var info = if (path == stdLibPath) {
-                DependencyHelper.getStandardLibraryInfo(path);
+                DependencyHelper.getStandardLibraryInfo(path, haxePath);
             } else {
                 DependencyHelper.getHaxelibInfo(path);
             }

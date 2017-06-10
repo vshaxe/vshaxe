@@ -89,7 +89,7 @@ class DependencyHelper {
         return {name: name, version: version.replace(",", "."), path: path};
     }
 
-    public static function getStandardLibraryPath():String {
+    public static function getStandardLibraryPath(displayServerHaxePath:String):String {
         // more or less a port of main.ml's get_std_class_paths()
         var path = Sys.getEnv("HAXE_STD_PATH");
         if (path != null) {
@@ -97,7 +97,7 @@ class DependencyHelper {
         }
 
         if (Sys.systemName() == "Windows") {
-            var haxePath = getHaxePath();
+            var haxePath = getHaxePath(displayServerHaxePath);
             if (haxePath == null) {
                 return null;
             }
@@ -118,24 +118,20 @@ class DependencyHelper {
         return null;
     }
 
-    static function getDisplayConfigHaxePath() {
-        return workspace.getConfiguration("haxe").get("displayServer").haxePath;
-    }
-
-    static function getHaxePath():String {
-        var haxePath = getDisplayConfigHaxePath();
+    static function getHaxePath(displayServerHaxePath:String):String {
+        var haxePath = displayServerHaxePath;
         if (haxePath == null || !FileSystem.exists(haxePath)) {
             haxePath = getProcessOutput("where haxe")[0];
         }
         return haxePath;
     }
 
-    public static function getStandardLibraryInfo(path:String) {
+    public static function getStandardLibraryInfo(path:String, displayServerHaxePath:String) {
         var version = "?";
-        var result = ChildProcess.spawnSync(getDisplayConfigHaxePath(), ["-version"]);
+        var result = ChildProcess.spawnSync(displayServerHaxePath, ["-version"]);
         var haxeVersionOutput = (result.stderr : Buffer).toString();
         if (haxeVersionOutput != null) {
-            version = haxeVersionOutput.split(" ")[0];
+            version = haxeVersionOutput.split(" ")[0].trim();
         }
         return {name: "std", path: path, version: version};
     }
