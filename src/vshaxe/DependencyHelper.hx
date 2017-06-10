@@ -36,19 +36,16 @@ class DependencyHelper {
             return result;
         }
 
-        var hxml = File.getContent(hxmlFile);
-
-        // TODO: parse the hxml properly
-        ~/-lib\s+([\w:.]+)/g.map(hxml, function(ereg) {
-            var name = ereg.matched(1);
-            result.paths = result.paths.concat(resolveHaxelib(name));
-            return "";
-        });
-
-        ~/-cp\s+(.*)/g.map(hxml, function(ereg) {
-            result.paths.push(ereg.matched(1));
-            return "";
-        });
+        var hxml = HxmlParser.parseFile(File.getContent(hxmlFile));
+        for (line in hxml) {
+            switch (line) {
+                case Param("-lib", lib):
+                    result.paths = result.paths.concat(resolveHaxelib(lib));
+                case Param("-cp", cp):
+                    result.paths.push(cp);
+                case _:
+            }
+        }
 
         return result;
     }
