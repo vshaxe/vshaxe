@@ -1,4 +1,8 @@
-### 1.?.? (to be released)
+### 1.8.0 (to be released)
+
+**New Features**:
+
+- added a "Haxe Dependencies" view to the explorer
 
 **Bugfixes**:
 

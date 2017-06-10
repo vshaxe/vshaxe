@@ -4,10 +4,12 @@ import vscode.ExtensionContext;
 import vscode.QuickPickItem;
 import vscode.StatusBarItem;
 import Vscode.*;
+using vshaxe.helper.ArrayHelper;
 
 class DisplayConfiguration {
     var context:ExtensionContext;
     var statusBarItem:StatusBarItem;
+    var configuration:Array<String>;
 
     public function new(context:ExtensionContext) {
         this.context = context;
@@ -24,6 +26,7 @@ class DisplayConfiguration {
 
         fixIndex();
         updateStatusBarItem();
+        configuration = getConfiguration();
     }
 
     function fixIndex() {
@@ -69,6 +72,7 @@ class DisplayConfiguration {
     function onDidChangeConfiguration(_) {
         fixIndex();
         updateStatusBarItem();
+        checkConfigurationChange();
     }
 
     function onDidChangeActiveTextEditor(_) {
@@ -98,6 +102,10 @@ class DisplayConfiguration {
         return workspace.getConfiguration("haxe").get("displayConfigurations");
     }
 
+    public inline function getConfiguration():Array<String> {
+        return getConfigurations()[getIndex()];
+    }
+
     public inline function getIndex():Int {
         return context.workspaceState.get("haxe.displayConfigurationIndex", 0);
     }
@@ -106,13 +114,20 @@ class DisplayConfiguration {
         context.workspaceState.update("haxe.displayConfigurationIndex", index);
         updateStatusBarItem();
         onDidChangeIndex(index);
+        checkConfigurationChange();
     }
 
-    public function getConfiguration():Array<String> {
-        return getConfigurations()[getIndex()];
+    function checkConfigurationChange() {
+        var newConfiguration = getConfiguration();
+        if (!newConfiguration.equals(configuration)) {
+            onDidChangeDisplayConfiguration(newConfiguration);
+            configuration = newConfiguration;
+        }
     }
 
     public dynamic function onDidChangeIndex(index:Int):Void {}
+
+    public dynamic function onDidChangeDisplayConfiguration(configuration:Array<String>):Void {}
 }
 
 private typedef DisplayConfigurationPickItem = {

@@ -93,7 +93,7 @@ class DependencyExplorer {
         return new Node(label, info.path);
     }
 
-    public function onDisplayConfigurationChanged(configuration:Array<String>) {
+    public function onDidChangeDisplayConfiguration(configuration:Array<String>) {
         this.configuration = configuration;
         refresh();
     }
