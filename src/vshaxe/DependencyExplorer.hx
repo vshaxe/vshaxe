@@ -105,7 +105,10 @@ class DependencyExplorer {
         if (info == null) {
             return null;
         }
-        var label = '${info.name} (${info.version})';
+        var label = info.name;
+        if (info.version != null) {
+            label += ' (${info.version})';
+        }
         return new Node(label, info.path);
     }
 

@@ -30,7 +30,6 @@ class DependencyHelper {
             return result;
         }
 
-        // TODO: register a file watcher for hxml files / listen to setting.json changes
         var hxmlFile = workspace.rootPath + "/" + configuration[0]; // TODO: this isn't a safe assumption
         result.hxmls.push(hxmlFile);
         if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
@@ -77,7 +76,16 @@ class DependencyHelper {
 
     public static function getHaxelibInfo(path:String) {
         if (path.indexOf(haxelibRepo) == -1) {
-            // TODO: deal with paths outside of haxelib
+            // dependencies outside of the haxelib repo (installed via "haxelib dev" or just classpaths)
+            // - only bother to show these if they're outside of the current workspace
+            var workspaceRootPath = Path.normalize(workspace.rootPath);
+            var absPath = path;
+            if (!Path.isAbsolute(path)) {
+                absPath = Path.normalize(workspaceRootPath + "/" + path);
+            }
+            if (absPath.indexOf(workspaceRootPath) == -1) {
+                return {name: path, version: null, path: absPath};
+            }
             return null;
         }
 
