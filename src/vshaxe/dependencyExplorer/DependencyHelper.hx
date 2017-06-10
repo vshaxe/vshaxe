@@ -30,23 +30,27 @@ class DependencyHelper {
             return result;
         }
 
-        var hxmlFile = workspace.rootPath + "/" + configuration[0]; // TODO: this isn't a safe assumption
-        result.hxmls.push(hxmlFile);
-        if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
-            return result;
-        }
+        function processHxml(hxmlFile) {
+            result.hxmls.push(hxmlFile);
+            if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
+                return;
+            }
 
-        var hxml = HxmlParser.parseFile(File.getContent(hxmlFile));
-        for (line in hxml) {
-            switch (line) {
-                case Param("-lib", lib):
-                    result.paths = result.paths.concat(resolveHaxelib(lib));
-                case Param("-cp", cp):
-                    result.paths.push(cp);
-                case _:
+            var hxml = HxmlParser.parseFile(File.getContent(hxmlFile));
+            for (line in hxml) {
+                switch (line) {
+                    case Param("-lib", lib):
+                        result.paths = result.paths.concat(resolveHaxelib(lib));
+                    case Param("-cp", cp):
+                        result.paths.push(cp);
+                    case _:
+                }
             }
         }
 
+        for (hxml in configuration.filter(s -> s.endsWith(".hxml"))) {
+            processHxml(absolutizePath(hxml));
+        }
         return result;
     }
 
@@ -71,25 +75,29 @@ class DependencyHelper {
         }
     }
 
+    static function absolutizePath(path:String) {
+        return Path.normalize(if (Path.isAbsolute(path)) {
+            path;
+        } else {
+            Path.join([workspace.rootPath, path]);
+        });
+    }
+
     public static function getHaxelibInfo(path:String) {
-        if (path.indexOf(haxelibRepo) == -1) {
+        var absPath = absolutizePath(path);
+        if (absPath.indexOf(haxelibRepo) == -1) {
             // dependencies outside of the haxelib repo (installed via "haxelib dev" or just classpaths)
             // - only bother to show these if they're outside of the current workspace
-            var workspaceRootPath = Path.normalize(workspace.rootPath);
-            var absPath = path;
-            if (!Path.isAbsolute(path)) {
-                absPath = Path.normalize(workspaceRootPath + "/" + path);
-            }
-            if (absPath.indexOf(workspaceRootPath) == -1) {
+            if (absPath.indexOf(Path.normalize(workspace.rootPath)) == -1) {
                 return {name: path, version: null, path: absPath};
             }
             return null;
         }
 
-        path = path.replace(haxelibRepo, "");
+        path = absPath.replace(haxelibRepo + "/", "");
         var segments = path.split("/");
-        var name = segments[1];
-        var version = segments[2];
+        var name = segments[0];
+        var version = segments[1];
         var path = '$haxelibRepo/$name/$version';
         return {name: name, version: version.replace(",", "."), path: path};
     }
