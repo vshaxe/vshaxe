@@ -30,7 +30,8 @@ class DependencyHelper {
             return result;
         }
 
-        function processHxml(hxmlFile) {
+        function processHxml(hxmlFile, cwd) {
+            hxmlFile = absolutizePath(hxmlFile, cwd);
             result.hxmls.push(hxmlFile);
             if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
                 return;
@@ -43,13 +44,21 @@ class DependencyHelper {
                         result.paths = result.paths.concat(resolveHaxelib(lib));
                     case Param("-cp", cp):
                         result.paths.push(cp);
+                    case Param("--cwd", newCwd):
+                        if (Path.isAbsolute(newCwd)) {
+                            cwd = newCwd;
+                        } else {
+                            cwd = Path.join([cwd, newCwd]);
+                        }
+                    case Simple(name) if (name.endsWith(".hxml")):
+                        processHxml(name, cwd);
                     case _:
                 }
             }
         }
 
         for (hxml in configuration.filter(s -> s.endsWith(".hxml"))) {
-            processHxml(absolutizePath(hxml));
+            processHxml(hxml, workspace.rootPath);
         }
         return result;
     }
@@ -75,16 +84,16 @@ class DependencyHelper {
         }
     }
 
-    static function absolutizePath(path:String) {
+    static function absolutizePath(path:String, cwd:String) {
         return Path.normalize(if (Path.isAbsolute(path)) {
             path;
         } else {
-            Path.join([workspace.rootPath, path]);
+            Path.join([cwd, path]);
         });
     }
 
     public static function getHaxelibInfo(path:String) {
-        var absPath = absolutizePath(path);
+        var absPath = absolutizePath(path, workspace.rootPath);
         if (absPath.indexOf(haxelibRepo) == -1) {
             // dependencies outside of the haxelib repo (installed via "haxelib dev" or just classpaths)
             // - only bother to show these if they're outside of the current workspace
