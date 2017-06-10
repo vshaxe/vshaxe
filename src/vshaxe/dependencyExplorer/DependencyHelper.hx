@@ -1,4 +1,4 @@
-package vshaxe;
+package vshaxe.dependencyExplorer;
 
 import Vscode.*;
 import haxe.io.Path;

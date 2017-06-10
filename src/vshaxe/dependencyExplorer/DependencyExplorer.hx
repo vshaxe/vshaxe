@@ -1,11 +1,10 @@
-package vshaxe;
+package vshaxe.dependencyExplorer;
 
 import haxe.io.Path;
 import sys.FileSystem;
 import Vscode.*;
 import vscode.*;
 import js.Promise;
-import vshaxe.DependencyHelper;
 using Lambda;
 
 class DependencyExplorer {

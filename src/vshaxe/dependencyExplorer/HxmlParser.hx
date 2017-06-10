@@ -1,4 +1,4 @@
-package vshaxe;
+package vshaxe.dependencyExplorer;
 
 using StringTools;
 
