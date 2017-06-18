@@ -197,7 +197,7 @@
                 "category": "Haxe"
             },
             {
-                "title": " Refresh Dependencies",
+                "title": "Refresh Dependencies",
                 "command": "haxe.dependencies.refresh",
                 "category": "Haxe",
                 "icon": {
@@ -323,12 +323,12 @@
                 {
                     "command": "haxe.dependencies.refresh",
                     "when": "view == haxe.dependencies",
-                    "group": "navigation"
+                    "group": "navigation@1"
                 },
                 {
                     "command": "haxe.dependencies.collapseAll",
                     "when": "view == haxe.dependencies",
-                    "group": "navigation"
+                    "group": "navigation@2"
                 }
             ]
         }
