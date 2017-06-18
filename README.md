@@ -15,6 +15,7 @@ This is just a brief overview of the supported features. [**For more details, ch
 
 - [Syntax Highlighting](https://github.com/vshaxe/haxe-TmLanguage)
 - [Commands](https://github.com/vshaxe/vshaxe/wiki/Commands) (<kbd>F1</kbd> -> search "Haxe")
+- [Dependency Explorer](https://github.com/vshaxe/vshaxe/wiki/Dependency-Explorer)
 - [Completion](https://github.com/vshaxe/vshaxe/wiki/Completion)
 - [Completion Cache](https://github.com/vshaxe/vshaxe/wiki/Completion-Cache)
 - [Signature Help](https://github.com/vshaxe/vshaxe/wiki/Signature-Help)
