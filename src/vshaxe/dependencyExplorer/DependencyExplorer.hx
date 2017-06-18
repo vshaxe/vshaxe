@@ -28,10 +28,10 @@ class DependencyExplorer {
         this.configuration = configuration;
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
-        window.registerTreeDataProvider("haxeDependencies", this);
-        commands.registerCommand("haxeDependencies.selectNode", selectNode);
-        commands.registerCommand("haxeDependencies.collapseAll", collapseAll);
-        commands.registerCommand("haxeDependencies.refresh", refresh);
+        window.registerTreeDataProvider("haxe.dependencies", this);
+        commands.registerCommand("haxe.dependencies.selectNode", selectNode);
+        commands.registerCommand("haxe.dependencies.collapseAll", collapseAll);
+        commands.registerCommand("haxe.dependencies.refresh", refresh);
 
         var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
         context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
@@ -197,7 +197,7 @@ private class Node extends TreeItem {
         }
 
         command = {
-            command: "haxeDependencies.selectNode",
+            command: "haxe.dependencies.selectNode",
             arguments: [this],
             title: "Open File"
         };

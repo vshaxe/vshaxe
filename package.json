@@ -45,9 +45,9 @@
         "onCommand:haxe.selectDisplayConfiguration",
         "onCommand:haxe.runGlobalDiagnostics",
         "onCommand:haxe.toggleCodeLens",
-        "onCommand:haxeDependencies.refresh",
-        "onCommand:haxeDependencies.collapseAll",
-        "onView:haxeDependencies"
+        "onCommand:haxe.dependencies.refresh",
+        "onCommand:haxe.dependencies.collapseAll",
+        "onView:haxe.dependencies"
     ],
     "contributes": {
         "configuration": {
@@ -198,7 +198,7 @@
             },
             {
                 "title": " Refresh Dependencies",
-                "command": "haxeDependencies.refresh",
+                "command": "haxe.dependencies.refresh",
                 "category": "Haxe",
                 "icon": {
                     "light": "resources/light/refresh.svg",
@@ -207,7 +207,7 @@
             },
             {
                 "title": "Collapse All Dependencies",
-                "command": "haxeDependencies.collapseAll",
+                "command": "haxe.dependencies.collapseAll",
                 "category": "Haxe",
                 "icon": {
                     "light": "resources/light/collapseAll.svg",
@@ -313,7 +313,7 @@
         "views": {
             "explorer": [
                 {
-                    "id": "haxeDependencies",
+                    "id": "haxe.dependencies",
                     "name": "Haxe Dependencies"
                 }
             ]
@@ -321,13 +321,13 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "haxeDependencies.refresh",
-                    "when": "view == haxeDependencies",
+                    "command": "haxe.dependencies.refresh",
+                    "when": "view == haxe.dependencies",
                     "group": "navigation"
                 },
                 {
-                    "command": "haxeDependencies.collapseAll",
-                    "when": "view == haxeDependencies",
+                    "command": "haxe.dependencies.collapseAll",
+                    "when": "view == haxe.dependencies",
                     "group": "navigation"
                 }
             ]
