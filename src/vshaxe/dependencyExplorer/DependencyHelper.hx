@@ -1,5 +1,6 @@
 package vshaxe.dependencyExplorer;
 
+import haxe.Json;
 import Vscode.*;
 import haxe.io.Path;
 import js.node.Buffer;
@@ -20,7 +21,7 @@ class DependencyHelper {
         return _haxelibRepo;
     }
 
-    public static function resolveHaxelibs(configuration:Array<String>) {
+    public static function resolveDependencies(configuration:Array<String>) {
         var result = {
             paths: [],
             hxmls: []
@@ -63,7 +64,7 @@ class DependencyHelper {
         return result;
     }
 
-    public static function resolveHaxelib(lib:String):Array<String> {
+    static function resolveHaxelib(lib:String):Array<String> {
         var paths = [];
         for (line in getProcessOutput('haxelib path $lib')) {
             var potentialPath = Path.normalize(line);
@@ -98,17 +99,40 @@ class DependencyHelper {
             // dependencies outside of the haxelib repo (installed via "haxelib dev" or just classpaths)
             // - only bother to show these if they're outside of the current workspace
             if (absPath.indexOf(Path.normalize(workspace.rootPath)) == -1) {
-                return {name: path, version: null, path: absPath};
+                // could be a "haxelib dev" haxelib
+                var haxelibInfo = searchHaxelibJson(absPath);
+                if (haxelibInfo == null) {
+                    return {name: path, version: null, path: absPath};
+                }
+                return haxelibInfo;
             }
             return null;
         }
 
+        // regular haxelibs inside the haxelib repo location
         path = absPath.replace(haxelibRepo + "/", "");
         var segments = path.split("/");
         var name = segments[0];
         var version = segments[1];
         var path = '$haxelibRepo/$name/$version';
         return {name: name, version: version.replace(",", "."), path: path};
+    }
+
+    static function searchHaxelibJson(path:String, levels:Int = 3) {
+        if (levels <= 0) {
+            return null;
+        }
+
+        var haxelibFile = Path.join([path, "haxelib.json"]);
+        if (FileSystem.exists(haxelibFile)) {
+            var content:{?name:String} = Json.parse(File.getContent(haxelibFile));
+            if (content.name == null) {
+                return null;
+            }
+            path = Path.normalize(path);
+            return {name: content.name, version: path, path: path};
+        }
+        return searchHaxelibJson(Path.join([path, ".."]), levels - 1);
     }
 
     public static function getStandardLibraryPath(displayServerHaxePath:String):String {
@@ -126,8 +150,7 @@ class DependencyHelper {
             return Path.join([Path.directory(haxePath), "std"]);
         } else {
             for (path in [
-                    "/usr/local/lib/haxe/extraLibs/",
-                    "/usr/lib/haxe/extraLibs/",
+                    "/usr/local/share/haxe/std/",
                     "/usr/local/lib/haxe/std/",
                     "/usr/share/haxe/std/",
                     "/usr/lib/haxe/std/"]

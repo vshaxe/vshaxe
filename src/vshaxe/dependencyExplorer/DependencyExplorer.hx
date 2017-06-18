@@ -61,7 +61,7 @@ class DependencyExplorer {
     function refreshDependencies():Array<Node> {
         var newDependencies:Array<Node> = [];
 
-        var haxelibs = DependencyHelper.resolveHaxelibs(configuration);
+        var haxelibs = DependencyHelper.resolveDependencies(configuration);
         var paths = haxelibs.paths;
         relevantHxmls = haxelibs.hxmls;
 
