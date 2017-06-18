@@ -5,13 +5,17 @@ import sys.FileSystem;
 import Vscode.*;
 import vscode.*;
 import js.Promise;
+import vshaxe.dependencyExplorer.DependencyResolver;
+import vshaxe.dependencyExplorer.HxmlParser;
 using Lambda;
+using vshaxe.helper.ArrayHelper;
 
 class DependencyExplorer {
     var context:ExtensionContext;
     var configuration:Array<String>;
     var relevantHxmls:Array<String> = [];
-    var dependencies:Array<Node> = [];
+    var dependencyNodes:Array<Node> = [];
+    var dependencies:DependencyList;
     var refreshNeeded:Bool = true;
     var haxePath:String;
 
@@ -50,6 +54,7 @@ class DependencyExplorer {
         if (haxePath != getHaxePath()) {
             haxePath = getHaxePath();
             refresh();
+            dependencies = null; // this is a bit hacky..
         }
     }
 
@@ -59,45 +64,43 @@ class DependencyExplorer {
     }
 
     function refreshDependencies():Array<Node> {
-        var newDependencies:Array<Node> = [];
+        var newDependencies = HxmlParser.extractDependencies(configuration, workspace.rootPath);
+        relevantHxmls = newDependencies.hxmls;
 
-        var haxelibs = DependencyHelper.resolveDependencies(configuration);
-        var paths = haxelibs.paths;
-        relevantHxmls = haxelibs.hxmls;
-
-        var stdLibPath = DependencyHelper.getStandardLibraryPath(haxePath);
-        if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
-            paths.push(stdLibPath);
+        // avoid FS access / creating processes unless there were _actually_ changes
+        if (dependencies != null && dependencies.libs.equals(newDependencies.libs) && dependencies.classPaths.equals(newDependencies.classPaths)) {
+            return dependencyNodes;
         }
+        dependencies = newDependencies;
 
-        for (path in paths) {
+        return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxePath));
+    }
+
+    function updateNodes(dependencyInfos:Array<DependencyInfo>):Array<Node> {
+        var newNodes:Array<Node> = [];
+
+        for (info in dependencyInfos) {
             // don't add duplicates
-            if (newDependencies.find(d -> d.path == path) != null) {
+            if (newNodes.find(d -> d.path == info.path) != null) {
                 continue;
             }
 
             // reuse existing nodes if possible to preserve their collapsibleState
             if (dependencies != null) {
-                var oldDependency = dependencies.find(d -> d.path == path);
-                if (oldDependency != null) {
-                    newDependencies.push(oldDependency);
+                var oldNode = dependencyNodes.find(d -> d.path == info.path);
+                if (oldNode != null) {
+                    newNodes.push(oldNode);
                     continue;
                 }
             }
 
-            var info = if (path == stdLibPath) {
-                DependencyHelper.getStandardLibraryInfo(path, haxePath);
-            } else {
-                DependencyHelper.getHaxelibInfo(path);
-            }
-
             var node = createNode(info);
             if (node != null) {
-                newDependencies.push(node);
+                newNodes.push(node);
             }
         }
 
-        return newDependencies;
+        return newNodes;
     }
 
     function createNode(info):Node {
@@ -128,12 +131,12 @@ class DependencyExplorer {
     public function getChildren(?node:Node):Thenable<Array<Node>> {
         return new Promise(function(resolve, _) {
             if (refreshNeeded) {
-                dependencies = refreshDependencies();
+                dependencyNodes = refreshDependencies();
                 refreshNeeded = false;
             }
 
             if (node == null) {
-                resolve(dependencies);
+                resolve(dependencyNodes);
             } else {
                 resolve(getNodeChildren(node));
             }
@@ -169,7 +172,7 @@ class DependencyExplorer {
     }
 
     function collapseAll(node:Node) {
-        for (node in dependencies) {
+        for (node in dependencyNodes) {
             if (node.collapsibleState != None) {
                 node.collapsibleState = Collapsed;
             }

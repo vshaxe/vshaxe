@@ -1,11 +1,21 @@
 package vshaxe.dependencyExplorer;
 
+import sys.FileSystem;
+import sys.io.File;
+import haxe.io.Path;
+import vshaxe.helper.PathHelper;
 using StringTools;
 
 enum HxmlLine {
     Comment(comment:String);
     Simple(name:String);
     Param(name:String, value:String);
+}
+
+typedef DependencyList = {
+    libs:Array<String>,
+    classPaths:Array<String>,
+    hxmls:Array<String>
 }
 
 class HxmlParser {
@@ -38,6 +48,50 @@ class HxmlParser {
             } else {
                 result.push(Simple(line));
             }
+        }
+        return result;
+    }
+
+    public static function extractDependencies(configuration:Array<String>, cwd:String):DependencyList {
+        var result = {
+            libs: [],
+            classPaths: [],
+            hxmls: []
+        }
+
+        if (configuration == null) {
+            return result;
+        }
+
+        function processHxml(hxmlFile, cwd) {
+            hxmlFile = PathHelper.absolutize(hxmlFile, cwd);
+            result.hxmls.push(hxmlFile);
+            if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
+                return;
+            }
+
+            var hxml = HxmlParser.parseFile(File.getContent(hxmlFile));
+            for (line in hxml) {
+                switch (line) {
+                    case Param("-lib", lib):
+                        result.libs.push(lib);
+                    case Param("-cp", cp):
+                        result.classPaths.push(cp);
+                    case Param("--cwd", newCwd):
+                        if (Path.isAbsolute(newCwd)) {
+                            cwd = newCwd;
+                        } else {
+                            cwd = Path.join([cwd, newCwd]);
+                        }
+                    case Simple(name) if (name.endsWith(".hxml")):
+                        processHxml(name, cwd);
+                    case _:
+                }
+            }
+        }
+
+        for (hxml in configuration.filter(s -> s.endsWith(".hxml"))) {
+            processHxml(hxml, cwd);
         }
         return result;
     }
