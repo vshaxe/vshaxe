@@ -195,7 +195,7 @@
                 "category": "Haxe"
             },
             {
-                "title": "Collapse All Haxelibs",
+                "title": "Collapse All Dependencies",
                 "command": "haxeDependencies.collapseAll",
                 "category": "Haxe",
                 "icon": {
