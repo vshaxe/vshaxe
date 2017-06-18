@@ -10,10 +10,6 @@ Without further changes the structure is following:
  * `build.hxml`: Haxe command line file used to build the project
  * `README.md`: This file
 
-Build output:
-
- * `main.js`: JavaScript file, generated when building the project
-
 Some notes on `.vscode/settings.json`:
 
   - This file contains the configurations for completion.
