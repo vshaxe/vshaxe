@@ -10,7 +10,9 @@
 
 **Changes and improvements**:
 
+- changed the required VSCode version to 1.13.0
 - allow filtering by path in the display configuration picker
+- init project command: replace `-js` with `--interp` ([#124](https://github.com/vshaxe/vshaxe/issues/124))
 
 ### 1.7.0 (May 24, 2017)
 
