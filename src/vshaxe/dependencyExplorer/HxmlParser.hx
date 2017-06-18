@@ -52,6 +52,31 @@ class HxmlParser {
         return result;
     }
 
+    public static function parseArray(args:Array<String>):Array<HxmlLine> {
+        var result = [];
+        var flag = null;
+        for (arg in args) {
+            if (arg.startsWith("-")) {
+                if (flag != null) {
+                    result.push(Simple(flag));
+                    flag = null;
+                }
+                flag = arg; // can't know what to do until we encounter the next arg
+            } else if (flag != null) {
+                result.push(Param(flag, arg));
+                flag = null;
+            } else {
+                result.push(Simple(arg));
+            }
+        }
+
+        if (flag != null) {
+            result.push(Simple(flag));
+        }
+
+        return result;
+    }
+
     public static function extractDependencies(configuration:Array<String>, cwd:String):DependencyList {
         var result = {
             libs: [],
@@ -67,11 +92,14 @@ class HxmlParser {
             hxmlFile = PathHelper.absolutize(hxmlFile, cwd);
             result.hxmls.push(hxmlFile);
             if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
-                return;
+                return [];
             }
 
-            var hxml = HxmlParser.parseFile(File.getContent(hxmlFile));
-            for (line in hxml) {
+            return parseFile(File.getContent(hxmlFile));
+        }
+
+        function processLines(lines:Array<HxmlLine>) {
+            for (line in lines) {
                 switch (line) {
                     case Param("-lib", lib):
                         result.libs.push(lib);
@@ -84,15 +112,13 @@ class HxmlParser {
                             cwd = Path.join([cwd, newCwd]);
                         }
                     case Simple(name) if (name.endsWith(".hxml")):
-                        processHxml(name, cwd);
+                        processLines(processHxml(name, cwd));
                     case _:
                 }
             }
         }
 
-        for (hxml in configuration.filter(s -> s.endsWith(".hxml"))) {
-            processHxml(hxml, cwd);
-        }
+        processLines(parseArray(configuration));
         return result;
     }
 }
