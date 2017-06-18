@@ -31,6 +31,7 @@ class DependencyExplorer {
         window.registerTreeDataProvider("haxeDependencies", this);
         commands.registerCommand("haxeDependencies.selectNode", selectNode);
         commands.registerCommand("haxeDependencies.collapseAll", collapseAll);
+        commands.registerCommand("haxeDependencies.refresh", refresh);
 
         var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
         context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
@@ -45,7 +46,7 @@ class DependencyExplorer {
     function onDidChangeHxml(uri:Uri) {
         for (hxml in relevantHxmls) {
             if (Path.normalize(uri.fsPath) == Path.normalize(hxml)) {
-                refresh();
+                refresh(false);
             }
         }
     }
@@ -54,7 +55,6 @@ class DependencyExplorer {
         if (haxePath != getHaxePath()) {
             haxePath = getHaxePath();
             refresh();
-            dependencies = null; // this is a bit hacky..
         }
     }
 
@@ -119,7 +119,10 @@ class DependencyExplorer {
         refresh();
     }
 
-    function refresh() {
+    function refresh(hard:Bool = true) {
+        if (hard) {
+            dependencies = null;
+        }
         refreshNeeded = true;
         _onDidChangeTreeData.fire();
     }

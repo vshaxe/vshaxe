@@ -45,6 +45,8 @@
         "onCommand:haxe.selectDisplayConfiguration",
         "onCommand:haxe.runGlobalDiagnostics",
         "onCommand:haxe.toggleCodeLens",
+        "onCommand:haxeDependencies.refresh",
+        "onCommand:haxeDependencies.collapseAll",
         "onView:haxeDependencies"
     ],
     "contributes": {
@@ -195,6 +197,15 @@
                 "category": "Haxe"
             },
             {
+                "title": " Refresh Dependencies",
+                "command": "haxeDependencies.refresh",
+                "category": "Haxe",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
+            },
+            {
                 "title": "Collapse All Dependencies",
                 "command": "haxeDependencies.collapseAll",
                 "category": "Haxe",
@@ -309,6 +320,11 @@
         },
         "menus": {
             "view/title": [
+                {
+                    "command": "haxeDependencies.refresh",
+                    "when": "view == haxeDependencies",
+                    "group": "navigation"
+                },
                 {
                     "command": "haxeDependencies.collapseAll",
                     "when": "view == haxeDependencies",
