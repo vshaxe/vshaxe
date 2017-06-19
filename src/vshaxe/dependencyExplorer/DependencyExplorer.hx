@@ -156,8 +156,31 @@ class DependencyExplorer {
             if (!isExcluded(file)) {
                 children.push(new Node(file, '${node.path}/$file'));
             }
-        };
+        }
+        sortChildren(children);
         return children;
+    }
+
+    function sortChildren(children:Array<Node>) {
+        haxe.ds.ArraySort.sort(children, (c1, c2) -> {
+            function compare(a:String, b:String) {
+                a = a.toLowerCase();
+                b = b.toLowerCase();
+                if (a < b) return -1;
+                if (a > b) return 1;
+                return 0;
+            }
+
+            if (c1.isDirectory && c2.isDirectory) {
+                return compare(c1.label, c2.label);
+            } else if (c1.isDirectory) {
+                return -1;
+            } else if (c2.isDirectory) {
+                return 1;
+            } else {
+                return compare(c1.label, c2.label);
+            }
+        });
     }
 
     function isExcluded(file:String):Bool {
