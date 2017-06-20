@@ -3,6 +3,7 @@
 **New Features**:
 
 - added a "Haxe Dependencies" view to the explorer
+- added support for renaming local variables and parameters ([haxe-languageserver#32](https://github.com/vshaxe/haxe-languageserver/issues/32))
 
 **Bugfixes**:
 
