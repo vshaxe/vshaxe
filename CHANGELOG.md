@@ -8,6 +8,7 @@
 **Bugfixes**:
 
 - fixed a minor string interpolation highlighting issue ([haxe-tmLanguage#27](https://github.com/vshaxe/haxe-tmLanguage/issues/27))
+- fixed catch variables not being listed in document symbols
 
 **Changes and improvements**:
 
