@@ -13,8 +13,9 @@
 **Changes and improvements**:
 
 - changed the required VSCode version to 1.13.0
-- allow filtering by path in the display configuration picker
-- init project command: replace `-js` with `--interp` ([#124](https://github.com/vshaxe/vshaxe/issues/124))
+- allowed filtering by path in the display configuration picker
+- init project command: replaced `-js` with `--interp` ([#124](https://github.com/vshaxe/vshaxe/issues/124))
+- adjusted column index handling to support changes in Haxe 4 ([#134](https://github.com/vshaxe/vshaxe/issues/134))
 
 ### 1.7.0 (May 24, 2017)
 
@@ -47,7 +48,6 @@
 **Bugfixes**:
 
 - fixed toplevel completion hanging in some cases ([haxe-languageserver#23](https://github.com/vshaxe/haxe-languageserver/pull/23#issuecomment-295468634))
-
 
 ### 1.5.0 (April 7, 2017)
 
