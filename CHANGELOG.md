@@ -1,4 +1,4 @@
-### 1.8.0 (to be released)
+### 1.8.0 (June 27, 2017)
 
 **New Features**:
 
