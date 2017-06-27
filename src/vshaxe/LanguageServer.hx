@@ -32,10 +32,12 @@ class LanguageServer {
             run: {module: serverModule, options: {env: js.Node.process.env}},
             debug: {module: serverModule, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--debug=6004"]}}
         };
+        hxFileWatcher = workspace.createFileSystemWatcher("**/*.hx", false, true, false);
         var clientOptions = {
             documentSelector: "haxe",
             synchronize: {
-                configurationSection: "haxe"
+                configurationSection: "haxe",
+                fileEvents: hxFileWatcher
             },
             initializationOptions: {
                 displayConfigurationIndex: displayConfig.getIndex()
@@ -54,7 +56,6 @@ class LanguageServer {
                 dependencyExplorer.onDidChangeDisplayConfiguration(configuration);
             }
 
-            hxFileWatcher = workspace.createFileSystemWatcher("**/*.hx", false, true, true);
             context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {
                 var editor = window.activeTextEditor;
                 if (editor == null || editor.document.uri.fsPath != uri.fsPath)

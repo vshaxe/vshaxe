@@ -9,6 +9,7 @@
 
 - fixed a minor string interpolation highlighting issue ([haxe-tmLanguage#27](https://github.com/vshaxe/haxe-tmLanguage/issues/27))
 - fixed catch variables not being listed in document symbols
+- fixed diagnostics of deleted / renamed files not being removed ([#132](https://github.com/vshaxe/vshaxe/issues/132))
 
 **Changes and improvements**:
 
