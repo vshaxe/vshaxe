@@ -22,6 +22,7 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Hover Hints](https://github.com/vshaxe/vshaxe/wiki/Hover-Hints)
 - [Go to Definition](https://github.com/vshaxe/vshaxe/wiki/Go-to-Definition) (<kbd>F12</kbd>)
 - [Peek Definition](https://github.com/vshaxe/vshaxe/wiki/Peek-Definition) (<kbd>Alt</kbd>+<kbd>F12</kbd>)
+- [Rename Symbol](https://github.com/vshaxe/vshaxe/wiki/Rename-Symbol) (<kbd>F2</kbd>)
 - [Find All References](https://github.com/vshaxe/vshaxe/wiki/Find-All-References) (<kbd>Shift</kbd>+<kbd>F12</kbd>)
 - [Document Symbols](https://github.com/vshaxe/vshaxe/wiki/Document-Symbols) (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd>)
 - [Workspace Symbols](https://github.com/vshaxe/vshaxe/wiki/Workspace-Symbols) (<kbd>Ctrl</kbd>+<kbd>T</kbd>)
