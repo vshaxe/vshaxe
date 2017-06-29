@@ -1,3 +1,9 @@
+### 1.8.1 (to be released)
+
+**Bugfixes**:
+
+- fixed the dependency explorer for `haxelib dev` libs in the haxelib repo ([#141](https://github.com/vshaxe/vshaxe/issues/141))
+
 ### 1.8.0 (June 28, 2017)
 
 **New Features**:

@@ -89,8 +89,19 @@ class DependencyResolver {
         var segments = path.split("/");
         var name = segments[0];
         var version = segments[1];
-        var path = '$haxelibRepo/$name/$version';
-        return {name: name, version: version.replace(",", "."), path: path};
+
+        path = '$haxelibRepo/$name';
+        if (version != null) {
+            path += '/$version';
+            version = version.replace(",", ".");
+        } else {
+            version = path;
+        }
+
+        if (!FileSystem.exists(path)) {
+            return null;
+        }
+        return {name: name, version: version, path: path};
     }
 
     static function searchHaxelibJson(path:String, levels:Int = 3) {
