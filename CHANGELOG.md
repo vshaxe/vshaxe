@@ -3,6 +3,7 @@
 **Bugfixes**:
 
 - fixed the dependency explorer for `haxelib dev` libs in the haxelib repo ([#141](https://github.com/vshaxe/vshaxe/issues/141))
+- fixed a minor anon function highlighting issue ([haxe-tmLanguage#31](https://github.com/vshaxe/haxe-tmLanguage/issues/31))
 
 ### 1.8.0 (June 28, 2017)
 
