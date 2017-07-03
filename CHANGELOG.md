@@ -7,6 +7,10 @@
 - fixed renaming `expr` in `case macro $expr:` ([#142](https://github.com/vshaxe/vshaxe/issues/142))
 - fixed a regression with duplicated Haxe output channels ([#87](https://github.com/vshaxe/vshaxe/issues/87))
 
+**Changes and improvements**:
+
+- support function type argument names (new in Haxe 4) for the "generate anonymous function" feature
+
 ### 1.8.0 (June 28, 2017)
 
 **New Features**:
