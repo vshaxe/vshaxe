@@ -113,7 +113,6 @@ class DisplayConfiguration {
     function setIndex(index:Int) {
         context.workspaceState.update("haxe.displayConfigurationIndex", index);
         updateStatusBarItem();
-        onDidChangeIndex(index);
         checkConfigurationChange();
     }
 
@@ -124,8 +123,6 @@ class DisplayConfiguration {
             configuration = newConfiguration;
         }
     }
-
-    public dynamic function onDidChangeIndex(index:Int):Void {}
 
     public dynamic function onDidChangeDisplayConfiguration(configuration:Array<String>):Void {}
 }

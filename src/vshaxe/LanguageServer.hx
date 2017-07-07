@@ -40,7 +40,7 @@ class LanguageServer {
                 fileEvents: hxFileWatcher
             },
             initializationOptions: {
-                displayConfigurationIndex: displayConfig.getIndex()
+                displayArguments: displayConfig.getConfiguration()
             }
         };
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
@@ -49,11 +49,9 @@ class LanguageServer {
         };
         client.onReady().then(function(_) {
             client.outputChannel.appendLine("Haxe language server started");
-            displayConfig.onDidChangeIndex = function(index) {
-                client.sendNotification({method: "vshaxe/didChangeDisplayConfigurationIndex"}, {index: index});
-            }
-            displayConfig.onDidChangeDisplayConfiguration = function(configuration) {
-                dependencyExplorer.onDidChangeDisplayConfiguration(configuration);
+            displayConfig.onDidChangeDisplayConfiguration = function(arguments) {
+                client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments});
+                dependencyExplorer.onDidChangeDisplayConfiguration(arguments);
             }
 
             context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {
