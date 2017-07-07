@@ -8,6 +8,10 @@
 - fixed a regression with duplicated Haxe output channels ([#87](https://github.com/vshaxe/vshaxe/issues/87))
 - fixed line break handling in completion docs ([#150](https://github.com/vshaxe/vshaxe/issues/150))
 
+**Changes and improvements**:
+
+- added support for `@event` JavaDoc tags in highlighting and completion
+
 ### 1.8.0 (June 28, 2017)
 
 **New Features**:
