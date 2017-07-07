@@ -51,7 +51,7 @@ class LanguageServer {
             client.outputChannel.appendLine("Haxe language server started");
             displayConfig.onDidChangeDisplayConfiguration = function(arguments) {
                 client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments});
-                dependencyExplorer.onDidChangeDisplayConfiguration(arguments);
+                dependencyExplorer.onDidChangeDisplayArguments(arguments);
             }
 
             context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {

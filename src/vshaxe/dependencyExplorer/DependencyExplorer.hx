@@ -12,7 +12,7 @@ using vshaxe.helper.ArrayHelper;
 
 class DependencyExplorer {
     var context:ExtensionContext;
-    var configuration:Array<String>;
+    var displayArguments:Array<String>;
     var relevantHxmls:Array<String> = [];
     var dependencyNodes:Array<Node> = [];
     var dependencies:DependencyList;
@@ -23,9 +23,9 @@ class DependencyExplorer {
 
     public var onDidChangeTreeData:Event<Node>;
 
-    public function new(context:ExtensionContext, configuration:Array<String>) {
+    public function new(context:ExtensionContext, displayArguments:Array<String>) {
         this.context = context;
-        this.configuration = configuration;
+        this.displayArguments = displayArguments;
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxe.dependencies", this);
@@ -64,7 +64,7 @@ class DependencyExplorer {
     }
 
     function refreshDependencies():Array<Node> {
-        var newDependencies = HxmlParser.extractDependencies(configuration, workspace.rootPath);
+        var newDependencies = HxmlParser.extractDependencies(displayArguments, workspace.rootPath);
         relevantHxmls = newDependencies.hxmls;
 
         // avoid FS access / creating processes unless there were _actually_ changes
@@ -114,8 +114,8 @@ class DependencyExplorer {
         return new Node(label, info.path);
     }
 
-    public function onDidChangeDisplayConfiguration(configuration:Array<String>) {
-        this.configuration = configuration;
+    public function onDidChangeDisplayArguments(displayArguments:Array<String>) {
+        this.displayArguments = displayArguments;
         refresh();
     }
 

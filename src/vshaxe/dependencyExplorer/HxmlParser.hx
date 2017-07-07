@@ -77,14 +77,14 @@ class HxmlParser {
         return result;
     }
 
-    public static function extractDependencies(configuration:Array<String>, cwd:String):DependencyList {
+    public static function extractDependencies(args:Array<String>, cwd:String):DependencyList {
         var result = {
             libs: [],
             classPaths: [],
             hxmls: []
         }
 
-        if (configuration == null) {
+        if (args == null) {
             return result;
         }
 
@@ -118,7 +118,7 @@ class HxmlParser {
             }
         }
 
-        processLines(parseArray(configuration));
+        processLines(parseArray(args));
         return result;
     }
 }
