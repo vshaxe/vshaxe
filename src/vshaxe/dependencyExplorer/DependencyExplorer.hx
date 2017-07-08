@@ -122,6 +122,9 @@ class DependencyExplorer {
     function refresh(hard:Bool = true) {
         if (hard) {
             dependencies = null;
+            for (node in dependencyNodes) {
+                node.refresh();
+            }
         }
         refreshNeeded = true;
         _onDidChangeTreeData.fire();

@@ -2,6 +2,7 @@ package vshaxe.dependencyExplorer;
 
 import sys.FileSystem;
 import vscode.*;
+using Lambda;
 
 class Node extends TreeItem {
     public var path(default,null):String;
@@ -29,6 +30,29 @@ class Node extends TreeItem {
         }
     }
 
+    public function refresh() {
+        if (!isDirectory || children == null) {
+            return;
+        }
+
+        var newChildren = [];
+        forEachChild((file, path) -> {
+            var existingNode = null;
+            if (children != null) {
+                existingNode = children.find(node -> node.label == file);
+            }
+
+            if (existingNode != null) {
+                existingNode.refresh();
+                newChildren.push(existingNode);
+            } else {
+                newChildren.push(new Node(file, path));
+            }
+        });
+        sortChildren(newChildren);
+        children = newChildren;
+    }
+
     public function toggleState() {
         collapsibleState = if (collapsibleState == Collapsed) Expanded else Collapsed;
     }
@@ -46,13 +70,17 @@ class Node extends TreeItem {
         }
 
         var children = [];
-        for (file in FileSystem.readDirectory(path)) {
-            if (!isExcluded(file)) {
-                children.push(new Node(file, '${path}/$file'));
-            }
-        }
+        forEachChild((file, path) -> children.push(new Node(file, path)));
         sortChildren(children);
         return children;
+    }
+
+    function forEachChild(f:String->String->Void) {
+        for (file in FileSystem.readDirectory(path)) {
+            if (!isExcluded(file)) {
+                f(file, '$path/$file');
+            }
+        }
     }
 
     function sortChildren(children:Array<Node>) {
