@@ -12,7 +12,8 @@
 **Changes and improvements**:
 
 - added support for `@event` JavaDoc tags in highlighting and completion
-- limited Haxe server restarts to changes of relevant settings ([#153](https://github.com/vshaxe/vshaxe/issues/153))
+- reduced Haxe server restarts to changes of relevant settings ([#153](https://github.com/vshaxe/vshaxe/issues/153))
+- changed dependency explorer selection to open files permanently on double-click
 
 ### 1.8.0 (June 28, 2017)
 
