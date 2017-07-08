@@ -143,16 +143,18 @@ class DependencyExplorer {
     }
 
     function selectNode(node:Node) {
-        var currentTime = Date.now().getTime();
-        var doubleClickTime = 500;
-        var preview = previousSelection == null || previousSelection.node != node || (currentTime - previousSelection.time) >= doubleClickTime;
-
         if (node.isDirectory) {
             node.toggleState();
         } else {
-            workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: preview}));
+            openTextDocument(node);
         }
+    }
 
+    function openTextDocument(node:Node) {
+        var currentTime = Date.now().getTime();
+        var doubleClickTime = 500;
+        var preview = previousSelection == null || previousSelection.node != node || (currentTime - previousSelection.time) >= doubleClickTime;
+        workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: preview}));
         previousSelection = {node: node, time: currentTime};
     }
 
