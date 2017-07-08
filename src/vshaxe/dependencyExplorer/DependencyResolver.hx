@@ -159,11 +159,17 @@ class DependencyResolver {
 
     static function getStandardLibraryInfo(path:String, displayServerHaxePath:String) {
         var version = "?";
-        var result = ChildProcess.spawnSync(displayServerHaxePath, ["-version"]);
-        var haxeVersionOutput = (result.stderr : Buffer).toString();
-        if (haxeVersionOutput != null) {
-            version = haxeVersionOutput.split(" ")[0].trim();
+        var result = null;
+        PathHelper.runInDirectory(workspace.rootPath, () ->
+            result = ChildProcess.spawnSync(displayServerHaxePath, ["-version"]));
+
+        if (result != null && result.stderr != null) {
+            var haxeVersionOutput = (result.stderr : Buffer).toString();
+            if (haxeVersionOutput != null) {
+                version = haxeVersionOutput.split(" ")[0].trim();
+            }
         }
+
         return {name: "std", path: path, version: version};
     }
 }

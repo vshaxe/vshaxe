@@ -10,4 +10,11 @@ class PathHelper {
             Path.join([cwd, path]);
         });
     }
+
+    public static function runInDirectory(directory:String, f:Void->Void) {
+        var oldCwd = Sys.getCwd();
+        Sys.setCwd(directory);
+        f();
+        Sys.setCwd(oldCwd);
+    }
 }

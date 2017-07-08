@@ -3,6 +3,7 @@
 **Bugfixes**:
 
 - fixed the dependency explorer for `haxelib dev` libs in the haxelib repo ([#141](https://github.com/vshaxe/vshaxe/issues/141))
+- fixed the dependency explorer with a relative `haxe.displayServer.haxePath` ([#58](https://github.com/vshaxe/vshaxe/issues/58))
 - fixed a minor anon function highlighting issue ([haxe-tmLanguage#31](https://github.com/vshaxe/haxe-tmLanguage/issues/31))
 - fixed renaming `expr` in `case macro $expr:` ([#142](https://github.com/vshaxe/vshaxe/issues/142))
 - fixed a regression with duplicated Haxe output channels ([#87](https://github.com/vshaxe/vshaxe/issues/87))
