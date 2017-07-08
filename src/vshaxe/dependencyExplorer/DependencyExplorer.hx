@@ -148,6 +148,7 @@ class DependencyExplorer {
     function selectNode(node:Node) {
         if (node.isDirectory) {
             node.toggleState();
+            _onDidChangeTreeData.fire();
         } else {
             openTextDocument(node);
         }
