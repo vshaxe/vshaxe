@@ -10,11 +10,14 @@ class LanguageServer {
     var hxFileWatcher:FileSystemWatcher;
     var displayConfig:DisplayConfiguration;
     var dependencyExplorer:DependencyExplorer;
+    var onReadyCallback:Void->Void;
 
     public var client(default,null):LanguageClient;
+    public var isReady:Bool;
 
-    public function new(context:ExtensionContext) {
+    public function new(context:ExtensionContext, ?onReadyCallback:Void->Void) {
         this.context = context;
+        this.onReadyCallback = onReadyCallback;
 
         displayConfig = new DisplayConfiguration(context);
         dependencyExplorer = new DependencyExplorer(context, displayConfig.getConfiguration());
@@ -77,6 +80,11 @@ class LanguageServer {
                 commands.executeCommand("hxparservis.updateParseTree", result.uri, result.parseTree);
             });
             #end
+
+            isReady = true;
+            if (onReadyCallback != null) {
+                onReadyCallback();
+            }
         });
         disposable = client.start();
         context.subscriptions.push(disposable);
@@ -121,5 +129,19 @@ class LanguageServer {
         progresses = new Map();
 
         start();
+    }
+
+    public function updateDisplayArguments(arguments:String):Void {
+        // TODO: Better parsing
+        var args = [];
+        var lines = arguments.split("\n");
+        for (line in lines) {
+            line = StringTools.trim(line);
+            if (line != "") {
+                args = args.concat(line.split (" "));
+            }
+        }
+        client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: args});
+        dependencyExplorer.onDidChangeDisplayArguments(args);
     }
 }
