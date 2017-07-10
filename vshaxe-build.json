@@ -44,7 +44,7 @@
                 ],
                 "defines": [
                     "hxnodejs-no-version-warning",
-                    "JSTACK_MAIN=vshaxe.Main.main"
+                    "JSTACK_MAIN=vshaxe.Main.init"
                 ],
                 "output": {
                     "target": "js",
