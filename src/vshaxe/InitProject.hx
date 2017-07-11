@@ -58,8 +58,6 @@ class InitProject {
         var channel = window.createOutputChannel("Haxe scaffold");
         context.subscriptions.push(channel);
         var content = File.getContent(context.asAbsolutePath("./scaffold/configureHint.txt"));
-        var tasks = File.getContent(context.asAbsolutePath("./scaffold/project/.vscode/tasks.json"));
-        content = content.replace("{{tasks}}", tasks);
         channel.clear();
         channel.append(content);
         channel.show();
@@ -99,27 +97,18 @@ class InitProject {
 
     function scaffoldVscodeSettings(vscodeDir:String, item:QuickPickItem, items:Array<QuickPickItem>) {
         var selectedHxml = getHxmlPath(item);
-        copyRec(context.asAbsolutePath("./scaffold/project/.vscode"), vscodeDir);
-
-        // update tasks.json
-        var tasksPath = vscodeDir + "/tasks.json";
-        File.saveContent(tasksPath, File.getContent(tasksPath).replace('"build.hxml"', '"$selectedHxml"'));
 
         // update settings
-        var settingsPath = vscodeDir + "/settings.json";
-        var content = File.getContent(settingsPath);
         var hxmls = items.map(function(item) return getHxmlPath(item));
         // move selected on top
         hxmls.remove(selectedHxml);
         hxmls.insert(0, selectedHxml);
-
-        var items = [for (hxml in hxmls) '        ["$hxml"]'];
-        content = content.replace('        ["build.hxml"]', items.join(",\n"));
-        File.saveContent(settingsPath, content);
-
-        workspace.openTextDocument(vscodeDir + "/settings.json").then(function(doc) {
-            window.showTextDocument(doc);
-            window.showInformationMessage("Please check if " + selectedHxml + " is suitable for completion and modify haxe.displayConfigurations if needed.");
+        var config = workspace.getConfiguration("haxe");
+        config.update("displayConfigurations", [for (hxml in hxmls) [hxml]]).then(function(_) {
+            workspace.openTextDocument(vscodeDir + "/settings.json").then(function(doc) {
+                window.showTextDocument(doc);
+                window.showInformationMessage("Please check if " + selectedHxml + " is suitable for completion and modify haxe.displayConfigurations if needed.");
+            });
         });
     }
 

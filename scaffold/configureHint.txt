@@ -7,8 +7,4 @@ In the `.vscode/settings.json` file, please set the `haxe.displayConfigurations`
 for haxe completion. Note that it should only arguments suitable for completion such as `-cp`, `-lib`, defines and
 target output settings (or a hxml file that contains those).
 
-Also, here's an example `tasks.json` file that runs haxe build and defines a problem matcher to capture compilation errors:
-
-{{tasks}}
-
 ^^^ Please read from the beginning ^^^
