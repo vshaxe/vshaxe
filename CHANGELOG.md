@@ -1,4 +1,8 @@
-### 1.8.1 (to be released)
+### 1.9.0 (to be released)
+
+**New Features**:
+
+- added a task provider for top-level HXML files
 
 **Bugfixes**:
 
@@ -11,6 +15,7 @@
 
 **Changes and improvements**:
 
+- changed the required VSCode version to 1.14.0
 - added support for `@event` JavaDoc tags in highlighting and completion
 - reduced Haxe server restarts to changes of relevant settings ([#153](https://github.com/vshaxe/vshaxe/issues/153))
 - changed dependency explorer selection to open files permanently on double-click

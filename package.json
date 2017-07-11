@@ -3,7 +3,7 @@
     "version": "1.8.0",
     "publisher": "nadako",
     "engines": {
-        "vscode": "^1.13.0"
+        "vscode": "^1.14.0"
     },
     "displayName": "Haxe",
     "description": "Haxe language support",
@@ -331,6 +331,17 @@
                     "group": "navigation@2"
                 }
             ]
-        }
+        },
+        "taskDefinitions": [
+            {
+                "type": "hxml",
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "description": "The HXML file to run"
+                    }
+                }
+            }
+        ]
     }
 }

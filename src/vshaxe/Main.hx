@@ -8,6 +8,7 @@ class Main {
         new InitProject(context);
         var server = new LanguageServer(context);
         new Commands(context, server);
+        new HxmlTaskProvider(context);
 
         setLanguageConfiguration();
         server.start();

@@ -10,4 +10,13 @@ class PathHelper {
             Path.join([cwd, path]);
         });
     }
+
+    public static function relativize(path:String, cwd:String) {
+        path = Path.normalize(path);
+        cwd = Path.normalize(cwd) + "/";
+
+        var segments = path.split(cwd);
+        segments.shift();
+        return segments.join(cwd);
+    }
 }

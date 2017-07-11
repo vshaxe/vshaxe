@@ -22,7 +22,10 @@
                 "test",
                 "--debug"
             ],
-            "isTestCommand": true,
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
             "taskName": "test - TEST",
             "problemMatcher": "$haxe"
         },
@@ -261,8 +264,11 @@
                 "--debug"
             ],
             "taskName": "vshaxe (debug) - BUILD",
-            "isBuildCommand": true,
-            "problemMatcher": "$haxe"
+            "problemMatcher": "$haxe",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "args": [
