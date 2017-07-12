@@ -23,10 +23,11 @@ class HxmlTaskProvider {
     public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
         return [for (file in hxmlFiles) {
             var relativePath = PathHelper.relativize(file, workspace.rootPath);
-            var task = new Task(
-                cast {type: "haxe", file: relativePath}, relativePath, "haxe",
-                new ShellExecution('haxe "$relativePath"'), "$haxe"
-            );
+            var definition:HaxeTaskDefinition = {
+                type: "haxe",
+                args: [relativePath]
+            };
+            var task = new Task(definition, relativePath, "haxe", new ShellExecution('haxe "$relativePath"'), "$haxe");
             task.group = TaskGroup.Build;
             task;
         }];
@@ -35,4 +36,9 @@ class HxmlTaskProvider {
     public function resolveTask(task:Task, ?token:CancellationToken):ProviderResult<Task> {
         return task;
     }
+}
+
+private typedef HaxeTaskDefinition = {
+    > TaskDefinition,
+    args:Array<String>
 }

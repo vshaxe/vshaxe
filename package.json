@@ -336,9 +336,12 @@
             {
                 "type": "haxe",
                 "properties": {
-                    "file": {
-                        "type": "string",
-                        "description": "The HXML file to run"
+                    "args": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The compiler arguments"
                     }
                 }
             }
