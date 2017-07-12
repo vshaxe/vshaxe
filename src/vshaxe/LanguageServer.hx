@@ -2,22 +2,18 @@ package vshaxe;
 
 import Vscode.*;
 import vscode.*;
-import vshaxe.dependencyExplorer.DependencyExplorer;
 
 class LanguageServer {
     var context:ExtensionContext;
     var disposable:Disposable;
     var hxFileWatcher:FileSystemWatcher;
-    var displayConfig:DisplayConfiguration;
-    var dependencyExplorer:DependencyExplorer;
+    var displayArguments:DisplayArguments;
 
     public var client(default,null):LanguageClient;
 
-    public function new(context:ExtensionContext) {
+    public function new(context:ExtensionContext, displayArguments:DisplayArguments) {
         this.context = context;
-
-        displayConfig = new DisplayConfiguration(context);
-        dependencyExplorer = new DependencyExplorer(context, displayConfig.getConfiguration());
+        this.displayArguments = displayArguments;
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
     }
 
@@ -40,19 +36,17 @@ class LanguageServer {
                 fileEvents: hxFileWatcher
             },
             initializationOptions: {
-                displayArguments: displayConfig.getConfiguration()
+                displayArguments: displayArguments.arguments
             }
         };
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
         client.logFailedRequest = function(type, error) {
             client.warn('Request ${type.method} failed.', error);
         };
+        var argumentChangeListenerDisposable = null;
         client.onReady().then(function(_) {
             client.outputChannel.appendLine("Haxe language server started");
-            displayConfig.onDidChangeDisplayConfiguration = function(arguments) {
-                client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments});
-                dependencyExplorer.onDidChangeDisplayArguments(arguments);
-            }
+            argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(arguments -> client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments}));
 
             context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {
                 var editor = window.activeTextEditor;
@@ -78,7 +72,11 @@ class LanguageServer {
             });
             #end
         });
-        disposable = client.start();
+        var clientDisposable = client.start();
+        disposable = new Disposable(function() {
+            clientDisposable.dispose();
+            if (argumentChangeListenerDisposable != null) argumentChangeListenerDisposable.dispose();
+        });
         context.subscriptions.push(disposable);
     }
 

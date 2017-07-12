@@ -23,9 +23,10 @@ class DependencyExplorer {
 
     public var onDidChangeTreeData:Event<Node>;
 
-    public function new(context:ExtensionContext, displayArguments:Array<String>) {
+    public function new(context:ExtensionContext, displayArguments:DisplayArguments) {
         this.context = context;
-        this.displayArguments = displayArguments;
+        this.displayArguments = displayArguments.arguments;
+        displayArguments.onDidChangeArguments(onDidChangeDisplayArguments);
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxe.dependencies", this);
@@ -114,7 +115,7 @@ class DependencyExplorer {
         return new Node(label, info.path);
     }
 
-    public function onDidChangeDisplayArguments(displayArguments:Array<String>) {
+    function onDidChangeDisplayArguments(displayArguments:Array<String>) {
         this.displayArguments = displayArguments;
         refresh();
     }

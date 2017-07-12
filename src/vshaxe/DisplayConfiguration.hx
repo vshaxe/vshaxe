@@ -9,7 +9,9 @@ using vshaxe.helper.ArrayHelper;
 class DisplayConfiguration {
     var context:ExtensionContext;
     var statusBarItem:StatusBarItem;
-    var configuration:Array<String>;
+    var provideArguments:Array<String>->Void;
+
+    public var label(default,never) = "settings.json";
 
     public function new(context:ExtensionContext) {
         this.context = context;
@@ -26,7 +28,15 @@ class DisplayConfiguration {
 
         fixIndex();
         updateStatusBarItem();
-        configuration = getConfiguration();
+    }
+
+    public function activate(provideArguments) {
+        this.provideArguments = provideArguments;
+        provideArguments(getConfiguration());
+    }
+
+    public function deactivate() {
+        this.provideArguments = null;
     }
 
     function fixIndex() {
@@ -72,7 +82,7 @@ class DisplayConfiguration {
     function onDidChangeConfiguration(_) {
         fixIndex();
         updateStatusBarItem();
-        checkConfigurationChange();
+        notifyConfigurationChange();
     }
 
     function onDidChangeActiveTextEditor(_) {
@@ -113,18 +123,13 @@ class DisplayConfiguration {
     function setIndex(index:Int) {
         context.workspaceState.update("haxe.displayConfigurationIndex", index);
         updateStatusBarItem();
-        checkConfigurationChange();
+        notifyConfigurationChange();
     }
 
-    function checkConfigurationChange() {
-        var newConfiguration = getConfiguration();
-        if (!newConfiguration.equals(configuration)) {
-            onDidChangeDisplayConfiguration(newConfiguration);
-            configuration = newConfiguration;
-        }
+    inline function notifyConfigurationChange() {
+        if (provideArguments != null)
+            provideArguments(getConfiguration());
     }
-
-    public dynamic function onDidChangeDisplayConfiguration(configuration:Array<String>):Void {}
 }
 
 private typedef DisplayConfigurationPickItem = {

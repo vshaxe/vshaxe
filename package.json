@@ -43,6 +43,7 @@
         "onCommand:haxe.restartLanguageServer",
         "onCommand:haxe.initProject",
         "onCommand:haxe.selectDisplayConfiguration",
+        "onCommand:haxe.selectDisplayArgumentsProvider",
         "onCommand:haxe.runGlobalDiagnostics",
         "onCommand:haxe.toggleCodeLens",
         "onCommand:haxe.dependencies.refresh",
@@ -180,6 +181,11 @@
             {
                 "title": "Initialize VS Code Project...",
                 "command": "haxe.initProject",
+                "category": "Haxe"
+            },
+            {
+                "title": "Select Display Arguments Provider...",
+                "command": "haxe.selectDisplayArgumentsProvider",
                 "category": "Haxe"
             },
             {
