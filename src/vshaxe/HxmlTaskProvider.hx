@@ -9,7 +9,7 @@ class HxmlTaskProvider {
     var hxmlFiles:Array<String> = [];
 
     public function new(context:ExtensionContext) {
-        workspace.registerTaskProvider("haxe", this);
+        workspace.registerTaskProvider("hxml", this);
         var pattern = "*.hxml";
         workspace.findFiles(pattern).then(files -> hxmlFiles = files.map(uri -> uri.fsPath));
 
@@ -24,8 +24,8 @@ class HxmlTaskProvider {
         return [for (file in hxmlFiles) {
             var relativePath = PathHelper.relativize(file, workspace.rootPath);
             var definition:HaxeTaskDefinition = {
-                type: "haxe",
-                args: [relativePath]
+                type: "hxml",
+                file: relativePath
             };
             var task = new Task(definition, relativePath, "haxe", new ShellExecution('haxe "$relativePath"'), "$haxe");
             task.group = TaskGroup.Build;
@@ -40,5 +40,5 @@ class HxmlTaskProvider {
 
 private typedef HaxeTaskDefinition = {
     > TaskDefinition,
-    args:Array<String>
+    file:String
 }

@@ -335,14 +335,11 @@
         },
         "taskDefinitions": [
             {
-                "type": "haxe",
+                "type": "hxml",
                 "properties": {
-                    "args": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "The compiler arguments"
+                    "file": {
+                        "type": "string",
+                        "description": "The HXML file to run"
                     }
                 }
             }
