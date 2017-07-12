@@ -1,12 +1,18 @@
 package vshaxe;
 
+import vshaxe.api.VshaxeAPI;
 import Vscode.*;
 import vscode.*;
 
 class Main {
+    public static var api:VshaxeAPI;
+    public static var instance:Main;
+
+    public var server:LanguageServer;
+
     function new(context:ExtensionContext) {
         new InitProject(context);
-        var server = new LanguageServer(context);
+        server = new LanguageServer(context, api.onReady);
         new Commands(context, server);
         new HxmlTaskProvider(context);
 
@@ -23,6 +29,12 @@ class Main {
     @:keep
     @:expose("activate")
     static function main(context:ExtensionContext) {
-        new Main(context);
+        api = new VshaxeAPI();
+        init(context);
+        return api;
+    }
+
+    static function init(context:ExtensionContext) {
+        instance = new Main(context);
     }
 }
