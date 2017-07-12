@@ -47,7 +47,8 @@
         "onCommand:haxe.toggleCodeLens",
         "onCommand:haxe.dependencies.refresh",
         "onCommand:haxe.dependencies.collapseAll",
-        "onView:haxe.dependencies"
+        "onView:haxe.dependencies",
+        "workspaceContains:*.hxml"
     ],
     "contributes": {
         "configuration": {
