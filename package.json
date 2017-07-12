@@ -334,7 +334,7 @@
         },
         "taskDefinitions": [
             {
-                "type": "hxml",
+                "type": "haxe",
                 "properties": {
                     "file": {
                         "type": "string",
