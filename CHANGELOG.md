@@ -2,7 +2,7 @@
 
 **New Features**:
 
-- added a task provider for top-level HXML files
+- added a task provider for auto-discovered HXML files
 - added support for using auto-discovered HXML files as display configurations
 - added an extension API enabling Haxe build tools to provide completion ([#18](https://github.com/vshaxe/vshaxe/issues/18))
 - added a `Select Completion Provider` command
@@ -23,6 +23,7 @@
 - changed dependency explorer selection to open files permanently on double-click
 - added support for `@event` JavaDoc tags in highlighting and completion
 - reduced Haxe server restarts to changes of relevant settings ([#153](https://github.com/vshaxe/vshaxe/issues/153))
+- greatly simplified the `Initialize VS Code Project` command
 
 ### 1.8.0 (June 28, 2017)
 
