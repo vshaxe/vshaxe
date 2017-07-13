@@ -65,7 +65,11 @@ class DisplayArguments {
     }
 
     inline function getCurrentProviderName():Null<String> {
-        return context.workspaceState.get(HaxeMemento.DisplayArgumentsProviderName);
+        var providerName = context.workspaceState.get(HaxeMemento.DisplayArgumentsProviderName);
+        if (providerName == null && providers.count() == 1) {
+            providerName = providers.keys().next();
+        }
+        return providerName;
     }
 
     function setCurrentProvider(name:Null<String>) {
@@ -99,7 +103,7 @@ class DisplayArguments {
             return;
         }
 
-        if (providers.empty()) {
+        if (providers.count() <= 1) {
             statusBarItem.hide();
             return;
         }
