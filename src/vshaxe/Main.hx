@@ -4,14 +4,8 @@ import Vscode.*;
 import vscode.*;
 import vshaxe.dependencyExplorer.DependencyExplorer;
 
-// TODO: move elsewhere, rename and document
-private typedef Api = {
-    function registerDisplayArgumentsProvider(name:String, provider:DisplayArgumentsProvider):Disposable;
-    function parseHxmlToArguments(hxml:String):Array<String>;
-}
-
 class Main {
-    var api:Api;
+    var api:Vshaxe;
 
     function new(context:ExtensionContext) {
         new InitProject(context);
