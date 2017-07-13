@@ -1,9 +1,6 @@
 {
     "editor.insertSpaces": true,
     "files.trimTrailingWhitespace": true,
-    "haxe.displayConfigurations": [
-        ["complete.hxml"]
-    ],
     "haxe.diagnosticsPathFilter": "${workspaceRoot}/(?!syntaxes/cases)",
     "codedox": {
         "commentprefix": "    ",

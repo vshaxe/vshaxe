@@ -1,7 +1,5 @@
 package vshaxe.tasks;
 
-import vshaxe.helper.PathHelper;
-
 class HxmlTaskProvider {
     var hxmlDiscovery:HxmlDiscovery;
 
@@ -12,12 +10,11 @@ class HxmlTaskProvider {
 
     public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
         return [for (file in hxmlDiscovery.hxmlFiles) {
-            var relativePath = PathHelper.relativize(file, workspace.rootPath);
             var definition:HaxeTaskDefinition = {
                 type: "hxml",
-                file: relativePath
+                file: file
             };
-            var task = new Task(definition, relativePath, "haxe", new ShellExecution('haxe "$relativePath"'), "$haxe");
+            var task = new Task(definition, file, "haxe", new ShellExecution('haxe "$file"'), "$haxe");
             task.group = TaskGroup.Build;
             task;
         }];

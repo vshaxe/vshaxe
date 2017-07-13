@@ -20,11 +20,11 @@ class Main {
         };
 
         var server = new LanguageServer(context, displayArguments);
-        new HaxeDisplayArgumentsProvider(context, api);
         new Commands(context, server);
         new InitProject(context);
         new DependencyExplorer(context, displayArguments);
         var hxmlDiscovery = new HxmlDiscovery(context);
+        new HaxeDisplayArgumentsProvider(context, api, hxmlDiscovery);
         new HxmlTaskProvider(hxmlDiscovery);
 
         server.start();

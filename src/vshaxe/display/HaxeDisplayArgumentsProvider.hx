@@ -3,15 +3,17 @@ package vshaxe.display;
 class HaxeDisplayArgumentsProvider {
     var context:ExtensionContext;
     var api:Vshaxe;
+    var hxmlDiscovery:HxmlDiscovery;
     var statusBarItem:StatusBarItem;
     var provideArguments:Array<String>->Void;
     var providerDisposable:Disposable;
 
-    public var description(default,never):String = "built-in, using haxe.displayConfigurations";
+    public var description(default,never):String = "Project using haxe.displayConfigurations or HXML files (built-in)";
 
-    public function new(context:ExtensionContext, api:Vshaxe) {
+    public function new(context:ExtensionContext, api:Vshaxe, hxmlDiscovery:HxmlDiscovery) {
         this.context = context;
         this.api = api;
+        this.hxmlDiscovery = hxmlDiscovery;
 
         statusBarItem = window.createStatusBarItem(Left, 10);
         statusBarItem.tooltip = "Select Haxe Configuration";
@@ -20,7 +22,8 @@ class HaxeDisplayArgumentsProvider {
 
         context.registerHaxeCommand(SelectDisplayConfiguration, selectConfiguration);
 
-        context.subscriptions.push(workspace.onDidChangeConfiguration(onDidChangeConfiguration));
+        context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
+        hxmlDiscovery.onDidChangeHxmlFiles(_ -> refresh());
 
         fixIndex();
         updateStatusBarItem();
@@ -75,7 +78,7 @@ class HaxeDisplayArgumentsProvider {
         });
     }
 
-    function onDidChangeConfiguration(_) {
+    function refresh() {
         fixIndex();
         updateStatusBarItem();
         updateDisplayArgumentsProviderRegistration();
@@ -106,8 +109,16 @@ class HaxeDisplayArgumentsProvider {
         statusBarItem.hide();
     }
 
-    inline function getConfigurations():Array<Array<String>> {
-        return workspace.getConfiguration("haxe").get("displayConfigurations");
+    function getConfigurations():Array<Array<String>> {
+        var configs:Array<Array<String>> = workspace.getConfiguration("haxe").get("displayConfigurations");
+        if (configs == null) configs = [];
+        for (hxmlFile in hxmlDiscovery.hxmlFiles) {
+            var hxmlConfig = [hxmlFile];
+            if (!configs.exists(config -> config.equals(hxmlConfig))) {
+                configs.push(hxmlConfig);
+            }
+        }
+        return configs;
     }
 
     public inline function getConfiguration():Array<String> {

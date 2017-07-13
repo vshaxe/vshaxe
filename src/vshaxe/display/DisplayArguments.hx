@@ -26,6 +26,7 @@ class DisplayArguments {
         context.subscriptions.push(statusBarItem);
 
         context.registerHaxeCommand(SelectDisplayArgumentsProvider, selectProvider);
+        updateStatusBarItem();
     }
 
     public function registerProvider(name:String, provider:DisplayArgumentsProvider):Disposable {
