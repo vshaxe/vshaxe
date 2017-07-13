@@ -36,7 +36,8 @@ class DisplayArguments {
 
         providers[name] = provider;
 
-        if (getCurrentProviderName() == name)
+        var current = getCurrentProviderName();
+        if (current == null || current == name)
             setCurrentProvider(name);
         else
             updateStatusBarItem();
@@ -64,11 +65,7 @@ class DisplayArguments {
     }
 
     inline function getCurrentProviderName():Null<String> {
-        var providerName = context.workspaceState.get(HaxeMemento.DisplayArgumentsProviderName);
-        if (providerName == null && providers.count() == 1) {
-            providerName = providers.keys().next();
-        }
-        return providerName;
+        return context.workspaceState.get(HaxeMemento.DisplayArgumentsProviderName);
     }
 
     function setCurrentProvider(name:Null<String>) {
