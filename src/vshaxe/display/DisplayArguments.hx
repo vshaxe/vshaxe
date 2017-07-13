@@ -56,11 +56,11 @@ class DisplayArguments {
         var items = [for (name in providers.keys()) ({label: name, description: "", name: name} : ProviderQuickPickItem)];
 
         if (items.length == 0) {
-            window.showErrorMessage("No Haxe completion argument providers registered.");
+            window.showErrorMessage("No Haxe completion providers registered.");
             return;
         }
 
-        window.showQuickPick(items, {placeHolder: "Select Haxe completion argument provider"}).then(item -> setCurrentProvider(if (item == null) null else item.name));
+        window.showQuickPick(items, {placeHolder: "Select Haxe completion provider"}).then(item -> setCurrentProvider(if (item == null) null else item.name));
     }
 
     inline function getCurrentProviderName():Null<String> {

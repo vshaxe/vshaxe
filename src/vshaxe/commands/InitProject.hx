@@ -7,6 +7,7 @@ class InitProject {
     var context:ExtensionContext;
 
     public function new(context:ExtensionContext) {
+        this.context = context;
         context.registerHaxeCommand(InitProject, initProject);
     }
 
