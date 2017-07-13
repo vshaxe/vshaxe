@@ -4,22 +4,15 @@ import haxe.io.Path;
 import vshaxe.helper.PathHelper;
 
 class HxmlTaskProvider {
-    var hxmlFiles:Array<String> = [];
+    var hxmlDiscovery:HxmlDiscovery;
 
-    public function new(context:ExtensionContext) {
+    public function new(hxmlDiscovery) {
+        this.hxmlDiscovery = hxmlDiscovery;
         workspace.registerTaskProvider("hxml", this);
-        var pattern = "*.hxml";
-        workspace.findFiles(pattern).then(files -> hxmlFiles = files.map(uri -> uri.fsPath));
-
-        // looks like file watchers require a glob prefixed with the workspace root
-        var prefixedPattern = Path.join([workspace.rootPath, pattern]);
-        var fileWatcher = workspace.createFileSystemWatcher(prefixedPattern, false, true, false);
-        fileWatcher.onDidCreate(uri -> hxmlFiles.push(uri.fsPath));
-        fileWatcher.onDidDelete(uri -> hxmlFiles.remove(uri.fsPath));
     }
 
     public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
-        return [for (file in hxmlFiles) {
+        return [for (file in hxmlDiscovery.hxmlFiles) {
             var relativePath = PathHelper.relativize(file, workspace.rootPath);
             var definition:HaxeTaskDefinition = {
                 type: "hxml",

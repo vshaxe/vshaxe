@@ -24,7 +24,8 @@ class Main {
         new Commands(context, server);
         new InitProject(context);
         new DependencyExplorer(context, displayArguments);
-        new HxmlTaskProvider(context);
+        var hxmlDiscovery = new HxmlDiscovery(context);
+        new HxmlTaskProvider(hxmlDiscovery);
 
         server.start();
     }
