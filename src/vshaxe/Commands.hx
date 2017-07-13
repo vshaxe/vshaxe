@@ -1,9 +1,6 @@
 package vshaxe;
 
-import Vscode.*;
 import haxe.Constraints.Function;
-import vscode.*;
-using StringTools;
 
 class Commands {
     var context:ExtensionContext;

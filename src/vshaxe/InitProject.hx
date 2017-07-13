@@ -3,13 +3,6 @@ package vshaxe;
 import sys.FileSystem;
 import sys.io.File;
 
-import vscode.ExtensionContext;
-import vscode.QuickPickItem;
-import Vscode.*;
-
-using StringTools;
-using Lambda;
-
 class InitProject {
     var context:ExtensionContext;
 

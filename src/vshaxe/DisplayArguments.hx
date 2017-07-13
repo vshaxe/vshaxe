@@ -10,7 +10,6 @@ import vscode.QuickPickItem;
 import vscode.ExtensionContext;
 import vscode.StatusBarItem;
 import vscode.ThemeColor;
-using vshaxe.helper.ArrayHelper;
 
 class DisplayArguments {
     static inline var SELECT_PROVIDER_COMMAND = "haxe.selectDisplayArgumentsProvider";

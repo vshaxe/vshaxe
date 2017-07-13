@@ -1,8 +1,5 @@
 package vshaxe;
 
-import Vscode.*;
-import vscode.*;
-
 class LanguageServer {
     var context:ExtensionContext;
     var disposable:Disposable;

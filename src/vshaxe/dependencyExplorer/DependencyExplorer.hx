@@ -1,13 +1,9 @@
 package vshaxe.dependencyExplorer;
 
 import haxe.io.Path;
-import Vscode.*;
-import vscode.*;
 import js.Promise;
 import vshaxe.dependencyExplorer.DependencyResolver;
 import vshaxe.dependencyExplorer.HxmlParser;
-using Lambda;
-using vshaxe.helper.ArrayHelper;
 
 class DependencyExplorer {
     var context:ExtensionContext;

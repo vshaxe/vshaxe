@@ -1,7 +1,5 @@
 package vshaxe;
 
-import Vscode.*;
-import vscode.*;
 import vshaxe.dependencyExplorer.DependencyExplorer;
 
 class Main {

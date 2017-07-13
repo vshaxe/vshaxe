@@ -4,7 +4,7 @@ import vshaxe.DisplayArgumentsProvider;
 /**
     Public API provided by the vshaxe extension.
 
-    Retreieve with vscode extensions API: `var vshaxe:Vshaxe = Vscode.extensions.getExtension("nadako.vshaxe").exports`
+    Retrieve with vscode extensions API: `var vshaxe:Vshaxe = Vscode.extensions.getExtension("nadako.vshaxe").exports`
 **/
 typedef Vshaxe = {
     /**

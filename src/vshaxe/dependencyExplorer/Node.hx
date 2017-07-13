@@ -1,8 +1,6 @@
 package vshaxe.dependencyExplorer;
 
 import sys.FileSystem;
-import vscode.*;
-using Lambda;
 
 class Node extends TreeItem {
     public var path(default,null):String;

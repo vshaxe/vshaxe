@@ -1,11 +1,5 @@
 package vshaxe;
 
-import vscode.ExtensionContext;
-import vscode.QuickPickItem;
-import vscode.StatusBarItem;
-import Vscode.*;
-using vshaxe.helper.ArrayHelper;
-
 class DisplayConfiguration {
     var context:ExtensionContext;
     var statusBarItem:StatusBarItem;

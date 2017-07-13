@@ -4,7 +4,6 @@ import sys.FileSystem;
 import sys.io.File;
 import haxe.io.Path;
 import vshaxe.helper.PathHelper;
-using StringTools;
 
 enum HxmlLine {
     Comment(comment:String);

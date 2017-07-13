@@ -1,7 +1,6 @@
 package vshaxe.dependencyExplorer;
 
 import haxe.Json;
-import Vscode.*;
 import haxe.io.Path;
 import js.node.Buffer;
 import js.node.ChildProcess;
@@ -9,7 +8,6 @@ import sys.FileSystem;
 import sys.io.File;
 import vshaxe.helper.PathHelper;
 import vshaxe.dependencyExplorer.HxmlParser.DependencyList;
-using StringTools;
 
 typedef DependencyInfo = {
     name:String,

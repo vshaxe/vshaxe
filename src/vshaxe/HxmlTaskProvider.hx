@@ -1,8 +1,6 @@
 package vshaxe;
 
 import haxe.io.Path;
-import Vscode.*;
-import vscode.*;
 import vshaxe.helper.PathHelper;
 
 class HxmlTaskProvider {
