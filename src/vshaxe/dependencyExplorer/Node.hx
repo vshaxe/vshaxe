@@ -16,7 +16,7 @@ class Node extends TreeItem {
         }
 
         command = {
-            command: "haxe.dependencies.selectNode",
+            command: Dependencies_SelectNode,
             arguments: [this],
             title: "Open File"
         };

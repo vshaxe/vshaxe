@@ -10,10 +10,10 @@ class HaxeDisplayArgumentsProvider {
 
         statusBarItem = window.createStatusBarItem(Left, 4);
         statusBarItem.tooltip = "Select Haxe configuration";
-        statusBarItem.command = "haxe.selectDisplayConfiguration";
+        statusBarItem.command = SelectDisplayConfiguration;
         context.subscriptions.push(statusBarItem);
 
-        context.subscriptions.push(commands.registerCommand("haxe.selectDisplayConfiguration", selectConfiguration));
+        context.registerHaxeCommand(SelectDisplayConfiguration, selectConfiguration);
 
         context.subscriptions.push(workspace.onDidChangeConfiguration(onDidChangeConfiguration));
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));

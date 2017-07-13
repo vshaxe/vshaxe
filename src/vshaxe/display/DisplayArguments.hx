@@ -1,7 +1,6 @@
 package vshaxe.display;
 
 class DisplayArguments {
-    static inline var SELECT_PROVIDER_COMMAND = "haxe.selectDisplayArgumentsProvider";
     static inline var CURRENT_PROVIDER_MEMENTO_KEY = "haxe.displayArgumentsProviderName";
     static var statusBarWarningThemeColor = new ThemeColor("errorForeground");
 
@@ -16,7 +15,7 @@ class DisplayArguments {
     public var onDidChangeArguments(get,never):Event<Array<String>>;
     inline function get_onDidChangeArguments() return _onDidChangeArguments.event;
 
-    public function new(context) {
+    public function new(context:ExtensionContext) {
         this.context = context;
         providers = new Map();
         _onDidChangeArguments = new EventEmitter();
@@ -24,10 +23,10 @@ class DisplayArguments {
 
         statusBarItem = window.createStatusBarItem(Left, 5);
         statusBarItem.tooltip = "Select Haxe completion provider";
-        statusBarItem.command = SELECT_PROVIDER_COMMAND;
+        statusBarItem.command = SelectDisplayArgumentsProvider;
         context.subscriptions.push(statusBarItem);
 
-        context.subscriptions.push(commands.registerCommand(SELECT_PROVIDER_COMMAND, selectProvider));
+        context.registerHaxeCommand(SelectDisplayArgumentsProvider, selectProvider);
 
         context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> updateStatusBarItem()));
 

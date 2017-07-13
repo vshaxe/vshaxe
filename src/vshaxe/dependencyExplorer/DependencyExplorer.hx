@@ -26,9 +26,9 @@ class DependencyExplorer {
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxe.dependencies", this);
-        commands.registerCommand("haxe.dependencies.selectNode", selectNode);
-        commands.registerCommand("haxe.dependencies.collapseAll", collapseAll);
-        commands.registerCommand("haxe.dependencies.refresh", refresh);
+        context.registerHaxeCommand(Dependencies_SelectNode, selectNode);
+        context.registerHaxeCommand(Dependencies_CollapseAll, collapseAll);
+        context.registerHaxeCommand(Dependencies_Refresh, refresh);
 
         var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
         context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));

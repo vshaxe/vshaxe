@@ -1,6 +1,7 @@
 package vshaxe;
 
 import vshaxe.commands.Commands;
+import vshaxe.commands.InitProject;
 import vshaxe.dependencyExplorer.DependencyExplorer;
 import vshaxe.display.DisplayArguments;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
@@ -20,8 +21,9 @@ class Main {
 
         var server = new LanguageServer(context, displayArguments);
         new HaxeDisplayArgumentsProvider(context, api);
-        new DependencyExplorer(context, displayArguments);
         new Commands(context, server);
+        new InitProject(context);
+        new DependencyExplorer(context, displayArguments);
         new HxmlTaskProvider(context);
 
         server.start();

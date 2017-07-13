@@ -6,8 +6,8 @@ import sys.io.File;
 class InitProject {
     var context:ExtensionContext;
 
-    public function new(commands:Commands) {
-        commands.registerCommand("initProject", initProject);
+    public function new(context:ExtensionContext) {
+        context.registerHaxeCommand(InitProject, initProject);
     }
 
     function initProject() {

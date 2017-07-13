@@ -1,6 +1,5 @@
 package vshaxe.commands;
 
-import haxe.Constraints.Function;
 import vshaxe.server.LanguageServer;
 
 class Commands {
@@ -11,16 +10,11 @@ class Commands {
         this.context = context;
         this.server = server;
 
-        new InitProject(this);
-        registerCommand("restartLanguageServer", server.restart);
-        registerCommand("applyFixes", applyFixes);
-        registerCommand("showReferences", showReferences);
-        registerCommand("runGlobalDiagnostics", runGlobalDiagnostics);
-        registerCommand("toggleCodeLens", toggleCodeLens);
-    }
-
-    public function registerCommand(command:String, callback:Function) {
-        context.subscriptions.push(commands.registerCommand("haxe." + command, callback));
+        context.registerHaxeCommand(RestartLanguageServer, server.restart);
+        context.registerHaxeCommand(ApplyFixes, applyFixes);
+        context.registerHaxeCommand(ShowReferences, showReferences);
+        context.registerHaxeCommand(RunGlobalDiagnostics, runGlobalDiagnostics);
+        context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
     }
 
     function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
