@@ -1,6 +1,6 @@
 package vshaxe.display;
 
-class DisplayConfiguration {
+class HaxeDisplayArgumentsProvider {
     var context:ExtensionContext;
     var statusBarItem:StatusBarItem;
     var provideArguments:Array<String>->Void;

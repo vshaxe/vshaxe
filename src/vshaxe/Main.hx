@@ -3,7 +3,7 @@ package vshaxe;
 import vshaxe.commands.Commands;
 import vshaxe.dependencyExplorer.DependencyExplorer;
 import vshaxe.display.DisplayArguments;
-import vshaxe.display.DisplayConfiguration;
+import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.helper.HxmlParser;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HxmlTaskProvider;
@@ -19,7 +19,7 @@ class Main {
         };
 
         var server = new LanguageServer(context, displayArguments);
-        new DisplayConfiguration(context, api);
+        new HaxeDisplayArgumentsProvider(context, api);
         new DependencyExplorer(context, displayArguments);
         new Commands(context, server);
         new HxmlTaskProvider(context);
