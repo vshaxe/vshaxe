@@ -184,7 +184,7 @@
                 "category": "Haxe"
             },
             {
-                "title": "Select Display Arguments Provider...",
+                "title": "Select Completion Provider...",
                 "command": "haxe.selectDisplayArgumentsProvider",
                 "category": "Haxe"
             },
