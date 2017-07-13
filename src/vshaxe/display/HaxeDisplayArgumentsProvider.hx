@@ -55,10 +55,6 @@ class HaxeDisplayArgumentsProvider {
             });
             return;
         }
-        if (configs.length == 1) {
-            window.showInformationMessage("Only one Haxe display configuration found: " + configs[0].join(" "));
-            return;
-        }
 
         var items:Array<DisplayConfigurationPickItem> = [];
         for (index in 0...configs.length) {
@@ -100,7 +96,7 @@ class HaxeDisplayArgumentsProvider {
 
     function updateStatusBarItem() {
         var configs = getConfigurations();
-        if (provideArguments != null && configs != null && configs.length >= 2) {
+        if (provideArguments != null && configs != null && configs.length > 0) {
             var index = getIndex();
             statusBarItem.text = configs[index].join(" ");
             statusBarItem.show();
