@@ -189,7 +189,7 @@
                 "category": "Haxe"
             },
             {
-                "title": "Select Display Configuration...",
+                "title": "Select Configuration...",
                 "command": "haxe.selectDisplayConfiguration",
                 "category": "Haxe"
             },

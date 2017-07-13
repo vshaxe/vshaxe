@@ -11,7 +11,7 @@ class HaxeDisplayArgumentsProvider {
         this.context = context;
 
         statusBarItem = window.createStatusBarItem(Left, 4);
-        statusBarItem.tooltip = "Select Haxe configuration";
+        statusBarItem.tooltip = "Haxe: Select Configuration...";
         statusBarItem.command = SelectDisplayConfiguration;
         context.subscriptions.push(statusBarItem);
 
