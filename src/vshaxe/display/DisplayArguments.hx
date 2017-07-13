@@ -98,11 +98,6 @@ class DisplayArguments {
     }
 
     function updateStatusBarItem() {
-        if (window.activeTextEditor == null || languages.match({language: 'haxe', scheme: 'file'}, window.activeTextEditor.document) <= 0) {
-            statusBarItem.hide();
-            return;
-        }
-
         if (providers.count() <= 1) {
             statusBarItem.hide();
             return;

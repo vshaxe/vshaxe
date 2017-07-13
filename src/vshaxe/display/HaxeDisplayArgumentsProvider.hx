@@ -85,19 +85,12 @@ class HaxeDisplayArgumentsProvider {
     }
 
     function updateStatusBarItem() {
-        if (window.activeTextEditor == null) {
-            statusBarItem.hide();
+        var configs = getConfigurations();
+        if (configs != null && configs.length >= 2) {
+            var index = getIndex();
+            statusBarItem.text = configs[index].join(" ");
+            statusBarItem.show();
             return;
-        }
-
-        if (languages.match({language: 'haxe', scheme: 'file'}, window.activeTextEditor.document) > 0) {
-            var configs = getConfigurations();
-            if (configs != null && configs.length >= 2) {
-                var index = getIndex();
-                statusBarItem.text = configs[index].join(" ");
-                statusBarItem.show();
-                return;
-            }
         }
 
         statusBarItem.hide();
