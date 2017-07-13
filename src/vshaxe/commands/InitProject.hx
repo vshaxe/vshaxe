@@ -1,4 +1,4 @@
-package vshaxe;
+package vshaxe.commands;
 
 import sys.FileSystem;
 import sys.io.File;
@@ -6,9 +6,8 @@ import sys.io.File;
 class InitProject {
     var context:ExtensionContext;
 
-    public function new(context:ExtensionContext) {
-        this.context = context;
-        context.subscriptions.push(commands.registerCommand("haxe.initProject", initProject));
+    public function new(commands:Commands) {
+        commands.registerCommand("initProject", initProject);
     }
 
     function initProject() {

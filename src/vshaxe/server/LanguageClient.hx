@@ -1,3 +1,5 @@
+package vshaxe.server;
+
 import haxe.extern.EitherType;
 import js.node.ChildProcess.ChildProcessForkOptions;
 import js.Promise;

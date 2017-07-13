@@ -1,4 +1,4 @@
-package vshaxe;
+package vshaxe.tasks;
 
 import haxe.io.Path;
 import vshaxe.helper.PathHelper;

@@ -1,4 +1,4 @@
-package vshaxe;
+package vshaxe.server;
 
 import vshaxe.display.DisplayArguments;
 

@@ -1,6 +1,7 @@
-package vshaxe;
+package vshaxe.commands;
 
 import haxe.Constraints.Function;
+import vshaxe.server.LanguageServer;
 
 class Commands {
     var context:ExtensionContext;
@@ -10,6 +11,7 @@ class Commands {
         this.context = context;
         this.server = server;
 
+        new InitProject(this);
         registerCommand("restartLanguageServer", server.restart);
         registerCommand("applyFixes", applyFixes);
         registerCommand("showReferences", showReferences);
@@ -17,7 +19,7 @@ class Commands {
         registerCommand("toggleCodeLens", toggleCodeLens);
     }
 
-    function registerCommand(command:String, callback:Function) {
+    public function registerCommand(command:String, callback:Function) {
         context.subscriptions.push(commands.registerCommand("haxe." + command, callback));
     }
 
