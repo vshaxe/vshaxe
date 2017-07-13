@@ -20,7 +20,7 @@ class DisplayArguments {
         _onDidChangeArguments = new EventEmitter();
         context.subscriptions.push(_onDidChangeArguments);
 
-        statusBarItem = window.createStatusBarItem(Left, 5);
+        statusBarItem = window.createStatusBarItem(Left, 11);
         statusBarItem.tooltip = "Haxe: Select Completion Provider...";
         statusBarItem.command = SelectDisplayArgumentsProvider;
         context.subscriptions.push(statusBarItem);

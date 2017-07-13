@@ -10,7 +10,7 @@ class HaxeDisplayArgumentsProvider {
     public function new(context:ExtensionContext, api:Vshaxe) {
         this.context = context;
 
-        statusBarItem = window.createStatusBarItem(Left, 4);
+        statusBarItem = window.createStatusBarItem(Left, 10);
         statusBarItem.tooltip = "Haxe: Select Configuration...";
         statusBarItem.command = SelectDisplayConfiguration;
         context.subscriptions.push(statusBarItem);
