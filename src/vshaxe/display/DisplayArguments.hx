@@ -61,6 +61,7 @@ class DisplayArguments {
             return;
         }
 
+        items.moveToStart(item -> item.label == currentProvider);
         window.showQuickPick(items, {placeHolder: "Select Haxe completion provider"}).then(item -> if (item != null) setCurrentProvider(item.label));
     }
 

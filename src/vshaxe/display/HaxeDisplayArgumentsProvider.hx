@@ -69,6 +69,7 @@ class HaxeDisplayArgumentsProvider {
             });
         }
 
+        items.moveToStart(item -> item.index == getIndex());
         window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe display configuration"}).then(function(choice:DisplayConfigurationPickItem) {
             if (choice == null || choice.index == getIndex())
                 return;
