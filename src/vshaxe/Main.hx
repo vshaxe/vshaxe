@@ -24,14 +24,7 @@ class Main {
         new Commands(context, server);
         new HxmlTaskProvider(context);
 
-        setLanguageConfiguration();
         server.start();
-    }
-
-    function setLanguageConfiguration() {
-        var defaultWordPattern = "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)";
-        var wordPattern = defaultWordPattern + "|(@:\\w*)"; // metadata
-        languages.setLanguageConfiguration("Haxe", {wordPattern: new js.RegExp(wordPattern)});
     }
 
     @:keep
