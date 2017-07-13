@@ -22,8 +22,8 @@ class DisplayArguments {
         _onDidChangeArguments = new EventEmitter();
         context.subscriptions.push(_onDidChangeArguments);
 
-        statusBarItem = window.createStatusBarItem(Left);
-        statusBarItem.tooltip = "Select completion provider";
+        statusBarItem = window.createStatusBarItem(Left, 5);
+        statusBarItem.tooltip = "Select Haxe completion provider";
         statusBarItem.command = SELECT_PROVIDER_COMMAND;
         context.subscriptions.push(statusBarItem);
 
@@ -54,14 +54,14 @@ class DisplayArguments {
     }
 
     function selectProvider() {
-        var items = [for (name in providers.keys()) ({label: providers[name].label, description: "", name: name} : ProviderQuickPickItem)];
+        var items = [for (name in providers.keys()) ({label: name, description: "", name: name} : ProviderQuickPickItem)];
 
         if (items.length == 0) {
-            window.showErrorMessage("No Haxe completion arguments providers registered.");
+            window.showErrorMessage("No Haxe completion argument providers registered.");
             return;
         }
 
-        window.showQuickPick(items, {placeHolder: "Select Haxe completion arguments provider"}).then(item -> setCurrentProvider(if (item == null) null else item.name));
+        window.showQuickPick(items, {placeHolder: "Select Haxe completion argument provider"}).then(item -> setCurrentProvider(if (item == null) null else item.name));
     }
 
     inline function getCurrentProviderName():Null<String> {
@@ -106,7 +106,7 @@ class DisplayArguments {
 
         var label, color;
         if (currentProvider == null) {
-            label = "select provider...";
+            label = "Select Haxe completion provider...";
             color = statusBarWarningThemeColor; // TODO: different color?
         } else {
             var provider = providers[currentProvider];
@@ -114,12 +114,12 @@ class DisplayArguments {
                 label = '$currentProvider (not available)'; // selected but not (yet?) loaded
                 color = statusBarWarningThemeColor;
             } else {
-                label = provider.label;
+                label = currentProvider;
                 color = null;
             }
         }
         statusBarItem.color = color;
-        statusBarItem.text = '$(gear) Haxe completion: $label';
+        statusBarItem.text = '$(gear) $label';
         statusBarItem.show();
     }
 }

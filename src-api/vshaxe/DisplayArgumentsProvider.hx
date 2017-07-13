@@ -2,11 +2,6 @@ package vshaxe;
 
 typedef DisplayArgumentsProvider = {
     /**
-        Human-readable label for use in UI.
-    **/
-    var label(default,never):String;
-
-    /**
         Called when vshaxe selects the provider for providing completion.
 
         @param provideArguments A callback that should be cached by the provider, and called whenever display arguments change.

@@ -5,12 +5,10 @@ class DisplayConfiguration {
     var statusBarItem:StatusBarItem;
     var provideArguments:Array<String>->Void;
 
-    public var label(default,never) = "settings.json";
-
-    public function new(context:ExtensionContext) {
+    public function new(context:ExtensionContext, api:Vshaxe) {
         this.context = context;
 
-        statusBarItem = window.createStatusBarItem(Left);
+        statusBarItem = window.createStatusBarItem(Left, 4);
         statusBarItem.tooltip = "Select Haxe configuration";
         statusBarItem.command = "haxe.selectDisplayConfiguration";
         context.subscriptions.push(statusBarItem);
@@ -22,6 +20,7 @@ class DisplayConfiguration {
 
         fixIndex();
         updateStatusBarItem();
+        api.registerDisplayArgumentsProvider("Haxe", this);
     }
 
     public function activate(provideArguments) {
@@ -93,7 +92,7 @@ class DisplayConfiguration {
             var configs = getConfigurations();
             if (configs != null && configs.length >= 2) {
                 var index = getIndex();
-                statusBarItem.text = '$(gear) Haxe: $index (${configs[index].join(" ")})';
+                statusBarItem.text = configs[index].join(" ");
                 statusBarItem.show();
                 return;
             }

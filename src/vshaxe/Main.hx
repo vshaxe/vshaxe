@@ -10,18 +10,17 @@ class Main {
         new InitProject(context);
 
         var displayArguments = new DisplayArguments(context);
-        displayArguments.registerProvider("settings", new DisplayConfiguration(context));
-
-        var server = new LanguageServer(context, displayArguments);
-
-        new DependencyExplorer(context, displayArguments);
-        new Commands(context, server);
-        new HxmlTaskProvider(context);
-
         api = {
             registerDisplayArgumentsProvider: displayArguments.registerProvider,
             parseHxmlToArguments: HxmlParser.parseToArgs
         };
+
+        var server = new LanguageServer(context, displayArguments);
+
+        new DisplayConfiguration(context, api);
+        new DependencyExplorer(context, displayArguments);
+        new Commands(context, server);
+        new HxmlTaskProvider(context);
 
         setLanguageConfiguration();
         server.start();
