@@ -3,6 +3,7 @@ package vshaxe.dependencyExplorer;
 import haxe.io.Path;
 import js.Promise;
 import vshaxe.dependencyExplorer.DependencyResolver;
+import vshaxe.display.DisplayArguments;
 
 class DependencyExplorer {
     var context:ExtensionContext;

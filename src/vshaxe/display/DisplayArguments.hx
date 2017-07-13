@@ -1,4 +1,4 @@
-package vshaxe;
+package vshaxe.display;
 
 class DisplayArguments {
     static inline var SELECT_PROVIDER_COMMAND = "haxe.selectDisplayArgumentsProvider";

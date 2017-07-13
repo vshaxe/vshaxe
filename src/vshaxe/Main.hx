@@ -1,6 +1,8 @@
 package vshaxe;
 
 import vshaxe.dependencyExplorer.DependencyExplorer;
+import vshaxe.display.DisplayArguments;
+import vshaxe.display.DisplayConfiguration;
 import vshaxe.helper.HxmlParser;
 
 class Main {

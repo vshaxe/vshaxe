@@ -1,5 +1,7 @@
 package vshaxe;
 
+import vshaxe.display.DisplayArguments;
+
 class LanguageServer {
     var context:ExtensionContext;
     var disposable:Disposable;

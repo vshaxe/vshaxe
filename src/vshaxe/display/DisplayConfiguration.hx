@@ -1,4 +1,4 @@
-package vshaxe;
+package vshaxe.display;
 
 class DisplayConfiguration {
     var context:ExtensionContext;
