@@ -3,6 +3,7 @@
 **New Features**:
 
 - added a task provider for top-level HXML files
+- added an extension API enabling Haxe build tools to provide completion ([#18](https://github.com/vshaxe/vshaxe/issues/18))
 
 **Bugfixes**:
 

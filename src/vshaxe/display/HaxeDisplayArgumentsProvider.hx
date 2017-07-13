@@ -28,10 +28,12 @@ class HaxeDisplayArgumentsProvider {
     public function activate(provideArguments) {
         this.provideArguments = provideArguments;
         provideArguments(getConfiguration());
+        updateStatusBarItem();
     }
 
     public function deactivate() {
         this.provideArguments = null;
+        updateStatusBarItem();
     }
 
     function fixIndex() {
@@ -86,7 +88,7 @@ class HaxeDisplayArgumentsProvider {
 
     function updateStatusBarItem() {
         var configs = getConfigurations();
-        if (configs != null && configs.length >= 2) {
+        if (provideArguments != null && configs != null && configs.length >= 2) {
             var index = getIndex();
             statusBarItem.text = configs[index].join(" ");
             statusBarItem.show();
