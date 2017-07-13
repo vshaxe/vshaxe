@@ -25,7 +25,7 @@ typedef Vshaxe = {
     /**
         Parse contents of a hxml file into an array of Haxe command-line arguments.
 
-        Skips commends and unquotes arguments.
+        Skips comments and unquotes arguments.
 
         An extension can use this if it has to work with framework-generated hxml files that need to be used
         for providing display arguments.
