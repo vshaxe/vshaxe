@@ -14,14 +14,16 @@ class HaxeExecutableHelper {
     inline function get_onDidChangeConfig() return _onDidChangeConfig.event;
 
     public function new(context:ExtensionContext) {
-        executable = new HaxeExecutable();
+        executable = new HaxeExecutable(getExecutableSettings());
         _onDidChangeConfig = new EventEmitter();
         context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
     }
 
+    static inline function getExecutableSettings() return workspace.getConfiguration("haxe").get("executable");
+
     function refresh() {
         var oldConfig = config;
-        executable.updateConfig(workspace.getConfiguration("haxe").get("executable"));
+        executable.updateConfig(getExecutableSettings());
         if (isSame(oldConfig, config))
             _onDidChangeConfig.fire(config);
     }
