@@ -2,13 +2,16 @@ package vshaxe.display;
 
 class HaxeDisplayArgumentsProvider {
     var context:ExtensionContext;
+    var api:Vshaxe;
     var statusBarItem:StatusBarItem;
     var provideArguments:Array<String>->Void;
+    var providerDisposable:Disposable;
 
     public var description(default,never):String = "built-in, using haxe.displayConfigurations";
 
     public function new(context:ExtensionContext, api:Vshaxe) {
         this.context = context;
+        this.api = api;
 
         statusBarItem = window.createStatusBarItem(Left, 10);
         statusBarItem.tooltip = "Haxe: Select Configuration...";
@@ -22,7 +25,7 @@ class HaxeDisplayArgumentsProvider {
 
         fixIndex();
         updateStatusBarItem();
-        api.registerDisplayArgumentsProvider("Haxe", this);
+        updateDisplayArgumentsProviderRegistration();
     }
 
     public function activate(provideArguments) {
@@ -80,11 +83,24 @@ class HaxeDisplayArgumentsProvider {
     function onDidChangeConfiguration(_) {
         fixIndex();
         updateStatusBarItem();
+        updateDisplayArgumentsProviderRegistration();
         notifyConfigurationChange();
     }
 
     function onDidChangeActiveTextEditor(_) {
         updateStatusBarItem();
+    }
+
+    function updateDisplayArgumentsProviderRegistration() {
+        var config = getConfigurations();
+        var isActive = config != null && config.length > 0;
+
+        if (isActive && providerDisposable == null) {
+            providerDisposable = api.registerDisplayArgumentsProvider("Haxe", this);
+        } else if (!isActive && providerDisposable != null) {
+            providerDisposable.dispose();
+            providerDisposable = null;
+        }
     }
 
     function updateStatusBarItem() {

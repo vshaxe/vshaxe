@@ -28,8 +28,6 @@ class DisplayArguments {
         context.registerHaxeCommand(SelectDisplayArgumentsProvider, selectProvider);
 
         context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> updateStatusBarItem()));
-
-        updateStatusBarItem();
     }
 
     public function registerProvider(name:String, provider:DisplayArgumentsProvider):Disposable {
@@ -48,6 +46,7 @@ class DisplayArguments {
             providers.remove(name);
             if (name == currentProvider)
                 setCurrentProvider(null);
+            updateStatusBarItem();
         });
     }
 
@@ -99,11 +98,6 @@ class DisplayArguments {
     }
 
     function updateStatusBarItem() {
-        if (providers.count() <= 1) {
-            statusBarItem.hide();
-            return;
-        }
-
         var label, color;
         if (currentProvider == null) {
             label = "Select Haxe completion provider...";
