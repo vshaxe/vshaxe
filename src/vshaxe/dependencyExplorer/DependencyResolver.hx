@@ -119,6 +119,10 @@ class DependencyResolver {
 
     static function getDependencyInfo(path:String) {
         var absPath = PathHelper.absolutize(path, workspace.rootPath);
+        if (!FileSystem.exists(absPath)) {
+            return null;
+        }
+
         if (absPath.indexOf(haxelibRepo) == -1) {
             // dependencies outside of the haxelib repo (installed via "haxelib dev" or just classpaths)
             // - only bother to show these if they're outside of the current workspace
