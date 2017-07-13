@@ -8,6 +8,7 @@ import sys.FileSystem;
 import sys.io.File;
 import vshaxe.helper.PathHelper;
 import vshaxe.helper.HxmlParser;
+import vshaxe.helper.HaxeExecutableHelper;
 
 typedef DependencyInfo = {
     name:String,
@@ -71,7 +72,7 @@ class DependencyResolver {
         return result;
     }
 
-    public static function resolveDependencies(dependencies:DependencyList, haxePath:String):Array<DependencyInfo> {
+    public static function resolveDependencies(dependencies:DependencyList, haxeExecutable:HaxeExecutableHelper):Array<DependencyInfo> {
         var paths = [];
         for (lib in dependencies.libs) {
             paths = paths.concat(resolveHaxelib(lib));
@@ -81,6 +82,7 @@ class DependencyResolver {
         var infos = paths.map(getDependencyInfo).filter(info -> info != null);
 
         // std lib needs to be handled separately
+        var haxePath = haxeExecutable.config.path; // TODO handle env vars too
         var stdLibPath = getStandardLibraryPath(haxePath);
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
             infos.push(getStandardLibraryInfo(stdLibPath, haxePath));

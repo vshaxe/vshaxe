@@ -67,6 +67,41 @@
                         }
                     }
                 },
+                "haxe.executable": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "description": "Path to the Haxe executable"
+                        },
+                        {
+                            "type": "object",
+                            "description": "Haxe executable configuration",
+                            "properties": {
+                                "path": {
+                                    "type": "string",
+                                    "description": "Path to the Haxe executable"
+                                },
+                                "env": {
+                                    "description": "Additional environment variables used for running Haxe executable",
+                                    "type": "object",
+                                    "default": {},
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                },
+                                "windows": {
+                                    "description": "Overrides for Windows"
+                                },
+                                "linux": {
+                                    "description": "Overrides for Linux"
+                                },
+                                "osx": {
+                                    "description": "Overrides for Mac"
+                                }
+                            }
+                        }
+                    ]
+                },
                 "haxe.displayServer": {
                     "description": "Haxe completion server configuration",
                     "type": "object",

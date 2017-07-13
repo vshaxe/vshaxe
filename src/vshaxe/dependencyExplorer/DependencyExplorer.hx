@@ -4,24 +4,26 @@ import haxe.io.Path;
 import js.Promise;
 import vshaxe.dependencyExplorer.DependencyResolver;
 import vshaxe.display.DisplayArguments;
+import vshaxe.helper.HaxeExecutableHelper;
 
 class DependencyExplorer {
     var context:ExtensionContext;
     var displayArguments:Array<String>;
+    var haxeExecutable:HaxeExecutableHelper;
     var relevantHxmls:Array<String> = [];
     var dependencyNodes:Array<Node> = [];
     var dependencies:DependencyList;
     var refreshNeeded:Bool = true;
-    var haxePath:String;
     var previousSelection:{node:Node, time:Float};
 
     var _onDidChangeTreeData = new EventEmitter<Node>();
 
     public var onDidChangeTreeData:Event<Node>;
 
-    public function new(context:ExtensionContext, displayArguments:DisplayArguments) {
+    public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeExecutable:HaxeExecutableHelper) {
         this.context = context;
         this.displayArguments = displayArguments.arguments;
+        this.haxeExecutable = haxeExecutable;
         displayArguments.onDidChangeArguments(onDidChangeDisplayArguments);
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
@@ -36,8 +38,7 @@ class DependencyExplorer {
         context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
         context.subscriptions.push(hxmlFileWatcher);
 
-        context.subscriptions.push(workspace.onDidChangeConfiguration(onDidChangeConfiguration));
-        haxePath = getHaxePath();
+        context.subscriptions.push(haxeExecutable.onDidChangeConfig(_ -> refresh()));
     }
 
     function onDidChangeHxml(uri:Uri) {
@@ -46,18 +47,6 @@ class DependencyExplorer {
                 refresh(false);
             }
         }
-    }
-
-    function onDidChangeConfiguration(_) {
-        if (haxePath != getHaxePath()) {
-            haxePath = getHaxePath();
-            refresh();
-        }
-    }
-
-    function getHaxePath() {
-        var haxePath = workspace.getConfiguration("haxe").get("displayServer").haxePath;
-        return if (haxePath == null) "haxe" else haxePath;
     }
 
     function refreshDependencies():Array<Node> {
@@ -70,7 +59,7 @@ class DependencyExplorer {
         }
         dependencies = newDependencies;
 
-        return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxePath));
+        return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxeExecutable));
     }
 
     function updateNodes(dependencyInfos:Array<DependencyInfo>):Array<Node> {

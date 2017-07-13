@@ -1,10 +1,14 @@
 package vshaxe.tasks;
 
+import vshaxe.helper.HaxeExecutableHelper;
+
 class HxmlTaskProvider {
     var hxmlDiscovery:HxmlDiscovery;
+    var haxeExecutable:HaxeExecutableHelper;
 
-    public function new(hxmlDiscovery) {
+    public function new(hxmlDiscovery, haxeExecutable) {
         this.hxmlDiscovery = hxmlDiscovery;
+        this.haxeExecutable = haxeExecutable;
         workspace.registerTaskProvider("hxml", this);
     }
 
@@ -14,7 +18,8 @@ class HxmlTaskProvider {
                 type: "hxml",
                 file: file
             };
-            var task = new Task(definition, file, "haxe", new ShellExecution('haxe "$file"'), "$haxe");
+            var haxePath = haxeExecutable.config.path;
+            var task = new Task(definition, file, "haxe", new ShellExecution('$haxePath "$file"', {env: haxeExecutable.config.env}), "$haxe");
             task.group = TaskGroup.Build;
             task;
         }];
