@@ -21,7 +21,6 @@ class HaxeDisplayArgumentsProvider {
         context.registerHaxeCommand(SelectDisplayConfiguration, selectConfiguration);
 
         context.subscriptions.push(workspace.onDidChangeConfiguration(onDidChangeConfiguration));
-        context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
 
         fixIndex();
         updateStatusBarItem();
@@ -85,10 +84,6 @@ class HaxeDisplayArgumentsProvider {
         updateStatusBarItem();
         updateDisplayArgumentsProviderRegistration();
         notifyConfigurationChange();
-    }
-
-    function onDidChangeActiveTextEditor(_) {
-        updateStatusBarItem();
     }
 
     function updateDisplayArgumentsProviderRegistration() {

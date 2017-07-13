@@ -26,8 +26,6 @@ class DisplayArguments {
         context.subscriptions.push(statusBarItem);
 
         context.registerHaxeCommand(SelectDisplayArgumentsProvider, selectProvider);
-
-        context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> updateStatusBarItem()));
     }
 
     public function registerProvider(name:String, provider:DisplayArgumentsProvider):Disposable {
