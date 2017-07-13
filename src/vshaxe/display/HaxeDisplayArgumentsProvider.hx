@@ -112,11 +112,11 @@ class HaxeDisplayArgumentsProvider {
     }
 
     public inline function getIndex():Int {
-        return context.workspaceState.get("haxe.displayConfigurationIndex", 0);
+        return context.workspaceState.get(HaxeMemento.DisplayConfigurationIndex, 0);
     }
 
     function setIndex(index:Int) {
-        context.workspaceState.update("haxe.displayConfigurationIndex", index);
+        context.workspaceState.update(HaxeMemento.DisplayConfigurationIndex, index);
         updateStatusBarItem();
         notifyConfigurationChange();
     }

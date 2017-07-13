@@ -1,7 +1,6 @@
 package vshaxe.display;
 
 class DisplayArguments {
-    static inline var CURRENT_PROVIDER_MEMENTO_KEY = "haxe.displayArgumentsProviderName";
     static var statusBarWarningThemeColor = new ThemeColor("errorForeground");
 
     var context:ExtensionContext;
@@ -66,7 +65,7 @@ class DisplayArguments {
     }
 
     inline function getCurrentProviderName():Null<String> {
-        return context.workspaceState.get(CURRENT_PROVIDER_MEMENTO_KEY);
+        return context.workspaceState.get(HaxeMemento.DisplayArgumentsProviderName);
     }
 
     function setCurrentProvider(name:Null<String>) {
@@ -83,7 +82,7 @@ class DisplayArguments {
                 provider.activate(provideArguments);
         }
 
-        context.workspaceState.update(CURRENT_PROVIDER_MEMENTO_KEY, name);
+        context.workspaceState.update(HaxeMemento.DisplayArgumentsProviderName, name);
         updateStatusBarItem();
     }
 
