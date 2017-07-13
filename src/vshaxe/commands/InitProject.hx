@@ -19,18 +19,13 @@ class InitProject {
             return;
         }
 
-        var vscodeDir = workspaceRoot + "/.vscode";
-        if (FileSystem.exists(vscodeDir)) {
-            showConfigureHint();
-            return;
-        }
-
         var emptyOrOnlyHiddenFiles = FileSystem.readDirectory(workspaceRoot).foreach(function(f) return f.startsWith("."));
         if (emptyOrOnlyHiddenFiles) {
             scaffoldEmpty(workspaceRoot);
             return;
         }
 
+        var vscodeDir = workspaceRoot + "/.vscode";
         var hxmls = findHxmls(workspaceRoot);
         if (hxmls.length == 0) {
             window.showErrorMessage("To set up Haxe project, workspace must be either empty or contain HXML files to choose from");
@@ -45,15 +40,6 @@ class InitProject {
         var scaffoldSource = context.asAbsolutePath("./scaffold/project");
         copyRec(scaffoldSource, root);
         window.setStatusBarMessage("Haxe project scaffolded", 2000);
-    }
-
-    function showConfigureHint() {
-        var channel = window.createOutputChannel("Haxe scaffold");
-        context.subscriptions.push(channel);
-        var content = File.getContent(context.asAbsolutePath("./scaffold/configureHint.txt"));
-        channel.clear();
-        channel.append(content);
-        channel.show();
     }
 
     function findHxmls(root:String):Array<QuickPickItem> {
