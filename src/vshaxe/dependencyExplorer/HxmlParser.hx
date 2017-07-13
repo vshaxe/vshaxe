@@ -52,6 +52,19 @@ class HxmlParser {
         return result;
     }
 
+    public static function parseToArgs(src:String):Array<String> {
+        var result = [];
+        for (line in parseFile(src)) switch line {
+            case Comment(_):
+            case Simple(arg):
+                result.push(arg);
+            case Param(name, value):
+                result.push(name);
+                result.push(value);
+        }
+        return result;
+    }
+
     public static function parseArray(args:Array<String>):Array<HxmlLine> {
         var result = [];
         var flag = null;

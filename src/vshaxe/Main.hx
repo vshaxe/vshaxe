@@ -6,7 +6,8 @@ import vshaxe.dependencyExplorer.DependencyExplorer;
 
 // TODO: move elsewhere, rename and document
 private typedef Api = {
-    public function registerDisplayArgumentsProvider(name:String, provider:DisplayArgumentsProvider):Disposable;
+    function registerDisplayArgumentsProvider(name:String, provider:DisplayArgumentsProvider):Disposable;
+    function parseHxmlToArguments(hxml:String):Array<String>;
 }
 
 class Main {
@@ -25,7 +26,8 @@ class Main {
         new HxmlTaskProvider(context);
 
         api = {
-            registerDisplayArgumentsProvider: displayArguments.registerProvider
+            registerDisplayArgumentsProvider: displayArguments.registerProvider,
+            parseHxmlToArguments: vshaxe.dependencyExplorer.HxmlParser.parseToArgs
         };
 
         setLanguageConfiguration();
