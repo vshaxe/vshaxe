@@ -111,7 +111,7 @@ class HaxeDisplayArgumentsProvider {
 
     function getConfigurations():Array<Array<String>> {
         var configs:Array<Array<String>> = workspace.getConfiguration("haxe").get("displayConfigurations");
-        if (configs == null) configs = [];
+        if (configs == null) configs = [] else configs = configs.copy();
         for (hxmlFile in hxmlDiscovery.hxmlFiles) {
             var hxmlConfig = [hxmlFile];
             if (!configs.exists(config -> config.equals(hxmlConfig))) {
