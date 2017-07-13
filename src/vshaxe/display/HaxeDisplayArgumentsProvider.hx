@@ -14,7 +14,7 @@ class HaxeDisplayArgumentsProvider {
         this.api = api;
 
         statusBarItem = window.createStatusBarItem(Left, 10);
-        statusBarItem.tooltip = "Haxe: Select Configuration...";
+        statusBarItem.tooltip = "Select Haxe Configuration";
         statusBarItem.command = SelectDisplayConfiguration;
         context.subscriptions.push(statusBarItem);
 
@@ -68,7 +68,7 @@ class HaxeDisplayArgumentsProvider {
         }
 
         items.moveToStart(item -> item.index == getIndex());
-        window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe display configuration"}).then(function(choice:DisplayConfigurationPickItem) {
+        window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe Display Configuration"}).then(function(choice:DisplayConfigurationPickItem) {
             if (choice == null || choice.index == getIndex())
                 return;
             setIndex(choice.index);

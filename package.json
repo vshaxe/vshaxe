@@ -179,17 +179,17 @@
                 "category": "Haxe"
             },
             {
-                "title": "Initialize VS Code Project...",
+                "title": "Initialize VS Code Project",
                 "command": "haxe.initProject",
                 "category": "Haxe"
             },
             {
-                "title": "Select Completion Provider...",
+                "title": "Select Completion Provider",
                 "command": "haxe.selectDisplayArgumentsProvider",
                 "category": "Haxe"
             },
             {
-                "title": "Select Configuration...",
+                "title": "Select Configuration",
                 "command": "haxe.selectDisplayConfiguration",
                 "category": "Haxe"
             },

@@ -21,7 +21,7 @@ class DisplayArguments {
         context.subscriptions.push(_onDidChangeArguments);
 
         statusBarItem = window.createStatusBarItem(Left, 11);
-        statusBarItem.tooltip = "Haxe: Select Completion Provider...";
+        statusBarItem.tooltip = "Select Haxe Completion Provider";
         statusBarItem.command = SelectDisplayArgumentsProvider;
         context.subscriptions.push(statusBarItem);
 
@@ -59,7 +59,7 @@ class DisplayArguments {
         }
 
         items.moveToStart(item -> item.label == currentProvider);
-        window.showQuickPick(items, {placeHolder: "Select Haxe completion provider"}).then(item -> if (item != null) setCurrentProvider(item.label));
+        window.showQuickPick(items, {placeHolder: "Select Haxe Completion Provider"}).then(item -> if (item != null) setCurrentProvider(item.label));
     }
 
     inline function getCurrentProviderName():Null<String> {
@@ -98,7 +98,7 @@ class DisplayArguments {
     function updateStatusBarItem() {
         var label, color;
         if (currentProvider == null) {
-            label = "Select Haxe completion provider...";
+            label = "Select Haxe Completion Provider";
             color = statusBarWarningThemeColor; // TODO: different color?
         } else {
             var provider = providers[currentProvider];
