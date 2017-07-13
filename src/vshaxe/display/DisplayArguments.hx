@@ -53,8 +53,16 @@ class DisplayArguments {
     }
 
     function selectProvider() {
-        var items = [for (name in providers.keys()) ({label: name, description: "", name: name} : ProviderQuickPickItem)];
-        window.showQuickPick(items, {placeHolder: "Select Haxe completion provider"}).then(item -> setCurrentProvider(if (item == null) null else item.name));
+        var items:Array<QuickPickItem> = [for (name in providers.keys()) {
+            {label: name, description: providers[name].description};
+        }];
+
+        if (items.length == 0) {
+            window.showErrorMessage("No Haxe completion providers registered.");
+            return;
+        }
+
+        window.showQuickPick(items, {placeHolder: "Select Haxe completion provider"}).then(item -> setCurrentProvider(if (item == null) null else item.label));
     }
 
     inline function getCurrentProviderName():Null<String> {
@@ -115,9 +123,4 @@ class DisplayArguments {
         statusBarItem.text = '$(gear) $label';
         statusBarItem.show();
     }
-}
-
-private typedef ProviderQuickPickItem = {
-    >QuickPickItem,
-    var name:String;
 }

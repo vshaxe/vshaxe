@@ -5,6 +5,8 @@ class HaxeDisplayArgumentsProvider {
     var statusBarItem:StatusBarItem;
     var provideArguments:Array<String>->Void;
 
+    public var description(default,never):String = "built-in, using haxe.displayConfigurations";
+
     public function new(context:ExtensionContext, api:Vshaxe) {
         this.context = context;
 
