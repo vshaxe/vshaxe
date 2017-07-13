@@ -7,7 +7,7 @@ import js.node.ChildProcess;
 import sys.FileSystem;
 import sys.io.File;
 import vshaxe.helper.PathHelper;
-import vshaxe.dependencyExplorer.HxmlParser.DependencyList;
+import vshaxe.helper.HxmlParser;
 
 typedef DependencyInfo = {
     name:String,
@@ -15,10 +15,61 @@ typedef DependencyInfo = {
     path:String
 }
 
+typedef DependencyList = {
+    libs:Array<String>,
+    classPaths:Array<String>,
+    hxmls:Array<String>
+}
+
 class DependencyResolver {
     static var _haxelibRepo:String;
 
     static var haxelibRepo(get, never):String;
+
+    public static function extractDependencies(args:Array<String>, cwd:String):DependencyList {
+        var result:DependencyList = {
+            libs: [],
+            classPaths: [],
+            hxmls: []
+        }
+
+        if (args == null) {
+            return result;
+        }
+
+        function processHxml(hxmlFile:String, cwd:String) {
+            hxmlFile = PathHelper.absolutize(hxmlFile, cwd);
+            result.hxmls.push(hxmlFile);
+            if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
+                return [];
+            }
+
+            return HxmlParser.parseFile(File.getContent(hxmlFile));
+        }
+
+        function processLines(lines:Array<HxmlLine>) {
+            for (line in lines) {
+                switch (line) {
+                    case Param("-lib", lib):
+                        result.libs.push(lib);
+                    case Param("-cp", cp):
+                        result.classPaths.push(cp);
+                    case Param("--cwd", newCwd):
+                        if (Path.isAbsolute(newCwd)) {
+                            cwd = newCwd;
+                        } else {
+                            cwd = Path.join([cwd, newCwd]);
+                        }
+                    case Simple(name) if (name.endsWith(".hxml")):
+                        processLines(processHxml(name, cwd));
+                    case _:
+                }
+            }
+        }
+
+        processLines(HxmlParser.parseArray(args));
+        return result;
+    }
 
     public static function resolveDependencies(dependencies:DependencyList, haxePath:String):Array<DependencyInfo> {
         var paths = [];

@@ -1,6 +1,7 @@
 package vshaxe;
 
 import vshaxe.dependencyExplorer.DependencyExplorer;
+import vshaxe.helper.HxmlParser;
 
 class Main {
     var api:Vshaxe;
@@ -19,7 +20,7 @@ class Main {
 
         api = {
             registerDisplayArgumentsProvider: displayArguments.registerProvider,
-            parseHxmlToArguments: vshaxe.dependencyExplorer.HxmlParser.parseToArgs
+            parseHxmlToArguments: HxmlParser.parseToArgs
         };
 
         setLanguageConfiguration();

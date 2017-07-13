@@ -3,7 +3,6 @@ package vshaxe.dependencyExplorer;
 import haxe.io.Path;
 import js.Promise;
 import vshaxe.dependencyExplorer.DependencyResolver;
-import vshaxe.dependencyExplorer.HxmlParser;
 
 class DependencyExplorer {
     var context:ExtensionContext;
@@ -61,7 +60,7 @@ class DependencyExplorer {
     }
 
     function refreshDependencies():Array<Node> {
-        var newDependencies = HxmlParser.extractDependencies(displayArguments, workspace.rootPath);
+        var newDependencies = DependencyResolver.extractDependencies(displayArguments, workspace.rootPath);
         relevantHxmls = newDependencies.hxmls;
 
         // avoid FS access / creating processes unless there were _actually_ changes

@@ -1,20 +1,9 @@
-package vshaxe.dependencyExplorer;
-
-import sys.FileSystem;
-import sys.io.File;
-import haxe.io.Path;
-import vshaxe.helper.PathHelper;
+package vshaxe.helper;
 
 enum HxmlLine {
     Comment(comment:String);
     Simple(name:String);
     Param(name:String, value:String);
-}
-
-typedef DependencyList = {
-    libs:Array<String>,
-    classPaths:Array<String>,
-    hxmls:Array<String>
 }
 
 class HxmlParser {
@@ -86,51 +75,6 @@ class HxmlParser {
             result.push(Simple(flag));
         }
 
-        return result;
-    }
-
-    public static function extractDependencies(args:Array<String>, cwd:String):DependencyList {
-        var result = {
-            libs: [],
-            classPaths: [],
-            hxmls: []
-        }
-
-        if (args == null) {
-            return result;
-        }
-
-        function processHxml(hxmlFile, cwd) {
-            hxmlFile = PathHelper.absolutize(hxmlFile, cwd);
-            result.hxmls.push(hxmlFile);
-            if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
-                return [];
-            }
-
-            return parseFile(File.getContent(hxmlFile));
-        }
-
-        function processLines(lines:Array<HxmlLine>) {
-            for (line in lines) {
-                switch (line) {
-                    case Param("-lib", lib):
-                        result.libs.push(lib);
-                    case Param("-cp", cp):
-                        result.classPaths.push(cp);
-                    case Param("--cwd", newCwd):
-                        if (Path.isAbsolute(newCwd)) {
-                            cwd = newCwd;
-                        } else {
-                            cwd = Path.join([cwd, newCwd]);
-                        }
-                    case Simple(name) if (name.endsWith(".hxml")):
-                        processLines(processHxml(name, cwd));
-                    case _:
-                }
-            }
-        }
-
-        processLines(parseArray(args));
         return result;
     }
 }

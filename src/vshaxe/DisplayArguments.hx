@@ -1,16 +1,5 @@
 package vshaxe;
 
-import Vscode.window;
-import Vscode.commands;
-import Vscode.languages;
-import vscode.Disposable;
-import vscode.Event;
-import vscode.EventEmitter;
-import vscode.QuickPickItem;
-import vscode.ExtensionContext;
-import vscode.StatusBarItem;
-import vscode.ThemeColor;
-
 class DisplayArguments {
     static inline var SELECT_PROVIDER_COMMAND = "haxe.selectDisplayArgumentsProvider";
     static inline var CURRENT_PROVIDER_MEMENTO_KEY = "haxe.displayArgumentsProviderName";
@@ -110,7 +99,7 @@ class DisplayArguments {
             return;
         }
 
-        if (Lambda.empty(providers)) {
+        if (providers.empty()) {
             statusBarItem.hide();
             return;
         }
