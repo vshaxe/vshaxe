@@ -54,7 +54,10 @@ class HaxeDisplayArgumentsProvider {
             window.showErrorMessage("No Haxe display configurations are available. Please provide the haxe.displayConfigurations setting.", ({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
                 if (button == null)
                     return;
-                workspace.openTextDocument(workspace.rootPath + "/.vscode/settings.json").then(function(doc) window.showTextDocument(doc));
+                workspace.getConfiguration("haxe").update("displayConfigurations", [], false).then(_ ->
+                    workspace.openTextDocument(workspace.rootPath + "/.vscode/settings.json").then(
+                        document -> window.showTextDocument(document)
+                ));
             });
             return;
         }
