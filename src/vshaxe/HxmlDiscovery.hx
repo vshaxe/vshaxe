@@ -20,10 +20,9 @@ class HxmlDiscovery {
 
         var pattern = "*.hxml";
         workspace.findFiles(pattern).then(files -> {
-            if (files != null) {
-                hxmlFiles = files.map(uri -> pathRelativeToRoot(uri));
+            var foundFiles = if (files != null) files.map(uri -> pathRelativeToRoot(uri)) else [];
+            if (!hxmlFiles.equals(foundFiles))
                 onHxmlFilesChanged();
-            }
         });
 
         // looks like file watchers require a glob prefixed with the workspace root
