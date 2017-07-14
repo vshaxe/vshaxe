@@ -32,7 +32,7 @@ class HaxeExecutable {
 
     public var onDidChangeConfiguration(get,never):Event<HaxeExecutableConfiguration>;
     var _onDidChangeConfiguration:EventEmitter<HaxeExecutableConfiguration>;
-    inline function get_onDidChangeConfiguration() return _onDidChangeConfiguration.event;
+    function get_onDidChangeConfiguration() return _onDidChangeConfiguration.event;
 
     public function new(context:ExtensionContext) {
         updateConfig(getExecutableSettings());
