@@ -15,12 +15,13 @@ class Main {
 
     function new(context:ExtensionContext) {
         var displayArguments = new DisplayArguments(context);
+        var haxeExecutable = new HaxeExecutable(context);
         api = {
+            haxeExecutable: haxeExecutable,
             registerDisplayArgumentsProvider: displayArguments.registerProvider,
             parseHxmlToArguments: HxmlParser.parseToArgs
         };
 
-        var haxeExecutable = new HaxeExecutable(context);
         var server = new LanguageServer(context, haxeExecutable, displayArguments);
         new Commands(context, server);
         new InitProject(context);

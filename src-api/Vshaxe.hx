@@ -1,5 +1,6 @@
 import vscode.Disposable;
 import vshaxe.DisplayArgumentsProvider;
+import vshaxe.HaxeExecutable;
 
 /**
     Public API provided by the vshaxe extension.
@@ -7,6 +8,15 @@ import vshaxe.DisplayArgumentsProvider;
     Retrieve with vscode extensions API: `var vshaxe:Vshaxe = Vscode.extensions.getExtension("nadako.vshaxe").exports`
 **/
 typedef Vshaxe = {
+    /**
+        Contains the configuration for the Haxe executable, including path and environment variables.
+        Corresponds to the `"haxe.executable"` setting. `haxeExecutable.config` is pre-processed,
+        meaning that the setting's OS-specific overrides don't need to be handled.
+
+        Should be respected by generated tasks that call Haxe directly or indirectly.
+    **/
+    var haxeExecutable(default,never):HaxeExecutable;
+
     /**
         Register a display argument provider.
 

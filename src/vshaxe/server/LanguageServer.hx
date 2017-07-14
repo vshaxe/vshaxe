@@ -22,7 +22,7 @@ class LanguageServer {
 
         prepareDisplayServerConfig();
         context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()));
-        context.subscriptions.push(haxeExecutable.onDidChangeConfig(_ -> refreshDisplayServerConfig()));
+        context.subscriptions.push(haxeExecutable.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()));
 
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
     }
@@ -111,8 +111,8 @@ class LanguageServer {
         @return `true` if configuration was changed since last call
     **/
     function prepareDisplayServerConfig():Bool {
-        var path = haxeExecutable.config.path;
-        var env = haxeExecutable.config.env;
+        var path = haxeExecutable.configuration.path;
+        var env = haxeExecutable.configuration.env;
         var haxeConfig = workspace.getConfiguration("haxe");
         var arguments = haxeConfig.get("displayServer.arguments", []);
         if (!haxeExecutable.isConfigured()) {

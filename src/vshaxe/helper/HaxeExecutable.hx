@@ -1,21 +1,23 @@
 package vshaxe.helper;
 
 import haxe.extern.EitherType;
+import vshaxe.HaxeExecutableConfiguration;
 
-typedef HaxeExecutableConfigBase = {
+/** same as vshaxe.HaxeExecutableConfiguration, but not read-only **/
+private typedef WritableHaxeExecutableConfiguration = {
     var path:String;
     var env:haxe.DynamicAccess<String>;
 }
 
-private typedef HaxeExecutablePathOrConfigBase = EitherType<String,HaxeExecutableConfigBase>;
+private typedef HaxeExecutablePathOrConfigBase = EitherType<String,HaxeExecutableConfiguration>;
 
 typedef HaxeExecutablePathOrConfig = EitherType<
     String,
     {
-        >HaxeExecutableConfigBase,
-        @:optional var windows:HaxeExecutablePathOrConfigBase;
-        @:optional var linux:HaxeExecutablePathOrConfigBase;
-        @:optional var osx:HaxeExecutablePathOrConfigBase;
+        >HaxeExecutableConfiguration,
+        @:optional var windows:HaxeExecutableConfiguration;
+        @:optional var linux:HaxeExecutableConfiguration;
+        @:optional var osx:HaxeExecutableConfiguration;
     }
 >;
 
@@ -26,15 +28,15 @@ class HaxeExecutable {
         default: "linux";
     };
 
-    public var config(default,null):HaxeExecutableConfigBase;
+    public var configuration(default,null):HaxeExecutableConfiguration;
 
-    public var onDidChangeConfig(get,never):Event<HaxeExecutableConfigBase>;
-    var _onDidChangeConfig:EventEmitter<HaxeExecutableConfigBase>;
-    inline function get_onDidChangeConfig() return _onDidChangeConfig.event;
+    public var onDidChangeConfiguration(get,never):Event<HaxeExecutableConfiguration>;
+    var _onDidChangeConfiguration:EventEmitter<HaxeExecutableConfiguration>;
+    inline function get_onDidChangeConfiguration() return _onDidChangeConfiguration.event;
 
     public function new(context:ExtensionContext) {
         updateConfig(getExecutableSettings());
-        _onDidChangeConfig = new EventEmitter();
+        _onDidChangeConfiguration = new EventEmitter();
         context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
     }
 
@@ -47,13 +49,13 @@ class HaxeExecutable {
     static inline function getExecutableSettings() return workspace.getConfiguration("haxe").get("executable");
 
     function refresh() {
-        var oldConfig = config;
+        var oldConfig = configuration;
         updateConfig(getExecutableSettings());
-        if (!isSame(oldConfig, config))
-            _onDidChangeConfig.fire(config);
+        if (!isSame(oldConfig, configuration))
+            _onDidChangeConfiguration.fire(configuration);
     }
 
-    static function isSame(oldConfig:HaxeExecutableConfigBase, newConfig:HaxeExecutableConfigBase):Bool {
+    static function isSame(oldConfig:HaxeExecutableConfiguration, newConfig:HaxeExecutableConfiguration):Bool {
         // ouch...
         if (oldConfig.path != newConfig.path)
             return false;
@@ -78,20 +80,20 @@ class HaxeExecutable {
     }
 
     function updateConfig(input:Null<HaxeExecutablePathOrConfig>) {
-        config = {
+        var newConfig:WritableHaxeExecutableConfiguration = {
             path: "haxe",
             env: {},
         };
 
         function merge(conf:HaxeExecutablePathOrConfigBase) {
             if ((conf is String)) {
-                config.path = conf;
+                newConfig.path = conf;
             } else {
-                var conf:HaxeExecutableConfigBase = conf;
+                var conf:HaxeExecutableConfiguration = conf;
                 if (conf.path != null)
-                    config.path = conf.path;
+                    newConfig.path = conf.path;
                 if (conf.env != null)
-                    config.env = conf.env;
+                    newConfig.env = conf.env;
             }
         }
 
@@ -101,5 +103,7 @@ class HaxeExecutable {
             if (systemConfig != null)
                 merge(systemConfig);
         }
+
+        configuration = newConfig;
     }
 }

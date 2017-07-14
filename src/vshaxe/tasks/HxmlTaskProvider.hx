@@ -18,8 +18,8 @@ class HxmlTaskProvider {
                 type: "hxml",
                 file: file
             };
-            var haxePath = haxeExecutable.config.path;
-            var task = new Task(definition, file, "haxe", new ProcessExecution(haxePath, [file], {env: haxeExecutable.config.env}), "$haxe");
+            var haxePath = haxeExecutable.configuration.path;
+            var task = new Task(definition, file, "haxe", new ProcessExecution(haxePath, [file], {env: haxeExecutable.configuration.env}), "$haxe");
             task.group = TaskGroup.Build;
             task;
         }];

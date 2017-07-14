@@ -82,7 +82,7 @@ class DependencyResolver {
         var infos = paths.map(getDependencyInfo).filter(info -> info != null);
 
         // std lib needs to be handled separately
-        var haxePath = haxeExecutable.config.path;
+        var haxePath = haxeExecutable.configuration.path;
         var stdLibPath = getStandardLibraryPath(haxePath);
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
             infos.push(getStandardLibraryInfo(stdLibPath, haxePath));
