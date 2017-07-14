@@ -176,7 +176,7 @@ class DependencyResolver {
         return searchHaxelibJson(Path.join([path, ".."]), levels - 1);
     }
 
-    static function getStandardLibraryPath(displayServerHaxePath:String):String {
+    static function getStandardLibraryPath(haxePath:String):String {
         // more or less a port of main.ml's get_std_class_paths()
         var path = Sys.getEnv("HAXE_STD_PATH");
         if (path != null) {
@@ -184,11 +184,11 @@ class DependencyResolver {
         }
 
         if (Sys.systemName() == "Windows") {
-            var haxePath = getHaxePath(displayServerHaxePath);
-            if (haxePath == null) {
+            var realHaxePath = resolveRealHaxePath(haxePath);
+            if (realHaxePath == null) {
                 return null;
             }
-            return Path.join([Path.directory(haxePath), "std"]);
+            return Path.join([Path.directory(realHaxePath), "std"]);
         } else {
             for (path in [
                     "/usr/local/share/haxe/std/",
@@ -204,15 +204,14 @@ class DependencyResolver {
         return null;
     }
 
-    static function getHaxePath(displayServerHaxePath:String):String {
-        var haxePath = displayServerHaxePath;
+    static function resolveRealHaxePath(haxePath:String):String {
         if (haxePath == null || !FileSystem.exists(haxePath)) {
-            haxePath = getProcessOutput("where haxe")[0];
+            return getProcessOutput("where haxe")[0];
         }
         return haxePath;
     }
 
-    static function getStandardLibraryInfo(path:String, displayServerHaxePath:String) {
+    static function getStandardLibraryInfo(path:String, haxePath:String) {
         var version = "?";
         var result = null;
 
@@ -220,7 +219,7 @@ class DependencyResolver {
         if (workspace.rootPath != null) {
             Sys.setCwd(workspace.rootPath);
         }
-        result = ChildProcess.spawnSync(displayServerHaxePath, ["-version"]);
+        result = ChildProcess.spawnSync(haxePath, ["-version"]);
         Sys.setCwd(oldCwd);
 
         if (result != null && result.stderr != null) {
