@@ -42,9 +42,18 @@ class LanguageServer {
         client.logFailedRequest = function(type, error) {
             client.warn('Request ${type.method} failed.', error);
         };
-        var argumentChangeListenerDisposable = null;
+
+        // If arguments change while we're starting language server we remember that fact
+        // and send updated arguments once language server is ready. this can often happen on startup
+        // due to asynchronous argument provider loading. I wonder if there's any way to handle this better...
+        var argumentsChanged = false;
+        var argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(_ -> argumentsChanged = true);
+
         client.onReady().then(function(_) {
             client.outputChannel.appendLine("Haxe language server started");
+            argumentChangeListenerDisposable.dispose();
+            if (argumentsChanged)
+                client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: displayArguments.arguments});
             argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(arguments -> client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments}));
 
             context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {
@@ -74,7 +83,7 @@ class LanguageServer {
         var clientDisposable = client.start();
         disposable = new Disposable(function() {
             clientDisposable.dispose();
-            if (argumentChangeListenerDisposable != null) argumentChangeListenerDisposable.dispose();
+            argumentChangeListenerDisposable.dispose();
         });
         context.subscriptions.push(disposable);
     }
