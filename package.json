@@ -239,16 +239,19 @@
                     "description": "Options for code generation",
                     "type": "object",
                     "default": {},
+                    "additionalProperties": false,
                     "properties": {
                         "functions": {
                             "description": "Options for generating functions",
                             "type": "object",
                             "default": {},
+                            "additionalProperties": false,
                             "properties": {
                                 "anonymous": {
                                     "description": "Options for generating anonymous functions",
                                     "type": "object",
                                     "default": {},
+                                    "additionalProperties": false,
                                     "properties": {
                                         "returnTypeHint": {
                                             "description": "In which case to include return type hints",
