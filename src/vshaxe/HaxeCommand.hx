@@ -15,6 +15,7 @@ package vshaxe;
     var ApplyFixes = command("applyFixes");
     var ShowReferences = command("showReferences");
     var Dependencies_SelectNode = command("dependencies.selectNode");
+    var ClearMementos = command("clearMementos");
 
     inline static function command(name:String):String {
         return "haxe." + name;

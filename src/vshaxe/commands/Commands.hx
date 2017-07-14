@@ -15,6 +15,10 @@ class Commands {
         context.registerHaxeCommand(ShowReferences, showReferences);
         context.registerHaxeCommand(RunGlobalDiagnostics, runGlobalDiagnostics);
         context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
+
+        #if debug
+        context.registerHaxeCommand(ClearMementos, clearMementos);
+        #end
     }
 
     function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
@@ -88,6 +92,16 @@ class Commands {
         // editing the global config only has an effect if there's no workspace value
         var global = info.workspaceValue == null;
         config.update(key, !value, global);
+    }
+
+    function clearMementos() {
+        inline function clear(memento:HaxeMemento) {
+            context.workspaceState.update(memento, js.Lib.undefined);
+        }
+
+        clear(HaxeMemento.DisplayArgumentsProviderName);
+        clear(HaxeMemento.DisplayConfigurationIndex);
+        clear(HaxeMemento.HxmlDiscoveryFiles);
     }
 
     function getCurrentConfigValue<T>(info, config:WorkspaceConfiguration):T {
