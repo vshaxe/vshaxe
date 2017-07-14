@@ -6,6 +6,7 @@
 - added support for using auto-discovered HXML files as display configurations
 - added an extension API enabling Haxe build tools to provide completion ([#18](https://github.com/vshaxe/vshaxe/issues/18))
 - added a `Select Completion Provider` command
+- added a `"haxe.executable"` setting
 
 **Bugfixes**:
 
@@ -24,6 +25,7 @@
 - added support for `@event` JavaDoc tags in highlighting and completion
 - reduced Haxe server restarts to changes of relevant settings ([#153](https://github.com/vshaxe/vshaxe/issues/153))
 - greatly simplified the `Initialize VS Code Project` command
+- deprecated `"haxe.displayServer"`'s `"haxePath"` / `"env"` in favor of `"haxe.executable"`
 
 ### 1.8.0 (June 28, 2017)
 

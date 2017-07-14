@@ -106,12 +106,8 @@
                     "description": "Haxe completion server configuration",
                     "type": "object",
                     "default": {},
+                    "additionalProperties": false,
                     "properties": {
-                        "haxePath": {
-                            "description": "Path to the Haxe executable used for the completion server",
-                            "type": "string",
-                            "default": "haxe"
-                        },
                         "arguments": {
                             "description": "Array of arguments passed to the haxe completion server at start. Can be used for debugging completion server issues, for example by adding \"-v\" argument.",
                             "type": "array",
@@ -119,23 +115,6 @@
                             "items": {
                                 "type": "string"
                             }
-                        },
-                        "env": {
-                            "description": "Additional environment variables used to start the haxe completion server",
-                            "type": "object",
-                            "default": {},
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        },
-                        "windows": {
-                            "description": "Overrides for Windows"
-                        },
-                        "linux": {
-                            "description": "Overrides for Linux"
-                        },
-                        "osx": {
-                            "description": "Overrides for Mac"
                         }
                     }
                 },
