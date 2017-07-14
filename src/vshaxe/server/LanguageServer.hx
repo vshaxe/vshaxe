@@ -7,6 +7,7 @@ class LanguageServer {
     var context:ExtensionContext;
     var disposable:Disposable;
     var hxFileWatcher:FileSystemWatcher;
+    var progresses = new Map<Int,Void->Void>();
     var haxeExecutable:HaxeExecutable;
     var displayArguments:DisplayArguments;
     var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>};
@@ -139,8 +140,6 @@ class LanguageServer {
         displayServerConfigSerialized = haxe.Json.stringify(displayServerConfig);
         return displayServerConfigSerialized != oldSerialized;
     }
-
-    var progresses = new Map<Int,Void->Void>();
 
     function startProgress(data:{id:Int, title:String}) {
         window.withProgress({location: Window, title: data.title}, function(_) {

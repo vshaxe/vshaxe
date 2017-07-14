@@ -82,8 +82,7 @@ class DependencyResolver {
         var infos = paths.map(getDependencyInfo).filter(info -> info != null);
 
         // std lib needs to be handled separately
-        var haxePath = PathHelper.absolutize(haxeExecutable.config.path, workspace.rootPath); // TODO should this be handled in HaxeExecutable instead?
-        // TODO handle env vars too
+        var haxePath = haxeExecutable.config.path;
         var stdLibPath = getStandardLibraryPath(haxePath);
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
             infos.push(getStandardLibraryInfo(stdLibPath, haxePath));
