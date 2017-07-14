@@ -1,18 +1,21 @@
 package vshaxe.server;
 
 import vshaxe.display.DisplayArguments;
+import vshaxe.helper.HaxeExecutable;
 
 class LanguageServer {
     var context:ExtensionContext;
     var disposable:Disposable;
     var hxFileWatcher:FileSystemWatcher;
+    var haxeExecutable:HaxeExecutable;
     var displayArguments:DisplayArguments;
 
     public var client(default,null):LanguageClient;
 
-    public function new(context:ExtensionContext, displayArguments:DisplayArguments) {
+    public function new(context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments) {
         this.context = context;
         this.displayArguments = displayArguments;
+        this.haxeExecutable = haxeExecutable;
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
     }
 
@@ -35,7 +38,8 @@ class LanguageServer {
                 fileEvents: hxFileWatcher
             },
             initializationOptions: {
-                displayArguments: displayArguments.arguments
+                displayArguments: displayArguments.arguments,
+                displayServerConfig: prepareDisplayServerConfig(),
             }
         };
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
@@ -49,12 +53,15 @@ class LanguageServer {
         var argumentsChanged = false;
         var argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(_ -> argumentsChanged = true);
 
+        var executableChangeListenerDisposable = null; // TODO: technically exec config can change while server is starting, but meh...
+
         client.onReady().then(function(_) {
             client.outputChannel.appendLine("Haxe language server started");
             argumentChangeListenerDisposable.dispose();
             if (argumentsChanged)
                 client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: displayArguments.arguments});
             argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(arguments -> client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments}));
+            executableChangeListenerDisposable = haxeExecutable.onDidChangeConfig(_ -> client.sendNotification({method: "vshaxe/didChangeDisplayServerConfig"}, prepareDisplayServerConfig()));
 
             context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {
                 var editor = window.activeTextEditor;
@@ -84,8 +91,19 @@ class LanguageServer {
         disposable = new Disposable(function() {
             clientDisposable.dispose();
             argumentChangeListenerDisposable.dispose();
+            if (executableChangeListenerDisposable != null) executableChangeListenerDisposable.dispose();
         });
         context.subscriptions.push(disposable);
+    }
+
+    function prepareDisplayServerConfig() {
+        var config = haxeExecutable.config;
+        // TODO: handle legacy haxe.displayServer config here
+        return {
+            path: config.path,
+            env: config.env,
+            arguments: workspace.getConfiguration("haxe.displayServer").get("arguments", [])
+        };
     }
 
     var progresses = new Map<Int,Void->Void>();

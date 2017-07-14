@@ -8,7 +8,7 @@ import sys.FileSystem;
 import sys.io.File;
 import vshaxe.helper.PathHelper;
 import vshaxe.helper.HxmlParser;
-import vshaxe.helper.HaxeExecutableHelper;
+import vshaxe.helper.HaxeExecutable;
 
 typedef DependencyInfo = {
     name:String,
@@ -72,7 +72,7 @@ class DependencyResolver {
         return result;
     }
 
-    public static function resolveDependencies(dependencies:DependencyList, haxeExecutable:HaxeExecutableHelper):Array<DependencyInfo> {
+    public static function resolveDependencies(dependencies:DependencyList, haxeExecutable:HaxeExecutable):Array<DependencyInfo> {
         var paths = [];
         for (lib in dependencies.libs) {
             paths = paths.concat(resolveHaxelib(lib));

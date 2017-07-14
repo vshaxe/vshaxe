@@ -1,5 +1,4 @@
 # This file is generated with vshaxe-build - DO NOT EDIT MANUALLY!
--cp server/common
 -cp vscode-extern/src
 -cp src-api
 -cp src

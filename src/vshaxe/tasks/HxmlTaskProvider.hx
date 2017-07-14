@@ -1,10 +1,10 @@
 package vshaxe.tasks;
 
-import vshaxe.helper.HaxeExecutableHelper;
+import vshaxe.helper.HaxeExecutable;
 
 class HxmlTaskProvider {
     var hxmlDiscovery:HxmlDiscovery;
-    var haxeExecutable:HaxeExecutableHelper;
+    var haxeExecutable:HaxeExecutable;
 
     public function new(hxmlDiscovery, haxeExecutable) {
         this.hxmlDiscovery = hxmlDiscovery;

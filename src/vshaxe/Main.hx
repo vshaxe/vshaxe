@@ -6,7 +6,7 @@ import vshaxe.dependencyExplorer.DependencyExplorer;
 import vshaxe.display.DisplayArguments;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.helper.HxmlParser;
-import vshaxe.helper.HaxeExecutableHelper;
+import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HxmlTaskProvider;
 
@@ -20,8 +20,8 @@ class Main {
             parseHxmlToArguments: HxmlParser.parseToArgs
         };
 
-        var haxeExecutable = new HaxeExecutableHelper(context);
-        var server = new LanguageServer(context, displayArguments);
+        var haxeExecutable = new HaxeExecutable(context);
+        var server = new LanguageServer(context, haxeExecutable, displayArguments);
         new Commands(context, server);
         new InitProject(context);
         new DependencyExplorer(context, displayArguments, haxeExecutable);

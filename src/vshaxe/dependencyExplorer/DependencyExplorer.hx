@@ -4,12 +4,12 @@ import haxe.io.Path;
 import js.Promise;
 import vshaxe.dependencyExplorer.DependencyResolver;
 import vshaxe.display.DisplayArguments;
-import vshaxe.helper.HaxeExecutableHelper;
+import vshaxe.helper.HaxeExecutable;
 
 class DependencyExplorer {
     var context:ExtensionContext;
     var displayArguments:Array<String>;
-    var haxeExecutable:HaxeExecutableHelper;
+    var haxeExecutable:HaxeExecutable;
     var relevantHxmls:Array<String> = [];
     var dependencyNodes:Array<Node> = [];
     var dependencies:DependencyList;
@@ -20,7 +20,7 @@ class DependencyExplorer {
 
     public var onDidChangeTreeData:Event<Node>;
 
-    public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeExecutable:HaxeExecutableHelper) {
+    public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeExecutable:HaxeExecutable) {
         this.context = context;
         this.displayArguments = displayArguments.arguments;
         this.haxeExecutable = haxeExecutable;
