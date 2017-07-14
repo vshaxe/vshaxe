@@ -38,6 +38,12 @@ class HaxeExecutable {
         context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
     }
 
+    /** Returns true if haxe.executable setting was configured by user **/
+    public function isConfigured() {
+        var executableSetting = workspace.getConfiguration("haxe").inspect("executable");
+        return executableSetting.workspaceValue != null || executableSetting.globalValue != null;
+    }
+
     static inline function getExecutableSettings() return workspace.getConfiguration("haxe").get("executable");
 
     function refresh() {

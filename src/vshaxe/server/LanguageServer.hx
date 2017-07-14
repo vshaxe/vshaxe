@@ -9,6 +9,8 @@ class LanguageServer {
     var hxFileWatcher:FileSystemWatcher;
     var haxeExecutable:HaxeExecutable;
     var displayArguments:DisplayArguments;
+    var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>};
+    var displayServerConfigSerialized:String;
 
     public var client(default,null):LanguageClient;
 
@@ -16,7 +18,17 @@ class LanguageServer {
         this.context = context;
         this.displayArguments = displayArguments;
         this.haxeExecutable = haxeExecutable;
+
+        prepareDisplayServerConfig();
+        context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()));
+        context.subscriptions.push(haxeExecutable.onDidChangeConfig(_ -> refreshDisplayServerConfig()));
+
         context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
+    }
+
+    function refreshDisplayServerConfig() {
+        if (prepareDisplayServerConfig() && client != null)
+            client.sendNotification({method: "vshaxe/didChangeDisplayServerConfig"}, displayServerConfig);
     }
 
     function onDidChangeActiveTextEditor(editor:TextEditor) {
@@ -39,7 +51,7 @@ class LanguageServer {
             },
             initializationOptions: {
                 displayArguments: displayArguments.arguments,
-                displayServerConfig: prepareDisplayServerConfig(),
+                displayServerConfig: displayServerConfig,
             }
         };
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
@@ -53,15 +65,12 @@ class LanguageServer {
         var argumentsChanged = false;
         var argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(_ -> argumentsChanged = true);
 
-        var executableChangeListenerDisposable = null; // TODO: technically exec config can change while server is starting, but meh...
-
         client.onReady().then(function(_) {
             client.outputChannel.appendLine("Haxe language server started");
             argumentChangeListenerDisposable.dispose();
             if (argumentsChanged)
                 client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: displayArguments.arguments});
             argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(arguments -> client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments}));
-            executableChangeListenerDisposable = haxeExecutable.onDidChangeConfig(_ -> client.sendNotification({method: "vshaxe/didChangeDisplayServerConfig"}, prepareDisplayServerConfig()));
 
             context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {
                 var editor = window.activeTextEditor;
@@ -91,19 +100,44 @@ class LanguageServer {
         disposable = new Disposable(function() {
             clientDisposable.dispose();
             argumentChangeListenerDisposable.dispose();
-            if (executableChangeListenerDisposable != null) executableChangeListenerDisposable.dispose();
         });
         context.subscriptions.push(disposable);
     }
 
-    function prepareDisplayServerConfig() {
-        var config = haxeExecutable.config;
-        // TODO: handle legacy haxe.displayServer config here
-        return {
-            path: config.path,
-            env: config.env,
-            arguments: workspace.getConfiguration("haxe.displayServer").get("arguments", [])
+    /**
+        Prepare new display server config and store it in `displayServerConfig` field.
+
+        @return `true` if configuration was changed since last call
+    **/
+    function prepareDisplayServerConfig():Bool {
+        var path = haxeExecutable.config.path;
+        var env = haxeExecutable.config.env;
+        var haxeConfig = workspace.getConfiguration("haxe");
+        var arguments = haxeConfig.get("displayServer.arguments", []);
+        if (!haxeExecutable.isConfigured()) {
+            // apply legacy settings
+            var displayServerConfig = haxeConfig.get("displayServer");
+            function merge(conf:{?haxePath:String, ?env:haxe.DynamicAccess<String>}) {
+                if (conf.haxePath != null)
+                    path = conf.haxePath;
+                if (conf.env != null)
+                    env = conf.env;
+            }
+            if (displayServerConfig != null) {
+                merge(displayServerConfig);
+                var systemConfig = Reflect.field(displayServerConfig, HaxeExecutable.SYSTEM_KEY);
+                if (systemConfig != null)
+                    merge(systemConfig);
+            }
+        }
+        displayServerConfig = {
+            path: path,
+            env: env,
+            arguments: arguments,
         };
+        var oldSerialized = displayServerConfigSerialized;
+        displayServerConfigSerialized = haxe.Json.stringify(displayServerConfig);
+        return displayServerConfigSerialized != oldSerialized;
     }
 
     var progresses = new Map<Int,Void->Void>();
