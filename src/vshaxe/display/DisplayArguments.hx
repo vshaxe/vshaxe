@@ -94,20 +94,19 @@ class DisplayArguments {
     }
 
     function updateStatusBarItem() {
-        var label, color;
         if (currentProvider == null) {
-            label = "Select Haxe Completion Provider";
-            color = statusBarWarningThemeColor; // TODO: different color?
-        } else {
-            var provider = providers[currentProvider];
-            if (provider == null) {
-                label = '$currentProvider (not available)'; // selected but not (yet?) loaded
-                color = statusBarWarningThemeColor;
-            } else {
-                label = currentProvider;
-                color = null;
-            }
+            statusBarItem.hide();
+            return;
         }
+
+        var label = currentProvider;
+        var color = null;
+        var provider = providers[currentProvider];
+        if (provider == null) {
+            label = '$currentProvider (not available)'; // selected but not (yet?) loaded
+            color = statusBarWarningThemeColor;
+        }
+
         statusBarItem.color = color;
         statusBarItem.text = '$(gear) $label';
         statusBarItem.show();
