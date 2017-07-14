@@ -1,0 +1,14 @@
+{
+    "name": "vshaxe",
+    "description": "Visual Studio Code Haxe extension extern library.",
+    "url": "https://github.com/vshaxe/vshaxe",
+    "license": "MIT",
+    "version": "1.9.0",
+    "releasenote": "Initial release.",
+    "classPath": "src-api",
+    "contributors": ["nadako", "Gama11"],
+    "dependencies": {
+        "vscode": "1.14.0"
+    },
+    "tags": ["extern", "js"]
+}
