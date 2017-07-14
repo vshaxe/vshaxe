@@ -38,14 +38,14 @@ class DisplayArguments {
 
         var current = getCurrentProviderName();
         if (current == null || current == name)
-            setCurrentProvider(name);
+            setCurrentProvider(name, false);
         else
             updateStatusBarItem();
 
         return new Disposable(function() {
             providers.remove(name);
             if (name == currentProvider)
-                setCurrentProvider(null);
+                setCurrentProvider(null, false);
             updateStatusBarItem();
         });
     }
@@ -61,14 +61,14 @@ class DisplayArguments {
         }
 
         items.moveToStart(item -> item.label == currentProvider);
-        window.showQuickPick(items, {placeHolder: "Select Haxe Completion Provider"}).then(item -> if (item != null) setCurrentProvider(item.label));
+        window.showQuickPick(items, {placeHolder: "Select Haxe Completion Provider"}).then(item -> if (item != null) setCurrentProvider(item.label, true));
     }
 
     inline function getCurrentProviderName():Null<String> {
         return context.workspaceState.get(HaxeMemento.DisplayArgumentsProviderName);
     }
 
-    function setCurrentProvider(name:Null<String>) {
+    function setCurrentProvider(name:Null<String>, persist:Bool) {
         if (currentProvider != null) {
             var provider = providers[currentProvider];
             if (provider != null) provider.deactivate();
@@ -82,7 +82,9 @@ class DisplayArguments {
                 provider.activate(provideArguments);
         }
 
-        context.workspaceState.update(HaxeMemento.DisplayArgumentsProviderName, name);
+        if (persist) {
+            context.workspaceState.update(HaxeMemento.DisplayArgumentsProviderName, name);
+        }
         updateStatusBarItem();
     }
 
