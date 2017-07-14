@@ -73,15 +73,18 @@
                     "oneOf": [
                         {
                             "type": "string",
-                            "description": "Path to the Haxe executable"
+                            "description": "Path to the Haxe executable",
+                            "default": "haxe"
                         },
                         {
                             "type": "object",
                             "description": "Haxe executable configuration",
+                            "additionalProperties": false,
                             "properties": {
                                 "path": {
                                     "type": "string",
-                                    "description": "Path to the Haxe executable"
+                                    "description": "Path to the Haxe executable",
+                                    "default": "haxe"
                                 },
                                 "env": {
                                     "description": "Additional environment variables used for running Haxe executable",
@@ -92,13 +95,64 @@
                                     }
                                 },
                                 "windows": {
-                                    "description": "Overrides for Windows"
+                                    "description": "Overrides for Windows",
+                                    "default": {},
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "description": "Path to the Haxe executable",
+                                            "default": "haxe"
+                                        },
+                                        "env": {
+                                            "description": "Additional environment variables used for running Haxe executable",
+                                            "type": "object",
+                                            "default": {},
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
                                 },
                                 "linux": {
-                                    "description": "Overrides for Linux"
+                                    "description": "Overrides for Linux",
+                                    "default": {},
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "description": "Path to the Haxe executable",
+                                            "default": "haxe"
+                                        },
+                                        "env": {
+                                            "description": "Additional environment variables used for running Haxe executable",
+                                            "type": "object",
+                                            "default": {},
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
                                 },
                                 "osx": {
-                                    "description": "Overrides for Mac"
+                                    "description": "Overrides for Mac",
+                                    "default": {},
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "description": "Path to the Haxe executable",
+                                            "default": "haxe"
+                                        },
+                                        "env": {
+                                            "description": "Additional environment variables used for running Haxe executable",
+                                            "type": "object",
+                                            "default": {},
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
