@@ -2,16 +2,16 @@
 
 **New Features**:
 
+- added a `"haxe.executable"` setting
 - added a task provider for auto-discovered HXML files
 - added support for using auto-discovered HXML files as display configurations
 - added an extension API enabling Haxe build tools to provide completion ([#18](https://github.com/vshaxe/vshaxe/issues/18))
 - added a `Select Completion Provider` command
-- added a `"haxe.executable"` setting
 
 **Bugfixes**:
 
 - fixed the dependency explorer for `haxelib dev` libs in the haxelib repo ([#141](https://github.com/vshaxe/vshaxe/issues/141))
-- fixed the dependency explorer with a relative `haxe.displayServer.haxePath` ([#58](https://github.com/vshaxe/vshaxe/issues/58))
+- fixed the dependency explorer with a relative `"haxe.executable"` path ([#58](https://github.com/vshaxe/vshaxe/issues/58))
 - fixed the dependency explorer with invalid classpaths
 - fixed a minor anon function highlighting issue ([haxe-tmLanguage#31](https://github.com/vshaxe/haxe-tmLanguage/issues/31))
 - fixed renaming `expr` in `case macro $expr:` ([#142](https://github.com/vshaxe/vshaxe/issues/142))

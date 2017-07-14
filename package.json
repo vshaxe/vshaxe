@@ -68,6 +68,8 @@
                     }
                 },
                 "haxe.executable": {
+                    "description": "Path to the Haxe executable or an object containing a Haxe executable configuration",
+                    "default": "haxe",
                     "oneOf": [
                         {
                             "type": "string",
