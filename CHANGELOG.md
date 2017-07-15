@@ -3,6 +3,7 @@
 **New Features**:
 
 - added a `"haxe.executable"` setting
+- added a `"haxe.hxmlFiles"` setting for HXML auto-discovery
 - added a task provider for auto-discovered HXML files
 - added support for using auto-discovered HXML files as display configurations
 - added an extension API enabling Haxe build tools to provide completion ([#18](https://github.com/vshaxe/vshaxe/issues/18))

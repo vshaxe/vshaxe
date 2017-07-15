@@ -26,6 +26,7 @@
     "author": "Dan Korostelev",
     "license": "MIT",
     "dependencies": {
+        "minimatch": "^3.0.4",
         "vscode-languageclient": "vshaxe/vscode-languageclient"
     },
     "bugs": "https://github.com/vshaxe/vshaxe/issues",
@@ -49,7 +50,7 @@
         "onCommand:haxe.dependencies.refresh",
         "onCommand:haxe.dependencies.collapseAll",
         "onView:haxe.dependencies",
-        "workspaceContains:*.hxml"
+        "workspaceContains:**/*.hxml"
     ],
     "contributes": {
         "configuration": {
@@ -277,6 +278,17 @@
                                 }
                             }
                         }
+                    }
+                },
+                "haxe.hxmlFiles": {
+                    "description": "A list of glob patterns for discovering HXML files (used for completion and tasks).",
+                    "type": "array",
+                    "default": [
+                        "*.hxml"
+                    ],
+                    "items": {
+                        "type": "string",
+                        "pattern": ".\\.hxml$"
                     }
                 }
             }
