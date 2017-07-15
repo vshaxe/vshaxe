@@ -4,45 +4,47 @@ import haxe.io.Path;
 import vshaxe.helper.PathHelper;
 
 class HxmlDiscovery {
-    var _onDidChangeHxmlFiles:EventEmitter<Array<String>>;
+    static inline var PATTERN = "*.hxml";
+
+    var _onDidChangeFiles:EventEmitter<Void>;
     var context:ExtensionContext;
 
-    public var hxmlFiles(default,null):Array<String>;
-    public var onDidChangeHxmlFiles(get,never):Event<Array<String>>;
-    inline function get_onDidChangeHxmlFiles() return _onDidChangeHxmlFiles.event;
+    public var files(default,null):Array<String>;
+
+    public var onDidChangeFiles(get,never):Event<Void>;
+    inline function get_onDidChangeFiles() return _onDidChangeFiles.event;
 
     public function new(context:ExtensionContext) {
         this.context = context;
-        hxmlFiles = context.workspaceState.get(HaxeMemento.HxmlDiscoveryFiles, []);
+        files = context.workspaceState.get(HaxeMemento.HxmlDiscoveryFiles, []);
 
-        _onDidChangeHxmlFiles = new EventEmitter();
-        context.subscriptions.push(_onDidChangeHxmlFiles);
+        _onDidChangeFiles = new EventEmitter();
+        context.subscriptions.push(_onDidChangeFiles);
 
-        var pattern = "*.hxml";
-        workspace.findFiles(pattern).then(files -> {
+        workspace.findFiles(PATTERN).then(files -> {
             var foundFiles = if (files != null) files.map(uri -> pathRelativeToRoot(uri)) else [];
-            if (!hxmlFiles.equals(foundFiles)) {
-                hxmlFiles = foundFiles;
-                onHxmlFilesChanged();
+            if (!this.files.equals(foundFiles)) {
+                this.files = foundFiles;
+                onFilesChanged();
             }
         });
 
         // looks like file watchers require a glob prefixed with the workspace root
-        var prefixedPattern = Path.join([workspace.rootPath, pattern]);
+        var prefixedPattern = Path.join([workspace.rootPath, PATTERN]);
         var fileWatcher = workspace.createFileSystemWatcher(prefixedPattern, false, true, false);
         fileWatcher.onDidCreate(uri -> {
-            hxmlFiles.push(pathRelativeToRoot(uri));
-            onHxmlFilesChanged();
+            files.push(pathRelativeToRoot(uri));
+            onFilesChanged();
         });
         fileWatcher.onDidDelete(uri -> {
-            hxmlFiles.remove(pathRelativeToRoot(uri));
-            onHxmlFilesChanged();
+            files.remove(pathRelativeToRoot(uri));
+            onFilesChanged();
         });
     }
 
-    inline function onHxmlFilesChanged() {
-        context.workspaceState.update(HaxeMemento.HxmlDiscoveryFiles, hxmlFiles);
-        _onDidChangeHxmlFiles.fire(hxmlFiles);
+    inline function onFilesChanged() {
+        context.workspaceState.update(HaxeMemento.HxmlDiscoveryFiles, files);
+        _onDidChangeFiles.fire();
     }
 
     inline function pathRelativeToRoot(uri:Uri):String {

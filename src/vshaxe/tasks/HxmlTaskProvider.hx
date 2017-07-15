@@ -13,7 +13,7 @@ class HxmlTaskProvider {
     }
 
     public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
-        return [for (file in hxmlDiscovery.hxmlFiles) {
+        return [for (file in hxmlDiscovery.files) {
             var definition:HaxeTaskDefinition = {
                 type: "hxml",
                 file: file
