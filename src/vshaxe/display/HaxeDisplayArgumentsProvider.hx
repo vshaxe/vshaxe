@@ -23,7 +23,7 @@ class HaxeDisplayArgumentsProvider {
         context.registerHaxeCommand(SelectDisplayConfiguration, selectConfiguration);
 
         context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
-        hxmlDiscovery.onDidChangeMatchedFiles(_ -> refresh());
+        hxmlDiscovery.onDidChangeFiles(_ -> refresh());
 
         fixIndex();
         updateStatusBarItem();
@@ -115,7 +115,7 @@ class HaxeDisplayArgumentsProvider {
     function getConfigurations():Array<Array<String>> {
         var configs:Array<Array<String>> = workspace.getConfiguration("haxe").get("displayConfigurations");
         if (configs == null) configs = [] else configs = configs.copy();
-        for (hxmlFile in hxmlDiscovery.matchedFiles) {
+        for (hxmlFile in hxmlDiscovery.files) {
             var hxmlConfig = [hxmlFile];
             if (!configs.exists(config -> config.equals(hxmlConfig))) {
                 configs.push(hxmlConfig);
