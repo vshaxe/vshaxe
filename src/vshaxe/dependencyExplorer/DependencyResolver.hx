@@ -82,10 +82,9 @@ class DependencyResolver {
         var infos = paths.map(getDependencyInfo).filter(info -> info != null);
 
         // std lib needs to be handled separately
-        var haxePath = haxeExecutable.configuration.path;
-        var stdLibPath = getStandardLibraryPath(haxePath);
+        var stdLibPath = getStandardLibraryPath(haxeExecutable.configurationPath);
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
-            infos.push(getStandardLibraryInfo(stdLibPath, haxePath));
+            infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configurationPath));
         }
 
         return infos;
@@ -176,7 +175,7 @@ class DependencyResolver {
         return searchHaxelibJson(Path.join([path, ".."]), levels - 1);
     }
 
-    static function getStandardLibraryPath(haxePath:String):String {
+    static function getStandardLibraryPath(haxePath:HaxeExecutablePath):String {
         // more or less a port of main.ml's get_std_class_paths()
         var path = Sys.getEnv("HAXE_STD_PATH");
         if (path != null) {
@@ -184,11 +183,16 @@ class DependencyResolver {
         }
 
         if (Sys.systemName() == "Windows") {
-            var realHaxePath = resolveRealHaxePath(haxePath);
-            if (realHaxePath == null) {
-                return null;
+            switch (haxePath) {
+                case AbsolutePath(path):
+                    return Path.join([Path.directory(path), "std"]);
+                case Command(command):
+                    var commandLocation = getProcessOutput("where " + command)[0];
+                    if (commandLocation == null) {
+                        return null;
+                    }
+                    return Path.directory(commandLocation);
             }
-            return Path.join([Path.directory(realHaxePath), "std"]);
         } else {
             for (path in [
                     "/usr/local/share/haxe/std/",
@@ -204,23 +208,14 @@ class DependencyResolver {
         return null;
     }
 
-    static function resolveRealHaxePath(haxePath:String):String {
-        if (haxePath == null || !FileSystem.exists(haxePath)) {
-            return getProcessOutput("where haxe")[0];
-        }
-        return haxePath;
-    }
-
-    static function getStandardLibraryInfo(path:String, haxePath:String) {
+    static function getStandardLibraryInfo(path:String, haxePath:HaxeExecutablePath) {
         var version = "?";
         var result = null;
 
-        var oldCwd = Sys.getCwd();
-        if (workspace.rootPath != null) {
-            Sys.setCwd(workspace.rootPath);
+        result = switch (haxePath) {
+            case AbsolutePath(executable) | Command(executable):
+                ChildProcess.spawnSync(executable, ["-version"]);
         }
-        result = ChildProcess.spawnSync(haxePath, ["-version"]);
-        Sys.setCwd(oldCwd);
 
         if (result != null && result.stderr != null) {
             var haxeVersionOutput = (result.stderr : Buffer).toString();

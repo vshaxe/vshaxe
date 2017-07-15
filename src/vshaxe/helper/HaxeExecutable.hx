@@ -1,7 +1,10 @@
 package vshaxe.helper;
 
+import haxe.io.Path;
 import haxe.extern.EitherType;
+import sys.FileSystem;
 import vshaxe.HaxeExecutableConfiguration;
+import vshaxe.helper.PathHelper;
 
 /** same as vshaxe.HaxeExecutableConfiguration, but not read-only **/
 private typedef WritableHaxeExecutableConfiguration = {
@@ -21,12 +24,20 @@ typedef HaxeExecutablePathOrConfig = EitherType<
     }
 >;
 
+enum HaxeExecutablePath {
+    AbsolutePath(path:String);
+    Command(command:String);
+}
+
 class HaxeExecutable {
     public static var SYSTEM_KEY(default,never) = switch (Sys.systemName()) {
         case "Windows": "windows";
         case "Mac": "osx";
         default: "linux";
     };
+
+    /** TODO: merge this into `configuration` / expose it via API **/
+    public var configurationPath(default,null):HaxeExecutablePath;
 
     public var configuration(default,null):HaxeExecutableConfiguration;
 
@@ -105,5 +116,16 @@ class HaxeExecutable {
         }
 
         configuration = newConfig;
+
+        configurationPath = if (Path.isAbsolute(newConfig.path)) {
+            AbsolutePath(newConfig.path);
+        } else {
+            var absolutePath = PathHelper.absolutize(newConfig.path, workspace.rootPath);
+            if (FileSystem.exists(absolutePath)) {
+                AbsolutePath(absolutePath);
+            } else {
+                Command(newConfig.path);
+            }
+        }
     }
 }
