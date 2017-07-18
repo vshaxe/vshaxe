@@ -6,28 +6,23 @@ import sys.FileSystem;
 import vshaxe.HaxeExecutableConfiguration;
 import vshaxe.helper.PathHelper;
 
-/** same as vshaxe.HaxeExecutableConfiguration, but not read-only **/
-private typedef WritableHaxeExecutableConfiguration = {
+/** unprocessed config **/
+private typedef RawHaxeExecutableConfig = {
     var path:String;
     var env:haxe.DynamicAccess<String>;
 }
 
-private typedef HaxeExecutablePathOrConfigBase = EitherType<String,HaxeExecutableConfiguration>;
+private typedef HaxeExecutablePathOrConfigBase = EitherType<String,RawHaxeExecutableConfig>;
 
 typedef HaxeExecutablePathOrConfig = EitherType<
     String,
     {
-        >HaxeExecutableConfiguration,
-        @:optional var windows:HaxeExecutableConfiguration;
-        @:optional var linux:HaxeExecutableConfiguration;
-        @:optional var osx:HaxeExecutableConfiguration;
+        >RawHaxeExecutableConfig,
+        @:optional var windows:RawHaxeExecutableConfig;
+        @:optional var linux:RawHaxeExecutableConfig;
+        @:optional var osx:RawHaxeExecutableConfig;
     }
 >;
-
-enum HaxeExecutablePath {
-    AbsolutePath(path:String);
-    Command(command:String);
-}
 
 class HaxeExecutable {
     public static var SYSTEM_KEY(default,never) = switch (Sys.systemName()) {
@@ -36,14 +31,13 @@ class HaxeExecutable {
         default: "linux";
     };
 
-    /** TODO: merge this into `configuration` / expose it via API **/
-    public var configurationPath(default,null):HaxeExecutablePath;
-
     public var configuration(default,null):HaxeExecutableConfiguration;
 
     public var onDidChangeConfiguration(get,never):Event<HaxeExecutableConfiguration>;
     var _onDidChangeConfiguration:EventEmitter<HaxeExecutableConfiguration>;
     function get_onDidChangeConfiguration() return _onDidChangeConfiguration.event;
+
+    var rawConfig:RawHaxeExecutableConfig;
 
     public function new(context:ExtensionContext) {
         updateConfig(getExecutableSettings());
@@ -60,13 +54,13 @@ class HaxeExecutable {
     static inline function getExecutableSettings() return workspace.getConfiguration("haxe").get("executable");
 
     function refresh() {
-        var oldConfig = configuration;
+        var oldConfig = rawConfig;
         updateConfig(getExecutableSettings());
-        if (!isSame(oldConfig, configuration))
+        if (!isSame(oldConfig, rawConfig))
             _onDidChangeConfiguration.fire(configuration);
     }
 
-    static function isSame(oldConfig:HaxeExecutableConfiguration, newConfig:HaxeExecutableConfiguration):Bool {
+    static function isSame(oldConfig:RawHaxeExecutableConfig, newConfig:RawHaxeExecutableConfig):Bool {
         // ouch...
         if (oldConfig.path != newConfig.path)
             return false;
@@ -91,20 +85,18 @@ class HaxeExecutable {
     }
 
     function updateConfig(input:Null<HaxeExecutablePathOrConfig>) {
-        var newConfig:WritableHaxeExecutableConfiguration = {
-            path: "haxe",
-            env: {},
-        };
+        var executable = "haxe";
+        var env:haxe.DynamicAccess<String> = {};
 
         function merge(conf:HaxeExecutablePathOrConfigBase) {
             if ((conf is String)) {
-                newConfig.path = conf;
+                executable = conf;
             } else {
-                var conf:HaxeExecutableConfiguration = conf;
+                var conf:RawHaxeExecutableConfig = conf;
                 if (conf.path != null)
-                    newConfig.path = conf.path;
+                    executable = conf.path;
                 if (conf.env != null)
-                    newConfig.env = conf.env;
+                    env = conf.env;
             }
         }
 
@@ -115,17 +107,21 @@ class HaxeExecutable {
                 merge(systemConfig);
         }
 
-        configuration = newConfig;
-
-        configurationPath = if (Path.isAbsolute(newConfig.path)) {
-            AbsolutePath(newConfig.path);
-        } else {
-            var absolutePath = PathHelper.absolutize(newConfig.path, workspace.rootPath);
+        var isCommand = false;
+        if (!Path.isAbsolute(executable)) {
+            var absolutePath = PathHelper.absolutize(executable, workspace.rootPath);
             if (FileSystem.exists(absolutePath)) {
-                AbsolutePath(absolutePath);
+                executable = absolutePath;
             } else {
-                Command(newConfig.path);
+                isCommand = false;
             }
+        }
+
+        rawConfig = input;
+        configuration = {
+            executable: executable,
+            isCommand: isCommand,
+            env: env
         }
     }
 }

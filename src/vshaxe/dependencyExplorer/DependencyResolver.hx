@@ -82,9 +82,9 @@ class DependencyResolver {
         var infos = paths.map(getDependencyInfo).filter(info -> info != null);
 
         // std lib needs to be handled separately
-        var stdLibPath = getStandardLibraryPath(haxeExecutable.configurationPath);
+        var stdLibPath = getStandardLibraryPath(haxeExecutable.configuration);
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
-            infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configurationPath));
+            infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configuration.executable));
         }
 
         return infos;
@@ -175,7 +175,7 @@ class DependencyResolver {
         return searchHaxelibJson(Path.join([path, ".."]), levels - 1);
     }
 
-    static function getStandardLibraryPath(haxePath:HaxeExecutablePath):String {
+    static function getStandardLibraryPath(haxeExecutable:HaxeExecutableConfiguration):String {
         // more or less a port of main.ml's get_std_class_paths()
         var path = Sys.getEnv("HAXE_STD_PATH");
         if (path != null) {
@@ -183,16 +183,16 @@ class DependencyResolver {
         }
 
         if (Sys.systemName() == "Windows") {
-            switch (haxePath) {
-                case AbsolutePath(path):
-                    return Path.join([Path.directory(path), "std"]);
-                case Command(command):
-                    var exectuable = getProcessOutput("where " + command)[0];
-                    if (exectuable == null) {
-                        return null;
-                    }
-                    return Path.join([Path.directory(exectuable), "std"]);
+            var path = if (haxeExecutable.isCommand) {
+                var exectuable = getProcessOutput("where " + haxeExecutable.executable)[0];
+                if (exectuable == null) {
+                    return null;
+                }
+                exectuable;
+            } else {
+                haxeExecutable.executable;
             }
+            return Path.join([Path.directory(path), "std"]);
         } else {
             for (path in [
                     "/usr/local/share/haxe/std/",
@@ -208,14 +208,9 @@ class DependencyResolver {
         return null;
     }
 
-    static function getStandardLibraryInfo(path:String, haxePath:HaxeExecutablePath) {
+    static function getStandardLibraryInfo(path:String, haxeExecutable:String) {
         var version = "?";
-        var result = null;
-
-        result = switch (haxePath) {
-            case AbsolutePath(executable) | Command(executable):
-                ChildProcess.spawnSync(executable, ["-version"]);
-        }
+        var result = ChildProcess.spawnSync(haxeExecutable, ["-version"]);
 
         if (result != null && result.stderr != null) {
             var haxeVersionOutput = (result.stderr : Buffer).toString();

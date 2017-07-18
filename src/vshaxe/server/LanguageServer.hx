@@ -111,7 +111,7 @@ class LanguageServer {
         @return `true` if configuration was changed since last call
     **/
     function prepareDisplayServerConfig():Bool {
-        var path = haxeExecutable.configuration.path;
+        var path = haxeExecutable.configuration.executable;
         var env = haxeExecutable.configuration.env;
         var haxeConfig = workspace.getConfiguration("haxe");
         var arguments = haxeConfig.get("displayServer.arguments", []);

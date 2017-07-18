@@ -5,10 +5,15 @@ package vshaxe;
 **/
 typedef HaxeExecutableConfiguration = {
     /**
-        Path to the Haxe executable. Can be a relative or absolute path,
-        or just a command / alias like `"haxe"`.
+        Absolute path to the Haxe executable, or a command / alias like `"haxe"`.
+        Use `isCommand` to check.
     **/
-    var path(default,never):String;
+    var executable(default,never):String;
+
+    /**
+        Whether `executable` is a command (`true`) or an absolute path (`false`).
+    **/
+    var isCommand(default,never):Bool;
 
     /**
         Additional environment variables used for running Haxe executable.
