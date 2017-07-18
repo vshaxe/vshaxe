@@ -187,11 +187,11 @@ class DependencyResolver {
                 case AbsolutePath(path):
                     return Path.join([Path.directory(path), "std"]);
                 case Command(command):
-                    var commandLocation = getProcessOutput("where " + command)[0];
-                    if (commandLocation == null) {
+                    var exectuable = getProcessOutput("where " + command)[0];
+                    if (exectuable == null) {
                         return null;
                     }
-                    return Path.directory(commandLocation);
+                    return Path.join([Path.directory(exectuable), "std"]);
             }
         } else {
             for (path in [
