@@ -155,7 +155,11 @@ class HaxeDisplayArgumentsProvider {
 
     function updateStatusBarItem(config:Configuration) {
         if (provideArguments != null && config != null) {
-            statusBarItem.text = config.args.join(" ");
+            var label = config.args.join(" ");
+            if (label.length > 50) {
+                label = label.substr(0, 47).rtrim() + "...";
+            }
+            statusBarItem.text = label;
             statusBarItem.show();
             return;
         }
