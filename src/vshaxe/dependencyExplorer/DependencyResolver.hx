@@ -145,6 +145,11 @@ class DependencyResolver {
         var version = segments[1];
 
         path = '$haxelibRepo/$name';
+
+        if (name != null) {
+            name = name.replace(",", ".");
+        }
+
         if (version != null) {
             path += '/$version';
             version = version.replace(",", ".");
