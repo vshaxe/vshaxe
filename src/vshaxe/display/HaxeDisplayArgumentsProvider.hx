@@ -101,21 +101,13 @@ class HaxeDisplayArgumentsProvider {
 
     function getCurrent():Null<Configuration> {
         var selection:SavedSelection = context.workspaceState.get(HaxeMemento.DisplayConfigurationIndex, 0);
-        if ((selection is Int)) {
-            for (conf in configurations) {
-                switch conf.kind {
-                    case Configured(idx) if (idx == selection):
-                        return conf;
-                    case _:
-                }
-            }
-        } else {
-            for (conf in configurations) {
-                switch conf.kind {
-                    case Discovered(id) if (id == selection):
-                        return conf;
-                    case _:
-                }
+        for (conf in configurations) {
+            switch conf.kind {
+                case Configured(idx) if (idx == selection):
+                    return conf;
+                case Discovered(id) if (id == selection):
+                    return conf;
+                case _:
             }
         }
         return null;
