@@ -1,4 +1,4 @@
-### 1.9.0 (to be released)
+### 1.9.0 (July 21, 2017)
 
 **New Features**:
 
