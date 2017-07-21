@@ -60,7 +60,7 @@ class HaxeDisplayArgumentsProvider {
 
     function selectConfiguration() {
         if (configurations.length == 0) {
-            window.showErrorMessage("No Haxe display configurations are available. Please provide the haxe.displayConfigurations setting.", ({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
+            window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.displayConfigurations setting.", ({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
                 if (button == null)
                     return;
                 workspace.getConfiguration("haxe").update("displayConfigurations", [], false).then(_ ->
@@ -92,7 +92,7 @@ class HaxeDisplayArgumentsProvider {
         var current = getCurrent();
         if (current != null)
             items.moveToStart(item -> item.config == current);
-        window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe Display Configuration"}).then(function(choice:DisplayConfigurationPickItem) {
+        window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe Configuration"}).then(function(choice:DisplayConfigurationPickItem) {
             if (choice == null || choice.config == current)
                 return;
             setCurrent(choice.config);
