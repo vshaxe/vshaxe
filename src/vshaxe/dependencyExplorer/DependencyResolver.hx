@@ -92,7 +92,7 @@ class DependencyResolver {
 
     static function get_haxelibRepo():String {
         if (_haxelibRepo == null) {
-            _haxelibRepo = Path.normalize((ChildProcess.execSync('haxelib config') : Buffer).toString().trim());
+            _haxelibRepo = getProcessOutput("haxelib config")[0];
         }
         return _haxelibRepo;
     }
