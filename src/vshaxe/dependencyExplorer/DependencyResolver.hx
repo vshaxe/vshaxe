@@ -92,7 +92,7 @@ class DependencyResolver {
 
     static function get_haxelibRepo():String {
         if (_haxelibRepo == null) {
-            _haxelibRepo = getProcessOutput("haxelib config")[0];
+            _haxelibRepo = Path.normalize(getProcessOutput("haxelib config")[0]);
         }
         return _haxelibRepo;
     }
@@ -110,7 +110,12 @@ class DependencyResolver {
 
     static function getProcessOutput(command:String):Array<String> {
         try {
+            var oldCwd = Sys.getCwd();
+            if (workspace.rootPath != null) {
+                Sys.setCwd(workspace.rootPath);
+            }
             var result:Buffer = ChildProcess.execSync(command);
+            Sys.setCwd(oldCwd);
             var lines = result.toString().split("\n");
             return [for (line in lines) line.trim()];
         } catch(e:Any) {

@@ -1,3 +1,9 @@
+### 1.9.1 (to be released)
+
+**Bugfixes**:
+
+- fixed the dependency explorer for local haxelib repos ([#162](https://github.com/vshaxe/vshaxe/issues/162))
+
 ### 1.9.0 (July 21, 2017)
 
 **New Features**:
