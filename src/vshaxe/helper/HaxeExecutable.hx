@@ -113,7 +113,7 @@ class HaxeExecutable {
             if (FileSystem.exists(absolutePath)) {
                 executable = absolutePath;
             } else {
-                isCommand = false;
+                isCommand = true;
             }
         }
 
