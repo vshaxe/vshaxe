@@ -21,7 +21,7 @@ class InitProject {
 
         var nonEmpty = FileSystem.readDirectory(workspaceRoot).exists(f -> !f.startsWith("."));
         if (nonEmpty) {
-            window.showErrorMessage("To set up sample Haxe project, workspace must be either empty");
+            window.showErrorMessage("To set up sample Haxe project, the workspace must be empty");
             return;
         }
 
