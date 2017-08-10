@@ -110,7 +110,7 @@ class HaxeExecutable {
         var isCommand = false;
         if (!Path.isAbsolute(executable)) {
             var absolutePath = PathHelper.absolutize(executable, workspace.rootPath);
-            if (FileSystem.exists(absolutePath)) {
+            if (FileSystem.exists(absolutePath) && !FileSystem.isDirectory(absolutePath)) {
                 executable = absolutePath;
             } else {
                 isCommand = true;
