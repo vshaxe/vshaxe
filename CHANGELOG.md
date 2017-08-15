@@ -1,9 +1,13 @@
-### 1.9.1 (to be released)
+### 1.9.1 (August 16, 2017)
 
 **Bugfixes**:
 
 - fixed the dependency explorer for local haxelib repos ([#162](https://github.com/vshaxe/vshaxe/issues/162))
 - fixed some issues with Haxe executable handling ([#163](https://github.com/vshaxe/vshaxe/issues/163), [#166](https://github.com/vshaxe/vshaxe/issues/166))
+
+**Changes and improvements**:
+
+- added missing compiler metadata identifiers to syntax highlighting
 
 ### 1.9.0 (July 21, 2017)
 
