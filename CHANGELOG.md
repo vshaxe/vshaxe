@@ -1,3 +1,9 @@
+### 1.9.2 (to be released)
+
+**Bugfixes**:
+
+- fixed [compiler error code actions](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#compiler-error-actions) for indent lengths != 2 ([#168](https://github.com/vshaxe/vshaxe/issues/168))
+
 ### 1.9.1 (August 16, 2017)
 
 **Bugfixes**:
