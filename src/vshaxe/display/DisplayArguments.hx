@@ -37,7 +37,7 @@ class DisplayArguments {
         providers[name] = provider;
 
         var savedProvider = getSavedProviderName();
-        if (savedProvider == null || savedProvider == name)
+        if (currentProvider == null || savedProvider == null || savedProvider == name)
             setCurrentProvider(name, false);
         else
             updateStatusBarItem();
