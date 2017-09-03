@@ -36,8 +36,8 @@ class DisplayArguments {
 
         providers[name] = provider;
 
-        var current = getCurrentProviderName();
-        if (current == null || current == name)
+        var savedProvider = getSavedProviderName();
+        if (savedProvider == null || savedProvider == name)
             setCurrentProvider(name, false);
         else
             updateStatusBarItem();
@@ -64,7 +64,7 @@ class DisplayArguments {
         window.showQuickPick(items, {placeHolder: "Select Haxe Completion Provider"}).then(item -> if (item != null) setCurrentProvider(item.label, true));
     }
 
-    inline function getCurrentProviderName():Null<String> {
+    inline function getSavedProviderName():Null<String> {
         return context.workspaceState.get(HaxeMemento.DisplayArgumentsProviderName);
     }
 
