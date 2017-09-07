@@ -12,20 +12,38 @@ class InitProject {
     }
 
     function initProject() {
-        var workspaceRoot = workspace.rootPath;
-
-        if (workspaceRoot == null) {
-            window.showErrorMessage("Please open a folder to set up a Haxe project into");
-            return;
+        switch workspace.workspaceFolders {
+            case null | []:
+                window.showErrorMessage("Please open a folder to set up a Haxe project into");
+            case [folder]:
+                setupFolder(folder.uri.fsPath);
+            case folders:
+                var items:Array<QuickPickItem> = [
+                    for (folder in folders)
+                        {
+                            label: folder.name,
+                            description: folder.uri.fsPath,
+                        }
+                ];
+                var options:QuickPickOptions = {
+                    placeHolder: "Select a folder to set up a Haxe project into...",
+                    matchOnDescription: true,
+                }
+                window.showQuickPick(items, options).then(function(selection) {
+                    if (selection == null) return;
+                    setupFolder(selection.description);
+                });
         }
+    }
 
-        var nonEmpty = FileSystem.readDirectory(workspaceRoot).exists(f -> !f.startsWith("."));
+    function setupFolder(fsPath:String) {
+        var nonEmpty = FileSystem.readDirectory(fsPath).exists(f -> !f.startsWith("."));
         if (nonEmpty) {
-            window.showErrorMessage("To set up sample Haxe project, the workspace must be empty");
+            window.showErrorMessage("To set up sample Haxe project, the folder must be empty");
             return;
         }
 
-        copyRec(context.asAbsolutePath("./scaffold/project"), workspaceRoot);
+        copyRec(context.asAbsolutePath("./scaffold/project"), fsPath);
         window.setStatusBarMessage("Haxe project scaffolded", 2000);
     }
 
