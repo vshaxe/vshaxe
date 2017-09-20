@@ -8,7 +8,7 @@ import js.Promise;
 extern class LanguageClient {
     function new(id:String, name:String, serverOptions:ServerOptions, languageOptions:LanguageClientOptions, ?forceDebug:Bool);
     function start():Disposable;
-    function stop():Void;
+    function stop():Thenable<Void>;
     function onNotification(type:RequestType, handler:Dynamic->Void):Void;
     function sendNotification(type:RequestType, ?params:Dynamic):Void;
     function sendRequest<P,R>(type:RequestType, params:P):Thenable<R>;
