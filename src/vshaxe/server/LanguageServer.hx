@@ -73,19 +73,7 @@ class LanguageServer {
                 client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: displayArguments.arguments});
             argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(arguments -> client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments}));
 
-            context.subscriptions.push(hxFileWatcher.onDidCreate(function(uri) {
-                var editor = window.activeTextEditor;
-                if (editor == null || editor.document.uri.fsPath != uri.fsPath)
-                    return;
-                if (editor.document.getText(new Range(0, 0, 0, 1)).length > 0) // skip non-empty created files (can be created by e.g. copy-pasting)
-                    return;
-
-                client.sendRequest({method: "vshaxe/determinePackage"}, {fsPath: uri.fsPath}).then(function(result:{pack:String}) {
-                    if (result.pack == "")
-                        return;
-                    editor.edit(function(edit) edit.insert(new Position(0, 0), 'package ${result.pack};\n\n'));
-                });
-            }));
+            context.subscriptions.push(new PackageInserter(hxFileWatcher, client));
             context.subscriptions.push(hxFileWatcher);
 
             client.onNotification({method: "vshaxe/progressStart"}, startProgress);
