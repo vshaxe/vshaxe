@@ -1,4 +1,5 @@
 src/**/*
+src-api/**/*
 server/**/*
 formatter/**/*
 vscode-extern/**/*
@@ -17,3 +18,5 @@ images/Main.hx
 .haxelib/**/*
 vshaxe-build.json
 debug.log
+ReleaseHaxelib.hx
+README-haxelib.md
