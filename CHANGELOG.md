@@ -1,10 +1,14 @@
-### 1.9.2 (to be released)
+### 1.9.2 (October 24, 2017)
 
 **Bugfixes**:
 
 - fixed [compiler error code actions](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#compiler-error-actions) for indent lengths != 2 ([#168](https://github.com/vshaxe/vshaxe/issues/168))
 - fixed completion in workspaces where the selected completion provider doesn't exist anymore
 - fixed `package` statement insertion randomly not working ([#172](https://github.com/vshaxe/vshaxe/issues/172))
+
+**Changes and improvements**:
+
+- added `final` keyword to syntax highlighting
 
 ### 1.9.1 (August 16, 2017)
 
