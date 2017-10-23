@@ -5,6 +5,7 @@ haxe:
  - development
 
 install:
+ - haxelib install hx3compat
  - haxelib git vshaxe-build https://github.com/vshaxe/vshaxe-build
 
 script:
