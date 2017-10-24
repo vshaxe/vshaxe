@@ -1,3 +1,9 @@
+### 1.9.3 (Unreleased)
+
+**Bugfixes**:
+
+- fixed excessive keyword highlighting in HXML files [#177](https://github.com/vshaxe/vshaxe/issues/177)
+
 ### 1.9.2 (October 24, 2017)
 
 **Bugfixes**:
