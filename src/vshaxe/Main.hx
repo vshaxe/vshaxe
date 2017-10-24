@@ -14,6 +14,7 @@ class Main {
     var api:Vshaxe;
 
     function new(context:ExtensionContext) {
+        commands.executeCommand("setContext", "vshaxeActivated", true);
         var displayArguments = new DisplayArguments(context);
         var haxeExecutable = new HaxeExecutable(context);
         api = {

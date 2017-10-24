@@ -430,7 +430,8 @@
             "explorer": [
                 {
                     "id": "haxe.dependencies",
-                    "name": "Haxe Dependencies"
+                    "name": "Haxe Dependencies",
+                    "when": "vshaxeActivated"
                 }
             ]
         },
