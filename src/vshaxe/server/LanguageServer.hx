@@ -2,6 +2,7 @@ package vshaxe.server;
 
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
+import vshaxe.server.LanguageClient;
 
 class LanguageServer {
     var context:ExtensionContext;
@@ -28,12 +29,12 @@ class LanguageServer {
 
     function refreshDisplayServerConfig() {
         if (prepareDisplayServerConfig() && client != null)
-            client.sendNotification({method: "vshaxe/didChangeDisplayServerConfig"}, displayServerConfig);
+            client.sendNotification("vshaxe/didChangeDisplayServerConfig", displayServerConfig);
     }
 
     function onDidChangeActiveTextEditor(editor:TextEditor) {
         if (editor != null && editor.document.languageId == "haxe")
-            client.sendNotification({method: "vshaxe/didChangeActiveTextEditor"}, {uri: editor.document.uri.toString()});
+            client.sendNotification("vshaxe/didChangeActiveTextEditor", {uri: editor.document.uri.toString()});
     }
 
     public function start() {
@@ -43,7 +44,7 @@ class LanguageServer {
             debug: {module: serverModule, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--debug=6004"]}}
         };
         hxFileWatcher = workspace.createFileSystemWatcher("**/*.hx", false, true, false);
-        var clientOptions = {
+        var clientOptions:LanguageClientOptions = {
             documentSelector: "haxe",
             synchronize: {
                 configurationSection: "haxe",
@@ -55,9 +56,6 @@ class LanguageServer {
             }
         };
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
-        client.logFailedRequest = function(type, error) {
-            client.warn('Request ${type.method} failed.', error);
-        };
 
         // If arguments change while we're starting language server we remember that fact
         // and send updated arguments once language server is ready. this can often happen on startup
@@ -69,17 +67,17 @@ class LanguageServer {
             client.outputChannel.appendLine("Haxe language server started");
             argumentChangeListenerDisposable.dispose();
             if (argumentsChanged)
-                client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: displayArguments.arguments});
-            argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(arguments -> client.sendNotification({method: "vshaxe/didChangeDisplayArguments"}, {arguments: arguments}));
+                client.sendNotification("vshaxe/didChangeDisplayArguments", {arguments: displayArguments.arguments});
+            argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(arguments -> client.sendNotification("vshaxe/didChangeDisplayArguments", {arguments: arguments}));
 
             context.subscriptions.push(new PackageInserter(hxFileWatcher, client));
             context.subscriptions.push(hxFileWatcher);
 
-            client.onNotification({method: "vshaxe/progressStart"}, startProgress);
-            client.onNotification({method: "vshaxe/progressStop"}, stopProgress);
+            client.onNotification("vshaxe/progressStart", startProgress);
+            client.onNotification("vshaxe/progressStop", stopProgress);
 
             #if debug
-            client.onNotification({method: "vshaxe/updateParseTree"}, function(result:{uri:String, parseTree:String}) {
+            client.onNotification("vshaxe/updateParseTree", function(result:{uri:String, parseTree:String}) {
                 commands.executeCommand("hxparservis.updateParseTree", result.uri, result.parseTree);
             });
             #end
@@ -168,6 +166,6 @@ class LanguageServer {
     }
 
     public inline function runGlobalDiagnostics() {
-        client.sendNotification({method: "vshaxe/runGlobalDiagnostics"});
+        client.sendNotification("vshaxe/runGlobalDiagnostics");
     }
 }
