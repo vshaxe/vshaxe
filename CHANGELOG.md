@@ -1,4 +1,4 @@
-### 1.9.3 (Unreleased)
+### 1.9.3 (November 5, 2017)
 
 **Bugfixes**:
 
@@ -7,6 +7,7 @@
 **Changes and improvements**:
 
 - only show `Haxe Dependencies` in the explorer if vshaxe was activated in the workspace [#174](https://github.com/vshaxe/vshaxe/issues/174)
+- adapt to latest Haxe 4 (development branch) changes
 
 ### 1.9.2 (October 24, 2017)
 
