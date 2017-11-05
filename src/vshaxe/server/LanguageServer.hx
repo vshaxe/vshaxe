@@ -53,7 +53,8 @@ class LanguageServer {
             initializationOptions: {
                 displayArguments: displayArguments.arguments,
                 displayServerConfig: displayServerConfig,
-            }
+            },
+            revealOutputChannelOn: Never,
         };
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
 
