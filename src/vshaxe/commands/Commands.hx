@@ -13,7 +13,7 @@ class Commands {
         context.registerHaxeCommand(RestartLanguageServer, server.restart);
         context.registerHaxeCommand(ApplyFixes, applyFixes);
         context.registerHaxeCommand(ShowReferences, showReferences);
-        context.registerHaxeCommand(RunGlobalDiagnostics, runGlobalDiagnostics);
+        context.registerHaxeCommand(RunGlobalDiagnostics, server.runGlobalDiagnostics);
         context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
 
         #if debug
@@ -78,10 +78,6 @@ class Commands {
             return new Location(Uri.parse(cast location.uri), new Range(copyPosition(location.range.start), copyPosition(location.range.end)))
         );
         commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations).then(function(s) trace(s), function(s) trace("err: " + s));
-    }
-
-    function runGlobalDiagnostics() {
-        server.client.sendNotification({method: "vshaxe/runGlobalDiagnostics"});
     }
 
     function toggleCodeLens() {

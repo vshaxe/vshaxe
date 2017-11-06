@@ -12,8 +12,7 @@ class LanguageServer {
     var displayArguments:DisplayArguments;
     var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>};
     var displayServerConfigSerialized:String;
-
-    public var client(default,null):LanguageClient;
+    var client:LanguageClient;
 
     public function new(context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments) {
         this.context = context;
@@ -166,5 +165,9 @@ class LanguageServer {
         progresses = new Map();
 
         start();
+    }
+
+    public inline function runGlobalDiagnostics() {
+        client.sendNotification({method: "vshaxe/runGlobalDiagnostics"});
     }
 }
