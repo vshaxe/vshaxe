@@ -120,15 +120,12 @@ class DependencyExplorer {
         return element;
     }
 
-    public function getChildren(?node:Node):Thenable<Array<Node>> {
-        return new Promise(function(resolve, _) {
-            if (refreshNeeded) {
-                dependencyNodes = refreshDependencies();
-                refreshNeeded = false;
-            }
-
-            resolve(if (node == null) dependencyNodes else node.children);
-        });
+    public function getChildren(?node:Node):Array<Node> {
+        if (refreshNeeded) {
+            dependencyNodes = refreshDependencies();
+            refreshNeeded = false;
+        }
+        return if (node == null) dependencyNodes else node.children;
     }
 
     function selectNode(node:Node) {
