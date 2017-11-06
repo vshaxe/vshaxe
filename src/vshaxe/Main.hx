@@ -4,6 +4,7 @@ import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
 import vshaxe.dependencyExplorer.DependencyExplorer;
 import vshaxe.display.DisplayArguments;
+import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.helper.HxmlParser;
 import vshaxe.helper.HaxeExecutable;
@@ -27,6 +28,7 @@ class Main {
         new Commands(context, server);
         new InitProject(context);
         new DependencyExplorer(context, displayArguments, haxeExecutable);
+        new DisplayArgumentsSelector(context, displayArguments);
         var hxmlDiscovery = new HxmlDiscovery(context);
         new HaxeDisplayArgumentsProvider(context, api, hxmlDiscovery);
         new HxmlTaskProvider(hxmlDiscovery, haxeExecutable);
