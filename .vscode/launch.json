@@ -26,6 +26,7 @@
             "type": "node",
             "request": "attach",
             "port": 6004,
+            "protocol": "inspector",
             "sourceMaps": true,
             "outFiles": [
                 "${workspaceRoot}/bin/server.js"
