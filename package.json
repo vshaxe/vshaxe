@@ -1,9 +1,9 @@
 {
     "name": "vshaxe",
-    "version": "1.9.3",
+    "version": "1.9.4",
     "publisher": "nadako",
     "engines": {
-        "vscode": "^1.15.0"
+        "vscode": "^1.18.0"
     },
     "displayName": "Haxe",
     "description": "Haxe language support",

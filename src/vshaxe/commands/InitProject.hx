@@ -18,20 +18,12 @@ class InitProject {
             case [folder]:
                 setupFolder(folder.uri.fsPath);
             case folders:
-                var items:Array<QuickPickItem> = [
-                    for (folder in folders)
-                        {
-                            label: folder.name,
-                            description: folder.uri.fsPath,
-                        }
-                ];
-                var options:QuickPickOptions = {
+                var options = {
                     placeHolder: "Select a folder to set up a Haxe project into...",
-                    matchOnDescription: true,
                 }
-                window.showQuickPick(items, options).then(function(selection) {
-                    if (selection == null) return;
-                    setupFolder(selection.description);
+                window.showWorkspaceFolderPick(options).then(function(folder) {
+                    if (folder == null) return;
+                    setupFolder(folder.uri.fsPath);
                 });
         }
     }
