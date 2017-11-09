@@ -7,19 +7,18 @@ class HxmlDiscovery {
     static inline var PATTERN = "*.hxml";
 
     var _onDidChangeFiles:EventEmitter<Void>;
-    var context:ExtensionContext;
+    var workspaceState:Memento;
 
     public var files(default,null):Array<String>;
 
     public var onDidChangeFiles(get,never):Event<Void>;
     inline function get_onDidChangeFiles() return _onDidChangeFiles.event;
 
-    public function new(context:ExtensionContext) {
-        this.context = context;
-        files = context.workspaceState.get(HaxeMemento.HxmlDiscoveryFiles, []);
-
+    public function new(workspaceState) {
+        this.workspaceState = workspaceState;
         _onDidChangeFiles = new EventEmitter();
-        context.subscriptions.push(_onDidChangeFiles);
+
+        files = workspaceState.get(HaxeMemento.HxmlDiscoveryFiles, []);
 
         workspace.findFiles(PATTERN).then(files -> {
             var foundFiles = if (files != null) files.map(uri -> pathRelativeToRoot(uri)) else [];
@@ -43,11 +42,15 @@ class HxmlDiscovery {
     }
 
     inline function onFilesChanged() {
-        context.workspaceState.update(HaxeMemento.HxmlDiscoveryFiles, files);
+        workspaceState.update(HaxeMemento.HxmlDiscoveryFiles, files);
         _onDidChangeFiles.fire();
     }
 
     inline function pathRelativeToRoot(uri:Uri):String {
         return PathHelper.relativize(uri.fsPath, workspace.rootPath);
+    }
+
+    public function dispose() {
+        _onDidChangeFiles.dispose();
     }
 }

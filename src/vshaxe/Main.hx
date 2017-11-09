@@ -29,7 +29,8 @@ class Main {
         new InitProject(context);
         new DependencyExplorer(context, displayArguments, haxeExecutable);
         new DisplayArgumentsSelector(context, displayArguments);
-        var hxmlDiscovery = new HxmlDiscovery(context);
+        var hxmlDiscovery = new HxmlDiscovery(context.workspaceState);
+        context.subscriptions.push(hxmlDiscovery);
         new HaxeDisplayArgumentsProvider(context, api, hxmlDiscovery);
         new HxmlTaskProvider(hxmlDiscovery, haxeExecutable);
 
