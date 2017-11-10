@@ -1,5 +1,6 @@
 package vshaxe.helper;
 
+import haxe.DynamicAccess;
 import haxe.io.Path;
 import haxe.extern.EitherType;
 import sys.FileSystem;
@@ -9,7 +10,7 @@ import vshaxe.helper.PathHelper;
 /** unprocessed config **/
 private typedef RawHaxeExecutableConfig = {
     var path:String;
-    var env:haxe.DynamicAccess<String>;
+    var env:DynamicAccess<String>;
 }
 
 private typedef HaxeExecutablePathOrConfigBase = EitherType<String,RawHaxeExecutableConfig>;
@@ -25,39 +26,47 @@ typedef HaxeExecutablePathOrConfig = EitherType<
 >;
 
 class HaxeExecutable {
-    public static var SYSTEM_KEY(default,never) = switch (Sys.systemName()) {
+    public static final SYSTEM_KEY = switch Sys.systemName() {
         case "Windows": "windows";
         case "Mac": "osx";
         default: "linux";
     };
 
     public var configuration(default,null):HaxeExecutableConfiguration;
-
     public var onDidChangeConfiguration(get,never):Event<HaxeExecutableConfiguration>;
-    var _onDidChangeConfiguration:EventEmitter<HaxeExecutableConfiguration>;
-    function get_onDidChangeConfiguration() return _onDidChangeConfiguration.event;
 
+    final _onDidChangeConfiguration:EventEmitter<HaxeExecutableConfiguration>;
+    final folder:WorkspaceFolder;
+    final changeConfigurationListener:Disposable;
     var rawConfig:RawHaxeExecutableConfig;
 
-    public function new(context:ExtensionContext) {
-        updateConfig(getExecutableSettings());
+    function get_onDidChangeConfiguration() return _onDidChangeConfiguration.event;
+
+
+    public function new(folder) {
+        this.folder = folder;
         _onDidChangeConfiguration = new EventEmitter();
-        context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
+        updateConfig();
+        changeConfigurationListener = workspace.onDidChangeConfiguration(onWorkspaceConfigurationChanged);
+    }
+
+    public function dispose() {
+        changeConfigurationListener.dispose();
     }
 
     /** Returns true if haxe.executable setting was configured by user **/
     public function isConfigured() {
-        var executableSetting = workspace.getConfiguration("haxe").inspect("executable");
-        return executableSetting.workspaceValue != null || executableSetting.globalValue != null;
+        var executableSetting = workspace.getConfiguration("haxe", folder.uri).inspect("executable");
+        return executableSetting.globalValue != null || executableSetting.workspaceValue != null || executableSetting.workspaceFolderValue != null;
     }
 
-    static inline function getExecutableSettings() return workspace.getConfiguration("haxe").get("executable");
-
-    function refresh() {
-        var oldConfig = rawConfig;
-        updateConfig(getExecutableSettings());
-        if (!isSame(oldConfig, rawConfig))
-            _onDidChangeConfiguration.fire(configuration);
+    function onWorkspaceConfigurationChanged(change:ConfigurationChangeEvent) {
+        if (change.affectsConfiguration("haxe.executable", folder.uri)) {
+            var oldConfig = rawConfig;
+            updateConfig();
+            if (!isSame(oldConfig, rawConfig))
+                _onDidChangeConfiguration.fire(configuration);
+        }
     }
 
     static function isSame(oldConfig:RawHaxeExecutableConfig, newConfig:RawHaxeExecutableConfig):Bool {
@@ -84,9 +93,11 @@ class HaxeExecutable {
         return true;
     }
 
-    function updateConfig(input:Null<HaxeExecutablePathOrConfig>) {
+    function updateConfig() {
+        var input:Null<HaxeExecutablePathOrConfig> = workspace.getConfiguration("haxe", folder.uri).get("executable");
+
         var executable = "haxe";
-        var env:haxe.DynamicAccess<String> = {};
+        var env = new DynamicAccess<String>();
 
         function merge(conf:HaxeExecutablePathOrConfigBase) {
             if ((conf is String)) {
@@ -109,7 +120,7 @@ class HaxeExecutable {
 
         var isCommand = false;
         if (!Path.isAbsolute(executable)) {
-            var absolutePath = PathHelper.absolutize(executable, workspace.rootPath);
+            var absolutePath = PathHelper.absolutize(executable, folder.uri.fsPath);
             if (FileSystem.exists(absolutePath) && !FileSystem.isDirectory(absolutePath)) {
                 executable = absolutePath;
             } else {

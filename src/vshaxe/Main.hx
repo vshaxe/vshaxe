@@ -15,9 +15,23 @@ class Main {
     var api:Vshaxe;
 
     function new(context:ExtensionContext) {
+        var wsFolder = if (workspace.workspaceFolders == null) null else workspace.workspaceFolders[0];
+        if (wsFolder == null)
+            return; // TODO: look into this - we could support _some_ nice functionality (e.g. std lib completion or --interp task)
+
         commands.executeCommand("setContext", "vshaxeActivated", true); // https://github.com/Microsoft/vscode/issues/10471
-        var displayArguments = new DisplayArguments(context);
-        var haxeExecutable = new HaxeExecutable(context);
+
+        var wsMementos = new WorkspaceMementos(context.workspaceState);
+
+        var hxmlDiscovery = new HxmlDiscovery(wsFolder, wsMementos);
+        context.subscriptions.push(hxmlDiscovery);
+
+        var displayArguments = new DisplayArguments(wsFolder, wsMementos);
+        context.subscriptions.push(displayArguments);
+
+        var haxeExecutable = new HaxeExecutable(wsFolder);
+        context.subscriptions.push(haxeExecutable);
+
         api = {
             haxeExecutable: haxeExecutable,
             registerDisplayArgumentsProvider: displayArguments.registerProvider,
@@ -29,8 +43,6 @@ class Main {
         new InitProject(context);
         new DependencyExplorer(context, displayArguments, haxeExecutable);
         new DisplayArgumentsSelector(context, displayArguments);
-        var hxmlDiscovery = new HxmlDiscovery(context.workspaceState);
-        context.subscriptions.push(hxmlDiscovery);
         new HaxeDisplayArgumentsProvider(context, api, hxmlDiscovery);
         new HxmlTaskProvider(hxmlDiscovery, haxeExecutable);
 

@@ -1,6 +1,7 @@
 import Vscode.*;
 import vscode.*;
 import vshaxe.HaxeCommand;
+import vshaxe.WorkspaceMementos;
 
 using StringTools;
 using Lambda;

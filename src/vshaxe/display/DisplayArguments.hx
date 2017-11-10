@@ -1,26 +1,32 @@
 package vshaxe.display;
 
 class DisplayArguments {
-    final context:ExtensionContext;
-    final _onDidChangeArguments = new EventEmitter<Array<String>>();
-    final _onDidChangeCurrentProvider = new EventEmitter<Null<String>>();
+    public static inline final ProviderNameKey = new MementoKey<String>("haxe.displayArgumentsProviderName");
 
     public final providers = new Map<String, DisplayArgumentsProvider>();
 
     public var currentProvider(default,null):Null<String>;
     public var onDidChangeCurrentProvider(get,never):Event<Null<String>>;
-    inline function get_onDidChangeCurrentProvider() return _onDidChangeCurrentProvider.event;
 
     public var arguments(default,null):Array<String>;
     public var onDidChangeArguments(get,never):Event<Array<String>>;
+
+    final folder:WorkspaceFolder;
+    final mementos:WorkspaceMementos;
+    final _onDidChangeArguments = new EventEmitter<Array<String>>();
+    final _onDidChangeCurrentProvider = new EventEmitter<Null<String>>();
+
+    inline function get_onDidChangeCurrentProvider() return _onDidChangeCurrentProvider.event;
     inline function get_onDidChangeArguments() return _onDidChangeArguments.event;
 
-    public static final ProviderNameKey = new HaxeMementoKey<String>("displayArgumentsProviderName");
+    public function new(folder, mementos) {
+        this.folder = folder;
+        this.mementos = mementos;
+    }
 
-    public function new(context:ExtensionContext) {
-        this.context = context;
-        context.subscriptions.push(_onDidChangeArguments);
-        context.subscriptions.push(_onDidChangeCurrentProvider);
+    public function dispose() {
+        _onDidChangeArguments.dispose();
+        _onDidChangeCurrentProvider.dispose();
     }
 
     public function registerProvider(name:String, provider:DisplayArgumentsProvider):Disposable {
@@ -30,7 +36,7 @@ class DisplayArguments {
 
         providers[name] = provider;
 
-        var savedProvider = context.getWorkspaceState().get(ProviderNameKey);
+        var savedProvider = mementos.get(folder, ProviderNameKey);
         if (currentProvider == null || savedProvider == null || savedProvider == name) {
             setCurrentProvider(name, false);
         }
@@ -65,7 +71,7 @@ class DisplayArguments {
         }
 
         if (persist) {
-            context.getWorkspaceState().update(ProviderNameKey, name);
+            mementos.set(folder, ProviderNameKey, name);
         }
 
         _onDidChangeCurrentProvider.fire(currentProvider);
