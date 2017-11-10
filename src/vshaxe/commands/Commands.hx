@@ -91,13 +91,10 @@ class Commands {
     }
 
     function clearMementos() {
-        inline function clear(memento:HaxeMemento) {
-            context.workspaceState.update(memento, js.Lib.undefined);
-        }
-
-        clear(HaxeMemento.DisplayArgumentsProviderName);
-        clear(HaxeMemento.DisplayConfigurationIndex);
-        clear(HaxeMemento.HxmlDiscoveryFiles);
+        var ws = context.getWorkspaceState();
+        ws.delete(vshaxe.display.DisplayArguments.ProviderNameKey);
+        ws.delete(vshaxe.display.HaxeDisplayArgumentsProvider.ConfigurationIndexKey);
+        ws.delete(vshaxe.HxmlDiscovery.DiscoveredFilesKey);
     }
 
     function getCurrentConfigValue<T>(info, config:WorkspaceConfiguration):T {

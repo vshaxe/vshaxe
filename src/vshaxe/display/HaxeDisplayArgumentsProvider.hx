@@ -99,8 +99,10 @@ class HaxeDisplayArgumentsProvider {
         });
     }
 
+    public static final ConfigurationIndexKey = new HaxeMementoKey<SavedSelection>("displayConfigurationIndex");
+
     function getCurrent():Null<Configuration> {
-        var selection:SavedSelection = context.workspaceState.get(HaxeMemento.DisplayConfigurationIndex, 0);
+        var selection = context.getWorkspaceState().get(ConfigurationIndexKey, 0);
         for (conf in configurations) {
             switch conf.kind {
                 case Configured(idx) if (idx == selection):
@@ -114,7 +116,7 @@ class HaxeDisplayArgumentsProvider {
     }
 
     function setCurrent(config:Configuration) {
-        context.workspaceState.update(HaxeMemento.DisplayConfigurationIndex, switch config.kind {
+        context.getWorkspaceState().update(ConfigurationIndexKey, switch config.kind {
             case Configured(index): index;
             case Discovered(id): id;
         });

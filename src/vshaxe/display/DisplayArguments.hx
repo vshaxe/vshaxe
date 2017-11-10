@@ -15,6 +15,8 @@ class DisplayArguments {
     public var onDidChangeArguments(get,never):Event<Array<String>>;
     inline function get_onDidChangeArguments() return _onDidChangeArguments.event;
 
+    public static final ProviderNameKey = new HaxeMementoKey<String>("displayArgumentsProviderName");
+
     public function new(context:ExtensionContext) {
         this.context = context;
         context.subscriptions.push(_onDidChangeArguments);
@@ -28,7 +30,7 @@ class DisplayArguments {
 
         providers[name] = provider;
 
-        var savedProvider = context.workspaceState.get(HaxeMemento.DisplayArgumentsProviderName);
+        var savedProvider = context.getWorkspaceState().get(ProviderNameKey);
         if (currentProvider == null || savedProvider == null || savedProvider == name) {
             setCurrentProvider(name, false);
         }
@@ -63,7 +65,7 @@ class DisplayArguments {
         }
 
         if (persist) {
-            context.workspaceState.update(HaxeMemento.DisplayArgumentsProviderName, name);
+            context.getWorkspaceState().update(ProviderNameKey, name);
         }
 
         _onDidChangeCurrentProvider.fire(currentProvider);

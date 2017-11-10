@@ -7,18 +7,20 @@ class HxmlDiscovery {
     static inline var PATTERN = "*.hxml";
 
     var _onDidChangeFiles:EventEmitter<Void>;
-    var workspaceState:Memento;
+    var workspaceState:HaxeMemento;
 
     public var files(default,null):Array<String>;
 
     public var onDidChangeFiles(get,never):Event<Void>;
     inline function get_onDidChangeFiles() return _onDidChangeFiles.event;
 
+    public static final DiscoveredFilesKey = new HaxeMementoKey<Array<String>>("hxmlDiscoveryFiles");
+
     public function new(workspaceState) {
         this.workspaceState = workspaceState;
         _onDidChangeFiles = new EventEmitter();
 
-        files = workspaceState.get(HaxeMemento.HxmlDiscoveryFiles, []);
+        files = workspaceState.get(DiscoveredFilesKey, []);
 
         workspace.findFiles(PATTERN).then(files -> {
             var foundFiles = if (files != null) files.map(uri -> pathRelativeToRoot(uri)) else [];
@@ -42,7 +44,7 @@ class HxmlDiscovery {
     }
 
     inline function onFilesChanged() {
-        workspaceState.update(HaxeMemento.HxmlDiscoveryFiles, files);
+        workspaceState.update(DiscoveredFilesKey, files);
         _onDidChangeFiles.fire();
     }
 

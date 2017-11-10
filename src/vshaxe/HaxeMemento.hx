@@ -1,11 +1,27 @@
 package vshaxe;
 
-@:enum abstract HaxeMemento(String) to String {
-    var DisplayArgumentsProviderName = memento("displayArgumentsProviderName");
-    var DisplayConfigurationIndex = memento("displayConfigurationIndex");
-    var HxmlDiscoveryFiles = memento("hxmlDiscoveryFiles");
+import js.Promise.Thenable;
 
-    inline static function memento(name:String):String {
-        return "haxe." + name;
+abstract HaxeMemento(vscode.Memento) from vscode.Memento {
+    public inline function get<T>(key:HaxeMementoKey<T>, ?defaultValue:T):T {
+        return this.get(key, defaultValue);
+    }
+
+    public inline function update<T>(key:HaxeMementoKey<T>, value:T):Thenable<Void> {
+        return this.update(key, value);
+    }
+
+    public inline function delete<T>(key:HaxeMementoKey<T>):Thenable<Void> {
+        return this.update(key, js.Lib.undefined);
+    }
+}
+
+@:enum abstract HaxeMementoKey<T>(String) to String {
+    public function new(key) this = "haxe." + key;
+}
+
+class HaxeMementoTools {
+    public static inline function getWorkspaceState(context:ExtensionContext):HaxeMemento {
+        return context.workspaceState;
     }
 }
