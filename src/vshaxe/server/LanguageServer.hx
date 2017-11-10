@@ -5,26 +5,41 @@ import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageClient;
 
 class LanguageServer {
-    var context:ExtensionContext;
-    var disposable:Disposable;
-    var hxFileWatcher:FileSystemWatcher;
+    final folder:WorkspaceFolder;
+    final displayArguments:DisplayArguments;
+    final haxeExecutable:HaxeExecutable;
+    final serverModulePath:String;
+    final hxFileWatcher:FileSystemWatcher;
+    final disposables:Array<{ function dispose():Void; }>;
+
+    var client:LanguageClient;
+    var restartDisposables:Array<{ function dispose():Void; }>;
     var progresses = new Map<Int,Void->Void>();
-    var haxeExecutable:HaxeExecutable;
-    var displayArguments:DisplayArguments;
     var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>};
     var displayServerConfigSerialized:String;
-    var client:LanguageClient;
 
-    public function new(context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments) {
-        this.context = context;
+    public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments) {
+        this.folder = folder;
         this.displayArguments = displayArguments;
         this.haxeExecutable = haxeExecutable;
 
-        prepareDisplayServerConfig();
-        context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()));
-        context.subscriptions.push(haxeExecutable.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()));
+        serverModulePath = context.asAbsolutePath("./server_wrapper.js");
+        hxFileWatcher = workspace.createFileSystemWatcher(new RelativePattern(folder, "**/*.hx"), false, true, false);
 
-        context.subscriptions.push(window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor));
+        prepareDisplayServerConfig();
+
+        disposables = [
+            hxFileWatcher,
+            workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()),
+            haxeExecutable.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()),
+            window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
+        ];
+        restartDisposables = [];
+    }
+
+    public function dispose() {
+        for (d in restartDisposables) d.dispose();
+        for (d in disposables) d.dispose();
     }
 
     function refreshDisplayServerConfig() {
@@ -38,12 +53,11 @@ class LanguageServer {
     }
 
     public function start() {
-        var serverModule = context.asAbsolutePath("./server_wrapper.js");
         var serverOptions = {
-            run: {module: serverModule, options: {env: js.Node.process.env}},
-            debug: {module: serverModule, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6004"]}}
+            run: {module: serverModulePath, options: {env: js.Node.process.env}},
+            debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6004"]}}
         };
-        hxFileWatcher = workspace.createFileSystemWatcher("**/*.hx", false, true, false);
+
         var clientOptions:LanguageClientOptions = {
             documentSelector: "haxe",
             synchronize: {
@@ -55,7 +69,9 @@ class LanguageServer {
                 displayServerConfig: displayServerConfig,
             },
             revealOutputChannelOn: Never,
+            workspaceFolder: folder,
         };
+
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
 
         // If arguments change while we're starting language server we remember that fact
@@ -63,16 +79,20 @@ class LanguageServer {
         // due to asynchronous argument provider loading. I wonder if there's any way to handle this better...
         var argumentsChanged = false;
         var argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(_ -> argumentsChanged = true);
+        restartDisposables.push(argumentChangeListenerDisposable);
 
         client.onReady().then(function(_) {
             client.outputChannel.appendLine("Haxe language server started");
+
+            restartDisposables.remove(argumentChangeListenerDisposable);
             argumentChangeListenerDisposable.dispose();
+
             if (argumentsChanged)
                 client.sendNotification("vshaxe/didChangeDisplayArguments", {arguments: displayArguments.arguments});
-            argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(arguments -> client.sendNotification("vshaxe/didChangeDisplayArguments", {arguments: arguments}));
 
-            context.subscriptions.push(new PackageInserter(hxFileWatcher, client));
-            context.subscriptions.push(hxFileWatcher);
+            restartDisposables.push(displayArguments.onDidChangeArguments(arguments -> client.sendNotification("vshaxe/didChangeDisplayArguments", {arguments: arguments})));
+
+            restartDisposables.push(new PackageInserter(hxFileWatcher, client));
 
             client.onNotification("vshaxe/progressStart", startProgress);
             client.onNotification("vshaxe/progressStop", stopProgress);
@@ -83,12 +103,8 @@ class LanguageServer {
             });
             #end
         });
-        var clientDisposable = client.start();
-        disposable = new Disposable(function() {
-            clientDisposable.dispose();
-            argumentChangeListenerDisposable.dispose();
-        });
-        context.subscriptions.push(disposable);
+
+        restartDisposables.push(client.start());
     }
 
     /**
@@ -147,20 +163,10 @@ class LanguageServer {
         if (client != null && client.outputChannel != null)
             client.outputChannel.dispose();
 
-        if (disposable != null) {
-            context.subscriptions.remove(disposable);
-            disposable.dispose();
-            disposable = null;
-        }
-        if (hxFileWatcher != null) {
-            context.subscriptions.remove(hxFileWatcher);
-            hxFileWatcher.dispose();
-            hxFileWatcher = null;
-        }
+        for (d in restartDisposables) d.dispose();
+        restartDisposables = [];
 
-        for (stop in progresses) {
-            stop();
-        }
+        for (stop in progresses) stop();
         progresses = new Map();
 
         start();

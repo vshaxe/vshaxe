@@ -38,7 +38,9 @@ class Main {
             parseHxmlToArguments: HxmlParser.parseToArgs
         };
 
-        var server = new LanguageServer(context, haxeExecutable, displayArguments);
+        var server = new LanguageServer(wsFolder, context, haxeExecutable, displayArguments);
+        context.subscriptions.push(server);
+
         new Commands(context, server);
         new InitProject(context);
         new DependencyExplorer(context, displayArguments, haxeExecutable);
