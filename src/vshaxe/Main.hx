@@ -45,7 +45,7 @@ class Main {
         new InitProject(context);
         new DependencyExplorer(context, displayArguments, haxeExecutable);
         new DisplayArgumentsSelector(context, displayArguments);
-        new HaxeDisplayArgumentsProvider(context, api, hxmlDiscovery);
+        new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
         new HxmlTaskProvider(hxmlDiscovery, haxeExecutable);
 
         server.start();

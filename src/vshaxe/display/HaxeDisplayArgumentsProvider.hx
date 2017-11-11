@@ -2,7 +2,7 @@ package vshaxe.display;
 
 class HaxeDisplayArgumentsProvider {
     var context:ExtensionContext;
-    var api:Vshaxe;
+    var displayArguments:DisplayArguments;
     var hxmlDiscovery:HxmlDiscovery;
     var statusBarItem:StatusBarItem;
     var provideArguments:Array<String>->Void;
@@ -10,9 +10,9 @@ class HaxeDisplayArgumentsProvider {
 
     public var description(default,never):String = "Project using haxe.displayConfigurations or HXML files (built-in)";
 
-    public function new(context:ExtensionContext, api:Vshaxe, hxmlDiscovery:HxmlDiscovery) {
+    public function new(context:ExtensionContext, displayArguments:DisplayArguments, hxmlDiscovery:HxmlDiscovery) {
         this.context = context;
-        this.api = api;
+        this.displayArguments = displayArguments;
         this.hxmlDiscovery = hxmlDiscovery;
 
         statusBarItem = window.createStatusBarItem(Left, 10);
@@ -140,7 +140,7 @@ class HaxeDisplayArgumentsProvider {
     function updateDisplayArgumentsProviderRegistration() {
         var isActive = configurations.length > 0;
         if (isActive && providerDisposable == null) {
-            providerDisposable = api.registerDisplayArgumentsProvider("Haxe", this);
+            providerDisposable = displayArguments.registerProvider("Haxe", this);
         } else if (!isActive && providerDisposable != null) {
             providerDisposable.dispose();
             providerDisposable = null;
