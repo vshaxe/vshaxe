@@ -1,14 +1,16 @@
 package vshaxe.display;
 
 class HaxeDisplayArgumentsProvider {
-    var context:ExtensionContext;
-    var displayArguments:DisplayArguments;
-    var hxmlDiscovery:HxmlDiscovery;
-    var statusBarItem:StatusBarItem;
+    final context:ExtensionContext;
+    final displayArguments:DisplayArguments;
+    final hxmlDiscovery:HxmlDiscovery;
+    final statusBarItem:StatusBarItem;
+
     var provideArguments:Array<String>->Void;
     var providerDisposable:Disposable;
+    var configurations:Array<Configuration>;
 
-    public var description(default,never):String = "Project using haxe.displayConfigurations or HXML files (built-in)";
+    public final description = "Project using haxe.displayConfigurations or HXML files (built-in)";
 
     public function new(context:ExtensionContext, displayArguments:DisplayArguments, hxmlDiscovery:HxmlDiscovery) {
         this.context = context;
@@ -27,8 +29,6 @@ class HaxeDisplayArgumentsProvider {
 
         refresh();
     }
-
-    var configurations:Array<Configuration>;
 
     function updateConfigurations() {
         var configs:Array<Array<String>> = workspace.getConfiguration("haxe").get("displayConfigurations");
