@@ -1,3 +1,9 @@
+### 1.9.4 (to be released)
+
+**Bugfixes**:
+
+- fixed missing `std` version in the dependency explorer with Haxe 4
+
 ### 1.9.3 (November 5, 2017)
 
 **Bugfixes**:

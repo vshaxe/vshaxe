@@ -170,9 +170,13 @@ class DependencyResolver {
         var result = ChildProcess.spawnSync(haxeExecutable, ["-version"]);
 
         if (result != null && result.stderr != null) {
-            var haxeVersionOutput = (result.stderr : Buffer).toString();
-            if (haxeVersionOutput != null) {
-                version = haxeVersionOutput.split(" ")[0].trim();
+            var output = (result.stderr : Buffer).toString().trim();
+            if (output == "") {
+                output = (result.stdout : Buffer).toString().trim(); // haxe 4.0 prints -version output to stdout instead
+            }
+
+            if (output != null) {
+                version = output.split(" ")[0].trim();
             }
         }
 
