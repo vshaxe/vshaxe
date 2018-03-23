@@ -4,15 +4,20 @@
 
 - fixed missing `std` version in the dependency explorer with Haxe 4
 
+**Changes and improvements**:
+
+- changed the required VSCode version to 1.20.0
+- added support for file icon themes in the dependency explorer ([#146](https://github.com/vshaxe/vshaxe/issues/146))
+
 ### 1.9.3 (November 5, 2017)
 
 **Bugfixes**:
 
-- fixed excessive keyword highlighting in HXML files [#177](https://github.com/vshaxe/vshaxe/issues/177)
+- fixed excessive keyword highlighting in HXML files ([#177](https://github.com/vshaxe/vshaxe/issues/177))
 
 **Changes and improvements**:
 
-- only show `Haxe Dependencies` in the explorer if vshaxe was activated in the workspace [#174](https://github.com/vshaxe/vshaxe/issues/174)
+- only show `Haxe Dependencies` in the explorer if vshaxe was activated in the workspace ([#174](https://github.com/vshaxe/vshaxe/issues/174))
 - adapt to latest Haxe 4 (development branch) changes
 
 ### 1.9.2 (October 24, 2017)

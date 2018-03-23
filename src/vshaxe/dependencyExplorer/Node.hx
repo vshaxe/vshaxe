@@ -1,6 +1,7 @@
 package vshaxe.dependencyExplorer;
 
 import sys.FileSystem;
+import vscode.Uri;
 
 class Node extends TreeItem {
     public var path(default,null):String;
@@ -9,6 +10,7 @@ class Node extends TreeItem {
 
     public function new(label:String, path:String) {
         super(label);
+        resourceUri = Uri.file(path);
         this.path = path;
         isDirectory = FileSystem.isDirectory(path);
         if (isDirectory) {
