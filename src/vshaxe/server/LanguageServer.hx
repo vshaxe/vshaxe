@@ -5,6 +5,8 @@ import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageClient;
 
 class LanguageServer {
+    public var displayPort(default,null):Null<Int>;
+
     final folder:WorkspaceFolder;
     final displayArguments:DisplayArguments;
     final haxeExecutable:HaxeExecutable;
@@ -94,8 +96,9 @@ class LanguageServer {
 
             restartDisposables.push(new PackageInserter(hxFileWatcher, client));
 
-            client.onNotification("vshaxe/progressStart", startProgress);
-            client.onNotification("vshaxe/progressStop", stopProgress);
+            client.onNotification("vshaxe/progressStart", onStartProgress);
+            client.onNotification("vshaxe/progressStop", onStopProgress);
+            client.onNotification("vshaxe/didChangeDisplayPort", onDidChangeDisplayPort);
 
             #if debug
             client.onNotification("vshaxe/updateParseTree", function(result:{uri:String, parseTree:String}) {
@@ -143,7 +146,7 @@ class LanguageServer {
         return displayServerConfigSerialized != oldSerialized;
     }
 
-    function startProgress(data:{id:Int, title:String}) {
+    function onStartProgress(data:{id:Int, title:String}) {
         window.withProgress({location: Window, title: data.title}, function(_) {
             return new js.Promise(function(resolve, _) {
                 progresses[data.id] = function() resolve(null);
@@ -151,12 +154,16 @@ class LanguageServer {
         });
     }
 
-    function stopProgress(data:{id:Int}) {
+    function onStopProgress(data:{id:Int}) {
         var stop = progresses[data.id];
         if (stop != null) {
             progresses.remove(data.id);
             stop();
         }
+    }
+
+    function onDidChangeDisplayPort(data:{port:Int}) {
+        displayPort = data.port;
     }
 
     public function restart() {

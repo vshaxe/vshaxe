@@ -226,6 +226,11 @@
 						}
 					]
 				},
+				"haxe.enableCompilationServer": {
+					"description": "Use the extension's Haxe server to compile auto-generated tasks. Requires \"haxe.displayPort\" to be set.",
+					"type": "boolean",
+					"default": false
+				},
 				"haxe.enableCodeLens": {
 					"description": "Enable code lens to show some statistics",
 					"type": "boolean",
