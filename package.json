@@ -212,9 +212,19 @@
 					}
 				},
 				"haxe.displayPort": {
-					"description": "The port to open on the display server. Can be used to --connect Haxe build commands.",
-					"type": "integer",
-					"default": null
+					"description": "Integer value for the port to open on the display server, or \"auto\". Can be used to --connect Haxe build commands.",
+					"default": null,
+					"oneOf": [
+						{
+							"type": "integer"
+						},
+						{
+							"type": "string",
+							"enum": [
+								"auto"
+							]
+						}
+					]
 				},
 				"haxe.enableCodeLens": {
 					"description": "Enable code lens to show some statistics",

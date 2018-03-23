@@ -1,4 +1,9 @@
-### 1.9.4 (to be released)
+### 1.10.0 (to be released)
+
+**New Features**:
+
+- added support for file icon themes in the dependency explorer ([#146](https://github.com/vshaxe/vshaxe/issues/146))
+- added support for `"displayPort": "auto"` ([#191](https://github.com/vshaxe/vshaxe/issues/191))
 
 **Bugfixes**:
 
@@ -7,7 +12,6 @@
 **Changes and improvements**:
 
 - changed the required VSCode version to 1.20.0
-- added support for file icon themes in the dependency explorer ([#146](https://github.com/vshaxe/vshaxe/issues/146))
 
 ### 1.9.3 (November 5, 2017)
 
