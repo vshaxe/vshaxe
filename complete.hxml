@@ -12,6 +12,7 @@
 -D js_unflatten
 -D hxnodejs-no-version-warning
 -D JSTACK_MAIN=vshaxe.Main.main
+-D JSTACK_ASYNC_ENTRY
 -D JSTACK_FORMAT=vscode
 -lib hxnodejs
 -lib jstack
@@ -19,6 +20,7 @@
 -lib compiletime
 -lib mockatoo
 -lib mconsole
+-lib hx3compat
 -lib hxargs
 -lib json2object
 -lib yaml
