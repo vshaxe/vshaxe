@@ -90,7 +90,7 @@ typedef SynchronizeOptions = {
     var Never = 4;
 }
 
-typedef ProvideCompletionItemsSignature = (document:TextDocument, position:Position, token:CancellationToken) -> ProviderResult<EitherType<Array<CompletionItem>,CompletionList>>;
+typedef ProvideCompletionItemsSignature = (document:TextDocument, position:Position, context:CompletionContext, token:CancellationToken) -> ProviderResult<EitherType<Array<CompletionItem>,CompletionList>>;
 typedef ResolveCompletionItemSignature = (item:CompletionItem, token:CancellationToken) -> ProviderResult<CompletionItem>;
 typedef ProvideHoverSignature = (document:TextDocument, position:Position, token:CancellationToken) -> ProviderResult<Hover>;
 typedef ProvideSignatureHelpSignature = (document:TextDocument, position:Position, token:CancellationToken) -> ProviderResult<SignatureHelp>;
@@ -121,7 +121,7 @@ typedef Middleware = {
     ?willSaveWaitUntil:NextSignature<TextDocumentWillSaveEvent,Thenable<Array<TextEdit>>>,
     ?didSave:NextSignature<TextDocument,Void>,
     ?didClose:NextSignature<TextDocument,Void>,
-    ?provideCompletionItem:(document:TextDocument, position:Position, token:CancellationToken, next:ProvideCompletionItemsSignature) -> ProviderResult<EitherType<Array<CompletionItem>,CompletionList>>,
+    ?provideCompletionItem:(document:TextDocument, position:Position, context:CompletionContext, token:CancellationToken, next:ProvideCompletionItemsSignature) -> ProviderResult<EitherType<Array<CompletionItem>,CompletionList>>,
     ?resolveCompletionItem:(item:CompletionItem, token:CancellationToken, next:ResolveCompletionItemSignature) -> ProviderResult<CompletionItem>,
     ?provideHover:(document:TextDocument, position:Position, token:CancellationToken, next:ProvideHoverSignature) -> ProviderResult<Hover>,
     ?provideSignatureHelp:(document:TextDocument, position:Position, token:CancellationToken, next:ProvideSignatureHelpSignature) -> ProviderResult<SignatureHelp>,
