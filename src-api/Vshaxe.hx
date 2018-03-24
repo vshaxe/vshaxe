@@ -18,6 +18,20 @@ typedef Vshaxe = {
     var haxeExecutable(default,never):HaxeExecutable;
 
     /**
+        The port at which the completion server is reachable via `--connect`, or `null`.
+        Corresponds to the `"haxe.displayPort"` setting.
+
+        Should be respected by generated tasks that call Haxe directly or indirectly if `enableCompilationServer` is `true`.
+    **/
+    @:optional var displayPort(default,never):Int;
+
+    /**
+        Whether the `displayPort` should be used to connect to the compilation server for building.
+        Corresponds to the `"haxe.enableCompilationServer"` setting.
+    **/
+    var enableCompilationServer(default,never):Bool;
+
+    /**
         Register a display argument provider.
 
         Display arguments are passed to the Haxe Language Server for completion and used for the dependency explorer.

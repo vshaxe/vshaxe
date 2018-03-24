@@ -4,15 +4,28 @@ import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageServer;
 
 class HxmlTaskProvider {
-    var hxmlDiscovery:HxmlDiscovery;
-    var haxeExecutable:HaxeExecutable;
-    var server:LanguageServer;
+    final hxmlDiscovery:HxmlDiscovery;
+    final haxeExecutable:HaxeExecutable;
+    final server:LanguageServer;
+    final api:Vshaxe;
 
-    public function new(hxmlDiscovery, haxeExecutable, server) {
+    var enableCompilationServer:Bool;
+
+    public function new(hxmlDiscovery, haxeExecutable, server, api) {
         this.hxmlDiscovery = hxmlDiscovery;
         this.haxeExecutable = haxeExecutable;
         this.server = server;
+        this.api = api;
+
         workspace.registerTaskProvider("hxml", this);
+        workspace.onDidChangeConfiguration(_ -> updateEnableCompilationServer());
+        updateEnableCompilationServer();
+    }
+
+    function updateEnableCompilationServer() {
+        enableCompilationServer = workspace.getConfiguration("haxe").get("enableCompilationServer");
+        var writeableApi:{enableCompilationServer:Bool} = cast api;
+        writeableApi.enableCompilationServer = enableCompilationServer;
     }
 
     public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
@@ -23,7 +36,7 @@ class HxmlTaskProvider {
             };
             var exectuable = haxeExecutable.configuration.executable;
             var args = [file];
-            if (server.displayPort != null && workspace.getConfiguration("haxe").get("enableCompilationServer")) {
+            if (server.displayPort != null && enableCompilationServer) {
                 args = args.concat(["--connect", Std.string(server.displayPort)]);
             }
             var execution = new ProcessExecution(exectuable, args, {env: haxeExecutable.configuration.env});

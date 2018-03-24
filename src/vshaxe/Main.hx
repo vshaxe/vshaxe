@@ -34,11 +34,12 @@ class Main {
 
         api = {
             haxeExecutable: haxeExecutable,
+            enableCompilationServer: false,
             registerDisplayArgumentsProvider: displayArguments.registerProvider,
             parseHxmlToArguments: HxmlParser.parseToArgs
         };
 
-        var server = new LanguageServer(wsFolder, context, haxeExecutable, displayArguments);
+        var server = new LanguageServer(wsFolder, context, haxeExecutable, displayArguments, api);
         context.subscriptions.push(server);
 
         new Commands(context, server);
@@ -46,7 +47,7 @@ class Main {
         new DependencyExplorer(context, displayArguments, haxeExecutable);
         new DisplayArgumentsSelector(context, displayArguments);
         new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
-        new HxmlTaskProvider(hxmlDiscovery, haxeExecutable, server);
+        new HxmlTaskProvider(hxmlDiscovery, haxeExecutable, server, api);
 
         server.start();
     }

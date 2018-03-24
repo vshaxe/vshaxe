@@ -8,8 +8,9 @@ class LanguageServer {
     public var displayPort(default,null):Null<Int>;
 
     final folder:WorkspaceFolder;
-    final displayArguments:DisplayArguments;
     final haxeExecutable:HaxeExecutable;
+    final displayArguments:DisplayArguments;
+    final api:Vshaxe;
     final serverModulePath:String;
     final hxFileWatcher:FileSystemWatcher;
     final disposables:Array<{ function dispose():Void; }>;
@@ -20,10 +21,11 @@ class LanguageServer {
     var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>};
     var displayServerConfigSerialized:String;
 
-    public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments) {
+    public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments, api:Vshaxe) {
         this.folder = folder;
         this.displayArguments = displayArguments;
         this.haxeExecutable = haxeExecutable;
+        this.api = api;
 
         serverModulePath = context.asAbsolutePath("./server_wrapper.js");
         hxFileWatcher = workspace.createFileSystemWatcher(new RelativePattern(folder, "**/*.hx"), false, true, false);
@@ -165,6 +167,8 @@ class LanguageServer {
 
     function onDidChangeDisplayPort(data:{port:Int}) {
         displayPort = data.port;
+        var writeableApi:{?displayPort:Int} = cast api;
+        writeableApi.displayPort = data.port;
     }
 
     public function restart() {

@@ -42,7 +42,6 @@ class HaxeExecutable {
 
     function get_onDidChangeConfiguration() return _onDidChangeConfiguration.event;
 
-
     public function new(folder) {
         this.folder = folder;
         _onDidChangeConfiguration = new EventEmitter();
