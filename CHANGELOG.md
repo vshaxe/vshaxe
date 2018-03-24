@@ -3,7 +3,7 @@
 **New Features**:
 
 - added support for file icon themes in the dependency explorer ([#146](https://github.com/vshaxe/vshaxe/issues/146))
-- added support for `"displayPort": "auto"` ([#191](https://github.com/vshaxe/vshaxe/issues/191))
+- added support for `"haxe.displayPort": "auto"` ([#191](https://github.com/vshaxe/vshaxe/issues/191))
 - added a `"haxe.enableCompilationServer"` setting ([#184](https://github.com/vshaxe/vshaxe/issues/184))
 - added support for markdown-formatted documentation in signature help
 
@@ -14,6 +14,7 @@
 **Changes and improvements**:
 
 - changed the required VSCode version to 1.20.0
+- the problems view is now opened after global diagnostics runs ([#38](https://github.com/vshaxe/vshaxe/issues/38))
 
 ### 1.9.3 (November 5, 2017)
 

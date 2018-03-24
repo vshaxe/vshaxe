@@ -99,6 +99,7 @@ class LanguageServer {
             client.onNotification("vshaxe/progressStart", onStartProgress);
             client.onNotification("vshaxe/progressStop", onStopProgress);
             client.onNotification("vshaxe/didChangeDisplayPort", onDidChangeDisplayPort);
+            client.onNotification("vshaxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
 
             #if debug
             client.onNotification("vshaxe/updateParseTree", function(result:{uri:String, parseTree:String}) {
@@ -181,5 +182,9 @@ class LanguageServer {
 
     public inline function runGlobalDiagnostics() {
         client.sendNotification("vshaxe/runGlobalDiagnostics");
+    }
+
+    function onDidRunGlobalDiangostics(_) {
+        commands.executeCommand("workbench.action.problems.focus");
     }
 }
