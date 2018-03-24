@@ -213,7 +213,7 @@
 				},
 				"haxe.displayPort": {
 					"description": "Integer value for the port to open on the display server, or \"auto\". Can be used to --connect Haxe build commands.",
-					"default": null,
+					"default": "auto",
 					"oneOf": [
 						{
 							"type": "integer"
@@ -229,7 +229,7 @@
 				"haxe.enableCompilationServer": {
 					"description": "Use the extension's Haxe server to compile auto-generated tasks. Requires \"haxe.displayPort\" to be set.",
 					"type": "boolean",
-					"default": false
+					"default": true
 				},
 				"haxe.enableCodeLens": {
 					"description": "Enable code lens to show some statistics",

@@ -34,7 +34,7 @@ class Main {
 
         api = {
             haxeExecutable: haxeExecutable,
-            enableCompilationServer: false,
+            enableCompilationServer: true,
             registerDisplayArgumentsProvider: displayArguments.registerProvider,
             parseHxmlToArguments: HxmlParser.parseToArgs
         };
