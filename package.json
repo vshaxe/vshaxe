@@ -345,6 +345,11 @@
 					"light": "resources/light/collapseAll.svg",
 					"dark": "resources/dark/collapseAll.svg"
 				}
+			},
+			{
+				"title": "Reveal in Explorer",
+				"command": "haxe.dependencies.revealInExplorer",
+				"category": "Haxe"
 			}
 		],
 		"languages": [
@@ -462,6 +467,12 @@
 					"command": "haxe.dependencies.collapseAll",
 					"when": "view == haxe.dependencies",
 					"group": "navigation@2"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "haxe.dependencies.revealInExplorer",
+					"when": "view == haxe.dependencies"
 				}
 			]
 		},

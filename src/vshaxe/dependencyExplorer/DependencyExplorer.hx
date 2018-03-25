@@ -30,6 +30,7 @@ class DependencyExplorer {
         context.registerHaxeCommand(Dependencies_SelectNode, selectNode);
         context.registerHaxeCommand(Dependencies_CollapseAll, collapseAll);
         context.registerHaxeCommand(Dependencies_Refresh, refresh);
+        context.registerHaxeCommand(Dependencies_RevealInExplorer, revealInExplorer);
 
         var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
         context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
@@ -155,5 +156,21 @@ class DependencyExplorer {
             }
         }
         _onDidChangeTreeData.fire();
+    }
+
+    function revealInExplorer(node:Node) {
+        var explorer = switch (Sys.systemName()) {
+            case "Windows": "explorer";
+            case "Linux": "xdg-open";
+            case "Mac": "open";
+            case _: throw "unsupported OS";
+        }
+        var arg = node.resourceUri.fsPath;
+        if (Sys.systemName() == "Windows") {
+            arg = '/select,"$arg"';
+        }
+        // this isn't proper Sys.command() usage
+        // - but otherwise the quoting seems to work improperly :(
+        Sys.command('$explorer $arg');
     }
 }

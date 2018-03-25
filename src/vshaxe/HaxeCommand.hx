@@ -10,6 +10,7 @@ package vshaxe;
     var ToggleCodeLens = command("toggleCodeLens");
     var Dependencies_Refresh = command("dependencies.refresh");
     var Dependencies_CollapseAll = command("dependencies.collapseAll");
+    var Dependencies_RevealInExplorer = command("dependencies.revealInExplorer");
 
     /* internal commands, _not_ defined in `package.json` */
     var ApplyFixes = command("applyFixes");
