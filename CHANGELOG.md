@@ -11,6 +11,7 @@
 **Bugfixes**:
 
 - fixed missing `std` version in the dependency explorer with Haxe 4
+- fixed highlighting of capture variables with `var` ([haxe-tmLanguage#34](https://github.com/vshaxe/haxe-tmLanguage/issues/34))
 
 **Changes and improvements**:
 
