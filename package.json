@@ -329,6 +329,16 @@
 				"category": "Haxe"
 			},
 			{
+				"title": "Refresh Dependencies View",
+				"command": "haxe.refreshDependencies",
+				"category": "Haxe"
+			},
+			{
+				"title": "Collapse Folders in Dependencies View",
+				"command": "haxe.collapseDependencies",
+				"category": "Haxe"
+			},
+			{
 				"title": "Refresh",
 				"command": "haxe.dependencies.refresh",
 				"category": "Haxe",
