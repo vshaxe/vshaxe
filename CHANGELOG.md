@@ -7,6 +7,7 @@
 - added a `"haxe.enableCompilationServer"` setting - enabled by default ([#184](https://github.com/vshaxe/vshaxe/issues/184))
 - added support for markdown-formatted documentation in signature help
 - added `displayPort` and `enableCompilationServer` to the extension API
+- added highlighting for Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
 
 **Bugfixes**:
 
