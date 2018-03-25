@@ -58,8 +58,8 @@ class DependencyResolver {
     static function getProcessOutput(command:String):Array<String> {
         try {
             var oldCwd = Sys.getCwd();
-            if (workspace.rootPath != null) {
-                Sys.setCwd(workspace.rootPath);
+            if (workspace.workspaceFolders != null) {
+                Sys.setCwd(workspace.workspaceFolders[0].uri.fsPath);
             }
             var result:Buffer = ChildProcess.execSync(command);
             Sys.setCwd(oldCwd);
@@ -71,7 +71,8 @@ class DependencyResolver {
     }
 
     static function getDependencyInfo(path:String) {
-        var absPath = PathHelper.absolutize(path, workspace.rootPath);
+        var rootPath = workspace.workspaceFolders[0].uri.fsPath;
+        var absPath = PathHelper.absolutize(path, rootPath);
         if (!FileSystem.exists(absPath)) {
             return null;
         }
@@ -79,7 +80,7 @@ class DependencyResolver {
         if (absPath.indexOf(haxelibRepo) == -1) {
             // dependencies outside of the haxelib repo (installed via "haxelib dev" or just classpaths)
             // - only bother to show these if they're outside of the current workspace
-            if (absPath.indexOf(Path.normalize(workspace.rootPath)) == -1) {
+            if (absPath.indexOf(Path.normalize(rootPath)) == -1) {
                 // could be a "haxelib dev" haxelib
                 var haxelibInfo = searchHaxelibJson(absPath);
                 if (haxelibInfo == null) {

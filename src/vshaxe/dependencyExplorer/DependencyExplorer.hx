@@ -49,7 +49,7 @@ class DependencyExplorer {
     }
 
     function refreshDependencies():Array<Node> {
-        var newDependencies = DependencyExtractor.extractDependencies(displayArguments, workspace.rootPath);
+        var newDependencies = DependencyExtractor.extractDependencies(displayArguments, workspace.workspaceFolders[0].uri.fsPath);
         relevantHxmls = newDependencies.hxmls;
 
         // avoid FS access / creating processes unless there were _actually_ changes

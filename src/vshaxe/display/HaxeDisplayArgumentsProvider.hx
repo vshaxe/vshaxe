@@ -64,7 +64,7 @@ class HaxeDisplayArgumentsProvider {
                 if (button == null)
                     return;
                 workspace.getConfiguration("haxe").update("displayConfigurations", [], false).then(_ ->
-                    workspace.openTextDocument(workspace.rootPath + "/.vscode/settings.json").then(
+                    workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json").then(
                         document -> window.showTextDocument(document)
                 ));
             });
