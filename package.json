@@ -329,7 +329,7 @@
 				"category": "Haxe"
 			},
 			{
-				"title": "Refresh Dependencies",
+				"title": "Refresh",
 				"command": "haxe.dependencies.refresh",
 				"category": "Haxe",
 				"icon": {
@@ -338,7 +338,7 @@
 				}
 			},
 			{
-				"title": "Collapse All Dependencies",
+				"title": "Collapse All",
 				"command": "haxe.dependencies.collapseAll",
 				"category": "Haxe",
 				"icon": {
@@ -473,6 +473,20 @@
 				{
 					"command": "haxe.dependencies.revealInExplorer",
 					"when": "view == haxe.dependencies"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "haxe.dependencies.refresh",
+					"when": "false"
+				},
+				{
+					"command": "haxe.dependencies.collapseAll",
+					"when": "false"
+				},
+				{
+					"command": "haxe.dependencies.revealInExplorer",
+					"when": "false"
 				}
 			]
 		},
