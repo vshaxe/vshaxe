@@ -7,6 +7,7 @@ import vshaxe.display.DisplayArguments;
 import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.helper.HxmlParser;
+import vshaxe.helper.HaxeCodeLensProvider;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HxmlTaskProvider;
@@ -41,6 +42,8 @@ class Main {
 
         var server = new LanguageServer(wsFolder, context, haxeExecutable, displayArguments, api);
         context.subscriptions.push(server);
+
+        languages.registerCodeLensProvider('haxe', new HaxeCodeLensProvider());
 
         new Commands(context, server);
         new InitProject(context);

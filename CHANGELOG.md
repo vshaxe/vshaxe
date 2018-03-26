@@ -18,6 +18,7 @@
 - fixed arrow functions being highlighted in strings ([haxe-tmLanguage#33](https://github.com/vshaxe/haxe-tmLanguage/issues/33))
 - fixed highlighting of capture variables with `var` ([haxe-tmLanguage#34](https://github.com/vshaxe/haxe-tmLanguage/issues/34))
 - fixed overloaded methods showing multiple times in completion
+- fixed `"haxe.enableCodeLens"` changes not triggering an update ([#95](https://github.com/vshaxe/vshaxe/issues/95))
 
 **Changes and improvements**:
 
