@@ -32,6 +32,7 @@ class DependencyExplorer {
         context.registerHaxeCommand(Dependencies_SelectNode, selectNode);
         context.registerHaxeCommand(Dependencies_Refresh, refresh);
         context.registerHaxeCommand(Dependencies_CollapseAll, collapseAll);
+        context.registerHaxeCommand(Dependencies_OpenToTheSide, openToTheSide);
         context.registerHaxeCommand(Dependencies_RevealInExplorer, revealInExplorer);
         context.registerHaxeCommand(Dependencies_OpenInCommandPrompt, openInCommandPrompt);
 
@@ -159,6 +160,10 @@ class DependencyExplorer {
             }
         }
         _onDidChangeTreeData.fire();
+    }
+
+    function openToTheSide(node:Node) {
+        window.showTextDocument(node.resourceUri, {viewColumn: Three});
     }
 
     function revealInExplorer(node:Node) {

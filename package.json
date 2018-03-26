@@ -357,6 +357,11 @@
 				}
 			},
 			{
+				"title": "Open to the Side",
+				"command": "haxe.dependencies.openToTheSide",
+				"category": "Haxe"
+			},
+			{
 				"title": "Reveal in Explorer",
 				"command": "haxe.dependencies.revealInExplorer",
 				"category": "Haxe"
@@ -486,14 +491,19 @@
 			],
 			"view/item/context": [
 				{
+					"command": "haxe.dependencies.openToTheSide",
+					"when": "view == haxe.dependencies && viewItem == file",
+					"group": "1_vshaxe@1"
+				},
+				{
 					"command": "haxe.dependencies.revealInExplorer",
 					"when": "view == haxe.dependencies && viewItem =~ /(folder|file)/",
-					"group": "1_vshaxe@1"
+					"group": "1_vshaxe@2"
 				},
 				{
 					"command": "haxe.dependencies.openInCommandPrompt",
 					"when": "view == haxe.dependencies && viewItem =~ /(folder|file)/",
-					"group": "1_vshaxe@2"
+					"group": "1_vshaxe@3"
 				}
 			],
 			"commandPalette": [
@@ -503,6 +513,10 @@
 				},
 				{
 					"command": "haxe.dependencies.collapseAll",
+					"when": "false"
+				},
+				{
+					"command": "haxe.dependencies.openToTheSide",
 					"when": "false"
 				},
 				{

@@ -17,6 +17,7 @@ package vshaxe;
     var Dependencies_SelectNode = command("dependencies.selectNode");
     var Dependencies_Refresh = command("dependencies.refresh");
     var Dependencies_CollapseAll = command("dependencies.collapseAll");
+    var Dependencies_OpenToTheSide = command("dependencies.openToTheSide");
     var Dependencies_RevealInExplorer = command("dependencies.revealInExplorer");
     var Dependencies_OpenInCommandPrompt = command("dependencies.openInCommandPrompt");
     var ClearMementos = command("clearMementos");
