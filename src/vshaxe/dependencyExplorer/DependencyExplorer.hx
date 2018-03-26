@@ -36,6 +36,7 @@ class DependencyExplorer {
         context.registerHaxeCommand(Dependencies_OpenToTheSide, openToTheSide);
         context.registerHaxeCommand(Dependencies_RevealInExplorer, revealInExplorer);
         context.registerHaxeCommand(Dependencies_OpenInCommandPrompt, openInCommandPrompt);
+        context.registerHaxeCommand(Dependencies_CopyPath, copyPath);
 
         var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
         context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
@@ -194,4 +195,13 @@ class DependencyExplorer {
         }
         window.createTerminal({cwd: cwd}).show();
     }
+
+    function copyPath(node:Node) {
+        CopyPaste.copy(node.resourceUri.fsPath);
+    }
+}
+
+@:jsRequire("copy-paste")
+private extern class CopyPaste {
+    public static function copy(text:String, ?callback:Void->Void):Void;
 }

@@ -23,6 +23,7 @@ package vshaxe;
     var Dependencies_OpenToTheSide = command("dependencies.openToTheSide");
     var Dependencies_RevealInExplorer = command("dependencies.revealInExplorer");
     var Dependencies_OpenInCommandPrompt = command("dependencies.openInCommandPrompt");
+    var Dependencies_CopyPath = command("dependencies.copyPath");
 
     inline static function command(name:String):String {
         return "haxe." + name;
