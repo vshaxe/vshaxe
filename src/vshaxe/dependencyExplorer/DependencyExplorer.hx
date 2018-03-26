@@ -33,6 +33,7 @@ class DependencyExplorer {
         context.registerHaxeCommand(Dependencies_Refresh, refresh);
         context.registerHaxeCommand(Dependencies_CollapseAll, collapseAll);
         context.registerHaxeCommand(Dependencies_RevealInExplorer, revealInExplorer);
+        context.registerHaxeCommand(Dependencies_OpenInCommandPrompt, openInCommandPrompt);
 
         var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
         context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
@@ -174,5 +175,13 @@ class DependencyExplorer {
         // this isn't proper Sys.command() usage
         // - but otherwise the quoting seems to work improperly :(
         Sys.command('$explorer $arg');
+    }
+
+    function openInCommandPrompt(node:Node) {
+        var cwd = node.path;
+        if (!node.isDirectory) {
+            cwd = Path.directory(node.path);
+        }
+        window.createTerminal({cwd: cwd}).show();
     }
 }

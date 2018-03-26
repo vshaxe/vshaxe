@@ -329,12 +329,12 @@
 				"category": "Haxe"
 			},
 			{
-				"title": "Refresh Dependencies View",
+				"title": "Refresh Dependency Explorer",
 				"command": "haxe.refreshDependencies",
 				"category": "Haxe"
 			},
 			{
-				"title": "Collapse Folders in Dependencies View",
+				"title": "Collapse Folders in Dependency Explorer",
 				"command": "haxe.collapseDependencies",
 				"category": "Haxe"
 			},
@@ -359,6 +359,11 @@
 			{
 				"title": "Reveal in Explorer",
 				"command": "haxe.dependencies.revealInExplorer",
+				"category": "Haxe"
+			},
+			{
+				"title": "Open in Command Prompt",
+				"command": "haxe.dependencies.openInCommandPrompt",
 				"category": "Haxe"
 			}
 		],
@@ -482,7 +487,13 @@
 			"view/item/context": [
 				{
 					"command": "haxe.dependencies.revealInExplorer",
-					"when": "view == haxe.dependencies"
+					"when": "view == haxe.dependencies && viewItem =~ /(folder|file)/",
+					"group": "1_vshaxe@1"
+				},
+				{
+					"command": "haxe.dependencies.openInCommandPrompt",
+					"when": "view == haxe.dependencies && viewItem =~ /(folder|file)/",
+					"group": "1_vshaxe@2"
 				}
 			],
 			"commandPalette": [
@@ -496,6 +507,10 @@
 				},
 				{
 					"command": "haxe.dependencies.revealInExplorer",
+					"when": "false"
+				},
+				{
+					"command": "haxe.dependencies.openInCommandPrompt",
 					"when": "false"
 				}
 			]

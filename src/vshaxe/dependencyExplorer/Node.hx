@@ -15,6 +15,9 @@ class Node extends TreeItem {
         isDirectory = FileSystem.isDirectory(path);
         if (isDirectory) {
             collapsibleState = Collapsed;
+            contextValue = "folder";
+        } else {
+            contextValue = "file";
         }
 
         command = {

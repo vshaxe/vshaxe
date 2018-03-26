@@ -3,6 +3,7 @@
 **New Features**:
 
 - added support for file icon themes in the dependency explorer ([#146](https://github.com/vshaxe/vshaxe/issues/146))
+- added a context menu to items in the dependency explorer
 - added support for `"haxe.displayPort": "auto"` - enabled by default ([#191](https://github.com/vshaxe/vshaxe/issues/191))
 - added a `"haxe.enableCompilationServer"` setting - enabled by default ([#184](https://github.com/vshaxe/vshaxe/issues/184))
 - added support for markdown-formatted documentation in signature help
