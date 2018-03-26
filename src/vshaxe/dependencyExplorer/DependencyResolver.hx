@@ -8,6 +8,7 @@ import sys.FileSystem;
 import sys.io.File;
 import vshaxe.helper.PathHelper;
 import vshaxe.helper.HaxeExecutable;
+using Lambda;
 
 typedef DependencyInfo = {
     name:String,
@@ -25,6 +26,7 @@ class DependencyResolver {
             paths = paths.concat(resolveHaxelib(lib));
         }
         paths = paths.concat(dependencies.classPaths);
+        paths = pruneSubdirectories(paths);
 
         var infos = paths.map(getDependencyInfo).filter(info -> info != null);
 
@@ -68,6 +70,13 @@ class DependencyResolver {
         } catch(e:Any) {
             return [];
         }
+    }
+
+    // ignore directories that are subdirectories of others (#156)
+    static function pruneSubdirectories(paths:Array<String>):Array<String> {
+        return paths.filter(path -> {
+            return !paths.exists(p -> p != path && path.startsWith(p));
+        });
     }
 
     static function getDependencyInfo(path:String) {
