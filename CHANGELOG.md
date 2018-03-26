@@ -17,6 +17,7 @@
 - fixed highlighting of nested function types in parameters ([haxe-tmLanguage#29](https://github.com/vshaxe/haxe-tmLanguage/issues/29))
 - fixed arrow functions being highlighted in strings ([haxe-tmLanguage#33](https://github.com/vshaxe/haxe-tmLanguage/issues/33))
 - fixed highlighting of capture variables with `var` ([haxe-tmLanguage#34](https://github.com/vshaxe/haxe-tmLanguage/issues/34))
+- fixed overloaded methods showing multiple times in completion
 
 **Changes and improvements**:
 
