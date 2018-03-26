@@ -1,5 +1,6 @@
 package vshaxe.dependencyExplorer;
 
+import haxe.io.Path;
 import sys.FileSystem;
 import vscode.Uri;
 
@@ -17,7 +18,7 @@ class Node extends TreeItem {
             collapsibleState = Collapsed;
             contextValue = "folder";
         } else {
-            contextValue = "file";
+            contextValue = "file." + Path.extension(path);
         }
 
         command = {
