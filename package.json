@@ -393,7 +393,7 @@
 				"extensions": [
 					".hx"
 				],
-				"configuration": "./configurations/haxe.configuration.json"
+				"configuration": "./configurations/haxe.language-configuration.json"
 			},
 			{
 				"id": "hxml",
@@ -404,7 +404,7 @@
 				"extensions": [
 					".hxml"
 				],
-				"configuration": "./configurations/hxml.configuration.json"
+				"configuration": "./configurations/hxml.language-configuration.json"
 			},
 			{
 				"id": "Haxe AST dump",
