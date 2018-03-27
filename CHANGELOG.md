@@ -27,6 +27,7 @@
 - changed the required VSCode version to 1.20.0
 - the problems view is now opened after global diagnostics runs ([#38](https://github.com/vshaxe/vshaxe/issues/38))
 - document symbols now use separate icons for enum members / operators / structs
+- document symbols now show type parameters
 
 ### 1.9.3 (November 5, 2017)
 
