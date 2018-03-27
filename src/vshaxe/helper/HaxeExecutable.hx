@@ -70,6 +70,11 @@ class HaxeExecutable {
 
     static function isSame(oldConfig:RawHaxeExecutableConfig, newConfig:RawHaxeExecutableConfig):Bool {
         // ouch...
+        if ((oldConfig is String) || (newConfig is String)) {
+            if (oldConfig != newConfig)
+                return false;
+        }
+
         if (oldConfig.path != newConfig.path)
             return false;
 

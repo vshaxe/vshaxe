@@ -13,7 +13,8 @@
 
 **Bugfixes**:
 
-- fixed missing `std` version in the dependency explorer with Haxe 4
+- fixed the dependency explorer's `std` version missing with Haxe 4
+- fixed the dependency explorer's `std` version not updating on `"haxe.executable"` changes
 - fixed the dependency explorer's "Collapse All" button ([#212](https://github.com/vshaxe/vshaxe/issues/212))
 - fixed dependency explorer duplicating folders of some `haxelib dev` libs ([#156](https://github.com/vshaxe/vshaxe/issues/156))
 - fixed highlighting of nested function types in parameters ([haxe-tmLanguage#29](https://github.com/vshaxe/haxe-tmLanguage/issues/29))
