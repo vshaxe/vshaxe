@@ -4,16 +4,29 @@ import haxe.io.Path;
 import sys.FileSystem;
 import vscode.Uri;
 
+enum NodeType {
+    File;
+    Folder;
+    Haxelib;
+    StandardLibrary;
+}
+
 class Node extends TreeItem {
     public var path(default,null):String;
-    public var isDirectory(default,null):Bool;
+    public var type(default,null):NodeType;
+    public var isDirectory(get,never):Bool;
     public var children(get,null):Array<Node>;
 
-    public function new(label:String, path:String) {
+    public function new(label:String, path:String, ?type:NodeType) {
         super(label);
         resourceUri = Uri.file(path);
         this.path = path;
-        isDirectory = FileSystem.isDirectory(path);
+        this.type = type;
+
+        if (this.type == null) {
+            this.type = if (FileSystem.isDirectory(path)) Folder else File;
+        }
+
         if (isDirectory) {
             collapsibleState = Collapsed;
             contextValue = "folder";
@@ -26,6 +39,32 @@ class Node extends TreeItem {
             arguments: [this],
             title: "Open File"
         };
+    }
+
+    inline function get_isDirectory():Bool {
+        return type != File;
+    }
+
+    public static function sort(nodes:Array<Node>) {
+        haxe.ds.ArraySort.sort(nodes, (c1, c2) -> {
+            function compare(a:String, b:String) {
+                a = a.toLowerCase();
+                b = b.toLowerCase();
+                if (a < b) return -1;
+                if (a > b) return 1;
+                return 0;
+            }
+
+            if (c1.isDirectory && c2.isDirectory) {
+                return compare(c1.label, c2.label);
+            } else if (c1.isDirectory) {
+                return -1;
+            } else if (c2.isDirectory) {
+                return 1;
+            } else {
+                return compare(c1.label, c2.label);
+            }
+        });
     }
 
     public function collapse() {
@@ -53,7 +92,7 @@ class Node extends TreeItem {
                 newChildren.push(new Node(file, path));
             }
         });
-        sortChildren(newChildren);
+        sort(newChildren);
         children = newChildren;
     }
 
@@ -75,7 +114,7 @@ class Node extends TreeItem {
 
         var children = [];
         forEachChild((file, path) -> children.push(new Node(file, path)));
-        sortChildren(children);
+        sort(children);
         return children;
     }
 
@@ -85,28 +124,6 @@ class Node extends TreeItem {
                 f(file, '$path/$file');
             }
         }
-    }
-
-    function sortChildren(children:Array<Node>) {
-        haxe.ds.ArraySort.sort(children, (c1, c2) -> {
-            function compare(a:String, b:String) {
-                a = a.toLowerCase();
-                b = b.toLowerCase();
-                if (a < b) return -1;
-                if (a > b) return 1;
-                return 0;
-            }
-
-            if (c1.isDirectory && c2.isDirectory) {
-                return compare(c1.label, c2.label);
-            } else if (c1.isDirectory) {
-                return -1;
-            } else if (c2.isDirectory) {
-                return 1;
-            } else {
-                return compare(c1.label, c2.label);
-            }
-        });
     }
 
     function isExcluded(file:String):Bool {

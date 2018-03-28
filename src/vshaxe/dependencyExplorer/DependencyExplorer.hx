@@ -2,6 +2,7 @@ package vshaxe.dependencyExplorer;
 
 import haxe.io.Path;
 import vshaxe.dependencyExplorer.DependencyResolver;
+import vshaxe.dependencyExplorer.Node;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 
@@ -92,6 +93,17 @@ class DependencyExplorer {
             }
         }
 
+        // sort alphabetically, but always show std at the bottom
+        Node.sort(newNodes);
+        haxe.ds.ArraySort.sort(newNodes, (node1, node2) -> {
+            if (node1.type == StandardLibrary) {
+                return 1;
+            } else if (node2.type == StandardLibrary) {
+                return -1;
+            }
+            return 0;
+        });
+
         return newNodes;
     }
 
@@ -103,7 +115,8 @@ class DependencyExplorer {
         if (info.version != null) {
             label += ' (${info.version})';
         }
-        return new Node(label, info.path);
+        var type = if (info.name == "std") StandardLibrary else Haxelib;
+        return new Node(label, info.path, type);
     }
 
     function onDidChangeDisplayArguments(displayArguments:Array<String>) {
