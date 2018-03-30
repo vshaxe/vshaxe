@@ -22,7 +22,7 @@
 - fixed highlighting of capture variables with `var` ([haxe-tmLanguage#34](https://github.com/vshaxe/haxe-tmLanguage/issues/34))
 - fixed overloaded methods showing multiple times in completion
 - fixed `"haxe.enableCodeLens"` changes not triggering an update ([#95](https://github.com/vshaxe/vshaxe/issues/95))
-- fixed exit code of clients connecting to `"haxe.displayPort"` always being 0
+- fixed exit code of clients connecting to `"haxe.displayPort"` always being 0 ([haxe#6431](https://github.com/HaxeFoundation/haxe/issues/6431))
 
 **Changes and improvements**:
 
