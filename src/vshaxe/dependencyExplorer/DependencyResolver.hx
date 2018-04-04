@@ -137,7 +137,7 @@ class DependencyResolver {
                 return null;
             }
             path = Path.normalize(path);
-            return {name: content.name, version: path, path: path};
+            return {name: content.name, version: "dev", path: path};
         }
         return searchHaxelibJson(Path.join([path, ".."]), levels - 1);
     }

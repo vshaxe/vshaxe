@@ -30,6 +30,7 @@
 - the problems view is now opened after global diagnostics runs ([#38](https://github.com/vshaxe/vshaxe/issues/38))
 - document symbols now use separate icons for enum members / operators / structs
 - document symbols now show type parameters
+- the dependency explorer now shows "dev" for `haxelib dev` libraries instead of the full path
 
 ### 1.9.3 (November 5, 2017)
 
