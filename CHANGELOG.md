@@ -1,3 +1,9 @@
+### 1.10.1 (April 4, 2018)
+
+**Bugfixes**:
+
+- Don't include unused `vscode-textmate` in the vshaxe extension package
+
 ### 1.10.0 (April 4, 2018)
 
 **New Features**:
