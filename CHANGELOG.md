@@ -1,4 +1,4 @@
-### 1.10.0 (to be released)
+### 1.10.0 (April 4, 2018)
 
 **New Features**:
 
