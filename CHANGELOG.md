@@ -3,6 +3,7 @@
 **Bugfixes**:
 
 - fixed rename errors not being shown in VSCode ([#213](https://github.com/vshaxe/vshaxe/issues/213))
+- fixed some issues that could lead to hangs when compiling through the server
 
 ### 1.10.1 (April 4, 2018)
 
