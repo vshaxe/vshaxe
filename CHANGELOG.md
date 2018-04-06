@@ -1,8 +1,14 @@
+### 1.10.2 (to be released)
+
+**Bugfixes**:
+
+- fixed rename errors not being shown in VSCode ([#213](https://github.com/vshaxe/vshaxe/issues/213))
+
 ### 1.10.1 (April 4, 2018)
 
 **Bugfixes**:
 
-- Don't include unused `vscode-textmate` in the vshaxe extension package
+- don't include unused `vscode-textmate` in the vshaxe extension package
 
 ### 1.10.0 (April 4, 2018)
 
