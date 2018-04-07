@@ -7,7 +7,7 @@
 
 **Changes and improvements**:
 
-- improved highlighting of escape sequences in strings ([haxe-tmLanguage#35](https://github.com/vshaxe/haxe-tmLanguage/issues/35))
+- improved highlighting of escape sequences in strings ([haxe-TmLanguage#35](https://github.com/vshaxe/haxe-TmLanguage/issues/35))
 
 ### 1.10.1 (April 4, 2018)
 
@@ -34,9 +34,9 @@
 - fixed the dependency explorer's `std` version not updating on `"haxe.executable"` changes
 - fixed the dependency explorer's "Collapse All" button ([#212](https://github.com/vshaxe/vshaxe/issues/212))
 - fixed dependency explorer duplicating folders of some `haxelib dev` libs ([#156](https://github.com/vshaxe/vshaxe/issues/156))
-- fixed highlighting of nested function types in parameters ([haxe-tmLanguage#29](https://github.com/vshaxe/haxe-tmLanguage/issues/29))
-- fixed arrow functions being highlighted in strings ([haxe-tmLanguage#33](https://github.com/vshaxe/haxe-tmLanguage/issues/33))
-- fixed highlighting of capture variables with `var` ([haxe-tmLanguage#34](https://github.com/vshaxe/haxe-tmLanguage/issues/34))
+- fixed highlighting of nested function types in parameters ([haxe-TmLanguage#29](https://github.com/vshaxe/haxe-TmLanguage/issues/29))
+- fixed arrow functions being highlighted in strings ([haxe-TmLanguage#33](https://github.com/vshaxe/haxe-TmLanguage/issues/33))
+- fixed highlighting of capture variables with `var` ([haxe-TmLanguage#34](https://github.com/vshaxe/haxe-TmLanguage/issues/34))
 - fixed overloaded methods showing multiple times in completion
 - fixed `"haxe.enableCodeLens"` changes not triggering an update ([#95](https://github.com/vshaxe/vshaxe/issues/95))
 - fixed exit code of clients connecting to `"haxe.displayPort"` always being 0 ([haxe#6431](https://github.com/HaxeFoundation/haxe/issues/6431))
@@ -98,7 +98,7 @@
 - fixed the dependency explorer for `haxelib dev` libs in the haxelib repo ([#141](https://github.com/vshaxe/vshaxe/issues/141))
 - fixed the dependency explorer with a relative `"haxe.executable"` path ([#58](https://github.com/vshaxe/vshaxe/issues/58))
 - fixed the dependency explorer with invalid classpaths
-- fixed a minor anon function highlighting issue ([haxe-tmLanguage#31](https://github.com/vshaxe/haxe-tmLanguage/issues/31))
+- fixed a minor anon function highlighting issue ([haxe-TmLanguage#31](https://github.com/vshaxe/haxe-TmLanguage/issues/31))
 - fixed renaming `expr` in `case macro $expr:` ([#142](https://github.com/vshaxe/vshaxe/issues/142))
 - fixed a regression with duplicated Haxe output channels ([#87](https://github.com/vshaxe/vshaxe/issues/87))
 - fixed line break handling in completion docs ([#150](https://github.com/vshaxe/vshaxe/issues/150))
@@ -121,7 +121,7 @@
 
 **Bugfixes**:
 
-- fixed a minor string interpolation highlighting issue ([haxe-tmLanguage#27](https://github.com/vshaxe/haxe-tmLanguage/issues/27))
+- fixed a minor string interpolation highlighting issue ([haxe-TmLanguage#27](https://github.com/vshaxe/haxe-TmLanguage/issues/27))
 - fixed catch variables not being listed in document symbols
 - fixed diagnostics of deleted / renamed files not being removed ([#132](https://github.com/vshaxe/vshaxe/issues/132))
 
@@ -156,7 +156,7 @@
 
 **Bugfixes**:
 
-- fixed several small highlighting issues (haxe-tmLanguage[[#4](https://github.com/vshaxe/haxe-tmLanguage/issues/4), [#6](https://github.com/vshaxe/haxe-tmLanguage/issues/6), [#11](https://github.com/vshaxe/haxe-tmLanguage/issues/11), [#16](https://github.com/vshaxe/haxe-tmLanguage/issues/16), [#22](https://github.com/vshaxe/haxe-tmLanguage/issues/22)])
+- fixed several small highlighting issues (haxe-TmLanguage[[#4](https://github.com/vshaxe/haxe-TmLanguage/issues/4), [#6](https://github.com/vshaxe/haxe-TmLanguage/issues/6), [#11](https://github.com/vshaxe/haxe-TmLanguage/issues/11), [#16](https://github.com/vshaxe/haxe-TmLanguage/issues/16), [#22](https://github.com/vshaxe/haxe-TmLanguage/issues/22)])
 
 ### 1.5.1 (April 21, 2017)
 
@@ -186,7 +186,7 @@
 
 **Bugfixes**:
 
-- fixed several small highlighting issues (haxe-tmLanguage[[#2](https://github.com/vshaxe/haxe-tmLanguage/issues/2), [#5](https://github.com/vshaxe/haxe-tmLanguage/issues/5), [#8](https://github.com/vshaxe/haxe-tmLanguage/issues/8), [#14](https://github.com/vshaxe/haxe-tmLanguage/issues/14), [#15](https://github.com/vshaxe/haxe-tmLanguage/issues/15), [#17](https://github.com/vshaxe/haxe-tmLanguage/issues/17)])
+- fixed several small highlighting issues (haxe-TmLanguage[[#2](https://github.com/vshaxe/haxe-TmLanguage/issues/2), [#5](https://github.com/vshaxe/haxe-TmLanguage/issues/5), [#8](https://github.com/vshaxe/haxe-TmLanguage/issues/8), [#14](https://github.com/vshaxe/haxe-TmLanguage/issues/14), [#15](https://github.com/vshaxe/haxe-TmLanguage/issues/15), [#17](https://github.com/vshaxe/haxe-TmLanguage/issues/17)])
 - fixed signature help sometimes not having argument names ([haxe#6064](https://github.com/HaxeFoundation/haxe/issues/6064))
 - fixed argument name generation with anon structure types
 
@@ -228,7 +228,7 @@
 
 - smarter error handling ([#20](https://github.com/vshaxe/vshaxe/issues/20), [haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
 - ignore hidden files in the "init project" command ([#10](https://github.com/vshaxe/vshaxe/issues/10))
-- some minor highlighting improvements ([haxe-tmLanguage#10](https://github.com/vshaxe/haxe-tmLanguage/issues/10))
+- some minor highlighting improvements ([haxe-TmLanguage#10](https://github.com/vshaxe/haxe-TmLanguage/issues/10))
 - added a quick fix for "invalid package" diagnostics
 - leading `*` characters are now removed from signature help docs
 
@@ -244,7 +244,7 @@
 - fixed regex highlighting in VSCode 1.9.0
 - fixed highlighting of constructor references (`Class.new`)
 - fixed highlighting of package names with underscores
-- fixed highlighting of comments after conditionals ([haxe-tmLanguage#1](https://github.com/vshaxe/haxe-tmLanguage/issues/1))
+- fixed highlighting of comments after conditionals ([haxe-TmLanguage#1](https://github.com/vshaxe/haxe-TmLanguage/issues/1))
 - fixed indentation when writing a comment after `}` ([#83](https://github.com/vshaxe/vshaxe/issues/83))
 - fixed display requests being attempted with no display config
 - fixed toplevel completion with whitespace after `:` ([haxe-languageserver#22](https://github.com/vshaxe/haxe-languageserver/issues/22))
