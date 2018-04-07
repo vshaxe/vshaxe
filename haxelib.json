@@ -3,7 +3,7 @@
     "description": "Visual Studio Code Haxe extension extern library.",
     "url": "https://github.com/vshaxe/vshaxe",
     "license": "MIT",
-    "version": "1.10.1",
+    "version": "1.10.0",
     "releasenote": "Initial release.",
     "classPath": "src-api",
     "contributors": ["nadako", "Gama11"],
