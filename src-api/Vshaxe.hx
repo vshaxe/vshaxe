@@ -2,6 +2,7 @@ import vscode.Disposable;
 import vshaxe.DisplayArgumentsProvider;
 import vshaxe.HaxeExecutable;
 import vshaxe.ReadOnlyArray;
+import vshaxe.TaskPresentationOptions;
 
 /**
     Public API provided by the vshaxe extension.
@@ -36,6 +37,12 @@ typedef Vshaxe = {
         The names of all problem matchers added by the Haxe extension. Should be used by tasks calling the Haxe compiler.
     **/
     var problemMatchers(default,never):ReadOnlyArray<String>;
+
+    /**
+        The `presentationOptions` to be used by generated tasks.
+        Corresponds to the `"haxe.taskPresentation"` setting.
+    **/
+    var presentationOptions(default,never):TaskPresentationOptions;
 
     /**
         Register a display argument provider.

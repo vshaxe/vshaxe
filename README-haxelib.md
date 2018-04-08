@@ -12,6 +12,7 @@ This is a library providing type definitions for the API of the [Haxe Visual Stu
     - Whether the compilation server should be used and at which port it can be reached.
     - The configured path to the Haxe executable.
     - The list of problem matchers.
+    - The presentation options.
 
 Right now, the extension API is only used by the [Lime extension](https://marketplace.visualstudio.com/items?itemName=openfl.lime-vscode-extension).
 

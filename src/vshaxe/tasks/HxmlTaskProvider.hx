@@ -3,6 +3,11 @@ package vshaxe.tasks;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageServer;
 
+private typedef WriteableApi = {
+    enableCompilationServer:Bool,
+    taskPresentation:vshaxe.TaskPresentationOptions
+}
+
 class HxmlTaskProvider {
     final hxmlDiscovery:HxmlDiscovery;
     final haxeExecutable:HaxeExecutable;
@@ -11,6 +16,7 @@ class HxmlTaskProvider {
     final api:Vshaxe;
 
     var enableCompilationServer:Bool;
+    var taskPresentation:TaskPresentationOptions;
 
     public function new(hxmlDiscovery, haxeExecutable, problemMatchers, server, api) {
         this.hxmlDiscovery = hxmlDiscovery;
@@ -20,14 +26,33 @@ class HxmlTaskProvider {
         this.api = api;
 
         workspace.registerTaskProvider("hxml", this);
-        workspace.onDidChangeConfiguration(_ -> updateEnableCompilationServer());
-        updateEnableCompilationServer();
+        workspace.onDidChangeConfiguration(_ -> updateTaskConfiguration());
+        updateTaskConfiguration();
     }
 
-    function updateEnableCompilationServer() {
+    function updateTaskConfiguration() {
         enableCompilationServer = workspace.getConfiguration("haxe").get("enableCompilationServer");
-        var writeableApi:{enableCompilationServer:Bool} = cast api;
+        var presentation = workspace.getConfiguration("haxe").get("taskPresentation");
+        taskPresentation = {
+            echo: presentation.echo,
+            reveal: switch (presentation.reveal) {
+                case "always": Always;
+                case "silent": Silent;
+                case "never": Never;
+                default: Always;
+            },
+            focus: presentation.focus,
+            panel: switch (presentation.panel) {
+                case "shared": Shared;
+                case "dedicated": Dedicated;
+                case "new": New;
+                default: Shared;
+            }
+        };
+
+        var writeableApi:WriteableApi = cast api;
         writeableApi.enableCompilationServer = enableCompilationServer;
+        writeableApi.taskPresentation = taskPresentation;
     }
 
     public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
@@ -44,6 +69,7 @@ class HxmlTaskProvider {
             var execution = new ProcessExecution(exectuable, args, {env: haxeExecutable.configuration.env});
             var task = new Task(definition, file, "haxe", execution, problemMatchers);
             task.group = TaskGroup.Build;
+            task.presentationOptions = taskPresentation;
             task;
         }];
     }

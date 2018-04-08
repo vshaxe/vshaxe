@@ -38,6 +38,7 @@ class Main {
             haxeExecutable: haxeExecutable,
             enableCompilationServer: true,
             problemMatchers: problemMatchers.copy(),
+            presentationOptions: {},
             registerDisplayArgumentsProvider: displayArguments.registerProvider,
             parseHxmlToArguments: HxmlParser.parseToArgs
         };

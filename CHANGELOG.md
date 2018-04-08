@@ -5,7 +5,8 @@
 - added a `$haxe-absolute` problem matcher for errors with absolute paths ([#23](https://github.com/vshaxe/vshaxe/issues/23))
 - added a `$haxe-error` problem matcher to add Haxe errors without positions to Problems ([#214](https://github.com/vshaxe/vshaxe/issues/214))
 - added a `$haxe-trace` problem matcher to add traces to Problems ([#139](https://github.com/vshaxe/vshaxe/issues/139))
-- added `problemMatchers` to the extension API
+- added a `"haxe.taskPresentation"` setting ([#185](https://github.com/vshaxe/vshaxe/issues/185))
+- added `problemMatchers` and `taskPresentation` to the extension API
 
 **Bugfixes**:
 
