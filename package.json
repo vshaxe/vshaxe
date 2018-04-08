@@ -475,6 +475,13 @@
 				"endColumn": 5,
 				"severity": 6,
 				"message": 7
+			},
+			{
+				"name": "haxe-trace",
+				"regexp": "^(.+):(\\d+): (.*)$",
+				"file": 1,
+				"line": 2,
+				"message": 3
 			}
 		],
 		"problemMatchers": [
@@ -496,6 +503,18 @@
 				"applyTo": "allDocuments",
 				"fileLocation": "absolute",
 				"pattern": "$haxe-absolute"
+			},
+			{
+				"name": "haxe-trace",
+				"owner": "haxe",
+				"source": "tasks",
+				"applyTo": "allDocuments",
+				"fileLocation": [
+					"relative",
+					"${cwd}"
+				],
+				"severity": "info",
+				"pattern": "$haxe-trace"
 			}
 		],
 		"views": {

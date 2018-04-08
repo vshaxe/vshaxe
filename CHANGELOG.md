@@ -3,6 +3,7 @@
 **New Features**:
 
 - added a `$haxe-absolute` problem matcher for errors with absolute paths ([#23](https://github.com/vshaxe/vshaxe/issues/23))
+- added a `$haxe-trace` problem matcher to add traces to the problems view ([#139](https://github.com/vshaxe/vshaxe/issues/139))
 
 **Bugfixes**:
 
@@ -13,6 +14,7 @@
 
 - improved highlighting of escape sequences in strings ([haxe-TmLanguage#35](https://github.com/vshaxe/haxe-TmLanguage/issues/35))
 - clarified the source of problems with `[tasks]` and `[diagnostics]` labels ([#132](https://github.com/vshaxe/vshaxe/issues/132))
+- changed task generation to use the additional problem matchers
 
 ### 1.10.1 (April 4, 2018)
 
