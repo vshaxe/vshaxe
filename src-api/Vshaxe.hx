@@ -34,15 +34,17 @@ typedef Vshaxe = {
     var enableCompilationServer(default,never):Bool;
 
     /**
-        The names of all problem matchers added by the Haxe extension. Should be used by tasks calling the Haxe compiler.
+        The names of all problem matchers added by the Haxe extension, in order of priority.
+
+        Should be respected by generated tasks that call Haxe directly or indirectly.
     **/
     var problemMatchers(default,never):ReadOnlyArray<String>;
 
     /**
-        The `presentationOptions` to be used by generated tasks.
+        Should be assigned to `vscode.Task.presentationOptions` when generating tasks.
         Corresponds to the `"haxe.taskPresentation"` setting.
     **/
-    var presentationOptions(default,never):TaskPresentationOptions;
+    var taskPresentation(default,never):TaskPresentationOptions;
 
     /**
         Register a display argument provider.
