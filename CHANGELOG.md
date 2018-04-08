@@ -8,7 +8,7 @@
 **Changes and improvements**:
 
 - improved highlighting of escape sequences in strings ([haxe-TmLanguage#35](https://github.com/vshaxe/haxe-TmLanguage/issues/35))
-- clarified the source of problems with `[tasks]` and `[diagnostics]` labels
+- clarified the source of problems with `[tasks]` and `[diagnostics]` labels ([#132](https://github.com/vshaxe/vshaxe/issues/132))
 
 ### 1.10.1 (April 4, 2018)
 
