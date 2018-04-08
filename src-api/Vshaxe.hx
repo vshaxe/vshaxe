@@ -1,6 +1,7 @@
 import vscode.Disposable;
 import vshaxe.DisplayArgumentsProvider;
 import vshaxe.HaxeExecutable;
+import vshaxe.ReadOnlyArray;
 
 /**
     Public API provided by the vshaxe extension.
@@ -30,6 +31,11 @@ typedef Vshaxe = {
         Corresponds to the `"haxe.enableCompilationServer"` setting.
     **/
     var enableCompilationServer(default,never):Bool;
+
+    /**
+        The names of all problem matchers added by the Haxe extension. Should be used by tasks calling the Haxe compiler.
+    **/
+    var problemMatchers(default,never):ReadOnlyArray<String>;
 
     /**
         Register a display argument provider.

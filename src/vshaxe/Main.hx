@@ -33,9 +33,11 @@ class Main {
         var haxeExecutable = new HaxeExecutable(wsFolder);
         context.subscriptions.push(haxeExecutable);
 
+        var problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
         api = {
             haxeExecutable: haxeExecutable,
             enableCompilationServer: true,
+            problemMatchers: problemMatchers.copy(),
             registerDisplayArgumentsProvider: displayArguments.registerProvider,
             parseHxmlToArguments: HxmlParser.parseToArgs
         };
@@ -50,7 +52,7 @@ class Main {
         new DependencyExplorer(context, displayArguments, haxeExecutable);
         new DisplayArgumentsSelector(context, displayArguments);
         new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
-        new HxmlTaskProvider(hxmlDiscovery, haxeExecutable, server, api);
+        new HxmlTaskProvider(hxmlDiscovery, haxeExecutable, problemMatchers, server, api);
 
         server.start();
     }

@@ -11,6 +11,7 @@ This is a library providing type definitions for the API of the [Haxe Visual Stu
 - If an extension [contributes tasks](http://vshaxe.github.io/vscode-extern/VscodeWorkspace.html?#registerTaskProvider), the following information that is available through the API should be respected:
     - Whether the compilation server should be used and at which port it can be reached.
     - The configured path to the Haxe executable.
+    - The list of problem matchers.
 
 Right now, the extension API is only used by the [Lime extension](https://marketplace.visualstudio.com/items?itemName=openfl.lime-vscode-extension).
 

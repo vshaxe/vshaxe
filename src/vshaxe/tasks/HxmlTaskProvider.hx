@@ -6,14 +6,16 @@ import vshaxe.server.LanguageServer;
 class HxmlTaskProvider {
     final hxmlDiscovery:HxmlDiscovery;
     final haxeExecutable:HaxeExecutable;
+    final problemMatchers:Array<String>;
     final server:LanguageServer;
     final api:Vshaxe;
 
     var enableCompilationServer:Bool;
 
-    public function new(hxmlDiscovery, haxeExecutable, server, api) {
+    public function new(hxmlDiscovery, haxeExecutable, problemMatchers, server, api) {
         this.hxmlDiscovery = hxmlDiscovery;
         this.haxeExecutable = haxeExecutable;
+        this.problemMatchers = problemMatchers;
         this.server = server;
         this.api = api;
 
@@ -40,7 +42,7 @@ class HxmlTaskProvider {
                 args = args.concat(["--connect", Std.string(server.displayPort)]);
             }
             var execution = new ProcessExecution(exectuable, args, {env: haxeExecutable.configuration.env});
-            var task = new Task(definition, file, "haxe", execution, ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"]);
+            var task = new Task(definition, file, "haxe", execution, problemMatchers);
             task.group = TaskGroup.Build;
             task;
         }];
