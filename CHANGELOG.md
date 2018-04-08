@@ -1,4 +1,8 @@
-### 1.10.2 (to be released)
+### 1.11.0 (to be released)
+
+**New Features**:
+
+- added a `$haxe-absolute` problem matcher for errors with absolute paths ([#23](https://github.com/vshaxe/vshaxe/issues/23))
 
 **Bugfixes**:
 

@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "1.10.1",
+	"version": "1.11.0",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.20.0"
@@ -464,6 +464,17 @@
 				"endColumn": 5,
 				"severity": 6,
 				"message": 7
+			},
+			{
+				"name": "haxe-absolute",
+				"regexp": "^(?=[a-zA-Z]:|\\/)(.+):(\\d+): (?:lines \\d+-(\\d+)|character(?:s (\\d+)-| )(\\d+)) : (?:(Warning) : )?(.*)$",
+				"file": 1,
+				"line": 2,
+				"endLine": 3,
+				"column": 4,
+				"endColumn": 5,
+				"severity": 6,
+				"message": 7
 			}
 		],
 		"problemMatchers": [
@@ -477,6 +488,14 @@
 					"${cwd}"
 				],
 				"pattern": "$haxe"
+			},
+			{
+				"name": "haxe-absolute",
+				"owner": "haxe",
+				"source": "tasks",
+				"applyTo": "allDocuments",
+				"fileLocation": "absolute",
+				"pattern": "$haxe-absolute"
 			}
 		],
 		"views": {
