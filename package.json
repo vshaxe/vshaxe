@@ -470,6 +470,7 @@
 			{
 				"name": "haxe",
 				"owner": "haxe",
+				"source": "tasks",
 				"applyTo": "allDocuments",
 				"fileLocation": [
 					"relative",
