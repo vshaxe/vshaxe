@@ -40,7 +40,7 @@ class HxmlTaskProvider {
                 args = args.concat(["--connect", Std.string(server.displayPort)]);
             }
             var execution = new ProcessExecution(exectuable, args, {env: haxeExecutable.configuration.env});
-            var task = new Task(definition, file, "haxe", execution, ["$haxe-absolute", "$haxe", "$haxe-trace"]);
+            var task = new Task(definition, file, "haxe", execution, ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"]);
             task.group = TaskGroup.Build;
             task;
         }];

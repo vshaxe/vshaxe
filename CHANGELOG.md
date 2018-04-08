@@ -3,7 +3,8 @@
 **New Features**:
 
 - added a `$haxe-absolute` problem matcher for errors with absolute paths ([#23](https://github.com/vshaxe/vshaxe/issues/23))
-- added a `$haxe-trace` problem matcher to add traces to the problems view ([#139](https://github.com/vshaxe/vshaxe/issues/139))
+- added a `$haxe-error` problem matcher to add Haxe errors without positions to Problems ([#214](https://github.com/vshaxe/vshaxe/issues/214))
+- added a `$haxe-trace` problem matcher to add traces to Problems ([#139](https://github.com/vshaxe/vshaxe/issues/139))
 
 **Bugfixes**:
 

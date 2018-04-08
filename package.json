@@ -477,6 +477,12 @@
 				"message": 7
 			},
 			{
+				"name": "haxe-error",
+				"regexp": "^(Error): (.*)$",
+				"severity": 1,
+				"message": 2
+			},
+			{
 				"name": "haxe-trace",
 				"regexp": "^(.+):(\\d+): (.*)$",
 				"file": 1,
@@ -503,6 +509,13 @@
 				"applyTo": "allDocuments",
 				"fileLocation": "absolute",
 				"pattern": "$haxe-absolute"
+			},
+			{
+				"name": "haxe-error",
+				"owner": "haxe",
+				"source": "tasks",
+				"applyTo": "allDocuments",
+				"pattern": "$haxe-error"
 			},
 			{
 				"name": "haxe-trace",
