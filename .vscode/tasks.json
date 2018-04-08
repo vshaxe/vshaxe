@@ -1,8 +1,6 @@
 // This file is generated with vshaxe-build - DO NOT EDIT MANUALLY!
 {
-    "suppressTaskName": true,
     "version": "2.0.0",
-    "command": "haxelib",
     "tasks": [
         {
             "args": [
@@ -11,8 +9,14 @@
                 "-t",
                 "all"
             ],
-            "taskName": "all",
-            "problemMatcher": "$haxe"
+            "label": "all",
+            "command": "haxelib",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -22,12 +26,18 @@
                 "test",
                 "--debug"
             ],
+            "label": "test - TEST",
+            "command": "haxelib",
             "group": {
                 "kind": "test",
                 "isDefault": true
             },
-            "taskName": "test - TEST",
-            "problemMatcher": "$haxe"
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -36,8 +46,14 @@
                 "-t",
                 "vshaxe"
             ],
-            "taskName": "vshaxe",
-            "problemMatcher": "$haxe"
+            "label": "vshaxe",
+            "command": "haxelib",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -46,8 +62,14 @@
                 "-t",
                 "client"
             ],
-            "taskName": "client",
-            "problemMatcher": "$haxe"
+            "label": "client",
+            "command": "haxelib",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -56,7 +78,8 @@
                 "-t",
                 "language-server"
             ],
-            "taskName": "language-server",
+            "label": "language-server",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -74,7 +97,8 @@
                 "language-server-tests",
                 "--debug"
             ],
-            "taskName": "language-server-tests",
+            "label": "language-server-tests",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -91,7 +115,8 @@
                 "-t",
                 "formatter"
             ],
-            "taskName": "formatter",
+            "label": "formatter",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -108,7 +133,8 @@
                 "-t",
                 "formatter-cli"
             ],
-            "taskName": "formatter-cli",
+            "label": "formatter-cli",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -126,7 +152,8 @@
                 "formatter-tests",
                 "--debug"
             ],
-            "taskName": "formatter-tests",
+            "label": "formatter-tests",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -144,7 +171,8 @@
                 "formatter-tests-build",
                 "--debug"
             ],
-            "taskName": "formatter-tests-build",
+            "label": "formatter-tests-build",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -162,7 +190,8 @@
                 "formatter-tests-run",
                 "--debug"
             ],
-            "taskName": "formatter-tests-run",
+            "label": "formatter-tests-run",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -180,7 +209,8 @@
                 "tm-language",
                 "--debug"
             ],
-            "taskName": "tm-language",
+            "label": "tm-language",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -198,7 +228,8 @@
                 "tm-language-conversion",
                 "--debug"
             ],
-            "taskName": "tm-language-conversion",
+            "label": "tm-language-conversion",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -216,7 +247,8 @@
                 "tm-language-tests",
                 "--debug"
             ],
-            "taskName": "tm-language-tests",
+            "label": "tm-language-tests",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -234,7 +266,8 @@
                 "tm-language-build-tests",
                 "--debug"
             ],
-            "taskName": "tm-language-build-tests",
+            "label": "tm-language-build-tests",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -252,8 +285,14 @@
                 "all",
                 "--debug"
             ],
-            "taskName": "all (debug)",
-            "problemMatcher": "$haxe"
+            "label": "all (debug)",
+            "command": "haxelib",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -263,12 +302,18 @@
                 "vshaxe",
                 "--debug"
             ],
-            "taskName": "vshaxe (debug) - BUILD",
-            "problemMatcher": "$haxe",
+            "label": "vshaxe (debug) - BUILD",
+            "command": "haxelib",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -278,8 +323,14 @@
                 "client",
                 "--debug"
             ],
-            "taskName": "client (debug)",
-            "problemMatcher": "$haxe"
+            "label": "client (debug)",
+            "command": "haxelib",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -289,7 +340,8 @@
                 "language-server",
                 "--debug"
             ],
-            "taskName": "language-server (debug)",
+            "label": "language-server (debug)",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -307,7 +359,8 @@
                 "formatter",
                 "--debug"
             ],
-            "taskName": "formatter (debug)",
+            "label": "formatter (debug)",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -325,7 +378,8 @@
                 "formatter-cli",
                 "--debug"
             ],
-            "taskName": "formatter-cli (debug)",
+            "label": "formatter-cli (debug)",
+            "command": "haxelib",
             "problemMatcher": {
                 "pattern": "$haxe",
                 "fileLocation": [
@@ -344,8 +398,14 @@
                 "--mode",
                 "install"
             ],
-            "taskName": "{install-all}",
-            "problemMatcher": "$haxe"
+            "label": "{install-all}",
+            "command": "haxelib",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -355,8 +415,14 @@
                 "all",
                 "--display"
             ],
-            "taskName": "{generate-complete-hxml}",
-            "problemMatcher": "$haxe"
+            "label": "{generate-complete-hxml}",
+            "command": "haxelib",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         },
         {
             "args": [
@@ -366,8 +432,14 @@
                 "all",
                 "--gen-tasks"
             ],
-            "taskName": "{generate-vscode-tasks}",
-            "problemMatcher": "$haxe"
+            "label": "{generate-vscode-tasks}",
+            "command": "haxelib",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ]
         }
     ]
 }
