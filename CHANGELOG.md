@@ -13,6 +13,7 @@
 - fixed rename errors not being shown in VSCode ([#213](https://github.com/vshaxe/vshaxe/issues/213))
 - fixed some issues that could lead to hangs when compiling through the server
 - fixed broken highlighting with functions in enum constructor calls ([haxe-TmLanguage#36](https://github.com/vshaxe/haxe-TmLanguage/issues/36))
+- fixed most cases of completion being triggered after `case` / `default` ([#112](https://github.com/vshaxe/vshaxe/issues/112))
 
 **Changes and improvements**:
 
