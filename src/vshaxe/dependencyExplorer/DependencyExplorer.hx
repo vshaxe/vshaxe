@@ -147,6 +147,8 @@ class DependencyExplorer {
         return if (node == null) dependencyNodes else node.children;
     }
 
+    public final getParent = null;
+
     function selectNode(node:Node) {
         if (node.isDirectory) {
             node.toggleState();
