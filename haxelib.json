@@ -10,5 +10,5 @@
     "dependencies": {
         "vscode": ""
     },
-    "tags": ["extern", "js"]
+    "tags": ["extern", "js", "vscode"]
 }
