@@ -48,8 +48,7 @@ class Main {
         var server = new LanguageServer(wsFolder, context, haxeExecutable, displayArguments, api);
         context.subscriptions.push(server);
 
-        languages.registerCodeLensProvider('haxe', new HaxeCodeLensProvider());
-
+        new HaxeCodeLensProvider();
         new Commands(context, server);
         new InitProject(context);
         new DependencyExplorer(context, displayArguments, haxeExecutable);

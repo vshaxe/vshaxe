@@ -15,6 +15,7 @@ class HaxeCodeLensProvider {
     public function new() {
         onDidChangeCodeLenses = _onDidChangeCodeLenses.event;
         enableCodeLens = getEnableCodeLens();
+        languages.registerCodeLensProvider('haxe', this);
         workspace.onDidChangeConfiguration(onDidChangeConfiguration);
     }
 
