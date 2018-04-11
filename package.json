@@ -667,7 +667,25 @@
 				"properties": {
 					"file": {
 						"type": "string",
-						"description": "The HXML file to run"
+						"description": "The HXML file to run."
+					}
+				}
+			},
+			{
+				"type": "haxe",
+				"required": [
+					"args"
+				],
+				"properties": {
+					"args": {
+						"type": "string",
+						"description": "Which arguments to use.",
+						"enum": [
+							"active configuration"
+						],
+						"enumDescriptions": [
+							"Use the arguments from the active Haxe Configuration."
+						]
 					}
 				}
 			}

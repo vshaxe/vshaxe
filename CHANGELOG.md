@@ -1,3 +1,9 @@
+### 1.12.0 (to be released)
+
+**New Features**:
+
+- added a `haxe: active configuration` task if there's at least two configurations
+
 ### 1.11.0 (April 9, 2018)
 
 **New Features**:

@@ -10,6 +10,7 @@ import vshaxe.helper.HxmlParser;
 import vshaxe.helper.HaxeCodeLensProvider;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageServer;
+import vshaxe.tasks.HaxeTaskProvider;
 import vshaxe.tasks.HxmlTaskProvider;
 import vshaxe.tasks.TaskConfiguration;
 
@@ -53,10 +54,11 @@ class Main {
         new InitProject(context);
         new DependencyExplorer(context, displayArguments, haxeExecutable);
         new DisplayArgumentsSelector(context, displayArguments);
-        new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
+        var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
 
         var taskConfiguration = new TaskConfiguration(haxeExecutable, problemMatchers, server, api);
         new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
+        new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
 
         server.start();
     }

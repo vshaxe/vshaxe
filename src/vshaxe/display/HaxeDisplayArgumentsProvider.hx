@@ -10,6 +10,9 @@ class HaxeDisplayArgumentsProvider {
     var providerDisposable:Disposable;
     var configurations:Array<Configuration>;
 
+    public var configurationCount(get,never):Int;
+    inline function get_configurationCount() return configurations.length;
+
     public final description = "Project using haxe.displayConfigurations or HXML files (built-in)";
 
     public function new(context:ExtensionContext, displayArguments:DisplayArguments, hxmlDiscovery:HxmlDiscovery) {
