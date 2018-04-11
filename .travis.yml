@@ -10,5 +10,3 @@ install:
 script:
  - haxelib run vshaxe-build -v --debug -t all -m both
  - haxelib run vshaxe-build -v -t vshaxe
- - haxelib run vshaxe-build -v -t all --gen-tasks
- - haxelib run vshaxe-build -v -t all --display
