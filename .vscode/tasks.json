@@ -3,8 +3,7 @@
     "tasks": [
         {
             "type": "vshaxe-build",
-            "target": "vshaxe",
-            "debug": true,
+            "target": "vshaxe (debug)",
             "group": {
                 "kind": "build",
                 "isDefault": true
