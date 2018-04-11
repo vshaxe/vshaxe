@@ -18,7 +18,6 @@
                 "language-server-tests",
                 "formatter"
             ],
-            "isTestCommand": true,
             "args": {
                 "debug": true
             }
@@ -29,8 +28,7 @@
             "targetDependencies": [
                 "client",
                 "language-server"
-            ],
-            "isBuildCommand": true
+            ]
         },
         {
             "name": "client",
