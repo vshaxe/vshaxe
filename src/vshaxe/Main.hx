@@ -11,6 +11,7 @@ import vshaxe.helper.HaxeCodeLensProvider;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HxmlTaskProvider;
+import vshaxe.tasks.TaskConfiguration;
 
 class Main {
     var api:Vshaxe;
@@ -53,7 +54,9 @@ class Main {
         new DependencyExplorer(context, displayArguments, haxeExecutable);
         new DisplayArgumentsSelector(context, displayArguments);
         new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
-        new HxmlTaskProvider(hxmlDiscovery, haxeExecutable, problemMatchers, server, api);
+
+        var taskConfiguration = new TaskConfiguration(haxeExecutable, problemMatchers, server, api);
+        new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
 
         server.start();
     }
