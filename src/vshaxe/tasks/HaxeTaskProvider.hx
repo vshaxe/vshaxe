@@ -20,7 +20,7 @@ class HaxeTaskProvider {
             return [];
         }
 
-        var definition:HaxeConfigurationTaskDefinition = {
+        var definition:HaxeTaskDefinition = {
             type: "haxe",
             args: "active configuration"
         };
@@ -33,7 +33,7 @@ class HaxeTaskProvider {
     }
 }
 
-private typedef HaxeConfigurationTaskDefinition = {
+private typedef HaxeTaskDefinition = {
     > TaskDefinition,
     args:String
 }
