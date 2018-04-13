@@ -74,6 +74,7 @@ class DependencyResolver {
 
     // ignore directories that are subdirectories of others (#156)
     static function pruneSubdirectories(paths:Array<String>):Array<String> {
+        paths = paths.map(Path.addTrailingSlash); // needed to make the startsWith() check safe
         return paths.filter(path -> {
             return !paths.exists(p -> p != path && path.startsWith(p));
         });

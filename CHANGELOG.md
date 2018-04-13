@@ -4,6 +4,10 @@
 
 - added a `haxe: active configuration` task if there's at least two configurations
 
+**Bugfixes**:
+
+- fixed some dependencies missing from the dependency explorer
+
 ### 1.11.0 (April 9, 2018)
 
 **New Features**:
