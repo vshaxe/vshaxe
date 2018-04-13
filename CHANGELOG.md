@@ -7,6 +7,8 @@
 **Bugfixes**:
 
 - fixed some dependencies missing from the dependency explorer
+- fixed compilation server port listening on `0.0.0.0` instead of `localhost`
+- fixed some issues with argument name generation
 
 ### 1.11.0 (April 9, 2018)
 
