@@ -29,17 +29,17 @@
             "protocol": "inspector",
             "sourceMaps": true,
             "outFiles": [
-                "${workspaceRoot}/bin/server.js"
+                "${workspaceRoot}/server/bin/*.js"
             ]
         },
         {
             "type": "node",
             "request": "launch",
             "name": "Server Unit Tests",
-            "program": "${workspaceRoot}/bin/test.js",
+            "program": "${workspaceRoot}/server/bin/test.js",
             "sourceMaps": true,
             "outFiles": [
-                "${workspaceRoot}/bin/*.js"
+                "${workspaceRoot}/server/bin/*.js"
             ],
             "preLaunchTask": "language-server-tests"
         },
