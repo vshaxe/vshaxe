@@ -2,6 +2,7 @@
     "editor.insertSpaces": true,
     "files.trimTrailingWhitespace": true,
     "haxe.diagnosticsPathFilter": "${workspaceRoot}/(?!syntaxes/cases)",
+    "haxe.enableCompilationServer": false,
     "codedox": {
         "commentprefix": "    ",
         "commentdescription": "",
