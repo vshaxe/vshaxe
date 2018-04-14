@@ -10,6 +10,10 @@
 - fixed compilation server port listening on `0.0.0.0` instead of `localhost`
 - fixed some issues with argument name generation
 
+**Changes and improvements**:
+
+- removed packages from function declarations in hover hints for better readability
+
 ### 1.11.0 (April 9, 2018)
 
 **New Features**:
