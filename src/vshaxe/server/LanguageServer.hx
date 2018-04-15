@@ -48,12 +48,12 @@ class LanguageServer {
 
     function refreshDisplayServerConfig() {
         if (prepareDisplayServerConfig() && client != null)
-            client.sendNotification("vshaxe/didChangeDisplayServerConfig", displayServerConfig);
+            client.sendNotification("haxe/didChangeDisplayServerConfig", displayServerConfig);
     }
 
     function onDidChangeActiveTextEditor(editor:TextEditor) {
         if (editor != null && editor.document.languageId == "haxe")
-            client.sendNotification("vshaxe/didChangeActiveTextEditor", {uri: editor.document.uri.toString()});
+            client.sendNotification("haxe/didChangeActiveTextEditor", {uri: editor.document.uri.toString()});
     }
 
     public function start() {
@@ -92,19 +92,19 @@ class LanguageServer {
             argumentChangeListenerDisposable.dispose();
 
             if (argumentsChanged)
-                client.sendNotification("vshaxe/didChangeDisplayArguments", {arguments: displayArguments.arguments});
+                client.sendNotification("haxe/didChangeDisplayArguments", {arguments: displayArguments.arguments});
 
-            restartDisposables.push(displayArguments.onDidChangeArguments(arguments -> client.sendNotification("vshaxe/didChangeDisplayArguments", {arguments: arguments})));
+            restartDisposables.push(displayArguments.onDidChangeArguments(arguments -> client.sendNotification("haxe/didChangeDisplayArguments", {arguments: arguments})));
 
             restartDisposables.push(new PackageInserter(hxFileWatcher, client));
 
-            client.onNotification("vshaxe/progressStart", onStartProgress);
-            client.onNotification("vshaxe/progressStop", onStopProgress);
-            client.onNotification("vshaxe/didChangeDisplayPort", onDidChangeDisplayPort);
-            client.onNotification("vshaxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
+            client.onNotification("haxe/progressStart", onStartProgress);
+            client.onNotification("haxe/progressStop", onStopProgress);
+            client.onNotification("haxe/didChangeDisplayPort", onDidChangeDisplayPort);
+            client.onNotification("haxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
 
             #if debug
-            client.onNotification("vshaxe/updateParseTree", function(result:{uri:String, parseTree:String}) {
+            client.onNotification("haxe/updateParseTree", function(result:{uri:String, parseTree:String}) {
                 commands.executeCommand("hxparservis.updateParseTree", result.uri, result.parseTree);
             });
             #end
@@ -185,7 +185,7 @@ class LanguageServer {
     }
 
     public inline function runGlobalDiagnostics() {
-        client.sendNotification("vshaxe/runGlobalDiagnostics");
+        client.sendNotification("haxe/runGlobalDiagnostics");
     }
 
     function onDidRunGlobalDiangostics(_) {
