@@ -189,11 +189,32 @@
 					"type": "array",
 					"default": [],
 					"items": {
-						"description": "Command-line arguments passed to haxe completion server. Can contain hxml files. Relative paths will be resolved against workspace root.",
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
+						"description": "Command-line arguments passed to the Haxe completion server. Can contain hxml files. Relative paths will be resolved against workspace root.",
+						"oneOf": [
+							{
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							{
+								"type": "object",
+								"additionalProperties": false,
+								"properties": {
+									"label": {
+										"type": "string",
+										"description": "The Label to use for displaying this configuration in the UI."
+									},
+									"args": {
+										"type": "array",
+										"description": "The compiler arguments.",
+										"items": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						]
 					}
 				},
 				"haxe.displayServer": {

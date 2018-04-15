@@ -3,6 +3,7 @@
 **New Features**:
 
 - added a `haxe: active configuration` task if there's at least two configurations
+- added the ability to specify labels for items in `"haxe.displayConfigurations"`
 
 **Bugfixes**:
 

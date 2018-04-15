@@ -1,5 +1,7 @@
 package vshaxe.display;
 
+import haxe.extern.EitherType;
+
 class HaxeDisplayArgumentsProvider {
     final context:ExtensionContext;
     final displayArguments:DisplayArguments;
@@ -34,12 +36,23 @@ class HaxeDisplayArgumentsProvider {
     }
 
     function updateConfigurations() {
-        var configs:Array<Array<String>> = workspace.getConfiguration("haxe").get("displayConfigurations");
+        var configs:Array<SettingsConfiguration> = workspace.getConfiguration("haxe").get("displayConfigurations");
         if (configs == null) configs = [];
 
         configurations = [];
-        for (i in 0...configs.length)
-            configurations.push({kind: Configured(i), args: configs[i]});
+        for (i in 0...configs.length) {
+            var config = configs[i];
+            var args = null;
+            var label = null;
+            if (Std.is(config, Array)) {
+                args = config;
+            } else {
+                var config:ComplexSettingsConfiguration = cast config;
+                args = config.args;
+                label = config.label;
+            }
+            configurations.push({kind: Configured(i, label), args: args});
+        }
 
         for (hxmlFile in hxmlDiscovery.files) {
             var hxmlConfig = [hxmlFile];
@@ -81,8 +94,8 @@ class HaxeDisplayArgumentsProvider {
                 case Discovered(id):
                     label = id;
                     desc = "auto-discovered";
-                case Configured(_):
-                    label = conf.args.join(" ");
+                case Configured(_, userLabel):
+                    label = if (userLabel == null) conf.args.join(" ") else userLabel;
                     desc = "from settings.json";
             }
             items.push({
@@ -108,7 +121,7 @@ class HaxeDisplayArgumentsProvider {
         var selection = context.getWorkspaceState().get(ConfigurationIndexKey, 0);
         for (conf in configurations) {
             switch conf.kind {
-                case Configured(idx) if (idx == selection):
+                case Configured(idx, _) if (idx == selection):
                     return conf;
                 case Discovered(id) if (id == selection):
                     return conf;
@@ -120,7 +133,7 @@ class HaxeDisplayArgumentsProvider {
 
     function setCurrent(config:Configuration) {
         context.getWorkspaceState().update(ConfigurationIndexKey, switch config.kind {
-            case Configured(index): index;
+            case Configured(index, _): index;
             case Discovered(id): id;
         });
         updateStatusBarItem(config);
@@ -152,9 +165,15 @@ class HaxeDisplayArgumentsProvider {
 
     function updateStatusBarItem(config:Configuration) {
         if (provideArguments != null && config != null) {
-            var label = config.args.join(" ");
-            if (label.length > 50) {
-                label = label.substr(0, 47).rtrim() + "...";
+            var label = switch (config.kind) {
+                case Configured(_, userLabel): userLabel;
+                case _: null;
+            }
+            if (label == null) {
+                label = config.args.join(" ");
+                if (label.length > 50) {
+                    label = label.substr(0, 47).rtrim() + "...";
+                }
             }
             statusBarItem.text = label;
             statusBarItem.show();
@@ -170,6 +189,13 @@ class HaxeDisplayArgumentsProvider {
     }
 }
 
+private typedef SettingsConfiguration = EitherType<Array<String>,ComplexSettingsConfiguration>;
+
+private typedef ComplexSettingsConfiguration = {
+    var label:String;
+    var args:Array<String>;
+};
+
 private typedef DisplayConfigurationPickItem = {
     >QuickPickItem,
     var config:Configuration;
@@ -181,8 +207,8 @@ private typedef Configuration = {
 }
 
 private enum ConfigurationKind {
-    Configured(index:Int);
+    Configured(index:Int, ?label:String);
     Discovered(id:String);
 }
 
-private typedef SavedSelection = haxe.extern.EitherType<Int,String>;
+private typedef SavedSelection = EitherType<Int,String>;
