@@ -194,7 +194,7 @@ private typedef SettingsConfiguration = EitherType<Array<String>,ComplexSettings
 private typedef ComplexSettingsConfiguration = {
     var label:String;
     var args:Array<String>;
-};
+}
 
 private typedef DisplayConfigurationPickItem = {
     >QuickPickItem,

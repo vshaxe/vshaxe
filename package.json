@@ -185,11 +185,11 @@
 					]
 				},
 				"haxe.displayConfigurations": {
-					"description": "Array of switchable configurations for haxe completion server. Each configuration is an array of command-line arguments, see item documentation for more details.",
+					"description": "Array of switchable configurations for the Haxe completion server. Each configuration is an array of command-line arguments, see item documentation for more details.",
 					"type": "array",
 					"default": [],
 					"items": {
-						"description": "Command-line arguments passed to the Haxe completion server. Can contain hxml files. Relative paths will be resolved against workspace root.",
+						"description": "Command-line arguments passed to the Haxe completion server. Can contain HXML files. Relative paths will be resolved against workspace root.",
 						"oneOf": [
 							{
 								"type": "array",
@@ -203,11 +203,11 @@
 								"properties": {
 									"label": {
 										"type": "string",
-										"description": "The Label to use for displaying this configuration in the UI."
+										"description": "The label to use for displaying this configuration in the UI."
 									},
 									"args": {
 										"type": "array",
-										"description": "The compiler arguments.",
+										"description": "The Haxe command-line arguments.",
 										"items": {
 											"type": "string"
 										}
@@ -224,7 +224,7 @@
 					"additionalProperties": false,
 					"properties": {
 						"arguments": {
-							"description": "Array of arguments passed to the haxe completion server at start. Can be used for debugging completion server issues, for example by adding \"-v\" argument.",
+							"description": "Array of arguments passed to the Haxe completion server at start. Can be used for debugging completion server issues, for example by adding \"-v\" argument.",
 							"type": "array",
 							"default": [],
 							"items": {
