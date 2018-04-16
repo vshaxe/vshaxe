@@ -9,7 +9,7 @@
 **Bugfixes**:
 
 - fixed some dependencies missing from the dependency explorer
-- fixed compilation server socket not listening on `localhost` ([openfl-lime-extension#35](https://github.com/openfl/lime-vscode-extension/issues/35))
+- fixed compilation server socket not listening on `localhost` ([lime-vscode-extension#35](https://github.com/openfl/lime-vscode-extension/issues/35))
 - fixed some issues with argument name generation
 - fixed missing diagnostics for Haxe errors without positions ([#220](https://github.com/vshaxe/vshaxe/issues/220))
 - fixed "initializing completion" not being removed on language server crashes
