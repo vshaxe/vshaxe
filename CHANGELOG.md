@@ -4,6 +4,7 @@
 
 - added a `haxe: active configuration` task if there's at least two configurations
 - added the ability to specify labels for items in `"haxe.displayConfigurations"`
+- added a `haxeCompletionProivder` context key (can be used in [keyboard shortcuts](https://code.visualstudio.com/docs/getstarted/keybindings#_when-clause-contexts))
 
 **Bugfixes**:
 

@@ -63,6 +63,7 @@ class DisplayArguments {
         }
 
         currentProvider = name;
+        commands.executeCommand("setContext", "haxeCompletionProvider", name);
 
         if (name != null) {
             var provider = providers[name];
