@@ -38,6 +38,7 @@
             "args": {
                 "classPaths": [
                     "vscode-extern/src",
+                    "server/protocol/src",
                     "src-api",
                     "src"
                 ],

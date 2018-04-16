@@ -1,24 +1,62 @@
 package vshaxe.server;
 
 import haxe.extern.EitherType;
+import jsonrpc.Types.Message;
+import jsonrpc.Types.RequestMethod;
+import jsonrpc.Types.NotificationMethod;
+import jsonrpc.Types.NoData;
+import jsonrpc.ResponseError;
+import jsonrpc.Protocol;
+import languageServerProtocol.protocol.Protocol.InitializeParams;
+import languageServerProtocol.protocol.Protocol.InitializeResult;
+import languageServerProtocol.protocol.Protocol.InitializeError;
+import languageServerProtocol.protocol.Protocol.ClientCapabilities;
+import languageServerProtocol.protocol.Protocol.ServerCapabilities;
+import languageServerProtocol.protocol.Protocol.TraceMode;
 import js.Promise;
+import js.Error;
 
 @:jsRequire("vscode-languageclient", "LanguageClient")
 extern class LanguageClient {
     function new(id:String, name:String, serverOptions:ServerOptions, clientOptions:LanguageClientOptions, ?forceDebug:Bool);
 
-    function start():Disposable;
-    function stop():Thenable<Void>;
+    var initializeResult(default,null):Null<InitializeResult>;
+
+    @:overload(function<R,E,RO>(type:RequestMethod<NoData,R,E,RO>, ?token:CancellationToken):Thenable<R> {})
+    @:overload(function<P,R,E,RO>(type:RequestMethod<P,R,E,RO>, params:P, ?token:CancellationToken):Thenable<R> {})
+    @:overload(function<R>(method:String, ?token:CancellationToken):Thenable<R> {})
+    function sendRequest<R>(method:String, param:Any, ?token:CancellationToken):Thenable<R>;
+
+    @:overload(function<R,E,RO>(type:RequestMethod<NoData,R,E,RO>, handler:RequestHandler<NoData,R,E>):Void {})
+    @:overload(function<P,R,E,RO>(type:RequestMethod<P,R,E,RO>, handler:RequestHandler<P,R,E>):Void {})
+    function onRequest<R,E>(method:String, handler:GenericRequestHandler<R,E>):Void;
+
+    @:overload(function<P,RO>(type:NotificationMethod<P,RO>, ?params:P):Void {})
+    @:overload(function(method:String):Void {})
+    function sendNotification(method:String, params:Any):Void;
 
     function onNotification(method:String, handler:Dynamic->Void):Void;
-    function sendNotification(method:String, ?params:Dynamic):Void;
-    function sendRequest<P,R>(method:String, param:P, ?token:CancellationToken):Thenable<R>;
-    function onReady():Promise<Void>;
+    var clientOptions(default,null):LanguageClientOptions;
+    // var protocol2CodeConverter(default,null):p2c.Converter;
+    // var code2ProtocolConverter(default,null):c2p.Converter;
+    var onTelemetry(default,null):Event<Any>;
+    var onDidChangeState(default,null):Event<StateChangeEvent>;
     var outputChannel(default,null):OutputChannel;
-
+    var diagnostics(default,null):Null<DiagnosticCollection>;
+    function createDefaultErrorHandler():ErrorHandler;
+    var trace:TraceMode;
     function info(message:String, ?data:Any):Void;
     function warn(message:String, ?data:Any):Void;
     function error(message:String, ?data:Any):Void;
+    function needsStart():Bool;
+    function needsStop():Bool;
+    function onReady():Promise<Void>;
+    function start():Disposable;
+    function stop():Thenable<Void>;
+    function registerFeatures(features:Array<EitherType<StaticFeature,DynamicFeature<Any>>>):Void;
+    function registerFeature(feature:EitherType<StaticFeature,DynamicFeature<Any>>):Void;
+
+    function registerProposedFeatures():Void;
 }
 
 typedef ExecutableOptions = {
@@ -68,8 +106,13 @@ typedef LanguageClientOptions = {
     ?diagnosticCollectionName:String,
     ?outputChannel:OutputChannel,
     ?revealOutputChannelOn:RevealOutputChannelOn,
+    /**
+     * The encoding use to read stdout and stderr. Defaults
+     * to 'utf8' if ommitted.
+     */
     ?stdioEncoding:String,
     ?initializationOptions:EitherType<Dynamic,Void->Dynamic>,
+    ?initializationFailedHandler:InitializationFailedHandler,
     ?middleware:Middleware,
     ?uriConverters:{
         code2Protocol:Uri->String,
@@ -78,10 +121,172 @@ typedef LanguageClientOptions = {
     ?workspaceFolder:WorkspaceFolder,
 }
 
+@:enum abstract State(Int) {
+    var Stopped = 1;
+    var Running = 2;
+}
+
+typedef StateChangeEvent = {
+    oldState:State,
+    newState:State
+}
+
+typedef RegistrationData<T> = {
+    id:String,
+    registerOptions:T
+}
+
+/**
+    An interface to type messages.
+**/
+typedef RPCMessageType = {
+    var method(default,null):String;
+    var numberOfParams(default,null):Int;
+}
+
+/**
+ * A static feature. A static feature can't be dynamically activate via the
+ * server. It is wired during the initialize sequence.
+ */
+typedef StaticFeature = {
+    /**
+     * Called to fill the initialize params.
+     *
+     * @param params the initialize params.
+     */
+    @:optional var fillInitializeParams:(params:InitializeParams)->Void;
+
+    /**
+     * Called to fill in the client capabilities this feature implements.
+     *
+     * @param capabilities The client capabilities to fill.
+     */
+    function fillClientCapabilities(capabilities:ClientCapabilities):Void;
+
+    /**
+     * Initialize the feature. This method is called on a feature instance
+     * when the client has successfully received the initalize request from
+     * the server and before the client sends the initialized notification
+     * to the server.
+     *
+     * @param capabilities the server capabilities
+     * @param documentSelector the document selector pass to the client's constuctor.
+     *  May be `undefined` if the client was created without a selector.
+     */
+    function initialize(capabilities:ServerCapabilities, documentSelector:Null<DocumentSelector>):Void;
+}
+
+typedef DynamicFeature<T> = {
+    /**
+     * The message for which this features support dynamic activation / registration.
+     */
+    var messages:EitherType<RPCMessageType,Array<RPCMessageType>>;
+
+    /**
+     * Called to fill the initialize params.
+     *
+     * @param params the initialize params.
+     */
+    @:optional var fillInitializeParams:(params:InitializeParams)->Void;
+
+    /**
+     * Called to fill in the client capabilities this feature implements.
+     *
+     * @param capabilities The client capabilities to fill.
+     */
+    function fillClientCapabilities(capabilities:ClientCapabilities):Void;
+
+    /**
+     * Initialize the feature. This method is called on a feature instance
+     * when the client has successfully received the initalize request from
+     * the server and before the client sends the initialized notification
+     * to the server.
+     *
+     * @param capabilities the server capabilities.
+     * @param documentSelector the document selector pass to the client's constuctor.
+     *  May be `undefined` if the client was created without a selector.
+     */
+    function initialize(capabilities:ServerCapabilities, documentSelector:Null<DocumentSelector>):Void;
+
+    /**
+     * Is called when the server send a register request for the given message.
+     *
+     * @param message the message to register for.
+     * @param data additional registration data as defined in the protocol.
+     */
+    function register(message:RPCMessageType, data:RegistrationData<T>):Void;
+
+    /**
+     * Is called when the server wants to unregister a feature.
+     *
+     * @param id the id used when registering the feature.
+     */
+    function unregister(id:String):Void;
+
+    /**
+     * Called when the client is stopped to dispose this feature. Usually a feature
+     * unregisters listeners registerd hooked up with the VS Code extension host.
+     */
+    function dispose():Void;
+}
+
 typedef SynchronizeOptions = {
     ?configurationSection:EitherType<String,Array<String>>,
     ?fileEvents:EitherType<FileSystemWatcher,Array<FileSystemWatcher>>
 }
+
+/**
+ * An action to be performed when the connection is producing errors.
+ */
+@:enum abstract ErrorAction(Int) {
+    /**
+     * Continue running the server.
+     */
+    var Continue = 1;
+
+    /**
+     * Shutdown the server.
+     */
+    var Shutdown = 2;
+}
+
+/**
+ * An action to be performed when the connection to a server got closed.
+ */
+@:enum abstract CloseAction(Int) {
+    /**
+     * Don't restart the server. The connection stays closed.
+     */
+    var DoNotRestart = 1;
+
+    /**
+     * Restart the server.
+     */
+    var Restart = 2;
+}
+
+/**
+ * A pluggable error handler that is invoked when the connection is either
+ * producing errors or got closed.
+ */
+typedef ErrorHandler = {
+    /**
+     * An error has occurred while writing or reading from the connection.
+     *
+     * @param error - the error received
+     * @param message - the message to be delivered to the server if know.
+     * @param count - a count indicating how often an error is received. Will
+     *  be reset if a message got successfully send or received.
+     */
+    function error(error:Error, message:Message, count:Int):ErrorAction;
+
+    /**
+     * The connection to the server got closed.
+     */
+    function closed():CloseAction;
+}
+
+typedef InitializationFailedHandler = (error:EitherType<ResponseError<InitializeError>,EitherType<Error,Any>>) -> Bool;
 
 @:enum abstract RevealOutputChannelOn(Int) {
     var Info = 1;
@@ -114,6 +319,10 @@ typedef WorkspaceMiddleware = {
     ?didChangeConfiguration:(sections:Null<Array<String>>, next:DidChangeConfigurationSignature)->Void
 }
 
+/**
+ * The Middleware lets extensions intercept the request and notications send and received
+ * from the server
+ */
 typedef Middleware = {
     ?didOpen:NextSignature<TextDocument,Void>,
     ?didChange:NextSignature<TextDocumentChangeEvent,Void>,
