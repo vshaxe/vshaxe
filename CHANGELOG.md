@@ -11,6 +11,7 @@
 - fixed compilation server port listening on `0.0.0.0` instead of `localhost`
 - fixed some issues with argument name generation
 - fixed missing diagnostics for Haxe errors without positions ([#220](https://github.com/vshaxe/vshaxe/issues/220))
+- fixed "initializing completion" not being removed on language server crashes
 
 **Changes and improvements**:
 

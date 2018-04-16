@@ -102,6 +102,7 @@ class LanguageServer {
             client.onNotification("haxe/progressStop", onStopProgress);
             client.onNotification("haxe/didChangeDisplayPort", onDidChangeDisplayPort);
             client.onNotification("haxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
+            client.onDidChangeState(onDidChangeState);
 
             #if debug
             client.onNotification("haxe/updateParseTree", function(result:{uri:String, parseTree:String}) {
@@ -178,10 +179,13 @@ class LanguageServer {
         for (d in restartDisposables) d.dispose();
         restartDisposables = [];
 
+        stopAllProgresses();
+        start();
+    }
+
+    function stopAllProgresses() {
         for (stop in progresses) stop();
         progresses = new Map();
-
-        start();
     }
 
     public inline function runGlobalDiagnostics() {
@@ -190,5 +194,11 @@ class LanguageServer {
 
     function onDidRunGlobalDiangostics(_) {
         commands.executeCommand("workbench.action.problems.focus");
+    }
+
+    function onDidChangeState(event:StateChangeEvent) {
+        if (event.newState == Stopped) {
+            stopAllProgresses();
+        }
     }
 }
