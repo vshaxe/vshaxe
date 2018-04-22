@@ -14,6 +14,7 @@
 - fixed missing diagnostics for Haxe errors without positions ([#220](https://github.com/vshaxe/vshaxe/issues/220))
 - fixed "initializing completion" not being removed on language server crashes
 - fixed const type param regex literals not being highlighted ([haxe-TmLanguage#37](https://github.com/vshaxe/haxe-TmLanguage/issues/37))
+- fixed language server not exiting properly in some cases ([haxe-languageserver#34](https://github.com/vshaxe/haxe-languageserver/pull/34))
 
 **Changes and improvements**:
 
