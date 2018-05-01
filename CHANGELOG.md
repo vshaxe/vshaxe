@@ -1,4 +1,4 @@
-### 1.12.0 (April 16, 2018)
+### 1.12.0 (to be released)
 
 **New Features**:
 
@@ -18,6 +18,7 @@
 
 **Changes and improvements**:
 
+- added syntax highlighting support for `enum abstract` ([haxe#6982](https://github.com/HaxeFoundation/haxe/issues/6982))
 - removed packages from function declarations in hover hints for better readability
 
 ### 1.11.0 (April 9, 2018)
