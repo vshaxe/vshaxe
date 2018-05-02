@@ -43,7 +43,6 @@
                     "src"
                 ],
                 "defines": [
-                    "hxnodejs-no-version-warning",
                     "JSTACK_MAIN=vshaxe.Main.main",
                     "JSTACK_ASYNC_ENTRY"
                 ],
