@@ -115,7 +115,7 @@ class DependencyExplorer {
         if (info.version != null) {
             label += ' (${info.version})';
         }
-        var type = if (info.name == "std") StandardLibrary else Haxelib;
+        var type = if (info.name == "haxe") StandardLibrary else Haxelib;
         return new Node(label, info.path, type);
     }
 

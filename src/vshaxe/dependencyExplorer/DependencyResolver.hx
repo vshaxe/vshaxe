@@ -191,6 +191,6 @@ class DependencyResolver {
             }
         }
 
-        return {name: "std", path: path, version: version};
+        return {name: "haxe", path: path, version: version};
     }
 }
