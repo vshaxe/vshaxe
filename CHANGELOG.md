@@ -1,3 +1,10 @@
+### 1.13.0 (to be released)
+
+**New Features**:
+
+- added support for auto-import - requires latest Haxe 4 dev ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358))
+- added goto definition on `override` keywords - requires latest Haxe 4 dev ([#92](https://github.com/vshaxe/vshaxe/issues/92#issuecomment-386899581))
+
 ### 1.12.0 (May 3, 2018)
 
 **New Features**:
