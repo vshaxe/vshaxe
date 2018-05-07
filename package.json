@@ -373,6 +373,19 @@
 									"description": "Whether to insert an import automatically when selecting a not-yet-imported type from completion. If false, the fully qualified name is inserted instead.",
 									"type": "boolean",
 									"default": true
+								},
+								"style": {
+									"description": "How to deal with module subtypes when generating imports.",
+									"type": "string",
+									"default": "type",
+									"enum": [
+										"type",
+										"module"
+									],
+									"enumDescriptions": [
+										"Import only the specific sub-type (import pack.Foo.Type).",
+										"Import the entire module the sub-type lives in (import pack.Foo)."
+									]
 								}
 							}
 						}
