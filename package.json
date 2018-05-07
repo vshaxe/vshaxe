@@ -362,6 +362,19 @@
 									}
 								}
 							}
+						},
+						"imports": {
+							"description": "Options for generating imports",
+							"type": "object",
+							"default": {},
+							"additionalProperties": false,
+							"properties": {
+								"enableAutoImports": {
+									"description": "Whether to insert an import automatically when selecting a not-yet-imported type from completion. If false, the fully qualified name is inserted instead.",
+									"type": "boolean",
+									"default": true
+								}
+							}
 						}
 					}
 				}
