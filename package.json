@@ -510,6 +510,9 @@
 					".dump"
 				],
 				"configuration": "./configurations/haxe.configuration.json"
+			},
+			{
+				"id": "haxe.hover"
 			}
 		],
 		"grammars": [
@@ -530,6 +533,11 @@
 				"language": "Haxe AST dump",
 				"scopeName": "source.hx",
 				"path": "./syntaxes/haxe.tmLanguage"
+			},
+			{
+				"language": "haxe.hover",
+				"scopeName": "source.hx.hover",
+				"path": "./syntaxes/haxe-hover.tmLanguage"
 			}
 		],
 		"debuggers": [
