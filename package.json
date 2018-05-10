@@ -519,10 +519,7 @@
 			{
 				"language": "haxe",
 				"scopeName": "source.hx",
-				"path": "./syntaxes/haxe.tmLanguage",
-				"injectTo": [
-					"source.hxml"
-				]
+				"path": "./syntaxes/haxe.tmLanguage"
 			},
 			{
 				"language": "hxml",
