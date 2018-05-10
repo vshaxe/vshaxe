@@ -5,6 +5,7 @@
 - added support for auto-import - requires latest Haxe 4 dev ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358))
 - added import settings to `"haxe.codeGeneration"`
 - added support for goto definition on `override` - requires latest Haxe 4 dev ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718))
+- added support for Haxe and HXML highlighting in fenced markdown code blocks
 
 ### 1.12.0 (May 3, 2018)
 

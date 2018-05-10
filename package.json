@@ -534,7 +534,27 @@
 			{
 				"language": "haxe.hover",
 				"scopeName": "source.hx.hover",
-				"path": "./syntaxes/haxe-hover.tmLanguage"
+				"path": "./syntaxes/helper/haxe-hover.tmLanguage"
+			},
+			{
+				"scopeName": "markdown.haxe.codeblock",
+				"path": "./syntaxes/helper/haxe-markdown.tmLanguage",
+				"injectTo": [
+					"text.html.markdown"
+				],
+				"embeddedLanguages": {
+					"meta.embedded.block.haxe": "haxe"
+				}
+			},
+			{
+				"scopeName": "markdown.hxml.codeblock",
+				"path": "./syntaxes/helper/hxml-markdown.tmLanguage",
+				"injectTo": [
+					"text.html.markdown"
+				],
+				"embeddedLanguages": {
+					"meta.embedded.block.hxml": "hxml"
+				}
 			}
 		],
 		"debuggers": [
