@@ -1,4 +1,4 @@
-package vshaxe.dependencyExplorer;
+package vshaxe.view.dependencies;
 
 typedef DependencyList = {
     libs:Array<String>,

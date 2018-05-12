@@ -1,4 +1,4 @@
-package vshaxe.dependencyExplorer;
+package vshaxe.view.dependencies;
 
 import haxe.Json;
 import haxe.io.Path;

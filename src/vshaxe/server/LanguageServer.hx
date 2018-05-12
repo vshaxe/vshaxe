@@ -3,6 +3,7 @@ package vshaxe.server;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageClient;
+import vshaxe.view.times.Timer;
 
 class LanguageServer {
     public var displayPort(default,null):Null<Int>;
@@ -102,6 +103,7 @@ class LanguageServer {
             client.onNotification("haxe/progressStop", onStopProgress);
             client.onNotification("haxe/didChangeDisplayPort", onDidChangeDisplayPort);
             client.onNotification("haxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
+            client.onNotification("haxe/updateTimers", onUpdateTimers);
             client.onDidChangeState(onDidChangeState);
 
             #if debug
@@ -195,6 +197,8 @@ class LanguageServer {
     function onDidRunGlobalDiangostics(_) {
         commands.executeCommand("workbench.action.problems.focus");
     }
+
+    public dynamic function onUpdateTimers(data:{method:String, times:Timer}) {}
 
     function onDidChangeState(event:StateChangeEvent) {
         if (event.newState == Stopped) {

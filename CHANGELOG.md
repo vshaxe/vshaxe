@@ -6,6 +6,7 @@
 - added import settings to `"haxe.codeGeneration"`
 - added support for goto definition on `override` - requires latest Haxe 4 dev ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718))
 - added support for Haxe and HXML highlighting in fenced markdown code blocks
+- added a "Haxe Times" view to the explorer to show `--times` output - requires latest Haxe 4 dev
 
 ### 1.12.0 (May 3, 2018)
 

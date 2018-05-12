@@ -1,12 +1,12 @@
-package vshaxe.dependencyExplorer;
+package vshaxe.view.dependencies;
 
 import haxe.io.Path;
-import vshaxe.dependencyExplorer.DependencyResolver;
-import vshaxe.dependencyExplorer.Node;
+import vshaxe.view.dependencies.DependencyResolver;
+import vshaxe.view.dependencies.Node;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 
-class DependencyExplorer {
+class DependenciesTreeView {
     var context:ExtensionContext;
     var displayArguments:Array<String>;
     var haxeExecutable:HaxeExecutable;

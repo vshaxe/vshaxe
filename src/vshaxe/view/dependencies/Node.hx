@@ -1,4 +1,4 @@
-package vshaxe.dependencyExplorer;
+package vshaxe.view.dependencies;
 
 import haxe.io.Path;
 import sys.FileSystem;

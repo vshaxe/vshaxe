@@ -653,6 +653,11 @@
 		"views": {
 			"explorer": [
 				{
+					"id": "haxe.times",
+					"name": "Haxe Times",
+					"when": "vshaxeActivated"
+				},
+				{
 					"id": "haxe.dependencies",
 					"name": "Haxe Dependencies",
 					"when": "vshaxeActivated"
