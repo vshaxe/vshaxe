@@ -67,12 +67,6 @@ class Node extends TreeItem {
         });
     }
 
-    public function collapse() {
-        if (collapsibleState != None) {
-            collapsibleState = Collapsed;
-        }
-    }
-
     public function refresh() {
         if (!isDirectory || children == null) {
             return;
@@ -94,10 +88,6 @@ class Node extends TreeItem {
         });
         sort(newChildren);
         children = newChildren;
-    }
-
-    public function toggleState() {
-        collapsibleState = if (collapsibleState == Collapsed) Expanded else Collapsed;
     }
 
     function get_children():Array<Node> {
