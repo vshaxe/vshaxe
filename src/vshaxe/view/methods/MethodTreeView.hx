@@ -8,6 +8,7 @@ class MethodTreeView {
 
     var enabled:Bool;
     var timers:Array<MethodTreeItem> = [];
+    var treeView:TreeView<MethodTreeItem>;
     var _onDidChangeTreeData = new EventEmitter<MethodTreeItem>();
 
     public var onDidChangeTreeData:Event<MethodTreeItem>;
@@ -22,17 +23,20 @@ class MethodTreeView {
         update();
 
         window.registerTreeDataProvider("haxe.methods", this);
+        treeView = window.createTreeView("haxe.methods", {treeDataProvider: this});
         context.registerHaxeCommand(Methods_CollapseAll, collapseAll);
     }
 
     function onUpdateTimers(data:{method:String, times:Timer}) {
-        if (!enabled) {
-            return;
-        }
+        if (!enabled) return;
+
         var method = data.method;
         timers = timers.filter(item -> item.method != method);
-        timers.push(new MethodTreeItem(context, data.times, data.method, true));
+        var item = new MethodTreeItem(context, null, data.times, data.method);
+        timers.push(item);
         timers.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
+
+        treeView.reveal(item);
         _onDidChangeTreeData.fire();
     }
 
@@ -49,7 +53,9 @@ class MethodTreeView {
         return if (element == null) timers else element.children;
     }
 
-    public final getParent = null;
+    public final getParent = function(element:MethodTreeItem):MethodTreeItem {
+        return element.parent;
+    }
 
     function collapseAll() {
         for (timer in timers) {

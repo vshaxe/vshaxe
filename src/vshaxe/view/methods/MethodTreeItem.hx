@@ -3,17 +3,20 @@ package vshaxe.view.methods;
 class MethodTreeItem extends TreeItem {
     final context:ExtensionContext;
     final timer:Timer;
-    final isRoot:Bool;
     final name:String;
+
+    var isRoot(get,never):Bool;
+    inline function get_isRoot() return parent == null;
 
     public final children:Array<MethodTreeItem>;
     public final method:String;
+    public final parent:Null<MethodTreeItem>;
 
-    public function new(context:ExtensionContext, timer:Timer, method:String, isRoot:Bool) {
+    public function new(context:ExtensionContext, parent:MethodTreeItem, timer:Timer, method:String) {
         super("");
         this.context = context;
+        this.parent = parent;
         this.timer = timer;
-        this.isRoot = isRoot;
         this.method = method;
 
         name = formatName();
@@ -24,7 +27,7 @@ class MethodTreeItem extends TreeItem {
             children = null;
             collapsibleState = None;
         } else {
-            children = timer.children.map(MethodTreeItem.new.bind(context, _, method, false));
+            children = timer.children.map(MethodTreeItem.new.bind(context, this, _, method));
             collapsibleState = Expanded;
         }
         if (isRoot) {
