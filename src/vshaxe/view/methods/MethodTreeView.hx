@@ -35,9 +35,9 @@ class MethodTreeView {
         var item = new MethodTreeItem(context, null, data.times, data.method);
         methods.push(item);
         methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
-
-        treeView.reveal(item);
         _onDidChangeTreeData.fire();
+        // this is awkward... https://github.com/Microsoft/vscode/issues/47153
+        haxe.Timer.delay(() -> treeView.reveal(item), 250);
     }
 
     function update() {
