@@ -46,12 +46,9 @@ class TimerTreeItem extends TreeItem {
     }
 
     function formatTooltip():String {
-        var tooltip = '${timer.calls} calls';
-        if (isRoot) {
-            var date = Date.now();
-            tooltip += ' - [${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}]';
-        }
-        return tooltip;
+        var now = Date.now();
+        var timestamp = '[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]';
+        return '$timestamp ${timer.calls} calls - ${truncate(timer.time, 7)}s';
     }
 
     function truncate(f:Float, precision:Int) {
