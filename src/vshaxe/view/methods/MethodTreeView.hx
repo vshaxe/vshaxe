@@ -7,7 +7,7 @@ class MethodTreeView {
     final server:LanguageServer;
 
     var enabled:Bool;
-    var timers:Array<MethodTreeItem> = [];
+    var methods:Array<MethodTreeItem> = [];
     var treeView:TreeView<MethodTreeItem>;
     var _onDidChangeTreeData = new EventEmitter<MethodTreeItem>();
 
@@ -31,10 +31,10 @@ class MethodTreeView {
         if (!enabled) return;
 
         var method = data.method;
-        timers = timers.filter(item -> item.method != method);
+        methods = methods.filter(item -> item.method != method);
         var item = new MethodTreeItem(context, null, data.times, data.method);
-        timers.push(item);
-        timers.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
+        methods.push(item);
+        methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
 
         treeView.reveal(item);
         _onDidChangeTreeData.fire();
@@ -50,7 +50,7 @@ class MethodTreeView {
     }
 
     public function getChildren(?element:MethodTreeItem):Array<MethodTreeItem> {
-        return if (element == null) timers else element.children;
+        return if (element == null) methods else element.children;
     }
 
     public final getParent = function(element:MethodTreeItem):MethodTreeItem {
@@ -58,7 +58,7 @@ class MethodTreeView {
     }
 
     function collapseAll() {
-        for (timer in timers) {
+        for (timer in methods) {
             timer.collapse();
             // ugly workaround for https://github.com/Microsoft/vscode/issues/30918
             if (timer.id.endsWith(" ")) {
