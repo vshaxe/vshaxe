@@ -1,6 +1,7 @@
 package vshaxe.view.methods;
 
 class MethodTreeItem extends TreeItem {
+    final context:ExtensionContext;
     final timer:Timer;
     final isRoot:Bool;
     final name:String;
@@ -8,8 +9,9 @@ class MethodTreeItem extends TreeItem {
     public final children:Array<MethodTreeItem>;
     public final method:String;
 
-    public function new(timer:Timer, method:String, isRoot:Bool) {
+    public function new(context:ExtensionContext, timer:Timer, method:String, isRoot:Bool) {
         super("");
+        this.context = context;
         this.timer = timer;
         this.isRoot = isRoot;
         this.method = method;
@@ -22,8 +24,14 @@ class MethodTreeItem extends TreeItem {
             children = null;
             collapsibleState = None;
         } else {
-            children = timer.children.map(MethodTreeItem.new.bind(_, method, false));
+            children = timer.children.map(MethodTreeItem.new.bind(context, _, method, false));
             collapsibleState = Expanded;
+        }
+        if (isRoot) {
+            iconPath = {
+                light: context.asAbsolutePath("resources/light/method.svg"),
+                dark: context.asAbsolutePath("resources/dark/method.svg")
+            };
         }
     }
 
