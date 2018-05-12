@@ -653,8 +653,8 @@
 		"views": {
 			"explorer": [
 				{
-					"id": "haxe.times",
-					"name": "Haxe Times",
+					"id": "haxe.methods",
+					"name": "Haxe Methods",
 					"when": "vshaxeActivated"
 				},
 				{

@@ -1,4 +1,4 @@
-package vshaxe.view.times;
+package vshaxe.view.methods;
 
 // TODO: don't duplicate this here and in the language server?
 typedef Timer = {

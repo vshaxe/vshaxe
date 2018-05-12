@@ -6,7 +6,7 @@ import vshaxe.view.dependencies.Node;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 
-class DependenciesTreeView {
+class DependencyTreeView {
     var context:ExtensionContext;
     var displayArguments:Array<String>;
     var haxeExecutable:HaxeExecutable;

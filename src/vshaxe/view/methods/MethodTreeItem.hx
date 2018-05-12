@@ -1,11 +1,11 @@
-package vshaxe.view.times;
+package vshaxe.view.methods;
 
-class TimerTreeItem extends TreeItem {
+class MethodTreeItem extends TreeItem {
     final timer:Timer;
     final isRoot:Bool;
     final name:String;
 
-    public final children:Array<TimerTreeItem>;
+    public final children:Array<MethodTreeItem>;
     public final method:String;
 
     public function new(timer:Timer, method:String, isRoot:Bool) {
@@ -22,7 +22,7 @@ class TimerTreeItem extends TreeItem {
             children = null;
             collapsibleState = None;
         } else {
-            children = timer.children.map(TimerTreeItem.new.bind(_, method, false));
+            children = timer.children.map(MethodTreeItem.new.bind(_, method, false));
             collapsibleState = Expanded;
         }
     }

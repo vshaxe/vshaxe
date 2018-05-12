@@ -3,7 +3,7 @@ package vshaxe.server;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageClient;
-import vshaxe.view.times.Timer;
+import vshaxe.view.methods.Timer;
 
 class LanguageServer {
     public var displayPort(default,null):Null<Int>;

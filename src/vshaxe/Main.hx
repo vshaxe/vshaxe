@@ -2,8 +2,8 @@ package vshaxe;
 
 import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
-import vshaxe.view.dependencies.DependenciesTreeView;
-import vshaxe.view.times.TimesTreeView;
+import vshaxe.view.dependencies.DependencyTreeView;
+import vshaxe.view.methods.MethodTreeView;
 import vshaxe.display.DisplayArguments;
 import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
@@ -52,8 +52,8 @@ class Main {
         new HaxeCodeLensProvider();
         new Commands(context, server);
         new InitProject(context);
-        new DependenciesTreeView(context, displayArguments, haxeExecutable);
-        new TimesTreeView(context, server);
+        new DependencyTreeView(context, displayArguments, haxeExecutable);
+        new MethodTreeView(context, server);
         new DisplayArgumentsSelector(context, displayArguments);
         var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
 
