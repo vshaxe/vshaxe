@@ -21,7 +21,10 @@ class TimesTreeView {
     }
 
     function onUpdateTimers(data:{method:String, times:Timer}) {
-        this.timers = [createTeeItem(data.times, data.method)];
+        var method = data.method;
+        timers = timers.filter(item -> item.method != method);
+        timers.push(new TimerTreeItem(data.times, data.method, true));
+        timers.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
         _onDidChangeTreeData.fire();
     }
 
@@ -34,9 +37,4 @@ class TimesTreeView {
     }
 
     public final getParent = null;
-
-    function createTeeItem(timer:Timer, ?method:String):TimerTreeItem {
-        var children = if (timer.children == null) null else timer.children.map(createTeeItem.bind(_, null));
-        return new TimerTreeItem(timer, children, method);
-    }
 }

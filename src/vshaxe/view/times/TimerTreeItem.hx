@@ -1,20 +1,41 @@
 package vshaxe.view.times;
 
 class TimerTreeItem extends TreeItem {
-    public final children:Array<TimerTreeItem>;
+    final timer:Timer;
+    final isRoot:Bool;
+    final name:String;
 
-    public function new(timer:Timer, children:Array<TimerTreeItem>, ?method:String) {
-        super(formatLabel(timer, children, method), if (children == null) None else Expanded);
-        this.children = children;
-        tooltip = '${timer.calls} calls';
+    public final children:Array<TimerTreeItem>;
+    public final method:String;
+
+    public function new(timer:Timer, method:String, isRoot:Bool) {
+        super("");
+        this.timer = timer;
+        this.isRoot = isRoot;
+        this.method = method;
+
+        name = formatName();
+        label = formatLabel();
+        tooltip = formatTooltip();
+        id = '$method $name';
+        if (timer.children == null) {
+            children = null;
+            collapsibleState = None;
+        } else {
+            children = timer.children.map(TimerTreeItem.new.bind(_, method, false));
+            collapsibleState = Expanded;
+        }
     }
 
-    function formatLabel(timer:Timer, children:Array<TimerTreeItem>, ?method:String) {
-        var isRoot = method != null;
+    function formatName():String {
         var name = if (isRoot) method else timer.name;
         if (timer.info != "") {
             name = '${timer.info}.$name';
         }
+        return name;
+    }
+
+    function formatLabel():String {
         var seconds = truncate(timer.time, 5);
         var percent = truncate(timer.percentTotal, 4);
         var label = '$name - ${seconds}s';
@@ -22,6 +43,15 @@ class TimerTreeItem extends TreeItem {
             label += ' ($percent%)';
         }
         return label;
+    }
+
+    function formatTooltip():String {
+        var tooltip = '${timer.calls} calls';
+        if (isRoot) {
+            var date = Date.now();
+            tooltip += ' - [${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}]';
+        }
+        return tooltip;
     }
 
     function truncate(f:Float, precision:Int) {
