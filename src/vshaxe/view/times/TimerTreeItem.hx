@@ -17,7 +17,7 @@ class TimerTreeItem extends TreeItem {
         name = formatName();
         label = formatLabel();
         tooltip = formatTooltip();
-        id = '$method $name';
+        id = '$method $name ${timer.info}';
         if (timer.children == null) {
             children = null;
             collapsibleState = None;
