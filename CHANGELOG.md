@@ -9,6 +9,9 @@
 - added import settings to `"haxe.codeGeneration"`
 - added Haxe and HXML highlighting in fenced markdown code blocks
 
+**Changes and Improvements**:
+- changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
+
 <sup>*</sup> *requires latest Haxe 4 dev*
 
 ### 1.12.0 (May 3, 2018)
@@ -29,7 +32,7 @@
 - fixed const type param regex literals not being highlighted ([haxe-TmLanguage#37](https://github.com/vshaxe/haxe-TmLanguage/issues/37))
 - fixed language server not exiting properly in some cases ([haxe-languageserver#34](https://github.com/vshaxe/haxe-languageserver/pull/34))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - added syntax highlighting support for `enum abstract` ([haxe#6982](https://github.com/HaxeFoundation/haxe/issues/6982))
 - removed packages from function declarations in hover hints for better readability
@@ -52,7 +55,7 @@
 - fixed broken highlighting with functions in enum constructor calls ([haxe-TmLanguage#36](https://github.com/vshaxe/haxe-TmLanguage/issues/36))
 - fixed most cases of completion being triggered after `case` / `default` ([#112](https://github.com/vshaxe/vshaxe/issues/112))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - improved highlighting of escape sequences in strings ([haxe-TmLanguage#35](https://github.com/vshaxe/haxe-TmLanguage/issues/35))
 - clarified the source of problems with `[tasks]` and `[diagnostics]` labels ([#132](https://github.com/vshaxe/vshaxe/issues/132))
@@ -90,7 +93,7 @@
 - fixed `"haxe.enableCodeLens"` changes not triggering an update ([#95](https://github.com/vshaxe/vshaxe/issues/95))
 - fixed exit code of clients connecting to `"haxe.displayPort"` always being 0 ([haxe#6431](https://github.com/HaxeFoundation/haxe/issues/6431))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - changed the required VSCode version to 1.20.0
 - the problems view is now opened after global diagnostics runs ([#38](https://github.com/vshaxe/vshaxe/issues/38))
@@ -104,7 +107,7 @@
 
 - fixed excessive keyword highlighting in HXML files ([#177](https://github.com/vshaxe/vshaxe/issues/177))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - only show `Haxe Dependencies` in the explorer if vshaxe was activated in the workspace ([#174](https://github.com/vshaxe/vshaxe/issues/174))
 - adapt to latest Haxe 4 (development branch) changes
@@ -117,7 +120,7 @@
 - fixed completion in workspaces where the selected completion provider doesn't exist anymore
 - fixed `package` statement insertion randomly not working ([#172](https://github.com/vshaxe/vshaxe/issues/172))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - added `final` keyword to syntax highlighting
 
@@ -128,7 +131,7 @@
 - fixed the dependency explorer for local haxelib repos ([#162](https://github.com/vshaxe/vshaxe/issues/162))
 - fixed some issues with Haxe executable handling ([#163](https://github.com/vshaxe/vshaxe/issues/163), [#166](https://github.com/vshaxe/vshaxe/issues/166))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - added missing compiler metadata identifiers to syntax highlighting
 
@@ -152,7 +155,7 @@
 - fixed a regression with duplicated Haxe output channels ([#87](https://github.com/vshaxe/vshaxe/issues/87))
 - fixed line break handling in completion docs ([#150](https://github.com/vshaxe/vshaxe/issues/150))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - changed the required VSCode version to 1.14.0
 - changed dependency explorer selection to open files permanently on double-click
@@ -174,7 +177,7 @@
 - fixed catch variables not being listed in document symbols
 - fixed diagnostics of deleted / renamed files not being removed ([#132](https://github.com/vshaxe/vshaxe/issues/132))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - changed the required VSCode version to 1.13.0
 - allowed filtering by path in the display configuration picker
@@ -188,7 +191,7 @@
 - fixed Unicode character handling for completion with Haxe 4
 - fixed filtering in metadata completion ([#121](https://github.com/vshaxe/vshaxe/issues/121))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - changed the required VSCode version to 1.12.0
 - added a progress indicator for Completion Cache Initialization (#108)
@@ -219,7 +222,7 @@
 
 - added a Haxe problem matcher (referenced with `"problemMatcher": "$haxe"`, VSCode 1.11.0+)
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - use the Haxe problem matcher in "Init Project"
 
@@ -239,7 +242,7 @@
 - fixed signature help sometimes not having argument names ([haxe#6064](https://github.com/HaxeFoundation/haxe/issues/6064))
 - fixed argument name generation with anon structure types
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - diagnostics now update when the active editor is changed
 - init project command: `.hxml` files in local haxelib repos are now ignored ([#93](https://github.com/vshaxe/vshaxe/issues/93))
@@ -261,7 +264,7 @@
 
 - properly handle cancelled requests in the language server (so dead requests don't pile up inside VS Code)
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - no longer request diagnostics if `diagnosticsPathFilter` doesn't match
 
@@ -273,11 +276,11 @@
 - fixed inconsistent icon usage in field and toplevel completion
 - fixed diagnostics sometimes being reported for the wrong file
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - smarter error handling ([#20](https://github.com/vshaxe/vshaxe/issues/20), [haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
 - ignore hidden files in the "init project" command ([#10](https://github.com/vshaxe/vshaxe/issues/10))
-- some minor highlighting improvements ([haxe-TmLanguage#10](https://github.com/vshaxe/haxe-TmLanguage/issues/10))
+- some minor highlighting Improvements ([haxe-TmLanguage#10](https://github.com/vshaxe/haxe-TmLanguage/issues/10))
 - added a quick fix for "invalid package" diagnostics
 - leading `*` characters are now removed from signature help docs
 
@@ -299,7 +302,7 @@
 - fixed toplevel completion with whitespace after `:` ([haxe-languageserver#22](https://github.com/vshaxe/haxe-languageserver/issues/22))
 - fixed some compiler errors not being highlighted by diagnostics ([#62](https://github.com/vshaxe/vshaxe/issues/62))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - improved handling of Haxe crashes, e.g. with invalid arguments ([haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
 - support auto closing and surrounding brackets in hxml files (for `--macro` arguments)
@@ -321,7 +324,7 @@
 - fixed leading dots in `Float` literals not being highlighted (e.g. in `.52`)
 - fixed type names with leading underscores not being highlighted as such
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - improved highlighting for macro reification
 - improved highlighting for metadata
@@ -394,7 +397,7 @@
 - fixed keyboard focus being stolen by the Haxe output channel sometimes
 - fixed display config dropdown in the status bar not showing right away ([#37](https://github.com/vshaxe/vshaxe/issues/37))
 
-**Changes and improvements**:
+**Changes and Improvements**:
 
 - improved code highlighting
 - improved handling of unsupported Haxe versions ([#16](https://github.com/vshaxe/vshaxe/issues/16))
