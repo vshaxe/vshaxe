@@ -16,6 +16,7 @@ package vshaxe;
     var ApplyFixes = command("applyFixes");
     var ShowReferences = command("showReferences");
     var ClearMementos = command("clearMementos");
+    var Methods_CollapseAll = command("methods.collapseAll");
     var Dependencies_SelectNode = command("dependencies.selectNode");
     var Dependencies_Refresh = command("dependencies.refresh");
     var Dependencies_CollapseAll = command("dependencies.collapseAll");

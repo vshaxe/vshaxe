@@ -19,8 +19,10 @@ class MethodTreeView {
         server.onUpdateTimers = onUpdateTimers;
         workspace.onDidChangeConfiguration(_ -> update());
         onDidChangeTreeData = _onDidChangeTreeData.event;
-        window.registerTreeDataProvider("haxe.methods", this);
         update();
+
+        window.registerTreeDataProvider("haxe.methods", this);
+        context.registerHaxeCommand(Methods_CollapseAll, collapseAll);
     }
 
     function onUpdateTimers(data:{method:String, times:Timer}) {
@@ -48,4 +50,17 @@ class MethodTreeView {
     }
 
     public final getParent = null;
+
+    function collapseAll() {
+        for (timer in timers) {
+            timer.collapse();
+            // ugly workaround for https://github.com/Microsoft/vscode/issues/30918
+            if (timer.id.endsWith(" ")) {
+                timer.id = timer.id.rtrim();
+            } else {
+                timer.id += " ";
+            }
+        }
+        _onDidChangeTreeData.fire();
+    }
 }

@@ -440,6 +440,15 @@
 				"category": "Haxe"
 			},
 			{
+				"title": "Collapse All",
+				"command": "haxe.methods.collapseAll",
+				"category": "Haxe",
+				"icon": {
+					"light": "resources/light/collapseAll.svg",
+					"dark": "resources/dark/collapseAll.svg"
+				}
+			},
+			{
 				"title": "Refresh",
 				"command": "haxe.dependencies.refresh",
 				"category": "Haxe",
@@ -672,6 +681,11 @@
 		"menus": {
 			"view/title": [
 				{
+					"command": "haxe.methods.collapseAll",
+					"when": "view == haxe.methods",
+					"group": "navigation@1"
+				},
+				{
 					"command": "haxe.dependencies.refresh",
 					"when": "view == haxe.dependencies",
 					"group": "navigation@1"
@@ -710,6 +724,10 @@
 				}
 			],
 			"commandPalette": [
+				{
+					"command": "haxe.methods.collapseAll",
+					"when": "false"
+				},
 				{
 					"command": "haxe.dependencies.refresh",
 					"when": "false"

@@ -35,6 +35,12 @@ class MethodTreeItem extends TreeItem {
         }
     }
 
+    public function collapse() {
+        if (collapsibleState != None) {
+            collapsibleState = Collapsed;
+        }
+    }
+
     function formatName():String {
         var name = if (isRoot) method else timer.name;
         if (timer.info != "") {
