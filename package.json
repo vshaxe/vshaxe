@@ -8,7 +8,7 @@
 	"displayName": "Haxe",
 	"description": "Haxe language support",
 	"categories": [
-		"Languages",
+		"Programming Languages",
 		"Linters"
 	],
 	"galleryBanner": {
