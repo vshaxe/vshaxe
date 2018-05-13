@@ -11,6 +11,8 @@
 
 **Changes and Improvements**:
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
+- improved completion to make use of more different / accurate icons <sup>*</sup>
+- removed dot paths from imported types in hover / completion / signature help <sup>*</sup>
 
 <sup>*</sup> *requires latest Haxe 4 dev*
 
