@@ -204,7 +204,7 @@ class LanguageServer {
     function onDidRunHaxeMethodCallback(data:{method:String, response:Response}) {
         _onDidRunHaxeMethod.fire(data);
         #if debug
-        commands.executeCommand("vshaxeDebugTools.updateHaxeMethodResults", data.response.result);
+        commands.executeCommand("vshaxeDebugTools.updateHaxeMethodResults", data);
         #end
     }
 
