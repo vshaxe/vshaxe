@@ -1,6 +1,7 @@
 package vshaxe.view.methods;
 
 import vshaxe.server.LanguageServer;
+import vshaxe.server.Response;
 
 class MethodTreeView {
     final context:ExtensionContext;
@@ -17,7 +18,7 @@ class MethodTreeView {
         this.context = context;
         this.server = server;
 
-        server.onUpdateTimers = onUpdateTimers;
+        server.onDidRunHaxeMethod(onDidRunHaxeMethod);
         workspace.onDidChangeConfiguration(_ -> update());
         onDidChangeTreeData = _onDidChangeTreeData.event;
         update();
@@ -27,12 +28,12 @@ class MethodTreeView {
         context.registerHaxeCommand(Methods_CollapseAll, collapseAll);
     }
 
-    function onUpdateTimers(data:{method:String, times:Timer}) {
-        if (!enabled) return;
+    function onDidRunHaxeMethod(data:{method:String, response:Response}) {
+        if (!enabled || data.response.timers == null) return;
 
         var method = data.method;
         methods = methods.filter(item -> item.method != method);
-        var item = new MethodTreeItem(context, null, data.times, data.method);
+        var item = new MethodTreeItem(context, null, data.response.timers, data.method);
         methods.push(item);
         methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
         _onDidChangeTreeData.fire();

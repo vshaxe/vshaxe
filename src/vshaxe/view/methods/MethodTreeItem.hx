@@ -1,5 +1,7 @@
 package vshaxe.view.methods;
 
+import vshaxe.server.Response;
+
 class MethodTreeItem extends TreeItem {
     final context:ExtensionContext;
     final timer:Timer;

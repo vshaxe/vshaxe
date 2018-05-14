@@ -3,10 +3,10 @@ package vshaxe.server;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageClient;
-import vshaxe.view.methods.Timer;
 
 class LanguageServer {
     public var displayPort(default,null):Null<Int>;
+    public var onDidRunHaxeMethod(get,never):Event<{method:String, response:Response}>;
 
     final folder:WorkspaceFolder;
     final haxeExecutable:HaxeExecutable;
@@ -21,6 +21,9 @@ class LanguageServer {
     var progresses = new Map<Int,Void->Void>();
     var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>};
     var displayServerConfigSerialized:String;
+    final _onDidRunHaxeMethod = new EventEmitter<{method:String, response:Response}>();
+
+    inline function get_onDidRunHaxeMethod() return _onDidRunHaxeMethod.event;
 
     public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments, api:Vshaxe) {
         this.folder = folder;
@@ -103,7 +106,7 @@ class LanguageServer {
             client.onNotification("haxe/progressStop", onStopProgress);
             client.onNotification("haxe/didChangeDisplayPort", onDidChangeDisplayPort);
             client.onNotification("haxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
-            client.onNotification("haxe/updateTimers", onUpdateTimers);
+            client.onNotification("haxe/didRunHaxeMethod", onDidRunHaxeMethodCallback);
             client.onDidChangeState(onDidChangeState);
 
             #if debug
@@ -198,7 +201,12 @@ class LanguageServer {
         commands.executeCommand("workbench.action.problems.focus");
     }
 
-    public dynamic function onUpdateTimers(data:{method:String, times:Timer}) {}
+    function onDidRunHaxeMethodCallback(data:{method:String, response:Response}) {
+        _onDidRunHaxeMethod.fire(data);
+        #if debug
+        commands.executeCommand("vshaxeDebugTools.updateHaxeMethodResults", data.response.result);
+        #end
+    }
 
     function onDidChangeState(event:StateChangeEvent) {
         if (event.newState == Stopped) {
