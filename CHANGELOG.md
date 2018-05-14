@@ -3,6 +3,7 @@
 **New Features**:
 
 - added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358)) <sup>*</sup>
+- added support for structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110)) <sup>*</sup>
 - added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718)) <sup>*</sup>
 - added a "Haxe Methods" view to the explorer to show `--times` output <sup>*</sup>
 - added a `"haxe.enableMethodsView"` setting (`false` by default) <sup>*</sup>
