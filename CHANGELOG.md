@@ -11,6 +11,10 @@
 - added import settings to `"haxe.codeGeneration"`
 - added Haxe and HXML highlighting in fenced markdown code blocks
 
+**Bugfixes**:
+
+- fixed a minor struct extends highlighting issue ([haxe-TmLanguage#40](https://github.com/vshaxe/haxe-TmLanguage/issues/40))
+
 **Changes and Improvements**:
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
 - improved completion to make use of more different / accurate icons <sup>*</sup>
