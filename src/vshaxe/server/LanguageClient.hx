@@ -94,7 +94,7 @@ abstract ServerOptions(Dynamic)
     from NodeModule
 {}
 
-@:enum abstract TransportKind(Int) {
+enum abstract TransportKind(Int) {
     var stdio = 0;
     var ipc = 1;
     var pipe = 2;
@@ -121,7 +121,7 @@ typedef LanguageClientOptions = {
     ?workspaceFolder:WorkspaceFolder,
 }
 
-@:enum abstract State(Int) {
+enum abstract State(Int) {
     var Stopped = 1;
     var Running = 2;
 }
@@ -238,7 +238,7 @@ typedef SynchronizeOptions = {
 /**
  * An action to be performed when the connection is producing errors.
  */
-@:enum abstract ErrorAction(Int) {
+enum abstract ErrorAction(Int) {
     /**
      * Continue running the server.
      */
@@ -253,7 +253,7 @@ typedef SynchronizeOptions = {
 /**
  * An action to be performed when the connection to a server got closed.
  */
-@:enum abstract CloseAction(Int) {
+enum abstract CloseAction(Int) {
     /**
      * Don't restart the server. The connection stays closed.
      */
@@ -288,7 +288,7 @@ typedef ErrorHandler = {
 
 typedef InitializationFailedHandler = (error:EitherType<ResponseError<InitializeError>,EitherType<Error,Any>>) -> Bool;
 
-@:enum abstract RevealOutputChannelOn(Int) {
+enum abstract RevealOutputChannelOn(Int) {
     var Info = 1;
     var Warn = 2;
     var Error = 3;

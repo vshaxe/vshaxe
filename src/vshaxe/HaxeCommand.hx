@@ -1,7 +1,7 @@
 package vshaxe;
 
 // should this be a build macro?
-@:enum abstract HaxeCommand(String) to String {
+enum abstract HaxeCommand(String) to String {
     /* public commands, defined in `package.json` */
     var RestartLanguageServer = command("restartLanguageServer");
     var InitProject = command("initProject");

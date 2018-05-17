@@ -16,7 +16,7 @@ abstract HaxeMemento(vscode.Memento) from vscode.Memento {
     }
 }
 
-@:enum abstract HaxeMementoKey<T>(MementoKey<T>) to MementoKey<T> {
+enum abstract HaxeMementoKey<T>(MementoKey<T>) to MementoKey<T> {
     public function new(key) this = new MementoKey("haxe." + key);
 }
 
