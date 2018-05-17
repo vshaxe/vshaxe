@@ -10,7 +10,7 @@ class MethodTreeItem extends TreeItem {
     var isRoot(get,never):Bool;
     inline function get_isRoot() return parent == null;
 
-    public final children:Array<MethodTreeItem>;
+    public final children:Null<Array<MethodTreeItem>>;
     public final method:String;
     public final parent:Null<MethodTreeItem>;
 
@@ -66,5 +66,13 @@ class MethodTreeItem extends TreeItem {
 
     function truncate(f:Float, precision:Int) {
         return Std.string(f).substr(0, precision);
+    }
+
+    public function toString(indent:String = ""):String {
+        var result = indent + label;
+        if (children != null) {
+            result += "\n" + children.map(child -> child.toString(indent + "  ")).join("\n");
+        }
+        return result;
     }
 }

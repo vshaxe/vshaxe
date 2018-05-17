@@ -4,6 +4,7 @@ import haxe.io.Path;
 import vshaxe.view.dependencies.DependencyResolver;
 import vshaxe.view.dependencies.Node;
 import vshaxe.display.DisplayArguments;
+import vshaxe.helper.CopyPaste;
 import vshaxe.helper.HaxeExecutable;
 
 class DependencyTreeView {
@@ -214,9 +215,4 @@ class DependencyTreeView {
     function copyPath(node:Node) {
         CopyPaste.copy(node.resourceUri.fsPath);
     }
-}
-
-@:jsRequire("copy-paste")
-private extern class CopyPaste {
-    public static function copy(text:String, ?callback:Void->Void):Void;
 }

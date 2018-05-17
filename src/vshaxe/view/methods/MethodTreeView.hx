@@ -2,6 +2,7 @@ package vshaxe.view.methods;
 
 import vshaxe.server.LanguageServer;
 import vshaxe.server.Response;
+import vshaxe.helper.CopyPaste;
 
 class MethodTreeView {
     final context:ExtensionContext;
@@ -26,6 +27,7 @@ class MethodTreeView {
         window.registerTreeDataProvider("haxe.methods", this);
         treeView = window.createTreeView("haxe.methods", {treeDataProvider: this});
         context.registerHaxeCommand(Methods_CollapseAll, collapseAll);
+        context.registerHaxeCommand(Methods_Copy, copy);
     }
 
     function onDidRunHaxeMethod(data:{method:String, response:Response}) {
@@ -69,5 +71,13 @@ class MethodTreeView {
             }
         }
         _onDidChangeTreeData.fire();
+    }
+
+    function copy(?element:MethodTreeItem) {
+        CopyPaste.copy(if (element == null) {
+            methods.map(method -> method.toString()).join("\n\n");
+        } else {
+            element.toString();
+        });
     }
 }

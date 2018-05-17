@@ -449,6 +449,11 @@
 				}
 			},
 			{
+				"title": "Copy",
+				"command": "haxe.methods.copy",
+				"category": "Haxe"
+			},
+			{
 				"title": "Refresh",
 				"command": "haxe.dependencies.refresh",
 				"category": "Haxe",
@@ -698,6 +703,11 @@
 			],
 			"view/item/context": [
 				{
+					"command": "haxe.methods.copy",
+					"when": "view == haxe.methods",
+					"group": "1_vshaxe@1"
+				},
+				{
 					"command": "haxe.dependencies.openPreview",
 					"when": "view == haxe.dependencies && viewItem == file.md",
 					"group": "1_vshaxe@1"
@@ -726,6 +736,10 @@
 			"commandPalette": [
 				{
 					"command": "haxe.methods.collapseAll",
+					"when": "false"
+				},
+				{
+					"command": "haxe.methods.copy",
 					"when": "false"
 				},
 				{
