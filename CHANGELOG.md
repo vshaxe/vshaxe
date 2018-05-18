@@ -1,4 +1,6 @@
-### 1.13.0 (to be released)
+### 2.0.0 (to be released)
+
+<sup>*</sup> *requires latest Haxe 4 dev*
 
 **New Features**:
 
@@ -15,16 +17,13 @@
 
 - fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#40](https://github.com/vshaxe/haxe-TmLanguage/issues/40), [#41](https://github.com/vshaxe/haxe-TmLanguage/issues/41)])
 
-
 **Changes and Improvements**:
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
 - improved completion to make use of more different / accurate icons <sup>*</sup>
 - completion now shows results with the expected type first ([haxe#6750](https://github.com/HaxeFoundation/haxe/issues/6750)) <sup>*</sup>
-- completion now only shows relevant items after `implements`, `extends` and `>` ([haxe#7029](https://github.com/HaxeFoundation/haxe/issues/7029)) <sup>*</sup>
+- completion now only shows relevant items after `implements`, `extends`, `>` and `new` ([haxe#7029](https://github.com/HaxeFoundation/haxe/issues/7029)) <sup>*</sup>
 - completion now triggers automatically after `implements`, `extends`, `new` and `case`
 - removed dot paths from imported types in hover / completion / signature help <sup>*</sup>
-
-<sup>*</sup> *requires latest Haxe 4 dev*
 
 ### 1.12.0 (May 3, 2018)
 
