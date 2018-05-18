@@ -6,7 +6,7 @@ import vshaxe.server.LanguageClient;
 
 class LanguageServer {
     public var displayPort(default,null):Null<Int>;
-    public var onDidRunHaxeMethod(get,never):Event<{method:String, response:Response}>;
+    public var onDidRunHaxeMethod(get,never):Event<HaxeMethodResult>;
 
     final folder:WorkspaceFolder;
     final haxeExecutable:HaxeExecutable;
@@ -21,7 +21,7 @@ class LanguageServer {
     var progresses = new Map<Int,Void->Void>();
     var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>};
     var displayServerConfigSerialized:String;
-    final _onDidRunHaxeMethod = new EventEmitter<{method:String, response:Response}>();
+    final _onDidRunHaxeMethod = new EventEmitter<HaxeMethodResult>();
 
     inline function get_onDidRunHaxeMethod() return _onDidRunHaxeMethod.event;
 
@@ -201,7 +201,7 @@ class LanguageServer {
         commands.executeCommand("workbench.action.problems.focus");
     }
 
-    function onDidRunHaxeMethodCallback(data:{method:String, response:Response}) {
+    function onDidRunHaxeMethodCallback(data:HaxeMethodResult) {
         _onDidRunHaxeMethod.fire(data);
         #if debug
         commands.executeCommand("vshaxeDebugTools.updateHaxeMethodResults", data);

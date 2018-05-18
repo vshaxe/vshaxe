@@ -1,8 +1,9 @@
 package vshaxe.view.methods;
 
 import vshaxe.server.LanguageServer;
-import vshaxe.server.Response;
+import vshaxe.server.HaxeMethodResult;
 import vshaxe.helper.CopyPaste;
+import js.Date;
 
 class MethodTreeView {
     final context:ExtensionContext;
@@ -30,8 +31,14 @@ class MethodTreeView {
         context.registerHaxeCommand(Methods_Copy, copy);
     }
 
-    function onDidRunHaxeMethod(data:{method:String, response:Response}) {
-        if (!enabled || data.response.timers == null) return;
+    function onDidRunHaxeMethod(data:HaxeMethodResult) {
+        if (!enabled || data.response.timers == null) {
+            return;
+        }
+
+        if (data.response.timers != null) {
+            data.response.timers.children.push(createAdditionalTimers(data));
+        }
 
         var method = data.method;
         methods = methods.filter(item -> item.method != method);
@@ -41,6 +48,29 @@ class MethodTreeView {
         _onDidChangeTreeData.fire();
         // this is awkward... https://github.com/Microsoft/vscode/issues/47153
         // haxe.Timer.delay(() -> treeView.reveal(item, {select: false}), 250);
+    }
+
+    function createAdditionalTimers(data:HaxeMethodResult):Timer {
+        var timers = data.response.timers;
+        if (timers == null) {
+            return null;
+        }
+        inline function makeTimer(name:String, time:Float, ?children:Array<Timer>):Timer {
+            var date = new Date(time);
+            return {
+                name: name,
+                time: date.getSeconds() + (date.getMilliseconds() / 1000.0),
+                children: children
+            };
+        }
+
+        var transmissionTime = data.arrivalDate - data.response.timestamp;
+        var processingTime = data.processedDate - data.arrivalDate;
+        var totalTime = transmissionTime + processingTime;
+        return makeTimer("vshaxe", totalTime, [
+            makeTimer("transmission", transmissionTime),
+            makeTimer("processing", processingTime)
+        ]);
     }
 
     function update() {

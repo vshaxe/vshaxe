@@ -1,6 +1,6 @@
 package vshaxe.view.methods;
 
-import vshaxe.server.Response;
+import vshaxe.server.HaxeMethodResult;
 
 class MethodTreeItem extends TreeItem {
     final context:ExtensionContext;
@@ -42,7 +42,7 @@ class MethodTreeItem extends TreeItem {
 
     function formatName():String {
         var name = if (isRoot) method else timer.name;
-        if (timer.info != "") {
+        if (timer.info != "" && timer.info != null) {
             name = '${timer.info}.$name';
         }
         return name;
@@ -50,9 +50,9 @@ class MethodTreeItem extends TreeItem {
 
     function formatLabel():String {
         var seconds = truncate(timer.time, 5);
-        var percent = truncate(timer.percentTotal, 4);
+        var percent = if (timer.percentTotal != null) truncate(timer.percentTotal, 4) else null;
         var label = '$name - ${seconds}s';
-        if (!isRoot) {
+        if (!isRoot && percent != null) {
             label += ' ($percent%)';
         }
         return label;
@@ -61,7 +61,8 @@ class MethodTreeItem extends TreeItem {
     function formatTooltip():String {
         var now = Date.now();
         var timestamp = '[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]';
-        return '$timestamp ${timer.calls} calls - ${truncate(timer.time, 7)}s';
+        var calls = if (timer.calls != null) '${timer.calls} calls ' else "";
+        return '$timestamp $calls- ${truncate(timer.time, 7)}s';
     }
 
     function truncate(f:Float, precision:Int) {
