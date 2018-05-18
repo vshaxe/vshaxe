@@ -13,7 +13,8 @@
 
 **Bugfixes**:
 
-- fixed a minor struct extends highlighting issue ([haxe-TmLanguage#40](https://github.com/vshaxe/haxe-TmLanguage/issues/40))
+- fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#40](https://github.com/vshaxe/haxe-TmLanguage/issues/40), [#41](https://github.com/vshaxe/haxe-TmLanguage/issues/41)])
+
 
 **Changes and Improvements**:
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
@@ -216,7 +217,7 @@
 
 **Bugfixes**:
 
-- fixed several small highlighting issues (haxe-TmLanguage[[#4](https://github.com/vshaxe/haxe-TmLanguage/issues/4), [#6](https://github.com/vshaxe/haxe-TmLanguage/issues/6), [#11](https://github.com/vshaxe/haxe-TmLanguage/issues/11), [#16](https://github.com/vshaxe/haxe-TmLanguage/issues/16), [#22](https://github.com/vshaxe/haxe-TmLanguage/issues/22)])
+- fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#4](https://github.com/vshaxe/haxe-TmLanguage/issues/4), [#6](https://github.com/vshaxe/haxe-TmLanguage/issues/6), [#11](https://github.com/vshaxe/haxe-TmLanguage/issues/11), [#16](https://github.com/vshaxe/haxe-TmLanguage/issues/16), [#22](https://github.com/vshaxe/haxe-TmLanguage/issues/22)])
 
 ### 1.5.1 (April 21, 2017)
 
@@ -246,7 +247,7 @@
 
 **Bugfixes**:
 
-- fixed several small highlighting issues (haxe-TmLanguage[[#2](https://github.com/vshaxe/haxe-TmLanguage/issues/2), [#5](https://github.com/vshaxe/haxe-TmLanguage/issues/5), [#8](https://github.com/vshaxe/haxe-TmLanguage/issues/8), [#14](https://github.com/vshaxe/haxe-TmLanguage/issues/14), [#15](https://github.com/vshaxe/haxe-TmLanguage/issues/15), [#17](https://github.com/vshaxe/haxe-TmLanguage/issues/17)])
+- fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#2](https://github.com/vshaxe/haxe-TmLanguage/issues/2), [#5](https://github.com/vshaxe/haxe-TmLanguage/issues/5), [#8](https://github.com/vshaxe/haxe-TmLanguage/issues/8), [#14](https://github.com/vshaxe/haxe-TmLanguage/issues/14), [#15](https://github.com/vshaxe/haxe-TmLanguage/issues/15), [#17](https://github.com/vshaxe/haxe-TmLanguage/issues/17)])
 - fixed signature help sometimes not having argument names ([haxe#6064](https://github.com/HaxeFoundation/haxe/issues/6064))
 - fixed argument name generation with anon structure types
 
@@ -288,7 +289,7 @@
 
 - smarter error handling ([#20](https://github.com/vshaxe/vshaxe/issues/20), [haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
 - ignore hidden files in the "init project" command ([#10](https://github.com/vshaxe/vshaxe/issues/10))
-- some minor highlighting Improvements ([haxe-TmLanguage#10](https://github.com/vshaxe/haxe-TmLanguage/issues/10))
+- some minor highlighting improvements ([haxe-TmLanguage#10](https://github.com/vshaxe/haxe-TmLanguage/issues/10))
 - added a quick fix for "invalid package" diagnostics
 - leading `*` characters are now removed from signature help docs
 
