@@ -32,17 +32,19 @@ class MethodTreeView {
     }
 
     function onDidRunHaxeMethod(data:HaxeMethodResult) {
-        if (!enabled || data.response.timers == null) {
+        if (!enabled) {
             return;
         }
 
-        if (data.response.timers != null) {
-            data.response.timers.children.push(createAdditionalTimers(data));
+        var rootTimer = data.response.timers;
+        if (rootTimer == null) {
+            rootTimer = makeTimer("", 0, []);
         }
+        rootTimer.children.push(createAdditionalTimers(data));
 
         var method = data.method;
         methods = methods.filter(item -> item.method != method);
-        var item = new MethodTreeItem(context, null, data.response.timers, data.method);
+        var item = new MethodTreeItem(context, null, rootTimer, data.method);
         methods.push(item);
         methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
         _onDidChangeTreeData.fire();
@@ -51,19 +53,6 @@ class MethodTreeView {
     }
 
     function createAdditionalTimers(data:HaxeMethodResult):Timer {
-        var timers = data.response.timers;
-        if (timers == null) {
-            return null;
-        }
-        inline function makeTimer(name:String, time:Float, ?children:Array<Timer>):Timer {
-            var date = new Date(time);
-            return {
-                name: name,
-                time: date.getSeconds() + (date.getMilliseconds() / 1000.0),
-                children: children
-            };
-        }
-
         var transmissionTime = data.arrivalDate - data.response.timestamp;
         var processingTime = data.processedDate - data.arrivalDate;
         var totalTime = transmissionTime + processingTime;
@@ -71,6 +60,15 @@ class MethodTreeView {
             makeTimer("transmission", transmissionTime),
             makeTimer("processing", processingTime)
         ]);
+    }
+
+    function makeTimer(name:String, time:Float, ?children:Array<Timer>):Timer {
+        var date = new Date(time);
+        return {
+            name: name,
+            time: date.getSeconds() + (date.getMilliseconds() / 1000.0),
+            children: children
+        };
     }
 
     function update() {
