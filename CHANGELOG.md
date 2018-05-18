@@ -4,7 +4,6 @@
 
 - added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358)) <sup>*</sup>
 - added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110)) <sup>*</sup>
-- added `implements` / `extends` / `>` (struct extends) completion ([haxe#7029](https://github.com/HaxeFoundation/haxe/issues/7029)) <sup>*</sup>
 - added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148)) <sup>*</sup>
 - added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718)) <sup>*</sup>
 - added a "Haxe Methods" view to the explorer to show `--times` output <sup>*</sup>
@@ -20,6 +19,9 @@
 **Changes and Improvements**:
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
 - improved completion to make use of more different / accurate icons <sup>*</sup>
+- completion now shows results with the expected type first ([haxe#6750](https://github.com/HaxeFoundation/haxe/issues/6750)) <sup>*</sup>
+- completion now only shows relevant items after `implements`, `extends` and `>` ([haxe#7029](https://github.com/HaxeFoundation/haxe/issues/7029)) <sup>*</sup>
+- completion now triggers automatically after `implements`, `extends`, `new` and `case`
 - removed dot paths from imported types in hover / completion / signature help <sup>*</sup>
 
 <sup>*</sup> *requires latest Haxe 4 dev*
