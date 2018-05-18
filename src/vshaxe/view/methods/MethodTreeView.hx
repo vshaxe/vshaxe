@@ -53,11 +53,13 @@ class MethodTreeView {
     }
 
     function createAdditionalTimers(data:HaxeMethodResult):Timer {
-        var transmissionTime = data.arrivalDate - (data.response.timestamp * 1000.0);
-        var processingTime = data.processedDate - data.arrivalDate;
-        var totalTime = transmissionTime + processingTime;
+        var transmissionTime = data.arrivalTime - (data.response.timestamp * 1000.0);
+        var parsingTime = data.beforeProcessingTime - data.arrivalTime;
+        var processingTime = data.afterProcessingTime - data.beforeProcessingTime;
+        var totalTime = transmissionTime + parsingTime + processingTime;
         return makeTimer("vshaxe", totalTime, [
             makeTimer("transmission", transmissionTime),
+            makeTimer("parsing", parsingTime),
             makeTimer("processing", processingTime)
         ]);
     }
