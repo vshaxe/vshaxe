@@ -4,6 +4,7 @@ package vshaxe.server;
 
 typedef HaxeMethodResult = {
     final method:String;
+    final debugInfo:String;
     final arrivalTime:Float;
     final beforeProcessingTime:Float;
     final afterProcessingTime:Float;

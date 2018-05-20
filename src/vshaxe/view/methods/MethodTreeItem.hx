@@ -6,6 +6,7 @@ class MethodTreeItem extends TreeItem {
     final context:ExtensionContext;
     final timer:Timer;
     final name:String;
+    final debugInfo:String;
 
     var isRoot(get,never):Bool;
     inline function get_isRoot() return parent == null;
@@ -14,12 +15,13 @@ class MethodTreeItem extends TreeItem {
     public final method:String;
     public final parent:Null<MethodTreeItem>;
 
-    public function new(context:ExtensionContext, parent:MethodTreeItem, timer:Timer, method:String) {
+    public function new(context:ExtensionContext, parent:MethodTreeItem, timer:Timer, method:String, ?debugInfo:String) {
         super("");
         this.context = context;
         this.parent = parent;
         this.timer = timer;
         this.method = method;
+        this.debugInfo = debugInfo;
 
         name = formatName();
         label = formatLabel();
@@ -29,7 +31,7 @@ class MethodTreeItem extends TreeItem {
             children = null;
             collapsibleState = None;
         } else {
-            children = timer.children.map(MethodTreeItem.new.bind(context, this, _, method));
+            children = timer.children.map(MethodTreeItem.new.bind(context, this, _, method, null));
             collapsibleState = Expanded;
         }
         if (isRoot) {
@@ -54,6 +56,9 @@ class MethodTreeItem extends TreeItem {
         var label = '$name - ${seconds}s';
         if (!isRoot && percent != null) {
             label += ' ($percent%)';
+        }
+        if (debugInfo != null) {
+            label += ' [$debugInfo]';
         }
         return label;
     }

@@ -44,7 +44,7 @@ class MethodTreeView {
 
         var method = data.method;
         methods = methods.filter(item -> item.method != method);
-        var item = new MethodTreeItem(context, null, rootTimer, data.method);
+        var item = new MethodTreeItem(context, null, rootTimer, data.method, data.debugInfo);
         methods.push(item);
         methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
         _onDidChangeTreeData.fire();
