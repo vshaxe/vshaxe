@@ -16,6 +16,7 @@
 **Bugfixes**:
 
 - fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#40](https://github.com/vshaxe/haxe-TmLanguage/issues/40), [#41](https://github.com/vshaxe/haxe-TmLanguage/issues/41)])
+- fixed all cases of completion being triggered after `:` on a `case` ([#112](https://github.com/vshaxe/vshaxe/issues/112))
 
 **Changes and Improvements**:
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
