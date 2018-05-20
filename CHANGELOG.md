@@ -8,9 +8,10 @@
 - added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110)) <sup>*</sup>
 - added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148)) <sup>*</sup>
 - added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718)) <sup>*</sup>
-- added a "Haxe Methods" view to the explorer to show `--times` output <sup>*</sup>
+- added a "Haxe Methods" tree view to visualize `--times` output <sup>*</sup>
 - added a `"haxe.enableMethodsView"` setting (`false` by default) <sup>*</sup>
 - added import settings to `"haxe.codeGeneration"`
+- added a `"haxe.enableSignatureHelpDocumentation"` setting ([#197](https://github.com/vshaxe/vshaxe/issues/197))
 - added Haxe and HXML highlighting in fenced markdown code blocks
 
 **Bugfixes**:
@@ -122,7 +123,7 @@
 
 **Changes and Improvements**:
 
-- only show `Haxe Dependencies` in the explorer if vshaxe was activated in the workspace ([#174](https://github.com/vshaxe/vshaxe/issues/174))
+- only show "Haxe Dependencies" in the explorer if vshaxe was activated in the workspace ([#174](https://github.com/vshaxe/vshaxe/issues/174))
 - adapt to latest Haxe 4 (development branch) changes
 
 ### 1.9.2 (October 24, 2017)

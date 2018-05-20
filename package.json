@@ -316,6 +316,11 @@
 					"type": "boolean",
 					"default": false
 				},
+				"haxe.enableSignatureHelpDocumentation": {
+					"description": "Whether signature help should include documentation or not.",
+					"type": "boolean",
+					"default": true
+				},
 				"haxe.diagnosticsPathFilter": {
 					"description": "A regex that paths of source files have to match to be included in diagnostics. Defaults to \"${workspaceRoot}\" so only files within your workspace are included. You can use \"${haxelibPath}/<library-name>\" to only show results for a specific haxelib. Use \".*?\" to see all results, including haxelibs.",
 					"type": "string",
