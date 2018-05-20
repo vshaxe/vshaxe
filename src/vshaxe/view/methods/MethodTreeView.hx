@@ -29,6 +29,7 @@ class MethodTreeView {
         treeView = window.createTreeView("haxe.methods", {treeDataProvider: this});
         context.registerHaxeCommand(Methods_CollapseAll, collapseAll);
         context.registerHaxeCommand(Methods_Copy, copy);
+        context.registerHaxeCommand(Methods_Track, track);
     }
 
     function onDidRunHaxeMethod(data:HaxeMethodResult) {
@@ -109,5 +110,11 @@ class MethodTreeView {
         } else {
             element.toString();
         });
+    }
+
+    function track(element:MethodTreeItem) {
+        if (element != null) {
+            commands.executeCommand("vshaxeDebugTools.methodResultsView.track", element.method);
+        }
     }
 }

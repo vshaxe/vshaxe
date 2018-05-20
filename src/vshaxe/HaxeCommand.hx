@@ -18,6 +18,7 @@ enum abstract HaxeCommand(String) to String {
     var ClearMementos = command("clearMementos");
     var Methods_CollapseAll = command("methods.collapseAll");
     var Methods_Copy = command("methods.copy");
+    var Methods_Track = command("methods.track");
     var Dependencies_SelectNode = command("dependencies.selectNode");
     var Dependencies_Refresh = command("dependencies.refresh");
     var Dependencies_CollapseAll = command("dependencies.collapseAll");

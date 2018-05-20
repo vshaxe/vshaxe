@@ -460,6 +460,11 @@
 				"category": "Haxe"
 			},
 			{
+				"title": "Track Outputs for this Method",
+				"command": "haxe.methods.track",
+				"category": "Haxe"
+			},
+			{
 				"title": "Refresh",
 				"command": "haxe.dependencies.refresh",
 				"category": "Haxe",
@@ -714,6 +719,11 @@
 					"group": "1_vshaxe@1"
 				},
 				{
+					"command": "haxe.methods.track",
+					"when": "vshaxeDebugToolsActivated && view == haxe.methods",
+					"group": "1_vshaxe@2"
+				},
+				{
 					"command": "haxe.dependencies.openPreview",
 					"when": "view == haxe.dependencies && viewItem == file.md",
 					"group": "1_vshaxe@1"
@@ -746,6 +756,10 @@
 				},
 				{
 					"command": "haxe.methods.copy",
+					"when": "false"
+				},
+				{
+					"command": "haxe.methods.track",
 					"when": "false"
 				},
 				{
