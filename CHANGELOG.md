@@ -29,6 +29,7 @@
 - improved completion to make use of more different / accurate icons <sup>*</sup>
 - improved completion to auto-insert tokens where it makes sense <sup>*</sup>
 - improved completion to auto-insert enum constructor arguments in patterns <sup>*</sup>
+- improved the performance of workspace symbols / avoid hangs on open ([haxe#7056](https://github.com/HaxeFoundation/haxe/issues/7056)) <sup>*</sup>
 - removed dot paths from imported types in hover / completion / signature help <sup>*</sup>
 
 ### 1.12.0 (May 3, 2018)
