@@ -31,11 +31,11 @@ class DependencyExtractor {
         function processLines(lines:Array<HxmlLine>) {
             for (line in lines) {
                 switch (line) {
-                    case Param("-lib", lib):
+                    case Param("-lib" | "-L" | "--library", lib):
                         result.libs.push(lib);
-                    case Param("-cp", cp):
+                    case Param("-cp" | "-p" | "--class-path", cp):
                         result.classPaths.push(cp);
-                    case Param("--cwd", newCwd):
+                    case Param("--cwd" | "-C", newCwd):
                         if (Path.isAbsolute(newCwd)) {
                             cwd = newCwd;
                         } else {

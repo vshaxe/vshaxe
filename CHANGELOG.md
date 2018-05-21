@@ -13,6 +13,7 @@
 - added import settings to `"haxe.codeGeneration"`
 - added a `"haxe.enableSignatureHelpDocumentation"` setting ([#197](https://github.com/vshaxe/vshaxe/issues/197))
 - added Haxe and HXML highlighting in fenced markdown code blocks
+- added dependency explorer support for Haxe 4 style CLI arguments ([haxe#6862](https://github.com/HaxeFoundation/haxe/pull/6862))
 
 **Bugfixes**:
 
