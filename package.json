@@ -542,7 +542,7 @@
 				"configuration": "./configurations/haxe.configuration.json"
 			},
 			{
-				"id": "haxe.hover"
+				"id": "haxe.type"
 			}
 		],
 		"grammars": [
@@ -562,9 +562,9 @@
 				"path": "./syntaxes/haxe.tmLanguage"
 			},
 			{
-				"language": "haxe.hover",
-				"scopeName": "source.hx.hover",
-				"path": "./syntaxes/helper/haxe-hover.tmLanguage"
+				"language": "haxe.type",
+				"scopeName": "source.hx.type",
+				"path": "./syntaxes/helper/haxe-type.tmLanguage"
 			},
 			{
 				"scopeName": "markdown.haxe.codeblock",
