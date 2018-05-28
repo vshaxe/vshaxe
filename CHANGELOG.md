@@ -7,7 +7,7 @@
 - added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358)) <sup>*</sup>
 - added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110)) <sup>*</sup>
 - added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148)) <sup>*</sup>
-- added the origin of class fields to the details of completion items
+- added the origin of class fields to details in completion and hover
 - added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718)) <sup>*</sup>
 - added a "Haxe Methods" tree view to visualize `--times` output <sup>*</sup>
 - added a `"haxe.enableMethodsView"` setting (`false` by default) <sup>*</sup>
@@ -28,6 +28,7 @@
 - improved completion to trigger automatically after certain keywords (e.g. `import`)
 - improved completion to show results with the expected type first ([haxe#6750](https://github.com/HaxeFoundation/haxe/issues/6750)) <sup>*</sup>
 - improved completion to filter results after `implements`, `extends`, `>` and `new` ([haxe#7029](https://github.com/HaxeFoundation/haxe/issues/7029)) <sup>*</sup>
+- improved completion by sorting variables by distance ([haxe#7069](https://github.com/HaxeFoundation/haxe/issues/7069)) <sup>*</sup>
 - improved completion to make use of more different / accurate icons <sup>*</sup>
 - improved completion to auto-insert tokens where it makes sense <sup>*</sup>
 - improved completion to auto-insert enum constructor arguments in patterns <sup>*</sup>
