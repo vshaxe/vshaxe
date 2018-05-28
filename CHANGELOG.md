@@ -7,6 +7,8 @@
 - added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358)) <sup>*</sup>
 - added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110)) <sup>*</sup>
 - added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148)) <sup>*</sup>
+- added `for` and `switch` postfix completion
+- added expected type code generation (object literals)
 - added the origin of locals and fields to completion details and hover
 - added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718)) <sup>*</sup>
 - added a "Haxe Methods" tree view to visualize `--times` output <sup>*</sup>
