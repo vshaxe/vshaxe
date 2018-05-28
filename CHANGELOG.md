@@ -7,7 +7,7 @@
 - added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358)) <sup>*</sup>
 - added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110)) <sup>*</sup>
 - added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148)) <sup>*</sup>
-- added the origin of class fields to details in completion and hover
+- added the origin of class fields to completion details and hover
 - added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718)) <sup>*</sup>
 - added a "Haxe Methods" tree view to visualize `--times` output <sup>*</sup>
 - added a `"haxe.enableMethodsView"` setting (`false` by default) <sup>*</sup>
@@ -22,6 +22,7 @@
 - fixed all cases of completion being triggered after `:` on a `case` ([#112](https://github.com/vshaxe/vshaxe/issues/112)) <sup>*</sup>
 - fixed inconsistent presentation of function types in hover ([#144](https://github.com/vshaxe/vshaxe/issues/144)) <sup>*</sup>
 - fixed signature help not closing when moving outside of the brackets ([#216](https://github.com/vshaxe/vshaxe/issues/216))
+- fixed import code actions not working in some places ([haxe](https://github.com/HaxeFoundation/haxe)[[#5950](https://github.com/HaxeFoundation/haxe/issues/5950), [#5951](https://github.com/HaxeFoundation/haxe/issues/5951)]) <sup>*</sup>
 
 **Changes and Improvements**:
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
