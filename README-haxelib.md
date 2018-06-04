@@ -16,6 +16,7 @@ This is a library providing type definitions for the API of the [Haxe Visual Stu
 
 Right now, the extension API is used by the following extensions:
   - [Lime](https://marketplace.visualstudio.com/items?itemName=openfl.lime-vscode-extension)
+  - [Kha](https://marketplace.visualstudio.com/items?itemName=kodetech.kha)
   - [VSHaxe-Build](https://github.com/vshaxe/vshaxe-build/tree/master/src/vshaxeBuild/extension)
 
 ## Usage
