@@ -1,4 +1,4 @@
-### 2.0.0 (to be released)
+### 2.0.0-preview.1 (to be released)
 
 <sup>*</sup> *requires latest Haxe 4 dev*
 
