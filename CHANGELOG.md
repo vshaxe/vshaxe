@@ -28,6 +28,8 @@
 
 **Changes and Improvements**:
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
+- improved workspace symbols performance / avoid hangs on open ([haxe#7056](https://github.com/HaxeFoundation/haxe/issues/7056)) <sup>*</sup>
+- improved find references to include results from modules that are not compiled ([#96](https://github.com/vshaxe/vshaxe/issues/96)) <sup>*</sup>
 - improved completion to trigger automatically after certain keywords (e.g. `import`)
 - improved completion to show results with the expected type first ([haxe#6750](https://github.com/HaxeFoundation/haxe/issues/6750)) <sup>*</sup>
 - improved completion to filter results after `implements`, `extends`, `>` and `new` ([haxe#7029](https://github.com/HaxeFoundation/haxe/issues/7029)) <sup>*</sup>
@@ -37,7 +39,6 @@
 - improved completion to auto-insert enum constructor arguments in patterns <sup>*</sup>
 - improved completion to allow selecting functions by typing `(` <sup>*</sup>
 - improved completion performance by using VSCode's file watcher for cache invalidation <sup>*</sup>
-- improved workspace symbols performance / avoid hangs on open ([haxe#7056](https://github.com/HaxeFoundation/haxe/issues/7056)) <sup>*</sup>
 - removed dot paths from imported types in hover / completion / signature help <sup>*</sup>
 
 ### 1.12.0 (May 3, 2018)
