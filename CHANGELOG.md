@@ -33,7 +33,8 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - improved completion to auto-insert enum constructor arguments in patterns
 - improved completion to allow selecting functions by typing `(`
 - improved completion performance by using VSCode's file watcher for cache invalidation
-- removed dot paths from imported types in hover / completion / signature help
+- hover hints and completion now include function argument default values ([haxe#5538](https://github.com/HaxeFoundation/haxe/issues/5538#issuecomment-395483219))
+- removed dot paths from imported types in hover hints and completion
 
 ____
 _These changes work with any Haxe version vshaxe is compatible with:_
