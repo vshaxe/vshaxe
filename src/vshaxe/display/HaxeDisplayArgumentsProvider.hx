@@ -196,8 +196,7 @@ private typedef ComplexSettingsConfiguration = {
     var args:Array<String>;
 }
 
-private typedef DisplayConfigurationPickItem = {
-    >QuickPickItem,
+private typedef DisplayConfigurationPickItem = QuickPickItem & {
     var config:Configuration;
 }
 

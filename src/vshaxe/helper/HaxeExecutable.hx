@@ -17,11 +17,10 @@ private typedef HaxeExecutablePathOrConfigBase = EitherType<String,RawHaxeExecut
 
 typedef HaxeExecutablePathOrConfig = EitherType<
     String,
-    {
-        >RawHaxeExecutableConfig,
-        @:optional var windows:RawHaxeExecutableConfig;
-        @:optional var linux:RawHaxeExecutableConfig;
-        @:optional var osx:RawHaxeExecutableConfig;
+    RawHaxeExecutableConfig & {
+        var ?windows:RawHaxeExecutableConfig;
+        var ?linux:RawHaxeExecutableConfig;
+        var ?osx:RawHaxeExecutableConfig;
     }
 >;
 

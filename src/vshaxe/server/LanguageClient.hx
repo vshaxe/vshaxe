@@ -95,9 +95,9 @@ abstract ServerOptions(Dynamic)
 {}
 
 enum abstract TransportKind(Int) {
-    var stdio = 0;
-    var ipc = 1;
-    var pipe = 2;
+    var stdio;
+    var ipc;
+    var pipe;
 }
 
 typedef LanguageClientOptions = {
@@ -154,7 +154,7 @@ typedef StaticFeature = {
      *
      * @param params the initialize params.
      */
-    @:optional var fillInitializeParams:(params:InitializeParams)->Void;
+    var ?fillInitializeParams:(params:InitializeParams)->Void;
 
     /**
      * Called to fill in the client capabilities this feature implements.
@@ -187,7 +187,7 @@ typedef DynamicFeature<T> = {
      *
      * @param params the initialize params.
      */
-    @:optional var fillInitializeParams:(params:InitializeParams)->Void;
+    var ?fillInitializeParams:(params:InitializeParams)->Void;
 
     /**
      * Called to fill in the client capabilities this feature implements.
