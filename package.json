@@ -392,6 +392,11 @@
                                             "description": "Whether to include type hints for arguments",
                                             "type": "boolean",
                                             "default": true
+                                        },
+                                        "placeOpenBraceOnNewLine": {
+                                            "description": "Whether to place { in a new line",
+                                            "type": "boolean",
+                                            "default": false
                                         }
                                     }
                                 }

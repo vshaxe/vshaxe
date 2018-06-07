@@ -10,7 +10,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - added `for`, `if` and `switch` postfix completion
 - added expected type code generation (object literals)
 - added the origin of locals and fields to completion details and hover
-- added support for override generation after `override |` ([#92](https://github.com/vshaxe/vshaxe/issues/92))
+- added support for override generation on `override |` ([#92](https://github.com/vshaxe/vshaxe/issues/92))
 - added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718))
 - added a "Haxe Methods" tree view to visualize `--times` output
 - added a `"haxe.enableMethodsView"` setting (`false` by default)
