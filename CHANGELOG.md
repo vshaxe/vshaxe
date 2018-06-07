@@ -7,7 +7,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358))
 - added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110))
 - added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148))
-- added `for`, `if` and `switch` postfix completion
+- added `for`, `if`, `int` and `switch` postfix completion
 - added expected type code generation (object literals)
 - added the origin of locals and fields to completion details and hover
 - added support for override generation on `override |` ([#92](https://github.com/vshaxe/vshaxe/issues/92))
