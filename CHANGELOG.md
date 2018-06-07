@@ -1,18 +1,45 @@
 ### 2.0.0-preview.1 (to be released)
 
-<sup>*</sup> *requires latest Haxe 4 dev*
+_The following features, fixes and improvements **require Haxe 4.0.0-preview.4:**_
 
 **New Features**:
 
-- added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358)) <sup>*</sup>
-- added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110)) <sup>*</sup>
-- added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148)) <sup>*</sup>
-- added `for`, `if` and `switch` postfix completion <sup>*</sup>
-- added expected type code generation (object literals) <sup>*</sup>
-- added the origin of locals and fields to completion details and hover <sup>*</sup>
-- added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718)) <sup>*</sup>
-- added a "Haxe Methods" tree view to visualize `--times` output <sup>*</sup>
-- added a `"haxe.enableMethodsView"` setting (`false` by default) <sup>*</sup>
+- added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358))
+- added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110))
+- added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148))
+- added `for`, `if` and `switch` postfix completion
+- added expected type code generation (object literals)
+- added the origin of locals and fields to completion details and hover
+- added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718))
+- added a "Haxe Methods" tree view to visualize `--times` output
+- added a `"haxe.enableMethodsView"` setting (`false` by default)
+
+**Bugfixes**:
+
+- fixed all cases of completion being triggered after `:` on a `case` ([#112](https://github.com/vshaxe/vshaxe/issues/112))
+- fixed inconsistent presentation of function types in hover ([#144](https://github.com/vshaxe/vshaxe/issues/144))
+- fixed signature help not closing when moving outside of the brackets ([#216](https://github.com/vshaxe/vshaxe/issues/216))
+- fixed import code actions not working in some places ([haxe](https://github.com/HaxeFoundation/haxe)[[#5950](https://github.com/HaxeFoundation/haxe/issues/5950), [#5951](https://github.com/HaxeFoundation/haxe/issues/5951)])
+
+**Changes and Improvements**:
+
+- improved workspace symbols performance / avoid hangs on open ([haxe#7056](https://github.com/HaxeFoundation/haxe/issues/7056))
+- improved find references to include results from modules that are not compiled ([#96](https://github.com/vshaxe/vshaxe/issues/96))
+- improved completion to show results with the expected type first ([haxe#6750](https://github.com/HaxeFoundation/haxe/issues/6750))
+- improved completion to filter results after `implements`, `extends`, `>` and `new` ([haxe#7029](https://github.com/HaxeFoundation/haxe/issues/7029))
+- improved completion by sorting variables by distance ([haxe#7069](https://github.com/HaxeFoundation/haxe/issues/7069))
+- improved completion to make use of more different / accurate icons
+- improved completion to auto-insert tokens where it makes sense
+- improved completion to auto-insert enum constructor arguments in patterns
+- improved completion to allow selecting functions by typing `(`
+- improved completion performance by using VSCode's file watcher for cache invalidation
+- removed dot paths from imported types in hover / completion / signature help
+
+____
+_These changes work with any Haxe version vshaxe is compatible with:_
+
+**New Features**:
+
 - added import settings to `"haxe.codeGeneration"`
 - added a `"haxe.enableSignatureHelpDocumentation"` setting ([#197](https://github.com/vshaxe/vshaxe/issues/197))
 - added Haxe and HXML highlighting in fenced markdown code blocks
@@ -21,25 +48,11 @@
 **Bugfixes**:
 
 - fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#40](https://github.com/vshaxe/haxe-TmLanguage/issues/40), [#41](https://github.com/vshaxe/haxe-TmLanguage/issues/41)])
-- fixed all cases of completion being triggered after `:` on a `case` ([#112](https://github.com/vshaxe/vshaxe/issues/112)) <sup>*</sup>
-- fixed inconsistent presentation of function types in hover ([#144](https://github.com/vshaxe/vshaxe/issues/144)) <sup>*</sup>
-- fixed signature help not closing when moving outside of the brackets ([#216](https://github.com/vshaxe/vshaxe/issues/216))
-- fixed import code actions not working in some places ([haxe](https://github.com/HaxeFoundation/haxe)[[#5950](https://github.com/HaxeFoundation/haxe/issues/5950), [#5951](https://github.com/HaxeFoundation/haxe/issues/5951)]) <sup>*</sup>
 
 **Changes and Improvements**:
-- changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
-- improved workspace symbols performance / avoid hangs on open ([haxe#7056](https://github.com/HaxeFoundation/haxe/issues/7056)) <sup>*</sup>
-- improved find references to include results from modules that are not compiled ([#96](https://github.com/vshaxe/vshaxe/issues/96)) <sup>*</sup>
+
 - improved completion to trigger automatically after certain keywords (e.g. `import`)
-- improved completion to show results with the expected type first ([haxe#6750](https://github.com/HaxeFoundation/haxe/issues/6750)) <sup>*</sup>
-- improved completion to filter results after `implements`, `extends`, `>` and `new` ([haxe#7029](https://github.com/HaxeFoundation/haxe/issues/7029)) <sup>*</sup>
-- improved completion by sorting variables by distance ([haxe#7069](https://github.com/HaxeFoundation/haxe/issues/7069)) <sup>*</sup>
-- improved completion to make use of more different / accurate icons <sup>*</sup>
-- improved completion to auto-insert tokens where it makes sense <sup>*</sup>
-- improved completion to auto-insert enum constructor arguments in patterns <sup>*</sup>
-- improved completion to allow selecting functions by typing `(` <sup>*</sup>
-- improved completion performance by using VSCode's file watcher for cache invalidation <sup>*</sup>
-- removed dot paths from imported types in hover / completion / signature help <sup>*</sup>
+- changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
 
 ### 1.12.0 (May 3, 2018)
 
