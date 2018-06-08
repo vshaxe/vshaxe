@@ -571,6 +571,9 @@
             },
             {
                 "id": "haxe.type"
+            },
+            {
+                "id": "haxe.argument"
             }
         ],
         "grammars": [
@@ -593,6 +596,11 @@
                 "language": "haxe.type",
                 "scopeName": "source.hx.type",
                 "path": "./syntaxes/helper/haxe-type.tmLanguage"
+            },
+            {
+                "language": "haxe.argument",
+                "scopeName": "source.hx.argument",
+                "path": "./syntaxes/helper/haxe-argument.tmLanguage"
             },
             {
                 "scopeName": "markdown.haxe.codeblock",
