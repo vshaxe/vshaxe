@@ -37,7 +37,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - improved completion to allow selecting functions by typing `(`
 - improved completion performance by using VSCode's file watcher for cache invalidation
 - hover hints and completion now include default values ([haxe](https://github.com/HaxeFoundation/haxe)[[#5538](https://github.com/HaxeFoundation/haxe/issues/5538#issuecomment-395483219), [#7147](https://github.com/HaxeFoundation/haxe/issues/7147)])
-- hover hints and completion now show the full declaration for class fields
+- hover hints and completion now show the full declaration for class fields and locals
 - removed dot paths from imported types in hover hints and completion
 
 ____
