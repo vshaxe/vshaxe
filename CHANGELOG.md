@@ -8,7 +8,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110))
 - added keywords to completion ([#148](https://github.com/vshaxe/vshaxe/issues/148))
 - added `for`, `if`, `int` and `switch` postfix completion
-- added expected type code generation (object literals)
+- added "expected type completion" (to generate object literals and anon functions)
 - added the origin of locals and fields to completion details and hover
 - added support for override generation on `override |` ([#92](https://github.com/vshaxe/vshaxe/issues/92))
 - added support for goto definition on `override` ([haxe#5718](https://github.com/HaxeFoundation/haxe/issues/5718))
@@ -23,6 +23,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - fixed inconsistent presentation of function types in hover ([#144](https://github.com/vshaxe/vshaxe/issues/144))
 - fixed signature help not closing when moving outside of the brackets ([#216](https://github.com/vshaxe/vshaxe/issues/216))
 - fixed import code actions not working in some places ([haxe](https://github.com/HaxeFoundation/haxe)[[#5950](https://github.com/HaxeFoundation/haxe/issues/5950), [#5951](https://github.com/HaxeFoundation/haxe/issues/5951)])
+- fixed function generation not working with aliased function types ([#103](https://github.com/vshaxe/vshaxe/issues/103))
 
 **Changes and Improvements**:
 
@@ -39,6 +40,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - hover hints and completion now include default values ([haxe](https://github.com/HaxeFoundation/haxe)[[#5538](https://github.com/HaxeFoundation/haxe/issues/5538#issuecomment-395483219), [#7147](https://github.com/HaxeFoundation/haxe/issues/7147)])
 - hover hints and completion now show the full declaration for fields and locals
 - removed dot paths from imported types in hover hints and completion
+- removed support for generating functions with a code action (now uses regular completion)
 
 ____
 _These changes work with any Haxe version vshaxe is compatible with:_
