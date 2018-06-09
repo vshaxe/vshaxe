@@ -19,7 +19,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - added syntax highlighting support for intersection types ([HXP-0004](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0004-intersection-types.md))
 - added syntax highlighting support for qualified metadata ([haxe#3959](https://github.com/HaxeFoundation/haxe/issues/3959))
 - added syntax highlighting support for `var ?x:Int` syntax ([haxe#6707](https://github.com/HaxeFoundation/haxe/issues/6707))
-- added dependency explorer support for Haxe 4 style CLI arguments ([haxe#6862](https://github.com/HaxeFoundation/haxe/pull/6862))
+- added support for Haxe 4 style CLI arguments ([haxe#6862](https://github.com/HaxeFoundation/haxe/pull/6862))
 
 **Bugfixes**:
 
