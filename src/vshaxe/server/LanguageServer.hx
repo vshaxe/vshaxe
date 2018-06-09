@@ -75,6 +75,7 @@ class LanguageServer {
             initializationOptions: {
                 displayArguments: displayArguments.arguments,
                 displayServerConfig: displayServerConfig,
+                sendMethodResults: true
             },
             revealOutputChannelOn: Never,
             workspaceFolder: folder,
