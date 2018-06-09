@@ -407,6 +407,11 @@
                                             "description": "Whether to include the private visibility modifier even if it can be omitted",
                                             "type": "boolean",
                                             "default": false
+                                        },
+                                        "explicitNull": {
+                                            "description": "Whether to include wrap types in Null<T> even if it can be omitted (for optional arguments with `?`)",
+                                            "type": "boolean",
+                                            "default": false
                                         }
                                     }
                                 }
