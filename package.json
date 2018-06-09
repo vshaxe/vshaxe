@@ -397,6 +397,16 @@
                                             "description": "Whether to place { in a new line",
                                             "type": "boolean",
                                             "default": false
+                                        },
+                                        "explicitPublic": {
+                                            "description": "Whether to include the public visibility modifier even if it can be omitted",
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "explicitPrivate": {
+                                            "description": "Whether to include the private visibility modifier even if it can be omitted",
+                                            "type": "boolean",
+                                            "default": false
                                         }
                                     }
                                 }
