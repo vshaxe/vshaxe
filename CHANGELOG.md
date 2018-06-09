@@ -16,6 +16,8 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - added a `"haxe.enableMethodsView"` setting (`false` by default)
 - added `"imports"` settings to `"haxe.codeGeneration"`
 - added `"functions.field"` settings to `"haxe.codeGeneration"`
+- added syntax highlighting support for type intersections ([HXP-0004](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0004-intersection-types.md))
+- added dependency explorer support for Haxe 4 style CLI arguments ([haxe#6862](https://github.com/HaxeFoundation/haxe/pull/6862))
 
 **Bugfixes**:
 
@@ -49,7 +51,6 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 - added a `"haxe.enableSignatureHelpDocumentation"` setting ([#197](https://github.com/vshaxe/vshaxe/issues/197))
 - added Haxe and HXML highlighting in fenced markdown code blocks
-- added dependency explorer support for Haxe 4 style CLI arguments ([haxe#6862](https://github.com/HaxeFoundation/haxe/pull/6862))
 
 **Bugfixes**:
 
