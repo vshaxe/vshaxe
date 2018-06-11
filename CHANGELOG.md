@@ -59,6 +59,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 - fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#40](https://github.com/vshaxe/haxe-TmLanguage/issues/40), [#41](https://github.com/vshaxe/haxe-TmLanguage/issues/41)])
 - fixed files sometimes being opened twice with different cases on Windows
+- fixed the treatment of missing properties in `"haxe.codeGeneration"`
 
 **Changes and Improvements**:
 

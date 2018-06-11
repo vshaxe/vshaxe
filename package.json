@@ -369,6 +369,11 @@
                                             "description": "Whether to use arrow function syntax (Haxe 4+)",
                                             "type": "boolean",
                                             "default": true
+                                        },
+                                        "explicitNull": {
+                                            "description": "Whether to include wrap types in Null<T> even if it can be omitted (for optional arguments with `?`)",
+                                            "type": "boolean",
+                                            "default": false
                                         }
                                     }
                                 },
