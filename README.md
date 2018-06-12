@@ -7,7 +7,7 @@ leveraging the [Haxe Language Server](https://github.com/vshaxe/haxe-languageser
 
 ### [**Click here for install instructions.**](https://github.com/vshaxe/vshaxe/wiki/Installation)
 
-![demo](images/demo.gif)
+![demo](images/demo2.gif)
 
 ## Features
 
