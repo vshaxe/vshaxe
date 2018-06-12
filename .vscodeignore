@@ -4,12 +4,12 @@
 !server/bin/server.js
 !configurations/*
 !images/demo.gif
+!images/demo2.gif
 !images/haxe-logo.png
 !node_modules/**/*
 !resources/**/*
 !scaffold/**/*
-!syntaxes/haxe.tmLanguage
-!syntaxes/hxml.tmLanguage
+!syntaxes/**/*.tmLanguage
 !CHANGELOG.md
 !LICENSE.md
 !package.json
