@@ -1,4 +1,4 @@
-### 2.0.0-preview.1 (June 12, 2018)
+### 2.0.0 (June 12, 2018)
 
 _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:**_
 
