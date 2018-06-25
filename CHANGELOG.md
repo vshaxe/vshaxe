@@ -1,3 +1,9 @@
+### 2.1.0 (to be released)
+
+**New Features**:
+
+- added a code action to generate `Std.int()` on "Float should be Int" errors
+
 ### 2.0.1 (June 12, 2018)
 
 **Bugfixes**:
