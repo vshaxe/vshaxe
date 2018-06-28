@@ -4,6 +4,10 @@
 
 - added a code action to generate `Std.int()` on "Float should be Int" errors
 
+**Changes and Improvements**:
+
+- improved completion to allow selecting metadata by typing `(`
+
 ### 2.0.1 (June 12, 2018)
 
 **Bugfixes**:
