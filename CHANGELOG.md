@@ -7,6 +7,7 @@
 **Changes and Improvements**:
 
 - improved completion to allow selecting metadata by typing `(`
+- monomorphs in function args and returns are no longer printed ([#244](https://github.com/vshaxe/vshaxe/issues/244))
 
 ### 2.0.1 (June 12, 2018)
 
