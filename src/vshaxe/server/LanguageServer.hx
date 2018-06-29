@@ -198,6 +198,10 @@ class LanguageServer {
         client.sendNotification("haxe/runGlobalDiagnostics");
     }
 
+    public inline function runMethod(method:String) {
+        client.sendNotification("haxe/runMethod", {method: method});
+    }
+
     function onDidRunGlobalDiangostics(_) {
         commands.executeCommand("workbench.action.problems.focus");
     }
