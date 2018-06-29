@@ -4,6 +4,10 @@
 
 - added a code action to generate `Std.int()` on "Float should be Int" errors
 
+**Bugfixes**:
+
+- fixed imports in override generation being duplicated ([#257](https://github.com/vshaxe/vshaxe/issues/257))
+
 **Changes and Improvements**:
 
 - improved completion to allow selecting metadata by typing `(`
