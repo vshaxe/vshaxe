@@ -198,8 +198,8 @@ class LanguageServer {
         client.sendNotification("haxe/runGlobalDiagnostics");
     }
 
-    public inline function runMethod(method:String) {
-        client.sendNotification("haxe/runMethod", {method: method});
+    public inline function runMethod(method:String, params:Any) {
+        client.sendNotification("haxe/runMethod", {method: method, params: params});
     }
 
     function onDidRunGlobalDiangostics(_) {
