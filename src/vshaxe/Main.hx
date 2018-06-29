@@ -19,6 +19,8 @@ class Main {
     var api:Vshaxe;
 
     function new(context:ExtensionContext) {
+        new InitProject(context);
+
         var wsFolder = if (workspace.workspaceFolders == null) null else workspace.workspaceFolders[0];
         if (wsFolder == null)
             return; // TODO: look into this - we could support _some_ nice functionality (e.g. std lib completion or --interp task)
@@ -51,7 +53,6 @@ class Main {
 
         new HaxeCodeLensProvider();
         new Commands(context, server);
-        new InitProject(context);
         new DependencyTreeView(context, displayArguments, haxeExecutable);
         new MethodTreeView(context, server);
         new DisplayArgumentsSelector(context, displayArguments);

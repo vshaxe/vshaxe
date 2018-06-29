@@ -14,7 +14,15 @@ class InitProject {
     function initProject() {
         switch workspace.workspaceFolders {
             case null | []:
-                window.showErrorMessage("Please open a folder to set up a Haxe project into");
+                window.showOpenDialog({
+                    canSelectFolders: true,
+                    canSelectFiles: false
+                }).then(folders -> {
+                    if (folders != null && folders.length > 0) {
+                        setupFolder(folders[0].fsPath);
+                        commands.executeCommand("vscode.openFolder", folders[0]);
+                    }
+                });
             case [folder]:
                 setupFolder(folder.uri.fsPath);
             case folders:
