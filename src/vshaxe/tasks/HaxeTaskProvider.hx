@@ -12,7 +12,7 @@ class HaxeTaskProvider {
         this.taskConfiguration = taskConfiguration;
         this.displayArguments = displayArguments;
         this.haxeDisplayArgumentsProvider = haxeDisplayArgumentsProvider;
-        workspace.registerTaskProvider("haxe", this);
+        tasks.registerTaskProvider("haxe", this);
     }
 
     public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {

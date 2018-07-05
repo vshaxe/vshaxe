@@ -7,7 +7,7 @@ class HxmlTaskProvider {
     public function new(taskConfiguration, hxmlDiscovery) {
         this.taskConfiguration = taskConfiguration;
         this.hxmlDiscovery = hxmlDiscovery;
-        workspace.registerTaskProvider("hxml", this);
+        tasks.registerTaskProvider("hxml", this);
     }
 
     public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
