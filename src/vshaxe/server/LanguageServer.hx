@@ -65,7 +65,6 @@ class LanguageServer {
             run: {module: serverModulePath, options: {env: js.Node.process.env}},
             debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6004"]}}
         };
-
         var clientOptions:LanguageClientOptions = {
             documentSelector: "haxe",
             synchronize: {
@@ -79,6 +78,17 @@ class LanguageServer {
             },
             revealOutputChannelOn: Never,
             workspaceFolder: folder,
+            middleware: {
+                // TODO: do this properly in the Language Server once supported (https://github.com/Microsoft/language-server-protocol/issues/500)
+                handleDiagnostics: (uri, diagnostics, next) -> {
+                    for (diagnostic in diagnostics) {
+                        if (diagnostic.message.indexOf("has no effect") != -1 || diagnostic.message == "Unused import/using" || diagnostic.message == "Unused variable") {
+                            diagnostic.tags = [Unnecessary];
+                        }
+                    }
+                    next(uri, diagnostics);
+                }
+            }
         };
 
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);

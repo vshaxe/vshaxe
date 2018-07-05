@@ -3,6 +3,7 @@
 **New Features**:
 
 - added a code action to generate `Std.int()` on "Float should be Int" errors
+- added support for fading out unused code
 
 **Bugfixes**:
 
