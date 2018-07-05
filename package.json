@@ -55,7 +55,7 @@
     ],
     "contributes": {
         "configuration": {
-            "title": "Haxe configuration",
+            "title": "Haxe",
             "properties": {
                 "haxe.executable": {
                     "scope": "resource",
