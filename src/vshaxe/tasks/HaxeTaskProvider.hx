@@ -33,7 +33,4 @@ class HaxeTaskProvider {
     }
 }
 
-private typedef HaxeTaskDefinition = {
-    > TaskDefinition,
-    args:String
-}
+private typedef HaxeTaskDefinition = TaskDefinition & {args:String};

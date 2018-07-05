@@ -261,7 +261,8 @@
                         "echo": true,
                         "reveal": "always",
                         "focus": false,
-                        "panel": "shared"
+                        "panel": "shared",
+                        "showReuseMessage": true
                     },
                     "additionalProperties": false,
                     "properties": {
@@ -299,6 +300,11 @@
                                 "dedicated",
                                 "new"
                             ]
+                        },
+                        "showReuseMessage": {
+                            "description": "Controls whether to show the `Terminal will be reused by tasks, press any key to close it` message.",
+                            "type": "boolean",
+                            "default": true
                         }
                     }
                 },

@@ -14,6 +14,7 @@
 - changed the required VSCode version to 1.25.0
 - improved completion to allow selecting metadata by typing `(`
 - improved the init project command to work without a workspace folder ([#225](https://github.com/vshaxe/vshaxe/issues/225))
+- support the new `showReuseMessage` option in `"haxe.taskPresentation"`
 - monomorphs in function args and returns are no longer printed ([#244](https://github.com/vshaxe/vshaxe/issues/244))
 
 ### 2.0.1 (June 12, 2018)

@@ -25,7 +25,4 @@ class HxmlTaskProvider {
     }
 }
 
-private typedef HaxeTaskDefinition = {
-    > TaskDefinition,
-    file:String
-}
+private typedef HaxeTaskDefinition = TaskDefinition & {file:String};
