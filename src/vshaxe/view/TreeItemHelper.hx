@@ -6,8 +6,4 @@ class TreeItemHelper {
             item.collapsibleState = Collapsed;
         }
     }
-
-    public static function toggleState(item:TreeItem) {
-        item.collapsibleState = if (item.collapsibleState == Collapsed) Expanded else Collapsed;
-    }
 }

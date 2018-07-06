@@ -31,7 +31,7 @@ class DependencyTreeView {
         window.registerTreeDataProvider("haxe.dependencies", this);
         context.registerHaxeCommand(RefreshDependencies, refresh);
         context.registerHaxeCommand(CollapseDependencies, collapseAll);
-        context.registerHaxeCommand(Dependencies_SelectNode, selectNode);
+        context.registerHaxeCommand(Dependencies_OpenTextDocument, openTextDocument);
         context.registerHaxeCommand(Dependencies_Refresh, refresh);
         context.registerHaxeCommand(Dependencies_CollapseAll, collapseAll);
         context.registerHaxeCommand(Dependencies_OpenPreview, openPreview);
@@ -149,15 +149,6 @@ class DependencyTreeView {
     }
 
     public final getParent = null;
-
-    function selectNode(node:Node) {
-        if (node.isDirectory) {
-            node.toggleState();
-            _onDidChangeTreeData.fire();
-        } else {
-            openTextDocument(node);
-        }
-    }
 
     function openTextDocument(node:Node) {
         var currentTime = Date.now().getTime();

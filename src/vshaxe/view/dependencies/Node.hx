@@ -32,13 +32,12 @@ class Node extends TreeItem {
             contextValue = "folder";
         } else {
             contextValue = "file." + Path.extension(path);
+            command = {
+                command: Dependencies_OpenTextDocument,
+                arguments: [this],
+                title: "Open File"
+            };
         }
-
-        command = {
-            command: Dependencies_SelectNode,
-            arguments: [this],
-            title: "Open File"
-        };
     }
 
     inline function get_isDirectory():Bool {
