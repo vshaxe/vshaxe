@@ -2,8 +2,9 @@
 
 **New Features**:
 
-- added a code action to generate `Std.int()` on "Float should be Int" errors
 - added support for fading out unused code
+- added `"explorer.autoReveal"` support to the dependency explorer ([#152](https://github.com/vshaxe/vshaxe/issues/152))
+- added a code action to generate `Std.int()` on "Float should be Int" errors
 
 **Bugfixes**:
 

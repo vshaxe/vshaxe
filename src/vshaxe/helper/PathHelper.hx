@@ -19,4 +19,24 @@ class PathHelper {
         segments.shift();
         return segments.join(cwd);
     }
+
+    public static function containsFile(directory:String, file:String):Bool {
+        directory = Path.normalize(directory) + "/";
+        var fileDirectory = Path.normalize(Path.directory(file)) + "/";
+
+        if (Sys.systemName() == "Windows") {
+            directory = directory.toLowerCase();
+            fileDirectory = fileDirectory.toLowerCase();
+        }
+
+        return fileDirectory.startsWith(directory);
+    }
+
+    public static function areEqual(path1:String, path2:String):Bool {
+        if (Sys.systemName() == "Windows") {
+            path1 = path1.toLowerCase();
+            path2 = path2.toLowerCase();
+        }
+        return Path.normalize(path1) == Path.normalize(path2);
+    }
 }

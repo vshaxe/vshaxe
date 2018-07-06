@@ -6,16 +6,20 @@ import vshaxe.view.dependencies.Node;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.CopyPaste;
 import vshaxe.helper.HaxeExecutable;
+import vshaxe.helper.PathHelper;
 
 class DependencyTreeView {
-    var context:ExtensionContext;
+    final context:ExtensionContext;
+    final haxeExecutable:HaxeExecutable;
+    final view:TreeView<Node>;
+
     var displayArguments:Array<String>;
-    var haxeExecutable:HaxeExecutable;
     var relevantHxmls:Array<String> = [];
     var dependencyNodes:Array<Node> = [];
     var dependencies:DependencyList;
     var refreshNeeded:Bool = true;
     var previousSelection:{node:Node, time:Float};
+    var autoRevealEnabled:Bool = false;
 
     var _onDidChangeTreeData = new EventEmitter<Node>();
 
@@ -25,10 +29,11 @@ class DependencyTreeView {
         this.context = context;
         this.displayArguments = displayArguments.arguments;
         this.haxeExecutable = haxeExecutable;
-        displayArguments.onDidChangeArguments(onDidChangeDisplayArguments);
 
         onDidChangeTreeData = _onDidChangeTreeData.event;
         window.registerTreeDataProvider("haxe.dependencies", this);
+        view = window.createTreeView("haxe.dependencies", {treeDataProvider: this});
+
         context.registerHaxeCommand(RefreshDependencies, refresh);
         context.registerHaxeCommand(CollapseDependencies, collapseAll);
         context.registerHaxeCommand(Dependencies_OpenTextDocument, openTextDocument);
@@ -47,6 +52,12 @@ class DependencyTreeView {
         context.subscriptions.push(hxmlFileWatcher);
 
         context.subscriptions.push(haxeExecutable.onDidChangeConfiguration(_ -> refresh()));
+        context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateAutoReveal()));
+        context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
+        context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> autoReveal()));
+        context.subscriptions.push(view.onDidChangeVisibility(_ -> autoReveal()));
+
+        updateAutoReveal();
     }
 
     function onDidChangeHxml(uri:Uri) {
@@ -125,6 +136,29 @@ class DependencyTreeView {
         refresh();
     }
 
+    function updateAutoReveal() {
+        autoRevealEnabled = workspace.getConfiguration("explorer").get("autoReveal");
+    }
+
+    function autoReveal() {
+        var editor = window.activeTextEditor;
+        if (editor == null || !view.visible || !autoRevealEnabled) {
+            return;
+        }
+
+        function loop(nodes:Array<Node>) {
+            for (node in nodes) {
+                if (node.isDirectory && PathHelper.containsFile(node.path, editor.document.fileName)) {
+                    loop(node.children);
+                } else if (PathHelper.areEqual(node.path, editor.document.fileName)) {
+                    view.reveal(node, {select: true});
+                    break;
+                }
+            }
+        }
+        loop(dependencyNodes);
+    }
+
     function refresh(hard:Bool = true) {
         if (hard) {
             dependencies = null;
@@ -148,7 +182,9 @@ class DependencyTreeView {
         return if (node == null) dependencyNodes else node.children;
     }
 
-    public final getParent = null;
+    public final getParent = function(node:Node) {
+        return node.parent;
+    }
 
     function openTextDocument(node:Node) {
         var currentTime = Date.now().getTime();

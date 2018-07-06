@@ -12,14 +12,16 @@ enum NodeType {
 }
 
 class Node extends TreeItem {
-    public var path(default,null):String;
-    public var type(default,null):NodeType;
+    public final parent:Null<Node>;
+    public final path:String;
+    public final type:NodeType;
     public var isDirectory(get,never):Bool;
     public var children(get,null):Array<Node>;
 
-    public function new(label:String, path:String, ?type:NodeType) {
+    public function new(?parent:Node, label:String, path:String, ?type:NodeType) {
         super(label);
         resourceUri = Uri.file(path);
+        this.parent = parent;
         this.path = path;
         this.type = type;
 
@@ -82,7 +84,7 @@ class Node extends TreeItem {
                 existingNode.refresh();
                 newChildren.push(existingNode);
             } else {
-                newChildren.push(new Node(file, path));
+                newChildren.push(new Node(this, file, path));
             }
         });
         sort(newChildren);
@@ -102,7 +104,7 @@ class Node extends TreeItem {
         }
 
         var children = [];
-        forEachChild((file, path) -> children.push(new Node(file, path)));
+        forEachChild((file, path) -> children.push(new Node(this, file, path)));
         sort(children);
         return children;
     }
