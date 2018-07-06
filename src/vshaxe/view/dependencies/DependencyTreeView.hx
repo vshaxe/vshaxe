@@ -161,12 +161,6 @@ class DependencyTreeView {
     function collapseAll(node:Node) {
         for (node in dependencyNodes) {
             node.collapse();
-            // ugly workaround for https://github.com/Microsoft/vscode/issues/30918
-            if (node.label.endsWith(" ")) {
-                node.label = node.label.rtrim();
-            } else {
-                node.label += " ";
-            }
         }
         _onDidChangeTreeData.fire();
     }

@@ -94,12 +94,6 @@ class MethodTreeView {
     function collapseAll() {
         for (timer in methods) {
             timer.collapse();
-            // ugly workaround for https://github.com/Microsoft/vscode/issues/30918
-            if (timer.id.endsWith(" ")) {
-                timer.id = timer.id.rtrim();
-            } else {
-                timer.id += " ";
-            }
         }
         _onDidChangeTreeData.fire();
     }
