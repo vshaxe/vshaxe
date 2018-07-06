@@ -17,8 +17,8 @@ typedef DependencyInfo = {
 }
 
 class DependencyResolver {
-    static var _haxelibRepo:String;
-    static var haxelibRepo(get, never):String;
+    static var _haxelibRepo:Null<String>;
+    static var haxelibRepo(get, never):Null<String>;
 
     public static function resolveDependencies(dependencies:DependencyList, haxeExecutable:HaxeExecutable):Array<DependencyInfo> {
         var paths = [];
@@ -28,20 +28,25 @@ class DependencyResolver {
         paths = paths.concat(dependencies.classPaths);
         paths = pruneSubdirectories(paths);
 
-        var infos = paths.map(getDependencyInfo).filter(info -> info != null);
-
-        // std lib needs to be handled separately
+        var infos = [];
+        if (haxelibRepo != null) {
+            infos = paths.map(getDependencyInfo).filter(info -> info != null);
+        }
         var stdLibPath = getStandardLibraryPath(haxeExecutable.configuration);
         if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
             infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configuration.executable));
         }
-
         return infos;
     }
 
     static function get_haxelibRepo():String {
         if (_haxelibRepo == null) {
-            _haxelibRepo = Path.normalize(getProcessOutput("haxelib config")[0]);
+            var output = getProcessOutput("haxelib config")[0];
+            if (output == null) {
+                trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
+            } else {
+                _haxelibRepo = Path.normalize(output);
+            }
         }
         return _haxelibRepo;
     }
