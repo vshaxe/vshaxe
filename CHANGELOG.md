@@ -8,6 +8,7 @@
 **Bugfixes**:
 
 - fixed imports in override generation being duplicated ([#257](https://github.com/vshaxe/vshaxe/issues/257))
+- fixed compilation through the server for HXML files with `--next` ([#262](https://github.com/vshaxe/vshaxe/issues/262))
 
 **Changes and Improvements**:
 

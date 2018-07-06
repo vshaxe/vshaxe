@@ -56,7 +56,7 @@ class TaskConfiguration {
     public function createTask(definition:TaskDefinition, name:String, args:Array<String>):Task {
         var exectuable = haxeExecutable.configuration.executable;
         if (server.displayPort != null && enableCompilationServer) {
-            args = args.concat(["--connect", Std.string(server.displayPort)]);
+            args = ["--connect", Std.string(server.displayPort)].concat(args);
         }
         var execution = new ProcessExecution(exectuable, args, {env: haxeExecutable.configuration.env});
         var task = new Task(definition, name, "haxe", execution, problemMatchers);
