@@ -529,6 +529,13 @@
                             }
                         }
                     }
+                },
+                "haxe.exclude": {
+                    "description": "A list of dot paths (packages, modules, types) to hide from code completion.",
+                    "type": "array",
+                    "default": [
+                        "zpp_nape"
+                    ]
                 }
             }
         },

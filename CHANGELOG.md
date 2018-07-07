@@ -6,6 +6,7 @@
 - added `"explorer.autoReveal"` support to the dependency explorer ([#152](https://github.com/vshaxe/vshaxe/issues/152))
 - added a code action to generate `Std.int()` on "Float should be Int" errors
 - added `"print"` options to the `"haxe.displayServer"` setting ([#240](https://github.com/vshaxe/vshaxe/issues/240))
+- added a `"haxe.exclude"` setting to hide certain dot paths from completion ([#234](https://github.com/vshaxe/vshaxe/issues/234))
 
 **Bugfixes**:
 
