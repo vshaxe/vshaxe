@@ -231,6 +231,80 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "print": {
+                            "description": "Which debug output to print to the Haxe output channel. With \"-v\", all flags default to true, and without it to false. Setting a flag here overrides the default. Only works with Haxe 4.0.0-preview.4 or newer.",
+                            "type": "object",
+                            "default": {
+                                "completion": false,
+                                "reusing": false
+                            },
+                            "additionalProperties": false,
+                            "properties": {
+                                "addedDirectory": {
+                                    "type": "boolean"
+                                },
+                                "foundDirectories": {
+                                    "type": "boolean"
+                                },
+                                "changedDirectories": {
+                                    "type": "boolean"
+                                },
+                                "modulePathChanged": {
+                                    "type": "boolean"
+                                },
+                                "notCached": {
+                                    "type": "boolean"
+                                },
+                                "parsed": {
+                                    "type": "boolean"
+                                },
+                                "removedDirectory": {
+                                    "type": "boolean"
+                                },
+                                "reusing": {
+                                    "type": "boolean"
+                                },
+                                "skippingDep": {
+                                    "type": "boolean"
+                                },
+                                "unchangedContent": {
+                                    "type": "boolean"
+                                },
+                                "cachedModules": {
+                                    "type": "boolean"
+                                },
+                                "arguments": {
+                                    "type": "boolean"
+                                },
+                                "completion": {
+                                    "type": "boolean"
+                                },
+                                "defines": {
+                                    "type": "boolean"
+                                },
+                                "signature": {
+                                    "type": "boolean"
+                                },
+                                "displayPosition": {
+                                    "type": "boolean"
+                                },
+                                "stats": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "boolean"
+                                },
+                                "socketMessage": {
+                                    "type": "boolean"
+                                },
+                                "uncaughtError": {
+                                    "type": "boolean"
+                                },
+                                "newContext": {
+                                    "type": "boolean"
+                                }
+                            }
                         }
                     }
                 },

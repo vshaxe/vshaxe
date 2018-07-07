@@ -19,7 +19,7 @@ class LanguageServer {
     var client:LanguageClient;
     var restartDisposables:Array<{ function dispose():Void; }>;
     var progresses = new Map<Int,Void->Void>();
-    var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>};
+    var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>, print:{}};
     var displayServerConfigSerialized:String;
     final _onDidRunHaxeMethod = new EventEmitter<HaxeMethodResult>();
 
@@ -140,6 +140,7 @@ class LanguageServer {
         var env = haxeExecutable.configuration.env;
         var haxeConfig = workspace.getConfiguration("haxe");
         var arguments = haxeConfig.get("displayServer.arguments", []);
+        var print = haxeConfig.get("displayServer.print", {completion: false, reusing: false});
         if (!haxeExecutable.isConfigured()) {
             // apply legacy settings
             var displayServerConfig = haxeConfig.get("displayServer");
@@ -160,6 +161,7 @@ class LanguageServer {
             path: path,
             env: env,
             arguments: arguments,
+            print: print
         };
         var oldSerialized = displayServerConfigSerialized;
         displayServerConfigSerialized = haxe.Json.stringify(displayServerConfig);
