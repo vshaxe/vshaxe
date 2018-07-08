@@ -62,7 +62,7 @@ class DependencyTreeView {
 
     function onDidChangeHxml(uri:Uri) {
         for (hxml in relevantHxmls) {
-            if (Path.normalize(uri.fsPath) == Path.normalize(hxml)) {
+            if (PathHelper.areEqual(uri.fsPath, hxml)) {
                 refresh(false);
             }
         }
@@ -234,6 +234,6 @@ class DependencyTreeView {
     }
 
     function copyPath(node:Node) {
-        CopyPaste.copy(node.resourceUri.fsPath);
+        CopyPaste.copy(PathHelper.capitalizeDriveLetter(node.resourceUri.fsPath));
     }
 }

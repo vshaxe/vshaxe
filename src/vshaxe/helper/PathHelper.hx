@@ -39,4 +39,11 @@ class PathHelper {
         }
         return Path.normalize(path1) == Path.normalize(path2);
     }
+
+    public static function capitalizeDriveLetter(path:String):String {
+        if (Sys.systemName() == "Windows" && Path.isAbsolute(path)) {
+            path = path.charAt(0).toUpperCase() + path.substr(1);
+        }
+        return path;
+    }
 }
