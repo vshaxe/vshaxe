@@ -14,6 +14,7 @@
 - fixed compilation through the server for HXML files with `--next` ([#262](https://github.com/vshaxe/vshaxe/issues/262))
 - fixed a crash in the dependency explorer when `haxelib` isn't available ([#249](https://github.com/vshaxe/vshaxe/issues/249))
 - fixed opening/closing folders in the dependency explorer not working properly
+- fixed libraries in the dependency explorer being listed twice in rare cases ([#263](https://github.com/vshaxe/vshaxe/issues/263))
 
 **Changes and Improvements**:
 

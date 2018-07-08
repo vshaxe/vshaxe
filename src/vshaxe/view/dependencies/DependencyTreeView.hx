@@ -86,7 +86,7 @@ class DependencyTreeView {
 
         for (info in dependencyInfos) {
             // don't add duplicates
-            if (newNodes.find(d -> d.path == info.path) != null) {
+            if (newNodes.find(d -> PathHelper.areEqual(d.path, info.path)) != null) {
                 continue;
             }
 
