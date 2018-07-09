@@ -581,6 +581,24 @@
                 "category": "Haxe"
             },
             {
+                "title": "Switch to Queue",
+                "command": "haxe.methods.switchToQueue",
+                "category": "Haxe",
+                "icon": {
+                    "light": "resources/light/list.png",
+                    "dark": "resources/dark/list.png"
+                }
+            },
+            {
+                "title": "Switch to Timers",
+                "command": "haxe.methods.switchToTimers",
+                "category": "Haxe",
+                "icon": {
+                    "light": "resources/light/stopwatch.png",
+                    "dark": "resources/dark/stopwatch.png"
+                }
+            },
+            {
                 "title": "Collapse All",
                 "command": "haxe.methods.collapseAll",
                 "category": "Haxe",
@@ -840,9 +858,19 @@
         "menus": {
             "view/title": [
                 {
+                    "command": "haxe.methods.switchToQueue",
+                    "when": "view == haxe.methods && haxeMethodsViewType == timers",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "haxe.methods.switchToTimers",
+                    "when": "view == haxe.methods && haxeMethodsViewType == queue",
+                    "group": "navigation@1"
+                },
+                {
                     "command": "haxe.methods.collapseAll",
                     "when": "view == haxe.methods",
-                    "group": "navigation@1"
+                    "group": "navigation@2"
                 },
                 {
                     "command": "haxe.dependencies.refresh",
@@ -893,6 +921,14 @@
                 }
             ],
             "commandPalette": [
+                {
+                    "command": "haxe.methods.switchToQueue",
+                    "when": "false"
+                },
+                {
+                    "command": "haxe.methods.switchToTimers",
+                    "when": "false"
+                },
                 {
                     "command": "haxe.methods.collapseAll",
                     "when": "false"

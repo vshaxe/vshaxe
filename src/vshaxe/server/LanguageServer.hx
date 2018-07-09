@@ -7,6 +7,7 @@ import vshaxe.server.LanguageClient;
 class LanguageServer {
     public var displayPort(default,null):Null<Int>;
     public var onDidRunHaxeMethod(get,never):Event<HaxeMethodResult>;
+    public var onDidChangeRequestQueue(get,never):Event<Array<String>>;
 
     final folder:WorkspaceFolder;
     final haxeExecutable:HaxeExecutable;
@@ -21,9 +22,12 @@ class LanguageServer {
     var progresses = new Map<Int,Void->Void>();
     var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>, print:{}};
     var displayServerConfigSerialized:String;
-    final _onDidRunHaxeMethod = new EventEmitter<HaxeMethodResult>();
 
+    final _onDidRunHaxeMethod = new EventEmitter<HaxeMethodResult>();
     inline function get_onDidRunHaxeMethod() return _onDidRunHaxeMethod.event;
+
+    final _onDidChangeRequestQueue = new EventEmitter<Array<String>>();
+    inline function get_onDidChangeRequestQueue() return _onDidChangeRequestQueue.event;
 
     public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments, api:Vshaxe) {
         this.folder = folder;
@@ -118,6 +122,7 @@ class LanguageServer {
             client.onNotification("haxe/didChangeDisplayPort", onDidChangeDisplayPort);
             client.onNotification("haxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
             client.onNotification("haxe/didRunHaxeMethod", onDidRunHaxeMethodCallback);
+            client.onNotification("haxe/didChangeRequestQueue", onDidChangeRequestQueueCallback);
             client.onDidChangeState(onDidChangeState);
 
             #if debug
@@ -223,6 +228,10 @@ class LanguageServer {
         #if debug
         commands.executeCommand("vshaxeDebugTools.methodResultsView.update", data);
         #end
+    }
+
+    function onDidChangeRequestQueueCallback(data:{queue:Array<String>}) {
+        _onDidChangeRequestQueue.fire(data.queue);
     }
 
     function onDidChangeState(event:StateChangeEvent) {

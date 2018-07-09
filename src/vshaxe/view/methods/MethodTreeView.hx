@@ -5,12 +5,19 @@ import vshaxe.server.HaxeMethodResult;
 import vshaxe.helper.CopyPaste;
 import js.Date;
 
+enum abstract MethodTreeViewType(String) {
+    var Timers = "timers";
+    var Queue = "queue";
+}
+
 class MethodTreeView {
     final context:ExtensionContext;
     final server:LanguageServer;
 
     var enabled:Bool;
     var methods:Array<MethodTreeItem> = [];
+    var queue:Array<MethodTreeItem> = [];
+    var viewType:MethodTreeViewType;
     var treeView:TreeView<MethodTreeItem>;
     var _onDidChangeTreeData = new EventEmitter<MethodTreeItem>();
 
@@ -21,15 +28,29 @@ class MethodTreeView {
         this.server = server;
 
         server.onDidRunHaxeMethod(onDidRunHaxeMethod);
+        server.onDidChangeRequestQueue(onDidChangeRequestQueue);
         workspace.onDidChangeConfiguration(_ -> update());
         onDidChangeTreeData = _onDidChangeTreeData.event;
+        setMethodsViewType(Timers);
         update();
 
         window.registerTreeDataProvider("haxe.methods", this);
         treeView = window.createTreeView("haxe.methods", {treeDataProvider: this});
+        context.registerHaxeCommand(Methods_SwitchToQueue, switchTo.bind(Queue));
+        context.registerHaxeCommand(Methods_SwitchToTimers, switchTo.bind(Timers));
         context.registerHaxeCommand(Methods_CollapseAll, collapseAll);
         context.registerHaxeCommand(Methods_Copy, copy);
         context.registerHaxeCommand(Methods_Track, track);
+    }
+
+    function setMethodsViewType(viewType:MethodTreeViewType) {
+        this.viewType = viewType;
+        commands.executeCommand("setContext", "haxeMethodsViewType", Std.string(viewType));
+    }
+
+    function switchTo(viewType:MethodTreeViewType) {
+        setMethodsViewType(viewType);
+        _onDidChangeTreeData.fire();
     }
 
     function onDidRunHaxeMethod(data:HaxeMethodResult) {
@@ -74,6 +95,11 @@ class MethodTreeView {
         };
     }
 
+    function onDidChangeRequestQueue(queue:Array<String>) {
+        this.queue = queue.map(label -> new MethodTreeItem(context, null, {name: label, time: 0}, label));
+        _onDidChangeTreeData.fire();
+    }
+
     function update() {
         enabled = workspace.getConfiguration("haxe").get("enableMethodsView");
         commands.executeCommand("setContext", "enableHaxeMethodsView", enabled);
@@ -84,6 +110,9 @@ class MethodTreeView {
     }
 
     public function getChildren(?element:MethodTreeItem):Array<MethodTreeItem> {
+        if (viewType == Queue) {
+            return queue;
+        }
         return if (element == null) methods else element.children;
     }
 
