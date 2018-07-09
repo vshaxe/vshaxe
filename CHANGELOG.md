@@ -24,6 +24,7 @@
 - improved the init project command to work without a workspace folder ([#225](https://github.com/vshaxe/vshaxe/issues/225))
 - support the new `showReuseMessage` option in `"haxe.taskPresentation"`
 - monomorphs in function args and returns are no longer printed ([#244](https://github.com/vshaxe/vshaxe/issues/244))
+- improved the Haxe Methods view to auto-select the most recently run method
 
 ### 2.0.1 (June 12, 2018)
 

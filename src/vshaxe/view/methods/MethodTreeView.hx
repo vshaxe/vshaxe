@@ -69,9 +69,13 @@ class MethodTreeView {
         var item = new MethodTreeItem(context, null, rootTimer, data.method, data.debugInfo);
         methods.push(item);
         methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
-        _onDidChangeTreeData.fire();
-        // this is awkward... https://github.com/Microsoft/vscode/issues/47153
-        // haxe.Timer.delay(() -> treeView.reveal(item, {select: false}), 250);
+
+        if (viewType == Timers) {
+            _onDidChangeTreeData.fire();
+            if (treeView.visible) {
+                treeView.reveal(item, {select: true});
+            }
+        }
     }
 
     function createAdditionalTimers(data:HaxeMethodResult):Timer {
@@ -97,7 +101,9 @@ class MethodTreeView {
 
     function onDidChangeRequestQueue(queue:Array<String>) {
         this.queue = queue.map(label -> new MethodTreeItem(context, null, null, label));
-        _onDidChangeTreeData.fire();
+        if (viewType == Queue) {
+            _onDidChangeTreeData.fire();
+        }
     }
 
     function update() {
