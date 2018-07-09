@@ -4,7 +4,7 @@ import vshaxe.server.HaxeMethodResult;
 
 class MethodTreeItem extends TreeItem {
     final context:ExtensionContext;
-    final timer:Timer;
+    final timer:Null<Timer>;
     final name:String;
     final debugInfo:String;
 
@@ -26,8 +26,9 @@ class MethodTreeItem extends TreeItem {
         name = formatName();
         label = formatLabel();
         tooltip = formatTooltip();
-        id = '$method $name ${timer.info}';
-        if (timer.children == null) {
+        id = formatId();
+
+        if (timer == null || timer.children == null) {
             children = null;
             collapsibleState = None;
         } else {
@@ -44,13 +45,16 @@ class MethodTreeItem extends TreeItem {
 
     function formatName():String {
         var name = if (isRoot) method else timer.name;
-        if (timer.info != "" && timer.info != null) {
+        if (timer != null && timer.info != "" && timer.info != null) {
             name = '${timer.info}.$name';
         }
         return name;
     }
 
     function formatLabel():String {
+        if (timer == null) {
+            return name;
+        }
         var seconds = truncate(timer.time, 5);
         var percent = if (timer.percentTotal != null) truncate(timer.percentTotal, 4) else null;
         var label = '$name - ${seconds}s';
@@ -64,10 +68,21 @@ class MethodTreeItem extends TreeItem {
     }
 
     function formatTooltip():String {
+        if (timer == null) {
+            return null;
+        }
         var now = Date.now();
         var timestamp = '[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]';
         var calls = if (timer.calls != null) '${timer.calls} calls ' else "";
         return '$timestamp $calls- ${truncate(timer.time, 7)}s';
+    }
+
+    function formatId() {
+        var id = '$method $name';
+        if (timer != null) {
+            id += " " + timer.info;
+        }
+        return id;
     }
 
     function truncate(f:Float, precision:Int) {

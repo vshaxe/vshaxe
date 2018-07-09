@@ -96,7 +96,7 @@ class MethodTreeView {
     }
 
     function onDidChangeRequestQueue(queue:Array<String>) {
-        this.queue = queue.map(label -> new MethodTreeItem(context, null, {name: label, time: 0}, label));
+        this.queue = queue.map(label -> new MethodTreeItem(context, null, null, label));
         _onDidChangeTreeData.fire();
     }
 
