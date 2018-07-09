@@ -25,7 +25,7 @@
 - support the new `showReuseMessage` option in `"haxe.taskPresentation"`
 - monomorphs in function args and returns are no longer printed ([#244](https://github.com/vshaxe/vshaxe/issues/244))
 - improved the Haxe Methods view to auto-select the most recently run method
-- changed the `haxe: active configuration` task to always be created ([#230](https://github.com/vshaxe/vshaxe/issues/230))
+- changed the `haxe: active configuration` to only require one config ([#230](https://github.com/vshaxe/vshaxe/issues/230))
 
 ### 2.0.1 (June 12, 2018)
 
