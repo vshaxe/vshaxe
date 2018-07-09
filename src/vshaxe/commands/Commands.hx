@@ -14,7 +14,6 @@ class Commands {
         this.haxeDisplayArgumentsProvider = haxeDisplayArgumentsProvider;
 
         context.registerHaxeCommand(RestartLanguageServer, server.restart);
-        context.registerHaxeCommand(ApplyFixes, applyFixes);
         context.registerHaxeCommand(ShowReferences, showReferences);
         context.registerHaxeCommand(RunGlobalDiagnostics, server.runGlobalDiagnostics);
         context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
@@ -24,56 +23,6 @@ class Commands {
         context.registerHaxeCommand(ClearMementos, clearMementos);
         context.registerHaxeCommand(RunMethod, server.runMethod);
         #end
-    }
-
-    function applyFixes(uri:String, version:Int, edits:Array<TextEdit>) {
-        var editor = window.activeTextEditor;
-        if (editor == null || editor.document.uri.toString() != uri)
-            return;
-
-        // TODO:
-        // if (editor.document.version != version) {
-        //     window.showInformationMessage("Fix is outdated and cannot be applied to the document");
-        //     return;
-        // }
-        var selections = [];
-        var previousEdits:Array<TextEdit> = [];
-
-        editor.edit(function(mutator) {
-            for (edit in edits) {
-                var range = new Range(edit.range.start.line, edit.range.start.character, edit.range.end.line, edit.range.end.character);
-                mutator.delete(range);
-
-                var text = edit.newText;
-                var re = ~/(?!\\)\$/;
-                var pos = null;
-                if (re.match(text)) pos = re.matchedPos();
-                text = re.replace(text, "");
-                // unescape dollar signs
-                text = text.replace("\\$", "$");
-
-                var rangeStart = range.start;
-                mutator.insert(rangeStart, text);
-
-                if (pos != null) {
-                    var cursorPos = range.start.translate(0, pos.pos);
-                    // need to translate the cursor pos according to what previous edits did.
-                    // assume text edits are already sorted correctly...
-                    for (prev in previousEdits) {
-                        var lines = prev.newText.split("\n");
-                        var lineDelta = prev.range.end.line - prev.range.start.line + (lines.length - 1);
-                        var characterDelta = prev.range.end.character - prev.range.start.character + lines[lines.length - 1].length;
-                        cursorPos = cursorPos.translate(lineDelta, characterDelta);
-                    }
-                    selections.push(new vscode.Selection(cursorPos, cursorPos));
-                }
-
-                previousEdits.push(edit);
-            }
-            commands.executeCommand("closeParameterHints");
-        }).then(function(ok) {
-            if (ok && selections.length > 0) editor.selections = selections;
-        });
     }
 
     function showReferences(uri:String, position:Position, locations:Array<Location>) {

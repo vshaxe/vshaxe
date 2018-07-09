@@ -14,7 +14,6 @@ enum abstract HaxeCommand(String) to String {
     var RefreshDependencies = command("refreshDependencies");
 
     /* internal commands, either not defined in `package.json` at all or hidden from command palette */
-    var ApplyFixes = command("applyFixes");
     var ShowReferences = command("showReferences");
     var ClearMementos = command("clearMementos");
     var RunMethod = command("runMethod");
