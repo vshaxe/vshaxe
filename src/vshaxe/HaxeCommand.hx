@@ -7,6 +7,7 @@ enum abstract HaxeCommand(String) to String {
     var InitProject = command("initProject");
     var SelectDisplayArgumentsProvider = command("selectDisplayArgumentsProvider");
     var SelectDisplayConfiguration = command("selectDisplayConfiguration");
+    var DebugSelectedConfiguration = command("debugSelectedConfiguration");
     var RunGlobalDiagnostics = command("runGlobalDiagnostics");
     var ToggleCodeLens = command("toggleCodeLens");
     var CollapseDependencies = command("collapseDependencies");

@@ -88,20 +88,12 @@ class HaxeDisplayArgumentsProvider {
         }
 
         var items:Array<DisplayConfigurationPickItem> = [];
-        for (conf in configurations) {
-            var label, desc;
-            switch conf.kind {
-                case Discovered(id):
-                    label = id;
-                    desc = "auto-discovered";
-                case Configured(_, userLabel):
-                    label = if (userLabel == null) conf.args.join(" ") else userLabel;
-                    desc = "from settings.json";
-            }
+        for (configuration in configurations) {
+            var description = if (configuration.kind.match(Discovered(_))) "auto-discovered" else "from settings.json";
             items.push({
-                label: label,
-                description: desc,
-                config: conf,
+                label: getConfigurationLabel(configuration),
+                description: description,
+                config: configuration,
             });
         }
 
@@ -113,6 +105,26 @@ class HaxeDisplayArgumentsProvider {
                 return;
             setCurrent(choice.config);
         });
+    }
+
+    public function getCurrentLabel():Null<String> {
+        var current = getCurrent();
+        if (current == null) {
+            return null;
+        }
+        return getConfigurationLabel(current);
+    }
+
+    function getConfigurationLabel(configuration:Configuration):String {
+        return switch (configuration.kind) {
+            case Configured(_, label):
+                if (label != null) {
+                    label;
+                } else {
+                    configuration.args.join(" ");
+                }
+            case Discovered(id): id;
+        }
     }
 
     public static final ConfigurationIndexKey = new HaxeMementoKey<SavedSelection>("displayConfigurationIndex");

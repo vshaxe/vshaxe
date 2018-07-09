@@ -1,20 +1,24 @@
 package vshaxe.commands;
 
+import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.server.LanguageServer;
 
 class Commands {
-    var context:ExtensionContext;
-    var server:LanguageServer;
+    final context:ExtensionContext;
+    final server:LanguageServer;
+    final haxeDisplayArgumentsProvider:HaxeDisplayArgumentsProvider;
 
-    public function new(context:ExtensionContext, server:LanguageServer) {
+    public function new(context:ExtensionContext, server:LanguageServer, haxeDisplayArgumentsProvider:HaxeDisplayArgumentsProvider) {
         this.context = context;
         this.server = server;
+        this.haxeDisplayArgumentsProvider = haxeDisplayArgumentsProvider;
 
         context.registerHaxeCommand(RestartLanguageServer, server.restart);
         context.registerHaxeCommand(ApplyFixes, applyFixes);
         context.registerHaxeCommand(ShowReferences, showReferences);
         context.registerHaxeCommand(RunGlobalDiagnostics, server.runGlobalDiagnostics);
         context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
+        context.registerHaxeCommand(DebugSelectedConfiguration, debugSelectedConfiguration);
 
         #if debug
         context.registerHaxeCommand(ClearMementos, clearMementos);
@@ -91,6 +95,37 @@ class Commands {
         config.update(key, !value, global);
     }
 
+    function debugSelectedConfiguration() {
+        var label = haxeDisplayArgumentsProvider.getCurrentLabel();
+        if (label == null) {
+            window.showErrorMessage("There is no configuration selected.");
+            return;
+        }
+        function error() {
+            window.showErrorMessage('There is no launch configuration named \'$label\'.');
+        }
+
+        // work around https://github.com/Microsoft/vscode/issues/53874 by checking the launch.json contents :/
+        var folder = workspace.workspaceFolders[0];
+        var launchConfigs = workspace.getConfiguration("launch", folder.uri);
+        var configurations:Array<{name:String}> = launchConfigs.get("configurations");
+        var compounds:Array<{name:String}> = launchConfigs.get("compounds");
+
+        var allConfigs = [];
+        if (configurations != null) {
+            allConfigs = allConfigs.concat(configurations);
+        }
+        if (compounds != null) {
+            allConfigs = allConfigs.concat(compounds);
+        }
+
+        if (allConfigs.exists(config -> config.name == label)) {
+            debug.startDebugging(folder, label);
+        } else {
+            error();
+        }
+    }
+
     function clearMementos() {
         inline function clear(key) context.workspaceState.update(key, js.Lib.undefined);
         clear(vshaxe.display.DisplayArguments.ProviderNameKey);
@@ -106,4 +141,9 @@ class Commands {
             value = info.defaultValue;
         return value;
     }
+}
+
+private typedef LaunchJson = {
+    var ?compounds:Array<{name:String}>;
+    var ?configurations:Array<{name:String}>;
 }

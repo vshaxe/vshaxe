@@ -44,6 +44,7 @@
         "onCommand:haxe.restartLanguageServer",
         "onCommand:haxe.initProject",
         "onCommand:haxe.selectDisplayConfiguration",
+        "onCommand:haxe.debugSelectedConfiguration",
         "onCommand:haxe.selectDisplayArgumentsProvider",
         "onCommand:haxe.runGlobalDiagnostics",
         "onCommand:haxe.toggleCodeLens",
@@ -558,6 +559,11 @@
             {
                 "title": "Select Configuration",
                 "command": "haxe.selectDisplayConfiguration",
+                "category": "Haxe"
+            },
+            {
+                "title": "Debug Selected Configuration",
+                "command": "haxe.debugSelectedConfiguration",
                 "category": "Haxe"
             },
             {

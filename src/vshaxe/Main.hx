@@ -52,11 +52,11 @@ class Main {
         context.subscriptions.push(server);
 
         new HaxeCodeLensProvider();
-        new Commands(context, server);
         new DependencyTreeView(context, displayArguments, haxeExecutable);
         new MethodTreeView(context, server);
         new DisplayArgumentsSelector(context, displayArguments);
         var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
+        new Commands(context, server, haxeDisplayArgumentsProvider);
 
         var taskConfiguration = new TaskConfiguration(haxeExecutable, problemMatchers, server, api);
         new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);

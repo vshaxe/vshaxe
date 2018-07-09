@@ -8,6 +8,7 @@
 - added `"print"` options to the `"haxe.displayServer"` setting ([#240](https://github.com/vshaxe/vshaxe/issues/240))
 - added a `"haxe.exclude"` setting to hide certain dot paths from completion ([#234](https://github.com/vshaxe/vshaxe/issues/234))
 - added a request queue visualization to the Haxe Methods view ([#241](https://github.com/vshaxe/vshaxe/issues/241))
+- added a `Debug Selected Configuration` command ([#236](https://github.com/vshaxe/vshaxe/issues/236))
 
 **Bugfixes**:
 
@@ -25,7 +26,7 @@
 - support the new `showReuseMessage` option in `"haxe.taskPresentation"`
 - monomorphs in function args and returns are no longer printed ([#244](https://github.com/vshaxe/vshaxe/issues/244))
 - improved the Haxe Methods view to auto-select the most recently run method
-- changed the `haxe: active configuration` to only require one config ([#230](https://github.com/vshaxe/vshaxe/issues/230))
+- changed the `haxe: active configuration` task to only require one config ([#230](https://github.com/vshaxe/vshaxe/issues/230))
 
 ### 2.0.1 (June 12, 2018)
 
