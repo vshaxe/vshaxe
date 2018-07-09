@@ -96,6 +96,11 @@ class Commands {
     }
 
     function debugSelectedConfiguration() {
+        if (!haxeDisplayArgumentsProvider.isActive) {
+            window.showErrorMessage("The built-in completion provider is not active, so there is no configuration to be debugged.");
+            return;
+        }
+
         var label = haxeDisplayArgumentsProvider.getCurrentLabel();
         if (label == null) {
             window.showErrorMessage("There is no configuration selected.");

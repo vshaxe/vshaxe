@@ -15,6 +15,9 @@ class HaxeDisplayArgumentsProvider {
     public var configurationCount(get,never):Int;
     inline function get_configurationCount() return configurations.length;
 
+    public var isActive(get,never):Bool;
+    inline function get_isActive() return provideArguments != null;
+
     public final description = "Project using haxe.displayConfigurations or HXML files (built-in)";
 
     public function new(context:ExtensionContext, displayArguments:DisplayArguments, hxmlDiscovery:HxmlDiscovery) {
