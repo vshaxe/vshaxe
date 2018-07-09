@@ -11,7 +11,7 @@
 
 **Bugfixes**:
 
-- fixed imports in override generation being duplicated ([#257](https://github.com/vshaxe/vshaxe/issues/257))
+- fixed auto-imports in override generation being duplicated ([#257](https://github.com/vshaxe/vshaxe/issues/257))
 - fixed compilation through the server for HXML files with `--next` ([#262](https://github.com/vshaxe/vshaxe/issues/262))
 - fixed a crash in the dependency explorer when `haxelib` isn't available ([#249](https://github.com/vshaxe/vshaxe/issues/249))
 - fixed opening/closing folders in the dependency explorer not working properly
@@ -25,6 +25,7 @@
 - support the new `showReuseMessage` option in `"haxe.taskPresentation"`
 - monomorphs in function args and returns are no longer printed ([#244](https://github.com/vshaxe/vshaxe/issues/244))
 - improved the Haxe Methods view to auto-select the most recently run method
+- changed the `haxe: active configuration` task to always be created ([#230](https://github.com/vshaxe/vshaxe/issues/230))
 
 ### 2.0.1 (June 12, 2018)
 
