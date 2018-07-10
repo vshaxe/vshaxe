@@ -23,6 +23,7 @@
 - changed the required VSCode version to 1.25.0
 - improved completion to allow selecting metadata by typing `(`
 - improved completion to show the dot path for imported types as well
+- improved expected type completion to work with `haxe.extern.EitherType` ([#256](https://github.com/vshaxe/vshaxe/issues/256))
 - improved the init project command to work without a workspace folder ([#225](https://github.com/vshaxe/vshaxe/issues/225))
 - improved the Haxe Methods view to auto-select the most recently run method
 - support the new `showReuseMessage` option in `"haxe.taskPresentation"`
