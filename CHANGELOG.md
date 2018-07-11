@@ -8,6 +8,7 @@
 - added a `"haxe.exclude"` setting to allow hiding dot paths from completion ([#234](https://github.com/vshaxe/vshaxe/issues/234))
 - added a request queue visualization to the Haxe Methods view ([#241](https://github.com/vshaxe/vshaxe/issues/241))
 - added a `Debug Selected Configuration` command ([#236](https://github.com/vshaxe/vshaxe/issues/236))
+- added support for "Go to Type Definition" (requires [haxe#7266](https://github.com/HaxeFoundation/haxe/pull/7266))
 
 **Bugfixes**:
 
