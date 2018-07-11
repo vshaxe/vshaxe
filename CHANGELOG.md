@@ -1,3 +1,9 @@
+### 2.1.1 (to be released)
+
+**Bugfixes**:
+
+- fixed several issues related to display argument provider initialization ([#235](https://github.com/vshaxe/vshaxe/issues/235))
+
 ### 2.1.0 (July 12, 2018)
 
 **New Features**:
