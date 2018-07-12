@@ -62,21 +62,25 @@ class Main {
         new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
         new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
 
-        // wait until display arguments have been changed by a provider before starting the server
-        var serverStarted = false;
-        var disposable:Disposable;
-        disposable = displayArguments.onDidChangeArguments(arguments -> {
-            disposable.dispose();
-            server.start();
-            serverStarted = true;
-        });
-        // if there's no provider, just start a server anyway after 5 seconds
-        haxe.Timer.delay(() -> {
-            if (!serverStarted) {
+        // wait until we have display arguments before starting the server
+        if (displayArguments.arguments == null) {
+            var serverStarted = false;
+            var disposable:Disposable;
+            disposable = displayArguments.onDidChangeArguments(arguments -> {
                 disposable.dispose();
                 server.start();
-            }
-        }, 5000);
+                serverStarted = true;
+            });
+            // if there's no provider, just start a server anyway after 5 seconds
+            haxe.Timer.delay(() -> {
+                if (!serverStarted) {
+                    disposable.dispose();
+                    server.start();
+                }
+            }, 5000);
+        } else {
+            server.start();
+        }
     }
 
     @:keep
