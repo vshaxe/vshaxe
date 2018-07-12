@@ -4,6 +4,10 @@
 
 - fixed several issues related to display argument provider initialization ([#235](https://github.com/vshaxe/vshaxe/issues/235))
 
+**Changes and Improvements**:
+
+- show a warning in case there's an error during "Building Cache..."
+
 ### 2.1.0 (July 12, 2018)
 
 **New Features**:

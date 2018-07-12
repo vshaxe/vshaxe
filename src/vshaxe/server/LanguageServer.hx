@@ -123,6 +123,7 @@ class LanguageServer {
             client.onNotification("haxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
             client.onNotification("haxe/didRunHaxeMethod", onDidRunHaxeMethodCallback);
             client.onNotification("haxe/didChangeRequestQueue", onDidChangeRequestQueueCallback);
+            client.onNotification("haxe/cacheBuildFailed", onCacheBuildFailed);
             client.onDidChangeState(onDidChangeState);
 
             #if debug
@@ -232,6 +233,15 @@ class LanguageServer {
 
     function onDidChangeRequestQueueCallback(data:{queue:Array<String>}) {
         _onDidChangeRequestQueue.fire(data.queue);
+    }
+
+    function onCacheBuildFailed(_) {
+        var message = "Unable to build cache - completion features may be slower than expected. Try fixing the error(s) and restarting the language server.";
+        window.showWarningMessage(message, "Show Error").then(selection -> {
+            if (selection == "Show Error") {
+                client.outputChannel.show();
+            }
+        });
     }
 
     function onDidChangeState(event:StateChangeEvent) {
