@@ -15,8 +15,7 @@
             "composite": true,
             "targetDependencies": [
                 "vshaxe",
-                "language-server-tests",
-                "formatter"
+                "language-server-tests"
             ],
             "args": {
                 "debug": true
