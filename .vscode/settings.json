@@ -10,5 +10,7 @@
         "paramFormat": "",
         "returnFormat": "",
         "neverAskTemplate": true
-    }
+    },
+    // something with json2object in tokentree-formatter...
+    "haxe.enableCompilationServer": false
 }
