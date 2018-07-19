@@ -1,4 +1,4 @@
-### 2.2.0 (to be released)
+### 2.2.0 (July 20, 2018)
 
 **New Features**:
 
