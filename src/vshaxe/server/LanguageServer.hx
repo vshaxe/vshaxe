@@ -95,6 +95,7 @@ class LanguageServer {
             }
         };
 
+        var firstStart = client == null;
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
 
         // If arguments change while we're starting language server we remember that fact
@@ -132,7 +133,9 @@ class LanguageServer {
             });
             #end
 
-            onDidStartServer();
+            if (firstStart) {
+                onDidStartServer();
+            }
         });
 
         restartDisposables.push(client.start());

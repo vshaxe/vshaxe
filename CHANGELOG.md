@@ -1,3 +1,9 @@
+### 2.2.1 (to be released)
+
+**Bugfixes**:
+
+- fixed `Restart Language Sever` duplicating document symbols
+
 ### 2.2.0 (July 20, 2018)
 
 **New Features**:
