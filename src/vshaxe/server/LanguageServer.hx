@@ -8,6 +8,7 @@ class LanguageServer {
     public var displayPort(default,null):Null<Int>;
     public var onDidRunHaxeMethod(get,never):Event<HaxeMethodResult>;
     public var onDidChangeRequestQueue(get,never):Event<Array<String>>;
+    public var client(default,null):LanguageClient;
 
     final folder:WorkspaceFolder;
     final haxeExecutable:HaxeExecutable;
@@ -17,7 +18,6 @@ class LanguageServer {
     final hxFileWatcher:FileSystemWatcher;
     final disposables:Array<{ function dispose():Void; }>;
 
-    var client:LanguageClient;
     var restartDisposables:Array<{ function dispose():Void; }>;
     var progresses = new Map<Int,Void->Void>();
     var displayServerConfig:{path:String, env:haxe.DynamicAccess<String>, arguments:Array<String>, print:{}};
@@ -131,10 +131,14 @@ class LanguageServer {
                 commands.executeCommand("hxparservis.updateParseTree", result.uri, result.parseTree);
             });
             #end
+
+            onDidStartServer();
         });
 
         restartDisposables.push(client.start());
     }
+
+    public dynamic function onDidStartServer() {}
 
     /**
         Prepare new display server config and store it in `displayServerConfig` field.

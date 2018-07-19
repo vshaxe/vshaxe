@@ -9,6 +9,7 @@ import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.helper.HxmlParser;
 import vshaxe.helper.HaxeCodeLensProvider;
+import vshaxe.helper.HaxeDocumentSymbolProvider;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HaxeTaskProvider;
@@ -52,6 +53,7 @@ class Main {
         context.subscriptions.push(server);
 
         new HaxeCodeLensProvider();
+        new HaxeDocumentSymbolProvider(server);
         new DependencyTreeView(context, displayArguments, haxeExecutable);
         new MethodTreeView(context, server);
         new DisplayArgumentsSelector(context, displayArguments);
