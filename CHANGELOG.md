@@ -1,4 +1,8 @@
-### 2.1.1 (to be released)
+### 2.2.0 (to be released)
+
+**New Features**:
+
+- added hierarchy support to document symbols for the outline view ([#223](https://github.com/vshaxe/vshaxe/issues/223))
 
 **Bugfixes**:
 
@@ -6,6 +10,9 @@
 
 **Changes and Improvements**:
 
+- improved document symbols to work with conditional compilation
+- improved document symbols to support Haxe 4 syntax (`enum abstract`, `final`...)
+- removed arguments and type parameters from document symbols
 - show a warning in case there's an error during "Building Cache..."
 
 ### 2.1.0 (July 12, 2018)
