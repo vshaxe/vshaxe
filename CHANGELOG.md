@@ -3,6 +3,7 @@
 **Bugfixes**:
 
 - fixed `Restart Language Sever` duplicating document symbols
+- fixed document symbols not using the operator icon in abstracts
 
 ### 2.2.0 (July 20, 2018)
 
