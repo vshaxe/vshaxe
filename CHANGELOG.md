@@ -1,4 +1,4 @@
-### 2.2.1 (to be released)
+### 2.2.1 (July 21, 2018)
 
 **Bugfixes**:
 
