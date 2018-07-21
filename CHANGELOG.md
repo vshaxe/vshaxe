@@ -1,3 +1,9 @@
+### 2.2.2 (to be released)
+
+**Bugfixes**:
+
+- fixed static import completion with Haxe 4.0.0-preview.4 ([#265](https://github.com/vshaxe/vshaxe/issues/265))
+
 ### 2.2.1 (July 21, 2018)
 
 **Bugfixes**:
