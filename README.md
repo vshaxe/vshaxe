@@ -5,7 +5,9 @@
 This is an extension for [Visual Studio Code](https://code.visualstudio.com) that adds support for the [Haxe](http://haxe.org/) language,
 leveraging the [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver). It works best with [Haxe 4.0.0-preview.4](https://haxe.org/download/version/4.0.0-preview.4/), but supports any Haxe version starting from 3.4.0.
 
-For usage with Lime/OpenFL, the [Lime extension](https://marketplace.visualstudio.com/items?itemName=openfl.lime-vscode-extension) should be installed.
+For usage with...
+- ... [Lime](http://lime.software/) / [OpenFL](http://www.openfl.org/), the [Lime extension](https://marketplace.visualstudio.com/items?itemName=openfl.lime-vscode-extension) should be installed.
+- ... [Kha](http://kha.tech/), the [Kha Extension Pack](https://marketplace.visualstudio.com/items?itemName=kodetech.kha-extension-pack) should be used.
 
 ### [**Click here for install instructions.**](https://github.com/vshaxe/vshaxe/wiki/Installation)
 
