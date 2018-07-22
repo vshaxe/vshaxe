@@ -18,6 +18,7 @@ For usage with...
 This is just a brief overview of the supported features. [**For more details, check out our extensive documentation**](https://github.com/vshaxe/vshaxe/wiki).
 
 - [Syntax Highlighting](https://github.com/vshaxe/haxe-TmLanguage)
+- [Tasks](https://github.com/vshaxe/vshaxe/wiki/Tasks) (Tasks -> Run Task...)
 - [Commands](https://github.com/vshaxe/vshaxe/wiki/Commands) (<kbd>F1</kbd> -> search "Haxe")
 - [Dependency Explorer](https://github.com/vshaxe/vshaxe/wiki/Dependency-Explorer)
 - [Completion](https://github.com/vshaxe/vshaxe/wiki/Completion)
