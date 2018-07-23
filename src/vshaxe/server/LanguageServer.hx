@@ -127,12 +127,6 @@ class LanguageServer {
             client.onNotification("haxe/cacheBuildFailed", onCacheBuildFailed);
             client.onDidChangeState(onDidChangeState);
 
-            #if debug
-            client.onNotification("haxe/updateParseTree", function(result:{uri:String, parseTree:String}) {
-                commands.executeCommand("hxparservis.updateParseTree", result.uri, result.parseTree);
-            });
-            #end
-
             if (firstStart) {
                 onDidStartServer();
             }
