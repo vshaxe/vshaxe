@@ -5,21 +5,23 @@ package vshaxe.server;
 typedef HaxeMethodResult = {
     final method:String;
     final debugInfo:String;
-    final arrivalTime:Float;
-    final beforeProcessingTime:Float;
-    final afterProcessingTime:Float;
     final response:Response<Dynamic>;
+    final ?additionalTimes:{
+        final arrival:Float;
+        final beforeProcessing:Float;
+        final afterProcessing:Float;
+    }
 }
 
 typedef Timer = {
     final name:String;
     final time:Float;
-    @:optional final path:String;
-    @:optional final info:String;
-    @:optional final calls:Int;
-    @:optional final percentTotal:Float;
-    @:optional final percentParent:Float;
-    @:optional final children:Array<Timer>;
+    final ?path:String;
+    final ?info:String;
+    final ?calls:Int;
+    final ?percentTotal:Float;
+    final ?percentParent:Float;
+    final ?children:Array<Timer>;
 }
 
 typedef Response<T> = {

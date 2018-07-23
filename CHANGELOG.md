@@ -3,6 +3,7 @@
 **Bugfixes**:
 
 - fixed static import completion with Haxe 4.0.0-preview.4 ([#265](https://github.com/vshaxe/vshaxe/issues/265))
+- fixed document symbol ranges in files with Unicode characters
 
 ### 2.2.1 (July 21, 2018)
 

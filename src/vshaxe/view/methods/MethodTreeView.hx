@@ -62,7 +62,9 @@ class MethodTreeView {
         if (rootTimer == null) {
             rootTimer = makeTimer("", 0, []);
         }
-        rootTimer.children.push(createAdditionalTimers(data));
+        if (data.additionalTimes != null) {
+            rootTimer.children.push(createAdditionalTimers(data));
+        }
 
         var method = data.method;
         methods = methods.filter(item -> item.method != method);
@@ -79,9 +81,10 @@ class MethodTreeView {
     }
 
     function createAdditionalTimers(data:HaxeMethodResult):Timer {
-        var transmissionTime = data.arrivalTime - (data.response.timestamp * 1000.0);
-        var parsingTime = data.beforeProcessingTime - data.arrivalTime;
-        var processingTime = data.afterProcessingTime - data.beforeProcessingTime;
+        var additionalTimes = data.additionalTimes;
+        var transmissionTime = additionalTimes.arrival - (data.response.timestamp * 1000.0);
+        var parsingTime = additionalTimes.beforeProcessing - additionalTimes.arrival;
+        var processingTime = additionalTimes.afterProcessing - additionalTimes.beforeProcessing;
         var totalTime = transmissionTime + parsingTime + processingTime;
         return makeTimer("vshaxe", totalTime, [
             makeTimer("transmission", transmissionTime),
