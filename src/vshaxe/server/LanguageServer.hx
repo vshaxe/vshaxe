@@ -95,7 +95,6 @@ class LanguageServer {
             }
         };
 
-        var firstStart = client == null;
         client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
 
         // If arguments change while we're starting language server we remember that fact
@@ -126,16 +125,10 @@ class LanguageServer {
             client.onNotification("haxe/didChangeRequestQueue", onDidChangeRequestQueueCallback);
             client.onNotification("haxe/cacheBuildFailed", onCacheBuildFailed);
             client.onDidChangeState(onDidChangeState);
-
-            if (firstStart) {
-                onDidStartServer();
-            }
         });
 
         restartDisposables.push(client.start());
     }
-
-    public dynamic function onDidStartServer() {}
 
     /**
         Prepare new display server config and store it in `displayServerConfig` field.
