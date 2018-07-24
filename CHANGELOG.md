@@ -4,11 +4,16 @@
 
 - added support for removing unused imports with [`"editor.codeActionsOnSave"`](https://code.visualstudio.com/updates/v1_23#_run-code-actions-on-save)
 - added support for triggering quick fixes from the problems view [in VSCode 1.26](https://github.com/Microsoft/vscode/issues/52627#issuecomment-405254755)
+- added a folding marker for the imports / usings section in a module
 
 **Bugfixes**:
 
 - fixed static import completion with Haxe 4.0.0-preview.4 ([#265](https://github.com/vshaxe/vshaxe/issues/265))
 - fixed document symbol ranges in files with Unicode characters
+
+**Changes and Improvements**:
+
+- improved folding of block comments (the final `**/` is now hidden too)
 
 ### 2.2.1 (July 21, 2018)
 
