@@ -5,6 +5,10 @@
 - fixed static import completion with Haxe 4.0.0-preview.4 ([#265](https://github.com/vshaxe/vshaxe/issues/265))
 - fixed document symbol ranges in files with Unicode characters
 
+**Changes and Improvements**:
+
+- support triggering quick fixes from the problems view [in VSCode 1.26](https://github.com/Microsoft/vscode/issues/52627#issuecomment-405254755)
+
 ### 2.2.1 (July 21, 2018)
 
 **Bugfixes**:
