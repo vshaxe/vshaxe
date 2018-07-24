@@ -3,7 +3,7 @@
 **New Features**:
 
 - added support for removing unused imports with [`"editor.codeActionsOnSave"`](https://code.visualstudio.com/updates/v1_23#_run-code-actions-on-save)
-- added support for triggering quick fixes from problems view [in VSCode 1.26](https://github.com/Microsoft/vscode/issues/52627#issuecomment-405254755)
+- added support for triggering quick fixes from the problems view [in VSCode 1.26](https://github.com/Microsoft/vscode/issues/52627#issuecomment-405254755)
 
 **Bugfixes**:
 
