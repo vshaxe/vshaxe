@@ -1,13 +1,14 @@
-### 2.2.2 (to be released)
+### 2.3.0 (to be released)
+
+**New Features**:
+
+- added support for removing unused imports with [`"editor.codeActionsOnSave"`](https://code.visualstudio.com/updates/v1_23#_run-code-actions-on-save)
+- added support for triggering quick fixes from problems view [in VSCode 1.26](https://github.com/Microsoft/vscode/issues/52627#issuecomment-405254755)
 
 **Bugfixes**:
 
 - fixed static import completion with Haxe 4.0.0-preview.4 ([#265](https://github.com/vshaxe/vshaxe/issues/265))
 - fixed document symbol ranges in files with Unicode characters
-
-**Changes and Improvements**:
-
-- support triggering quick fixes from the problems view [in VSCode 1.26](https://github.com/Microsoft/vscode/issues/52627#issuecomment-405254755)
 
 ### 2.2.1 (July 21, 2018)
 
