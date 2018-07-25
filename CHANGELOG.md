@@ -14,6 +14,7 @@
 **Changes and Improvements**:
 
 - improved folding of block comments (the final `**/` is now hidden too)
+- improved document symbols to hide ignored variables (named `_`)
 
 ### 2.2.1 (July 21, 2018)
 
