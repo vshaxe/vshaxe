@@ -6,6 +6,7 @@
 - added support for triggering quick fixes from the problems view [in VSCode 1.26](https://github.com/Microsoft/vscode/issues/52627#issuecomment-405254755)
 - added a folding marker for the imports / usings section in a module
 - added folding markers for `#if` / `#else` / `#elseif` conditionals ([#36](https://github.com/vshaxe/vshaxe/issues/36))
+- added folding markers for multi-line string and array literals
 
 **Bugfixes**:
 
