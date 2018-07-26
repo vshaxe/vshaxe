@@ -33,6 +33,7 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Document Symbols](https://github.com/vshaxe/vshaxe/wiki/Document-Symbols) (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd>)
 - [Workspace Symbols](https://github.com/vshaxe/vshaxe/wiki/Workspace-Symbols) (<kbd>Ctrl</kbd>+<kbd>T</kbd>)
 - [Outline](https://github.com/vshaxe/vshaxe/wiki/Outline)
+- [Folding](https://github.com/vshaxe/vshaxe/wiki/Folding)
 - [Diagnostics](https://github.com/vshaxe/vshaxe/wiki/Diagnostics)
 - [Code Actions](https://github.com/vshaxe/vshaxe/wiki/Code-Actions) (<kbd>Ctrl</kbd>+<kbd>.</kbd> on light bulbs)
 - [Code Lens](https://github.com/vshaxe/vshaxe/wiki/Code-Lens) (<kbd>F1</kbd> -> [Haxe: Toggle Code Lens](https://github.com/vshaxe/vshaxe/wiki/Commands#haxe-toggle-code-lens))
