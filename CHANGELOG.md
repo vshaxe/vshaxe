@@ -17,7 +17,8 @@
 
 - improved folding of block comments (the final `**/` is now hidden too)
 - improved completion and document symbols to ignore locals named `_`
-- improved completion in nested patterns ([haxe#7287](https://github.com/HaxeFoundation/haxe/issues/7287))
+- improved completion in nested patterns (requires [haxe#7287](https://github.com/HaxeFoundation/haxe/issues/7287))
+- auto-trigger signature help in patterns (requires [haxe#7326](https://github.com/HaxeFoundation/haxe/issues/7326))
 
 ### 2.2.1 (July 21, 2018)
 
