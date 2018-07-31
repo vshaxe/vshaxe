@@ -15,7 +15,7 @@ class MethodTreeItem extends TreeItem {
     public final method:String;
     public final parent:Null<MethodTreeItem>;
 
-    public function new(context:ExtensionContext, parent:MethodTreeItem, timer:Timer, method:String, ?debugInfo:String) {
+    public function new(context:ExtensionContext, parent:MethodTreeItem, timer:Timer, method:String, ?debugInfo:String, parentId:String = "") {
         super("");
         this.context = context;
         this.parent = parent;
@@ -26,13 +26,13 @@ class MethodTreeItem extends TreeItem {
         name = formatName();
         label = formatLabel();
         tooltip = formatTooltip();
-        id = formatId();
+        id = parentId + ">" + name;
 
         if (timer == null || timer.children == null) {
             children = null;
             collapsibleState = None;
         } else {
-            children = timer.children.map(MethodTreeItem.new.bind(context, this, _, method, null));
+            children = timer.children.map(MethodTreeItem.new.bind(context, this, _, method, null, id));
             collapsibleState = Expanded;
         }
         if (isRoot) {
@@ -75,14 +75,6 @@ class MethodTreeItem extends TreeItem {
         var timestamp = '[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]';
         var calls = if (timer.calls != null) '${timer.calls} calls ' else "";
         return '$timestamp $calls- ${truncate(timer.time, 7)}s';
-    }
-
-    function formatId() {
-        var id = '$method $name';
-        if (timer != null) {
-            id += " " + timer.info;
-        }
-        return id;
     }
 
     function truncate(f:Float, precision:Int) {
