@@ -7,6 +7,7 @@ typedef HaxeMethodResult = {
     final debugInfo:String;
     final response:Response<Dynamic>;
     final ?additionalTimes:{
+        final beforeCall:Float;
         final arrival:Float;
         final beforeProcessing:Float;
         final afterProcessing:Float;
