@@ -1,4 +1,4 @@
-### 2.3.0 (to be released)
+### 2.3.0 (July 31, 2018)
 
 **New Features**:
 
