@@ -4,6 +4,10 @@
 
 - fixed highlighting of macro patterns
 
+**Changes and Improvements**:
+
+- improved document symbol ranges to include doc comments
+
 ### 2.3.0 (July 31, 2018)
 
 **New Features**:
