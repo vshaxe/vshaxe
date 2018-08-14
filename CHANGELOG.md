@@ -1,3 +1,9 @@
+### 2.3.1 (to be released)
+
+**Bugfixes**:
+
+- fixed highlighting of macro patterns
+
 ### 2.3.0 (July 31, 2018)
 
 **New Features**:
