@@ -9,6 +9,7 @@
 !node_modules/**/*
 !resources/**/*
 !scaffold/**/*
+!schemas/**/*
 !syntaxes/**/*.tmLanguage
 !CHANGELOG.md
 !LICENSE.md

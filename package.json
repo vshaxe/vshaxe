@@ -768,6 +768,10 @@
 			{
 				"fileMatch": "haxelib.json",
 				"url": "http://json.schemastore.org/haxelib"
+			},
+			{
+				"fileMatch": "hxformat.json",
+				"url": "./schemas/hxformat-schema.json"
 			}
 		],
 		"problemPatterns": [
