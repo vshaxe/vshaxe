@@ -1,4 +1,8 @@
-### 2.3.1 (to be released)
+### 2.4.0 (to be released)
+
+**New Features**:
+
+- added support for code formatting (using [haxe-formatter](https://github.com/HaxeCheckstyle/haxe-formatter))
 
 **Bugfixes**:
 
