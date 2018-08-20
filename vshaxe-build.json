@@ -1,56 +1,56 @@
 {
-    "inherit": "vshaxe-node",
-    "mainTarget": "all",
-    "targets": [
-        {
-            "name": "all",
-            "composite": true,
-            "targetDependencies": [
-                "test",
-                "tm-language"
-            ]
-        },
-        {
-            "name": "test",
-            "composite": true,
-            "targetDependencies": [
-                "vshaxe",
-                "language-server-tests"
-            ],
-            "args": {
-                "debug": true
-            }
-        },
-        {
-            "name": "vshaxe",
-            "composite": true,
-            "targetDependencies": [
-                "client",
-                "language-server"
-            ]
-        },
-        {
-            "name": "client",
-            "installCommands": [
-                ["npm", "install"]
-            ],
-            "args": {
-                "classPaths": [
-                    "vscode-extern/src",
-                    "server/protocol/src",
-                    "src-api",
-                    "src"
-                ],
-                "defines": [
-                    "JSTACK_MAIN=vshaxe.Main.main",
-                    "JSTACK_ASYNC_ENTRY"
-                ],
-                "output": {
-                    "target": "js",
-                    "path": "bin/client.js"
-                },
-                "packageName": "vshaxe.Main"
-            }
-        }
-    ]
+	"inherit": "vshaxe-node",
+	"mainTarget": "all",
+	"targets": [
+		{
+			"name": "all",
+			"composite": true,
+			"targetDependencies": [
+				"test",
+				"tm-language"
+			]
+		},
+		{
+			"name": "test",
+			"composite": true,
+			"targetDependencies": [
+				"vshaxe",
+				"language-server-tests"
+			],
+			"args": {
+				"debug": true
+			}
+		},
+		{
+			"name": "vshaxe",
+			"composite": true,
+			"targetDependencies": [
+				"client",
+				"language-server"
+			]
+		},
+		{
+			"name": "client",
+			"installCommands": [
+				["npm", "install"]
+			],
+			"args": {
+				"classPaths": [
+					"vscode-extern/src",
+					"server/protocol/src",
+					"src-api",
+					"src"
+				],
+				"defines": [
+					"JSTACK_MAIN=vshaxe.Main.main",
+					"JSTACK_ASYNC_ENTRY"
+				],
+				"output": {
+					"target": "js",
+					"path": "bin/client.js"
+				},
+				"packageName": "vshaxe.Main"
+			}
+		}
+	]
 }

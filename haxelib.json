@@ -1,14 +1,14 @@
 {
-    "name": "vshaxe",
-    "description": "Visual Studio Code Haxe extension extern library.",
-    "url": "https://github.com/vshaxe/vshaxe",
-    "license": "MIT",
-    "version": "2.1.0",
-    "releasenote": "Support showReuseMessage in TaskPresentationOptions.",
-    "classPath": "src-api",
-    "contributors": ["nadako", "Gama11"],
-    "dependencies": {
-        "vscode": ""
-    },
-    "tags": ["extern", "js", "vscode"]
+	"name": "vshaxe",
+	"description": "Visual Studio Code Haxe extension extern library.",
+	"url": "https://github.com/vshaxe/vshaxe",
+	"license": "MIT",
+	"version": "2.1.0",
+	"releasenote": "Support showReuseMessage in TaskPresentationOptions.",
+	"classPath": "src-api",
+	"contributors": ["nadako", "Gama11"],
+	"dependencies": {
+		"vscode": ""
+	},
+	"tags": ["extern", "js", "vscode"]
 }

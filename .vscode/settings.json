@@ -1,16 +1,19 @@
 {
-    "editor.insertSpaces": true,
-    "files.trimTrailingWhitespace": true,
-    "haxe.diagnosticsPathFilter": "${workspaceRoot}/(?!syntaxes/cases)",
-    "codedox": {
-        "commentprefix": "    ",
-        "commentdescription": "",
-        "commentend": "**/",
-        "alwaysMultiline": false,
-        "paramFormat": "",
-        "returnFormat": "",
-        "neverAskTemplate": true
-    },
-    // something with json2object in tokentree-formatter...
-    "haxe.enableCompilationServer": false
+	"editor.insertSpaces": true,
+	"files.trimTrailingWhitespace": true,
+	"haxe.diagnosticsPathFilter": "${workspaceRoot}/(?!syntaxes/cases)",
+	"codedox": {
+		"commentprefix": "    ",
+		"commentdescription": "",
+		"commentend": "**/",
+		"alwaysMultiline": false,
+		"paramFormat": "",
+		"returnFormat": "",
+		"neverAskTemplate": true
+	},
+	// something with json2object in tokentree-formatter...
+	"haxe.enableCompilationServer": false,
+	"[haxe]": {
+		"editor.formatOnSave": true
+	}
 }

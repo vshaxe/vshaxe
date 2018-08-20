@@ -1,71 +1,71 @@
 {
-    "compounds": [
-        {
-            "name": "Client + Server",
-            "configurations": ["Launch Extension", "Attach to Server"]
-        }
-    ],
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "extensionHost",
-            "request": "launch",
-            "name": "Launch Extension",
-            "runtimeExecutable": "${execPath}",
-            "args": [
-                "--extensionDevelopmentPath=${workspaceRoot}"
-            ],
-            "stopOnEntry": false,
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceRoot}/bin/*.js"
-            ]
-        },
-        {
-            "name": "Attach to Server",
-            "type": "node",
-            "request": "attach",
-            "port": 6004,
-            "protocol": "inspector",
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceRoot}/server/bin/*.js"
-            ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Server Unit Tests",
-            "program": "${workspaceRoot}/server/bin/test.js",
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceRoot}/server/bin/*.js"
-            ],
-            "preLaunchTask": "language-server-tests"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Formatter Unit Tests",
-            "program": "${workspaceRoot}/server/formatter/bin/test.js",
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceRoot}/server/formatter/bin/*.js"
-            ],
-            "cwd": "${workspaceRoot}/server/formatter",
-            "preLaunchTask": "formatter-tests-build"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Formatter CLI",
-            "program": "${workspaceRoot}/server/formatter/bin/cli.js",
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceRoot}/server/formatter/bin/*.js"
-            ],
-            "cwd": "${workspaceRoot}/server/formatter",
-            "preLaunchTask": "formatter-cli (debug)"
-        }
-    ]
+	"compounds": [
+		{
+			"name": "Client + Server",
+			"configurations": ["Launch Extension", "Attach to Server"]
+		}
+	],
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "extensionHost",
+			"request": "launch",
+			"name": "Launch Extension",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceRoot}"
+			],
+			"stopOnEntry": false,
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceRoot}/bin/*.js"
+			]
+		},
+		{
+			"name": "Attach to Server",
+			"type": "node",
+			"request": "attach",
+			"port": 6004,
+			"protocol": "inspector",
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceRoot}/server/bin/*.js"
+			]
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Server Unit Tests",
+			"program": "${workspaceRoot}/server/bin/test.js",
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceRoot}/server/bin/*.js"
+			],
+			"preLaunchTask": "language-server-tests"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Formatter Unit Tests",
+			"program": "${workspaceRoot}/server/formatter/bin/test.js",
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceRoot}/server/formatter/bin/*.js"
+			],
+			"cwd": "${workspaceRoot}/server/formatter",
+			"preLaunchTask": "formatter-tests-build"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Formatter CLI",
+			"program": "${workspaceRoot}/server/formatter/bin/cli.js",
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceRoot}/server/formatter/bin/*.js"
+			],
+			"cwd": "${workspaceRoot}/server/formatter",
+			"preLaunchTask": "formatter-cli (debug)"
+		}
+	]
 }
