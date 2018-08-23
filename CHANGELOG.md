@@ -1,4 +1,4 @@
-### 2.4.0 (to be released)
+### 2.4.0 (August 23, 2018)
 
 **New Features**:
 
