@@ -1,3 +1,9 @@
+### 2.4.1 (to be released)
+
+**Changes and Improvements**:
+
+- updated to haxe-formatter version 1.1.0
+
 ### 2.4.0 (August 23, 2018)
 
 **New Features**:

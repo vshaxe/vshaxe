@@ -1,36 +1,6 @@
 {
 	"$schema": "http://json-schema.org/schema#",
 	"definitions": {
-		"ConditionalEmtpyLinesConfig": {
-			"additionalProperties": false,
-			"properties": {
-				"afterElse": {
-					"type": "integer",
-					"propertyOrder": 2
-				},
-				"afterIf": {
-					"type": "integer",
-					"propertyOrder": 0
-				},
-				"beforeElse": {
-					"type": "integer",
-					"propertyOrder": 1
-				},
-				"beforeEnd": {
-					"type": "integer",
-					"propertyOrder": 3
-				},
-				"beforeError": {
-					"type": "integer",
-					"propertyOrder": 4
-				},
-				"afterError": {
-					"type": "integer",
-					"propertyOrder": 5
-				}
-			},
-			"type": "object"
-		},
 		"LineEndConfig": {
 			"additionalProperties": false,
 			"properties": {
@@ -121,20 +91,6 @@
 			},
 			"type": "object"
 		},
-		"TypedefFieldsEmtpyLinesConfig": {
-			"additionalProperties": false,
-			"properties": {
-				"beginType": {
-					"type": "integer",
-					"propertyOrder": 0
-				},
-				"betweenFields": {
-					"type": "integer",
-					"propertyOrder": 1
-				}
-			},
-			"type": "object"
-		},
 		"IndentationConfig": {
 			"additionalProperties": false,
 			"properties": {
@@ -157,72 +113,66 @@
 					"description": "if `character` is set to \"tab\", formatter uses `tabWidth` to calculate absolute line length",
 					"type": "integer",
 					"propertyOrder": 2
+				},
+				"trailingWhitespace": {
+					"description": "adds trailing whitespace to empty lines by copying indentation from preceeding line",
+					"type": "boolean",
+					"propertyOrder": 3
 				}
 			},
 			"type": "object"
 		},
-		"InterfaceFieldsEmtpyLinesConfig": {
+		"WrapRules": {
 			"additionalProperties": false,
 			"properties": {
-				"beginType": {
-					"type": "integer",
-					"propertyOrder": 0
-				},
-				"betweenVars": {
-					"type": "integer",
+				"defaultWrap": {
+					"type": "string",
+					"enum": [
+						"onePerLine",
+						"onePerLineAfterFirst",
+						"equalNumber",
+						"fillLine",
+						"noWrap",
+						"keep"
+					],
 					"propertyOrder": 1
 				},
-				"betweenFunctions": {
-					"type": "integer",
-					"propertyOrder": 3
-				},
-				"afterVars": {
+				"defaultAdditionalIndent": {
 					"type": "integer",
 					"propertyOrder": 2
+				},
+				"rules": {
+					"items": {
+						"$ref": "#/definitions/WrapRule"
+					},
+					"type": "array",
+					"propertyOrder": 0
 				}
 			},
 			"type": "object"
 		},
-		"ClassFieldsEmtpyLinesConfig": {
+		"EnumAbstractFieldsEmptyLinesConfig": {
 			"additionalProperties": false,
 			"properties": {
 				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
 					"type": "integer",
 					"propertyOrder": 0
 				},
-				"afterStaticFunctions": {
-					"type": "integer",
-					"propertyOrder": 6
-				},
-				"betweenStaticFunctions": {
-					"type": "integer",
-					"propertyOrder": 7
-				},
 				"betweenVars": {
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"betweenFunctions": {
 					"type": "integer",
 					"propertyOrder": 4
 				},
-				"afterStaticVars": {
-					"type": "integer",
-					"propertyOrder": 2
-				},
-				"betweenFunctions": {
-					"type": "integer",
-					"propertyOrder": 9
-				},
 				"afterVars": {
-					"type": "integer",
-					"propertyOrder": 5
-				},
-				"afterPrivateFunctions": {
-					"type": "integer",
-					"propertyOrder": 8
-				},
-				"afterPrivateVars": {
 					"type": "integer",
 					"propertyOrder": 3
 				},
-				"betweenStaticVars": {
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
 					"type": "integer",
 					"propertyOrder": 1
 				}
@@ -256,6 +206,26 @@
 			},
 			"type": "object"
 		},
+		"TypedefFieldsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
+					"type": "integer",
+					"propertyOrder": 0
+				},
+				"betweenFields": {
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer",
+					"propertyOrder": 1
+				}
+			},
+			"type": "object"
+		},
 		"WrapRule": {
 			"required": [
 				"conditions",
@@ -278,10 +248,11 @@
 					"type": "string",
 					"enum": [
 						"onePerLine",
-						"onePerLineKeep",
+						"onePerLineAfterFirst",
 						"equalNumber",
 						"fillLine",
-						"noWrap"
+						"noWrap",
+						"keep"
 					],
 					"propertyOrder": 1
 				}
@@ -297,7 +268,7 @@
 					"propertyOrder": 0
 				},
 				"excludes": {
-					"description": "regular expressions matching files to exclude from formatting",
+					"description": "regular expressions matching files to exclude from formatting\n\t\tdefault ist to exclude any \".haxelib\" folder",
 					"items": {
 						"type": "string"
 					},
@@ -380,7 +351,7 @@
 					"propertyOrder": 9
 				},
 				"conditionalsEmptyLines": {
-					"$ref": "#/definitions/ConditionalEmtpyLinesConfig",
+					"$ref": "#/definitions/ConditionalEmptyLinesConfig",
 					"propertyOrder": 18
 				},
 				"afterBlocks": {
@@ -392,11 +363,11 @@
 					"propertyOrder": 10
 				},
 				"enumEmptyLines": {
-					"$ref": "#/definitions/TypedefFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
 					"propertyOrder": 16
 				},
 				"externClassEmptyLines": {
-					"$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
 					"propertyOrder": 13
 				},
 				"betweenTypes": {
@@ -414,15 +385,15 @@
 					"propertyOrder": 1
 				},
 				"typedefEmptyLines": {
-					"$ref": "#/definitions/TypedefFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
 					"propertyOrder": 17
 				},
 				"enumAbstractEmptyLines": {
-					"$ref": "#/definitions/EnumAbstractFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/EnumAbstractFieldsEmptyLinesConfig",
 					"propertyOrder": 11
 				},
 				"abstractEmptyLines": {
-					"$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
 					"propertyOrder": 14
 				},
 				"afterImportsUsing": {
@@ -430,7 +401,7 @@
 					"propertyOrder": 4
 				},
 				"classEmptyLines": {
-					"$ref": "#/definitions/ClassFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
 					"propertyOrder": 12
 				},
 				"beforeDocCommentEmptyLines": {
@@ -444,30 +415,118 @@
 					"propertyOrder": 19
 				},
 				"interfaceEmptyLines": {
-					"$ref": "#/definitions/InterfaceFieldsEmtpyLinesConfig",
+					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
 					"propertyOrder": 15
 				}
 			},
 			"type": "object"
 		},
-		"EnumAbstractFieldsEmtpyLinesConfig": {
+		"ClassFieldsEmptyLinesConfig": {
 			"additionalProperties": false,
 			"properties": {
 				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
+					"type": "integer",
+					"propertyOrder": 0
+				},
+				"afterStaticFunctions": {
+					"type": "integer",
+					"propertyOrder": 7
+				},
+				"betweenStaticFunctions": {
+					"type": "integer",
+					"propertyOrder": 8
+				},
+				"betweenVars": {
+					"type": "integer",
+					"propertyOrder": 5
+				},
+				"afterStaticVars": {
+					"type": "integer",
+					"propertyOrder": 3
+				},
+				"betweenFunctions": {
+					"type": "integer",
+					"propertyOrder": 10
+				},
+				"afterVars": {
+					"type": "integer",
+					"propertyOrder": 6
+				},
+				"afterPrivateFunctions": {
+					"type": "integer",
+					"propertyOrder": 9
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer",
+					"propertyOrder": 1
+				},
+				"afterPrivateVars": {
+					"type": "integer",
+					"propertyOrder": 4
+				},
+				"betweenStaticVars": {
+					"type": "integer",
+					"propertyOrder": 2
+				}
+			},
+			"type": "object"
+		},
+		"ConditionalEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"afterElse": {
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"afterIf": {
+					"type": "integer",
+					"propertyOrder": 0
+				},
+				"beforeElse": {
+					"type": "integer",
+					"propertyOrder": 1
+				},
+				"beforeEnd": {
+					"type": "integer",
+					"propertyOrder": 3
+				},
+				"beforeError": {
+					"type": "integer",
+					"propertyOrder": 4
+				},
+				"afterError": {
+					"type": "integer",
+					"propertyOrder": 5
+				}
+			},
+			"type": "object"
+		},
+		"InterfaceFieldsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"beginType": {
+					"description": "add empty lines after opening \"{\" of type",
 					"type": "integer",
 					"propertyOrder": 0
 				},
 				"betweenVars": {
 					"type": "integer",
-					"propertyOrder": 1
+					"propertyOrder": 2
 				},
 				"betweenFunctions": {
 					"type": "integer",
-					"propertyOrder": 3
+					"propertyOrder": 4
 				},
 				"afterVars": {
 					"type": "integer",
-					"propertyOrder": 2
+					"propertyOrder": 3
+				},
+				"endType": {
+					"description": "add empty lines before closing \"}\" of type",
+					"type": "integer",
+					"propertyOrder": 1
 				}
 			},
 			"type": "object"
@@ -482,32 +541,33 @@
 				},
 				"functionSignature": {
 					"description": "function signature wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
+					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 9
 				},
 				"anonType": {
 					"description": "anon types wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
-					"propertyOrder": 11
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 12
+				},
+				"methodChain": {
+					"description": "method chaining wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 13
 				},
 				"arrayWrap": {
 					"description": "function signature wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
+					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 7
 				},
 				"maxLineLength": {
 					"description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
 					"type": "integer",
 					"propertyOrder": 0
+				},
+				"callParameter": {
+					"description": "function signature wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 10
 				},
 				"wrapAfterOpeningBrace": {
 					"description": "should wrapping happen after opening braces `{`",
@@ -526,19 +586,13 @@
 				},
 				"typeParameter": {
 					"description": "function signature wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
+					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 8
 				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
-					"items": {
-						"$ref": "#/definitions/WrapRule"
-					},
-					"type": "array",
-					"propertyOrder": 10
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 11
 				},
 				"wrapAfterPlus": {
 					"type": "boolean",
@@ -1019,10 +1073,12 @@
 			"additionalProperties": false,
 			"properties": {
 				"tryBody": {
+					"description": "same line policy for non block body of \"try\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 11
 				},
@@ -1030,15 +1086,18 @@
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 7
 				},
 				"ifElse": {
+					"description": "same line policy for \"else\" part of \"if…else\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 2
 				},
@@ -1046,7 +1105,8 @@
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 15
 				},
@@ -1054,16 +1114,18 @@
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 16
 				},
 				"doWhile": {
-					"description": "should non block body of \"while\" of \"do…while\" be on same line or next",
+					"description": "same line policy for \"while\" part in \"do…while\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 10
 				},
@@ -1073,42 +1135,52 @@
 					"propertyOrder": 5
 				},
 				"catchBody": {
+					"description": "same line policy for non block body of \"catch\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 12
 				},
 				"elseIf": {
+					"description": "same line policy for \"if\" part of \"else if\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 3
 				},
 				"functionBody": {
+					"description": "same line policy for non block body of \"function\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 17
 				},
 				"expressionIf": {
+					"description": "same line policy for non block body of \"if\" in a value place / as expression\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 4
 				},
 				"ifBody": {
+					"description": "same line policy for non block body of \"if\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 0
 				},
@@ -1116,58 +1188,68 @@
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 14
 				},
 				"elseBody": {
+					"description": "same line policy for non block body of \"else\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 1
 				},
 				"tryCatch": {
+					"description": "same line policy for \"catch\" part of \"try…catch\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 13
 				},
 				"doWhileBody": {
-					"description": "should non block body of \"do…while\" be on same line or next",
+					"description": "same line policy for non block body of \"do…while\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 9
 				},
 				"anonFunctionBody": {
+					"description": "same line policy for non block body of anon \"function\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 18
 				},
 				"forBody": {
-					"description": "should non block body of \"for\" be on same line or next",
+					"description": "same line policy for non block body of \"for\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 6
 				},
 				"whileBody": {
-					"description": "should non block body of \"while\" be on same line or next",
+					"description": "same line policy for non block body of \"while\" (not \"do…while\")\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
 					"enum": [
 						"same",
-						"next"
+						"next",
+						"keep"
 					],
 					"propertyOrder": 8
 				}
