@@ -180,7 +180,7 @@ class DependencyTreeView {
 		return if (node == null) dependencyNodes else node.children;
 	}
 
-	public final getParent = function(node:Node) {
+	public var getParent = function(node:Node) {
 		return node.parent;
 	}
 

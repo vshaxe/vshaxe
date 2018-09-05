@@ -21,7 +21,7 @@ class HaxeDisplayArgumentsProvider {
 	inline function get_isActive()
 		return provideArguments != null;
 
-	public final description = "Project using haxe.displayConfigurations or HXML files (built-in)";
+	public var description(default, never) = "Project using haxe.displayConfigurations or HXML files (built-in)";
 
 	public function new(context:ExtensionContext, displayArguments:DisplayArguments, hxmlDiscovery:HxmlDiscovery) {
 		this.context = context;
@@ -84,12 +84,15 @@ class HaxeDisplayArgumentsProvider {
 	function selectConfiguration() {
 		if (configurations.length == 0) {
 			window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.displayConfigurations setting.",
-				({title: "Edit settings"} : vscode.MessageItem)).then(function(
+				({title: "Edit settings"} : vscode.MessageItem))
+				.then(function(
 					button) {
 				if (button == null)
 					return;
-				workspace.getConfiguration("haxe").update("displayConfigurations", [], false).then(_ -> workspace.openTextDocument(workspace.workspaceFolders[0]
-					.uri.fsPath + "/.vscode/settings.json").then(document -> window.showTextDocument(document)));
+				workspace.getConfiguration("haxe")
+					.update("displayConfigurations", [], false)
+					.then(_ -> workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
+					.then(document -> window.showTextDocument(document)));
 			});
 			return;
 		}

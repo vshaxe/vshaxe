@@ -126,7 +126,7 @@ class MethodTreeView {
 		return if (element == null) methods else element.children;
 	}
 
-	public final getParent = function(element:MethodTreeItem):MethodTreeItem {
+	public var getParent = function(element:MethodTreeItem):MethodTreeItem {
 		return element.parent;
 	}
 
