@@ -3,6 +3,7 @@
 **Changes and Improvements**:
 
 - updated to haxe-formatter version 1.1.0
+- allowed auto-closing of brackets in single quote strings ([#123](https://github.com/vshaxe/vshaxe/issues/123))
 
 ### 2.4.0 (August 23, 2018)
 
