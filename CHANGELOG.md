@@ -4,6 +4,7 @@
 
 - updated to haxe-formatter version 1.1.0
 - allowed auto-closing of brackets in single quote strings ([#123](https://github.com/vshaxe/vshaxe/issues/123))
+- added syntax highlighting support for `final class` / `interface` ([haxe#7381](https://github.com/HaxeFoundation/haxe/pull/7381))
 
 ### 2.4.0 (August 23, 2018)
 
