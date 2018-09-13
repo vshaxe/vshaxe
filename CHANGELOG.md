@@ -1,3 +1,9 @@
+### 2.4.2 (to be released)
+
+**Bugfixes**:
+
+- fixed tasks not working when vshaxe hasn't been activated yet ([#296](https://github.com/vshaxe/vshaxe/issues/296))
+
 ### 2.4.1 (September 12, 2018)
 
 **Changes and Improvements**:
