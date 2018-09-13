@@ -4,6 +4,10 @@
 
 - fixed tasks not working when vshaxe hasn't been activated yet ([#296](https://github.com/vshaxe/vshaxe/issues/296))
 
+**Changes and Improvements**:
+
+- added syntax highlighting support for key-value iterators ([HXP-0006](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0006-key-value-iter.md))
+
 ### 2.4.1 (September 12, 2018)
 
 **Changes and Improvements**:
