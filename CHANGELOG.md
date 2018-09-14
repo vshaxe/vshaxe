@@ -7,6 +7,7 @@
 **Changes and Improvements**:
 
 - added syntax highlighting support for key-value iterators ([HXP-0006](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0006-key-value-iter.md))
+- don't save auto-selected display configurations ([#295](https://github.com/vshaxe/vshaxe/issues/295))
 
 ### 2.4.1 (September 12, 2018)
 

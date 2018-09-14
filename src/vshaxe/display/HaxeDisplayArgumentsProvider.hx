@@ -71,9 +71,7 @@ class HaxeDisplayArgumentsProvider {
 
 	public function activate(provideArguments) {
 		this.provideArguments = provideArguments;
-		var config = getCurrent();
-		updateStatusBarItem(config);
-		notifyConfigurationChange(config);
+		setCurrent(getCurrent());
 	}
 
 	public function deactivate() {
@@ -113,6 +111,10 @@ class HaxeDisplayArgumentsProvider {
 		window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe Configuration"}).then(function(choice:DisplayConfigurationPickItem) {
 			if (choice == null || choice.config == current)
 				return;
+			context.getWorkspaceState().update(ConfigurationIndexKey, switch choice.config.kind {
+				case Configured(index, _): index;
+				case Discovered(id): id;
+			});
 			setCurrent(choice.config);
 		});
 	}
@@ -140,7 +142,7 @@ class HaxeDisplayArgumentsProvider {
 	public static final ConfigurationIndexKey = new HaxeMementoKey<SavedSelection>("displayConfigurationIndex");
 
 	function getCurrent():Null<Configuration> {
-		var selection = context.getWorkspaceState().get(ConfigurationIndexKey, 0);
+		var selection = context.getWorkspaceState().get(ConfigurationIndexKey);
 		for (conf in configurations) {
 			switch conf.kind {
 				case Configured(idx, _) if (idx == selection):
@@ -150,29 +152,19 @@ class HaxeDisplayArgumentsProvider {
 				case _:
 			}
 		}
-		return null;
+		return configurations[0];
 	}
 
 	function setCurrent(config:Configuration) {
-		context.getWorkspaceState().update(ConfigurationIndexKey, switch config.kind {
-			case Configured(index, _): index;
-			case Discovered(id): id;
-		});
 		updateStatusBarItem(config);
-		notifyConfigurationChange(config);
+		if (provideArguments != null)
+			provideArguments(if (config == null) [] else config.args);
 	}
 
 	function refresh() {
 		updateConfigurations();
 		updateDisplayArgumentsProviderRegistration();
-		var config = getCurrent();
-		if (config == null && configurations.length > 0) {
-			config = configurations[0];
-			setCurrent(config);
-		} else {
-			updateStatusBarItem(config);
-			notifyConfigurationChange(config);
-		}
+		setCurrent(getCurrent());
 	}
 
 	function updateDisplayArgumentsProviderRegistration() {
@@ -203,11 +195,6 @@ class HaxeDisplayArgumentsProvider {
 		}
 
 		statusBarItem.hide();
-	}
-
-	inline function notifyConfigurationChange(config:Configuration) {
-		if (provideArguments != null)
-			provideArguments(if (config == null) [] else config.args);
 	}
 }
 
