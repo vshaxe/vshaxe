@@ -8,6 +8,7 @@
 
 - added syntax highlighting support for key-value iterators ([HXP-0006](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0006-key-value-iter.md))
 - added expected argument info when hovering over call args (requires Haxe dev)
+- added more details to metadata docs in completion / hover (requires Haxe dev)
 - don't save auto-selected display configurations ([#295](https://github.com/vshaxe/vshaxe/issues/295))
 - allowed using the "Organize Imports" command to remove unused imports
 
