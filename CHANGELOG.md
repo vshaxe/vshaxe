@@ -1,4 +1,4 @@
-### 2.4.2 (to be released)
+### 2.4.2 (October 15, 2018)
 
 **Bugfixes**:
 
