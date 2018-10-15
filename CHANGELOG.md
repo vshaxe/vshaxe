@@ -6,9 +6,10 @@
 
 **Changes and Improvements**:
 
+- updated to haxe-formatter version 1.1.1
 - added syntax highlighting support for key-value iterators ([HXP-0006](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0006-key-value-iter.md))
-- added expected argument info when hovering over call args (requires Haxe dev)
-- added more details to metadata docs in completion / hover (requires Haxe dev)
+- added expected argument info when hovering over call args (requires Haxe 4 preview 5)
+- added more details to metadata docs in completion / hover (requires Haxe 4 preview 5)
 - don't save auto-selected display configurations ([#295](https://github.com/vshaxe/vshaxe/issues/295))
 - allowed using the "Organize Imports" command to remove unused imports
 
