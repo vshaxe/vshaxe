@@ -1,3 +1,9 @@
+### 2.4.5 (to be released)
+
+**Changes and Improvements**:
+
+- disallowed using `(` as a commit character in pattern completion ([#292](https://github.com/vshaxe/vshaxe/issues/292))
+
 ### 2.4.4 (October 17, 2018)
 
 **Bugfixes**:
