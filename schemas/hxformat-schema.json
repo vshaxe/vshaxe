@@ -94,6 +94,10 @@
 		"IndentationConfig": {
 			"additionalProperties": false,
 			"properties": {
+				"indentObjectLiteral": {
+					"type": "boolean",
+					"propertyOrder": 4
+				},
 				"character": {
 					"description": "use \"tab\" or \"<amount of spaces per indent in spaces>\" to define which character to use",
 					"type": "string",
@@ -105,7 +109,8 @@
 					"enum": [
 						"fixedZero",
 						"aligned",
-						"alignedIncrease"
+						"alignedIncrease",
+						"alignedDecrease"
 					],
 					"propertyOrder": 0
 				},
@@ -126,6 +131,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"defaultWrap": {
+					"description": "default wrapping type when no rule applies",
 					"type": "string",
 					"enum": [
 						"onePerLine",
@@ -138,15 +144,52 @@
 					"propertyOrder": 1
 				},
 				"defaultAdditionalIndent": {
+					"description": "adds indentation to all wrapped lines when applying defaultWrap",
 					"type": "integer",
 					"propertyOrder": 2
 				},
 				"rules": {
+					"description": "list of wrapping rules\n\t\twrapping uses only the first rule whose conditions evaluates to true",
 					"items": {
 						"$ref": "#/definitions/WrapRule"
 					},
 					"type": "array",
 					"propertyOrder": 0
+				}
+			},
+			"type": "object"
+		},
+		"ImportsEmptyLinesConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"betweenImports": {
+					"description": "empty lines between two consecutive import/using lines using betweenImportsLevel",
+					"type": "integer",
+					"propertyOrder": 0
+				},
+				"betweenImportsLevel": {
+					"description": "restrict betweenImports setting to a specific level\n\t\t\"all\" - apply betweenImports to all imports/using entries\n\t\t\"topLevelPackage\" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names\n\t\t\"packages\" - group imports/using entries using full packages; no empty lines for identical package names",
+					"type": "string",
+					"enum": [
+						"all",
+						"firstLevelPackage",
+						"secondLevelPackage",
+						"thirdLevelPackage",
+						"fourthLevelPackage",
+						"fifthLevelPackage",
+						"fullPackage"
+					],
+					"propertyOrder": 1
+				},
+				"beforeUsing": {
+					"description": "empty lines between import and using lines",
+					"type": "integer",
+					"propertyOrder": 2
+				},
+				"beforeType": {
+					"description": "empty lines after import and using section",
+					"type": "integer",
+					"propertyOrder": 3
 				}
 			},
 			"type": "object"
@@ -234,6 +277,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"conditions": {
+					"description": "list of conditions\n\t\twrapping selects a rule if all of its conditions evaluate to true",
 					"items": {
 						"$ref": "#/definitions/WrapCondition"
 					},
@@ -241,10 +285,12 @@
 					"propertyOrder": 0
 				},
 				"additionalIndent": {
+					"description": "adds indentation to all wrapped lines",
 					"type": "integer",
 					"propertyOrder": 2
 				},
 				"type": {
+					"description": "wrapping type",
 					"type": "string",
 					"enum": [
 						"onePerLine",
@@ -312,7 +358,7 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 6
+					"propertyOrder": 7
 				},
 				"afterLeftCurly": {
 					"description": "Remove or keep empty lines below \"{\"",
@@ -321,7 +367,7 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 7
+					"propertyOrder": 8
 				},
 				"afterReturn": {
 					"description": "Remove or keep empty lines below \"return\"",
@@ -330,17 +376,22 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 8
+					"propertyOrder": 9
 				},
 				"afterPackage": {
-					"description": "empty lines after package",
+					"description": "empty lines after package declaration",
 					"type": "integer",
-					"propertyOrder": 2
+					"propertyOrder": 3
 				},
 				"finalNewline": {
 					"description": "adds a final newline",
 					"type": "boolean",
 					"propertyOrder": 0
+				},
+				"importAndUsing": {
+					"description": "empty lines for package, import and using section",
+					"$ref": "#/definitions/ImportsEmptyLinesConfig",
+					"propertyOrder": 4
 				},
 				"beforeBlocks": {
 					"type": "string",
@@ -348,11 +399,16 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 9
+					"propertyOrder": 10
+				},
+				"betweenSingleLineTypes": {
+					"description": "empty lines between two single line types",
+					"type": "integer",
+					"propertyOrder": 6
 				},
 				"conditionalsEmptyLines": {
 					"$ref": "#/definitions/ConditionalEmptyLinesConfig",
-					"propertyOrder": 18
+					"propertyOrder": 19
 				},
 				"afterBlocks": {
 					"type": "string",
@@ -360,24 +416,20 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 10
+					"propertyOrder": 11
 				},
 				"enumEmptyLines": {
 					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
-					"propertyOrder": 16
+					"propertyOrder": 17
 				},
 				"externClassEmptyLines": {
 					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
-					"propertyOrder": 13
+					"propertyOrder": 14
 				},
 				"betweenTypes": {
 					"description": "empty lines between types",
 					"type": "integer",
 					"propertyOrder": 5
-				},
-				"beforeUsing": {
-					"type": "integer",
-					"propertyOrder": 3
 				},
 				"maxAnywhereInFile": {
 					"description": "maximum consecutive empty lines anywhere in file - runs last, all empty lines policies are limited to \"maxAnywhereInFile\"",
@@ -386,23 +438,24 @@
 				},
 				"typedefEmptyLines": {
 					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
-					"propertyOrder": 17
+					"propertyOrder": 18
 				},
 				"enumAbstractEmptyLines": {
 					"$ref": "#/definitions/EnumAbstractFieldsEmptyLinesConfig",
-					"propertyOrder": 11
+					"propertyOrder": 12
 				},
 				"abstractEmptyLines": {
 					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
-					"propertyOrder": 14
+					"propertyOrder": 15
 				},
-				"afterImportsUsing": {
+				"beforePackage": {
+					"description": "empty lines before package declaration",
 					"type": "integer",
-					"propertyOrder": 4
+					"propertyOrder": 2
 				},
 				"classEmptyLines": {
 					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
-					"propertyOrder": 12
+					"propertyOrder": 13
 				},
 				"beforeDocCommentEmptyLines": {
 					"description": "\"one\" adds one empty line above doc comments\n\t\t\"none\" removes all empty lines above doc comments\n\t\t\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
@@ -412,11 +465,11 @@
 						"none",
 						"one"
 					],
-					"propertyOrder": 19
+					"propertyOrder": 20
 				},
 				"interfaceEmptyLines": {
 					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
-					"propertyOrder": 15
+					"propertyOrder": 16
 				}
 			},
 			"type": "object"
@@ -534,28 +587,33 @@
 		"WrapConfig": {
 			"additionalProperties": false,
 			"properties": {
+				"opBoolChain": {
+					"description": "OpBool chain wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 15
+				},
 				"wrapAfterComma": {
 					"description": "should wrapping happen after comma",
 					"type": "boolean",
 					"propertyOrder": 1
 				},
 				"functionSignature": {
-					"description": "function signature wrapping rules",
+					"description": "named function signature wrapping rules",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 9
 				},
 				"anonType": {
 					"description": "anon types wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 12
+					"propertyOrder": 13
 				},
 				"methodChain": {
 					"description": "method chaining wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 13
+					"propertyOrder": 14
 				},
 				"arrayWrap": {
-					"description": "function signature wrapping rules",
+					"description": "array wrapping rules\n\t\tdoes not affect array comprehension, use \"sameLine.comprehensionFor\"",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 7
 				},
@@ -565,9 +623,9 @@
 					"propertyOrder": 0
 				},
 				"callParameter": {
-					"description": "function signature wrapping rules",
+					"description": "call parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 10
+					"propertyOrder": 11
 				},
 				"wrapAfterOpeningBrace": {
 					"description": "should wrapping happen after opening braces `{`",
@@ -579,20 +637,25 @@
 					"type": "boolean",
 					"propertyOrder": 2
 				},
+				"anonFunctionSignature": {
+					"description": "anon function signature wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 10
+				},
 				"wrapAfterOpeningBracket": {
 					"description": "should wrapping happen after opening brackets `[`",
 					"type": "boolean",
 					"propertyOrder": 6
 				},
 				"typeParameter": {
-					"description": "function signature wrapping rules",
+					"description": "type parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 8
 				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 11
+					"propertyOrder": 12
 				},
 				"wrapAfterPlus": {
 					"type": "boolean",
@@ -610,6 +673,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"openingParenPolicy": {
+					"description": "\"(\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -638,6 +702,7 @@
 					"propertyOrder": 18
 				},
 				"typeParamClosePolicy": {
+					"description": "\">\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -666,6 +731,7 @@
 					"propertyOrder": 14
 				},
 				"closingBracePolicy": {
+					"description": "\"}\" except object literals",
 					"type": "string",
 					"enum": [
 						"none",
@@ -680,6 +746,7 @@
 					"propertyOrder": 5
 				},
 				"closingParenPolicy": {
+					"description": "\")\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -736,6 +803,7 @@
 					"propertyOrder": 17
 				},
 				"typeParamOpenPolicy": {
+					"description": "\"<\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -750,6 +818,7 @@
 					"propertyOrder": 8
 				},
 				"openingBracketPolicy": {
+					"description": "\"[\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -764,6 +833,7 @@
 					"propertyOrder": 2
 				},
 				"closingBracketPolicy": {
+					"description": "\"]\"",
 					"type": "string",
 					"enum": [
 						"none",
@@ -778,11 +848,12 @@
 					"propertyOrder": 3
 				},
 				"compressSuccessiveParenthesis": {
-					"description": "should formatter compress whitespae for successive parenthesis `( [ {` vs. `([{`",
+					"description": "should formatter compress spaces for successive parenthesis `( [ {` vs. `([{`",
 					"type": "boolean",
 					"propertyOrder": 32
 				},
 				"objectOpeningBracePolicy": {
+					"description": "\"{\" in object literal",
 					"type": "string",
 					"enum": [
 						"none",
@@ -811,6 +882,7 @@
 					"propertyOrder": 30
 				},
 				"openingBracePolicy": {
+					"description": "\"{\" except object literals",
 					"type": "string",
 					"enum": [
 						"none",
@@ -909,6 +981,7 @@
 					"propertyOrder": 13
 				},
 				"objectClosingBracePolicy": {
+					"description": "\"}\" in object literal",
 					"type": "string",
 					"enum": [
 						"none",
@@ -951,6 +1024,7 @@
 					"propertyOrder": 24
 				},
 				"formatStringInterpolation": {
+					"description": "should formatter try to format string interpolation expressions (e.g. '${x+3}' -> '${x + 3}')\n\t\tonly applies spaces, no newlines or wrapping",
 					"type": "boolean",
 					"propertyOrder": 33
 				},
@@ -1223,6 +1297,16 @@
 					],
 					"propertyOrder": 9
 				},
+				"returnBody": {
+					"description": "same line policy for return values\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
+					"type": "string",
+					"enum": [
+						"same",
+						"next",
+						"keep"
+					],
+					"propertyOrder": 19
+				},
 				"anonFunctionBody": {
 					"description": "same line policy for non block body of anon \"function\"\n\t\t* same = place function and body on same line\n\t\t* next = place body on next line\n\t\t* keep = keep same / next line from source",
 					"type": "string",
@@ -1258,5 +1342,5 @@
 		}
 	},
 	"$ref": "#/definitions/FormatterConfig",
-	"id": "https://raw.githubusercontent.com/HaxeCheckstyle/tokentree-formatter/master/resources/formatter-schema.json"
+	"id": "https://raw.githubusercontent.com/HaxeCheckstyle/haxe-formatter/master/resources/formatter-schema.json"
 }
