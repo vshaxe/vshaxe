@@ -1,7 +1,8 @@
-### 2.4.5 (to be released)
+### 2.4.5 (December 5, 2018)
 
 **Changes and Improvements**:
 
+- updated to haxe-formatter version [1.3.0](https://github.com/HaxeCheckstyle/haxe-formatter/blob/master/CHANGELOG.md#version-130-2018-12-05)
 - disallowed using `(` as a commit character in pattern completion ([#292](https://github.com/vshaxe/vshaxe/issues/292))
 
 ### 2.4.4 (October 17, 2018)
