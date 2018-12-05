@@ -194,6 +194,47 @@
 			},
 			"type": "object"
 		},
+		"OpenClosePolicy": {
+			"additionalProperties": false,
+			"properties": {
+				"closingPolicy": {
+					"description": "\")\"",
+					"type": "string",
+					"enum": [
+						"none",
+						"before",
+						"noneBefore",
+						"onlyBefore",
+						"after",
+						"onlyAfter",
+						"noneAfter",
+						"around"
+					],
+					"propertyOrder": 1
+				},
+				"removeInnerWhenEmpty": {
+					"description": "\"()\" or \"( )\" - if `openingPolicy` contains `After` or `closingPolicy` contains `Before`",
+					"type": "boolean",
+					"propertyOrder": 2
+				},
+				"openingPolicy": {
+					"description": "\"(\"",
+					"type": "string",
+					"enum": [
+						"none",
+						"before",
+						"noneBefore",
+						"onlyBefore",
+						"after",
+						"onlyAfter",
+						"noneAfter",
+						"around"
+					],
+					"propertyOrder": 0
+				}
+			},
+			"type": "object"
+		},
 		"EnumAbstractFieldsEmptyLinesConfig": {
 			"additionalProperties": false,
 			"properties": {
@@ -264,6 +305,47 @@
 				"endType": {
 					"description": "add empty lines before closing \"}\" of type",
 					"type": "integer",
+					"propertyOrder": 1
+				}
+			},
+			"type": "object"
+		},
+		"ParenWhitespaceConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"metadataParens": {
+					"description": "parens used for metadata",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 0
+				},
+				"callParens": {
+					"description": "parens used for calls",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 3
+				},
+				"forLoopParens": {
+					"description": "parens used for for loops",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 5
+				},
+				"anonFuncParamParens": {
+					"description": "parens used for anon function parameters",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 2
+				},
+				"conditionParens": {
+					"description": "parens used for conditions",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 4
+				},
+				"expressionParens": {
+					"description": "parens used for expressions",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 6
+				},
+				"funcParamParens": {
+					"description": "parens used for function parameters",
+					"$ref": "#/definitions/OpenClosePolicy",
 					"propertyOrder": 1
 				}
 			},
@@ -526,6 +608,37 @@
 			},
 			"type": "object"
 		},
+		"BracesWhitespaceConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"objectLiteralBraces": {
+					"description": "braces for object literals",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 3
+				},
+				"unknownBraces": {
+					"description": "unknown braces",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 4
+				},
+				"blockBraces": {
+					"description": "braces for blocks",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 0
+				},
+				"typedefBraces": {
+					"description": "braces for typdefs",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 1
+				},
+				"anonTypeBraces": {
+					"description": "braces for anon types",
+					"$ref": "#/definitions/OpenClosePolicy",
+					"propertyOrder": 2
+				}
+			},
+			"type": "object"
+		},
 		"ConditionalEmptyLinesConfig": {
 			"additionalProperties": false,
 			"properties": {
@@ -590,32 +703,27 @@
 				"opBoolChain": {
 					"description": "OpBool chain wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 15
-				},
-				"wrapAfterComma": {
-					"description": "should wrapping happen after comma",
-					"type": "boolean",
-					"propertyOrder": 1
+					"propertyOrder": 9
 				},
 				"functionSignature": {
 					"description": "named function signature wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 9
+					"propertyOrder": 3
 				},
 				"anonType": {
 					"description": "anon types wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 13
+					"propertyOrder": 7
 				},
 				"methodChain": {
 					"description": "method chaining wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 14
+					"propertyOrder": 8
 				},
 				"arrayWrap": {
 					"description": "array wrapping rules\n\t\tdoes not affect array comprehension, use \"sameLine.comprehensionFor\"",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 7
+					"propertyOrder": 1
 				},
 				"maxLineLength": {
 					"description": "maximum characters per line, formatter will try to wrap code longer than `maxLineLength`",
@@ -625,46 +733,22 @@
 				"callParameter": {
 					"description": "call parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 11
-				},
-				"wrapAfterOpeningBrace": {
-					"description": "should wrapping happen after opening braces `{`",
-					"type": "boolean",
-					"propertyOrder": 4
-				},
-				"wrapBeforeDot": {
-					"description": "should wrapping happen before dot",
-					"type": "boolean",
-					"propertyOrder": 2
+					"propertyOrder": 5
 				},
 				"anonFunctionSignature": {
 					"description": "anon function signature wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 10
-				},
-				"wrapAfterOpeningBracket": {
-					"description": "should wrapping happen after opening brackets `[`",
-					"type": "boolean",
-					"propertyOrder": 6
+					"propertyOrder": 4
 				},
 				"typeParameter": {
 					"description": "type parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 8
+					"propertyOrder": 2
 				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 12
-				},
-				"wrapAfterPlus": {
-					"type": "boolean",
-					"propertyOrder": 5
-				},
-				"wrapAfterOpeningParenthesis": {
-					"description": "should wrapping happen after opening braces `(`",
-					"type": "boolean",
-					"propertyOrder": 3
+					"propertyOrder": 6
 				}
 			},
 			"type": "object"
@@ -672,21 +756,6 @@
 		"WhitespaceConfig": {
 			"additionalProperties": false,
 			"properties": {
-				"openingParenPolicy": {
-					"description": "\"(\"",
-					"type": "string",
-					"enum": [
-						"none",
-						"before",
-						"noneBefore",
-						"onlyBefore",
-						"after",
-						"onlyAfter",
-						"noneAfter",
-						"around"
-					],
-					"propertyOrder": 0
-				},
 				"ternaryPolicy": {
 					"type": "string",
 					"enum": [
@@ -699,7 +768,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 18
+					"propertyOrder": 14
 				},
 				"typeParamClosePolicy": {
 					"description": "\">\"",
@@ -714,7 +783,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 9
+					"propertyOrder": 5
 				},
 				"caseColonPolicy": {
 					"type": "string",
@@ -728,37 +797,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 14
-				},
-				"closingBracePolicy": {
-					"description": "\"}\" except object literals",
-					"type": "string",
-					"enum": [
-						"none",
-						"before",
-						"noneBefore",
-						"onlyBefore",
-						"after",
-						"onlyAfter",
-						"noneAfter",
-						"around"
-					],
-					"propertyOrder": 5
-				},
-				"closingParenPolicy": {
-					"description": "\")\"",
-					"type": "string",
-					"enum": [
-						"none",
-						"before",
-						"noneBefore",
-						"onlyBefore",
-						"after",
-						"onlyAfter",
-						"noneAfter",
-						"around"
-					],
-					"propertyOrder": 1
+					"propertyOrder": 10
 				},
 				"intervalPolicy": {
 					"type": "string",
@@ -772,7 +811,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 28
+					"propertyOrder": 24
 				},
 				"commaPolicy": {
 					"type": "string",
@@ -786,7 +825,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 11
+					"propertyOrder": 7
 				},
 				"typeCheckColonPolicy": {
 					"type": "string",
@@ -800,7 +839,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 17
+					"propertyOrder": 13
 				},
 				"typeParamOpenPolicy": {
 					"description": "\"<\"",
@@ -815,7 +854,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 8
+					"propertyOrder": 4
 				},
 				"openingBracketPolicy": {
 					"description": "\"[\"",
@@ -847,25 +886,15 @@
 					],
 					"propertyOrder": 3
 				},
+				"bracesConfig": {
+					"description": "\"{\" + \"}\"",
+					"$ref": "#/definitions/BracesWhitespaceConfig",
+					"propertyOrder": 1
+				},
 				"compressSuccessiveParenthesis": {
 					"description": "should formatter compress spaces for successive parenthesis `( [ {` vs. `([{`",
 					"type": "boolean",
-					"propertyOrder": 32
-				},
-				"objectOpeningBracePolicy": {
-					"description": "\"{\" in object literal",
-					"type": "string",
-					"enum": [
-						"none",
-						"before",
-						"noneBefore",
-						"onlyBefore",
-						"after",
-						"onlyAfter",
-						"noneAfter",
-						"around"
-					],
-					"propertyOrder": 6
+					"propertyOrder": 28
 				},
 				"functionTypeHaxe3Policy": {
 					"type": "string",
@@ -879,22 +908,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 30
-				},
-				"openingBracePolicy": {
-					"description": "\"{\" except object literals",
-					"type": "string",
-					"enum": [
-						"none",
-						"before",
-						"noneBefore",
-						"onlyBefore",
-						"after",
-						"onlyAfter",
-						"noneAfter",
-						"around"
-					],
-					"propertyOrder": 4
+					"propertyOrder": 26
 				},
 				"arrowFunctionsPolicy": {
 					"type": "string",
@@ -908,7 +922,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 29
+					"propertyOrder": 25
 				},
 				"doPolicy": {
 					"type": "string",
@@ -922,7 +936,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 21
+					"propertyOrder": 17
 				},
 				"semicolonPolicy": {
 					"type": "string",
@@ -936,7 +950,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 19
+					"propertyOrder": 15
 				},
 				"forPolicy": {
 					"type": "string",
@@ -950,7 +964,12 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 23
+					"propertyOrder": 19
+				},
+				"parenConfig": {
+					"description": "\"(\" + \")\"",
+					"$ref": "#/definitions/ParenWhitespaceConfig",
+					"propertyOrder": 0
 				},
 				"objectFieldColonPolicy": {
 					"type": "string",
@@ -964,7 +983,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 15
+					"propertyOrder": 11
 				},
 				"colonPolicy": {
 					"type": "string",
@@ -978,22 +997,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 13
-				},
-				"objectClosingBracePolicy": {
-					"description": "\"}\" in object literal",
-					"type": "string",
-					"enum": [
-						"none",
-						"before",
-						"noneBefore",
-						"onlyBefore",
-						"after",
-						"onlyAfter",
-						"noneAfter",
-						"around"
-					],
-					"propertyOrder": 7
+					"propertyOrder": 9
 				},
 				"dotPolicy": {
 					"type": "string",
@@ -1007,7 +1011,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 12
+					"propertyOrder": 8
 				},
 				"switchPolicy": {
 					"type": "string",
@@ -1021,12 +1025,12 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 24
+					"propertyOrder": 20
 				},
 				"formatStringInterpolation": {
 					"description": "should formatter try to format string interpolation expressions (e.g. '${x+3}' -> '${x + 3}')\n\t\tonly applies spaces, no newlines or wrapping",
 					"type": "boolean",
-					"propertyOrder": 33
+					"propertyOrder": 29
 				},
 				"typeExtensionPolicy": {
 					"type": "string",
@@ -1040,7 +1044,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 10
+					"propertyOrder": 6
 				},
 				"whilePolicy": {
 					"type": "string",
@@ -1054,7 +1058,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 22
+					"propertyOrder": 18
 				},
 				"typeHintColonPolicy": {
 					"type": "string",
@@ -1068,7 +1072,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 16
+					"propertyOrder": 12
 				},
 				"catchPolicy": {
 					"type": "string",
@@ -1082,7 +1086,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 26
+					"propertyOrder": 22
 				},
 				"binopPolicy": {
 					"type": "string",
@@ -1096,7 +1100,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 27
+					"propertyOrder": 23
 				},
 				"ifPolicy": {
 					"type": "string",
@@ -1110,7 +1114,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 20
+					"propertyOrder": 16
 				},
 				"functionTypeHaxe4Policy": {
 					"type": "string",
@@ -1124,7 +1128,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 31
+					"propertyOrder": 27
 				},
 				"tryPolicy": {
 					"type": "string",
@@ -1138,7 +1142,7 @@
 						"noneAfter",
 						"around"
 					],
-					"propertyOrder": 25
+					"propertyOrder": 21
 				}
 			},
 			"type": "object"
