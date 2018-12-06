@@ -181,7 +181,7 @@ class LanguageServer {
 
 	function onStartProgress(data:{id:Int, title:String}) {
 		window.withProgress({location: Window, title: data.title}, function(_, _) {
-			return cast /* TODO: nadako please fix this */ new js.Promise(function(resolve, _) {
+			return new js.Promise(function(resolve, _) {
 				progresses[data.id] = function() resolve(null);
 			});
 		});
