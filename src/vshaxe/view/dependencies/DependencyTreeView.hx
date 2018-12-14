@@ -29,13 +29,11 @@ class DependencyTreeView {
 
 		onDidChangeTreeData = _onDidChangeTreeData.event;
 		window.registerTreeDataProvider("haxe.dependencies", this);
-		view = window.createTreeView("haxe.dependencies", {treeDataProvider: this});
+		view = window.createTreeView("haxe.dependencies", {treeDataProvider: this, showCollapseAll: true});
 
 		context.registerHaxeCommand(RefreshDependencies, refresh);
-		context.registerHaxeCommand(CollapseDependencies, collapseAll);
 		context.registerHaxeCommand(Dependencies_OpenTextDocument, openTextDocument);
 		context.registerHaxeCommand(Dependencies_Refresh, refresh);
-		context.registerHaxeCommand(Dependencies_CollapseAll, collapseAll);
 		context.registerHaxeCommand(Dependencies_OpenPreview, openPreview);
 		context.registerHaxeCommand(Dependencies_OpenToTheSide, openToTheSide);
 		context.registerHaxeCommand(Dependencies_RevealInExplorer, revealInExplorer);
@@ -189,13 +187,6 @@ class DependencyTreeView {
 		var preview = previousSelection == null || previousSelection.node != node || (currentTime - previousSelection.time) >= doubleClickTime;
 		workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: preview}));
 		previousSelection = {node: node, time: currentTime};
-	}
-
-	function collapseAll(node:Node) {
-		for (node in dependencyNodes) {
-			node.collapse();
-		}
-		_onDidChangeTreeData.fire();
 	}
 
 	function openPreview(node:Node) {

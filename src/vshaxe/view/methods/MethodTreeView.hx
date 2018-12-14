@@ -33,10 +33,9 @@ class MethodTreeView {
 		update();
 
 		window.registerTreeDataProvider("haxe.methods", this);
-		treeView = window.createTreeView("haxe.methods", {treeDataProvider: this});
+		treeView = window.createTreeView("haxe.methods", {treeDataProvider: this, showCollapseAll: true});
 		context.registerHaxeCommand(Methods_SwitchToQueue, switchTo.bind(Queue));
 		context.registerHaxeCommand(Methods_SwitchToTimers, switchTo.bind(Timers));
-		context.registerHaxeCommand(Methods_CollapseAll, collapseAll);
 		context.registerHaxeCommand(Methods_Copy, copy);
 		context.registerHaxeCommand(Methods_Track, track);
 	}
@@ -127,13 +126,6 @@ class MethodTreeView {
 
 	public var getParent = function(element:MethodTreeItem):MethodTreeItem {
 		return element.parent;
-	}
-
-	function collapseAll() {
-		for (timer in methods) {
-			timer.collapse();
-		}
-		_onDidChangeTreeData.fire();
 	}
 
 	function copy(?element:MethodTreeItem) {

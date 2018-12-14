@@ -49,7 +49,6 @@
 		"onCommand:haxe.runGlobalDiagnostics",
 		"onCommand:haxe.toggleCodeLens",
 		"onCommand:haxe.dependencies.refresh",
-		"onCommand:haxe.dependencies.collapseAll",
 		"onCommand:workbench.action.tasks.runTask",
 		"onView:haxe.methods",
 		"onView:haxe.dependencies",
@@ -583,11 +582,6 @@
 				"category": "Haxe"
 			},
 			{
-				"title": "Collapse Folders in Dependency Explorer",
-				"command": "haxe.collapseDependencies",
-				"category": "Haxe"
-			},
-			{
 				"title": "Switch to Queue",
 				"command": "haxe.methods.switchToQueue",
 				"category": "Haxe",
@@ -603,15 +597,6 @@
 				"icon": {
 					"light": "resources/light/stopwatch.png",
 					"dark": "resources/dark/stopwatch.png"
-				}
-			},
-			{
-				"title": "Collapse All",
-				"command": "haxe.methods.collapseAll",
-				"category": "Haxe",
-				"icon": {
-					"light": "resources/light/collapseAll.svg",
-					"dark": "resources/dark/collapseAll.svg"
 				}
 			},
 			{
@@ -631,15 +616,6 @@
 				"icon": {
 					"light": "resources/light/refresh.svg",
 					"dark": "resources/dark/refresh.svg"
-				}
-			},
-			{
-				"title": "Collapse All",
-				"command": "haxe.dependencies.collapseAll",
-				"category": "Haxe",
-				"icon": {
-					"light": "resources/light/collapseAll.svg",
-					"dark": "resources/dark/collapseAll.svg"
 				}
 			},
 			{
@@ -879,19 +855,9 @@
 					"group": "navigation@1"
 				},
 				{
-					"command": "haxe.methods.collapseAll",
-					"when": "view == haxe.methods",
-					"group": "navigation@2"
-				},
-				{
 					"command": "haxe.dependencies.refresh",
 					"when": "view == haxe.dependencies",
 					"group": "navigation@1"
-				},
-				{
-					"command": "haxe.dependencies.collapseAll",
-					"when": "view == haxe.dependencies",
-					"group": "navigation@2"
 				}
 			],
 			"view/item/context": [
@@ -941,10 +907,6 @@
 					"when": "false"
 				},
 				{
-					"command": "haxe.methods.collapseAll",
-					"when": "false"
-				},
-				{
 					"command": "haxe.methods.copy",
 					"when": "false"
 				},
@@ -954,10 +916,6 @@
 				},
 				{
 					"command": "haxe.dependencies.refresh",
-					"when": "false"
-				},
-				{
-					"command": "haxe.dependencies.collapseAll",
 					"when": "false"
 				},
 				{
