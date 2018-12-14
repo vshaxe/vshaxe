@@ -4,7 +4,6 @@ import haxe.io.Path;
 import vshaxe.view.dependencies.DependencyResolver;
 import vshaxe.view.dependencies.Node;
 import vshaxe.display.DisplayArguments;
-import vshaxe.helper.CopyPaste;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.helper.PathHelper;
 
@@ -232,6 +231,6 @@ class DependencyTreeView {
 	}
 
 	function copyPath(node:Node) {
-		CopyPaste.copy(PathHelper.capitalizeDriveLetter(node.resourceUri.fsPath));
+		env.clipboard.writeText(PathHelper.capitalizeDriveLetter(node.resourceUri.fsPath));
 	}
 }

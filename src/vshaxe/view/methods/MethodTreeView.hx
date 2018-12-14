@@ -2,7 +2,6 @@ package vshaxe.view.methods;
 
 import vshaxe.server.LanguageServer;
 import vshaxe.server.HaxeMethodResult;
-import vshaxe.helper.CopyPaste;
 import js.Date;
 
 enum abstract MethodTreeViewType(String) {
@@ -138,7 +137,7 @@ class MethodTreeView {
 	}
 
 	function copy(?element:MethodTreeItem) {
-		CopyPaste.copy(if (element == null) {
+		env.clipboard.writeText(if (element == null) {
 			methods.map(method -> method.toString()).join("\n\n");
 		} else {
 			element.toString();
