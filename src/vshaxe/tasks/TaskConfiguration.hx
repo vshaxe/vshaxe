@@ -44,7 +44,8 @@ class TaskConfiguration {
 				case "new": New;
 				default: Shared;
 			},
-			showReuseMessage: presentation.showReuseMessage
+			showReuseMessage: presentation.showReuseMessage,
+			clear: presentation.clear
 		};
 
 		var writeableApi:WriteableApi = cast api;

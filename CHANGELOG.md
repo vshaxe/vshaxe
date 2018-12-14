@@ -1,3 +1,10 @@
+### 2.5.0 (to be released)
+
+**Changes and Improvements**:
+
+- changed the required VSCode version to 1.30.0
+- support the new `clear` option in `"haxe.taskPresentation"`
+
 ### 2.4.5 (December 5, 2018)
 
 **Changes and Improvements**:

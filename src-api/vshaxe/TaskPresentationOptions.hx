@@ -36,4 +36,9 @@ typedef TaskPresentationOptions = {
 		Controls whether to show the "Terminal will be reused by tasks, press any key to close it" message.
 	**/
 	@:optional var showReuseMessage(default, never):Bool;
+
+	/**
+	 * Controls whether the terminal is cleared before executing the task.
+	 */
+	@:optional var clear(default, never):Bool;
 }

@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.4.5",
+	"version": "2.5.0",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.30.0"
@@ -337,7 +337,8 @@
 						"reveal": "always",
 						"focus": false,
 						"panel": "shared",
-						"showReuseMessage": true
+						"showReuseMessage": true,
+						"clear": false
 					},
 					"additionalProperties": false,
 					"properties": {
@@ -380,6 +381,11 @@
 							"description": "Controls whether to show the `Terminal will be reused by tasks, press any key to close it` message.",
 							"type": "boolean",
 							"default": true
+						},
+						"clear": {
+							"description": "Controls whether the terminal is cleared before executing the task.",
+							"type": "boolean",
+							"default": false
 						}
 					}
 				},
