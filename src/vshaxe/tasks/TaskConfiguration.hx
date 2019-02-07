@@ -59,7 +59,7 @@ class TaskConfiguration {
 			args = ["--connect", Std.string(server.displayPort)].concat(args);
 		}
 		var execution = new ProcessExecution(exectuable, args, {env: haxeExecutable.configuration.env});
-		var task = new Task(definition, name, "haxe", execution, problemMatchers);
+		var task = new Task(definition, TaskScope.Workspace, name, "haxe", execution, problemMatchers);
 		task.group = TaskGroup.Build;
 		task.presentationOptions = taskPresentation;
 		return task;
