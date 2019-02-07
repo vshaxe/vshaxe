@@ -104,7 +104,7 @@
 					"propertyOrder": 1
 				},
 				"conditionalPolicy": {
-					"description": "only applies to non inlined conditionals\n\t\t\"fixedZero\" = all conditional statements should start in column 1\n\t\t\"aligned\" = conditional statements share indentation of surrounding code\n\t\t\"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code",
+					"description": "only applies to non inlined conditionals\n\t\t\"fixedZero\" = all conditional statements should start in column 1\n\t\t\"aligned\" = conditional statements share indentation of surrounding code\n\t\t\"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code\n\t\t\"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
 					"type": "string",
 					"enum": [
 						"fixedZero",
@@ -143,10 +143,19 @@
 					],
 					"propertyOrder": 1
 				},
+				"defaultLocation": {
+					"description": "default wrapping location before / after last token",
+					"type": "string",
+					"enum": [
+						"beforeLast",
+						"afterLast"
+					],
+					"propertyOrder": 2
+				},
 				"defaultAdditionalIndent": {
 					"description": "adds indentation to all wrapped lines when applying defaultWrap",
 					"type": "integer",
-					"propertyOrder": 2
+					"propertyOrder": 3
 				},
 				"rules": {
 					"description": "list of wrapping rules\n\t\twrapping uses only the first rule whose conditions evaluates to true",
@@ -369,6 +378,15 @@
 				"additionalIndent": {
 					"description": "adds indentation to all wrapped lines",
 					"type": "integer",
+					"propertyOrder": 3
+				},
+				"location": {
+					"description": "default wrapping location before / after last token",
+					"type": "string",
+					"enum": [
+						"beforeLast",
+						"afterLast"
+					],
 					"propertyOrder": 2
 				},
 				"type": {
@@ -465,6 +483,11 @@
 					"type": "integer",
 					"propertyOrder": 3
 				},
+				"betweenMultilineComments": {
+					"description": "Adds empty lines between two consecutive multiline comments",
+					"type": "integer",
+					"propertyOrder": 22
+				},
 				"finalNewline": {
 					"description": "adds a final newline",
 					"type": "boolean",
@@ -552,6 +575,11 @@
 				"interfaceEmptyLines": {
 					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
 					"propertyOrder": 16
+				},
+				"afterFileHeaderComment": {
+					"description": "Adds empty lines when file starts with a multiline comment",
+					"type": "integer",
+					"propertyOrder": 21
 				}
 			},
 			"type": "object"
@@ -734,6 +762,11 @@
 					"description": "call parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 5
+				},
+				"implementsExtends": {
+					"description": "implements / extends chain wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 10
 				},
 				"anonFunctionSignature": {
 					"description": "anon function signature wrapping rules",
