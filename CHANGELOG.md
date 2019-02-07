@@ -1,3 +1,9 @@
+### 2.6.0 (To be released)
+
+**New Features**
+
+- added eval interpreter debugger (for macros and --interp scripts)
+
 ### 2.5.1 (February 7, 2019)
 
 **Bugfixes**:

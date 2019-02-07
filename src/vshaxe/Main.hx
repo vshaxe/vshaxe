@@ -53,6 +53,7 @@ class Main {
 
 		new HaxeCodeLensProvider();
 		new DependencyTreeView(context, displayArguments, haxeExecutable);
+		new EvalDebugger(displayArguments);
 		new MethodTreeView(context, server);
 		new DisplayArgumentsSelector(context, displayArguments);
 		var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);

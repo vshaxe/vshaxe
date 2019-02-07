@@ -7,3 +7,6 @@
 [submodule "syntaxes"]
 	path = syntaxes
 	url = https://github.com/vshaxe/haxe-TmLanguage
+[submodule "eval-debugger"]
+	path = eval-debugger
+	url = https://github.com/vshaxe/eval-debugger
