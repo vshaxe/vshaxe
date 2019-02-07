@@ -56,29 +56,11 @@ class Commands {
 			window.showErrorMessage("There is no configuration selected.");
 			return;
 		}
-		function error() {
-			window.showErrorMessage('There is no launch configuration named \'$label\'.');
-		}
 
-		// work around https://github.com/Microsoft/vscode/issues/53874 by checking the launch.json contents :/
 		var folder = workspace.workspaceFolders[0];
-		var launchConfigs = workspace.getConfiguration("launch", folder.uri);
-		var configurations:Array<{name:String}> = launchConfigs.get("configurations");
-		var compounds:Array<{name:String}> = launchConfigs.get("compounds");
-
-		var allConfigs = [];
-		if (configurations != null) {
-			allConfigs = allConfigs.concat(configurations);
-		}
-		if (compounds != null) {
-			allConfigs = allConfigs.concat(compounds);
-		}
-
-		if (allConfigs.exists(config -> config.name == label)) {
-			debug.startDebugging(folder, label);
-		} else {
-			error();
-		}
+		debug.startDebugging(folder, label).then(_ -> {}, error -> {
+			window.showErrorMessage(Std.string(error));
+		});
 	}
 
 	function clearMementos() {
