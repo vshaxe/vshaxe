@@ -4,6 +4,7 @@
 
 - changed the required VSCode version to 1.30.0
 - support the new `clear` option in `"haxe.taskPresentation"`
+- updated to haxe-formatter version [1.4.0](https://github.com/HaxeCheckstyle/haxe-formatter/blob/master/CHANGELOG.md#version-140-2019-02-07)
 
 **Bugfixes**:
 
