@@ -18,13 +18,13 @@
 
 ### 2.4.4 (October 17, 2018)
 
-**Bugfixes**:
+**Changes and Improvements**:
 
 - updated to haxe-formatter version 1.1.2
 
 ### 2.4.3 (October 16, 2018)
 
-**Bugfixes**:
+**Changes and Improvements**:
 
 - really updated to haxe-formatter version 1.1.1 ^_^
 
