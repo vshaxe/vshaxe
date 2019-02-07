@@ -1,3 +1,9 @@
+### 2.5.1 (February 7, 2019)
+
+**Bugfixes**:
+
+- fixed tasks no longer working in VSCode 1.30.x ([vscode#67990](https://github.com/Microsoft/vscode/issues/67990))
+
 ### 2.5.0 (February 7, 2019)
 
 **Changes and Improvements**:
