@@ -749,11 +749,11 @@
 						"properties": {
 							"cwd": {
 								"type": "string",
-								"description": "Path to the current working directory"
+								"description": "Path to the current working directory. If not specified, the workspace directory is used."
 							},
 							"args": {
 								"type": "array",
-								"description": "The Haxe command-line arguments.",
+								"description": "The Haxe command-line arguments. If not specified, the selected Haxe configuration is used.",
 								"items": {
 									"type": "string"
 								}

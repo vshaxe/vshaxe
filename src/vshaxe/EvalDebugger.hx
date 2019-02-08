@@ -23,11 +23,15 @@ class EvalDebugger {
 		var config:EvalLaunchDebugConfiguration = cast config;
 		if (config.type == null) {
 			config.type = DEBUG_TYPE;
-			config.name = "Haxe Macro";
+			config.name = "Haxe Interpreter";
 			config.request = "launch";
 		}
-		config.cwd = folder.uri.fsPath;
-		config.args = displayArguments.arguments;
+		if (config.cwd == null) {
+			config.cwd = folder.uri.fsPath;
+		}
+		if (config.args == null) {
+			config.args = displayArguments.arguments;
+		}
 		return config;
 	}
 }
