@@ -2,7 +2,7 @@
 
 **New Features**
 
-- added eval interpreter debugger (for macros and --interp scripts)
+- added debugging support for Haxe 4 macros and `--interp` scripts
 
 ### 2.5.1 (February 7, 2019)
 

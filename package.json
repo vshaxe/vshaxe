@@ -742,7 +742,7 @@
 			{
 				"type": "haxe-eval",
 				"label": "Haxe Macro",
-				"program": "./eval-debugger/bin/evalDebug.js",
+				"program": "./eval-debugger/bin/adapter.js",
 				"runtime": "node",
 				"configurationAttributes": {
 					"launch": {

@@ -2,11 +2,13 @@
 */**
 !bin/client.js
 !server/bin/server.js
+!eval-debugger/bin/adapter.js
 !configurations/*
 !images/demo.gif
 !images/demo2.gif
 !images/haxe-logo.png
 !node_modules/**/*
+!eval-debugger/node_modules/**/*
 !resources/**/*
 !scaffold/**/*
 !schemas/**/*
