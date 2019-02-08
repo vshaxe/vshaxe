@@ -1,20 +1,24 @@
 package vshaxe;
 
+import vshaxe.HaxeExecutableConfiguration;
 import vshaxe.display.DisplayArguments;
 
 typedef EvalLaunchDebugConfiguration = DebugConfiguration & {
-	var cwd:String;
-	var args:Array<String>;
+	var ?cwd:String;
+	var ?args:Array<String>;
 	var stopOnEntry:Bool;
+	var haxeExecutable:HaxeExecutableConfiguration;
 }
 
 class EvalDebugger {
 	static inline final DEBUG_TYPE = "haxe-eval";
 
 	final displayArguments:DisplayArguments;
+	final haxeExecutable:HaxeExecutable;
 
-	public function new(displayArguments:DisplayArguments) {
+	public function new(displayArguments:DisplayArguments, haxeExecutable:HaxeExecutable) {
 		this.displayArguments = displayArguments;
+		this.haxeExecutable = haxeExecutable;
 		debug.registerDebugConfigurationProvider(DEBUG_TYPE, {resolveDebugConfiguration: resolveDebugConfiguration});
 	}
 
@@ -32,6 +36,7 @@ class EvalDebugger {
 		if (config.args == null) {
 			config.args = displayArguments.arguments;
 		}
+		config.haxeExecutable = haxeExecutable.configuration;
 		return config;
 	}
 }
