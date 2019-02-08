@@ -741,7 +741,7 @@
 		"debuggers": [
 			{
 				"type": "haxe-eval",
-				"label": "Haxe Macro",
+				"label": "Haxe Interpreter",
 				"program": "./eval-debugger/bin/adapter.js",
 				"runtime": "node",
 				"configurationAttributes": {
@@ -768,7 +768,7 @@
 				},
 				"initialConfigurations": [
 					{
-						"name": "Haxe-eval",
+						"name": "Haxe Interpreter",
 						"type": "haxe-eval",
 						"request": "launch"
 					}
