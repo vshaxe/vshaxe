@@ -3,6 +3,7 @@
 **New Features**
 
 - added debugging support for Haxe 4 macros and `--interp` scripts
+- init project command: added a `launch.json` for macro / `--interp` debugging
 
 ### 2.5.1 (February 7, 2019)
 
