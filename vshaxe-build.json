@@ -26,7 +26,8 @@
 			"composite": true,
 			"targetDependencies": [
 				"client",
-				"language-server"
+				"language-server",
+				"eval-debugger"
 			]
 		},
 		{
