@@ -3,6 +3,7 @@
 **New Features**
 
 - added debugging support for Haxe 4 macros and `--interp` scripts
+- added postfix `for` completion to `haxe.ds.Map` and `haxe.ds.List`
 
 **Changes and Improvements**:
 
