@@ -4,6 +4,7 @@
 
 - added debugging support for Haxe 4 macros and `--interp` scripts
 - added postfix `for` completion to `haxe.ds.Map` and `haxe.ds.List`
+- added support for markdown syntax highlighting in doc comments
 
 **Changes and Improvements**:
 

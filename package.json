@@ -736,6 +736,13 @@
 				"embeddedLanguages": {
 					"meta.embedded.block.hxml": "hxml"
 				}
+			},
+			{
+				"scopeName": "documentation.markdown.injection.haxe",
+				"path": "./syntaxes/helper/haxe-markdown-docs.tmLanguage",
+				"injectTo": [
+					"source.hx"
+				]
 			}
 		],
 		"debuggers": [
