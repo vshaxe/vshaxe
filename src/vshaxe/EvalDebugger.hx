@@ -8,6 +8,7 @@ typedef EvalLaunchDebugConfiguration = DebugConfiguration & {
 	var ?args:Array<String>;
 	var stopOnEntry:Bool;
 	var haxeExecutable:HaxeExecutableConfiguration;
+	var mergeScopes:Bool;
 }
 
 class EvalDebugger {
@@ -37,6 +38,10 @@ class EvalDebugger {
 			config.args = displayArguments.arguments;
 		}
 		config.haxeExecutable = haxeExecutable.configuration;
+		config.mergeScopes = workspace.getConfiguration("haxe.debug").get("mergeScopes");
+		if (config.mergeScopes == null) {
+			config.mergeScopes = true;
+		}
 		return config;
 	}
 }
