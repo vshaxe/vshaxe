@@ -732,7 +732,8 @@
 				"scopeName": "markdown.hxml.codeblock",
 				"path": "./syntaxes/helper/hxml-markdown.tmLanguage",
 				"injectTo": [
-					"text.html.markdown"
+					"text.html.markdown",
+					"source.hx"
 				],
 				"embeddedLanguages": {
 					"meta.embedded.block.hxml": "hxml"
