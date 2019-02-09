@@ -721,7 +721,8 @@
 				"scopeName": "markdown.haxe.codeblock",
 				"path": "./syntaxes/helper/haxe-markdown.tmLanguage",
 				"injectTo": [
-					"text.html.markdown"
+					"text.html.markdown",
+					"source.hx"
 				],
 				"embeddedLanguages": {
 					"meta.embedded.block.haxe": "haxe"
