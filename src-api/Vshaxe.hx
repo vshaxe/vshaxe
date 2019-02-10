@@ -5,9 +5,11 @@ import vshaxe.ReadOnlyArray;
 import vshaxe.TaskPresentationOptions;
 
 /**
-	Public API provided by the vshaxe extension.
-
-	Retrieve with vscode extensions API: `var vshaxe:Vshaxe = Vscode.extensions.getExtension("nadako.vshaxe").exports`
+	Public API provided by the vshaxe extension. Retrieve with vscode's extensions API:
+	
+	```haxe
+	var vshaxe:Vshaxe = Vscode.extensions.getExtension("nadako.vshaxe").exports
+	```
 **/
 typedef Vshaxe = {
 	/**
