@@ -84,7 +84,6 @@ class Main {
 		}
 	}
 
-	@:keep
 	@:expose("activate")
 	static function main(context:ExtensionContext) {
 		return new Main(context).api;
