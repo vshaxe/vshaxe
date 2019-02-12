@@ -13,5 +13,8 @@
 	"haxe.enableCompilationServer": false,
 	"[haxe]": {
 		"editor.formatOnSave": true
-	}
+	},
+	"haxeTestExplorer.testCommand": [
+		"haxelib", "run", "vshaxe-build", "-t", "language-server-tests", "--", "-lib", "test-adapter"
+	]
 }
