@@ -1,4 +1,4 @@
-### 2.6.0 (To be released)
+### 2.6.0 (February 12, 2019)
 
 **New Features**
 
