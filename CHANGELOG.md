@@ -8,6 +8,7 @@
 
 **Changes and Improvements**:
 
+- changed the required VSCode version to 1.31.0
 - init project command: added a `launch.json` for macro / `--interp` debugging
 
 ### 2.5.1 (February 7, 2019)
