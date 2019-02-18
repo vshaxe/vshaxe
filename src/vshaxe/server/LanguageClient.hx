@@ -90,7 +90,7 @@ enum abstract TransportKind(Int) {
 }
 
 typedef LanguageClientOptions = {
-	?documentSelector:EitherType<DocumentSelector, Array<String>>,
+	?documentSelector:Array<EitherType<String, DocumentSelector>>,
 	?synchronize:SynchronizeOptions,
 	?diagnosticCollectionName:String,
 	?outputChannel:OutputChannel,
@@ -286,50 +286,40 @@ enum abstract RevealOutputChannelOn(Int) {
 
 typedef HandleDiagnosticsSignature = (uri:Uri, diagnostics:Array<Diagnostic>) -> Void;
 
-typedef ProvideCompletionItemsSignature = (document:TextDocument, position:Position, context:CompletionContext, token:CancellationToken) ->
-	ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>;
+typedef ProvideCompletionItemsSignature = (document:TextDocument, position:Position, context:CompletionContext,
+	token:CancellationToken) -> ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>;
 
 typedef ResolveCompletionItemSignature = (item:CompletionItem, token:CancellationToken) -> ProviderResult<CompletionItem>;
-
 typedef ProvideHoverSignature = (document:TextDocument, position:Position, token:CancellationToken) -> ProviderResult<Hover>;
-
 typedef ProvideSignatureHelpSignature = (document:TextDocument, position:Position, token:CancellationToken) -> ProviderResult<SignatureHelp>;
-
 typedef ProvideDefinitionSignature = (document:TextDocument, position:Position, token:CancellationToken) -> ProviderResult<Definition>;
 
-typedef ProvideReferencesSignature = (document:TextDocument, position:Position, options:{includeDeclaration:Bool}, token:CancellationToken) ->
-	ProviderResult<Array<Location>>;
+typedef ProvideReferencesSignature = (document:TextDocument, position:Position, options:{includeDeclaration:Bool},
+	token:CancellationToken) -> ProviderResult<Array<Location>>;
 
 typedef ProvideDocumentHighlightsSignature = (document:TextDocument, position:Position, token:CancellationToken) -> ProviderResult<Array<DocumentHighlight>>;
-
 typedef ProvideDocumentSymbolsSignature = (document:TextDocument, token:CancellationToken) -> ProviderResult<Array<SymbolInformation>>;
-
 typedef ProvideWorkspaceSymbolsSignature = (query:String, token:CancellationToken) -> ProviderResult<Array<SymbolInformation>>;
 
-typedef ProvideCodeActionsSignature = (document:TextDocument, range:Range, context:CodeActionContext, token:CancellationToken) ->
-	ProviderResult<Array<Command>>;
+typedef ProvideCodeActionsSignature = (document:TextDocument, range:Range, context:CodeActionContext,
+	token:CancellationToken) -> ProviderResult<Array<Command>>;
 
 typedef ProvideCodeLensesSignature = (document:TextDocument, token:CancellationToken) -> ProviderResult<Array<CodeLens>>;
-
 typedef ResolveCodeLensSignature = (codeLens:CodeLens, token:CancellationToken) -> ProviderResult<CodeLens>;
 
-typedef ProvideDocumentFormattingEditsSignature = (document:TextDocument, options:FormattingOptions, token:CancellationToken) ->
-	ProviderResult<Array<TextEdit>>;
+typedef ProvideDocumentFormattingEditsSignature = (document:TextDocument, options:FormattingOptions,
+	token:CancellationToken) -> ProviderResult<Array<TextEdit>>;
 
-typedef ProvideDocumentRangeFormattingEditsSignature = (document:TextDocument, range:Range, options:FormattingOptions, token:CancellationToken) ->
-	ProviderResult<Array<TextEdit>>;
+typedef ProvideDocumentRangeFormattingEditsSignature = (document:TextDocument, range:Range, options:FormattingOptions,
+	token:CancellationToken) -> ProviderResult<Array<TextEdit>>;
 
-typedef ProvideOnTypeFormattingEditsSignature = (document:TextDocument, position:Position, ch:String, options:FormattingOptions, token:CancellationToken) ->
-	ProviderResult<Array<TextEdit>>;
+typedef ProvideOnTypeFormattingEditsSignature = (document:TextDocument, position:Position, ch:String, options:FormattingOptions,
+	token:CancellationToken) -> ProviderResult<Array<TextEdit>>;
 
 typedef ProvideRenameEditsSignature = (document:TextDocument, position:Position, newName:String, token:CancellationToken) -> ProviderResult<WorkspaceEdit>;
-
 typedef ProvideDocumentLinksSignature = (document:TextDocument, token:CancellationToken) -> ProviderResult<Array<DocumentLink>>;
-
 typedef ResolveDocumentLinkSignature = (link:DocumentLink, token:CancellationToken) -> ProviderResult<DocumentLink>;
-
 typedef NextSignature<P, R> = (data:P, next:(data:P) -> R) -> R;
-
 typedef DidChangeConfigurationSignature = (sections:Null<Array<String>>) -> Void;
 
 typedef WorkspaceMiddleware = {
@@ -349,30 +339,31 @@ typedef Middleware = {
 	?didClose:NextSignature<TextDocument, Void>,
 	?handleDiagnostics:(uri:Uri, diagnostics:Array<Diagnostic>, next:HandleDiagnosticsSignature) -> Void,
 	?provideCompletionItem:(document:TextDocument, position:Position, context:CompletionContext, token:CancellationToken,
-			next:ProvideCompletionItemsSignature) -> ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>,
+		next:ProvideCompletionItemsSignature) -> ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>,
 	?resolveCompletionItem:(item:CompletionItem, token:CancellationToken, next:ResolveCompletionItemSignature) -> ProviderResult<CompletionItem>,
 	?provideHover:(document:TextDocument, position:Position, token:CancellationToken, next:ProvideHoverSignature) -> ProviderResult<Hover>,
-	?provideSignatureHelp:(document:TextDocument, position:Position, token:CancellationToken, next:ProvideSignatureHelpSignature) ->
-		ProviderResult<SignatureHelp>,
+	?provideSignatureHelp:(document:TextDocument, position:Position, token:CancellationToken,
+		next:ProvideSignatureHelpSignature) -> ProviderResult<SignatureHelp>,
 	?provideDefinition:(document:TextDocument, position:Position, token:CancellationToken, next:ProvideDefinitionSignature) -> ProviderResult<Definition>,
-	?provideReferences:(document:TextDocument, position:Position, options:{includeDeclaration:Bool}, token:CancellationToken, next:ProvideReferencesSignature) ->
-		ProviderResult<Array<Location>>,
-	?provideDocumentHighlights:(document:TextDocument, position:Position, token:CancellationToken, next:ProvideDocumentHighlightsSignature) ->
-		ProviderResult<Array<DocumentHighlight>>,
-	?provideDocumentSymbols:(document:TextDocument, token:CancellationToken, next:ProvideDocumentSymbolsSignature) -> ProviderResult<Array<SymbolInformation>>,
+	?provideReferences:(document:TextDocument, position:Position, options:{includeDeclaration:Bool}, token:CancellationToken,
+		next:ProvideReferencesSignature) -> ProviderResult<Array<Location>>,
+	?provideDocumentHighlights:(document:TextDocument, position:Position, token:CancellationToken,
+		next:ProvideDocumentHighlightsSignature) -> ProviderResult<Array<DocumentHighlight>>,
+	?provideDocumentSymbols:(document:TextDocument, token:CancellationToken,
+		next:ProvideDocumentSymbolsSignature) -> ProviderResult<Array<SymbolInformation>>,
 	?provideWorkspaceSymbols:(query:String, token:CancellationToken, next:ProvideWorkspaceSymbolsSignature) -> ProviderResult<Array<SymbolInformation>>,
-	?provideCodeActions:(document:TextDocument, range:Range, context:CodeActionContext, token:CancellationToken, next:ProvideCodeActionsSignature) ->
-		ProviderResult<Array<Command>>,
+	?provideCodeActions:(document:TextDocument, range:Range, context:CodeActionContext, token:CancellationToken,
+		next:ProvideCodeActionsSignature) -> ProviderResult<Array<Command>>,
 	?provideCodeLenses:(document:TextDocument, token:CancellationToken, next:ProvideCodeLensesSignature) -> ProviderResult<Array<CodeLens>>,
 	?resolveCodeLens:(codeLens:CodeLens, token:CancellationToken, next:ResolveCodeLensSignature) -> ProviderResult<CodeLens>,
-	?provideDocumentFormattingEdits:(document:TextDocument, options:FormattingOptions, token:CancellationToken, next:ProvideDocumentFormattingEditsSignature) ->
-		ProviderResult<Array<TextEdit>>,
+	?provideDocumentFormattingEdits:(document:TextDocument, options:FormattingOptions, token:CancellationToken,
+		next:ProvideDocumentFormattingEditsSignature) -> ProviderResult<Array<TextEdit>>,
 	?provideDocumentRangeFormattingEdits:(document:TextDocument, range:Range, options:FormattingOptions, token:CancellationToken,
-			next:ProvideDocumentRangeFormattingEditsSignature) -> ProviderResult<Array<TextEdit>>,
+		next:ProvideDocumentRangeFormattingEditsSignature) -> ProviderResult<Array<TextEdit>>,
 	?provideOnTypeFormattingEdits:(document:TextDocument, position:Position, ch:String, options:FormattingOptions, token:CancellationToken,
-			next:ProvideOnTypeFormattingEditsSignature) -> ProviderResult<Array<TextEdit>>,
-	?provideRenameEdits:(document:TextDocument, position:Position, newName:String, token:CancellationToken, next:ProvideRenameEditsSignature) ->
-		ProviderResult<WorkspaceEdit>,
+		next:ProvideOnTypeFormattingEditsSignature) -> ProviderResult<Array<TextEdit>>,
+	?provideRenameEdits:(document:TextDocument, position:Position, newName:String, token:CancellationToken,
+		next:ProvideRenameEditsSignature) -> ProviderResult<WorkspaceEdit>,
 	?provideDocumentLinks:(document:TextDocument, token:CancellationToken, next:ProvideDocumentLinksSignature) -> ProviderResult<Array<DocumentLink>>,
 	?resolveDocumentLink:(link:DocumentLink, token:CancellationToken, next:ResolveDocumentLinkSignature) -> ProviderResult<DocumentLink>,
 	?workspace:WorkspaceMiddleware

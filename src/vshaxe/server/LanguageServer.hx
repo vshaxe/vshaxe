@@ -79,7 +79,7 @@ class LanguageServer {
 			debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6004"]}}
 		};
 		var clientOptions:LanguageClientOptions = {
-			documentSelector: "haxe",
+			documentSelector: [{scheme: "file", language: "haxe"}, {scheme: "untitled", language: "haxe"}],
 			synchronize: {
 				configurationSection: "haxe",
 				fileEvents: hxFileWatcher
@@ -95,8 +95,9 @@ class LanguageServer {
 				// TODO: do this properly in the Language Server once supported (https://github.com/Microsoft/language-server-protocol/issues/500)
 				handleDiagnostics: (uri, diagnostics, next) -> {
 					for (diagnostic in diagnostics) {
-						if (diagnostic.message.indexOf("has no effect") != -1 || diagnostic.message == "Unused import/using" || diagnostic
-							.message == "Unused variable") {
+						if (diagnostic.message.indexOf("has no effect") != -1
+							|| diagnostic.message == "Unused import/using"
+							|| diagnostic.message == "Unused variable") {
 							diagnostic.tags = [Unnecessary];
 						}
 					}
@@ -123,8 +124,8 @@ class LanguageServer {
 			if (argumentsChanged)
 				client.sendNotification("haxe/didChangeDisplayArguments", {arguments: displayArguments.arguments});
 
-			restartDisposables.push(displayArguments.onDidChangeArguments(arguments -> client.sendNotification("haxe/didChangeDisplayArguments",
-				{arguments: arguments})));
+			restartDisposables
+				.push(displayArguments.onDidChangeArguments(arguments -> client.sendNotification("haxe/didChangeDisplayArguments", {arguments: arguments})));
 
 			restartDisposables.push(new PackageInserter(hxFileWatcher, client));
 
