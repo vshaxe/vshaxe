@@ -1,3 +1,9 @@
+### 2.6.1 (to be released)
+
+**Changes and Improvements**:
+
+- added document symbol / folding / formatting support in untitled files
+
 ### 2.6.0 (February 12, 2019)
 
 **New Features**
