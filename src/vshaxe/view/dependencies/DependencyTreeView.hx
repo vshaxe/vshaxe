@@ -11,12 +11,12 @@ class DependencyTreeView {
 	final context:ExtensionContext;
 	final haxeExecutable:HaxeExecutable;
 	final view:TreeView<Node>;
-	var displayArguments:Array<String>;
+	var displayArguments:Null<Array<String>>;
 	var relevantHxmls:Array<String> = [];
 	var dependencyNodes:Array<Node> = [];
-	var dependencies:DependencyList;
+	var dependencies:Null<DependencyList>;
 	var refreshNeeded:Bool = true;
-	var previousSelection:{node:Node, time:Float};
+	var previousSelection:Null<{node:Node, time:Float}>;
 	var autoRevealEnabled:Bool = false;
 	var _onDidChangeTreeData = new EventEmitter<Node>();
 
@@ -68,7 +68,9 @@ class DependencyTreeView {
 		relevantHxmls = newDependencies.hxmls;
 
 		// avoid FS access / creating processes unless there were _actually_ changes
-		if (dependencies != null && dependencies.libs.equals(newDependencies.libs) && dependencies.classPaths.equals(newDependencies.classPaths)) {
+		if (dependencies != null
+			&& dependencies.libs.equals(newDependencies.libs)
+			&& dependencies.classPaths.equals(newDependencies.classPaths)) {
 			return dependencyNodes;
 		}
 		dependencies = newDependencies;
@@ -114,7 +116,7 @@ class DependencyTreeView {
 		return newNodes;
 	}
 
-	function createNode(info):Node {
+	function createNode(info):Null<Node> {
 		if (info == null) {
 			return null;
 		}
@@ -184,7 +186,9 @@ class DependencyTreeView {
 	function openTextDocument(node:Node) {
 		var currentTime = Date.now().getTime();
 		var doubleClickTime = 500;
-		var preview = previousSelection == null || previousSelection.node != node || (currentTime - previousSelection.time) >= doubleClickTime;
+		var preview = previousSelection == null
+			|| previousSelection.node != node
+			|| (currentTime - previousSelection.time) >= doubleClickTime;
 		workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: preview}));
 		previousSelection = {node: node, time: currentTime};
 	}

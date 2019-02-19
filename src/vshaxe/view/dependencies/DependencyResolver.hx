@@ -86,10 +86,11 @@ class DependencyResolver {
 		});
 	}
 
-	static function getDependencyInfo(path:String) {
+	static function getDependencyInfo(path:String):Null<DependencyInfo> {
 		var rootPath = workspace.workspaceFolders[0].uri.fsPath;
 		var absPath = PathHelper.absolutize(path, rootPath);
-		if (!FileSystem.exists(absPath)) {
+		var haxelibRepo = haxelibRepo;
+		if (haxelibRepo == null || !FileSystem.exists(absPath)) {
 			return null;
 		}
 
@@ -132,7 +133,7 @@ class DependencyResolver {
 		return {name: name, version: version, path: path};
 	}
 
-	static function searchHaxelibJson(path:String, levels:Int = 3) {
+	static function searchHaxelibJson(path:String, levels:Int = 3):Null<DependencyInfo> {
 		if (levels <= 0) {
 			return null;
 		}
@@ -149,7 +150,7 @@ class DependencyResolver {
 		return searchHaxelibJson(Path.join([path, ".."]), levels - 1);
 	}
 
-	static function getStandardLibraryPath(haxeExecutable:HaxeExecutableConfiguration):String {
+	static function getStandardLibraryPath(haxeExecutable:HaxeExecutableConfiguration):Null<String> {
 		// more or less a port of main.ml's get_std_class_paths()
 		var path = Sys.getEnv("HAXE_STD_PATH");
 		if (path != null) {

@@ -5,12 +5,14 @@ typedef HaxeMethodResult = {
 	final method:String;
 	final debugInfo:String;
 	final response:Response<Dynamic>;
-	final ?additionalTimes:{
-		final beforeCall:Float;
-		final arrival:Float;
-		final beforeProcessing:Float;
-		final afterProcessing:Float;
-	}
+	final ?additionalTimes:AdditionalTimes;
+}
+
+typedef AdditionalTimes = {
+	final beforeCall:Float;
+	final arrival:Float;
+	final beforeProcessing:Float;
+	final afterProcessing:Float;
 }
 
 typedef Timer = {

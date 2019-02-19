@@ -23,11 +23,10 @@ class Node extends TreeItem {
 		resourceUri = Uri.file(path);
 		this.parent = parent;
 		this.path = path;
-		this.type = type;
-
-		if (this.type == null) {
-			this.type = if (FileSystem.isDirectory(path)) Folder else File;
+		if (type == null) {
+			type = if (FileSystem.isDirectory(path)) Folder else File;
 		}
+		this.type = type;
 
 		if (isDirectory) {
 			collapsibleState = Collapsed;

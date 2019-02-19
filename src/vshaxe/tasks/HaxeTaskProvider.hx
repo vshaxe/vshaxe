@@ -16,7 +16,7 @@ class HaxeTaskProvider {
 	}
 
 	public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
-		if (haxeDisplayArgumentsProvider.configurationCount == 0) {
+		if (haxeDisplayArgumentsProvider.configurationCount == 0 || displayArguments.arguments == null) {
 			return [];
 		}
 

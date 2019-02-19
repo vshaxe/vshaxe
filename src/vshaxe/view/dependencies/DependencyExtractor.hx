@@ -7,7 +7,7 @@ import vshaxe.helper.PathHelper;
 import vshaxe.helper.HxmlParser;
 
 class DependencyExtractor {
-	public static function extractDependencies(args:Array<String>, cwd:String):DependencyList {
+	public static function extractDependencies(args:Null<Array<String>>, cwd:String):DependencyList {
 		var result:DependencyList = {
 			libs: [],
 			classPaths: [],

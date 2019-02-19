@@ -22,10 +22,10 @@ class DisplayArgumentsSelector {
 
 	function selectProvider() {
 		var items:Array<QuickPickItem> = [
-			for (name in displayArguments.providers.keys())
+			for (name => provider in displayArguments.providers)
 				{
 					label: name,
-					description: displayArguments.providers[name].description
+					description: provider.description
 				}
 		];
 
@@ -46,7 +46,7 @@ class DisplayArgumentsSelector {
 		}
 
 		var label = displayArguments.currentProvider;
-		var color = null;
+		var color:Null<ThemeColor> = null;
 		if (!displayArguments.isProviderRegistered(displayArguments.currentProvider)) {
 			label = label + " (not available)"; // selected but not (yet?) loaded
 			color = statusBarWarningThemeColor;

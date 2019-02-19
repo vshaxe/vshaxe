@@ -59,13 +59,13 @@ class MethodTreeView {
 		if (rootTimer == null) {
 			rootTimer = makeTimer("", 0, []);
 		}
-		if (data.additionalTimes != null) {
-			rootTimer.children.push(createAdditionalTimers(data));
+		if (rootTimer.children != null && data.additionalTimes != null) {
+			rootTimer.children.push(createAdditionalTimers(data.additionalTimes, data.response.timestamp));
 		}
 
 		var method = data.method;
 		methods = methods.filter(item -> item.method != method);
-		var item = new MethodTreeItem(context, null, rootTimer, data.method, data.debugInfo);
+		var item = new MethodTreeItem(context, rootTimer, data.method, data.debugInfo);
 		methods.push(item);
 		methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
 
@@ -77,10 +77,9 @@ class MethodTreeView {
 		}
 	}
 
-	function createAdditionalTimers(data:HaxeMethodResult):Timer {
-		var additionalTimes = data.additionalTimes;
+	function createAdditionalTimers(additionalTimes:AdditionalTimes, timestamp:Float):Timer {
 		var displayCallTime = additionalTimes.arrival - additionalTimes.beforeCall;
-		var transmissionTime = additionalTimes.arrival - (data.response.timestamp * 1000.0);
+		var transmissionTime = additionalTimes.arrival - (timestamp * 1000.0);
 		var parsingTime = additionalTimes.beforeProcessing - additionalTimes.arrival;
 		var processingTime = additionalTimes.afterProcessing - additionalTimes.beforeProcessing;
 		var totalTime = transmissionTime + parsingTime + processingTime;
@@ -102,14 +101,14 @@ class MethodTreeView {
 	}
 
 	function onDidChangeRequestQueue(queue:Array<String>) {
-		this.queue = queue.map(label -> new MethodTreeItem(context, null, null, label));
+		this.queue = queue.map(label -> new MethodTreeItem(context, label));
 		if (viewType == Queue) {
 			_onDidChangeTreeData.fire();
 		}
 	}
 
 	function update() {
-		enabled = workspace.getConfiguration("haxe").get("enableMethodsView");
+		enabled = workspace.getConfiguration("haxe").get("enableMethodsView", false);
 		commands.executeCommand("setContext", "enableHaxeMethodsView", enabled);
 	}
 
@@ -124,7 +123,7 @@ class MethodTreeView {
 		return if (element == null) methods else element.children;
 	}
 
-	public var getParent = function(element:MethodTreeItem):MethodTreeItem {
+	public var getParent = function(element:MethodTreeItem):Null<MethodTreeItem> {
 		return element.parent;
 	}
 

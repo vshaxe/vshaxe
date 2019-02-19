@@ -31,17 +31,14 @@ class EvalDebugger {
 			config.name = "Haxe Interpreter";
 			config.request = "launch";
 		}
-		if (config.cwd == null) {
+		if (config.cwd == null && folder != null) {
 			config.cwd = folder.uri.fsPath;
 		}
 		if (config.args == null) {
 			config.args = displayArguments.arguments;
 		}
 		config.haxeExecutable = haxeExecutable.configuration;
-		config.mergeScopes = workspace.getConfiguration("haxe.debug").get("mergeScopes");
-		if (config.mergeScopes == null) {
-			config.mergeScopes = true;
-		}
+		config.mergeScopes = workspace.getConfiguration("haxe.debug").get("mergeScopes", true);
 		return config;
 	}
 }

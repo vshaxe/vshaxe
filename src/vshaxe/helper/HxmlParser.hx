@@ -56,7 +56,7 @@ class HxmlParser {
 
 	public static function parseArray(args:Array<String>):Array<HxmlLine> {
 		var result = [];
-		var flag = null;
+		var flag:Null<String> = null;
 		for (arg in args) {
 			if (arg.startsWith("-")) {
 				if (flag != null) {

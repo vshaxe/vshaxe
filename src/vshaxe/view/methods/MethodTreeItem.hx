@@ -6,7 +6,7 @@ class MethodTreeItem extends TreeItem {
 	final context:ExtensionContext;
 	final timer:Null<Timer>;
 	final name:String;
-	final debugInfo:String;
+	final debugInfo:Null<String>;
 	var isRoot(get, never):Bool;
 
 	inline function get_isRoot()
@@ -16,7 +16,7 @@ class MethodTreeItem extends TreeItem {
 	public final method:String;
 	public final parent:Null<MethodTreeItem>;
 
-	public function new(context:ExtensionContext, parent:MethodTreeItem, timer:Timer, method:String, ?debugInfo:String, parentId:String = "") {
+	public function new(context:ExtensionContext, ?parent:MethodTreeItem, ?timer:Timer, method:String, ?debugInfo:String, parentId:String = "") {
 		super("");
 		this.context = context;
 		this.parent = parent;
@@ -45,8 +45,8 @@ class MethodTreeItem extends TreeItem {
 	}
 
 	function formatName():String {
-		var name = if (isRoot) method else timer.name;
-		if (timer != null && timer.info != "" && timer.info != null) {
+		var name = if (isRoot || timer == null) method else timer.name;
+		if (timer != null && timer.info != null && timer.info != "") {
 			name = '${timer.info}.$name';
 		}
 		return name;
@@ -68,7 +68,7 @@ class MethodTreeItem extends TreeItem {
 		return label;
 	}
 
-	function formatTooltip():String {
+	function formatTooltip():Null<String> {
 		if (timer == null) {
 			return null;
 		}
@@ -83,7 +83,7 @@ class MethodTreeItem extends TreeItem {
 	}
 
 	public function toString(indent:String = ""):String {
-		var result = indent + label;
+		var result = indent + if (label == null) "" else label;
 		if (children != null) {
 			result += "\n" + children.map(child -> child.toString(indent + "  ")).join("\n");
 		}

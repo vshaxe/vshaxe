@@ -17,21 +17,10 @@ class HxmlDiscovery {
 	public function new(folder, mementos) {
 		this.folder = folder;
 		this.mementos = mementos;
-
 		didChangeFilesEmitter = new EventEmitter();
-
 		files = mementos.get(folder, DiscoveredFilesKey, []);
 
 		var pattern = new RelativePattern(folder, "*.hxml");
-
-		workspace.findFiles(pattern).then(files -> {
-			var foundFiles = if (files != null) files.map(uri -> pathRelativeToRoot(uri)) else [];
-			if (!this.files.equals(foundFiles)) {
-				this.files = foundFiles;
-				onFilesChanged();
-			}
-		});
-
 		fileWatcher = workspace.createFileSystemWatcher(pattern, false, true, false);
 		fileWatcher.onDidCreate(uri -> {
 			files.push(pathRelativeToRoot(uri));
@@ -40,6 +29,14 @@ class HxmlDiscovery {
 		fileWatcher.onDidDelete(uri -> {
 			files.remove(pathRelativeToRoot(uri));
 			onFilesChanged();
+		});
+
+		workspace.findFiles(pattern).then(files -> {
+			var foundFiles = if (files != null) files.map(uri -> pathRelativeToRoot(uri)) else [];
+			if (!this.files.equals(foundFiles)) {
+				this.files = foundFiles;
+				onFilesChanged();
+			}
 		});
 	}
 

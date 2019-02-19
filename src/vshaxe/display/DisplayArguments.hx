@@ -6,7 +6,7 @@ class DisplayArguments {
 	public final providers = new Map<String, DisplayArgumentsProvider>();
 	public var currentProvider(default, null):Null<String>;
 	public var onDidChangeCurrentProvider(get, never):Event<Null<String>>;
-	public var arguments(default, null):Array<String>;
+	public var arguments(default, null):Null<Array<String>>;
 	public var onDidChangeArguments(get, never):Event<Array<String>>;
 
 	final folder:WorkspaceFolder;

@@ -7,8 +7,8 @@ class HaxeDisplayArgumentsProvider {
 	final displayArguments:DisplayArguments;
 	final hxmlDiscovery:HxmlDiscovery;
 	final statusBarItem:StatusBarItem;
-	var provideArguments:Array<String>->Void;
-	var providerDisposable:Disposable;
+	var provideArguments:Null<Array<String>->Void>;
+	var providerDisposable:Null<Disposable>;
 	var configurations:Array<Configuration>;
 
 	public var configurationCount(get, never):Int;
@@ -42,15 +42,15 @@ class HaxeDisplayArgumentsProvider {
 	}
 
 	function updateConfigurations() {
-		var configs:Array<SettingsConfiguration> = workspace.getConfiguration("haxe").get("displayConfigurations");
+		var configs:Array<SettingsConfiguration> = workspace.getConfiguration("haxe").get("displayConfigurations", []);
 		if (configs == null)
 			configs = [];
 
 		configurations = [];
 		for (i in 0...configs.length) {
 			var config = configs[i];
-			var args = null;
-			var label = null;
+			var args:Array<String>;
+			var label:Null<String> = null;
 			if (Std.is(config, Array)) {
 				args = config;
 			} else {
@@ -83,15 +83,16 @@ class HaxeDisplayArgumentsProvider {
 		if (configurations.length == 0) {
 			window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.displayConfigurations setting.",
 				({title: "Edit settings"} : vscode.MessageItem))
-				.then(function(
-					button) {
-				if (button == null)
-					return;
-				workspace.getConfiguration("haxe")
-					.update("displayConfigurations", [], false)
-					.then(_ -> workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
-					.then(document -> window.showTextDocument(document)));
-			});
+				.then(function(button) {
+					if (button == null)
+						return;
+					workspace.getConfiguration("haxe")
+						.update("displayConfigurations", [], false)
+						.then(function(_) {
+							workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
+								.then(document -> window.showTextDocument(document));
+						});
+				});
 			return;
 		}
 
@@ -142,7 +143,7 @@ class HaxeDisplayArgumentsProvider {
 	public static final ConfigurationIndexKey = new HaxeMementoKey<SavedSelection>("displayConfigurationIndex");
 
 	function getCurrent():Null<Configuration> {
-		var selection = context.getWorkspaceState().get(ConfigurationIndexKey);
+		var selection:Null<Dynamic> = context.getWorkspaceState().get(ConfigurationIndexKey);
 		for (conf in configurations) {
 			switch conf.kind {
 				case Configured(idx, _) if (idx == selection):
@@ -155,7 +156,7 @@ class HaxeDisplayArgumentsProvider {
 		return configurations[0];
 	}
 
-	function setCurrent(config:Configuration) {
+	function setCurrent(config:Null<Configuration>) {
 		updateStatusBarItem(config);
 		if (provideArguments != null)
 			provideArguments(if (config == null) [] else config.args);
@@ -177,7 +178,7 @@ class HaxeDisplayArgumentsProvider {
 		}
 	}
 
-	function updateStatusBarItem(config:Configuration) {
+	function updateStatusBarItem(config:Null<Configuration>) {
 		if (provideArguments != null && config != null) {
 			var label = switch (config.kind) {
 				case Configured(_, userLabel): userLabel;

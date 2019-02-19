@@ -8,7 +8,8 @@ class Commands {
 	final server:LanguageServer;
 	final haxeDisplayArgumentsProvider:HaxeDisplayArgumentsProvider;
 
-	public function new(context:ExtensionContext, server:LanguageServer, haxeDisplayArgumentsProvider:HaxeDisplayArgumentsProvider) {
+	public function new(context:ExtensionContext, server:LanguageServer,
+			haxeDisplayArgumentsProvider:HaxeDisplayArgumentsProvider) {
 		this.context = context;
 		this.server = server;
 		this.haxeDisplayArgumentsProvider = haxeDisplayArgumentsProvider;
@@ -29,10 +30,10 @@ class Commands {
 		inline function copyPosition(position)
 			return new Position(position.line, position.character);
 		// this is retarded
-		var locations = locations.map(function(location) return new Location(Uri.parse(cast location.uri), new Range(copyPosition(location.range.start),
-			copyPosition(location.range.end))));
-		commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations).then(function(s) trace(s), function(s) trace
-			("err: " + s));
+		var locations = locations.map(function(location) return new Location(Uri.parse(cast location.uri), new Range(copyPosition(location.range
+			.start), copyPosition(location.range.end))));
+		commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations).then(function(s) trace(s), function(s)
+			trace("err: " + s));
 	}
 
 	function toggleCodeLens() {
