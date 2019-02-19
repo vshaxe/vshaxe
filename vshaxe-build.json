@@ -44,7 +44,8 @@
 				],
 				"defines": [
 					"JSTACK_MAIN=vshaxe.Main.main",
-					"JSTACK_ASYNC_ENTRY"
+					"JSTACK_ASYNC_ENTRY",
+					"JSTACK_NO_SHUTDOWN"
 				],
 				"output": {
 					"target": "js",
