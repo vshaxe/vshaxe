@@ -12,7 +12,7 @@ enum abstract MethodTreeViewType(String) {
 class MethodTreeView {
 	final context:ExtensionContext;
 	final server:LanguageServer;
-	final treeView:TreeView<MethodTreeItem>;
+	@:nullSafety(Off) final treeView:TreeView<MethodTreeItem>;
 	final _onDidChangeTreeData = new EventEmitter<MethodTreeItem>();
 	var enabled:Bool;
 	var methods:Array<MethodTreeItem> = [];
@@ -29,8 +29,8 @@ class MethodTreeView {
 		inline setMethodsViewType(Timers);
 		inline update();
 
-		treeView = window.createTreeView("haxe.methods", {treeDataProvider: this, showCollapseAll: true});
 		window.registerTreeDataProvider("haxe.methods", this);
+		treeView = window.createTreeView("haxe.methods", {treeDataProvider: this, showCollapseAll: true});
 
 		server.onDidRunHaxeMethod(onDidRunHaxeMethod);
 		server.onDidChangeRequestQueue(onDidChangeRequestQueue);

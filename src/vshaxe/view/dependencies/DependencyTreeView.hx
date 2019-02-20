@@ -10,7 +10,7 @@ import vshaxe.helper.PathHelper;
 class DependencyTreeView {
 	final context:ExtensionContext;
 	final haxeExecutable:HaxeExecutable;
-	final view:TreeView<Node>;
+	@:nullSafety(Off) final view:TreeView<Node>;
 	var displayArguments:Null<Array<String>>;
 	var relevantHxmls:Array<String> = [];
 	var dependencyNodes:Array<Node> = [];
@@ -30,8 +30,8 @@ class DependencyTreeView {
 		onDidChangeTreeData = _onDidChangeTreeData.event;
 		inline updateAutoReveal();
 
-		view = window.createTreeView("haxe.dependencies", {treeDataProvider: this, showCollapseAll: true});
 		window.registerTreeDataProvider("haxe.dependencies", this);
+		view = window.createTreeView("haxe.dependencies", {treeDataProvider: this, showCollapseAll: true});
 
 		context.registerHaxeCommand(RefreshDependencies, refresh);
 		context.registerHaxeCommand(Dependencies_OpenTextDocument, openTextDocument);
