@@ -82,19 +82,16 @@ class HaxeDisplayArgumentsProvider {
 	function selectConfiguration() {
 		if (configurations.length == 0) {
 			window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.displayConfigurations setting.",
-				({title: "Edit settings"} : vscode.MessageItem))
-				.then(function(button) {
-					if (button == null)
+				({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
+				if (button == null)
+					return;
+				workspace.getConfiguration("haxe").update("displayConfigurations", [], false).then(function(_) {
+					if (workspace.workspaceFolders == null)
 						return;
-					workspace.getConfiguration("haxe")
-						.update("displayConfigurations", [], false)
-						.then(function(_) {
-							if (workspace.workspaceFolders == null)
-								return;
-							workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
-								.then(document -> window.showTextDocument(document));
-						});
+					workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
+						.then(document -> window.showTextDocument(document));
 				});
+			});
 			return;
 		}
 

@@ -35,8 +35,8 @@ class DisplayArgumentsSelector {
 		}
 
 		items.moveToStart(item -> item.label == displayArguments.currentProvider);
-		window.showQuickPick(items, {placeHolder: "Select Haxe Completion Provider"}).then(item -> if (item != null)
-			displayArguments.selectProvider(item.label));
+		window.showQuickPick(items, {placeHolder: "Select Haxe Completion Provider"})
+			.then(item -> if (item != null) displayArguments.selectProvider(item.label));
 	}
 
 	function updateStatusBarItem() {
