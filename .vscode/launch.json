@@ -27,12 +27,12 @@
 			]
 		},
 		{
+			"name": "Server Unit Tests",
 			"type": "node",
 			"request": "launch",
-			"name": "Server Unit Tests",
 			"program": "${workspaceFolder}/server/bin/test.js",
-			"sourceMaps": true,
 			"cwd": "${workspaceFolder}/server/bin",
+			"sourceMaps": true,
 			"outFiles": [
 				"${workspaceFolder}/server/bin/*.js"
 			],
@@ -40,7 +40,25 @@
 				"type": "vshaxe-build",
 				"target": "language-server-tests"
 			}
-		}
+		},
+		{
+			"name": "Eval Debugger",
+			"type": "node",
+			"request": "launch",
+			"runtimeArgs": [
+				"--nolazy"
+			],
+			"program": "${workspaceFolder}/eval-debugger/bin/adapter.js",
+			"cwd": "${workspaceFolder}/eval-debugger",
+			"stopOnEntry": false,
+			"args": [
+				"--server=4711"
+			],
+			"sourceMaps": true,
+			"outFiles": [
+				"${workspaceFolder}/eval-debugger/bin/*.js"
+			]
+		},
 	],
 	"compounds": [
 		{
