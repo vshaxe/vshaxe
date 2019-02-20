@@ -12,7 +12,7 @@ class MethodTreeItem extends TreeItem {
 	inline function get_isRoot()
 		return parent == null;
 
-	public final children:Null<Array<MethodTreeItem>>;
+	public final children:Array<MethodTreeItem>;
 	public final method:String;
 	public final parent:Null<MethodTreeItem>;
 
@@ -24,13 +24,13 @@ class MethodTreeItem extends TreeItem {
 		this.method = method;
 		this.debugInfo = debugInfo;
 
+		children = [];
 		name = formatName();
 		label = formatLabel();
 		tooltip = formatTooltip();
 		id = parentId + ">" + name;
 
 		if (timer == null || timer.children == null) {
-			children = null;
 			collapsibleState = None;
 		} else {
 			children = timer.children.map(MethodTreeItem.new.bind(context, this, _, method, null, id));

@@ -47,6 +47,9 @@
 					"JSTACK_ASYNC_ENTRY",
 					"JSTACK_NO_SHUTDOWN"
 				],
+				"macros": [
+					"nullSafety('vshaxe')"
+				],
 				"output": {
 					"target": "js",
 					"path": "bin/client.js"

@@ -8,7 +8,7 @@ class LanguageServer {
 	public var displayPort(default, null):Null<Int>;
 	public var onDidRunHaxeMethod(get, never):Event<HaxeMethodResult>;
 	public var onDidChangeRequestQueue(get, never):Event<Array<String>>;
-	public var client(default, null):LanguageClient;
+	public var client(default, null):Null<LanguageClient>;
 
 	final folder:WorkspaceFolder;
 	final haxeExecutable:HaxeExecutable;
@@ -25,7 +25,7 @@ class LanguageServer {
 		arguments:Array<String>,
 		print:{}
 	};
-	var displayServerConfigSerialized:String;
+	var displayServerConfigSerialized:Null<String>;
 	final _onDidRunHaxeMethod = new EventEmitter<HaxeMethodResult>();
 
 	inline function get_onDidRunHaxeMethod()
@@ -45,15 +45,15 @@ class LanguageServer {
 		serverModulePath = context.asAbsolutePath("./server_wrapper.js");
 		hxFileWatcher = workspace.createFileSystemWatcher(new RelativePattern(folder, "**/*.hx"), false, true, false);
 
-		prepareDisplayServerConfig();
+		inline prepareDisplayServerConfig();
 
+		restartDisposables = [];
 		disposables = [
 			hxFileWatcher,
 			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()),
 			haxeExecutable.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()),
 			window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
 		];
-		restartDisposables = [];
 	}
 
 	public function dispose() {
@@ -64,12 +64,12 @@ class LanguageServer {
 	}
 
 	function refreshDisplayServerConfig() {
-		if (prepareDisplayServerConfig() && client != null)
+		if (client != null && prepareDisplayServerConfig())
 			client.sendNotification("haxe/didChangeDisplayServerConfig", displayServerConfig);
 	}
 
-	function onDidChangeActiveTextEditor(editor:TextEditor) {
-		if (editor != null && editor.document.languageId == "haxe")
+	function onDidChangeActiveTextEditor(editor:Null<TextEditor>) {
+		if (client != null && editor != null && editor.document.languageId == "haxe")
 			client.sendNotification("haxe/didChangeActiveTextEditor", {uri: editor.document.uri.toString()});
 	}
 
@@ -106,7 +106,7 @@ class LanguageServer {
 			}
 		};
 
-		client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
+		var client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
 
 		// If arguments change while we're starting language server we remember that fact
 		// and send updated arguments once language server is ready. this can often happen on startup
@@ -140,6 +140,7 @@ class LanguageServer {
 		});
 
 		restartDisposables.push(client.start());
+		this.client = client;
 	}
 
 	/**
@@ -182,7 +183,7 @@ class LanguageServer {
 
 	function onStartProgress(data:{id:Int, title:String}) {
 		window.withProgress({location: Window, title: data.title}, function(_, _) {
-			return new js.Promise(function(resolve, _) {
+			return new js.Promise(function(resolve:Null<Any>->Void, _) {
 				progresses[data.id] = function() resolve(null);
 			});
 		});
@@ -221,11 +222,15 @@ class LanguageServer {
 	}
 
 	public inline function runGlobalDiagnostics() {
-		client.sendNotification("haxe/runGlobalDiagnostics");
+		if (client != null) {
+			client.sendNotification("haxe/runGlobalDiagnostics");
+		}
 	}
 
 	public inline function runMethod(method:String, params:Any) {
-		client.sendNotification("haxe/runMethod", {method: method, params: params});
+		if (client != null) {
+			client.sendNotification("haxe/runMethod", {method: method, params: params});
+		}
 	}
 
 	function onDidRunGlobalDiangostics(_) {
@@ -246,7 +251,7 @@ class LanguageServer {
 	function onCacheBuildFailed(_) {
 		var message = "Unable to build cache - completion features may be slower than expected. Try fixing the error(s) and restarting the language server.";
 		window.showWarningMessage(message, "Show Error").then(selection -> {
-			if (selection == "Show Error") {
+			if (client != null && selection == "Show Error") {
 				client.outputChannel.show();
 			}
 		});

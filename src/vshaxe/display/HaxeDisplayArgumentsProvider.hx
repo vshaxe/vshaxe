@@ -9,7 +9,7 @@ class HaxeDisplayArgumentsProvider {
 	final statusBarItem:StatusBarItem;
 	var provideArguments:Null<Array<String>->Void>;
 	var providerDisposable:Null<Disposable>;
-	var configurations:Array<Configuration>;
+	var configurations:Array<Configuration> = [];
 
 	public var configurationCount(get, never):Int;
 
@@ -89,6 +89,8 @@ class HaxeDisplayArgumentsProvider {
 					workspace.getConfiguration("haxe")
 						.update("displayConfigurations", [], false)
 						.then(function(_) {
+							if (workspace.workspaceFolders == null)
+								return;
 							workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
 								.then(document -> window.showTextDocument(document));
 						});

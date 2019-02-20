@@ -30,17 +30,23 @@ class Commands {
 		inline function copyPosition(position)
 			return new Position(position.line, position.character);
 		// this is retarded
-		var locations = locations.map(function(location) return new Location(Uri.parse(cast location.uri), new Range(copyPosition(location.range
-			.start), copyPosition(location.range.end))));
-		commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations).then(function(s) trace(s), function(s)
-			trace("err: " + s));
+		var locations = locations.map(function(location) {
+			return new Location(Uri.parse(cast location.uri), new Range(copyPosition(location.range.start), copyPosition(location.range.end)));
+		});
+		commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations).then(s -> trace(s), s -> trace("err: " + s));
 	}
 
 	function toggleCodeLens() {
 		var key = "enableCodeLens";
 		var config = workspace.getConfiguration("haxe");
 		var info = config.inspect(key);
+		if (info == null) {
+			return;
+		}
 		var value = getCurrentConfigValue(info, config);
+		if (value == null) {
+			value = false;
+		}
 		// editing the global config only has an effect if there's no workspace value
 		var global = info.workspaceValue == null;
 		config.update(key, !value, global);
@@ -58,7 +64,10 @@ class Commands {
 			return;
 		}
 
-		var folder = workspace.workspaceFolders[0];
+		var folder:Null<WorkspaceFolder> = null;
+		if (workspace.workspaceFolders != null) {
+			folder = workspace.workspaceFolders[0];
+		}
 		debug.startDebugging(folder, label).then(_ -> {}, error -> {
 			window.showErrorMessage(Std.string(error));
 		});

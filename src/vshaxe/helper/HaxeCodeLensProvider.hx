@@ -20,7 +20,7 @@ class HaxeCodeLensProvider {
 	}
 
 	function getEnableCodeLens():Bool {
-		return workspace.getConfiguration("haxe").get("enableCodeLens");
+		return workspace.getConfiguration("haxe").get("enableCodeLens", false);
 	}
 
 	function onDidChangeConfiguration(_) {

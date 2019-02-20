@@ -12,28 +12,30 @@ enum abstract MethodTreeViewType(String) {
 class MethodTreeView {
 	final context:ExtensionContext;
 	final server:LanguageServer;
+	final treeView:TreeView<MethodTreeItem>;
+	final _onDidChangeTreeData = new EventEmitter<MethodTreeItem>();
 	var enabled:Bool;
 	var methods:Array<MethodTreeItem> = [];
 	var queue:Array<MethodTreeItem> = [];
 	var viewType:MethodTreeViewType;
-	var treeView:TreeView<MethodTreeItem>;
-	var _onDidChangeTreeData = new EventEmitter<MethodTreeItem>();
 
 	public var onDidChangeTreeData:Event<MethodTreeItem>;
 
 	public function new(context:ExtensionContext, server:LanguageServer) {
 		this.context = context;
 		this.server = server;
+		onDidChangeTreeData = _onDidChangeTreeData.event;
+
+		inline setMethodsViewType(Timers);
+		inline update();
+
+		treeView = window.createTreeView("haxe.methods", {treeDataProvider: this, showCollapseAll: true});
+		window.registerTreeDataProvider("haxe.methods", this);
 
 		server.onDidRunHaxeMethod(onDidRunHaxeMethod);
 		server.onDidChangeRequestQueue(onDidChangeRequestQueue);
 		workspace.onDidChangeConfiguration(_ -> update());
-		onDidChangeTreeData = _onDidChangeTreeData.event;
-		setMethodsViewType(Timers);
-		update();
 
-		window.registerTreeDataProvider("haxe.methods", this);
-		treeView = window.createTreeView("haxe.methods", {treeDataProvider: this, showCollapseAll: true});
 		context.registerHaxeCommand(Methods_SwitchToQueue, switchTo.bind(Queue));
 		context.registerHaxeCommand(Methods_SwitchToTimers, switchTo.bind(Timers));
 		context.registerHaxeCommand(Methods_Copy, copy);

@@ -15,12 +15,11 @@ private typedef RawHaxeExecutableConfig = {
 
 private typedef HaxeExecutablePathOrConfigBase = EitherType<String, RawHaxeExecutableConfig>;
 
-typedef HaxeExecutablePathOrConfig = EitherType<String, RawHaxeExecutableConfig &
-	{
-		var ?windows:RawHaxeExecutableConfig;
-		var ?linux:RawHaxeExecutableConfig;
-		var ?osx:RawHaxeExecutableConfig;
-	}>;
+typedef HaxeExecutablePathOrConfig = EitherType<String, RawHaxeExecutableConfig & {
+	var ?windows:RawHaxeExecutableConfig;
+	var ?linux:RawHaxeExecutableConfig;
+	var ?osx:RawHaxeExecutableConfig;
+}>;
 
 class HaxeExecutable {
 	public static final SYSTEM_KEY = switch Sys.systemName() {
@@ -43,7 +42,7 @@ class HaxeExecutable {
 	public function new(folder) {
 		this.folder = folder;
 		_onDidChangeConfiguration = new EventEmitter();
-		updateConfig();
+		inline updateConfig();
 		changeConfigurationListener = workspace.onDidChangeConfiguration(onWorkspaceConfigurationChanged);
 	}
 
@@ -52,9 +51,14 @@ class HaxeExecutable {
 	}
 
 	/** Returns true if haxe.executable setting was configured by user **/
-	public function isConfigured() {
+	public function isConfigured():Bool {
 		var executableSetting = workspace.getConfiguration("haxe", folder.uri).inspect("executable");
-		return executableSetting.globalValue != null || executableSetting.workspaceValue != null || executableSetting.workspaceFolderValue != null;
+		if (executableSetting == null) {
+			return false;
+		}
+		return executableSetting.globalValue != null
+			|| executableSetting.workspaceValue != null
+			|| executableSetting.workspaceFolderValue != null;
 	}
 
 	function onWorkspaceConfigurationChanged(change:ConfigurationChangeEvent) {
@@ -96,7 +100,7 @@ class HaxeExecutable {
 	}
 
 	function updateConfig() {
-		var input:Null<HaxeExecutablePathOrConfig> = workspace.getConfiguration("haxe", folder.uri).get("executable");
+		var input:HaxeExecutablePathOrConfig = workspace.getConfiguration("haxe", folder.uri).get("executable", "haxe");
 
 		var executable = "haxe";
 		var env = new DynamicAccess<String>();
@@ -113,12 +117,10 @@ class HaxeExecutable {
 			}
 		}
 
-		if (input != null) {
-			merge(input);
-			var systemConfig = Reflect.field(input, SYSTEM_KEY);
-			if (systemConfig != null)
-				merge(systemConfig);
-		}
+		merge(input);
+		var systemConfig = Reflect.field(input, SYSTEM_KEY);
+		if (systemConfig != null)
+			merge(systemConfig);
 
 		var isCommand = false;
 		if (!Path.isAbsolute(executable)) {

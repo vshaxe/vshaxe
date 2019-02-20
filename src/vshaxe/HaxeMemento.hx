@@ -3,7 +3,7 @@ package vshaxe;
 import js.Promise.Thenable;
 
 abstract HaxeMemento(vscode.Memento) from vscode.Memento {
-	public inline function get<T>(key:HaxeMementoKey<T>, ?defaultValue:T):T {
+	public inline function get<T>(key:HaxeMementoKey<T>, ?defaultValue:T):Null<T> {
 		return this.get(key, defaultValue);
 	}
 

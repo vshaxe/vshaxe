@@ -17,7 +17,7 @@ class DependencyTreeView {
 	var dependencies:Null<DependencyList>;
 	var refreshNeeded:Bool = true;
 	var previousSelection:Null<{node:Node, time:Float}>;
-	var autoRevealEnabled:Bool = false;
+	var autoRevealEnabled:Bool;
 	var _onDidChangeTreeData = new EventEmitter<Node>();
 
 	public var onDidChangeTreeData:Event<Node>;
@@ -28,8 +28,10 @@ class DependencyTreeView {
 		this.haxeExecutable = haxeExecutable;
 
 		onDidChangeTreeData = _onDidChangeTreeData.event;
-		window.registerTreeDataProvider("haxe.dependencies", this);
+		inline updateAutoReveal();
+
 		view = window.createTreeView("haxe.dependencies", {treeDataProvider: this, showCollapseAll: true});
+		window.registerTreeDataProvider("haxe.dependencies", this);
 
 		context.registerHaxeCommand(RefreshDependencies, refresh);
 		context.registerHaxeCommand(Dependencies_OpenTextDocument, openTextDocument);
@@ -51,8 +53,6 @@ class DependencyTreeView {
 		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> autoReveal()));
 		context.subscriptions.push(view.onDidChangeVisibility(_ -> autoReveal()));
-
-		updateAutoReveal();
 	}
 
 	function onDidChangeHxml(uri:Uri) {
@@ -64,10 +64,14 @@ class DependencyTreeView {
 	}
 
 	function refreshDependencies():Array<Node> {
+		if (workspace.workspaceFolders == null) {
+			return [];
+		}
 		var newDependencies = DependencyExtractor.extractDependencies(displayArguments, workspace.workspaceFolders[0].uri.fsPath);
 		relevantHxmls = newDependencies.hxmls;
 
 		// avoid FS access / creating processes unless there were _actually_ changes
+		@:nullSafety(Off) // #7820
 		if (dependencies != null
 			&& dependencies.libs.equals(newDependencies.libs)
 			&& dependencies.classPaths.equals(newDependencies.classPaths)) {
@@ -134,7 +138,7 @@ class DependencyTreeView {
 	}
 
 	function updateAutoReveal() {
-		autoRevealEnabled = workspace.getConfiguration("explorer").get("autoReveal");
+		autoRevealEnabled = workspace.getConfiguration("explorer").get("autoReveal", true);
 	}
 
 	function autoReveal() {
@@ -142,12 +146,12 @@ class DependencyTreeView {
 		if (editor == null || !view.visible || !autoRevealEnabled) {
 			return;
 		}
-
+		var document = editor.document;
 		function loop(nodes:Array<Node>) {
 			for (node in nodes) {
-				if (node.isDirectory && PathHelper.containsFile(node.path, editor.document.fileName)) {
+				if (node.isDirectory && PathHelper.containsFile(node.path, document.fileName)) {
 					loop(node.children);
-				} else if (PathHelper.areEqual(node.path, editor.document.fileName)) {
+				} else if (PathHelper.areEqual(node.path, document.fileName)) {
 					view.reveal(node, {select: true});
 					break;
 				}
@@ -186,6 +190,7 @@ class DependencyTreeView {
 	function openTextDocument(node:Node) {
 		var currentTime = Date.now().getTime();
 		var doubleClickTime = 500;
+		@:nullSafety(Off) // #7820
 		var preview = previousSelection == null
 			|| previousSelection.node != node
 			|| (currentTime - previousSelection.time) >= doubleClickTime;
@@ -194,11 +199,13 @@ class DependencyTreeView {
 	}
 
 	function openPreview(node:Node) {
-		commands.executeCommand("markdown.showPreview", node.resourceUri);
+		commands.executeCommand("markdown.showPreview", node.path);
 	}
 
 	function openToTheSide(node:Node) {
-		window.showTextDocument(node.resourceUri, {viewColumn: Three});
+		if (node.resourceUri != null) {
+			window.showTextDocument(node.resourceUri, {viewColumn: Three});
+		}
 	}
 
 	function revealInExplorer(node:Node) {
@@ -208,12 +215,13 @@ class DependencyTreeView {
 			case "Mac": "open";
 			case _: throw "unsupported OS";
 		}
-		var arg = node.resourceUri.fsPath;
+		var arg = node.path;
 		if (Sys.systemName() == "Windows") {
 			arg = '/select,"$arg"';
 		}
 		// this isn't proper Sys.command() usage
 		// - but otherwise the quoting seems to work improperly :(
+		@:nullSafety(Off) // #7821
 		Sys.command('$explorer $arg');
 	}
 
@@ -226,6 +234,6 @@ class DependencyTreeView {
 	}
 
 	function copyPath(node:Node) {
-		env.clipboard.writeText(PathHelper.capitalizeDriveLetter(node.resourceUri.fsPath));
+		env.clipboard.writeText(PathHelper.capitalizeDriveLetter(node.path));
 	}
 }

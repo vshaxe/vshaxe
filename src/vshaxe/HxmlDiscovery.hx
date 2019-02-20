@@ -18,7 +18,7 @@ class HxmlDiscovery {
 		this.folder = folder;
 		this.mementos = mementos;
 		didChangeFilesEmitter = new EventEmitter();
-		files = mementos.get(folder, DiscoveredFilesKey, []);
+		files = mementos.getDefault(folder, DiscoveredFilesKey, []);
 
 		var pattern = new RelativePattern(folder, "*.hxml");
 		fileWatcher = workspace.createFileSystemWatcher(pattern, false, true, false);

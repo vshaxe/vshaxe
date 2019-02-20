@@ -22,13 +22,21 @@ class TaskConfiguration {
 		this.server = server;
 		this.api = api;
 
+		inline update();
 		workspace.onDidChangeConfiguration(_ -> update());
-		update();
 	}
 
 	function update() {
-		enableCompilationServer = workspace.getConfiguration("haxe").get("enableCompilationServer");
-		var presentation = workspace.getConfiguration("haxe").get("taskPresentation");
+		enableCompilationServer = workspace.getConfiguration("haxe").get("enableCompilationServer", true);
+		var presentation:{
+			?echo:Bool,
+			?reveal:String,
+			?focus:Bool,
+			?panel:String,
+			?showReuseMessage:Bool,
+			?clear:Bool
+		} = workspace.getConfiguration("haxe").get("taskPresentation", {});
+
 		taskPresentation = {
 			echo: presentation.echo,
 			reveal: switch (presentation.reveal) {

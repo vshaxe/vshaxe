@@ -1,8 +1,8 @@
 package vshaxe.server;
 
 class PackageInserter {
-	final createEvent:Disposable;
-	final openEvent:Disposable;
+	@:nullSafety(Off) final createEvent:Disposable;
+	@:nullSafety(Off) final openEvent:Disposable;
 	final client:LanguageClient;
 	var lastCreatedFile:Null<Uri>;
 

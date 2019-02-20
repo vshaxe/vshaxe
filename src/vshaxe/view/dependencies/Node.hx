@@ -12,17 +12,20 @@ enum NodeType {
 }
 
 class Node extends TreeItem {
+	var _children:Null<Array<Node>>;
+
 	public final parent:Null<Node>;
 	public final path:String;
 	public final type:NodeType;
 	public var isDirectory(get, never):Bool;
-	public var children(get, null):Array<Node>;
+	public var children(get, never):Array<Node>;
 
 	public function new(?parent:Node, label:String, path:String, ?type:NodeType) {
 		super(label);
-		resourceUri = Uri.file(path);
 		this.parent = parent;
-		this.path = path;
+		resourceUri = Uri.file(path);
+		this.path = resourceUri.fsPath;
+
 		if (type == null) {
 			type = if (FileSystem.isDirectory(path)) Folder else File;
 		}
@@ -47,7 +50,9 @@ class Node extends TreeItem {
 
 	public static function sort(nodes:Array<Node>) {
 		haxe.ds.ArraySort.sort(nodes, (c1, c2) -> {
-			function compare(a:String, b:String) {
+			function compare(a:Null<String>, b:Null<String>) {
+				if (a == null || b == null)
+					return 0;
 				a = a.toLowerCase();
 				b = b.toLowerCase();
 				if (a < b)
@@ -74,7 +79,7 @@ class Node extends TreeItem {
 			return;
 		}
 
-		var newChildren = [];
+		var newChildren:Array<Node> = [];
 		forEachChild((file, path) -> {
 			var existingNode = null;
 			if (children != null) {
@@ -89,14 +94,14 @@ class Node extends TreeItem {
 			}
 		});
 		sort(newChildren);
-		children = newChildren;
+		_children = newChildren;
 	}
 
 	function get_children():Array<Node> {
-		if (children == null) {
-			children = createChildren();
+		if (_children == null) {
+			_children = createChildren();
 		}
-		return children;
+		return _children;
 	}
 
 	function createChildren() {

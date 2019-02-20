@@ -1,6 +1,7 @@
 package vshaxe.helper;
 
 class ArrayHelper {
+	@:nullSafety(Off) // #7817
 	public static function equals<T>(a1:Null<Array<T>>, a2:Null<Array<T>>):Bool {
 		if (a1 == null && a2 == null)
 			return true;

@@ -29,9 +29,13 @@ class DependencyResolver {
 		paths = paths.concat(dependencies.classPaths);
 		paths = pruneSubdirectories(paths);
 
-		var infos = [];
+		var infos:Array<DependencyInfo> = [];
 		if (haxelibRepo != null) {
-			infos = paths.map(getDependencyInfo).filter(info -> info != null);
+			for (info in paths.map(getDependencyInfo)) {
+				if (info != null) {
+					infos.push(info);
+				}
+			}
 		}
 		var stdLibPath = getStandardLibraryPath(haxeExecutable.configuration);
 		if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
@@ -87,6 +91,9 @@ class DependencyResolver {
 	}
 
 	static function getDependencyInfo(path:String):Null<DependencyInfo> {
+		if (workspace.workspaceFolders == null) {
+			return null;
+		}
 		var rootPath = workspace.workspaceFolders[0].uri.fsPath;
 		var absPath = PathHelper.absolutize(path, rootPath);
 		var haxelibRepo = haxelibRepo;
@@ -183,7 +190,7 @@ class DependencyResolver {
 		return null;
 	}
 
-	static function getStandardLibraryInfo(path:String, haxeExecutable:String) {
+	static function getStandardLibraryInfo(path:String, haxeExecutable:String):DependencyInfo {
 		var version = "?";
 		var result = ChildProcess.spawnSync(haxeExecutable, ["-version"]);
 

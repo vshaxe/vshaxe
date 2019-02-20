@@ -7,7 +7,7 @@ abstract MementoKey<T>(String) to String {
 		this = key;
 }
 
-private typedef MementoCollection<T> = haxe.DynamicAccess<T>;
+private typedef MementoCollection<T> = haxe.DynamicAccess<Null<T>>;
 
 class WorkspaceMementos {
 	static inline final MEMENTO_VERSION = 1;
@@ -20,16 +20,20 @@ class WorkspaceMementos {
 		maybeMigrate();
 	}
 
-	public function get<T>(folder:WorkspaceFolder, key:MementoKey<T>, ?defaultValue:T):T {
-		var collection:MementoCollection<T> = storage.get(key);
-		if (collection == null)
-			return defaultValue;
-		var value = collection[folder.uri.toString()];
-		return if (value != null) value else defaultValue;
+	public function getDefault<T>(folder:WorkspaceFolder, key:MementoKey<T>, defaultValue:T):T {
+		var value = get(folder, key);
+		return if (value == null) defaultValue else value;
 	}
 
-	public function set<T>(folder:WorkspaceFolder, key:MementoKey<T>, value:T):Thenable<Void> {
-		var collection:MementoCollection<T> = storage.get(key);
+	public function get<T>(folder:WorkspaceFolder, key:MementoKey<T>):Null<T> {
+		var collection:Null<MementoCollection<T>> = storage.get(key);
+		if (collection == null)
+			return null;
+		return collection[folder.uri.toString()];
+	}
+
+	public function set<T>(folder:WorkspaceFolder, key:MementoKey<T>, value:Null<T>):Thenable<Void> {
+		var collection:Null<MementoCollection<T>> = storage.get(key);
 		if (collection == null)
 			collection = new MementoCollection();
 		collection[folder.uri.toString()] = value;
@@ -37,7 +41,7 @@ class WorkspaceMementos {
 	}
 
 	public function delete<T>(folder:WorkspaceFolder, key:MementoKey<T>):Thenable<Void> {
-		var collection:MementoCollection<T> = storage.get(key);
+		var collection:Null<MementoCollection<T>> = storage.get(key);
 		if (collection == null)
 			collection = new MementoCollection();
 		collection.remove(folder.uri.toString());
