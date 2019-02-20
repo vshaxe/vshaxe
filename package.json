@@ -51,6 +51,7 @@
 		"onCommand:haxe.toggleCodeLens",
 		"onCommand:haxe.dependencies.refresh",
 		"onCommand:workbench.action.tasks.runTask",
+		"onDebugResolve:haxe-eval",
 		"onView:haxe.methods",
 		"onView:haxe.dependencies",
 		"workspaceContains:*.hxml"
