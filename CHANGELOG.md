@@ -64,7 +64,7 @@
 **Changes and Improvements**:
 
 - updated to haxe-formatter version 1.1.1
-- added syntax highlighting support for key-value iterators ([HXP-0006](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0006-key-value-iter.md))
+- added syntax highlighting support for key-value iterators ([HXP-0005](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0005-key-value-iter.md#key--value-iteration-syntax))
 - added expected argument info when hovering over call args (requires Haxe 4 preview 5)
 - added more details to metadata docs in completion / hover (requires Haxe 4 preview 5)
 - don't save auto-selected display configurations ([#295](https://github.com/vshaxe/vshaxe/issues/295))
@@ -196,7 +196,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - added a `"haxe.enableMethodsView"` setting (`false` by default)
 - added `"imports"` settings to `"haxe.codeGeneration"`
 - added `"functions.field"` settings to `"haxe.codeGeneration"`
-- added syntax highlighting support for intersection types ([HXP-0004](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0004-intersection-types.md))
+- added syntax highlighting support for intersection types ([HXP-0004](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0004-intersection-types.md#intersection-types))
 - added syntax highlighting support for qualified metadata ([haxe#3959](https://github.com/HaxeFoundation/haxe/issues/3959))
 - added syntax highlighting support for `var ?x:Int` syntax ([haxe#6707](https://github.com/HaxeFoundation/haxe/issues/6707))
 - added support for Haxe 4 style CLI arguments ([haxe#6862](https://github.com/HaxeFoundation/haxe/pull/6862))
@@ -244,7 +244,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 **Changes and Improvements**:
 
 - improved completion to trigger automatically after certain keywords (e.g. `import`)
-- changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
+- changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md#new-function-type-syntax))
 
 ### 1.12.0 (May 3, 2018)
 
@@ -309,7 +309,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - added a `"haxe.enableCompilationServer"` setting - enabled by default ([#184](https://github.com/vshaxe/vshaxe/issues/184))
 - added support for markdown-formatted documentation in signature help
 - added `displayPort` and `enableCompilationServer` to the extension API
-- added highlighting for Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md))
+- added highlighting for Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md#new-function-type-syntax))
 - added code folding support for different region marker styles ([#202](https://github.com/vshaxe/vshaxe/pull/202#issuecomment-376507302))
 
 **Bugfixes**:
@@ -434,7 +434,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 **New Features**:
 
-- added highlighting support for Haxe 4 arrow functions ([HXP-0002](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0002-arrow-functions.md))
+- added highlighting support for Haxe 4 arrow functions ([HXP-0002](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0002-arrow-functions.md#arrow-functions))
 - added a `useArrowSyntax` option for anonymous function generation
 - added a "Generate capture variables" code action
 
