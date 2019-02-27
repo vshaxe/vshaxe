@@ -129,6 +129,9 @@ class HaxeExecutable {
 				executable = absolutePath;
 			} else {
 				isCommand = true;
+				if (Sys.systemName() == "Windows" && Path.extension(executable) == "") {
+					executable += ".exe";
+				}
 			}
 		}
 

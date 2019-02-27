@@ -5,6 +5,10 @@
 - added document symbol / folding / formatting support in untitled files
 - fixed compatibility with upcoming VSCode 1.32.0 ([#317](https://github.com/vshaxe/vshaxe/issues/317))
 
+**Bugfixes**:
+
+- fixed tasks not working on Windows with a `haxe` folder next to `haxe.exe`
+
 ### 2.6.0 (February 12, 2019)
 
 **New Features**
