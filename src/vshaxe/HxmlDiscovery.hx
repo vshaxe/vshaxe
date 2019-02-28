@@ -1,5 +1,7 @@
 package vshaxe;
 
+import haxe.io.Path;
+
 class HxmlDiscovery {
 	public static inline final DiscoveredFilesKey = new MementoKey<Array<String>>("haxe.hxmlDiscoveryFiles");
 
@@ -32,7 +34,11 @@ class HxmlDiscovery {
 		});
 
 		workspace.findFiles(pattern).then(files -> {
-			var foundFiles = if (files != null) files.map(uri -> pathRelativeToRoot(uri)) else [];
+			var foundFiles = [];
+			if (files != null) {
+				foundFiles = files.map(uri -> pathRelativeToRoot(uri)).filter(path -> Path.withoutDirectory(path) != "extraParams.hxml");
+			}
+
 			if (!this.files.equals(foundFiles)) {
 				this.files = foundFiles;
 				onFilesChanged();

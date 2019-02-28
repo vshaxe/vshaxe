@@ -4,6 +4,7 @@
 
 - added document symbol / folding / formatting support in untitled files
 - fixed compatibility with upcoming VSCode 1.32.0 ([#317](https://github.com/vshaxe/vshaxe/issues/317))
+- improved HXML detection to ignore `extraParams.hxml` ([#320](https://github.com/vshaxe/vshaxe/issues/320))
 
 **Bugfixes**:
 
