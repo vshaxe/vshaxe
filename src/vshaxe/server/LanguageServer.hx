@@ -227,9 +227,11 @@ class LanguageServer {
 		}
 	}
 
-	public inline function runMethod(method:String, params:Any) {
-		if (client != null) {
-			client.sendNotification("haxe/runMethod", {method: method, params: params});
+	public inline function runMethod<T>(method:String, params:Any):Null<js.Promise.Thenable<T>> {
+		return if (client != null) {
+			return client.sendRequest("haxe/runMethod", {method: method, params: params});
+		} else {
+			null;
 		}
 	}
 
