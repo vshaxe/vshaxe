@@ -888,6 +888,11 @@
 					"id": "haxe.dependencies",
 					"name": "Haxe Dependencies",
 					"when": "vshaxeActivated"
+				},
+				{
+					"id": "haxe.server",
+					"name": "Haxe Server",
+					"when": "vshaxeActivated"
 				}
 			]
 		},

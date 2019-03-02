@@ -3,6 +3,7 @@ package vshaxe;
 import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
 import vshaxe.view.dependencies.DependencyTreeView;
+import vshaxe.view.server.HaxeServerView;
 import vshaxe.view.methods.MethodTreeView;
 import vshaxe.display.DisplayArguments;
 import vshaxe.display.DisplayArgumentsSelector;
@@ -53,6 +54,9 @@ class Main {
 
 		new HaxeCodeLensProvider();
 		new DependencyTreeView(context, displayArguments, haxeExecutable);
+		#if debug
+		new HaxeServerView(context);
+		#end
 		new EvalDebugger(displayArguments, haxeExecutable);
 		new MethodTreeView(context, server);
 		new DisplayArgumentsSelector(context, displayArguments);
