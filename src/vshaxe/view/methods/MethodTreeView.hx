@@ -1,7 +1,8 @@
 package vshaxe.view.methods;
 
 import vshaxe.server.LanguageServer;
-import vshaxe.server.HaxeMethodResult;
+import haxeLanguageServer.LanguageServerMethods;
+import haxeLanguageServer.protocol.Protocol.Timer;
 import js.Date;
 
 enum abstract MethodTreeViewType(String) {
@@ -59,7 +60,7 @@ class MethodTreeView {
 		if (rootTimer == null) {
 			rootTimer = makeTimer("", 0, []);
 		}
-		if (rootTimer.children != null && data.additionalTimes != null) {
+		if (rootTimer.children != null && data.additionalTimes != null && data.response.timestamp != null) {
 			rootTimer.children.push(createAdditionalTimers(data.additionalTimes, data.response.timestamp));
 		}
 

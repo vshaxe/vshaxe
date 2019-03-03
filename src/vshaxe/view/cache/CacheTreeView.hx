@@ -1,41 +1,9 @@
 package vshaxe.view.cache;
 
 import vshaxe.server.LanguageServer;
-import vshaxe.view.cache.Node.ModuleId;
-import vshaxe.view.cache.Node.ModulesSizeResult;
-import vshaxe.view.cache.Node.HaxeServerContext;
-import haxe.display.JsonModuleTypes;
+import haxeLanguageServer.protocol.Server;
+import haxe.display.JsonModuleTypes.JsonTypePath;
 import haxe.ds.ArraySort;
-
-typedef JsonModule = {
-	final id:Int;
-	final path:JsonModulePath;
-	final types:Array<JsonTypePath>;
-	final file:String;
-	final sign:String;
-	final dependencies:Array<ModuleId>;
-}
-
-typedef JsonServerFile = {
-	final file:String;
-	final time:Float;
-	final pack:String;
-	final moduleName:Null<String>;
-}
-
-typedef HaxeMemoryResult = {
-	final contexts:Array<{
-		final context:Null<HaxeServerContext>;
-		final size:Int;
-		final modules:Array<ModulesSizeResult>;
-	}>;
-	final memory:{
-		final totalCache:Int;
-		final haxelibCache:Int;
-		final parserCache:Int;
-		final moduleCache:Int;
-	}
-}
 
 class CacheTreeView {
 	final context:ExtensionContext;
@@ -82,7 +50,7 @@ class CacheTreeView {
 			}
 			switch (node.kind) {
 				case ServerRoot:
-					server.runMethod("server/contexts").then(function(result:Array<HaxeServerContext>) {
+					server.runMethod(ServerMethods.Contexts).then(function(result:Array<HaxeServerContext>) {
 						var nodes = [];
 						for (ctx in result) {
 							ArraySort.sort(ctx.defines, (kv1, kv2) -> Reflect.compare(kv1.key, kv2.key));
@@ -91,7 +59,7 @@ class CacheTreeView {
 						return nodes;
 					}, reject -> reject);
 				case MemoryRoot:
-					server.runMethod("server/memory").then(function(result:HaxeMemoryResult) {
+					server.runMethod(ServerMethods.Memory).then(function(result:HaxeMemoryResult) {
 						var nodes = [];
 						var kv = [
 							{key: "total cache", value: formatSize(result.memory.totalCache)},
@@ -130,7 +98,7 @@ class CacheTreeView {
 				case StringMapping(mapping):
 					mapping.map(kv -> new Node(kv.key, kv.value, Leaf, node));
 				case ContextModules(ctx):
-					server.runMethod("server/modules", {signature: ctx.signature}).then(function(result:Array<String>) {
+					server.runMethod(ServerMethods.Modules, {signature: ctx.signature}).then(function(result:Array<String>) {
 						var nodes = [];
 						ArraySort.sort(result, Reflect.compare);
 						for (s in result) {
@@ -140,7 +108,7 @@ class CacheTreeView {
 						return nodes;
 					}, reject -> reject);
 				case ContextFiles(ctx):
-					server.runMethod("server/files", {signature: ctx.signature}).then(function(result:Array<JsonServerFile>) {
+					server.runMethod(ServerMethods.Files, {signature: ctx.signature}).then(function(result:Array<JsonServerFile>) {
 						var nodes = result.map(file -> new Node(file.file, null,
 							StringMapping([{key: "mtime", value: "" + file.time}, {key: "package", value: file.pack}]), node));
 						updateCount(nodes);
@@ -153,7 +121,7 @@ class CacheTreeView {
 					}
 					return nodes;
 				case ModuleInfo(sign, path):
-					server.runMethod("server/module", {signature: sign, path: path}).then(function(result:JsonModule) {
+					server.runMethod(ServerMethods.Module, {signature: sign, path: path}).then(function(result:JsonModule) {
 						var types = result.types.map(path -> path.typeName);
 						ArraySort.sort(types, Reflect.compare);
 						return [

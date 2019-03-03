@@ -1,9 +1,15 @@
 package vshaxe.server;
 
 import js.Promise;
+import jsonrpc.Types;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageClient;
+import haxeLanguageServer.LanguageServerMethods;
+import haxeLanguageServer.DisplayServerConfig;
+import haxeLanguageServer.protocol.Protocol.Response;
+import haxeLanguageServer.protocol.Protocol.HaxeRequestMethod;
+import languageServerProtocol.Types.DocumentUri;
 
 class LanguageServer {
 	public var displayPort(default, null):Null<Int>;
@@ -20,12 +26,7 @@ class LanguageServer {
 	final disposables:Array<{function dispose():Void;}>;
 	var restartDisposables:Array<{function dispose():Void;}>;
 	var progresses = new Map<Int, Void->Void>();
-	var displayServerConfig:{
-		path:String,
-		env:haxe.DynamicAccess<String>,
-		arguments:Array<String>,
-		print:{}
-	};
+	var displayServerConfig:DisplayServerConfig;
 	var displayServerConfigSerialized:Null<String>;
 	final _onDidRunHaxeMethod = new EventEmitter<HaxeMethodResult>();
 
@@ -64,14 +65,37 @@ class LanguageServer {
 			d.dispose();
 	}
 
+	function sendNotification<P>(method:NotificationMethod<P, NoData>, ?params:P) {
+		if (client != null) {
+			if (params == null) {
+				client.sendNotification(method);
+			} else {
+				client.sendNotification(method, params);
+			}
+		}
+	}
+
+	public function sendRequest<P, R>(method:RequestMethod<P, R, NoData, NoData>, params:P):Thenable<R> {
+		return if (client != null) {
+			client.sendRequest(method, params);
+		} else {
+			Promise.reject("client not initialized");
+		}
+	}
+
+	function onNotification<P>(method:NotificationMethod<P, NoData>, handler:(params:P) -> Void) {
+		if (client != null)
+			client.onNotification(method, handler);
+	}
+
 	function refreshDisplayServerConfig() {
-		if (client != null && prepareDisplayServerConfig())
-			client.sendNotification("haxe/didChangeDisplayServerConfig", displayServerConfig);
+		if (prepareDisplayServerConfig())
+			sendNotification(LanguageServerMethods.DidChangeDisplayServerConfig, displayServerConfig);
 	}
 
 	function onDidChangeActiveTextEditor(editor:Null<TextEditor>) {
-		if (client != null && editor != null && editor.document.languageId == "haxe")
-			client.sendNotification("haxe/didChangeActiveTextEditor", {uri: editor.document.uri.toString()});
+		if (editor != null && editor.document.languageId == "haxe")
+			sendNotification(LanguageServerMethods.DidChangeActiveTextEditor, {uri: new DocumentUri(editor.document.uri.toString())});
 	}
 
 	public function start() {
@@ -122,21 +146,25 @@ class LanguageServer {
 			restartDisposables.remove(argumentChangeListenerDisposable);
 			argumentChangeListenerDisposable.dispose();
 
-			if (argumentsChanged)
-				client.sendNotification("haxe/didChangeDisplayArguments", {arguments: displayArguments.arguments});
+			if (argumentsChanged) {
+				var arguments:Array<String> = [];
+				if (displayArguments.arguments != null)
+					arguments = displayArguments.arguments;
+				sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {arguments: arguments});
+			}
 
 			restartDisposables
-				.push(displayArguments.onDidChangeArguments(arguments -> client.sendNotification("haxe/didChangeDisplayArguments", {arguments: arguments})));
+				.push(displayArguments.onDidChangeArguments(arguments -> sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {arguments: arguments})));
 
-			restartDisposables.push(new PackageInserter(hxFileWatcher, client));
+			restartDisposables.push(new PackageInserter(hxFileWatcher, this));
 
-			client.onNotification("haxe/progressStart", onStartProgress);
-			client.onNotification("haxe/progressStop", onStopProgress);
-			client.onNotification("haxe/didChangeDisplayPort", onDidChangeDisplayPort);
-			client.onNotification("haxe/didRunGlobalDiagnostics", onDidRunGlobalDiangostics);
-			client.onNotification("haxe/didRunHaxeMethod", onDidRunHaxeMethodCallback);
-			client.onNotification("haxe/didChangeRequestQueue", onDidChangeRequestQueueCallback);
-			client.onNotification("haxe/cacheBuildFailed", onCacheBuildFailed);
+			onNotification(LanguageServerMethods.ProgressStart, onStartProgress);
+			onNotification(LanguageServerMethods.ProgressStop, onStopProgress);
+			onNotification(LanguageServerMethods.DidChangeDisplayPort, onDidChangeDisplayPort);
+			onNotification(LanguageServerMethods.DidRunRunGlobalDiagnostics, onDidRunGlobalDiangostics);
+			onNotification(LanguageServerMethods.DidRunHaxeMethod, onDidRunHaxeMethodCallback);
+			onNotification(LanguageServerMethods.DidChangeRequestQueue, onDidChangeRequestQueueCallback);
+			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
 			client.onDidChangeState(onDidChangeState);
 		});
 
@@ -223,17 +251,11 @@ class LanguageServer {
 	}
 
 	public inline function runGlobalDiagnostics() {
-		if (client != null) {
-			client.sendNotification("haxe/runGlobalDiagnostics");
-		}
+		sendNotification(LanguageServerMethods.RunGlobalDiagnostics);
 	}
 
-	public function runMethod<T>(method:String, ?params:Any):Thenable<T> {
-		return if (client != null) {
-			client.sendRequest("haxe/runMethod", {method: method, params: params});
-		} else {
-			Promise.reject("client not initialized");
-		}
+	public function runMethod<P, R>(method:HaxeRequestMethod<P, Response<R>>, ?params:P):Thenable<R> {
+		return sendRequest(LanguageServerMethods.RunMethod, {method: method, params: params});
 	}
 
 	function onDidRunGlobalDiangostics(_) {

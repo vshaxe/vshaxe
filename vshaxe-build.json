@@ -40,7 +40,8 @@
 					"vscode-extern/src",
 					"server/protocol/src",
 					"src-api",
-					"src"
+					"src",
+					"server/src"
 				],
 				"defines": [
 					"JSTACK_MAIN=vshaxe.Main.main",

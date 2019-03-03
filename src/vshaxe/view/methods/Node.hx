@@ -1,6 +1,7 @@
 package vshaxe.view.methods;
 
-import vshaxe.server.HaxeMethodResult;
+import haxeLanguageServer.LanguageServerMethods.HaxeMethodResult;
+import haxeLanguageServer.protocol.Protocol.Timer;
 
 class Node extends TreeItem {
 	final context:ExtensionContext;

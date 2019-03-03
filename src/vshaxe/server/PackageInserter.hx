@@ -1,13 +1,15 @@
 package vshaxe.server;
 
+import haxeLanguageServer.LanguageServerMethods;
+
 class PackageInserter {
 	@:nullSafety(Off) final createEvent:Disposable;
 	@:nullSafety(Off) final openEvent:Disposable;
-	final client:LanguageClient;
+	final server:LanguageServer;
 	var lastCreatedFile:Null<Uri>;
 
-	public function new(watcher:FileSystemWatcher, client:LanguageClient) {
-		this.client = client;
+	public function new(watcher:FileSystemWatcher, server:LanguageServer) {
+		this.server = server;
 
 		createEvent = watcher.onDidCreate(function(uri) {
 			var editor = window.activeTextEditor;
@@ -29,7 +31,7 @@ class PackageInserter {
 		if (editor.document.getText(new Range(0, 0, 0, 1)).length > 0) // skip non-empty created files (can be created by e.g. copy-pasting)
 			return;
 
-		client.sendRequest("haxe/determinePackage", {fsPath: editor.document.uri.fsPath}).then(function(result:{pack:String}) {
+		server.sendRequest(LanguageServerMethods.DeterminePackage, {fsPath: editor.document.uri.fsPath}).then(function(result:{pack:String}) {
 			if (result.pack == "")
 				return;
 			editor.edit(function(edit) edit.insert(new Position(0, 0), 'package ${result.pack};\n\n'));

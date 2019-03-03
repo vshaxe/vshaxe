@@ -1,31 +1,6 @@
 package vshaxe.view.cache;
 
-typedef HaxeServerContext = {
-	final index:Int;
-	final desc:String;
-	final signature:String;
-	final platform:String;
-	final classPaths:Array<String>;
-	final defines:Array<{key:String, value:String}>;
-}
-
-typedef SizeResult = {
-	final path:String;
-	final size:Int;
-}
-
-typedef ModuleTypeSizeResult = SizeResult & {
-	final fields:Array<SizeResult>;
-}
-
-typedef ModulesSizeResult = SizeResult & {
-	final types:Array<ModuleTypeSizeResult>;
-}
-
-typedef ModuleId = {
-	final path:String;
-	final sign:String;
-}
+import haxeLanguageServer.protocol.Server;
 
 enum Kind {
 	ServerRoot;
