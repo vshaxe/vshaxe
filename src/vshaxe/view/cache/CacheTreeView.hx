@@ -42,6 +42,7 @@ class CacheTreeView {
 	final server:LanguageServer;
 	@:nullSafety(Off) final view:TreeView<Node>;
 	var didChangeTreeData = new EventEmitter<Node>();
+	var skipRefresh:Map<Node, Array<Node>> = [];
 
 	public var onDidChangeTreeData:Event<Node>;
 
@@ -64,12 +65,19 @@ class CacheTreeView {
 	}
 
 	public function getChildren(?node:Node):ProviderResult<Array<Node>> {
-		return if (node == null) {
-			[new Node("server", null, ServerRoot), new Node("memory", null, MemoryRoot)];
+		if (node == null) {
+			return [new Node("server", null, ServerRoot), new Node("memory", null, MemoryRoot)];
+		}
+
+		var children = skipRefresh[node];
+		return if (children != null) {
+			skipRefresh.remove(node);
+			children;
 		} else {
 			var node:Node = node;
-			function updateCount(count:Int) {
-				node.description = Std.string(count);
+			function updateCount(nodes:Array<Node>) {
+				node.description = Std.string(nodes.length);
+				skipRefresh[node] = nodes; // avoid endless refresh loop
 				didChangeTreeData.fire(node);
 			}
 			switch (node.kind) {
@@ -128,14 +136,14 @@ class CacheTreeView {
 						for (s in result) {
 							nodes.push(new Node(s, null, ModuleInfo(ctx.signature, s)));
 						}
-						updateCount(nodes.length);
+						updateCount(nodes);
 						return nodes;
 					}, reject -> reject);
 				case ContextFiles(ctx):
 					server.runMethod("server/files", {signature: ctx.signature}).then(function(result:Array<JsonServerFile>) {
 						var nodes = result.map(file -> new Node(file.file, null,
 							StringMapping([{key: "mtime", value: "" + file.time}, {key: "package", value: file.pack}]), node));
-						updateCount(nodes.length);
+						updateCount(nodes);
 						return nodes;
 					}, reject -> reject);
 				case ModuleList(modules):
