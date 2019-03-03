@@ -53,6 +53,7 @@ class HaxeServerView {
 		context.registerHaxeCommand(ServerView_ReloadNode, reloadNode);
 		view = window.createTreeView("haxe.server", {treeDataProvider: this, showCollapseAll: true});
 		window.registerTreeDataProvider("haxe.server", this);
+		commands.executeCommand("setContext", "enableHaxeServerView", true);
 	}
 
 	public var getParent = function(node:Node) {

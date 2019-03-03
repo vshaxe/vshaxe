@@ -54,6 +54,7 @@
 		"onDebugResolve:haxe-eval",
 		"onView:haxe.methods",
 		"onView:haxe.dependencies",
+		"onView:haxe.server",
 		"workspaceContains:*.hxml"
 	],
 	"contributes": {
@@ -902,7 +903,7 @@
 				{
 					"id": "haxe.server",
 					"name": "Haxe Server",
-					"when": "vshaxeActivated"
+					"when": "vshaxeActivated && enableHaxeServerView"
 				}
 			]
 		},
