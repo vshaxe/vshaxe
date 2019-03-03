@@ -1,32 +1,30 @@
-package vshaxe.view.server;
-
-import haxe.display.JsonModuleTypes.JsonModulePath;
+package vshaxe.view.cache;
 
 typedef HaxeServerContext = {
-	var index:Int;
-	var desc:String;
-	var signature:String;
-	var platform:String;
-	var classPaths:Array<String>;
-	var defines:Array<{key:String, value:String}>;
+	final index:Int;
+	final desc:String;
+	final signature:String;
+	final platform:String;
+	final classPaths:Array<String>;
+	final defines:Array<{key:String, value:String}>;
 }
 
 typedef SizeResult = {
-	var path:String;
-	var size:Int;
+	final path:String;
+	final size:Int;
 }
 
 typedef ModuleTypeSizeResult = SizeResult & {
-	var fields:Array<SizeResult>;
+	final fields:Array<SizeResult>;
 }
 
 typedef ModulesSizeResult = SizeResult & {
-	var types:Array<ModuleTypeSizeResult>;
+	final types:Array<ModuleTypeSizeResult>;
 }
 
 typedef ModuleId = {
-	var path:String;
-	var sign:String;
+	final path:String;
+	final sign:String;
 }
 
 enum Kind {

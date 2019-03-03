@@ -2,9 +2,8 @@ package vshaxe;
 
 import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
+import vshaxe.view.HaxeServerViewContainer;
 import vshaxe.view.dependencies.DependencyTreeView;
-import vshaxe.view.server.HaxeServerView;
-import vshaxe.view.methods.MethodTreeView;
 import vshaxe.display.DisplayArguments;
 import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
@@ -53,12 +52,9 @@ class Main {
 		context.subscriptions.push(server);
 
 		new HaxeCodeLensProvider();
+		new HaxeServerViewContainer(context, server);
 		new DependencyTreeView(context, displayArguments, haxeExecutable);
-		#if debug
-		new HaxeServerView(context, server);
-		#end
 		new EvalDebugger(displayArguments, haxeExecutable);
-		new MethodTreeView(context, server);
 		new DisplayArgumentsSelector(context, displayArguments);
 		var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
 		new Commands(context, server, haxeDisplayArgumentsProvider);

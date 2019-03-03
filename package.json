@@ -54,7 +54,7 @@
 		"onDebugResolve:haxe-eval",
 		"onView:haxe.methods",
 		"onView:haxe.dependencies",
-		"onView:haxe.server",
+		"onView:haxe.cache",
 		"workspaceContains:*.hxml"
 	],
 	"contributes": {
@@ -402,10 +402,15 @@
 					"type": "boolean",
 					"default": true
 				},
-				"haxe.enableMethodsView": {
-					"description": "Enable the \"Haxe Methods\" tree view in the explorer (shows --times output for the different Haxe JSON-RPC methods).",
+				"haxe.enableServerView": {
+					"description": "Enable the \"Haxe Server\" view container for performance and cache debugging.",
 					"type": "boolean",
 					"default": false
+				},
+				"haxe.enableMethodsView": {
+					"type": "boolean",
+					"default": false,
+					"deprecationMessage": "Use \"haxe.enableServerView\" instead"
 				},
 				"haxe.enableSignatureHelpDocumentation": {
 					"description": "Whether signature help should include documentation or not.",
@@ -654,12 +659,12 @@
 			},
 			{
 				"title": "Copy Node value",
-				"command": "haxe.serverView.copyNodeValue",
+				"command": "haxe.cache.copyNodeValue",
 				"category": "Haxe"
 			},
 			{
 				"title": "Reload",
-				"command": "haxe.serverView.reloadNode",
+				"command": "haxe.cache.reloadNode",
 				"category": "Haxe"
 			}
 		],
@@ -888,21 +893,32 @@
 				"pattern": "$haxe-trace"
 			}
 		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"icon": "resources/haxe.png",
+					"id": "haxeServer",
+					"title": "Haxe Server"
+				}
+			]
+		},
 		"views": {
 			"explorer": [
-				{
-					"id": "haxe.methods",
-					"name": "Haxe Methods",
-					"when": "vshaxeActivated && enableHaxeMethodsView"
-				},
 				{
 					"id": "haxe.dependencies",
 					"name": "Haxe Dependencies",
 					"when": "vshaxeActivated"
+				}
+			],
+			"haxeServer": [
+				{
+					"id": "haxe.methods",
+					"name": "Methods",
+					"when": "vshaxeActivated && enableHaxeServerView"
 				},
 				{
-					"id": "haxe.server",
-					"name": "Haxe Server",
+					"id": "haxe.cache",
+					"name": "Cache",
 					"when": "vshaxeActivated && enableHaxeServerView"
 				}
 			]
@@ -962,13 +978,13 @@
 					"group": "2_vshaxe@1"
 				},
 				{
-					"command": "haxe.serverView.copyNodeValue",
-					"when": "view == haxe.server && viewItem =~ /copyable/",
+					"command": "haxe.cache.copyNodeValue",
+					"when": "view == haxe.cache && viewItem =~ /copyable/",
 					"group": "2_vshaxe@1"
 				},
 				{
-					"command": "haxe.serverView.reloadNode",
-					"when": "view == haxe.server && viewItem =~ /reloadable/",
+					"command": "haxe.cache.reloadNode",
+					"when": "view == haxe.cache && viewItem =~ /reloadable/",
 					"group": "2_vshaxe@1"
 				}
 			],
@@ -1014,11 +1030,11 @@
 					"when": "false"
 				},
 				{
-					"command": "haxe.serverView.copyNodeValue",
+					"command": "haxe.cache.copyNodeValue",
 					"when": "false"
 				},
 				{
-					"command": "haxe.serverView.reloadNode",
+					"command": "haxe.cache.reloadNode",
 					"when": "false"
 				}
 			]
@@ -1055,5 +1071,10 @@
 				}
 			}
 		]
+	},
+	"__metadata": {
+		"id": "774b650f-43e3-4147-a91d-6a6bc7fe0f93",
+		"publisherDisplayName": "nadako",
+		"publisherId": "c2e45d77-17fe-4f3b-9d2d-6b29eccc8050"
 	}
 }

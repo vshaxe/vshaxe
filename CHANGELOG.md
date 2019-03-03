@@ -1,10 +1,16 @@
-### 2.6.1 (to be released)
+### 2.7.0 (to be released)
 
 **Changes and Improvements**:
 
 - added document symbol / folding / formatting support in untitled files
+- added a view to inspect Haxe's cache (requires latest Haxe dev)
 - fixed compatibility with upcoming VSCode 1.32.0 ([#317](https://github.com/vshaxe/vshaxe/issues/317))
 - improved HXML detection to ignore `extraParams.hxml` ([#320](https://github.com/vshaxe/vshaxe/issues/320))
+
+**Changes and Improvements**:
+
+- moved the Haxe Methods view to a separate Haxe Server view container
+- replaced the `"haxe.enableMethodsView"` setting with `"haxe.enableServerView"`
 
 **Bugfixes**:
 

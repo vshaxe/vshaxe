@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="128"
+   height="128"
+   viewBox="0 0 8 8"
+   version="1"
+   id="svg2"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="haxe.svg"
+   inkscape:export-filename="C:\Users\Jens\.vscode\extensions\vshaxe\resources\haxe.png"
+   inkscape:export-xdpi="16.875"
+   inkscape:export-ydpi="16.875">
+  <metadata
+     id="metadata26">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs24" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1359"
+     inkscape:window-height="751"
+     id="namedview22"
+     showgrid="false"
+     inkscape:zoom="6.7847336"
+     inkscape:cx="-16.106819"
+     inkscape:cy="61.556457"
+     inkscape:window-x="2325"
+     inkscape:window-y="145"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     d="M 1 1 H 7 V 7 H 1 z"
+     fill="#f7941e"
+     id="path4"
+     style="fill:#d7dae0;fill-opacity:1" />
+  <path
+     d="M 0 0 H 2 L 4 1 L 1 4 L 0 2 z"
+     fill="#fdb813"
+     id="path6"
+     style="fill:#d7dae0;fill-opacity:1" />
+  <path
+     d="M 1 4 L 4 7 L 2 8 H 0 V 6 z"
+     fill="#faa61a"
+     id="path8"
+     style="fill:#d7dae0;fill-opacity:1" />
+  <path
+     d="M 4 1 L 6 0 H 8 V 2 L 7 4 z"
+     fill="#f58220"
+     id="path10"
+     style="fill:#d7dae0;fill-opacity:1" />
+  <path
+     d="M 7 4 L 8 6 V 8 H 6 L 4 7 z"
+     fill="#f36f21"
+     id="path12"
+     style="fill:#d7dae0;fill-opacity:1" />
+  <path
+     d="M 0 0 L 1 4 L 0 8 V 6 L 1 4 L 0 2 z"
+     fill="#fff200"
+     id="path14"
+     style="fill:#d7dae0;fill-opacity:1" />
+  <path
+     d="M 0 0 L 4 1 L 8 0 H 6 L 4 1 L 2 0 z"
+     fill="#ffcb08"
+     id="path16"
+     style="fill:#d7dae0;fill-opacity:1" />
+  <path
+     d="M 8 0 V 2 L 7 4 L 8 6 V 8 L 7 4 z"
+     fill="#f15922"
+     id="path18"
+     style="fill:#d7dae0;fill-opacity:1" />
+  <path
+     d="M 0 8 H 2 L 4 7 L 6 8 H 8 L 4 7 z"
+     fill="#f68b2d"
+     id="path20"
+     style="fill:#d7dae0;fill-opacity:1" />
+</svg>

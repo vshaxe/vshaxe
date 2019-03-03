@@ -1,43 +1,43 @@
-package vshaxe.view.server;
+package vshaxe.view.cache;
 
 import vshaxe.server.LanguageServer;
-import vshaxe.view.server.Node.ModuleId;
-import vshaxe.view.server.Node.ModulesSizeResult;
-import vshaxe.view.server.Node.HaxeServerContext;
+import vshaxe.view.cache.Node.ModuleId;
+import vshaxe.view.cache.Node.ModulesSizeResult;
+import vshaxe.view.cache.Node.HaxeServerContext;
 import haxe.display.JsonModuleTypes;
 import haxe.ds.ArraySort;
 
 typedef JsonModule = {
-	var id:Int;
-	var path:JsonModulePath;
-	var types:Array<JsonTypePath>;
-	var file:String;
-	var sign:String;
-	var dependencies:Array<ModuleId>;
+	final id:Int;
+	final path:JsonModulePath;
+	final types:Array<JsonTypePath>;
+	final file:String;
+	final sign:String;
+	final dependencies:Array<ModuleId>;
 }
 
 typedef JsonServerFile = {
-	var file:String;
-	var time:Float;
-	var pack:String;
-	var moduleName:Null<String>;
+	final file:String;
+	final time:Float;
+	final pack:String;
+	final moduleName:Null<String>;
 }
 
 typedef HaxeMemoryResult = {
-	var contexts:Array<{
-		var context:Null<HaxeServerContext>;
-		var size:Int;
-		var modules:Array<ModulesSizeResult>;
+	final contexts:Array<{
+		final context:Null<HaxeServerContext>;
+		final size:Int;
+		final modules:Array<ModulesSizeResult>;
 	}>;
-	var memory:{
-		var totalCache:Int;
-		var haxelibCache:Int;
-		var parserCache:Int;
-		var moduleCache:Int;
+	final memory:{
+		final totalCache:Int;
+		final haxelibCache:Int;
+		final parserCache:Int;
+		final moduleCache:Int;
 	}
 }
 
-class HaxeServerView {
+class CacheTreeView {
 	final context:ExtensionContext;
 	final server:LanguageServer;
 	@:nullSafety(Off) final view:TreeView<Node>;
@@ -49,11 +49,10 @@ class HaxeServerView {
 		this.context = context;
 		this.server = server;
 		onDidChangeTreeData = didChangeTreeData.event;
-		context.registerHaxeCommand(ServerView_CopyNodeValue, copyNodeValue);
-		context.registerHaxeCommand(ServerView_ReloadNode, reloadNode);
-		view = window.createTreeView("haxe.server", {treeDataProvider: this, showCollapseAll: true});
-		window.registerTreeDataProvider("haxe.server", this);
-		commands.executeCommand("setContext", "enableHaxeServerView", true);
+		context.registerHaxeCommand(Cache_CopyNodeValue, copyNodeValue);
+		context.registerHaxeCommand(Cache_ReloadNode, reloadNode);
+		view = window.createTreeView("haxe.cache", {treeDataProvider: this, showCollapseAll: true});
+		window.registerTreeDataProvider("haxe.cache", this);
 	}
 
 	public var getParent = function(node:Node) {

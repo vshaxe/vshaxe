@@ -14,11 +14,11 @@ class MethodTreeView {
 	final server:LanguageServer;
 	@:nullSafety(Off) final treeView:TreeView<MethodTreeItem>;
 	final _onDidChangeTreeData = new EventEmitter<MethodTreeItem>();
-	var enabled:Bool;
 	var methods:Array<MethodTreeItem> = [];
 	var queue:Array<MethodTreeItem> = [];
 	var viewType:MethodTreeViewType;
 
+	public var enabled:Bool = false;
 	public var onDidChangeTreeData:Event<MethodTreeItem>;
 
 	public function new(context:ExtensionContext, server:LanguageServer) {
@@ -27,14 +27,12 @@ class MethodTreeView {
 		onDidChangeTreeData = _onDidChangeTreeData.event;
 
 		inline setMethodsViewType(Timers);
-		inline update();
 
 		window.registerTreeDataProvider("haxe.methods", this);
 		treeView = window.createTreeView("haxe.methods", {treeDataProvider: this, showCollapseAll: true});
 
 		server.onDidRunHaxeMethod(onDidRunHaxeMethod);
 		server.onDidChangeRequestQueue(onDidChangeRequestQueue);
-		workspace.onDidChangeConfiguration(_ -> update());
 
 		context.registerHaxeCommand(Methods_SwitchToQueue, switchTo.bind(Queue));
 		context.registerHaxeCommand(Methods_SwitchToTimers, switchTo.bind(Timers));
@@ -107,11 +105,6 @@ class MethodTreeView {
 		if (viewType == Queue) {
 			_onDidChangeTreeData.fire();
 		}
-	}
-
-	function update() {
-		enabled = workspace.getConfiguration("haxe").get("enableMethodsView", false);
-		commands.executeCommand("setContext", "enableHaxeMethodsView", enabled);
 	}
 
 	public function getTreeItem(element:MethodTreeItem):MethodTreeItem {
