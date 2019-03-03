@@ -655,6 +655,11 @@
 				"title": "Copy Node value",
 				"command": "haxe.serverView.copyNodeValue",
 				"category": "Haxe"
+			},
+			{
+				"title": "Reload",
+				"command": "haxe.serverView.reloadNode",
+				"category": "Haxe"
 			}
 		],
 		"languages": [
@@ -959,6 +964,11 @@
 					"command": "haxe.serverView.copyNodeValue",
 					"when": "view == haxe.server && viewItem =~ /copyable/",
 					"group": "2_vshaxe@1"
+				},
+				{
+					"command": "haxe.serverView.reloadNode",
+					"when": "view == haxe.server && viewItem =~ /reloadable/",
+					"group": "2_vshaxe@1"
 				}
 			],
 			"commandPalette": [
@@ -1004,6 +1014,10 @@
 				},
 				{
 					"command": "haxe.serverView.copyNodeValue",
+					"when": "false"
+				},
+				{
+					"command": "haxe.serverView.reloadNode",
 					"when": "false"
 				}
 			]

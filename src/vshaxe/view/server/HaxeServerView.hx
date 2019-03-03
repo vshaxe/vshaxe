@@ -39,12 +39,15 @@ typedef HaxeMemoryResult = {
 class HaxeServerView {
 	final context:ExtensionContext;
 	final view:TreeView<Node>;
+	var didChangeTreeData = new EventEmitter<Node>();
 
-	public var onDidChangeTreeData:Event<Node> = new EventEmitter<Node>().event;
+	public var onDidChangeTreeData:Event<Node>;
 
 	public function new(context:ExtensionContext) {
 		this.context = context;
 		context.registerHaxeCommand(ServerView_CopyNodeValue, copyNodeValue);
+		context.registerHaxeCommand(ServerView_ReloadNode, reloadNode);
+		onDidChangeTreeData = didChangeTreeData.event;
 		view = window.createTreeView("haxe.server", {treeDataProvider: this, showCollapseAll: true});
 		window.registerTreeDataProvider("haxe.server", this);
 	}
@@ -82,7 +85,7 @@ class HaxeServerView {
 						];
 						nodes.push(new Node("overview", null, StringMapping(kv), node));
 						for (ctx in result.contexts) {
-							var name = ctx.context == null ? "?" : '${ctx.context.platform} (${ctx.context.desc})';
+							var name = ctx.context == null ? "?" : '${ctx.context.platform} (${ctx.context.desc}, ${ctx.context.index})';
 							nodes.push(new Node(name, formatSize(ctx.size), ModuleMemory(ctx.modules), node));
 						}
 						return nodes;
@@ -168,6 +171,10 @@ class HaxeServerView {
 			case _: throw false;
 		}
 		env.clipboard.writeText(value);
+	}
+
+	function reloadNode(node:Node) {
+		didChangeTreeData.fire(node);
 	}
 
 	static function printPath(path:JsonTypePath) {

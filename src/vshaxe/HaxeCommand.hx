@@ -27,6 +27,7 @@ enum abstract HaxeCommand(String) to String {
 	var Dependencies_OpenInCommandPrompt = command("dependencies.openInCommandPrompt");
 	var Dependencies_CopyPath = command("dependencies.copyPath");
 	var ServerView_CopyNodeValue = command("serverView.copyNodeValue");
+	var ServerView_ReloadNode = command("serverView.reloadNode");
 
 	inline static function command(name:String):String {
 		return "haxe." + name;
