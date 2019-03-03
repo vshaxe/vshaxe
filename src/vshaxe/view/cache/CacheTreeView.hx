@@ -51,8 +51,8 @@ class CacheTreeView {
 		onDidChangeTreeData = didChangeTreeData.event;
 		context.registerHaxeCommand(Cache_CopyNodeValue, copyNodeValue);
 		context.registerHaxeCommand(Cache_ReloadNode, reloadNode);
-		view = window.createTreeView("haxe.cache", {treeDataProvider: this, showCollapseAll: true});
 		window.registerTreeDataProvider("haxe.cache", this);
+		view = window.createTreeView("haxe.cache", {treeDataProvider: this, showCollapseAll: true});
 	}
 
 	public var getParent = function(node:Node) {
