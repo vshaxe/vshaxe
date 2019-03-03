@@ -1,10 +1,11 @@
 package vshaxe.view.server;
 
+import vshaxe.server.LanguageServer;
 import vshaxe.view.server.Node.ModuleId;
 import vshaxe.view.server.Node.ModulesSizeResult;
-import haxe.ds.ArraySort;
 import vshaxe.view.server.Node.HaxeServerContext;
 import haxe.display.JsonModuleTypes;
+import haxe.ds.ArraySort;
 
 typedef JsonModule = {
 	var id:Int;
@@ -38,13 +39,15 @@ typedef HaxeMemoryResult = {
 
 class HaxeServerView {
 	final context:ExtensionContext;
+	final server:LanguageServer;
 	@:nullSafety(Off) final view:TreeView<Node>;
 	var didChangeTreeData = new EventEmitter<Node>();
 
 	public var onDidChangeTreeData:Event<Node>;
 
-	public function new(context:ExtensionContext) {
+	public function new(context:ExtensionContext, server:LanguageServer) {
 		this.context = context;
+		this.server = server;
 		onDidChangeTreeData = didChangeTreeData.event;
 		context.registerHaxeCommand(ServerView_CopyNodeValue, copyNodeValue);
 		context.registerHaxeCommand(ServerView_ReloadNode, reloadNode);
@@ -66,7 +69,7 @@ class HaxeServerView {
 		} else {
 			switch (node.kind) {
 				case ServerRoot:
-					commands.executeCommand("haxe.runMethod", "server/contexts").then(function(result:Array<HaxeServerContext>) {
+					server.runMethod("server/contexts").then(function(result:Array<HaxeServerContext>) {
 						var nodes = [];
 						for (ctx in result) {
 							ArraySort.sort(ctx.defines, (kv1, kv2) -> Reflect.compare(kv1.key, kv2.key));
@@ -75,7 +78,7 @@ class HaxeServerView {
 						return nodes;
 					}, reject -> reject);
 				case MemoryRoot:
-					commands.executeCommand("haxe.runMethod", "server/memory").then(function(result:HaxeMemoryResult) {
+					server.runMethod("server/memory").then(function(result:HaxeMemoryResult) {
 						var nodes = [];
 						var kv = [
 							{key: "total cache", value: formatSize(result.memory.totalCache)},
@@ -114,7 +117,7 @@ class HaxeServerView {
 				case StringMapping(mapping):
 					mapping.map(kv -> new Node(kv.key, kv.value, Leaf, node));
 				case ContextModules(ctx):
-					commands.executeCommand("haxe.runMethod", "server/modules", {signature: ctx.signature}).then(function(result:Array<String>) {
+					server.runMethod("server/modules", {signature: ctx.signature}).then(function(result:Array<String>) {
 						var nodes = [];
 						ArraySort.sort(result, Reflect.compare);
 						for (s in result) {
@@ -123,7 +126,7 @@ class HaxeServerView {
 						return nodes;
 					}, reject -> reject);
 				case ContextFiles(ctx):
-					commands.executeCommand("haxe.runMethod", "server/files", {signature: ctx.signature}).then(function(result:Array<JsonServerFile>) {
+					server.runMethod("server/files", {signature: ctx.signature}).then(function(result:Array<JsonServerFile>) {
 						var nodes = result.map(file -> new Node(file.file, null,
 							StringMapping([{key: "mtime", value: "" + file.time}, {key: "package", value: file.pack}]), node));
 						return nodes;
@@ -135,7 +138,7 @@ class HaxeServerView {
 					}
 					return nodes;
 				case ModuleInfo(sign, path):
-					commands.executeCommand("haxe.runMethod", "server/module", {signature: sign, path: path}).then(function(result:JsonModule) {
+					server.runMethod("server/module", {signature: sign, path: path}).then(function(result:JsonModule) {
 						var types = result.types.map(path -> path.typeName);
 						ArraySort.sort(types, Reflect.compare);
 						return [

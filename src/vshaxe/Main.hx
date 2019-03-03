@@ -55,7 +55,7 @@ class Main {
 		new HaxeCodeLensProvider();
 		new DependencyTreeView(context, displayArguments, haxeExecutable);
 		#if debug
-		new HaxeServerView(context);
+		new HaxeServerView(context, server);
 		#end
 		new EvalDebugger(displayArguments, haxeExecutable);
 		new MethodTreeView(context, server);

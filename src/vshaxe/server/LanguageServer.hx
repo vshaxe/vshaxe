@@ -1,5 +1,6 @@
 package vshaxe.server;
 
+import js.Promise;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageClient;
@@ -227,11 +228,11 @@ class LanguageServer {
 		}
 	}
 
-	public inline function runMethod<T>(method:String, params:Any):Null<js.Promise.Thenable<T>> {
+	public inline function runMethod<T>(method:String, ?params:Any):Thenable<T> {
 		return if (client != null) {
-			return client.sendRequest("haxe/runMethod", {method: method, params: params});
+			client.sendRequest("haxe/runMethod", {method: method, params: params});
 		} else {
-			null;
+			Promise.reject("client not initialized");
 		}
 	}
 
