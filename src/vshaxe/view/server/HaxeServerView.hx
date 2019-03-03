@@ -1,5 +1,6 @@
 package vshaxe.view.server;
 
+import vshaxe.view.server.Node.ModuleId;
 import vshaxe.view.server.Node.ModulesSizeResult;
 import haxe.ds.ArraySort;
 import vshaxe.view.server.Node.HaxeServerContext;
@@ -11,7 +12,7 @@ typedef JsonModule = {
 	var types:Array<JsonTypePath>;
 	var file:String;
 	var sign:String;
-	var dependencies:Array<JsonModulePath>;
+	var dependencies:Array<ModuleId>;
 }
 
 typedef JsonServerFile = {
@@ -117,7 +118,7 @@ class HaxeServerView {
 						var nodes = [];
 						ArraySort.sort(result, Reflect.compare);
 						for (s in result) {
-							nodes.push(new Node(s, null, ModuleInfo(ctx, s)));
+							nodes.push(new Node(s, null, ModuleInfo(ctx.signature, s)));
 						}
 						return nodes;
 					}, reject -> reject);
@@ -127,19 +128,23 @@ class HaxeServerView {
 							StringMapping([{key: "mtime", value: "" + file.time}, {key: "package", value: file.pack}]), node));
 						return nodes;
 					}, reject -> reject);
-				case ModuleInfo(ctx, path):
-					commands.executeCommand("haxe.runMethod", "server/module", {signature: ctx.signature, path: path}).then(function(result:JsonModule) {
+				case ModuleList(modules):
+					var nodes = [];
+					for (module in modules) {
+						nodes.push(new Node(module.path, null, ModuleInfo(module.sign, module.path)));
+					}
+					return nodes;
+				case ModuleInfo(sign, path):
+					commands.executeCommand("haxe.runMethod", "server/module", {signature: sign, path: path}).then(function(result:JsonModule) {
 						var types = result.types.map(path -> path.typeName);
 						ArraySort.sort(types, Reflect.compare);
-						var deps = result.dependencies.map(path -> printPath(cast path));
-						ArraySort.sort(deps, Reflect.compare);
 						return [
 							new Node("id", "" + result.id, Leaf, node),
 							new Node("path", printPath(cast result.path), Leaf, node),
 							new Node("file", result.file, Leaf, node),
 							new Node("sign", result.sign, Leaf, node),
 							new Node("types", null, StringList(types), node),
-							new Node("dependencies", null, StringList(deps), node)
+							new Node("dependencies", null, ModuleList(result.dependencies), node)
 						];
 					}, reject -> reject);
 				case Leaf:

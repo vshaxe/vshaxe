@@ -1,5 +1,7 @@
 package vshaxe.view.server;
 
+import haxe.display.JsonModuleTypes.JsonModulePath;
+
 typedef HaxeServerContext = {
 	var index:Int;
 	var desc:String;
@@ -22,6 +24,11 @@ typedef ModulesSizeResult = SizeResult & {
 	var types:Array<ModuleTypeSizeResult>;
 }
 
+typedef ModuleId = {
+	var path:String;
+	var sign:String;
+}
+
 enum Kind {
 	ServerRoot;
 	MemoryRoot;
@@ -30,7 +37,8 @@ enum Kind {
 	Context(ctx:HaxeServerContext);
 	ContextModules(ctx:HaxeServerContext);
 	ContextFiles(ctx:HaxeServerContext);
-	ModuleInfo(ctx:HaxeServerContext, path:String);
+	ModuleInfo(sign:String, path:String);
+	ModuleList(modules:Array<ModuleId>);
 	StringList(strings:Array<String>);
 	StringMapping(mapping:Array<{var key:String; var value:String;}>);
 	Leaf;
