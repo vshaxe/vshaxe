@@ -228,7 +228,7 @@ class LanguageServer {
 		}
 	}
 
-	public inline function runMethod<T>(method:String, ?params:Any):Thenable<T> {
+	public function runMethod<T>(method:String, ?params:Any):Thenable<T> {
 		return if (client != null) {
 			client.sendRequest("haxe/runMethod", {method: method, params: params});
 		} else {

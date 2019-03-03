@@ -22,7 +22,6 @@ class Commands {
 
 		#if debug
 		context.registerHaxeCommand(ClearMementos, clearMementos);
-		context.registerHaxeCommand(RunMethod, server.runMethod);
 		#end
 	}
 

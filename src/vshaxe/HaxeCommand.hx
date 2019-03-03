@@ -14,7 +14,6 @@ enum abstract HaxeCommand(String) to String {
 	/* internal commands, either not defined in `package.json` at all or hidden from command palette */
 	var ShowReferences = command("showReferences");
 	var ClearMementos = command("clearMementos");
-	var RunMethod = command("runMethod");
 	var Methods_SwitchToQueue = command("methods.switchToQueue");
 	var Methods_SwitchToTimers = command("methods.switchToTimers");
 	var Methods_Copy = command("methods.copy");
