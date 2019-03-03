@@ -38,10 +38,10 @@
 			"args": {
 				"classPaths": [
 					"vscode-extern/src",
+					"server/src",
 					"server/protocol/src",
-					"src-api",
 					"src",
-					"server/src"
+					"src-api"
 				],
 				"defines": [
 					"JSTACK_MAIN=vshaxe.Main.main",
