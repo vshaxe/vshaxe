@@ -200,16 +200,16 @@ class HaxeServerView {
 
 	static function formatSize(size:Int) {
 		return if (size < 1024) {
-			size + " b";
+			size + " B";
 		} else if (size < 1024 * 1024) {
-			(size >>> 10) + " Kb";
+			(size >>> 10) + " KB";
 		} else {
 			var size = Std.string(size / (1024 * 1024));
 			var offset = size.indexOf(".");
 			if (offset < 0) {
-				size + " Mb";
+				size + " MB";
 			} else {
-				size.substr(0, offset + 2) + " Mb";
+				size.substr(0, offset + 2) + " MB";
 			}
 		}
 	}
