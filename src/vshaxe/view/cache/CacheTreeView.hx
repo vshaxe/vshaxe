@@ -67,6 +67,11 @@ class CacheTreeView {
 		return if (node == null) {
 			[new Node("server", null, ServerRoot), new Node("memory", null, MemoryRoot)];
 		} else {
+			var node:Node = node;
+			function updateCount(count:Int) {
+				node.description = Std.string(count);
+				didChangeTreeData.fire(node);
+			}
 			switch (node.kind) {
 				case ServerRoot:
 					server.runMethod("server/contexts").then(function(result:Array<HaxeServerContext>) {
@@ -107,10 +112,10 @@ class CacheTreeView {
 						new Node('index', "" + ctx.index, Leaf, node),
 						new Node('desc', ctx.desc, Leaf, node),
 						new Node('signature', ctx.signature, Leaf, node),
-						new Node("class paths", null, StringList(ctx.classPaths), node),
-						new Node("defines", null, StringMapping(ctx.defines), node),
-						new Node("modules", null, ContextModules(ctx), node),
-						new Node("files", null, ContextFiles(ctx), node)
+						new Node("class paths", Std.string(ctx.classPaths.length), StringList(ctx.classPaths), node),
+						new Node("defines", Std.string(ctx.defines.length), StringMapping(ctx.defines), node),
+						new Node("modules", "?", ContextModules(ctx), node),
+						new Node("files", "?", ContextFiles(ctx), node)
 					];
 				case StringList(strings):
 					strings.map(s -> new Node(s, null, Leaf, node));
@@ -123,12 +128,14 @@ class CacheTreeView {
 						for (s in result) {
 							nodes.push(new Node(s, null, ModuleInfo(ctx.signature, s)));
 						}
+						updateCount(nodes.length);
 						return nodes;
 					}, reject -> reject);
 				case ContextFiles(ctx):
 					server.runMethod("server/files", {signature: ctx.signature}).then(function(result:Array<JsonServerFile>) {
 						var nodes = result.map(file -> new Node(file.file, null,
 							StringMapping([{key: "mtime", value: "" + file.time}, {key: "package", value: file.pack}]), node));
+						updateCount(nodes.length);
 						return nodes;
 					}, reject -> reject);
 				case ModuleList(modules):
@@ -146,8 +153,8 @@ class CacheTreeView {
 							new Node("path", printPath(cast result.path), Leaf, node),
 							new Node("file", result.file, Leaf, node),
 							new Node("sign", result.sign, Leaf, node),
-							new Node("types", null, StringList(types), node),
-							new Node("dependencies", null, ModuleList(result.dependencies), node)
+							new Node("types", Std.string(types.length), StringList(types), node),
+							new Node("dependencies", Std.string(result.dependencies.length), ModuleList(result.dependencies), node)
 						];
 					}, reject -> reject);
 				case Leaf:
