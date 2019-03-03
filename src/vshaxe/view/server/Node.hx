@@ -14,6 +14,7 @@ enum Kind {
 	MemoryRoot;
 	Context(ctx:HaxeServerContext);
 	ContextModules(ctx:HaxeServerContext);
+	ContextFiles(ctx:HaxeServerContext);
 	ModuleInfo(ctx:HaxeServerContext, path:String);
 	StringList(strings:Array<String>);
 	StringMapping(mapping:Array<{var key:String; var value:String;}>);

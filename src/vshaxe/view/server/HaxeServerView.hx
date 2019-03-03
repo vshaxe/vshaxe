@@ -13,6 +13,13 @@ typedef JsonModule = {
 	var dependencies:Array<JsonModulePath>;
 }
 
+typedef JsonServerFile = {
+	var file:String;
+	var time:Float;
+	var pack:String;
+	var moduleName:Null<String>;
+}
+
 typedef HaxeMemoryResult = {
 	var contexts:Array<{
 		var context:Null<HaxeServerContext>;
@@ -92,7 +99,8 @@ class HaxeServerView {
 						new Node('signature', ctx.signature, Leaf, node),
 						new Node("class paths", null, StringList(ctx.classPaths), node),
 						new Node("defines", null, StringMapping(ctx.defines), node),
-						new Node("modules", null, ContextModules(ctx), node)
+						new Node("modules", null, ContextModules(ctx), node),
+						new Node("files", null, ContextFiles(ctx), node)
 					];
 				case StringList(strings):
 					strings.map(s -> new Node(s, null, Leaf, node));
@@ -105,6 +113,12 @@ class HaxeServerView {
 						for (s in result) {
 							nodes.push(new Node(s, null, ModuleInfo(ctx, s)));
 						}
+						return nodes;
+					}, reject -> reject);
+				case ContextFiles(ctx):
+					commands.executeCommand("haxe.runMethod", "server/files", {signature: ctx.signature}).then(function(result:Array<JsonServerFile>) {
+						var nodes = result.map(file -> new Node(file.file, null,
+							StringMapping([{key: "mtime", value: "" + file.time}, {key: "package", value: file.pack}]), node));
 						return nodes;
 					}, reject -> reject);
 				case ModuleInfo(ctx, path):
