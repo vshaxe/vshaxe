@@ -35,19 +35,18 @@ typedef HaxeMemoryResult = {
 	}
 }
 
-@:nullSafety(Off)
 class HaxeServerView {
 	final context:ExtensionContext;
-	final view:TreeView<Node>;
+	@:nullSafety(Off) final view:TreeView<Node>;
 	var didChangeTreeData = new EventEmitter<Node>();
 
 	public var onDidChangeTreeData:Event<Node>;
 
 	public function new(context:ExtensionContext) {
 		this.context = context;
+		onDidChangeTreeData = didChangeTreeData.event;
 		context.registerHaxeCommand(ServerView_CopyNodeValue, copyNodeValue);
 		context.registerHaxeCommand(ServerView_ReloadNode, reloadNode);
-		onDidChangeTreeData = didChangeTreeData.event;
 		view = window.createTreeView("haxe.server", {treeDataProvider: this, showCollapseAll: true});
 		window.registerTreeDataProvider("haxe.server", this);
 	}
@@ -56,7 +55,7 @@ class HaxeServerView {
 		return node.parent;
 	}
 
-	public function getTreeItem(?node:Node) {
+	public function getTreeItem(node:Node) {
 		return node;
 	}
 
