@@ -1,5 +1,6 @@
 package vshaxe.view.server;
 
+import vshaxe.view.server.Node.ModulesSizeResult;
 import haxe.ds.ArraySort;
 import vshaxe.view.server.Node.HaxeServerContext;
 import haxe.display.JsonModuleTypes;
@@ -24,7 +25,7 @@ typedef HaxeMemoryResult = {
 	var contexts:Array<{
 		var context:Null<HaxeServerContext>;
 		var size:Int;
-		var modules:Array<{var path:String; var size:Int;}>;
+		var modules:Array<ModulesSizeResult>;
 	}>;
 	var memory:{
 		var totalCache:Int;
@@ -81,18 +82,20 @@ class HaxeServerView {
 						];
 						nodes.push(new Node("overview", null, StringMapping(kv), node));
 						for (ctx in result.contexts) {
-							var kv = [
-								for (m in ctx.modules)
-									{
-										key: m.path,
-										value: formatSize(m.size)
-									}
-							];
 							var name = ctx.context == null ? "?" : '${ctx.context.platform} (${ctx.context.desc})';
-							nodes.push(new Node(name, formatSize(ctx.size), StringMapping(kv), node));
+							nodes.push(new Node(name, formatSize(ctx.size), ModuleMemory(ctx.modules), node));
 						}
 						return nodes;
 					}, reject -> reject);
+				case ModuleMemory(types):
+					return types.map(function(sizeResult) {
+						return new Node(sizeResult.path, formatSize(sizeResult.size), ModuleTypeMemory(sizeResult.types), node);
+					});
+				case ModuleTypeMemory(fields):
+					return fields.map(function(sizeResult) {
+						var kv = sizeResult.fields.map(sizeResult -> {key: sizeResult.path, value: formatSize(sizeResult.size)});
+						return new Node(sizeResult.path, formatSize(sizeResult.size), StringMapping(kv), node);
+					});
 				case Context(ctx):
 					[
 						new Node('index', "" + ctx.index, Leaf, node),

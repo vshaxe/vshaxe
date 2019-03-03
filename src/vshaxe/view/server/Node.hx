@@ -9,9 +9,24 @@ typedef HaxeServerContext = {
 	var defines:Array<{key:String, value:String}>;
 }
 
+typedef SizeResult = {
+	var path:String;
+	var size:Int;
+}
+
+typedef ModuleTypeSizeResult = SizeResult & {
+	var fields:Array<SizeResult>;
+}
+
+typedef ModulesSizeResult = SizeResult & {
+	var types:Array<ModuleTypeSizeResult>;
+}
+
 enum Kind {
 	ServerRoot;
 	MemoryRoot;
+	ModuleMemory(types:Array<ModulesSizeResult>);
+	ModuleTypeMemory(types:Array<ModuleTypeSizeResult>);
 	Context(ctx:HaxeServerContext);
 	ContextModules(ctx:HaxeServerContext);
 	ContextFiles(ctx:HaxeServerContext);
