@@ -65,6 +65,7 @@ class HaxeServerView {
 					commands.executeCommand("haxe.runMethod", "server/contexts").then(function(result:Array<HaxeServerContext>) {
 						var nodes = [];
 						for (ctx in result) {
+							ArraySort.sort(ctx.defines, (kv1, kv2) -> Reflect.compare(kv1.key, kv2.key));
 							nodes.push(new Node(ctx.platform, ctx.desc, Context(ctx)));
 						}
 						return nodes;
@@ -93,7 +94,6 @@ class HaxeServerView {
 						return nodes;
 					}, reject -> reject);
 				case Context(ctx):
-					ArraySort.sort(ctx.defines, (kv1, kv2) -> Reflect.compare(kv1.key, kv2.key));
 					[
 						new Node('index', "" + ctx.index, Leaf, node),
 						new Node('desc', ctx.desc, Leaf, node),
