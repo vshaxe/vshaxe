@@ -12,14 +12,14 @@ enum abstract MethodTreeViewType(String) {
 class MethodTreeView {
 	final context:ExtensionContext;
 	final server:LanguageServer;
-	@:nullSafety(Off) final treeView:TreeView<MethodTreeItem>;
-	final _onDidChangeTreeData = new EventEmitter<MethodTreeItem>();
-	var methods:Array<MethodTreeItem> = [];
-	var queue:Array<MethodTreeItem> = [];
+	@:nullSafety(Off) final treeView:TreeView<Node>;
+	final _onDidChangeTreeData = new EventEmitter<Node>();
+	var methods:Array<Node> = [];
+	var queue:Array<Node> = [];
 	var viewType:MethodTreeViewType;
 
 	public var enabled:Bool = false;
-	public var onDidChangeTreeData:Event<MethodTreeItem>;
+	public var onDidChangeTreeData:Event<Node>;
 
 	public function new(context:ExtensionContext, server:LanguageServer) {
 		this.context = context;
@@ -65,7 +65,7 @@ class MethodTreeView {
 
 		var method = data.method;
 		methods = methods.filter(item -> item.method != method);
-		var item = new MethodTreeItem(context, rootTimer, data.method, data.debugInfo);
+		var item = new Node(context, rootTimer, data.method, data.debugInfo);
 		methods.push(item);
 		methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
 
@@ -101,28 +101,28 @@ class MethodTreeView {
 	}
 
 	function onDidChangeRequestQueue(queue:Array<String>) {
-		this.queue = queue.map(label -> new MethodTreeItem(context, label));
+		this.queue = queue.map(label -> new Node(context, label));
 		if (viewType == Queue) {
 			_onDidChangeTreeData.fire();
 		}
 	}
 
-	public function getTreeItem(element:MethodTreeItem):MethodTreeItem {
+	public function getTreeItem(element:Node):Node {
 		return element;
 	}
 
-	public function getChildren(?element:MethodTreeItem):Array<MethodTreeItem> {
+	public function getChildren(?element:Node):Array<Node> {
 		if (viewType == Queue) {
 			return queue;
 		}
 		return if (element == null) methods else element.children;
 	}
 
-	public var getParent = function(element:MethodTreeItem):Null<MethodTreeItem> {
+	public var getParent = function(element:Node):Null<Node> {
 		return element.parent;
 	}
 
-	function copy(?element:MethodTreeItem) {
+	function copy(?element:Node) {
 		env.clipboard.writeText(if (element == null) {
 			methods.map(method -> method.toString()).join("\n\n");
 		} else {
@@ -130,7 +130,7 @@ class MethodTreeView {
 		});
 	}
 
-	function track(element:MethodTreeItem) {
+	function track(element:Node) {
 		if (element != null) {
 			commands.executeCommand("vshaxeDebugTools.methodResultsView.track", element.method);
 		}

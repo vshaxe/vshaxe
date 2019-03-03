@@ -2,7 +2,7 @@ package vshaxe.view.methods;
 
 import vshaxe.server.HaxeMethodResult;
 
-class MethodTreeItem extends TreeItem {
+class Node extends TreeItem {
 	final context:ExtensionContext;
 	final timer:Null<Timer>;
 	final name:String;
@@ -12,11 +12,11 @@ class MethodTreeItem extends TreeItem {
 	inline function get_isRoot()
 		return parent == null;
 
-	public final children:Array<MethodTreeItem>;
+	public final children:Array<Node>;
 	public final method:String;
-	public final parent:Null<MethodTreeItem>;
+	public final parent:Null<Node>;
 
-	public function new(context:ExtensionContext, ?parent:MethodTreeItem, ?timer:Timer, method:String, ?debugInfo:String, parentId:String = "") {
+	public function new(context:ExtensionContext, ?parent:Node, ?timer:Timer, method:String, ?debugInfo:String, parentId:String = "") {
 		super("");
 		this.context = context;
 		this.parent = parent;
@@ -33,7 +33,7 @@ class MethodTreeItem extends TreeItem {
 		if (timer == null || timer.children == null) {
 			collapsibleState = None;
 		} else {
-			children = timer.children.map(MethodTreeItem.new.bind(context, this, _, method, null, id));
+			children = timer.children.map(Node.new.bind(context, this, _, method, null, id));
 			collapsibleState = Expanded;
 		}
 		if (isRoot) {
