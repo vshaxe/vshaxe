@@ -650,6 +650,11 @@
 				"title": "Copy Path",
 				"command": "haxe.dependencies.copyPath",
 				"category": "Haxe"
+			},
+			{
+				"title": "Copy Node value",
+				"command": "haxe.serverView.copyNodeValue",
+				"category": "Haxe"
 			}
 		],
 		"languages": [
@@ -949,6 +954,11 @@
 					"command": "haxe.dependencies.copyPath",
 					"when": "view == haxe.dependencies && viewItem =~ /(folder|file\\.*)/",
 					"group": "2_vshaxe@1"
+				},
+				{
+					"command": "haxe.serverView.copyNodeValue",
+					"when": "view == haxe.server && viewItem =~ /copyable/",
+					"group": "2_vshaxe@1"
 				}
 			],
 			"commandPalette": [
@@ -990,6 +1000,10 @@
 				},
 				{
 					"command": "haxe.dependencies.copyPath",
+					"when": "false"
+				},
+				{
+					"command": "haxe.serverView.copyNodeValue",
 					"when": "false"
 				}
 			]

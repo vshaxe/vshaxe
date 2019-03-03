@@ -30,5 +30,10 @@ class Node extends TreeItem {
 		this.description = description;
 		this.parent = parent;
 		this.kind = kind;
+		switch (kind) {
+			case StringList(_) | StringMapping(_) | Context(_):
+				this.contextValue = "copyable";
+			case _:
+		}
 	}
 }

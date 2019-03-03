@@ -43,6 +43,7 @@ class HaxeServerView {
 
 	public function new(context:ExtensionContext) {
 		this.context = context;
+		context.registerHaxeCommand(ServerView_CopyNodeValue, copyNodeValue);
 		view = window.createTreeView("haxe.server", {treeDataProvider: this, showCollapseAll: true});
 		window.registerTreeDataProvider("haxe.server", this);
 	}
@@ -140,6 +141,30 @@ class HaxeServerView {
 					[];
 			}
 		}
+	}
+
+	function copyNodeValue(node:Node) {
+		function printKv(kv:Array<{key:String, value:String}>) {
+			return kv.map(kv -> '${kv.key}=${kv.value}').join(" ");
+		}
+		var value = switch (node.kind) {
+			case StringList(strings): strings.join(" ");
+			case StringMapping(mapping): printKv(mapping);
+			case Context(ctx):
+				var buf = new StringBuf();
+				function add(key:String, value:String) {
+					buf.add('$key: $value\n');
+				}
+				add("index", "" + ctx.index);
+				add("desc", ctx.desc);
+				add("signature", ctx.signature);
+				add("platform", ctx.platform);
+				add("classPaths", ctx.classPaths.join(" "));
+				add("defines", printKv(ctx.defines));
+				buf.toString();
+			case _: throw false;
+		}
+		env.clipboard.writeText(value);
 	}
 
 	static function printPath(path:JsonTypePath) {
