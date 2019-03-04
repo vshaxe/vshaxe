@@ -7,6 +7,7 @@
 
 **Changes and Improvements**:
 
+- updated to haxe-formatter version [1.5.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.5.0)
 - fixed compatibility with upcoming VSCode 1.32.0 ([#317](https://github.com/vshaxe/vshaxe/issues/317))
 - improved HXML detection to ignore `extraParams.hxml` ([#320](https://github.com/vshaxe/vshaxe/issues/320))
 - moved the Haxe Methods view to a separate Haxe Server view container
@@ -42,7 +43,7 @@
 
 - changed the required VSCode version to 1.30.0
 - support the new `clear` option in `"haxe.taskPresentation"`
-- updated to haxe-formatter version [1.4.0](https://github.com/HaxeCheckstyle/haxe-formatter/blob/master/CHANGELOG.md#version-140-2019-02-07)
+- updated to haxe-formatter version [1.4.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.4.0)
 
 **Bugfixes**:
 
@@ -52,20 +53,20 @@
 
 **Changes and Improvements**:
 
-- updated to haxe-formatter version [1.3.0](https://github.com/HaxeCheckstyle/haxe-formatter/blob/master/CHANGELOG.md#version-130-2018-12-05)
+- updated to haxe-formatter version [1.3.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.3.0)
 - disallowed using `(` as a commit character in pattern completion ([#292](https://github.com/vshaxe/vshaxe/issues/292))
 
 ### 2.4.4 (October 17, 2018)
 
 **Changes and Improvements**:
 
-- updated to haxe-formatter version 1.1.2
+- updated to haxe-formatter version [1.1.2](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.1.2)
 
 ### 2.4.3 (October 16, 2018)
 
 **Changes and Improvements**:
 
-- really updated to haxe-formatter version 1.1.1 ^_^
+- really updated to haxe-formatter version [1.1.1](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.1.1) ^_^
 
 ### 2.4.2 (October 15, 2018)
 
@@ -75,7 +76,7 @@
 
 **Changes and Improvements**:
 
-- updated to haxe-formatter version 1.1.1
+- updated to haxe-formatter version [1.1.1](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.1.1)
 - added syntax highlighting support for key-value iterators ([HXP-0005](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0005-key-value-iter.md#key--value-iteration-syntax))
 - added expected argument info when hovering over call args (requires Haxe 4 preview 5)
 - added more details to metadata docs in completion / hover (requires Haxe 4 preview 5)
@@ -86,7 +87,7 @@
 
 **Changes and Improvements**:
 
-- updated to haxe-formatter version 1.1.0
+- updated to haxe-formatter version [1.1.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.1.0)
 - allowed auto-closing of brackets in single quote strings ([#123](https://github.com/vshaxe/vshaxe/issues/123))
 - added syntax highlighting support for `final class` / `interface` ([haxe#7381](https://github.com/HaxeFoundation/haxe/pull/7381))
 
