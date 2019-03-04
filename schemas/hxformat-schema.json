@@ -458,7 +458,7 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 7
+					"propertyOrder": 9
 				},
 				"afterLeftCurly": {
 					"description": "Remove or keep empty lines below \"{\"",
@@ -467,7 +467,7 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 8
+					"propertyOrder": 10
 				},
 				"afterReturn": {
 					"description": "Remove or keep empty lines below \"return\"",
@@ -476,17 +476,21 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 9
+					"propertyOrder": 11
 				},
 				"afterPackage": {
 					"description": "empty lines after package declaration",
 					"type": "integer",
 					"propertyOrder": 3
 				},
+				"macroClassEmptyLines": {
+					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
+					"propertyOrder": 16
+				},
 				"betweenMultilineComments": {
 					"description": "Adds empty lines between two consecutive multiline comments",
 					"type": "integer",
-					"propertyOrder": 22
+					"propertyOrder": 25
 				},
 				"finalNewline": {
 					"description": "adds a final newline",
@@ -504,16 +508,16 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 10
+					"propertyOrder": 12
 				},
 				"betweenSingleLineTypes": {
 					"description": "empty lines between two single line types",
 					"type": "integer",
-					"propertyOrder": 6
+					"propertyOrder": 8
 				},
 				"conditionalsEmptyLines": {
 					"$ref": "#/definitions/ConditionalEmptyLinesConfig",
-					"propertyOrder": 19
+					"propertyOrder": 22
 				},
 				"afterBlocks": {
 					"type": "string",
@@ -521,15 +525,15 @@
 						"keep",
 						"remove"
 					],
-					"propertyOrder": 11
+					"propertyOrder": 13
 				},
 				"enumEmptyLines": {
 					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
-					"propertyOrder": 17
+					"propertyOrder": 20
 				},
 				"externClassEmptyLines": {
 					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
-					"propertyOrder": 14
+					"propertyOrder": 17
 				},
 				"betweenTypes": {
 					"description": "empty lines between types",
@@ -543,15 +547,25 @@
 				},
 				"typedefEmptyLines": {
 					"$ref": "#/definitions/TypedefFieldsEmptyLinesConfig",
-					"propertyOrder": 18
+					"propertyOrder": 21
 				},
 				"enumAbstractEmptyLines": {
 					"$ref": "#/definitions/EnumAbstractFieldsEmptyLinesConfig",
-					"propertyOrder": 12
+					"propertyOrder": 14
+				},
+				"lineCommentsBetweenTypes": {
+					"description": "empty lines for line comments between types",
+					"type": "string",
+					"enum": [
+						"keep",
+						"one",
+						"none"
+					],
+					"propertyOrder": 6
 				},
 				"abstractEmptyLines": {
 					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
-					"propertyOrder": 15
+					"propertyOrder": 18
 				},
 				"beforePackage": {
 					"description": "empty lines before package declaration",
@@ -560,7 +574,7 @@
 				},
 				"classEmptyLines": {
 					"$ref": "#/definitions/ClassFieldsEmptyLinesConfig",
-					"propertyOrder": 13
+					"propertyOrder": 15
 				},
 				"beforeDocCommentEmptyLines": {
 					"description": "\"one\" adds one empty line above doc comments\n\t\t\"none\" removes all empty lines above doc comments\n\t\t\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
@@ -570,16 +584,26 @@
 						"none",
 						"one"
 					],
-					"propertyOrder": 20
+					"propertyOrder": 23
 				},
 				"interfaceEmptyLines": {
 					"$ref": "#/definitions/InterfaceFieldsEmptyLinesConfig",
-					"propertyOrder": 16
+					"propertyOrder": 19
 				},
 				"afterFileHeaderComment": {
 					"description": "Adds empty lines when file starts with a multiline comment",
 					"type": "integer",
-					"propertyOrder": 21
+					"propertyOrder": 24
+				},
+				"lineCommentsBetweenFunctions": {
+					"description": "empty lines for line comments between functions",
+					"type": "string",
+					"enum": [
+						"keep",
+						"one",
+						"none"
+					],
+					"propertyOrder": 7
 				}
 			},
 			"type": "object"
@@ -731,7 +755,7 @@
 				"opBoolChain": {
 					"description": "OpBool chain wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 9
+					"propertyOrder": 10
 				},
 				"functionSignature": {
 					"description": "named function signature wrapping rules",
@@ -741,12 +765,12 @@
 				"anonType": {
 					"description": "anon types wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 7
+					"propertyOrder": 8
 				},
 				"methodChain": {
 					"description": "method chaining wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 8
+					"propertyOrder": 9
 				},
 				"arrayWrap": {
 					"description": "array wrapping rules\n\t\tdoes not affect array comprehension, use \"sameLine.comprehensionFor\"",
@@ -766,7 +790,7 @@
 				"implementsExtends": {
 					"description": "implements / extends chain wrapping rules",
 					"$ref": "#/definitions/WrapRules",
-					"propertyOrder": 10
+					"propertyOrder": 11
 				},
 				"anonFunctionSignature": {
 					"description": "anon function signature wrapping rules",
@@ -778,8 +802,18 @@
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 2
 				},
+				"opAddSubChain": {
+					"description": "chain wrapping rules for OpAdd / OpSub",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 12
+				},
 				"objectLiteral": {
 					"description": "object literal wrapping rules",
+					"$ref": "#/definitions/WrapRules",
+					"propertyOrder": 7
+				},
+				"metadataCallParameter": {
+					"description": "metadata call parameter wrapping rules",
 					"$ref": "#/definitions/WrapRules",
 					"propertyOrder": 6
 				}
@@ -1106,6 +1140,11 @@
 						"around"
 					],
 					"propertyOrder": 12
+				},
+				"addLineCommentSpace": {
+					"description": "ensure a space after '//'",
+					"type": "boolean",
+					"propertyOrder": 30
 				},
 				"catchPolicy": {
 					"type": "string",
