@@ -19,6 +19,7 @@
 
 - fixed tasks not working on Windows with a `haxe` folder next to `haxe.exe`
 - fixed icons of extern enum abstract values in completion
+- fixed rename being permitted (and subsequently failing) on fields ([#318](https://github.com/vshaxe/vshaxe/issues/318))
 
 ### 2.6.0 (February 12, 2019)
 
