@@ -56,7 +56,7 @@
 		"onView:haxe.methods",
 		"onView:haxe.dependencies",
 		"onView:haxe.cache",
-		"workspaceContains:*.hxml"
+		"workspaceContains:./*.hxml"
 	],
 	"contributes": {
 		"configuration": {
