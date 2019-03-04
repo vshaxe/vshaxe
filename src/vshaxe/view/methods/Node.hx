@@ -1,6 +1,5 @@
 package vshaxe.view.methods;
 
-import haxeLanguageServer.LanguageServerMethods.HaxeMethodResult;
 import haxeLanguageServer.protocol.Protocol.Timer;
 
 class Node extends TreeItem {
@@ -35,7 +34,7 @@ class Node extends TreeItem {
 			collapsibleState = None;
 		} else {
 			children = timer.children.map(Node.new.bind(context, this, _, method, null, id));
-			collapsibleState = Expanded;
+			collapsibleState = Collapsed;
 		}
 		if (isRoot) {
 			iconPath = {
