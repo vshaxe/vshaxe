@@ -273,13 +273,28 @@ class LanguageServer {
 		_onDidChangeRequestQueue.fire(data.queue);
 	}
 
+	inline static var ShowErrorOption = "Show Error";
+	inline static var RetryOption = "Retry";
+
+	@:nullSafety(Off) // #7918
 	function onCacheBuildFailed(_) {
-		var message = "Unable to build cache - completion features may be slower than expected. Try fixing the error(s) and restarting the language server.";
-		window.showWarningMessage(message, "Show Error").then(selection -> {
-			if (client != null && selection == "Show Error") {
-				client.outputChannel.show();
-			}
-		});
+		final message = "Unable to build cache - completion features may be slower than expected. Try fixing the error(s) and restarting the language server.";
+		function showMessage(option1:String, option2:String) {
+			window.showWarningMessage(message, option1, option2).then(function(selection) {
+				if (selection == null) {
+					return;
+				}
+				switch selection {
+					case RetryOption:
+						restart();
+					case ShowErrorOption if (client != null):
+						client.outputChannel.show();
+						showMessage(RetryOption, js.Lib.undefined);
+					case _:
+				}
+			});
+		}
+		showMessage(ShowErrorOption, RetryOption);
 	}
 
 	function onDidChangeState(event:StateChangeEvent) {

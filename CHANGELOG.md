@@ -10,6 +10,7 @@
 - updated to haxe-formatter version [1.5.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.5.0)
 - fixed compatibility with upcoming VSCode 1.32.0 ([#317](https://github.com/vshaxe/vshaxe/issues/317))
 - improved HXML detection to ignore `extraParams.hxml` ([#320](https://github.com/vshaxe/vshaxe/issues/320))
+- improved the "cache build failed" warning to include a retry button
 - moved the Haxe Methods view to a separate Haxe Server view container
 - replaced the `"haxe.enableMethodsView"` setting with `"haxe.enableServerView"`
 

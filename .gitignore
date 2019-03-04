@@ -4,6 +4,7 @@
 *.n
 vscode.ico
 .haxelib/
+dump
 /haxelib.zip
 build/run.js
 *.log
