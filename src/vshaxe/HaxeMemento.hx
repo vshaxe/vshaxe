@@ -25,4 +25,8 @@ class HaxeMementoTools {
 	public static inline function getWorkspaceState(context:ExtensionContext):HaxeMemento {
 		return context.workspaceState;
 	}
+
+	public static inline function getGlobalState(context:ExtensionContext):HaxeMemento {
+		return context.globalState;
+	}
 }

@@ -18,6 +18,7 @@ class LanguageServer {
 	public var client(default, null):Null<LanguageClient>;
 
 	final folder:WorkspaceFolder;
+	final context:ExtensionContext;
 	final haxeExecutable:HaxeExecutable;
 	final displayArguments:DisplayArguments;
 	final api:Vshaxe;
@@ -40,6 +41,7 @@ class LanguageServer {
 
 	public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments, api:Vshaxe) {
 		this.folder = folder;
+		this.context = context;
 		this.displayArguments = displayArguments;
 		this.haxeExecutable = haxeExecutable;
 		this.api = api;
@@ -165,6 +167,7 @@ class LanguageServer {
 			onNotification(LanguageServerMethods.DidRunHaxeMethod, onDidRunHaxeMethodCallback);
 			onNotification(LanguageServerMethods.DidChangeRequestQueue, onDidChangeRequestQueueCallback);
 			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
+			onNotification(LanguageServerMethods.DidDetectOldPreview, onDidDetectOldPreview);
 			client.onDidChangeState(onDidChangeState);
 		});
 
@@ -295,6 +298,32 @@ class LanguageServer {
 			});
 		}
 		showMessage(ShowErrorOption, RetryOption);
+	}
+
+	inline static var VisitDownloadPageOption = "Visit Donwload Page";
+	inline static var DontShowAgainOption = "Don't Show Again";
+	public static final DontShowOldPreviewHintAgainKey = new HaxeMementoKey<Bool>("dontShowRC1HintAgain");
+
+	function onDidDetectOldPreview(?data:{preview:String}) {
+		var globalState = context.globalState;
+		if (globalState.get(DontShowOldPreviewHintAgainKey, false)) {
+			return;
+		}
+		var detectedVersion = if (data == null) "" else ' (${data.preview})';
+		final message = 'Old Haxe 4 preview build detected' + detectedVersion
+			+ '. Consider upgrading to Haxe 4.0.0-rc.1 for improved completion features and stability.';
+		window.showInformationMessage(message, VisitDownloadPageOption, DontShowAgainOption).then(function(selection) {
+			if (selection == null) {
+				return;
+			}
+			switch selection {
+				case VisitDownloadPageOption:
+					env.openExternal(Uri.parse("https://haxe.org/download/version/4.0.0-rc.1/"));
+				case DontShowAgainOption:
+					globalState.update(DontShowOldPreviewHintAgainKey, true);
+				case _:
+			}
+		});
 	}
 
 	function onDidChangeState(event:StateChangeEvent) {

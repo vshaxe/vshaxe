@@ -78,6 +78,8 @@ class Commands {
 		clear(vshaxe.display.DisplayArguments.ProviderNameKey);
 		clear(vshaxe.display.HaxeDisplayArgumentsProvider.ConfigurationIndexKey);
 		clear(vshaxe.HxmlDiscovery.DiscoveredFilesKey);
+
+		context.getGlobalState().delete(vshaxe.server.LanguageServer.DontShowOldPreviewHintAgainKey);
 	}
 
 	function getCurrentConfigValue<T>(info, config:WorkspaceConfiguration):T {

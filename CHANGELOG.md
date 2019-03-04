@@ -4,6 +4,7 @@
 
 - added document symbol / folding / formatting support in untitled files
 - added a view to inspect Haxe's cache (requires latest Haxe dev)
+- added an upgrade notification for old Haxe 4 preview builds
 
 **Changes and Improvements**:
 
