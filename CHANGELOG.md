@@ -15,6 +15,7 @@
 **Bugfixes**:
 
 - fixed tasks not working on Windows with a `haxe` folder next to `haxe.exe`
+- fixed icons of extern enum abstract values in completion
 
 ### 2.6.0 (February 12, 2019)
 
