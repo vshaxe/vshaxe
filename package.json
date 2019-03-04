@@ -42,6 +42,7 @@
 	"main": "bin/client.js",
 	"activationEvents": [
 		"onLanguage:haxe",
+		"onLanguage:hxml",
 		"onCommand:haxe.restartLanguageServer",
 		"onCommand:haxe.initProject",
 		"onCommand:haxe.selectDisplayConfiguration",
