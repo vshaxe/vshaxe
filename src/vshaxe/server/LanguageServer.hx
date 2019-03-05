@@ -103,7 +103,7 @@ class LanguageServer {
 	public function start() {
 		var serverOptions = {
 			run: {module: serverModulePath, options: {env: js.Node.process.env}},
-			debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6004"]}}
+			debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6504"]}}
 		};
 		var clientOptions:LanguageClientOptions = {
 			documentSelector: [{scheme: "file", language: "haxe"}, {scheme: "untitled", language: "haxe"}],

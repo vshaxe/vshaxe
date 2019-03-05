@@ -19,7 +19,7 @@
 			"name": "Attach to Server",
 			"type": "node",
 			"request": "attach",
-			"port": 6004,
+			"port": 6504,
 			"protocol": "inspector",
 			"sourceMaps": true,
 			"outFiles": [
