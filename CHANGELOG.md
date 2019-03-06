@@ -1,4 +1,4 @@
-### 2.7.0 (to be released)
+### 2.7.0 (March 6, 2019)
 
 **New Features**
 
