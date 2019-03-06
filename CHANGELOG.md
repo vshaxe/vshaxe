@@ -8,7 +8,7 @@
 
 **Changes and Improvements**:
 
-- updated to haxe-formatter version [1.5.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.5.0)
+- updated to haxe-formatter version [1.5.1](https://github.com/HaxeCheckstyle/haxe-formatter/blob/master/CHANGELOG.md#version-151-2019-03-06)
 - fixed compatibility with upcoming VSCode 1.32.0 ([#317](https://github.com/vshaxe/vshaxe/issues/317))
 - improved HXML detection to ignore `extraParams.hxml` ([#320](https://github.com/vshaxe/vshaxe/issues/320))
 - improved the "cache build failed" warning to include a retry button
