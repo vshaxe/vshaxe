@@ -12,6 +12,7 @@
 - fixed compatibility with upcoming VSCode 1.32.0 ([#317](https://github.com/vshaxe/vshaxe/issues/317))
 - improved HXML detection to ignore `extraParams.hxml` ([#320](https://github.com/vshaxe/vshaxe/issues/320))
 - improved the "cache build failed" warning to include a retry button
+- included parser errors in diagnostics (requires latest Haxe dev) ([#102](https://github.com/vshaxe/vshaxe/issues/102))
 - moved the Haxe Methods view to a separate Haxe Server view container
 - replaced the `"haxe.enableMethodsView"` setting with `"haxe.enableServerView"`
 
