@@ -1,3 +1,9 @@
+### 2.7.1 (to be released)
+
+**Changes and Improvements**:
+
+- removed support for signature-help based code generation (Haxe 3.4)
+
 ### 2.7.0 (March 6, 2019)
 
 **New Features**
