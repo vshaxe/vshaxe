@@ -67,7 +67,7 @@ class LanguageServer {
 			d.dispose();
 	}
 
-	function sendNotification<P>(method:NotificationMethod<P, NoData>, ?params:P) {
+	function sendNotification<P>(method:NotificationMethod<P>, ?params:P) {
 		if (client != null) {
 			if (params == null) {
 				client.sendNotification(method);
@@ -77,7 +77,7 @@ class LanguageServer {
 		}
 	}
 
-	public function sendRequest<P, R>(method:RequestMethod<P, R, NoData, NoData>, params:P):Thenable<R> {
+	public function sendRequest<P, R>(method:RequestMethod<P, R, NoData>, params:P):Thenable<R> {
 		return if (client != null) {
 			client.sendRequest(method, params);
 		} else {
@@ -85,7 +85,7 @@ class LanguageServer {
 		}
 	}
 
-	function onNotification<P>(method:NotificationMethod<P, NoData>, handler:(params:P) -> Void) {
+	function onNotification<P>(method:NotificationMethod<P>, handler:(params:P) -> Void) {
 		if (client != null)
 			client.onNotification(method, handler);
 	}
