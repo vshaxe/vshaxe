@@ -1,6 +1,12 @@
 {
 	"inherit": "vshaxe-node",
 	"mainTarget": "all",
+	"haxelibs": [
+		{
+			"name": "json-rpc",
+			"installArgs": ["git", "json-rpc", "https://github.com/vshaxe/json-rpc"]
+		}
+	],
 	"targets": [
 		{
 			"name": "all",
@@ -36,6 +42,7 @@
 				["npm", "install"]
 			],
 			"args": {
+				"haxelibs": ["json-rpc"],
 				"classPaths": [
 					"vscode-extern/src",
 					"server/src",

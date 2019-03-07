@@ -2,7 +2,6 @@ package vshaxe.server;
 
 import haxe.extern.EitherType;
 import jsonrpc.Types.Message;
-import jsonrpc.Types.RequestMethod;
 import jsonrpc.Types.NoData;
 import jsonrpc.ResponseError;
 import jsonrpc.Protocol;
