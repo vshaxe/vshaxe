@@ -6,7 +6,7 @@ import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.server.LanguageClient;
 import haxeLanguageServer.LanguageServerMethods;
-import haxeLanguageServer.DisplayServerConfig;
+import haxeLanguageServer.Configuration.DisplayServerConfig;
 import haxeLanguageServer.protocol.Protocol.Response;
 import haxeLanguageServer.protocol.Protocol.HaxeRequestMethod;
 import languageServerProtocol.Types.DocumentUri;
@@ -279,7 +279,6 @@ class LanguageServer {
 	inline static var ShowErrorOption = "Show Error";
 	inline static var RetryOption = "Retry";
 
-	@:nullSafety(Off) // #7918
 	function onCacheBuildFailed(_) {
 		final message = "Unable to build cache - completion features may be slower than expected. Try fixing the error(s) and restarting the language server.";
 		function showMessage(option1:String, option2:String) {
