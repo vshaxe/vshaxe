@@ -2,6 +2,7 @@
 
 **Changes and Improvements**:
 
+- added support for folding `case` and `default` blocks
 - removed support for signature-help based code generation (Haxe 3.4)
 
 ### 2.7.0 (March 6, 2019)
