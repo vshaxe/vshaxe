@@ -11,7 +11,7 @@
 !eval-debugger/node_modules/**/*
 !resources/**/*
 !scaffold/**/*
-!schemas/**/*
+!schemas/hxformat-schema.json
 !syntaxes/**/*.tmLanguage
 !CHANGELOG.md
 !LICENSE.md

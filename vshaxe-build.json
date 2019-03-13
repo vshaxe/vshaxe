@@ -5,6 +5,14 @@
 		{
 			"name": "json-rpc",
 			"installArgs": ["git", "json-rpc", "https://github.com/vshaxe/json-rpc"]
+		},
+		{
+			"name": "formatter",
+			"installArgs": ["git", "formatter", "https://github.com/HaxeCheckstyle/haxe-formatter", "--never"]
+		},
+		{
+			"name": "json2object",
+			"installArgs": ["install", "json2object"]
 		}
 	],
 	"targets": [
@@ -13,6 +21,7 @@
 			"composite": true,
 			"targetDependencies": [
 				"test",
+				"formatter-schema",
 				"tm-language"
 			]
 		},
@@ -63,6 +72,19 @@
 					"path": "bin/client.js"
 				},
 				"packageName": "vshaxe.Main"
+			}
+		},
+		{
+			"name": "formatter-schema",
+			"inherit": "empty",
+			"args": {
+				"haxelibs": ["formatter", "json2object"],
+				"classPaths": ["schemas"],
+				"main": "SchemaGenerator",
+				"output": {
+					"target": "interp"
+				},
+				"debug": true
 			}
 		}
 	]
