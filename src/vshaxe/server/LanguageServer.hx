@@ -126,7 +126,6 @@ class LanguageServer {
 						for (action in result) {
 							if (action.kind == CodeActionKind.QuickFix) {
 								action.isPreferred = true;
-								action.title = "Yay";
 								break;
 							}
 						}
