@@ -14,6 +14,10 @@
 - improved import quick fixes to offer both import styles when applicable
 - removed support for signature-help based code generation (Haxe 3.4)
 
+**Bugfixes**:
+
+- fixed postfix `switch` completion on `Null<Enum>` (requires latest Haxe dev)
+
 ### 2.7.0 (March 6, 2019)
 
 **New Features**
