@@ -117,7 +117,34 @@ class LanguageServer {
 				sendMethodResults: true
 			},
 			revealOutputChannelOn: Never,
-			workspaceFolder: folder
+			workspaceFolder: folder,
+			middleware: {
+				// TODO: remove this once vscode-languageclient supports CodeAction.isPreferred
+				provideCodeActions: (document, range, context, token, next) -> {
+					var result = next(document, range, context, token);
+					function handle(result:Array<CodeAction>) {
+						for (action in result) {
+							if (action.kind == CodeActionKind.QuickFix) {
+								action.isPreferred = true;
+								action.title = "Yay";
+								break;
+							}
+						}
+					}
+					return new Promise(function(resolve, reject) {
+						if ((result is Array)) {
+							handle(cast result);
+							resolve(result);
+						} else {
+							var thenable:Thenable<Array<CodeAction>> = cast result;
+							thenable.then(result -> {
+								handle(result);
+								resolve(cast result);
+							});
+						}
+					});
+				}
+			}
 		};
 
 		var client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
