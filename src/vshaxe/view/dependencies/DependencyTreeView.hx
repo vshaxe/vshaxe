@@ -71,7 +71,6 @@ class DependencyTreeView {
 		relevantHxmls = newDependencies.hxmls;
 
 		// avoid FS access / creating processes unless there were _actually_ changes
-		@:nullSafety(Off) // #7820
 		if (dependencies != null
 			&& dependencies.libs.equals(newDependencies.libs)
 			&& dependencies.classPaths.equals(newDependencies.classPaths)) {
@@ -190,7 +189,6 @@ class DependencyTreeView {
 	function openTextDocument(node:Node) {
 		var currentTime = Date.now().getTime();
 		var doubleClickTime = 500;
-		@:nullSafety(Off) // #7820
 		var preview = previousSelection == null
 			|| previousSelection.node != node
 			|| (currentTime - previousSelection.time) >= doubleClickTime;
