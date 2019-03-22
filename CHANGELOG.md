@@ -9,7 +9,7 @@
 
 **Changes and Improvements**:
 
-- updated to haxe-formatter version 1.6.0
+- updated to haxe-formatter version [1.6.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.6.0)
 - updated eval-debugger for Haxe 4.0.0-rc.2 (no longer works with rc.1)
 - updated the "outdated Haxe 4 preview" message for Haxe 4.0.0-rc.2
 - improved folding to support folding `case` and `default` blocks

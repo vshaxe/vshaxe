@@ -529,14 +529,14 @@
 			"additionalProperties": false,
 			"properties": {
 				"tryBody": {
-					"description": "same line policy for non block body of \"try\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"try\" * same = place try and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"comprehensionFor": {
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"ifElse": {
-					"description": "same line policy for \"else\" part of \"if…else\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for \"else\" part of \"if…else\" * same = place else and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"expressionCase": {
@@ -546,7 +546,7 @@
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"doWhile": {
-					"description": "same line policy for \"while\" part in \"do…while\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for \"while\" part in \"do…while\" * same = place while and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"expressionIfWithBlocks": {
@@ -554,11 +554,11 @@
 					"type": "boolean"
 				},
 				"catchBody": {
-					"description": "same line policy for non block body of \"catch\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"catch\" * same = place catch and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"elseIf": {
-					"description": "same line policy for \"if\" part of \"else if\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for \"if\" part of \"else if\" * same = place if and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"functionBody": {
@@ -566,18 +566,18 @@
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"expressionIf": {
-					"description": "same line policy for non block body of \"if\" in a value place / as expression * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"if\" in a value place / as expression * same = place if and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"ifBody": {
-					"description": "same line policy for non block body of \"if\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"if\" * same = place if and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"caseBody": {
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"elseBody": {
-					"description": "same line policy for non block body of \"else\" * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"else\" * same = place else and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"tryCatch": {
@@ -589,7 +589,7 @@
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"returnBody": {
-					"description": "same line policy for return values * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for return values * same = place return and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"anonFunctionBody": {
@@ -601,7 +601,7 @@
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
 				"whileBody": {
-					"description": "same line policy for non block body of \"while\" (not \"do…while\") * same = place function and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
+					"description": "same line policy for non block body of \"while\" (not \"do…while\") * same = place while and body on same line\n* next = place body on next line * keep = keep same / next line from source\n",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				}
 			},
@@ -817,7 +817,7 @@
 					"type": "boolean"
 				},
 				"character": {
-					"description": "use \"tab\" or \"<amount of spaces per indent in spaces>\" to define which character to use",
+					"description": "use \"tab\", \" \", \"  \", \"   \", \"    \", etc. to define which character to use",
 					"type": "string"
 				},
 				"conditionalPolicy": {
