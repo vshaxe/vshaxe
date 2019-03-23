@@ -1,4 +1,4 @@
-### 2.8.0 (to be released)
+### 2.8.0 (March 23, 2019)
 
 **New Features**
 
