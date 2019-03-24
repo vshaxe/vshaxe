@@ -312,7 +312,7 @@ class LanguageServer {
 		showMessage(ShowErrorOption, RetryOption);
 	}
 
-	inline static var VisitDownloadPageOption = "Visit Donwload Page";
+	inline static var VisitDownloadPageOption = "Visit Download Page";
 	inline static var DontShowAgainOption = "Don't Show Again";
 	public static final DontShowOldPreviewHintAgainKey = new HaxeMementoKey<Bool>("dontShowRC2HintAgain");
 
