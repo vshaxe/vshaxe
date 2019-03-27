@@ -64,26 +64,26 @@
 			"properties": {
 				"haxe.executable": {
 					"scope": "resource",
-					"description": "Path to the Haxe executable or an object containing a Haxe executable configuration",
+					"markdownDescription": "Path to the Haxe executable or an object containing a Haxe executable configuration",
 					"default": "haxe",
 					"oneOf": [
 						{
 							"type": "string",
-							"description": "Path to the Haxe executable",
+							"markdownDescription": "Path to the Haxe executable",
 							"default": "haxe"
 						},
 						{
 							"type": "object",
-							"description": "Haxe executable configuration",
+							"markdownDescription": "Haxe executable configuration",
 							"additionalProperties": false,
 							"properties": {
 								"path": {
 									"type": "string",
-									"description": "Path to the Haxe executable",
+									"markdownDescription": "Path to the Haxe executable",
 									"default": "haxe"
 								},
 								"env": {
-									"description": "Additional environment variables used for running Haxe executable",
+									"markdownDescription": "Additional environment variables used for running Haxe executable",
 									"type": "object",
 									"default": {},
 									"additionalProperties": {
@@ -91,27 +91,27 @@
 									}
 								},
 								"windows": {
-									"description": "Windows-specific path to the Haxe executable or an object containing a Haxe executable configuration",
+									"markdownDescription": "Windows-specific path to the Haxe executable or an object containing a Haxe executable configuration",
 									"default": "haxe",
 									"oneOf": [
 										{
 											"type": "string",
-											"description": "Path to the Haxe executable",
+											"markdownDescription": "Path to the Haxe executable",
 											"default": "haxe"
 										},
 										{
 											"type": "object",
-											"description": "Overrides for Windows",
+											"markdownDescription": "Overrides for Windows",
 											"default": {},
 											"additionalProperties": false,
 											"properties": {
 												"path": {
 													"type": "string",
-													"description": "Path to the Haxe executable",
+													"markdownDescription": "Path to the Haxe executable",
 													"default": "haxe"
 												},
 												"env": {
-													"description": "Additional environment variables used for running Haxe executable",
+													"markdownDescription": "Additional environment variables used for running Haxe executable",
 													"type": "object",
 													"default": {},
 													"additionalProperties": {
@@ -123,27 +123,27 @@
 									]
 								},
 								"linux": {
-									"description": "Linux-specific path to the Haxe executable or an object containing a Haxe executable configuration",
+									"markdownDescription": "Linux-specific path to the Haxe executable or an object containing a Haxe executable configuration",
 									"default": "haxe",
 									"oneOf": [
 										{
 											"type": "string",
-											"description": "Path to the Haxe executable",
+											"markdownDescription": "Path to the Haxe executable",
 											"default": "haxe"
 										},
 										{
 											"type": "object",
-											"description": "Overrides for Linux",
+											"markdownDescription": "Overrides for Linux",
 											"default": {},
 											"additionalProperties": false,
 											"properties": {
 												"path": {
 													"type": "string",
-													"description": "Path to the Haxe executable",
+													"markdownDescription": "Path to the Haxe executable",
 													"default": "haxe"
 												},
 												"env": {
-													"description": "Additional environment variables used for running Haxe executable",
+													"markdownDescription": "Additional environment variables used for running Haxe executable",
 													"type": "object",
 													"default": {},
 													"additionalProperties": {
@@ -155,27 +155,27 @@
 									]
 								},
 								"osx": {
-									"description": "Mac-specific path to the Haxe executable or an object containing a Haxe executable configuration",
+									"markdownDescription": "Mac-specific path to the Haxe executable or an object containing a Haxe executable configuration",
 									"default": "haxe",
 									"oneOf": [
 										{
 											"type": "string",
-											"description": "Path to the Haxe executable",
+											"markdownDescription": "Path to the Haxe executable",
 											"default": "haxe"
 										},
 										{
 											"type": "object",
-											"description": "Overrides for Mac",
+											"markdownDescription": "Overrides for Mac",
 											"default": {},
 											"additionalProperties": false,
 											"properties": {
 												"path": {
 													"type": "string",
-													"description": "Path to the Haxe executable",
+													"markdownDescription": "Path to the Haxe executable",
 													"default": "haxe"
 												},
 												"env": {
-													"description": "Additional environment variables used for running Haxe executable",
+													"markdownDescription": "Additional environment variables used for running Haxe executable",
 													"type": "object",
 													"default": {},
 													"additionalProperties": {
@@ -191,11 +191,11 @@
 					]
 				},
 				"haxe.displayConfigurations": {
-					"description": "Array of switchable configurations for the Haxe completion server. Each configuration is an array of command-line arguments, see item documentation for more details.",
+					"markdownDescription": "Array of switchable configurations for the Haxe completion server. Each configuration is an array of command-line arguments, see item documentation for more details.",
 					"type": "array",
 					"default": [],
 					"items": {
-						"description": "Command-line arguments passed to the Haxe completion server. Can contain HXML files. Relative paths will be resolved against workspace root.",
+						"markdownDescription": "Command-line arguments passed to the Haxe completion server. Can contain HXML files. Relative paths will be resolved against workspace root.",
 						"oneOf": [
 							{
 								"type": "array",
@@ -209,11 +209,11 @@
 								"properties": {
 									"label": {
 										"type": "string",
-										"description": "The label to use for displaying this configuration in the UI."
+										"markdownDescription": "The label to use for displaying this configuration in the UI."
 									},
 									"args": {
 										"type": "array",
-										"description": "The Haxe command-line arguments.",
+										"markdownDescription": "The Haxe command-line arguments.",
 										"items": {
 											"type": "string"
 										}
@@ -224,13 +224,13 @@
 					}
 				},
 				"haxe.displayServer": {
-					"description": "Haxe completion server configuration",
+					"markdownDescription": "Haxe completion server configuration",
 					"type": "object",
 					"default": {},
 					"additionalProperties": false,
 					"properties": {
 						"arguments": {
-							"description": "Array of arguments passed to the Haxe completion server at start. Can be used for debugging completion server issues, for example by adding \"-v\" argument.",
+							"markdownDescription": "Array of arguments passed to the Haxe completion server at start. Can be used for debugging completion server issues, for example by adding the `\"-v\"` argument.",
 							"type": "array",
 							"default": [],
 							"items": {
@@ -238,7 +238,7 @@
 							}
 						},
 						"print": {
-							"description": "Which debug output to print to the Haxe output channel. With \"-v\", all flags default to true, and without it to false. Setting a flag here overrides the default. Only works with Haxe 4.0.0-preview.4 or newer.",
+							"markdownDescription": "Which debug output to print to the Haxe output channel. With `-v`, all flags default to `true`, and without it to `false`. Setting a flag here overrides the default. Only works with Haxe 4.0.0-preview.4 or newer.",
 							"type": "object",
 							"default": {
 								"completion": false,
@@ -314,7 +314,7 @@
 					}
 				},
 				"haxe.displayPort": {
-					"description": "Integer value for the port to open on the display server, or \"auto\". Can be used to --connect Haxe build commands.",
+					"markdownDescription": "Integer value for the port to open on the display server, or `\"auto\"`. Can be used to `--connect` Haxe build commands.",
 					"default": "auto",
 					"oneOf": [
 						{
@@ -329,12 +329,12 @@
 					]
 				},
 				"haxe.enableCompilationServer": {
-					"description": "Use the extension's Haxe server to compile auto-generated tasks. Requires \"haxe.displayPort\" to be set.",
+					"markdownDescription": "Use the extension's Haxe server to compile auto-generated tasks. Requires `\"haxe.displayPort\"` to be set.",
 					"type": "boolean",
 					"default": true
 				},
 				"haxe.taskPresentation": {
-					"description": "Configures which presentation options to use for generated tasks by default (see `presentation` in `tasks.json`).",
+					"markdownDescription": "Configures which presentation options to use for generated tasks by default (see `presentation` in `tasks.json`).",
 					"type": "object",
 					"default": {
 						"echo": true,
@@ -347,12 +347,12 @@
 					"additionalProperties": false,
 					"properties": {
 						"echo": {
-							"description": "Controls whether the executed command is echoed to the panel. Default is true.",
+							"markdownDescription": "Controls whether the executed command is echoed to the panel. Default is `true`.",
 							"type": "boolean",
 							"default": true
 						},
 						"reveal": {
-							"description": "Controls whether the panel running the task is revealed or not. Default is \"always\".",
+							"markdownDescription": "Controls whether the panel running the task is revealed or not. Default is `\"always\"`.",
 							"type": "string",
 							"default": "always",
 							"enum": [
@@ -360,19 +360,19 @@
 								"silent",
 								"never"
 							],
-							"enumDescriptions": [
+							"markdownEnumDescriptions": [
 								"Always reveals the terminal when this task is executed.",
 								"Only reveals the terminal if no problem matcher is associated with the task and an errors occurs executing it.",
 								"Never reveals the terminal when this task is executed."
 							]
 						},
 						"focus": {
-							"description": "Controls whether the panel takes focus. Default is false. If set to true the panel is revealed as well.",
+							"markdownDescription": "Controls whether the panel takes focus. Default is `false`. If set to `true` the panel is revealed as well.",
 							"type": "boolean",
 							"default": false
 						},
 						"panel": {
-							"description": "Controls if the panel is shared between tasks, dedicated to this task or a new one is created on every run.",
+							"markdownDescription": "Controls if the panel is shared between tasks, dedicated to this task or a new one is created on every run.",
 							"type": "string",
 							"default": "shared",
 							"enum": [
@@ -382,29 +382,29 @@
 							]
 						},
 						"showReuseMessage": {
-							"description": "Controls whether to show the `Terminal will be reused by tasks, press any key to close it` message.",
+							"markdownDescription": "Controls whether to show the `Terminal will be reused by tasks, press any key to close it` message.",
 							"type": "boolean",
 							"default": true
 						},
 						"clear": {
-							"description": "Controls whether the terminal is cleared before executing the task.",
+							"markdownDescription": "Controls whether the terminal is cleared before executing the task.",
 							"type": "boolean",
 							"default": false
 						}
 					}
 				},
 				"haxe.enableCodeLens": {
-					"description": "Enable code lens to show some statistics",
+					"markdownDescription": "Enable code lens to show some statistics",
 					"type": "boolean",
 					"default": false
 				},
 				"haxe.enableDiagnostics": {
-					"description": "Enable automatic diagnostics of Haxe files, run automatically on open and save.",
+					"markdownDescription": "Enable automatic diagnostics of Haxe files, run automatically on open and save.",
 					"type": "boolean",
 					"default": true
 				},
 				"haxe.enableServerView": {
-					"description": "Enable the \"Haxe Server\" view container for performance and cache debugging.",
+					"markdownDescription": "Enable the \"Haxe Server\" view container for performance and cache debugging.",
 					"type": "boolean",
 					"default": false
 				},
@@ -414,40 +414,40 @@
 					"deprecationMessage": "Use \"haxe.enableServerView\" instead"
 				},
 				"haxe.enableSignatureHelpDocumentation": {
-					"description": "Whether signature help should include documentation or not.",
+					"markdownDescription": "Whether signature help should include documentation or not.",
 					"type": "boolean",
 					"default": true
 				},
 				"haxe.diagnosticsPathFilter": {
-					"description": "A regex that paths of source files have to match to be included in diagnostics. Defaults to \"${workspaceRoot}\" so only files within your workspace are included. You can use \"${haxelibPath}/<library-name>\" to only show results for a specific haxelib. Use \".*?\" to see all results, including haxelibs.",
+					"markdownDescription": "A regex that paths of source files have to match to be included in diagnostics. Defaults to `\"${workspaceRoot}\"` so only files within your workspace are included. You can use `\"${haxelibPath}/<library-name>\"` to only show results for a specific haxelib. Use `\".*?\"` to see all results, including haxelibs.",
 					"type": "string",
 					"default": "${workspaceRoot}"
 				},
 				"haxe.buildCompletionCache": {
-					"description": "Speed up completion by building the project once on startup to initialize the cache.",
+					"markdownDescription": "Speed up completion by building the project once on startup to initialize the cache.",
 					"type": "boolean",
 					"default": true
 				},
 				"haxe.codeGeneration": {
-					"description": "Options for code generation",
+					"markdownDescription": "Options for code generation",
 					"type": "object",
 					"default": {},
 					"additionalProperties": false,
 					"properties": {
 						"functions": {
-							"description": "Options for generating functions",
+							"markdownDescription": "Options for generating functions",
 							"type": "object",
 							"default": {},
 							"additionalProperties": false,
 							"properties": {
 								"anonymous": {
-									"description": "Options for generating anonymous functions",
+									"markdownDescription": "Options for generating anonymous functions",
 									"type": "object",
 									"default": {},
 									"additionalProperties": false,
 									"properties": {
 										"returnTypeHint": {
-											"description": "In which case to include return type hints",
+											"markdownDescription": "In which case to include return type hints",
 											"type": "string",
 											"default": "never",
 											"enum": [
@@ -457,30 +457,30 @@
 											]
 										},
 										"argumentTypeHints": {
-											"description": "Whether to include type hints for arguments",
+											"markdownDescription": "Whether to include type hints for arguments",
 											"type": "boolean",
 											"default": false
 										},
 										"useArrowSyntax": {
-											"description": "Whether to use arrow function syntax (Haxe 4+)",
+											"markdownDescription": "Whether to use arrow function syntax (Haxe 4+)",
 											"type": "boolean",
 											"default": true
 										},
 										"explicitNull": {
-											"description": "Whether to include wrap types in Null<T> even if it can be omitted (for optional arguments with `?`)",
+											"markdownDescription": "Whether to wrap types in `Null<T>` even if it can be omitted (for optional arguments with `?`)",
 											"type": "boolean",
 											"default": false
 										}
 									}
 								},
 								"field": {
-									"description": "Options for generating field-level functions",
+									"markdownDescription": "Options for generating field-level functions",
 									"type": "object",
 									"default": {},
 									"additionalProperties": false,
 									"properties": {
 										"returnTypeHint": {
-											"description": "In which case to include return type hints",
+											"markdownDescription": "In which case to include return type hints",
 											"type": "string",
 											"default": "non-void",
 											"enum": [
@@ -490,27 +490,27 @@
 											]
 										},
 										"argumentTypeHints": {
-											"description": "Whether to include type hints for arguments",
+											"markdownDescription": "Whether to include type hints for arguments",
 											"type": "boolean",
 											"default": true
 										},
 										"placeOpenBraceOnNewLine": {
-											"description": "Whether to place { in a new line",
+											"markdownDescription": "Whether to place `{` in a new line",
 											"type": "boolean",
 											"default": false
 										},
 										"explicitPublic": {
-											"description": "Whether to include the public visibility modifier even if it can be omitted",
+											"markdownDescription": "Whether to include the public visibility modifier even if it can be omitted",
 											"type": "boolean",
 											"default": false
 										},
 										"explicitPrivate": {
-											"description": "Whether to include the private visibility modifier even if it can be omitted",
+											"markdownDescription": "Whether to include the private visibility modifier even if it can be omitted",
 											"type": "boolean",
 											"default": false
 										},
 										"explicitNull": {
-											"description": "Whether to include wrap types in Null<T> even if it can be omitted (for optional arguments with `?`)",
+											"markdownDescription": "Whether to wrap types in `Null<T>` even if it can be omitted (for optional arguments with `?`)",
 											"type": "boolean",
 											"default": false
 										}
@@ -519,27 +519,27 @@
 							}
 						},
 						"imports": {
-							"description": "Options for generating imports",
+							"markdownDescription": "Options for generating imports",
 							"type": "object",
 							"default": {},
 							"additionalProperties": false,
 							"properties": {
 								"enableAutoImports": {
-									"description": "Whether to insert an import automatically when selecting a not-yet-imported type from completion. If false, the fully qualified name is inserted instead.",
+									"markdownDescription": "Whether to insert an import automatically when selecting a not-yet-imported type from completion. If `false`, the fully qualified name is inserted instead.",
 									"type": "boolean",
 									"default": true
 								},
 								"style": {
-									"description": "How to deal with module subtypes when generating imports.",
+									"markdownDescription": "How to deal with module subtypes when generating imports.",
 									"type": "string",
 									"default": "type",
 									"enum": [
 										"type",
 										"module"
 									],
-									"enumDescriptions": [
-										"Import only the specific sub-type (import pack.Foo.Type).",
-										"Import the entire module the sub-type lives in (import pack.Foo)."
+									"markdownEnumDescriptions": [
+										"Import only the specific sub-type (`import pack.Foo.Type`).",
+										"Import the entire module the sub-type lives in (`import pack.Foo`)."
 									]
 								}
 							}
@@ -547,7 +547,7 @@
 					}
 				},
 				"haxe.exclude": {
-					"description": "A list of dot paths (packages, modules, types) to hide from code completion.",
+					"markdownDescription": "A list of dot paths (packages, modules, types) to hide from code completion.",
 					"type": "array",
 					"default": [
 						"zpp_nape"
