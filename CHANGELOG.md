@@ -1,3 +1,9 @@
+### 2.8.1 (to be released)
+
+**Changes and Improvements**:
+
+- improved postfix completion so that items don't always show on top
+
 ### 2.8.0 (March 23, 2019)
 
 **New Features**
