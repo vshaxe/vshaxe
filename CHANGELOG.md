@@ -1,4 +1,8 @@
-### 2.8.1 (to be released)
+### 2.9.0 (to be released)
+
+**New Features**
+
+- added `var` and `final` to postfix completion
 
 **Changes and Improvements**:
 
