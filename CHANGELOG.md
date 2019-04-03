@@ -1,11 +1,8 @@
-### 2.9.0 (to be released)
-
-**New Features**
-
-- added `var` and `final` to postfix completion
+### 2.8.1 (to be released)
 
 **Changes and Improvements**:
 
+- added `var` and `final` to postfix completion
 - improved postfix completion so that items don't always show on top
 
 ### 2.8.0 (March 23, 2019)
