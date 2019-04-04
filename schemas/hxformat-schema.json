@@ -437,7 +437,7 @@
 					"type": "boolean"
 				},
 				"excludes": {
-					"description": "regular expressions matching files to exclude from formatting default is to exclude any `.haxelib` and `.git` folder\n",
+					"description": "regular expressions matching files to exclude from formatting default is to exclude any `.haxelib`, `.git` and `node_modules` folder\n",
 					"items": {
 						"type": "string"
 					},
