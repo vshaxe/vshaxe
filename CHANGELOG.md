@@ -1,4 +1,4 @@
-### 2.8.1 (to be released)
+### 2.8.1 (April 4, 2019)
 
 **Changes and Improvements**:
 
