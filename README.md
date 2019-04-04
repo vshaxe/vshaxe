@@ -23,6 +23,7 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Commands](https://github.com/vshaxe/vshaxe/wiki/Commands) (<kbd>F1</kbd> -> search "Haxe")
 - [Dependency Explorer](https://github.com/vshaxe/vshaxe/wiki/Dependency-Explorer)
 - [Completion](https://github.com/vshaxe/vshaxe/wiki/Completion)
+- [Postfix Completion](https://github.com/vshaxe/vshaxe/wiki/Postfix-Completion)
 - [Code Generation](https://github.com/vshaxe/vshaxe/wiki/Code-Generation)
 - [Signature Help](https://github.com/vshaxe/vshaxe/wiki/Signature-Help)
 - [Hover Hints](https://github.com/vshaxe/vshaxe/wiki/Hover-Hints)
