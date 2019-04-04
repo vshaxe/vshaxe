@@ -1,3 +1,9 @@
+### 2.9.0 (to be released)
+
+**New Features**
+
+- added snippet completion for generating boilerplate for types
+
 ### 2.8.1 (April 4, 2019)
 
 **Changes and Improvements**:
