@@ -5,6 +5,10 @@
 - added snippet completion for generating boilerplate for types and `package`
 - added forwards / backwards `while` loops to postfix completion
 
+**Changes and Improvements**:
+
+- improved completion to trigger automatically after `$` in string interpolation
+
 ### 2.8.1 (April 4, 2019)
 
 **Changes and Improvements**:
