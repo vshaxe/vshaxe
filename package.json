@@ -11,7 +11,8 @@
 		"Programming Languages",
 		"Linters",
 		"Formatters",
-		"Debuggers"
+		"Debuggers",
+		"Snippets"
 	],
 	"galleryBanner": {
 		"theme": "dark",
