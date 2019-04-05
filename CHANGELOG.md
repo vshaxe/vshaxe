@@ -2,7 +2,8 @@
 
 **New Features**
 
-- added snippet completion for generating boilerplate for types
+- added snippet completion for generating boilerplate for types and `package`
+- added forwards / backwards `while` loops to postfix completion
 
 ### 2.8.1 (April 4, 2019)
 
