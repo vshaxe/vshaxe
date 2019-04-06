@@ -8,6 +8,7 @@
 **Changes and Improvements**:
 
 - improved completion to trigger automatically after `$` in string interpolation
+- hide unused imports diagnostics if compiler errors exist to avoid false positives
 
 ### 2.8.1 (April 4, 2019)
 
