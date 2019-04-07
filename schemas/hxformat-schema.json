@@ -256,6 +256,10 @@
 					"description": "implements / extends chain wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
+				"multiVar": {
+					"description": "chain wrapping rules for OpAdd / OpSub",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
 				"anonFunctionSignature": {
 					"description": "anon function signature wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
@@ -464,6 +468,28 @@
 			},
 			"type": "object"
 		},
+		"formatter.config.CurlyLineEndPolicy": {
+			"additionalProperties": false,
+			"properties": {
+				"rightCurly": {
+					"description": "line end options for right curly",
+					"$ref": "#/definitions/formatter.config.RightCurlyLineEndPolicy"
+				},
+				"emptyCurly": {
+					"description": "line end options for empty curlies",
+					"$ref": "#/definitions/formatter.config.EmptyCurlyPolicy"
+				},
+				"leftCurly": {
+					"description": "line end options for left curly",
+					"$ref": "#/definitions/formatter.config.LeftCurlyLineEndPolicy"
+				},
+				"useGlobal": {
+					"description": "use lineEnds.leftCurly, lineEnds.rightCurly and lineEnds.emptyCurly if true",
+					"type": "boolean"
+				}
+			},
+			"type": "object"
+		},
 		"formatter.config.WrapConditionType": {
 			"anyOf": [
 				{
@@ -495,17 +521,30 @@
 		"formatter.config.LineEndConfig": {
 			"additionalProperties": false,
 			"properties": {
+				"typedefCurly": {
+					"description": "line end settings for typedef curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
+				},
 				"metadataVar": {
 					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
 				},
 				"metadataFunction": {
 					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
 				},
+				"anonTypeCurly": {
+					"description": "line end settings for anon type curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
+				},
 				"rightCurly": {
+					"description": "global right curly line end setting",
 					"$ref": "#/definitions/formatter.config.RightCurlyLineEndPolicy"
 				},
 				"caseColon": {
 					"$ref": "#/definitions/formatter.config.CaseColonLineEndPolicy"
+				},
+				"objectLiteralCurly": {
+					"description": "line end settings for object literal curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
 				},
 				"metadataType": {
 					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
@@ -514,10 +553,16 @@
 					"$ref": "#/definitions/formatter.config.SharpLineEndPolicy"
 				},
 				"emptyCurly": {
+					"description": "global empty curlies line end setting",
 					"$ref": "#/definitions/formatter.config.EmptyCurlyPolicy"
 				},
 				"leftCurly": {
+					"description": "global left curly line end setting",
 					"$ref": "#/definitions/formatter.config.LeftCurlyLineEndPolicy"
+				},
+				"blockCurly": {
+					"description": "line end settings for block curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
 				},
 				"metadataOther": {
 					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
@@ -656,6 +701,10 @@
 				},
 				"enumEmptyLines": {
 					"$ref": "#/definitions/formatter.config.TypedefFieldsEmptyLinesConfig"
+				},
+				"afterSingleLineWithDocComments": {
+					"description": "\"one\" adds one empty line after single line fields with  doc comments \"none\" removes all empty lines after single line fields with doc comments\n\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
+					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
 				},
 				"externClassEmptyLines": {
 					"$ref": "#/definitions/formatter.config.InterfaceFieldsEmptyLinesConfig"
