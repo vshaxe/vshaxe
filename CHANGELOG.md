@@ -3,12 +3,24 @@
 **New Features**
 
 - added snippet completion for generating boilerplate for types and `package`
-- added forwards / backwards `while` loops to postfix completion
+- added a large number of postfix completion items:
+	- forwards and backwards `while` loops
+	- `trace` / `print` / `string`
+	- `null` / `not null`
+	- `is` / `type check` / `unsafe cast` / `safe cast`
+	- `not` / `else` on `Bool`
 
 **Changes and Improvements**:
 
 - improved completion to trigger automatically after `$` in string interpolation
+- improved completion in doc comments (now falls back to word based suggestions)
+- moved all postfix completion items to the end of the completion list
 - hide unused imports diagnostics if compiler errors exist to avoid false positives
+- hide unresolved identifier diagnostics if parser errors exist to make them easier to spot
+
+**Bugfixes**:
+
+- fixed mid-word-invocation of postfix completion (`expr.swit|`)
 
 ### 2.8.1 (April 4, 2019)
 
