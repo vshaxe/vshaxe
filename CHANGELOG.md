@@ -9,9 +9,11 @@
 	- `null` / `not null`
 	- `is` / `type check` / `unsafe cast` / `safe cast`
 	- `not` / `else` on `Bool`
+	- `return`
 
 **Changes and Improvements**:
 
+- updated to haxe-formatter version [1.7.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.7.0)
 - improved completion to trigger automatically after `$` in string interpolation
 - improved completion in doc comments (now falls back to word based suggestions)
 - moved all postfix completion items to the end of the completion list

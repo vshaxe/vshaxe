@@ -279,6 +279,10 @@
 				"metadataCallParameter": {
 					"description": "metadata call parameter wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"arrayMatrixWrap": {
+					"description": "detect arrays in matrix configuration from source noMatrixWrap = no detection\nmatrixWrapNoAlign = detect and format as matrix without alignment matrixWrapWithAlign = detect and format as matrix and align columns\n",
+					"$ref": "#/definitions/formatter.config.ArrayMatrixWrap"
 				}
 			},
 			"type": "object"
@@ -515,6 +519,9 @@
 				},
 				{
 					"const": "lineLength <= n"
+				},
+				{
+					"const": "hasMultilineItems"
 				}
 			]
 		},
@@ -678,6 +685,10 @@
 					"description": "Adds empty lines between two consecutive multiline comments",
 					"type": "integer"
 				},
+				"afterFieldsWithDocComments": {
+					"description": "\"one\" adds one empty line after fields with doc comments \"none\" removes all empty lines line fields with doc comments\n\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
+					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
+				},
 				"finalNewline": {
 					"description": "adds a final newline",
 					"type": "boolean"
@@ -701,10 +712,6 @@
 				},
 				"enumEmptyLines": {
 					"$ref": "#/definitions/formatter.config.TypedefFieldsEmptyLinesConfig"
-				},
-				"afterSingleLineWithDocComments": {
-					"description": "\"one\" adds one empty line after single line fields with  doc comments \"none\" removes all empty lines after single line fields with doc comments\n\"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
-					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
 				},
 				"externClassEmptyLines": {
 					"$ref": "#/definitions/formatter.config.InterfaceFieldsEmptyLinesConfig"
@@ -816,6 +823,9 @@
 				},
 				{
 					"const": "fillLine"
+				},
+				{
+					"const": "fillLineWithLeadingBreak"
 				},
 				{
 					"const": "noWrap"
@@ -1012,6 +1022,19 @@
 				},
 				{
 					"const": "forceAfterLast"
+				}
+			]
+		},
+		"formatter.config.ArrayMatrixWrap": {
+			"anyOf": [
+				{
+					"const": "noMatrixWrap"
+				},
+				{
+					"const": "matrixWrapNoAlign"
+				},
+				{
+					"const": "matrixWrapWithAlign"
 				}
 			]
 		},
