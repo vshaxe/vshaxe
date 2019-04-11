@@ -16,6 +16,7 @@
 - updated to haxe-formatter version [1.7.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.7.0)
 - improved completion to trigger automatically after `$` in string interpolation
 - improved completion in doc comments (now falls back to word based suggestions)
+- improved completion to disallow `(` as a commit character for metadata
 - moved all postfix completion items to the end of the completion list
 - hide unused imports diagnostics if compiler errors exist to avoid false positives
 - hide unresolved identifier diagnostics if parser errors exist to make them easier to spot
