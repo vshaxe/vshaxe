@@ -548,7 +548,7 @@
 					}
 				},
 				"haxe.exclude": {
-					"markdownDescription": "A list of dot paths (packages, modules, types) to hide from code completion.",
+					"markdownDescription": "A list of dot paths (packages, modules, types) to exclude from classpath parsing, completion and workspace symbols. Can be useful to improve performance.",
 					"type": "array",
 					"default": [
 						"zpp_nape"

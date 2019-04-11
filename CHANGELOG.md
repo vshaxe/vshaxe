@@ -17,6 +17,8 @@
 - improved completion to trigger automatically after `$` in string interpolation
 - improved completion in doc comments (now falls back to word based suggestions)
 - improved completion to disallow `(` as a commit character for metadata
+- improved performance with `"haxe.exclude"` (Haxe dev)
+- improved `"haxe.exclude"` to apply to classpath parsing / workspace symbols too (Haxe dev)
 - moved all postfix completion items to the end of the completion list
 - hide unused imports diagnostics if compiler errors exist to avoid false positives
 - hide unresolved identifier diagnostics if parser errors exist to make them easier to spot
