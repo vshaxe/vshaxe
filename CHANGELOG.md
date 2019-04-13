@@ -19,12 +19,14 @@
 - improved completion to disallow `(` as a commit character for metadata
 - improved performance with `"haxe.exclude"` (Haxe dev)
 - improved `"haxe.exclude"` to apply to classpath parsing / workspace symbols too (Haxe dev)
+- improved postfix completion to allow `switch` on non-enum types as well
 - moved all postfix completion items to the end of the completion list
 - hide unused imports diagnostics if compiler errors exist to avoid false positives
 - hide unresolved identifier diagnostics if parser errors exist to make them easier to spot
 
 **Bugfixes**:
 
+- fixed `:` not being auto-inserted after `null` / `true` / `false` patterns
 - fixed mid-word-invocation of postfix completion (`expr.swit|`)
 
 ### 2.8.1 (April 4, 2019)
