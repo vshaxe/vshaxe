@@ -1,6 +1,6 @@
 package vshaxe;
 
-import js.Promise.Thenable;
+import js.lib.Promise.Thenable;
 
 abstract MementoKey<T>(String) to String {
 	public inline function new(key)

@@ -13,8 +13,8 @@ import languageServerProtocol.protocol.Protocol.InitializeError;
 import languageServerProtocol.protocol.Protocol.ClientCapabilities;
 import languageServerProtocol.protocol.Protocol.ServerCapabilities;
 import languageServerProtocol.protocol.Protocol.TraceMode;
-import js.Promise;
-import js.Error;
+import js.lib.Promise;
+import js.lib.Error;
 
 @:jsRequire("vscode-languageclient", "LanguageClient")
 extern class LanguageClient {

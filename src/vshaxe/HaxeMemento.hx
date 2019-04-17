@@ -1,6 +1,6 @@
 package vshaxe;
 
-import js.Promise.Thenable;
+import js.lib.Promise.Thenable;
 
 abstract HaxeMemento(vscode.Memento) from vscode.Memento {
 	public inline function get<T>(key:HaxeMementoKey<T>, ?defaultValue:T):Null<T> {

@@ -1,6 +1,6 @@
 package vshaxe.server;
 
-import js.Promise;
+import js.lib.Promise;
 import jsonrpc.Types;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
@@ -228,7 +228,7 @@ class LanguageServer {
 
 	function onStartProgress(data:{id:Int, title:String}) {
 		window.withProgress({location: Window, title: data.title}, function(_, _) {
-			return new js.Promise(function(resolve:Null<Any>->Void, _) {
+			return new js.lib.Promise(function(resolve:Null<Any>->Void, _) {
 				progresses[data.id] = function() resolve(null);
 			});
 		});

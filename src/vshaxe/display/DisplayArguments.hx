@@ -32,7 +32,7 @@ class DisplayArguments {
 
 	public function registerProvider(name:String, provider:DisplayArgumentsProvider):Disposable {
 		if (isProviderRegistered(name)) {
-			throw new js.Error('Display arguments provider `$name` is already registered.');
+			throw new js.lib.Error('Display arguments provider `$name` is already registered.');
 		}
 
 		providers[name] = provider;
