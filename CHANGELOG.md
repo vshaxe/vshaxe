@@ -11,6 +11,7 @@
 	- `not` / `else` on `Bool`
 	- `return`
 - added a `"haxe.postfixCompletion.level"` setting
+- added field modifiers to completion
 
 **Changes and Improvements**:
 
