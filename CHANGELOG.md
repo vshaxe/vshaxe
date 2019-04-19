@@ -10,6 +10,7 @@
 	- `is` / `type check` / `unsafe cast` / `safe cast`
 	- `not` / `else` on `Bool`
 	- `return`
+- added a `"haxe.postfixCompletion.level"` setting
 
 **Changes and Improvements**:
 

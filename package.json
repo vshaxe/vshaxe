@@ -553,6 +553,29 @@
 					"default": [
 						"zpp_nape"
 					]
+				},
+				"haxe.postfixCompletion": {
+					"markdownDescription": "Options for postfix completion",
+					"type": "object",
+					"default": {},
+					"additionalProperties": false,
+					"properties": {
+						"level": {
+							"markdownDescription": "Which kinds of postfix completions to include",
+							"type": "string",
+							"default": "full",
+							"enum": [
+								"full",
+								"filtered",
+								"off"
+							],
+							"markdownEnumDescriptions": [
+								"Show all postfix completion items.",
+								"Only show items that apply to specific types like `for` and `switch`.",
+								"Disable postfix completion."
+							]
+						}
+					}
 				}
 			}
 		},
