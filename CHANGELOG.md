@@ -2,7 +2,7 @@
 
 **New Features**
 
-- added snippet completion for generating boilerplate for types and `package`
+- added [snippet completion](https://github.com/vshaxe/vshaxe/wiki/Snippets) for generating type, field and `package` boilerplate
 - added a large number of postfix completion items:
 	- forwards and backwards `while` loops
 	- `trace` / `print` / `string`
