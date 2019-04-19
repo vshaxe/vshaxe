@@ -8,11 +8,11 @@
 		},
 		{
 			"name": "formatter",
-			"installArgs": ["git", "formatter", "https://github.com/HaxeCheckstyle/haxe-formatter", "--never"]
+			"installArgs": ["install", "formatter"]
 		},
 		{
 			"name": "json2object",
-			"installArgs": ["git", "json2object", "https://github.com/elnabo/json2object/", "--never"]
+			"installArgs": ["install", "json2object"]
 		}
 	],
 	"targets": [

@@ -13,7 +13,6 @@
 
 **Changes and Improvements**:
 
-- updated to haxe-formatter version [1.7.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.7.0)
 - improved completion to trigger automatically after `$` in string interpolation
 - improved completion in doc comments (now falls back to word based suggestions)
 - improved completion to disallow `(` as a commit character for metadata
