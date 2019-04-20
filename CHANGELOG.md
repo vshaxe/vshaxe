@@ -1,4 +1,4 @@
-### 2.9.0 (to be released)
+### 2.9.0 (April 20, 2019)
 
 **New Features**
 
@@ -11,7 +11,7 @@
 	- `not` / `else` on `Bool`
 	- `return`
 - added a `"haxe.postfixCompletion.level"` setting
-- added field modifiers to completion
+- added field modifier keywords to completion
 
 **Changes and Improvements**:
 
