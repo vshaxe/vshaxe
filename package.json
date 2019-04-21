@@ -429,6 +429,11 @@
 					"type": "boolean",
 					"default": true
 				},
+				"haxe.enableCompletionCacheWarning": {
+					"markdownDescription": "Whether a warning popup should be shown if the completion cache build has failed.",
+					"type": "boolean",
+					"default": true
+				},
 				"haxe.codeGeneration": {
 					"markdownDescription": "Options for code generation",
 					"type": "object",

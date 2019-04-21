@@ -1,5 +1,9 @@
 ### 2.9.1 (to be released)
 
+**New Features**
+
+- added a `"haxe.enableCompletionCacheWarning"` setting
+
 **Bugfixes**:
 
 - fixed postfix completion incorrectly triggering after `case` sometimes ([#337](https://github.com/vshaxe/vshaxe/issues/337))
