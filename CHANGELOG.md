@@ -1,3 +1,9 @@
+### 2.9.1 (to be released)
+
+**Bugfixes**:
+
+- fixed postfix completion incorrectly triggering after `case` sometimes ([#337](https://github.com/vshaxe/vshaxe/issues/337))
+
 ### 2.9.0 (April 20, 2019)
 
 **New Features**
