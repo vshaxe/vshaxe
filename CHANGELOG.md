@@ -1,4 +1,4 @@
-### 2.9.1 (to be released)
+### 2.9.1 (April 21, 2019)
 
 **New Features**
 
