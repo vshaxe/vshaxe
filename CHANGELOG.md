@@ -1,3 +1,9 @@
+### 2.9.2 (to be released)
+
+**Bugfixes**:
+
+- fixed eval-debugger being incompatible with Lix ([eval-debugger#6](https://github.com/vshaxe/eval-debugger/pull/6))
+
 ### 2.9.1 (April 21, 2019)
 
 **New Features**
