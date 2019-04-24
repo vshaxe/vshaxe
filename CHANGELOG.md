@@ -1,4 +1,4 @@
-### 2.9.2 (to be released)
+### 2.9.2 (April 24, 2019)
 
 **Bugfixes**:
 
