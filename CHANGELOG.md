@@ -1,3 +1,9 @@
+### 2.9.3 (to be released)
+
+**Changes and Improvements**:
+
+- improved completion to hide `@:deprecated` types ([haxe#8178](https://github.com/HaxeFoundation/haxe/issues/8178))
+
 ### 2.9.2 (April 24, 2019)
 
 **Bugfixes**:
