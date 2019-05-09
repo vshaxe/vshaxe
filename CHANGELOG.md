@@ -4,6 +4,10 @@
 
 - improved completion to hide `@:deprecated` types ([haxe#8178](https://github.com/HaxeFoundation/haxe/issues/8178))
 
+**Bugfixes**:
+
+- fixed syntax highlighting in hover and completion with VSCode 1.34
+
 ### 2.9.2 (April 24, 2019)
 
 **Bugfixes**:
