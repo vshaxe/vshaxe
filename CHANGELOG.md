@@ -1,4 +1,8 @@
-### 2.9.3 (to be released)
+### 2.10.0 (to be released)
+
+**New Features**
+
+- added a `Reveal Active File in Side Bar` command ([#341](https://github.com/vshaxe/vshaxe/issues/341))
 
 **Changes and Improvements**:
 

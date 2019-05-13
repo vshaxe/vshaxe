@@ -34,6 +34,7 @@ class DependencyTreeView {
 		view = window.createTreeView("haxe.dependencies", {treeDataProvider: this, showCollapseAll: true});
 
 		context.registerHaxeCommand(RefreshDependencies, refresh);
+		context.registerHaxeCommand(RevealActiveFileInSideBar, revealActiveFile);
 		context.registerHaxeCommand(Dependencies_OpenTextDocument, openTextDocument);
 		context.registerHaxeCommand(Dependencies_Refresh, refresh);
 		context.registerHaxeCommand(Dependencies_OpenPreview, openPreview);
@@ -145,18 +146,24 @@ class DependencyTreeView {
 		if (editor == null || !view.visible || !autoRevealEnabled) {
 			return;
 		}
-		var document = editor.document;
+		reveal(editor.document.fileName, false);
+	}
+
+	function reveal(file:String, focus:Bool):Bool {
+		var found = false;
 		function loop(nodes:Array<Node>) {
 			for (node in nodes) {
-				if (node.isDirectory && PathHelper.containsFile(node.path, document.fileName)) {
+				if (node.isDirectory && PathHelper.containsFile(node.path, file)) {
 					loop(node.children);
-				} else if (PathHelper.areEqual(node.path, document.fileName)) {
-					view.reveal(node, {select: true});
+				} else if (PathHelper.areEqual(node.path, file)) {
+					found = true;
+					view.reveal(node, {select: true, focus: focus});
 					break;
 				}
 			}
 		}
 		loop(dependencyNodes);
+		return found;
 	}
 
 	function refresh(hard:Bool = true) {
@@ -184,6 +191,18 @@ class DependencyTreeView {
 
 	public var getParent = function(node:Node) {
 		return node.parent;
+	}
+
+	function revealActiveFile() {
+		var editor = window.activeTextEditor;
+		if (editor == null) {
+			return;
+		}
+		var file = editor.document.fileName;
+		if (!reveal(file, true)) {
+			// if not found, try with the regular explorer
+			commands.executeCommand("workbench.files.action.showActiveFileInExplorer");
+		}
 	}
 
 	function openTextDocument(node:Node) {

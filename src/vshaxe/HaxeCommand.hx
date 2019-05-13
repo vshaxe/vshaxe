@@ -11,6 +11,7 @@ enum abstract HaxeCommand(String) to String {
 	var RunGlobalDiagnostics = command("runGlobalDiagnostics");
 	var ToggleCodeLens = command("toggleCodeLens");
 	var RefreshDependencies = command("refreshDependencies");
+	var RevealActiveFileInSideBar = command("revealActiveFileInSideBar");
 	/* internal commands, either not defined in `package.json` at all or hidden from command palette */
 	var ShowReferences = command("showReferences");
 	var ClearMementos = command("clearMementos");

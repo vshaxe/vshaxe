@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.9.3",
+	"version": "2.10.0",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.31.0"
@@ -52,6 +52,7 @@
 		"onCommand:haxe.runGlobalDiagnostics",
 		"onCommand:haxe.toggleCodeLens",
 		"onCommand:haxe.dependencies.refresh",
+		"onCommand:haxe.revealActiveFileInSideBar",
 		"onCommand:workbench.action.tasks.runTask",
 		"onDebugResolve:haxe-eval",
 		"onView:haxe.methods",
@@ -623,6 +624,11 @@
 			{
 				"title": "Refresh Dependency Explorer",
 				"command": "haxe.refreshDependencies",
+				"category": "Haxe"
+			},
+			{
+				"title": "Reveal Active File in Side Bar",
+				"command": "haxe.revealActiveFileInSideBar",
 				"category": "Haxe"
 			},
 			{
