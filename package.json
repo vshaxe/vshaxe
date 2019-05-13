@@ -550,6 +550,19 @@
 									]
 								}
 							}
+						},
+						"switch": {
+							"markdownDescription": "Options for generating switch expressions",
+							"type": "object",
+							"default": {},
+							"additionalProperties": false,
+							"properties": {
+								"parentheses": {
+									"markdownDescription": "Whether to wrap the switch subject in parentheses",
+									"type": "boolean",
+									"default": true
+								}
+							}
 						}
 					}
 				},

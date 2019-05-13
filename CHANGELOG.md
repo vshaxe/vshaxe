@@ -3,6 +3,7 @@
 **New Features**
 
 - added a `Reveal Active File in Side Bar` command ([#341](https://github.com/vshaxe/vshaxe/issues/341))
+- added a `"haxe.codeGeneration.switch.parentheses"` setting ([#336](https://github.com/vshaxe/vshaxe/issues/336))
 
 **Changes and Improvements**:
 
