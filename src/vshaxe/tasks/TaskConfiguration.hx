@@ -39,14 +39,14 @@ class TaskConfiguration {
 
 		taskPresentation = {
 			echo: presentation.echo,
-			reveal: switch (presentation.reveal) {
+			reveal: switch presentation.reveal {
 				case "always": Always;
 				case "silent": Silent;
 				case "never": Never;
 				default: Always;
 			},
 			focus: presentation.focus,
-			panel: switch (presentation.panel) {
+			panel: switch presentation.panel {
 				case "shared": Shared;
 				case "dedicated": Dedicated;
 				case "new": New;

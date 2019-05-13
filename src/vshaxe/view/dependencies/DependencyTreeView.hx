@@ -229,7 +229,7 @@ class DependencyTreeView {
 	}
 
 	function revealInExplorer(node:Node) {
-		var explorer = switch (Sys.systemName()) {
+		var explorer = switch Sys.systemName() {
 			case "Windows": "explorer";
 			case "Linux": "xdg-open";
 			case "Mac": "open";

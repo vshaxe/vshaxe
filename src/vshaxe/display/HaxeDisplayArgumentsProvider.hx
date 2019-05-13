@@ -128,7 +128,7 @@ class HaxeDisplayArgumentsProvider {
 	}
 
 	function getConfigurationLabel(configuration:Configuration):String {
-		return switch (configuration.kind) {
+		return switch configuration.kind {
 			case Configured(_, label):
 				if (label != null) {
 					label;
@@ -179,7 +179,7 @@ class HaxeDisplayArgumentsProvider {
 
 	function updateStatusBarItem(config:Null<Configuration>) {
 		if (provideArguments != null && config != null) {
-			var label = switch (config.kind) {
+			var label = switch config.kind {
 				case Configured(_, userLabel): userLabel;
 				case _: null;
 			}

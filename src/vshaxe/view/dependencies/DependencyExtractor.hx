@@ -30,7 +30,7 @@ class DependencyExtractor {
 
 		function processLines(lines:Array<HxmlLine>) {
 			for (line in lines) {
-				switch (line) {
+				switch line {
 					case Param("-lib" | "-L" | "--library", lib):
 						result.libs.push(lib);
 					case Param("-cp" | "-p" | "--class-path", cp):

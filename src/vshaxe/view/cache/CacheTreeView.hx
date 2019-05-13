@@ -48,7 +48,7 @@ class CacheTreeView {
 				skipRefresh[node] = nodes; // avoid endless refresh loop
 				didChangeTreeData.fire(node);
 			}
-			switch (node.kind) {
+			switch node.kind {
 				case ServerRoot:
 					server.runMethod(ServerMethods.Contexts).then(function(result:Array<HaxeServerContext>) {
 						var nodes = [];
@@ -143,7 +143,7 @@ class CacheTreeView {
 		function printKv(kv:Array<{key:String, value:String}>) {
 			return kv.map(kv -> '${kv.key}=${kv.value}').join(" ");
 		}
-		var value = switch (node.kind) {
+		var value = switch node.kind {
 			case StringList(strings): strings.join(" ");
 			case StringMapping(mapping): printKv(mapping);
 			case Context(ctx):
