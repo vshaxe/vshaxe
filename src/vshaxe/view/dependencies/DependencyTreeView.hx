@@ -198,6 +198,9 @@ class DependencyTreeView {
 		if (editor == null) {
 			return;
 		}
+		if (dependencies == null) {
+			getChildren();
+		}
 		var file = editor.document.fileName;
 		if (!reveal(file, true)) {
 			// if not found, try with the regular explorer
