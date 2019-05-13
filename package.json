@@ -560,7 +560,7 @@
 								"parentheses": {
 									"markdownDescription": "Whether to wrap the switch subject in parentheses",
 									"type": "boolean",
-									"default": true
+									"default": false
 								}
 							}
 						}

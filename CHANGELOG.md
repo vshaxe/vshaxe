@@ -8,6 +8,7 @@
 **Changes and Improvements**:
 
 - improved completion to hide `@:deprecated` types ([haxe#8178](https://github.com/HaxeFoundation/haxe/issues/8178))
+- changed `switch` to be generated without parentheses by default ([#336](https://github.com/vshaxe/vshaxe/issues/336))
 
 **Bugfixes**:
 
