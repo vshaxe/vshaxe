@@ -15,6 +15,7 @@
 - fixed syntax highlighting in hover and completion with VSCode 1.34
 - fixed some path / cwd issues by using relative paths for display requests ([#248](https://github.com/vshaxe/vshaxe/issues/248), [#310](https://github.com/vshaxe/vshaxe/issues/310))
 - fixed import insertion in files with license headers ([#325](https://github.com/vshaxe/vshaxe/issues/325))
+- fixed methods view not being able to show identical methods in the queue ([#344](https://github.com/vshaxe/vshaxe/issues/344))
 
 ### 2.9.2 (April 24, 2019)
 

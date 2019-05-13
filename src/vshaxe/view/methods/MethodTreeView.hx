@@ -102,7 +102,10 @@ class MethodTreeView {
 	}
 
 	function onDidChangeRequestQueue(queue:Array<String>) {
-		this.queue = queue.map(label -> new Node(context, label));
+		this.queue = [];
+		for (i in 0...queue.length) {
+			this.queue.push(new Node(context, null, null, queue[i], null, Std.string(i)));
+		}
 		if (viewType == Queue) {
 			_onDidChangeTreeData.fire();
 		}
