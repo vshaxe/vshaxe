@@ -7,6 +7,7 @@
 **Bugfixes**:
 
 - fixed syntax highlighting in hover and completion with VSCode 1.34
+- fixed some path / cwd issues by using relative paths for display requests ([#248](https://github.com/vshaxe/vshaxe/issues/248))
 
 ### 2.9.2 (April 24, 2019)
 
