@@ -1,4 +1,4 @@
-### 2.10.1 (to be released)
+### 2.10.1 (May 14, 2019)
 
 **Bugfixes**:
 
