@@ -1,3 +1,9 @@
+### 2.10.1 (to be released)
+
+**Bugfixes**:
+
+- fixed a regression with empty line handling when generating imports
+
 ### 2.10.0 (May 14, 2019)
 
 **New Features**
