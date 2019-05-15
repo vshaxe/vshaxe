@@ -30,10 +30,14 @@ class HaxeDisplayArgumentsProvider {
 
 		statusBarItem = window.createStatusBarItem(Left, 10);
 		statusBarItem.tooltip = "Select Haxe Configuration";
-		statusBarItem.command = SelectDisplayConfiguration;
+		statusBarItem.command = SelectConfiguration;
 		context.subscriptions.push(statusBarItem);
 
-		context.registerHaxeCommand(SelectDisplayConfiguration, selectConfiguration);
+		context.registerHaxeCommand(SelectConfiguration, selectConfiguration);
+		// legacy
+		context.registerHaxeCommand(SelectDisplayConfiguration, function() {
+			window.showWarningMessage('The "$SelectDisplayConfiguration" command is deprecated, use "$SelectConfiguration" instead.');
+		});
 
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
 		hxmlDiscovery.onDidChangeFiles(_ -> refresh());

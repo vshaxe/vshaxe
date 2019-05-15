@@ -3,6 +3,7 @@
 **Changes and Improvements**:
 
 - renamed the `"haxe.displayConfigurations"` setting to `"haxe.configurations"`
+- renamed the `"haxe.selectDisplayConfiguration"` command to `"haxe.selectConfiguration"`
 
 ### 2.10.1 (May 14, 2019)
 
