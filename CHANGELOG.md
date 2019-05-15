@@ -1,3 +1,9 @@
+### 2.11.0 (to be released)
+
+**Changes and Improvements**:
+
+- renamed the `"haxe.displayConfigurations"` setting to `"haxe.configurations"`
+
 ### 2.10.1 (May 14, 2019)
 
 **Bugfixes**:

@@ -21,7 +21,7 @@ class HaxeDisplayArgumentsProvider {
 	inline function get_isActive()
 		return provideArguments != null;
 
-	public var description(default, never) = "Project using haxe.displayConfigurations or HXML files (built-in)";
+	public var description(default, never) = "Project using haxe.configurations or HXML files (built-in)";
 
 	public function new(context:ExtensionContext, displayArguments:DisplayArguments, hxmlDiscovery:HxmlDiscovery) {
 		this.context = context;
@@ -42,10 +42,10 @@ class HaxeDisplayArgumentsProvider {
 	}
 
 	function updateConfigurations() {
-		var configs:Array<SettingsConfiguration> = workspace.getConfiguration("haxe").get("displayConfigurations", []);
-		if (configs == null)
-			configs = [];
-
+		var configs:Array<SettingsConfiguration> = workspace.getConfiguration("haxe").get("configurations", []);
+		if (configs == null || configs.length == 0)
+			configs = workspace.getConfiguration("haxe").get("displayConfigurations", []); // legacy handling
+		
 		configurations = [];
 		for (i in 0...configs.length) {
 			var config = configs[i];
@@ -81,11 +81,11 @@ class HaxeDisplayArgumentsProvider {
 
 	function selectConfiguration() {
 		if (configurations.length == 0) {
-			window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.displayConfigurations setting.",
+			window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.configurations setting.",
 				({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
 				if (button == null)
 					return;
-				workspace.getConfiguration("haxe").update("displayConfigurations", [], false).then(function(_) {
+				workspace.getConfiguration("haxe").update("configurations", [], false).then(function(_) {
 					if (workspace.workspaceFolders == null)
 						return;
 					workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
@@ -95,7 +95,7 @@ class HaxeDisplayArgumentsProvider {
 			return;
 		}
 
-		var items:Array<DisplayConfigurationPickItem> = [];
+		var items:Array<ConfigurationPickItem> = [];
 		for (configuration in configurations) {
 			var description = if (configuration.kind.match(Discovered(_))) "auto-discovered" else "from settings.json";
 			items.push({
@@ -108,7 +108,7 @@ class HaxeDisplayArgumentsProvider {
 		var current = getCurrent();
 		if (current != null)
 			items.moveToStart(item -> item.config == current);
-		window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe Configuration"}).then(function(choice:DisplayConfigurationPickItem) {
+		window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe Configuration"}).then(function(choice:ConfigurationPickItem) {
 			if (choice == null || choice.config == current)
 				return;
 			context.getWorkspaceState().update(ConfigurationIndexKey, switch choice.config.kind {
@@ -205,7 +205,7 @@ private typedef ComplexSettingsConfiguration = {
 	var args:Array<String>;
 }
 
-private typedef DisplayConfigurationPickItem = QuickPickItem & {
+private typedef ConfigurationPickItem = QuickPickItem & {
 	var config:Configuration;
 }
 

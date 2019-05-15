@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.10.1",
+	"version": "2.11.0",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.31.0"
@@ -192,7 +192,7 @@
 						}
 					]
 				},
-				"haxe.displayConfigurations": {
+				"haxe.configurations": {
 					"markdownDescription": "Array of switchable configurations for the Haxe completion server. Each configuration is an array of command-line arguments, see item documentation for more details.",
 					"type": "array",
 					"default": [],
@@ -224,6 +224,11 @@
 							}
 						]
 					}
+				},
+				"haxe.displayConfigurations": {
+					"deprecationMessage": "Use \"haxe.configurations\" instead",
+					"type": "array",
+					"default": []
 				},
 				"haxe.displayServer": {
 					"markdownDescription": "Haxe completion server configuration",
