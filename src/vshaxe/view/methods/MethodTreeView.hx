@@ -84,12 +84,13 @@ class MethodTreeView {
 		var parsingTime = additionalTimes.beforeProcessing - additionalTimes.arrival;
 		var processingTime = additionalTimes.afterProcessing - additionalTimes.beforeProcessing;
 		var totalTime = transmissionTime + parsingTime + processingTime;
-		return makeTimer("vshaxe", totalTime, [
-			makeTimer("display call", displayCallTime),
-			makeTimer("transmission", transmissionTime),
-			makeTimer("parsing", parsingTime),
-			makeTimer("processing", processingTime)
-		]);
+		return makeTimer("vshaxe", totalTime,
+			[
+				makeTimer("display call", displayCallTime),
+				makeTimer("transmission", transmissionTime),
+				makeTimer("parsing", parsingTime),
+				makeTimer("processing", processingTime)
+			]);
 	}
 
 	function makeTimer(name:String, time:Float, ?children:Array<Timer>):Timer {

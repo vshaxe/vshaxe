@@ -49,7 +49,7 @@ class HaxeDisplayArgumentsProvider {
 		var configs:Array<SettingsConfiguration> = workspace.getConfiguration("haxe").get("configurations", []);
 		if (configs == null || configs.length == 0)
 			configs = workspace.getConfiguration("haxe").get("displayConfigurations", []); // legacy handling
-		
+
 		configurations = [];
 		for (i in 0...configs.length) {
 			var config = configs[i];
@@ -86,16 +86,19 @@ class HaxeDisplayArgumentsProvider {
 	function selectConfiguration() {
 		if (configurations.length == 0) {
 			window.showErrorMessage("No Haxe configurations are available. Please provide the haxe.configurations setting.",
-				({title: "Edit settings"} : vscode.MessageItem)).then(function(button) {
-				if (button == null)
-					return;
-				workspace.getConfiguration("haxe").update("configurations", [], false).then(function(_) {
-					if (workspace.workspaceFolders == null)
+				({title: "Edit settings"} : vscode.MessageItem))
+				.then(function(button) {
+					if (button == null)
 						return;
-					workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
-						.then(document -> window.showTextDocument(document));
+					workspace.getConfiguration("haxe")
+						.update("configurations", [], false)
+						.then(function(_) {
+							if (workspace.workspaceFolders == null)
+								return;
+							workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
+								.then(document -> window.showTextDocument(document));
+						});
 				});
-			});
 			return;
 		}
 

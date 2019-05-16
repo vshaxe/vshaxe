@@ -23,10 +23,10 @@ typedef HaxeExecutablePathOrConfig = EitherType<String, RawHaxeExecutableConfig 
 
 class HaxeExecutable {
 	public static final SYSTEM_KEY = switch Sys.systemName() {
-		case "Windows": "windows";
-		case "Mac": "osx";
-		default: "linux";
-	};
+			case "Windows": "windows";
+			case "Mac": "osx";
+			default: "linux";
+		};
 
 	public var configuration(default, null):HaxeExecutableConfiguration;
 	public var onDidChangeConfiguration(get, never):Event<HaxeExecutableConfiguration>;

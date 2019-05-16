@@ -168,8 +168,8 @@ class LanguageServer {
 				sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {arguments: arguments});
 			}
 
-			restartDisposables
-				.push(displayArguments.onDidChangeArguments(arguments -> sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {arguments: arguments})));
+			restartDisposables.push(displayArguments.onDidChangeArguments(arguments -> sendNotification(LanguageServerMethods.DidChangeDisplayArguments,
+				{arguments: arguments})));
 
 			restartDisposables.push(new PackageInserter(hxFileWatcher, this));
 
@@ -322,7 +322,8 @@ class LanguageServer {
 			return;
 		}
 		var detectedVersion = if (data == null) "" else ' (${data.preview})';
-		final message = 'Old Haxe 4 preview build detected' + detectedVersion
+		final message = 'Old Haxe 4 preview build detected'
+			+ detectedVersion
 			+ '. Consider upgrading to Haxe 4.0.0-rc.2 for improved completion features and stability.';
 		window.showInformationMessage(message, VisitDownloadPageOption, DontShowAgainOption).then(function(selection) {
 			if (selection == null) {
