@@ -7,6 +7,10 @@
 - renamed the `"haxe.displayConfigurations"` setting to `"haxe.configurations"`
 - renamed the `"haxe.selectDisplayConfiguration"` command to `"haxe.selectConfiguration"`
 
+**Bugfixes**:
+
+- fixed a regression with `--cwd` by using absolute paths in display requests again ([#345](https://github.com/vshaxe/vshaxe/issues/345))
+
 ### 2.10.1 (May 14, 2019)
 
 **Bugfixes**:
