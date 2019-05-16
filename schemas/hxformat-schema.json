@@ -15,6 +15,9 @@
 					"const": "fillLine"
 				},
 				{
+					"const": "fillLineWithLeadingBreak"
+				},
+				{
 					"const": "noWrap"
 				},
 				{
@@ -110,6 +113,10 @@
 					"markdownDescription": "object literal wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
+				"multiVar": {
+					"markdownDescription": "chain wrapping rules for OpAdd / OpSub",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
 				"methodChain": {
 					"markdownDescription": "method chaining wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
@@ -138,6 +145,11 @@
 				"arrayWrap": {
 					"markdownDescription": "array wrapping rules does not affect array comprehension, use \"sameLine.comprehensionFor\"",
 					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
+				"arrayMatrixWrap": {
+					"default": "matrixWrapWithAlign",
+					"markdownDescription": "detect arrays in matrix configuration from source noMatrixWrap = no detection matrixWrapNoAlign = detect and format as matrix without alignment matrixWrapWithAlign = detect and format as matrix and align columns",
+					"$ref": "#/definitions/formatter.config.ArrayMatrixWrap"
 				},
 				"anonType": {
 					"markdownDescription": "anon types wrapping rules",
@@ -175,6 +187,9 @@
 				},
 				{
 					"const": "lineLength <= n"
+				},
+				{
+					"const": "hasMultilineItems"
 				}
 			]
 		},
@@ -578,13 +593,22 @@
 		"formatter.config.LineEndConfig": {
 			"additionalProperties": false,
 			"properties": {
+				"typedefCurly": {
+					"markdownDescription": "line end settings for typedef curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
+				},
 				"sharp": {
 					"default": "after",
 					"$ref": "#/definitions/formatter.config.SharpLineEndPolicy"
 				},
 				"rightCurly": {
 					"default": "both",
+					"markdownDescription": "global right curly line end setting",
 					"$ref": "#/definitions/formatter.config.RightCurlyLineEndPolicy"
+				},
+				"objectLiteralCurly": {
+					"markdownDescription": "line end settings for object literal curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
 				},
 				"metadataVar": {
 					"default": "none",
@@ -604,15 +628,25 @@
 				},
 				"leftCurly": {
 					"default": "after",
+					"markdownDescription": "global left curly line end setting",
 					"$ref": "#/definitions/formatter.config.LeftCurlyLineEndPolicy"
 				},
 				"emptyCurly": {
 					"default": "noBreak",
+					"markdownDescription": "global empty curlies line end setting",
 					"$ref": "#/definitions/formatter.config.EmptyCurlyPolicy"
 				},
 				"caseColon": {
 					"default": "after",
 					"$ref": "#/definitions/formatter.config.CaseColonLineEndPolicy"
+				},
+				"blockCurly": {
+					"markdownDescription": "line end settings for block curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
+				},
+				"anonTypeCurly": {
+					"markdownDescription": "line end settings for anon type curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
 				}
 			},
 			"type": "object"
@@ -701,6 +735,11 @@
 					"default": true,
 					"type": "boolean"
 				},
+				"indentComplexValueExpressions": {
+					"default": false,
+					"markdownDescription": "indent complex value expressions: (true)\t\t\t\t\t\t(false) var a = if (true)\t\t\tvar a = if (true) 10;\t\t\t\t\t\t10; else\t\t\t\t\telse 20;\t\t\tvs.\t\t\t20; return if (true)\t\t\treturn if (true) 10;\t\t\t\t\t\t10; else\t\t\t\t\telse 20;\t\t\t\t\t\t20;",
+					"type": "boolean"
+				},
 				"conditionalPolicy": {
 					"default": "aligned",
 					"markdownDescription": "only applies to non inlined conditionals \"fixedZero\" = all conditional statements should start in column 1 \"aligned\" = conditional statements share indentation of surrounding code \"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code \"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
@@ -759,7 +798,7 @@
 					"$ref": "#/definitions/formatter.config.IndentationConfig"
 				},
 				"excludes": {
-					"markdownDescription": "regular expressions matching files to exclude from formatting default is to exclude any `.haxelib` and `.git` folder",
+					"markdownDescription": "regular expressions matching files to exclude from formatting default is to exclude any `.haxelib`, `.git` and `node_modules` folder",
 					"items": {
 						"type": "string"
 					},
@@ -909,6 +948,11 @@
 					"markdownDescription": "Adds empty lines when file starts with a multiline comment",
 					"type": "integer"
 				},
+				"afterFieldsWithDocComments": {
+					"default": "one",
+					"markdownDescription": "\"one\" adds one empty line after fields with doc comments \"none\" removes all empty lines line fields with doc comments \"ignore\" respects empty lines set via \"betweenVars\", \"betweenFunctions\", etc.",
+					"$ref": "#/definitions/formatter.config.CommentEmptyLinesPolicy"
+				},
 				"afterBlocks": {
 					"default": "remove",
 					"$ref": "#/definitions/formatter.config.KeepEmptyLinesPolicy"
@@ -928,6 +972,27 @@
 					"const": "break"
 				}
 			]
+		},
+		"formatter.config.CurlyLineEndPolicy": {
+			"additionalProperties": false,
+			"properties": {
+				"rightCurly": {
+					"default": "both",
+					"markdownDescription": "line end options for right curly",
+					"$ref": "#/definitions/formatter.config.RightCurlyLineEndPolicy"
+				},
+				"leftCurly": {
+					"default": "after",
+					"markdownDescription": "line end options for left curly",
+					"$ref": "#/definitions/formatter.config.LeftCurlyLineEndPolicy"
+				},
+				"emptyCurly": {
+					"default": "noBreak",
+					"markdownDescription": "line end options for empty curlies",
+					"$ref": "#/definitions/formatter.config.EmptyCurlyPolicy"
+				}
+			},
+			"type": "object"
 		},
 		"formatter.config.ConditionalIndentationPolicy": {
 			"anyOf": [
@@ -1114,6 +1179,19 @@
 				},
 				{
 					"const": "forceAfterLast"
+				}
+			]
+		},
+		"formatter.config.ArrayMatrixWrap": {
+			"anyOf": [
+				{
+					"const": "noMatrixWrap"
+				},
+				{
+					"const": "matrixWrapNoAlign"
+				},
+				{
+					"const": "matrixWrapWithAlign"
 				}
 			]
 		}

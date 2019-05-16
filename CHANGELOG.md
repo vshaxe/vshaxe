@@ -2,6 +2,7 @@
 
 **Changes and Improvements**:
 
+- updated to haxe-formatter version [1.7.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.7.0)
 - changed the highlighting of `import` and `using` for more consistency with other languages
 - renamed the `"haxe.displayConfigurations"` setting to `"haxe.configurations"`
 - renamed the `"haxe.selectDisplayConfiguration"` command to `"haxe.selectConfiguration"`
