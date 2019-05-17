@@ -1,3 +1,9 @@
+### 2.11.1 (to be released)
+
+**Changes and Improvements**:
+
+- added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message
+
 ### 2.11.0 (May 17, 2019)
 
 **Changes and Improvements**:

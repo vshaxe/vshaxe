@@ -1,5 +1,6 @@
 package vshaxe.server;
 
+import haxe.extern.Rest;
 import js.lib.Promise;
 import jsonrpc.Types;
 import vshaxe.display.DisplayArguments;
@@ -180,6 +181,7 @@ class LanguageServer {
 			onNotification(LanguageServerMethods.DidRunHaxeMethod, onDidRunHaxeMethodCallback);
 			onNotification(LanguageServerMethods.DidChangeRequestQueue, onDidChangeRequestQueueCallback);
 			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
+			onNotification(LanguageServerMethods.HaxeKeepsCrashing, onHaxeKeepsCrashing);
 			onNotification(LanguageServerMethods.DidDetectOldPreview, onDidDetectOldPreview);
 			client.onDidChangeState(onDidChangeState);
 		});
@@ -289,13 +291,21 @@ class LanguageServer {
 		_onDidChangeRequestQueue.fire(data.queue);
 	}
 
+	function onCacheBuildFailed(_) {
+		final message = "Unable to build cache - completion features may be slower than expected. Try fixing the error(s) and restarting the language server.";
+		showRestartLanguageServerMessage(window.showWarningMessage, message);
+	}
+
+	function onHaxeKeepsCrashing(_) {
+		showRestartLanguageServerMessage(window.showErrorMessage, "Haxe process has crashed 3 times, not attempting any more restarts.");
+	}
+
 	inline static var ShowErrorOption = "Show Error";
 	inline static var RetryOption = "Retry";
 
-	function onCacheBuildFailed(_) {
-		final message = "Unable to build cache - completion features may be slower than expected. Try fixing the error(s) and restarting the language server.";
+	function showRestartLanguageServerMessage(method:(message:String, options:MessageOptions, items:Rest<String>) -> Thenable<Null<String>>, message:String) {
 		function showMessage(option1:String, option2:String) {
-			window.showWarningMessage(message, option1, option2).then(function(selection) {
+			method(message, {}, option1, option2).then(function(selection) {
 				if (selection == null) {
 					return;
 				}
