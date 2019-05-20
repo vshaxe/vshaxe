@@ -1,4 +1,4 @@
-package vshaxe.helper;
+package vshaxe.configuration;
 
 class ConfigurationWrapper<Config, RawConfig> {
 	@:nullSafety(Off) public var configuration(default, null):Config;

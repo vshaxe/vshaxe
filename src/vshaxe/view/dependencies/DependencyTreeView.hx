@@ -4,9 +4,9 @@ import haxe.io.Path;
 import vshaxe.view.dependencies.DependencyResolver;
 import vshaxe.view.dependencies.Node;
 import vshaxe.display.DisplayArguments;
-import vshaxe.helper.HaxelibExecutable;
-import vshaxe.helper.HaxeExecutable;
 import vshaxe.helper.PathHelper;
+import vshaxe.configuration.HaxelibExecutable;
+import vshaxe.configuration.HaxeExecutable;
 
 class DependencyTreeView {
 	final context:ExtensionContext;

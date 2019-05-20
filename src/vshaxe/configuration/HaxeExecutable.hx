@@ -1,4 +1,4 @@
-package vshaxe.helper;
+package vshaxe.configuration;
 
 import haxe.DynamicAccess;
 import haxe.io.Path;

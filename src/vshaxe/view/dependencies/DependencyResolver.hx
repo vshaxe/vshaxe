@@ -6,9 +6,9 @@ import js.node.Buffer;
 import js.node.ChildProcess;
 import sys.FileSystem;
 import sys.io.File;
+import vshaxe.configuration.HaxeExecutable;
+import vshaxe.configuration.HaxelibExecutable;
 import vshaxe.helper.PathHelper;
-import vshaxe.helper.HaxeExecutable;
-import vshaxe.helper.HaxelibExecutable;
 
 using Lambda;
 

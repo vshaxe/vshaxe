@@ -1,6 +1,6 @@
 package vshaxe.tasks;
 
-import vshaxe.helper.HaxeExecutable;
+import vshaxe.configuration.HaxeExecutable;
 import vshaxe.server.LanguageServer;
 
 private typedef WriteableApi = {

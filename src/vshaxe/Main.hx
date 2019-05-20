@@ -4,13 +4,13 @@ import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
 import vshaxe.view.HaxeServerViewContainer;
 import vshaxe.view.dependencies.DependencyTreeView;
+import vshaxe.configuration.HaxeExecutable;
+import vshaxe.configuration.HaxelibExecutable;
 import vshaxe.display.DisplayArguments;
 import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.helper.HxmlParser;
 import vshaxe.helper.HaxeCodeLensProvider;
-import vshaxe.helper.HaxeExecutable;
-import vshaxe.helper.HaxelibExecutable;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HaxeTaskProvider;
 import vshaxe.tasks.HxmlTaskProvider;
@@ -55,7 +55,7 @@ class Main {
 		var server = new LanguageServer(wsFolder, context, haxeExecutable, haxelibExecutable, displayArguments, api);
 		context.subscriptions.push(server);
 
-		new HaxeCodeLensProvider(); 
+		new HaxeCodeLensProvider();
 		new HaxeServerViewContainer(context, server);
 		new DependencyTreeView(context, displayArguments, haxeExecutable, haxelibExecutable);
 		new EvalDebugger(displayArguments, haxeExecutable);

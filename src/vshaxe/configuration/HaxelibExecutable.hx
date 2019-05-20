@@ -1,4 +1,4 @@
-package vshaxe.helper;
+package vshaxe.configuration;
 
 class HaxelibExecutable extends ConfigurationWrapper<String, String> {
 	public function new(folder) {
