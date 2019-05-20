@@ -35,7 +35,7 @@ class ConfigurationWrapper<Config, RawConfig> {
 	}
 
 	function isSame(oldConfig:RawConfig, newConfig:RawConfig):Bool {
-		return oldConfig != newConfig;
+		return oldConfig == newConfig;
 	}
 
 	function updateConfig() {

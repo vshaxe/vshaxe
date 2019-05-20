@@ -192,6 +192,12 @@
 						}
 					]
 				},
+				"haxelib.executable": {
+					"scope": "resource",
+					"markdownDescription": "Path to the Haxelib executable",
+					"type": "string",
+					"default": "haxelib"
+				},
 				"haxe.configurations": {
 					"markdownDescription": "Array of switchable configurations for the Haxe completion server. Each configuration is an array of command-line arguments, see item documentation for more details.",
 					"type": "array",

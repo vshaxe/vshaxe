@@ -5,6 +5,7 @@ import js.lib.Promise;
 import jsonrpc.Types;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HaxeExecutable;
+import vshaxe.helper.HaxelibExecutable;
 import vshaxe.server.LanguageClient;
 import haxeLanguageServer.LanguageServerMethods;
 import haxeLanguageServer.Configuration.DisplayServerConfig;
@@ -21,6 +22,7 @@ class LanguageServer {
 	final folder:WorkspaceFolder;
 	final context:ExtensionContext;
 	final haxeExecutable:HaxeExecutable;
+	final haxelibExecutable:HaxelibExecutable;
 	final displayArguments:DisplayArguments;
 	final api:Vshaxe;
 	final serverModulePath:String;
@@ -40,11 +42,13 @@ class LanguageServer {
 	inline function get_onDidChangeRequestQueue()
 		return _onDidChangeRequestQueue.event;
 
-	public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, displayArguments:DisplayArguments, api:Vshaxe) {
+	public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, haxelibExecutable:HaxelibExecutable,
+			displayArguments:DisplayArguments, api:Vshaxe) {
 		this.folder = folder;
 		this.context = context;
 		this.displayArguments = displayArguments;
 		this.haxeExecutable = haxeExecutable;
+		this.haxelibExecutable = haxelibExecutable;
 		this.api = api;
 
 		serverModulePath = context.asAbsolutePath("./server_wrapper.js");
@@ -115,6 +119,9 @@ class LanguageServer {
 			initializationOptions: {
 				displayArguments: displayArguments.arguments,
 				displayServerConfig: displayServerConfig,
+				haxelibConfig: {
+					executable: haxelibExecutable.configuration
+				},
 				sendMethodResults: true
 			},
 			revealOutputChannelOn: Never,

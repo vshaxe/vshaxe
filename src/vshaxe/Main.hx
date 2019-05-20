@@ -10,6 +10,7 @@ import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.helper.HxmlParser;
 import vshaxe.helper.HaxeCodeLensProvider;
 import vshaxe.helper.HaxeExecutable;
+import vshaxe.helper.HaxelibExecutable;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HaxeTaskProvider;
 import vshaxe.tasks.HxmlTaskProvider;
@@ -38,6 +39,9 @@ class Main {
 		var haxeExecutable = new HaxeExecutable(wsFolder);
 		context.subscriptions.push(haxeExecutable);
 
+		var haxelibExecutable = new HaxelibExecutable(wsFolder);
+		context.subscriptions.push(haxelibExecutable);
+
 		var problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
 		api = {
 			haxeExecutable: haxeExecutable,
@@ -48,12 +52,12 @@ class Main {
 			parseHxmlToArguments: HxmlParser.parseToArgs
 		};
 
-		var server = new LanguageServer(wsFolder, context, haxeExecutable, displayArguments, api);
+		var server = new LanguageServer(wsFolder, context, haxeExecutable, haxelibExecutable, displayArguments, api);
 		context.subscriptions.push(server);
 
-		new HaxeCodeLensProvider();
+		new HaxeCodeLensProvider(); 
 		new HaxeServerViewContainer(context, server);
-		new DependencyTreeView(context, displayArguments, haxeExecutable);
+		new DependencyTreeView(context, displayArguments, haxeExecutable, haxelibExecutable);
 		new EvalDebugger(displayArguments, haxeExecutable);
 		new DisplayArgumentsSelector(context, displayArguments);
 		var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);

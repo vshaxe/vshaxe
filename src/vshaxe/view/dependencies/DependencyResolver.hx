@@ -8,6 +8,7 @@ import sys.FileSystem;
 import sys.io.File;
 import vshaxe.helper.PathHelper;
 import vshaxe.helper.HaxeExecutable;
+import vshaxe.helper.HaxelibExecutable;
 
 using Lambda;
 
@@ -18,20 +19,19 @@ typedef DependencyInfo = {
 }
 
 class DependencyResolver {
-	static var _haxelibRepo:Null<String>;
-	static var haxelibRepo(get, never):Null<String>;
-
-	public static function resolveDependencies(dependencies:DependencyList, haxeExecutable:HaxeExecutable):Array<DependencyInfo> {
+	public static function resolveDependencies(dependencies:DependencyList, haxeExecutable:HaxeExecutable,
+			haxelibExecutable:HaxelibExecutable):Array<DependencyInfo> {
 		var paths = [];
 		for (lib in dependencies.libs) {
-			paths = paths.concat(resolveHaxelib(lib));
+			paths = paths.concat(resolveHaxelib(lib, haxelibExecutable.configuration));
 		}
 		paths = paths.concat(dependencies.classPaths);
 		paths = pruneSubdirectories(paths);
 
 		var infos:Array<DependencyInfo> = [];
+		var haxelibRepo = getHaxelibRepo(haxelibExecutable.configuration);
 		if (haxelibRepo != null) {
-			for (info in paths.map(getDependencyInfo)) {
+			for (info in paths.map(getDependencyInfo.bind(_, haxelibRepo))) {
 				if (info != null) {
 					infos.push(info);
 				}
@@ -44,21 +44,19 @@ class DependencyResolver {
 		return infos;
 	}
 
-	static function get_haxelibRepo():String {
-		if (_haxelibRepo == null) {
-			var output = getProcessOutput("haxelib config")[0];
-			if (output == null) {
-				trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
-			} else {
-				_haxelibRepo = Path.normalize(output);
-			}
+	static function getHaxelibRepo(haxelib:String):Null<String> {
+		var output = getProcessOutput('$haxelib config')[0];
+		return if (output == null) {
+			trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
+			null;
+		} else {
+			Path.normalize(output);
 		}
-		return _haxelibRepo;
 	}
 
-	static function resolveHaxelib(lib:String):Array<String> {
+	static function resolveHaxelib(lib:String, haxelib:String):Array<String> {
 		var paths = [];
-		for (line in getProcessOutput('haxelib path $lib')) {
+		for (line in getProcessOutput('$haxelib path $lib')) {
 			var potentialPath = Path.normalize(line);
 			if (FileSystem.exists(potentialPath)) {
 				paths.push(potentialPath);
@@ -90,13 +88,12 @@ class DependencyResolver {
 		});
 	}
 
-	static function getDependencyInfo(path:String):Null<DependencyInfo> {
+	static function getDependencyInfo(path:String, haxelibRepo:String):Null<DependencyInfo> {
 		if (workspace.workspaceFolders == null) {
 			return null;
 		}
 		var rootPath = workspace.workspaceFolders[0].uri.fsPath;
 		var absPath = PathHelper.absolutize(path, rootPath);
-		var haxelibRepo = haxelibRepo;
 		if (haxelibRepo == null || !FileSystem.exists(absPath)) {
 			return null;
 		}

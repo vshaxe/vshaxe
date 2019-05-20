@@ -1,5 +1,9 @@
 ### 2.11.1 (to be released)
 
+**New Features**
+
+- added a `"haxelib.executable"` setting ([#227](https://github.com/vshaxe/vshaxe/issues/227))
+
 **Changes and Improvements**:
 
 - added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message

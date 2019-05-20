@@ -4,12 +4,14 @@ import haxe.io.Path;
 import vshaxe.view.dependencies.DependencyResolver;
 import vshaxe.view.dependencies.Node;
 import vshaxe.display.DisplayArguments;
+import vshaxe.helper.HaxelibExecutable;
 import vshaxe.helper.HaxeExecutable;
 import vshaxe.helper.PathHelper;
 
 class DependencyTreeView {
 	final context:ExtensionContext;
 	final haxeExecutable:HaxeExecutable;
+	final haxelibExecutable:HaxelibExecutable;
 	@:nullSafety(Off) final view:TreeView<Node>;
 	var displayArguments:Null<Array<String>>;
 	var relevantHxmls:Array<String> = [];
@@ -22,10 +24,11 @@ class DependencyTreeView {
 
 	public var onDidChangeTreeData:Event<Node>;
 
-	public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeExecutable:HaxeExecutable) {
+	public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeExecutable:HaxeExecutable, haxelibExecutable:HaxelibExecutable) {
 		this.context = context;
 		this.displayArguments = displayArguments.arguments;
 		this.haxeExecutable = haxeExecutable;
+		this.haxelibExecutable = haxelibExecutable;
 
 		onDidChangeTreeData = _onDidChangeTreeData.event;
 		inline updateAutoReveal();
@@ -50,6 +53,7 @@ class DependencyTreeView {
 		context.subscriptions.push(hxmlFileWatcher);
 
 		context.subscriptions.push(haxeExecutable.onDidChangeConfiguration(_ -> refresh()));
+		context.subscriptions.push(haxelibExecutable.onDidChangeConfiguration(_ -> refresh()));
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateAutoReveal()));
 		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> autoReveal()));
@@ -79,7 +83,7 @@ class DependencyTreeView {
 		}
 		dependencies = newDependencies;
 
-		return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxeExecutable));
+		return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxeExecutable, haxelibExecutable));
 	}
 
 	function updateNodes(dependencyInfos:Array<DependencyInfo>):Array<Node> {
