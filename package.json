@@ -753,7 +753,7 @@
 				"extensions": [
 					".dump"
 				],
-				"configuration": "./configurations/haxe.configuration.json"
+				"configuration": "./configurations/haxe.language-configuration.json"
 			},
 			{
 				"id": "haxe.type"
