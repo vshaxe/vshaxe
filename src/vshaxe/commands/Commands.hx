@@ -91,8 +91,3 @@ class Commands {
 		return value;
 	}
 }
-
-private typedef LaunchJson = {
-	var ?compounds:Array<{name:String}>;
-	var ?configurations:Array<{name:String}>;
-}
