@@ -18,13 +18,6 @@
 		"theme": "dark",
 		"color": "#A84B38"
 	},
-	"badges": [
-		{
-			"url": "https://api.travis-ci.org/vshaxe/vshaxe.svg?branch=master",
-			"href": "https://travis-ci.org/vshaxe/vshaxe",
-			"description": "Travis CI Status"
-		}
-	],
 	"icon": "images/haxe-logo.png",
 	"author": "Dan Korostelev",
 	"license": "MIT",
