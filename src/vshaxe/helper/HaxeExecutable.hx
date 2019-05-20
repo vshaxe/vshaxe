@@ -21,45 +21,18 @@ typedef HaxeExecutablePathOrConfig = EitherType<String, RawHaxeExecutableConfig 
 	var ?osx:RawHaxeExecutableConfig;
 }>;
 
-class HaxeExecutable {
+class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration, RawHaxeExecutableConfig> {
 	public static final SYSTEM_KEY = switch Sys.systemName() {
 			case "Windows": "windows";
 			case "Mac": "osx";
 			default: "linux";
 		};
 
-	public var configuration(default, null):HaxeExecutableConfiguration;
-	public var onDidChangeConfiguration(get, never):Event<HaxeExecutableConfiguration>;
-
-	final _onDidChangeConfiguration:EventEmitter<HaxeExecutableConfiguration>;
-	final folder:WorkspaceFolder;
-	final changeConfigurationListener:Disposable;
-	var rawConfig:RawHaxeExecutableConfig;
-
-	function get_onDidChangeConfiguration()
-		return _onDidChangeConfiguration.event;
-
 	public function new(folder) {
-		this.folder = folder;
-		_onDidChangeConfiguration = new EventEmitter();
-		inline updateConfig();
-		changeConfigurationListener = workspace.onDidChangeConfiguration(onWorkspaceConfigurationChanged);
+		super("haxe.executable", folder);
 	}
 
-	public function dispose() {
-		changeConfigurationListener.dispose();
-	}
-
-	function onWorkspaceConfigurationChanged(change:ConfigurationChangeEvent) {
-		if (change.affectsConfiguration("haxe.executable", folder.uri)) {
-			var oldConfig = rawConfig;
-			updateConfig();
-			if (!isSame(oldConfig, rawConfig))
-				_onDidChangeConfiguration.fire(configuration);
-		}
-	}
-
-	static function isSame(oldConfig:RawHaxeExecutableConfig, newConfig:RawHaxeExecutableConfig):Bool {
+	override function isSame(oldConfig:RawHaxeExecutableConfig, newConfig:RawHaxeExecutableConfig):Bool {
 		// ouch...
 		if ((oldConfig is String) || (newConfig is String)) {
 			if (oldConfig != newConfig)
@@ -88,7 +61,7 @@ class HaxeExecutable {
 		return true;
 	}
 
-	function updateConfig() {
+	override function updateConfig() {
 		var input:HaxeExecutablePathOrConfig = workspace.getConfiguration("haxe", folder.uri).get("executable", "haxe");
 
 		var executable = "haxe";
