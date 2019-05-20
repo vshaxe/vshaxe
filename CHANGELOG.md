@@ -1,4 +1,4 @@
-### 2.11.1 (to be released)
+### 2.12.0 (to be released)
 
 **New Features**
 
@@ -7,6 +7,7 @@
 **Changes and Improvements**:
 
 - added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message
+- added a JSON file association for [Lix](https://github.com/lix-pm/lix.client) `.haxerc` files
 
 ### 2.11.0 (May 17, 2019)
 
@@ -52,7 +53,7 @@
 **Bugfixes**:
 
 - fixed backwards compatibility with VSCode versions < 1.33
-- fixed eval-debugger being incompatible with Lix ([eval-debugger#6](https://github.com/vshaxe/eval-debugger/pull/6))
+- fixed eval-debugger being incompatible with [Lix](https://github.com/lix-pm/lix.client) ([eval-debugger#6](https://github.com/vshaxe/eval-debugger/pull/6))
 
 ### 2.9.1 (April 21, 2019)
 
