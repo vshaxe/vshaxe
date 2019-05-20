@@ -3,6 +3,7 @@
 **New Features**
 
 - added a `"haxelib.executable"` setting ([#227](https://github.com/vshaxe/vshaxe/issues/227))
+- added `"haxe.executable"` and `"haxelib.executable"` auto-detection for [Lix](https://github.com/lix-pm/lix.client) and [npm-haxe](https://github.com/HaxeFoundation/npm-haxe)
 
 **Changes and Improvements**:
 

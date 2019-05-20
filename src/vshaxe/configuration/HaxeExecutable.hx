@@ -64,7 +64,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration, R
 	override function updateConfig() {
 		var input:HaxeExecutablePathOrConfig = workspace.getConfiguration("haxe", folder.uri).get("executable", "haxe");
 
-		var executable = "haxe";
+		var executable = "auto";
 		var env = new DynamicAccess<String>();
 
 		function merge(conf:HaxeExecutablePathOrConfigBase) {
@@ -83,6 +83,8 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration, R
 		var systemConfig = Reflect.field(input, SYSTEM_KEY);
 		if (systemConfig != null)
 			merge(systemConfig);
+
+		executable = ExecutableHelper.resolve(folder.uri, executable, "haxe");
 
 		var isCommand = false;
 		if (!Path.isAbsolute(executable)) {

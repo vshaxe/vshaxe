@@ -60,12 +60,26 @@
 				"haxe.executable": {
 					"scope": "resource",
 					"markdownDescription": "Path to the Haxe executable or an object containing a Haxe executable configuration",
-					"default": "haxe",
+					"default": "auto",
 					"oneOf": [
 						{
 							"type": "string",
 							"markdownDescription": "Path to the Haxe executable",
-							"default": "haxe"
+							"default": "auto",
+							"anyOf": [
+								{
+									"type": "string",
+									"enum": [
+										"auto"
+									],
+									"markdownEnumDescriptions": [
+										"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+									]
+								},
+								{
+									"type": "string"
+								}
+							]
 						},
 						{
 							"type": "object",
@@ -75,7 +89,21 @@
 								"path": {
 									"type": "string",
 									"markdownDescription": "Path to the Haxe executable",
-									"default": "haxe"
+									"default": "auto",
+									"anyOf": [
+										{
+											"type": "string",
+											"enum": [
+												"auto"
+											],
+											"markdownEnumDescriptions": [
+												"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+											]
+										},
+										{
+											"type": "string"
+										}
+									]
 								},
 								"env": {
 									"markdownDescription": "Additional environment variables used for running Haxe executable",
@@ -87,12 +115,26 @@
 								},
 								"windows": {
 									"markdownDescription": "Windows-specific path to the Haxe executable or an object containing a Haxe executable configuration",
-									"default": "haxe",
+									"default": "auto",
 									"oneOf": [
 										{
 											"type": "string",
 											"markdownDescription": "Path to the Haxe executable",
-											"default": "haxe"
+											"default": "auto",
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"auto"
+													],
+													"markdownEnumDescriptions": [
+														"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+													]
+												},
+												{
+													"type": "string"
+												}
+											]
 										},
 										{
 											"type": "object",
@@ -103,7 +145,21 @@
 												"path": {
 													"type": "string",
 													"markdownDescription": "Path to the Haxe executable",
-													"default": "haxe"
+													"default": "auto",
+													"anyOf": [
+														{
+															"type": "string",
+															"enum": [
+																"auto"
+															],
+															"markdownEnumDescriptions": [
+																"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+															]
+														},
+														{
+															"type": "string"
+														}
+													]
 												},
 												"env": {
 													"markdownDescription": "Additional environment variables used for running Haxe executable",
@@ -119,12 +175,26 @@
 								},
 								"linux": {
 									"markdownDescription": "Linux-specific path to the Haxe executable or an object containing a Haxe executable configuration",
-									"default": "haxe",
+									"default": "auto",
 									"oneOf": [
 										{
 											"type": "string",
 											"markdownDescription": "Path to the Haxe executable",
-											"default": "haxe"
+											"default": "auto",
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"auto"
+													],
+													"markdownEnumDescriptions": [
+														"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+													]
+												},
+												{
+													"type": "string"
+												}
+											]
 										},
 										{
 											"type": "object",
@@ -135,7 +205,21 @@
 												"path": {
 													"type": "string",
 													"markdownDescription": "Path to the Haxe executable",
-													"default": "haxe"
+													"default": "auto",
+													"anyOf": [
+														{
+															"type": "string",
+															"enum": [
+																"auto"
+															],
+															"markdownEnumDescriptions": [
+																"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+															]
+														},
+														{
+															"type": "string"
+														}
+													]
 												},
 												"env": {
 													"markdownDescription": "Additional environment variables used for running Haxe executable",
@@ -151,12 +235,26 @@
 								},
 								"osx": {
 									"markdownDescription": "Mac-specific path to the Haxe executable or an object containing a Haxe executable configuration",
-									"default": "haxe",
+									"default": "auto",
 									"oneOf": [
 										{
 											"type": "string",
 											"markdownDescription": "Path to the Haxe executable",
-											"default": "haxe"
+											"default": "auto",
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"auto"
+													],
+													"markdownEnumDescriptions": [
+														"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+													]
+												},
+												{
+													"type": "string"
+												}
+											]
 										},
 										{
 											"type": "object",
@@ -167,7 +265,21 @@
 												"path": {
 													"type": "string",
 													"markdownDescription": "Path to the Haxe executable",
-													"default": "haxe"
+													"default": "auto",
+													"anyOf": [
+														{
+															"type": "string",
+															"enum": [
+																"auto"
+															],
+															"markdownEnumDescriptions": [
+																"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+															]
+														},
+														{
+															"type": "string"
+														}
+													]
 												},
 												"env": {
 													"markdownDescription": "Additional environment variables used for running Haxe executable",
@@ -189,7 +301,21 @@
 					"scope": "resource",
 					"markdownDescription": "Path to the Haxelib executable",
 					"type": "string",
-					"default": "haxelib"
+					"default": "auto",
+					"anyOf": [
+						{
+							"type": "string",
+							"enum": [
+								"auto"
+							],
+							"markdownEnumDescriptions": [
+								"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+							]
+						},
+						{
+							"type": "string"
+						}
+					]
 				},
 				"haxe.configurations": {
 					"markdownDescription": "Array of switchable configurations for the Haxe completion server. Each configuration is an array of command-line arguments, see item documentation for more details.",

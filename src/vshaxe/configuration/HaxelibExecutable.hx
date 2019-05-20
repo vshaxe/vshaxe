@@ -6,7 +6,8 @@ class HaxelibExecutable extends ConfigurationWrapper<String, String> {
 	}
 
 	override function updateConfig() {
-		var input = workspace.getConfiguration("haxelib", folder.uri).get("executable", "haxelib");
-		rawConfig = configuration = input;
+		var path = workspace.getConfiguration("haxelib", folder.uri).get("executable", "haxelib");
+		rawConfig = path;
+		configuration = ExecutableHelper.resolve(folder.uri, path, "haxelib");
 	}
 }
