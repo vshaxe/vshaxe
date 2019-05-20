@@ -201,22 +201,6 @@ class LanguageServer {
 		var haxeConfig = workspace.getConfiguration("haxe");
 		var arguments = haxeConfig.get("displayServer.arguments", []);
 		var print = haxeConfig.get("displayServer.print", {completion: false, reusing: false});
-		if (!haxeExecutable.isConfigured()) {
-			// apply legacy settings
-			var displayServerConfig = haxeConfig.get("displayServer");
-			function merge(conf:{?haxePath:String, ?env:haxe.DynamicAccess<String>}) {
-				if (conf.haxePath != null)
-					path = conf.haxePath;
-				if (conf.env != null)
-					env = conf.env;
-			}
-			if (displayServerConfig != null) {
-				merge(displayServerConfig);
-				var systemConfig = Reflect.field(displayServerConfig, HaxeExecutable.SYSTEM_KEY);
-				if (systemConfig != null)
-					merge(systemConfig);
-			}
-		}
 		displayServerConfig = {
 			path: path,
 			env: env,

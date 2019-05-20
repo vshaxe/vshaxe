@@ -50,17 +50,6 @@ class HaxeExecutable {
 		changeConfigurationListener.dispose();
 	}
 
-	/** Returns true if haxe.executable setting was configured by user **/
-	public function isConfigured():Bool {
-		var executableSetting = workspace.getConfiguration("haxe", folder.uri).inspect("executable");
-		if (executableSetting == null) {
-			return false;
-		}
-		return executableSetting.globalValue != null
-			|| executableSetting.workspaceValue != null
-			|| executableSetting.workspaceFolderValue != null;
-	}
-
 	function onWorkspaceConfigurationChanged(change:ConfigurationChangeEvent) {
 		if (change.affectsConfiguration("haxe.executable", folder.uri)) {
 			var oldConfig = rawConfig;
