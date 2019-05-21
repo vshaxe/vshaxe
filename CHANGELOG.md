@@ -10,6 +10,10 @@
 - added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message
 - added a JSON file association for [Lix](https://github.com/lix-pm/lix.client) `.haxerc` files
 
+**Bugfixes**:
+
+- fixed import generation with metadata and no existing imports ([#347](https://github.com/vshaxe/vshaxe/issues/347))
+
 ### 2.11.0 (May 17, 2019)
 
 **Changes and Improvements**:
