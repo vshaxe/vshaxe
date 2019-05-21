@@ -9,6 +9,7 @@ import sys.io.File;
 import vshaxe.configuration.HaxeExecutable;
 import vshaxe.configuration.HaxelibExecutable;
 import vshaxe.helper.PathHelper;
+import vshaxe.helper.HxmlParser;
 
 using Lambda;
 
@@ -37,10 +38,17 @@ class DependencyResolver {
 				}
 			}
 		}
-		var stdLibPath = getStandardLibraryPath(haxeExecutable.configuration);
-		if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
-			infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configuration.executable));
+
+		var lixStdLib = getLixStandardLibrary(haxeExecutable);
+		if (lixStdLib != null) {
+			infos.push(lixStdLib);
+		} else {
+			var stdLibPath = getStandardLibraryPath(haxeExecutable.configuration);
+			if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
+				infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configuration.executable));
+			}
 		}
+
 		return infos;
 	}
 
@@ -203,5 +211,29 @@ class DependencyResolver {
 		}
 
 		return {name: "haxe", path: path, version: version};
+	}
+
+	static function getLixStandardLibrary(haxeExecutable:HaxeExecutable):Null<DependencyInfo> {
+		var lixStdLib = getProcessOutput(haxeExecutable.configuration.executable + " --run show-version");
+		if (lixStdLib.length == 0) {
+			return null;
+		}
+		var hxml = HxmlParser.parseFile(lixStdLib.join("\n"));
+		var version = switch hxml[0] {
+			case Param("-D", value): value.split("=")[1];
+			case _: null;
+		}
+		var path = switch hxml[1] {
+			case Param("-cp", path): path;
+			case _: null;
+		}
+		if (version != null && path != null) {
+			return {
+				name: "haxe",
+				version: version,
+				path: path
+			};
+		}
+		return null;
 	}
 }
