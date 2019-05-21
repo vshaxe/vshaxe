@@ -4,11 +4,11 @@
 
 - added a `"haxelib.executable"` setting ([#227](https://github.com/vshaxe/vshaxe/issues/227))
 - added `"haxe.executable"` and `"haxelib.executable"` auto-detection for [Lix](https://github.com/lix-pm/lix.client) and [npm-haxe](https://github.com/HaxeFoundation/npm-haxe)
+- added a JSON file association and schema for [Lix](https://github.com/lix-pm/lix.client) `.haxerc` files
 
 **Changes and Improvements**:
 
 - added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message
-- added a JSON file association for [Lix](https://github.com/lix-pm/lix.client) `.haxerc` files
 
 **Bugfixes**:
 

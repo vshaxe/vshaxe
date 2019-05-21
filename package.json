@@ -999,6 +999,10 @@
 			{
 				"fileMatch": "hxformat.json",
 				"url": "./schemas/hxformat-schema.json"
+			},
+			{
+				"fileMatch": ".haxerc",
+				"url": "./schemas/.haxerc-schema.json"
 			}
 		],
 		"problemPatterns": [

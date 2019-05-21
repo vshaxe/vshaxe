@@ -1,0 +1,36 @@
+{
+	"definitions": {
+		"LibResolution": {
+			"enum": [
+				"scoped",
+				"haxelib",
+				"mixed"
+			],
+			"markdownEnumDescriptions": [
+				"Any parameters that are passed to haxeshim are parsed, including hxmls and the `-lib` parameters are \"intercepted\". To resolve these, we look for a `haxe_libraries/<libName>.hxml` and parse the parameters therein. If they are `-lib` parameters we process them accordingly. Note that in this case, specifying library versions as with `-lib name:version` is not allowed.",
+				"Parameters are still parsed and then passed to `haxelib path` for resolution. In this case `-lib name:version` syntax is allowed.",
+				"This is a mix of both approaches. Libraries that are not found using scoped resolutio nor that use `-lib name:version` format are process with `haxelib path`."
+			]
+		},
+		"Config": {
+			"additionalProperties": false,
+			"properties": {
+				"resolveLibs": {
+					"markdownDescription": "In what manner libraries should be resolved.",
+					"$ref": "#/definitions/LibResolution"
+				},
+				"version": {
+					"markdownDescription": "Which Haxe version to use. Allowed values are:\n- SemVer version numbers such as `3.4.7` and `4.0.0-rc.2`\n- several convenience \"constants\":\n  - `\"latest\"`: the latest release of Haxe (including preview releases)\n  - `\"stable\"`: the latest _stable_ release of Haxe\n  - `\"nightly\"` / `\"edge\"`: the latest nightly build of Haxe \n- commit hashes for nightly builds such as `2341805` \n- a path to a directory with the Haxe installation",
+					"type": "string"
+				}
+			},
+			"required": [
+				"resolveLibs",
+				"version"
+			],
+			"type": "object"
+		}
+	},
+	"$ref": "#/definitions/Config",
+	"$schema": "http://json-schema.org/draft-07/schema#"
+}
