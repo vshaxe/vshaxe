@@ -9,6 +9,7 @@
 **Changes and Improvements**:
 
 - added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message
+- improved startup time by bundling and minifying vshaxe's JS binaries
 
 **Bugfixes**:
 
