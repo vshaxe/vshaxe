@@ -7,7 +7,6 @@
 !images/demo.gif
 !images/demo2.gif
 !images/haxe-logo.png
-!eval-debugger/node_modules/**/*
 !resources/**/*
 !scaffold/**/*
 !schemas/hxformat-schema.json
