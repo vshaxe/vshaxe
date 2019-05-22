@@ -6,7 +6,7 @@
 !configurations/*
 !images/**
 !scaffold/**/*
-!schemas/hxformat-schema.json
+!schemas/*.json
 !syntaxes/**/*.tmLanguage
 !CHANGELOG.md
 !LICENSE.md
