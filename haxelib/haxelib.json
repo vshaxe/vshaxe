@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"version": "2.5.0",
 	"releasenote": "Support clear in TaskPresentationOptions.",
-	"classPath": "src-api",
+	"classPath": "src",
 	"contributors": ["nadako", "Gama11"],
 	"dependencies": {
 		"vscode": ""

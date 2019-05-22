@@ -63,7 +63,7 @@
 					"server/src",
 					"server/protocol/src",
 					"src",
-					"src-api"
+					"haxelib/src"
 				],
 				"defines": [
 					"JSTACK_MAIN=vshaxe.Main.main",

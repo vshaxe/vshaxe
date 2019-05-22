@@ -1,10 +1,6 @@
-/bin/*
-/node_modules
-/*.vsix
-*.n
-vscode.ico
-.haxelib/
+bin
+node_modules
 dump
-/haxelib.zip
-build/run.js
 *.log
+*.vsix
+haxelib/haxelib.zip

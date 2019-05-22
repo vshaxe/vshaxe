@@ -5,36 +5,25 @@ import haxe.zip.Tools;
 import sys.io.File;
 import sys.FileSystem;
 
-@:forward
-abstract ZipFile({fileName:String, targetName:String}) from {fileName:String, targetName:String} {
-	@:from static function fromString(file):ZipFile
-		return {fileName: file, targetName: file}
-}
-
-class ReleaseHaxelib {
+class Release {
 	static var outPath = "haxelib.zip";
-	static var files:Array<ZipFile> = [
-		"haxelib.json",
-		"src-api",
-		"LICENSE.md",
-		{fileName: "README-haxelib.md", targetName: "README.md"}
-	];
+	static var files:Array<String> = ["haxelib.json", "src", "LICENSE.md", "README.md"];
 
 	static function makeZip() {
 		var entries = new List<Entry>();
 
-		function add(path:String, target:String) {
+		function add(path:String) {
 			if (!FileSystem.exists(path))
 				throw 'Invalid path: $path';
 
 			if (FileSystem.isDirectory(path)) {
 				for (item in FileSystem.readDirectory(path))
-					add(path + "/" + item, target + "/" + item);
+					add(path + "/" + item);
 			} else {
-				trace('Adding $target from $path');
+				Sys.println('Adding $path');
 				var bytes = File.getBytes(path);
 				var entry:Entry = {
-					fileName: target,
+					fileName: path,
 					fileSize: bytes.length,
 					fileTime: FileSystem.stat(path).mtime,
 					compressed: false,
@@ -48,9 +37,9 @@ class ReleaseHaxelib {
 		}
 
 		for (file in files)
-			add(file.fileName, file.targetName);
+			add(file);
 
-		trace("Saving to " + outPath);
+		Sys.println("Saving to " + outPath);
 		var out = File.write(outPath, true);
 		var writer = new Writer(out);
 		writer.write(entries);
@@ -58,7 +47,7 @@ class ReleaseHaxelib {
 	}
 
 	static function submitZip() {
-		trace("Submitting " + outPath);
+		Sys.println("Submitting " + outPath);
 		Sys.command("haxelib", ["submit", outPath]);
 	}
 
