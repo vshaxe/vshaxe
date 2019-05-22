@@ -3,15 +3,14 @@
 [![Build Status](https://travis-ci.org/vshaxe/vshaxe.svg?branch=master)](https://travis-ci.org/vshaxe/vshaxe) [![Version](https://vsmarketplacebadge.apphb.com/version-short/nadako.vshaxe.svg)](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/nadako.vshaxe.svg)](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) [![Downloads](https://vsmarketplacebadge.apphb.com/downloads-short/nadako.vshaxe.svg)](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/nadako.vshaxe.svg)](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) [![](https://img.shields.io/discord/162395145352904705.svg?logo=discord)](https://discordapp.com/invite/0uEuWH3spjck73Lo)
 
 This is an extension for [Visual Studio Code](https://code.visualstudio.com) that adds support for the [Haxe](http://haxe.org/) language,
-leveraging the [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver). It works best with [Haxe 4.0.0-rc.2](https://haxe.org/download/version/4.0.0-rc.2/), but supports any Haxe version starting from 3.4.0.
-
-For usage with...
-- ... [Lime](http://lime.software/) / [OpenFL](http://www.openfl.org/), the [Lime extension](https://marketplace.visualstudio.com/items?itemName=openfl.lime-vscode-extension) should be installed.
-- ... [Kha](http://kha.tech/), the [Kha Extension Pack](https://marketplace.visualstudio.com/items?itemName=kodetech.kha-extension-pack) should be used.
-
-### [**Click here for install instructions.**](https://github.com/vshaxe/vshaxe/wiki/Installation)
+leveraging the [Haxe Language Server](https://github.com/vshaxe/haxe-language-server). It works best with [Haxe 4.0.0-rc.2](https://haxe.org/download/version/4.0.0-rc.2/), but supports any Haxe version starting from 3.4.0.
 
 ![demo](images/demo2.gif)
+
+Some framework-specific extensions exist to extend the functionality further:
+
+- If you're using [Lime](http://lime.software/) or [OpenFL](http://www.openfl.org/), you should also install the Lime extension.
+- If you're using [Kha](http://kha.tech/), the [Kha Extension Pack](https://marketplace.visualstudio.com/items?itemName=kodetech.kha-extension-pack) should be used.
 
 ## Features
 
