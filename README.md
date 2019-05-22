@@ -9,7 +9,7 @@ leveraging the [Haxe Language Server](https://github.com/vshaxe/haxe-language-se
 
 Some framework-specific extensions exist to extend the functionality further:
 
-- If you're using [Lime](http://lime.software/) or [OpenFL](http://www.openfl.org/), you should also install the Lime extension.
+- If you're using [Lime](http://lime.software/) or [OpenFL](http://www.openfl.org/), you should also install the [Lime extension](https://marketplace.visualstudio.com/items?itemName=openfl.lime-vscode-extension).
 - If you're using [Kha](http://kha.tech/), the [Kha Extension Pack](https://marketplace.visualstudio.com/items?itemName=kodetech.kha-extension-pack) should be used.
 
 ## Features
