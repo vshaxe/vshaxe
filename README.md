@@ -11,7 +11,7 @@ For usage with...
 
 ### [**Click here for install instructions.**](https://github.com/vshaxe/vshaxe/wiki/Installation)
 
-![demo](images/demo2.gif)
+![demo](images/demo.gif)
 
 ## Features
 

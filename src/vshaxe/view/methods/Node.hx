@@ -38,8 +38,8 @@ class Node extends TreeItem {
 		}
 		if (isRoot) {
 			iconPath = {
-				light: context.asAbsolutePath("resources/light/method.svg"),
-				dark: context.asAbsolutePath("resources/dark/method.svg")
+				light: context.asAbsolutePath("images/light/method.svg"),
+				dark: context.asAbsolutePath("images/dark/method.svg")
 			};
 		}
 	}

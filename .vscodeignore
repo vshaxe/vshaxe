@@ -4,10 +4,7 @@
 !server/bin/server.js
 !eval-debugger/bin/adapter.js
 !configurations/*
-!images/demo.gif
-!images/demo2.gif
-!images/haxe-logo.png
-!resources/**/*
+!images/**
 !scaffold/**/*
 !schemas/hxformat-schema.json
 !syntaxes/**/*.tmLanguage

@@ -783,8 +783,8 @@
 				"command": "haxe.methods.switchToQueue",
 				"category": "Haxe",
 				"icon": {
-					"light": "resources/light/list.png",
-					"dark": "resources/dark/list.png"
+					"light": "images/light/list.png",
+					"dark": "images/dark/list.png"
 				}
 			},
 			{
@@ -792,8 +792,8 @@
 				"command": "haxe.methods.switchToTimers",
 				"category": "Haxe",
 				"icon": {
-					"light": "resources/light/stopwatch.png",
-					"dark": "resources/dark/stopwatch.png"
+					"light": "images/light/stopwatch.png",
+					"dark": "images/dark/stopwatch.png"
 				}
 			},
 			{
@@ -811,8 +811,8 @@
 				"command": "haxe.dependencies.refresh",
 				"category": "Haxe",
 				"icon": {
-					"light": "resources/light/refresh.svg",
-					"dark": "resources/dark/refresh.svg"
+					"light": "images/light/refresh.svg",
+					"dark": "images/dark/refresh.svg"
 				}
 			},
 			{
@@ -1089,7 +1089,7 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"icon": "resources/haxe.png",
+					"icon": "images/haxe.png",
 					"id": "haxeServer",
 					"title": "Haxe Server"
 				}
