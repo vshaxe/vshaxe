@@ -3,6 +3,10 @@
 	"mainTarget": "all",
 	"haxelibs": [
 		{
+			"name": "vscode",
+			"installArgs": ["install", "vscode"]
+		},
+		{
 			"name": "json-rpc",
 			"installArgs": ["git", "json-rpc", "https://github.com/vshaxe/json-rpc"]
 		},
@@ -54,9 +58,8 @@
 				["npx", "webpack", "--mode", "production", "--silent"]
 			],
 			"args": {
-				"haxelibs": ["json-rpc"],
+				"haxelibs": ["vscode", "json-rpc"],
 				"classPaths": [
-					"vscode-extern/src",
 					"server/src",
 					"server/protocol/src",
 					"src",
