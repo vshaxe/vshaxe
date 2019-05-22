@@ -1,6 +1,7 @@
 *
 */**
 !bin/client.js
+!bin/server.js
 !server/bin/server.js
 !eval-debugger/bin/adapter.js
 !configurations/*
@@ -12,4 +13,3 @@
 !LICENSE.md
 !package.json
 !README.md
-!server_wrapper.js

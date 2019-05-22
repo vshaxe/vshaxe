@@ -51,7 +51,7 @@ class LanguageServer {
 		this.haxelibExecutable = haxelibExecutable;
 		this.api = api;
 
-		serverModulePath = context.asAbsolutePath("./server_wrapper.js");
+		serverModulePath = context.asAbsolutePath("bin/server.js");
 		hxFileWatcher = workspace.createFileSystemWatcher(new RelativePattern(folder, "**/*.hx"), false, true, false);
 
 		inline prepareDisplayServerConfig();
