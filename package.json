@@ -889,12 +889,6 @@
 			},
 			{
 				"id": "haxe.argument"
-			},
-			{
-				"id": "json",
-				"extensions": [
-					".haxerc"
-				]
 			}
 		],
 		"grammars": [
@@ -1003,10 +997,6 @@
 			{
 				"fileMatch": "hxformat.json",
 				"url": "./schemas/hxformat-schema.json"
-			},
-			{
-				"fileMatch": ".haxerc",
-				"url": "./schemas/.haxerc-schema.json"
 			}
 		],
 		"problemPatterns": [
