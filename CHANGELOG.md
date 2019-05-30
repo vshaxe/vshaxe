@@ -8,6 +8,7 @@
 **Changes and Improvements**:
 
 - added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message
+- added syntax highlighting support for `#if foo.bar` style conditionals ([haxe#8353](https://github.com/HaxeFoundation/haxe/issues/8353))
 - improved startup time by bundling and minifying vshaxe's JS binaries
 - improved completion to auto-trigger again after inserting `<>` ([haxe#8007](https://github.com/HaxeFoundation/haxe/issues/8007))
 
