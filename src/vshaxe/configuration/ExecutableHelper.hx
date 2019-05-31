@@ -8,7 +8,7 @@ class ExecutableHelper {
 		if (path != "auto") {
 			return path;
 		}
-		var nodeModulesPath = switch Sys.systemName() {
+		/* var nodeModulesPath = switch Sys.systemName() {
 			case "Windows": 'node_modules\\.bin\\$name.cmd';
 			default: 'node_modules/.bin/$name';
 		}
@@ -16,6 +16,7 @@ class ExecutableHelper {
 			nodeModulesPath; // local Haxe installation from Lix or npm-haxe
 		} else {
 			name; // executable from PATH
-		}
+		} */
+		return name;
 	}
 }

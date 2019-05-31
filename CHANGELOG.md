@@ -3,7 +3,6 @@
 **New Features**
 
 - added a `"haxelib.executable"` setting ([#227](https://github.com/vshaxe/vshaxe/issues/227))
-- added `"haxe.executable"` and `"haxelib.executable"` auto-detection for [Lix](https://github.com/lix-pm/lix.client) and [npm-haxe](https://github.com/HaxeFoundation/npm-haxe)
 
 **Changes and Improvements**:
 
@@ -15,7 +14,6 @@
 **Bugfixes**:
 
 - fixed import generation with metadata and no existing imports ([#347](https://github.com/vshaxe/vshaxe/issues/347))
-- fixed the Haxe standard library not being shown in Haxe Dependencies with [Lix](https://github.com/lix-pm/lix.client)
 - fixed a regression in `--cwd` handling
 
 ### 2.11.0 (May 17, 2019)

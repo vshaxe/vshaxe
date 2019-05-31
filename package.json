@@ -77,7 +77,7 @@
 										"auto"
 									],
 									"markdownEnumDescriptions": [
-										"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+										"Auto-detect the Haxelib executable."
 									]
 								},
 								{
@@ -101,7 +101,7 @@
 												"auto"
 											],
 											"markdownEnumDescriptions": [
-												"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+												"Auto-detect the Haxelib executable."
 											]
 										},
 										{
@@ -132,7 +132,7 @@
 														"auto"
 													],
 													"markdownEnumDescriptions": [
-														"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+														"Auto-detect the Haxelib executable."
 													]
 												},
 												{
@@ -157,7 +157,7 @@
 																"auto"
 															],
 															"markdownEnumDescriptions": [
-																"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+																"Auto-detect the Haxelib executable."
 															]
 														},
 														{
@@ -192,7 +192,7 @@
 														"auto"
 													],
 													"markdownEnumDescriptions": [
-														"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+														"Auto-detect the Haxelib executable."
 													]
 												},
 												{
@@ -217,7 +217,7 @@
 																"auto"
 															],
 															"markdownEnumDescriptions": [
-																"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+																"Auto-detect the Haxelib executable."
 															]
 														},
 														{
@@ -252,7 +252,7 @@
 														"auto"
 													],
 													"markdownEnumDescriptions": [
-														"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+														"Auto-detect the Haxelib executable."
 													]
 												},
 												{
@@ -277,7 +277,7 @@
 																"auto"
 															],
 															"markdownEnumDescriptions": [
-																"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+																"Auto-detect the Haxelib executable."
 															]
 														},
 														{
@@ -313,7 +313,7 @@
 								"auto"
 							],
 							"markdownEnumDescriptions": [
-								"Auto-detect the Haxelib executable (from `PATH`, Lix or npm-haxe)."
+								"Auto-detect the Haxelib executable."
 							]
 						},
 						{

@@ -39,15 +39,15 @@ class DependencyResolver {
 			}
 		}
 
-		var lixStdLib = getLixStandardLibrary(haxeExecutable);
-		if (lixStdLib != null) {
-			infos.push(lixStdLib);
-		} else {
-			var stdLibPath = getStandardLibraryPath(haxeExecutable.configuration);
-			if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
-				infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configuration.executable));
-			}
+		/* var lixStdLib = getLixStandardLibrary(haxeExecutable);
+			if (lixStdLib != null) {
+				infos.push(lixStdLib);
+		} else {*/
+		var stdLibPath = getStandardLibraryPath(haxeExecutable.configuration);
+		if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
+			infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configuration.executable));
 		}
+		// }
 
 		return infos;
 	}
