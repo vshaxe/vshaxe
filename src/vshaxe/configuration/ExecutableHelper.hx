@@ -9,14 +9,14 @@ class ExecutableHelper {
 			return path;
 		}
 		/* var nodeModulesPath = switch Sys.systemName() {
-			case "Windows": 'node_modules\\.bin\\$name.cmd';
-			default: 'node_modules/.bin/$name';
-		}
-		return if (FileSystem.exists(PathHelper.absolutize(nodeModulesPath, folder.fsPath))) {
-			nodeModulesPath; // local Haxe installation from Lix or npm-haxe
-		} else {
-			name; // executable from PATH
-		} */
+				case "Windows": 'node_modules\\.bin\\$name.cmd';
+				default: 'node_modules/.bin/$name';
+			}
+			return if (FileSystem.exists(PathHelper.absolutize(nodeModulesPath, folder.fsPath))) {
+				nodeModulesPath; // local Haxe installation from Lix or npm-haxe
+			} else {
+				name; // executable from PATH
+		}*/
 		return name;
 	}
 }

@@ -6,6 +6,7 @@
 
 **Changes and Improvements**:
 
+- updated to haxe-formatter version [1.7.1](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.7.1)
 - added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message
 - added syntax highlighting support for `#if foo.bar` style conditionals ([haxe#8353](https://github.com/HaxeFoundation/haxe/issues/8353))
 - improved startup time by bundling and minifying vshaxe's JS binaries
@@ -14,7 +15,7 @@
 **Bugfixes**:
 
 - fixed import generation with metadata and no existing imports ([#347](https://github.com/vshaxe/vshaxe/issues/347))
-- fixed a regression in `--cwd` handling
+- fixed some issues with `--cwd` handling
 
 ### 2.11.0 (May 17, 2019)
 
