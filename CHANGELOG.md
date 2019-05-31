@@ -1,4 +1,4 @@
-### 2.12.0 (to be released)
+### 2.12.0 (May 31, 2019)
 
 **New Features**
 
