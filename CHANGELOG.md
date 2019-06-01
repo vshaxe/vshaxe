@@ -1,4 +1,12 @@
+### 2.12.2 (to be released)
+
+**Bugfixes**:
+
+- fixed highlighting of type names in `IntIterator` literals ([haxe-TmLanguage#43](https://github.com/vshaxe/haxe-TmLanguage/issues/43))
+
 ### 2.12.1 (June 1, 2019)
+
+**Bugfixes**:
 
 - fixed classpath parsing not working anymore
 
