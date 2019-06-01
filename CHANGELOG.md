@@ -1,3 +1,7 @@
+### 2.12.1 (June 1, 2019)
+
+- fixed classpath parsing not working anymore
+
 ### 2.12.0 (May 31, 2019)
 
 **New Features**
