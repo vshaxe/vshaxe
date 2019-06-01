@@ -1,22 +1,22 @@
 ### 2.12.2 (to be released)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed highlighting of type names in `IntIterator` literals ([haxe-TmLanguage#43](https://github.com/vshaxe/haxe-TmLanguage/issues/43))
 
 ### 2.12.1 (June 1, 2019)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed classpath parsing not working anymore
 
 ### 2.12.0 (May 31, 2019)
 
-**New Features**
+**New Features:**
 
 - added a `"haxelib.executable"` setting ([#227](https://github.com/vshaxe/vshaxe/issues/227))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - updated to haxe-formatter version [1.7.1](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.7.1)
 - added "Show Error" / "Retry" buttons to the "Haxe has crashed 3 times" message
@@ -24,43 +24,43 @@
 - improved startup time by bundling and minifying vshaxe's JS binaries
 - improved completion to auto-trigger again after inserting `<>` ([haxe#8007](https://github.com/HaxeFoundation/haxe/issues/8007)) and `inline`
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed import generation with metadata and no existing imports ([#347](https://github.com/vshaxe/vshaxe/issues/347))
 - fixed some issues with `--cwd` handling
 
 ### 2.11.0 (May 17, 2019)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - updated to haxe-formatter version [1.7.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.7.0)
 - changed the highlighting of `import` and `using` for more consistency with other languages
 - renamed the `"haxe.displayConfigurations"` setting to `"haxe.configurations"`
 - renamed the `"haxe.selectDisplayConfiguration"` command to `"haxe.selectConfiguration"`
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed a regression with `--cwd` by using absolute paths in display requests again ([#345](https://github.com/vshaxe/vshaxe/issues/345))
 
 ### 2.10.1 (May 14, 2019)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed a regression with empty line handling when generating imports
 
 ### 2.10.0 (May 14, 2019)
 
-**New Features**
+**New Features:**
 
 - added a `Reveal Active File in Side Bar` command ([#341](https://github.com/vshaxe/vshaxe/issues/341))
 - added a `"haxe.codeGeneration.switch.parentheses"` setting ([#336](https://github.com/vshaxe/vshaxe/issues/336))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved completion to hide `@:deprecated` types ([haxe#8178](https://github.com/HaxeFoundation/haxe/issues/8178))
 - changed `switch` to be generated without parentheses by default ([#336](https://github.com/vshaxe/vshaxe/issues/336))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed syntax highlighting in hover and completion with VSCode 1.34
 - fixed some path / cwd issues by using relative paths for display requests ([#248](https://github.com/vshaxe/vshaxe/issues/248), [#310](https://github.com/vshaxe/vshaxe/issues/310))
@@ -70,24 +70,24 @@
 
 ### 2.9.2 (April 24, 2019)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed backwards compatibility with VSCode versions < 1.33
 - fixed eval-debugger being incompatible with [Lix](https://github.com/lix-pm/lix.client) ([eval-debugger#6](https://github.com/vshaxe/eval-debugger/pull/6))
 
 ### 2.9.1 (April 21, 2019)
 
-**New Features**
+**New Features:**
 
 - added a `"haxe.enableCompletionCacheWarning"` setting
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed postfix completion incorrectly triggering after `case` sometimes ([#337](https://github.com/vshaxe/vshaxe/issues/337))
 
 ### 2.9.0 (April 20, 2019)
 
-**New Features**
+**New Features:**
 
 - added [snippet completion](https://github.com/vshaxe/vshaxe/wiki/Snippets) for generating type, field and `package` boilerplate
 - added a large number of postfix completion items:
@@ -100,7 +100,7 @@
 - added a `"haxe.postfixCompletion.level"` setting
 - added field modifier keywords to completion
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved completion to trigger automatically after `$` in string interpolation
 - improved completion in doc comments (now falls back to word based suggestions)
@@ -112,28 +112,28 @@
 - hide unused imports diagnostics if compiler errors exist to avoid false positives
 - hide unresolved identifier diagnostics if parser errors exist to make them easier to spot
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed `:` not being auto-inserted after `null` / `true` / `false` patterns
 - fixed mid-word-invocation of postfix completion (`expr.swit|`)
 
 ### 2.8.1 (April 4, 2019)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - added `var` and `final` to postfix completion
 - improved postfix completion so that items don't always show on top
 
 ### 2.8.0 (March 23, 2019)
 
-**New Features**
+**New Features:**
 
 - added support for the ["Auto Fix" command and preferred code actions](https://code.visualstudio.com/updates/v1_32#_auto-fix-and-preferred-code-actions)
 - added an "Add override keyword" quick fix (Haxe 4+)
 - added postfix `for` completion for any type with iterators (requires Haxe 4.0.0-rc.2)
 - added postfix `for` completion for any `length` / `count` / `size` fields
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - updated to haxe-formatter version [1.6.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.6.0)
 - updated eval-debugger for Haxe 4.0.0-rc.2 (no longer works with rc.1)
@@ -143,19 +143,19 @@
 - improved import quick fixes to offer both import styles when applicable
 - removed support for signature-help based code generation (Haxe 3.4)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed postfix `switch` completion on `Null<Enum>` (requires Haxe 4.0.0-rc.2)
 
 ### 2.7.0 (March 6, 2019)
 
-**New Features**
+**New Features:**
 
 - added document symbol / folding / formatting support in untitled files
 - added a view to inspect Haxe's cache (requires latest Haxe dev)
 - added an upgrade notification for old Haxe 4 preview builds
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - updated to haxe-formatter version [1.5.1](https://github.com/HaxeCheckstyle/haxe-formatter/blob/master/CHANGELOG.md#version-151-2019-03-06)
 - fixed compatibility with upcoming VSCode 1.32.0 ([#317](https://github.com/vshaxe/vshaxe/issues/317))
@@ -165,7 +165,7 @@
 - moved the Haxe Methods view to a separate Haxe Server view container
 - replaced the `"haxe.enableMethodsView"` setting with `"haxe.enableServerView"`
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed tasks not working on Windows with a `haxe` folder next to `haxe.exe`
 - fixed icons of extern enum abstract values in completion
@@ -174,61 +174,61 @@
 
 ### 2.6.0 (February 12, 2019)
 
-**New Features**
+**New Features:**
 
 - added debugging support for Haxe 4 macros and `--interp` scripts
 - added postfix `for` completion to `haxe.ds.Map` and `haxe.ds.List`
 - added support for markdown syntax highlighting in doc comments
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - changed the required VSCode version to 1.31.0
 - init project command: added a `launch.json` for macro / `--interp` debugging
 
 ### 2.5.1 (February 7, 2019)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed tasks no longer working in VSCode 1.30.x ([vscode#67990](https://github.com/Microsoft/vscode/issues/67990))
 
 ### 2.5.0 (February 7, 2019)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - changed the required VSCode version to 1.30.0
 - support the new `clear` option in `"haxe.taskPresentation"`
 - updated to haxe-formatter version [1.4.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.4.0)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - worked around tasks not working in VSCode 1.31.0 ([vscode#67990](https://github.com/Microsoft/vscode/issues/67990))
 
 ### 2.4.5 (December 5, 2018)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - updated to haxe-formatter version [1.3.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.3.0)
 - disallowed using `(` as a commit character in pattern completion ([#292](https://github.com/vshaxe/vshaxe/issues/292))
 
 ### 2.4.4 (October 17, 2018)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - updated to haxe-formatter version [1.1.2](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.1.2)
 
 ### 2.4.3 (October 16, 2018)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - really updated to haxe-formatter version [1.1.1](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.1.1) ^_^
 
 ### 2.4.2 (October 15, 2018)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed tasks not working when vshaxe hasn't been activated yet ([#296](https://github.com/vshaxe/vshaxe/issues/296))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - updated to haxe-formatter version [1.1.1](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.1.1)
 - added syntax highlighting support for key-value iterators ([HXP-0005](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0005-key-value-iter.md#key--value-iteration-syntax))
@@ -239,7 +239,7 @@
 
 ### 2.4.1 (September 12, 2018)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - updated to haxe-formatter version [1.1.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.1.0)
 - allowed auto-closing of brackets in single quote strings ([#123](https://github.com/vshaxe/vshaxe/issues/123))
@@ -247,21 +247,21 @@
 
 ### 2.4.0 (August 23, 2018)
 
-**New Features**:
+**New Features:**
 
 - added support for code formatting (using [haxe-formatter](https://github.com/HaxeCheckstyle/haxe-formatter))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed highlighting of macro patterns
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved document symbol ranges to include doc comments
 
 ### 2.3.0 (July 31, 2018)
 
-**New Features**:
+**New Features:**
 
 - added support for removing unused imports with [`"editor.codeActionsOnSave"`](https://code.visualstudio.com/updates/v1_23#_run-code-actions-on-save)
 - added support for triggering quick fixes from the problems view [in VSCode 1.26](https://github.com/Microsoft/vscode/issues/52627#issuecomment-405254755)
@@ -269,12 +269,12 @@
 - added folding markers for `#if` / `#else` / `#elseif` conditionals ([#36](https://github.com/vshaxe/vshaxe/issues/36))
 - added folding markers for multi-line string and array literals
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed static import completion with Haxe 4.0.0-preview.4 ([#265](https://github.com/vshaxe/vshaxe/issues/265))
 - fixed document symbol ranges in files with Unicode characters
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved folding of block comments (the final `**/` is now hidden too)
 - improved completion and document symbols to ignore locals named `_`
@@ -283,22 +283,22 @@
 
 ### 2.2.1 (July 21, 2018)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed `Restart Language Sever` duplicating document symbols
 - fixed document symbols not using the operator icon in abstracts
 
 ### 2.2.0 (July 20, 2018)
 
-**New Features**:
+**New Features:**
 
 - added hierarchy support to document symbols for the outline view ([#223](https://github.com/vshaxe/vshaxe/issues/223))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed several issues related to display argument provider initialization ([#235](https://github.com/vshaxe/vshaxe/issues/235))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved document symbols to work with conditional compilation
 - improved document symbols to support Haxe 4 syntax (`enum abstract`, `final`...)
@@ -307,7 +307,7 @@
 
 ### 2.1.0 (July 12, 2018)
 
-**New Features**:
+**New Features:**
 
 - added support for fading out unused code
 - added `"explorer.autoReveal"` support to the dependency explorer ([#152](https://github.com/vshaxe/vshaxe/issues/152))
@@ -317,7 +317,7 @@
 - added a `Debug Selected Configuration` command ([#236](https://github.com/vshaxe/vshaxe/issues/236))
 - added support for "Go to Type Definition" (requires [haxe#7266](https://github.com/HaxeFoundation/haxe/pull/7266))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed auto-imports in override generation being duplicated ([#257](https://github.com/vshaxe/vshaxe/issues/257))
 - fixed compilation through the server for HXML files with `--next` ([#262](https://github.com/vshaxe/vshaxe/issues/262))
@@ -326,7 +326,7 @@
 - fixed libraries in the dependency explorer being listed twice in rare cases ([#263](https://github.com/vshaxe/vshaxe/issues/263))
 - fixed types in completion sometimes being sorted counter-intuitively
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - changed the required VSCode version to 1.25.0
 - improved completion to allow selecting metadata by typing `(`
@@ -341,7 +341,7 @@
 
 ### 2.0.1 (June 12, 2018)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed disabling of auto-imports in `"haxe.codeGeneration"` settings
 
@@ -349,7 +349,7 @@
 
 _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:**_
 
-**New Features**:
+**New Features:**
 
 - added support for auto-imports in completion ([#2](https://github.com/vshaxe/vshaxe/issues/2#issuecomment-386898358))
 - added structure field completion ([#110](https://github.com/vshaxe/vshaxe/issues/110))
@@ -368,7 +368,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - added syntax highlighting support for `var ?x:Int` syntax ([haxe#6707](https://github.com/HaxeFoundation/haxe/issues/6707))
 - added support for Haxe 4 style CLI arguments ([haxe#6862](https://github.com/HaxeFoundation/haxe/pull/6862))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed all cases of completion being triggered after `:` on a `case` ([#112](https://github.com/vshaxe/vshaxe/issues/112))
 - fixed inconsistent presentation of function types in hover ([#144](https://github.com/vshaxe/vshaxe/issues/144))
@@ -376,7 +376,7 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 - fixed import code actions not working in some places ([haxe](https://github.com/HaxeFoundation/haxe)[[#5950](https://github.com/HaxeFoundation/haxe/issues/5950), [#5951](https://github.com/HaxeFoundation/haxe/issues/5951)])
 - fixed function generation not working with aliased function types ([#103](https://github.com/vshaxe/vshaxe/issues/103))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved workspace symbols performance / avoid hangs on open ([haxe#7056](https://github.com/HaxeFoundation/haxe/issues/7056))
 - improved find references to include results from modules that are not compiled ([#96](https://github.com/vshaxe/vshaxe/issues/96))
@@ -397,31 +397,31 @@ _The following features, fixes and improvements **require Haxe 4.0.0-preview.4:*
 ____
 _These changes work with any Haxe version vshaxe is compatible with:_
 
-**New Features**:
+**New Features:**
 
 - added a `"haxe.enableSignatureHelpDocumentation"` setting ([#197](https://github.com/vshaxe/vshaxe/issues/197))
 - added Haxe and HXML highlighting in fenced markdown code blocks
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#40](https://github.com/vshaxe/haxe-TmLanguage/issues/40), [#41](https://github.com/vshaxe/haxe-TmLanguage/issues/41)])
 - fixed files sometimes being opened twice with different cases on Windows
 - fixed the treatment of missing properties in `"haxe.codeGeneration"`
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved completion to trigger automatically after certain keywords (e.g. `import`)
 - changed hover hints to use Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md#new-function-type-syntax))
 
 ### 1.12.0 (May 3, 2018)
 
-**New Features**:
+**New Features:**
 
 - added a `haxe: active configuration` task if there's at least two configurations
 - added the ability to specify labels for items in `"haxe.displayConfigurations"`
 - added a `haxeCompletionProivder` context key (can be used in [keyboard shortcuts](https://code.visualstudio.com/docs/getstarted/keybindings#_when-clause-contexts))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed some dependencies missing from the dependency explorer
 - fixed compilation server socket not listening on `localhost` ([lime-vscode-extension#35](https://github.com/openfl/lime-vscode-extension/issues/35))
@@ -431,7 +431,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - fixed const type param regex literals not being highlighted ([haxe-TmLanguage#37](https://github.com/vshaxe/haxe-TmLanguage/issues/37))
 - fixed language server not exiting properly in some cases ([haxe-languageserver#34](https://github.com/vshaxe/haxe-languageserver/pull/34))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - added syntax highlighting support for `enum abstract` ([haxe#6982](https://github.com/HaxeFoundation/haxe/issues/6982))
 - removed packages from function declarations in hover hints for better readability
@@ -439,7 +439,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.11.0 (April 9, 2018)
 
-**New Features**:
+**New Features:**
 
 - added a `$haxe-absolute` problem matcher for errors with absolute paths ([#23](https://github.com/vshaxe/vshaxe/issues/23))
 - added a `$haxe-error` problem matcher to add Haxe errors without positions to Problems ([#214](https://github.com/vshaxe/vshaxe/issues/214))
@@ -447,14 +447,14 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - added a `"haxe.taskPresentation"` setting ([#185](https://github.com/vshaxe/vshaxe/issues/185))
 - added `problemMatchers` and `taskPresentation` to the extension API
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed rename errors not being shown in VSCode ([#213](https://github.com/vshaxe/vshaxe/issues/213))
 - fixed some issues that could lead to hangs when compiling through the server
 - fixed broken highlighting with functions in enum constructor calls ([haxe-TmLanguage#36](https://github.com/vshaxe/haxe-TmLanguage/issues/36))
 - fixed most cases of completion being triggered after `case` / `default` ([#112](https://github.com/vshaxe/vshaxe/issues/112))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved highlighting of escape sequences in strings ([haxe-TmLanguage#35](https://github.com/vshaxe/haxe-TmLanguage/issues/35))
 - clarified the source of problems with `[tasks]` and `[diagnostics]` labels ([#132](https://github.com/vshaxe/vshaxe/issues/132))
@@ -462,13 +462,13 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.10.1 (April 4, 2018)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - don't include unused `vscode-textmate` in the vshaxe extension package
 
 ### 1.10.0 (April 4, 2018)
 
-**New Features**:
+**New Features:**
 
 - added support for file icon themes in the dependency explorer ([#146](https://github.com/vshaxe/vshaxe/issues/146))
 - added a context menu to items in the dependency explorer
@@ -479,7 +479,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - added highlighting for Haxe 4's new function type syntax ([HXP-0003](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0003-new-function-type.md#new-function-type-syntax))
 - added code folding support for different region marker styles ([#202](https://github.com/vshaxe/vshaxe/pull/202#issuecomment-376507302))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed the dependency explorer's `std` version missing with Haxe 4
 - fixed the dependency explorer's `std` version not updating on `"haxe.executable"` changes
@@ -492,7 +492,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - fixed `"haxe.enableCodeLens"` changes not triggering an update ([#95](https://github.com/vshaxe/vshaxe/issues/95))
 - fixed exit code of clients connecting to `"haxe.displayPort"` always being 0 ([haxe#6431](https://github.com/HaxeFoundation/haxe/issues/6431))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - changed the required VSCode version to 1.20.0
 - the problems view is now opened after global diagnostics runs ([#38](https://github.com/vshaxe/vshaxe/issues/38))
@@ -502,41 +502,41 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.9.3 (November 5, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed excessive keyword highlighting in HXML files ([#177](https://github.com/vshaxe/vshaxe/issues/177))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - only show "Haxe Dependencies" in the explorer if vshaxe was activated in the workspace ([#174](https://github.com/vshaxe/vshaxe/issues/174))
 - adapt to latest Haxe 4 (development branch) changes
 
 ### 1.9.2 (October 24, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed [compiler error code actions](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#compiler-error-actions) for indent lengths != 2 ([#168](https://github.com/vshaxe/vshaxe/issues/168))
 - fixed completion in workspaces where the selected completion provider doesn't exist anymore
 - fixed `package` statement insertion randomly not working ([#172](https://github.com/vshaxe/vshaxe/issues/172))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - added `final` keyword to syntax highlighting
 
 ### 1.9.1 (August 16, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed the dependency explorer for local haxelib repos ([#162](https://github.com/vshaxe/vshaxe/issues/162))
 - fixed some issues with Haxe executable handling ([#163](https://github.com/vshaxe/vshaxe/issues/163), [#166](https://github.com/vshaxe/vshaxe/issues/166))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - added missing compiler metadata identifiers to syntax highlighting
 
 ### 1.9.0 (July 21, 2017)
 
-**New Features**:
+**New Features:**
 
 - added a `"haxe.executable"` setting
 - added a task provider for top-level HXML files
@@ -544,7 +544,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - added an extension API enabling Haxe build tools to provide completion ([#18](https://github.com/vshaxe/vshaxe/issues/18))
 - added a `Select Completion Provider` command
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed the dependency explorer for `haxelib dev` libs in the haxelib repo ([#141](https://github.com/vshaxe/vshaxe/issues/141))
 - fixed the dependency explorer with a relative `"haxe.executable"` path ([#58](https://github.com/vshaxe/vshaxe/issues/58))
@@ -554,7 +554,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - fixed a regression with duplicated Haxe output channels ([#87](https://github.com/vshaxe/vshaxe/issues/87))
 - fixed line break handling in completion docs ([#150](https://github.com/vshaxe/vshaxe/issues/150))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - changed the required VSCode version to 1.14.0
 - changed dependency explorer selection to open files permanently on double-click
@@ -565,18 +565,18 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.8.0 (June 28, 2017)
 
-**New Features**:
+**New Features:**
 
 - added a "Haxe Dependencies" view to the explorer
 - added support for renaming local variables and parameters ([haxe-languageserver#32](https://github.com/vshaxe/haxe-languageserver/issues/32))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed a minor string interpolation highlighting issue ([haxe-TmLanguage#27](https://github.com/vshaxe/haxe-TmLanguage/issues/27))
 - fixed catch variables not being listed in document symbols
 - fixed diagnostics of deleted / renamed files not being removed ([#132](https://github.com/vshaxe/vshaxe/issues/132))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - changed the required VSCode version to 1.13.0
 - allowed filtering by path in the display configuration picker
@@ -585,12 +585,12 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.7.0 (May 24, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed Unicode character handling for completion with Haxe 4
 - fixed filtering in metadata completion ([#121](https://github.com/vshaxe/vshaxe/issues/121))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - changed the required VSCode version to 1.12.0
 - added a progress indicator for Completion Cache Initialization (#108)
@@ -599,49 +599,49 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.6.0 (May 13, 2017)
 
-**New Features**:
+**New Features:**
 
 - added highlighting support for Haxe 4 arrow functions ([HXP-0002](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0002-arrow-functions.md#arrow-functions))
 - added a `useArrowSyntax` option for anonymous function generation
 - added a "Generate capture variables" code action
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#4](https://github.com/vshaxe/haxe-TmLanguage/issues/4), [#6](https://github.com/vshaxe/haxe-TmLanguage/issues/6), [#11](https://github.com/vshaxe/haxe-TmLanguage/issues/11), [#16](https://github.com/vshaxe/haxe-TmLanguage/issues/16), [#22](https://github.com/vshaxe/haxe-TmLanguage/issues/22)])
 
 ### 1.5.1 (April 21, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed toplevel completion hanging in some cases ([haxe-languageserver#23](https://github.com/vshaxe/haxe-languageserver/pull/23#issuecomment-295468634))
 
 ### 1.5.0 (April 7, 2017)
 
-**New Features**:
+**New Features:**
 
 - added a Haxe problem matcher (referenced with `"problemMatcher": "$haxe"`, VSCode 1.11.0+)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - use the Haxe problem matcher in "Init Project"
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed support for Haxe 4+ (development branch)
 
 ### 1.4.0 (International Women's Day, 2017)
 
-**New Features**:
+**New Features:**
 
 - added a `Toggle Code Lens` command ([#94](https://github.com/vshaxe/vshaxe/issues/94))
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed several small highlighting issues ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#2](https://github.com/vshaxe/haxe-TmLanguage/issues/2), [#5](https://github.com/vshaxe/haxe-TmLanguage/issues/5), [#8](https://github.com/vshaxe/haxe-TmLanguage/issues/8), [#14](https://github.com/vshaxe/haxe-TmLanguage/issues/14), [#15](https://github.com/vshaxe/haxe-TmLanguage/issues/15), [#17](https://github.com/vshaxe/haxe-TmLanguage/issues/17)])
 - fixed signature help sometimes not having argument names ([haxe#6064](https://github.com/HaxeFoundation/haxe/issues/6064))
 - fixed argument name generation with anon structure types
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - diagnostics now update when the active editor is changed
 - init project command: `.hxml` files in local haxelib repos are now ignored ([#93](https://github.com/vshaxe/vshaxe/issues/93))
@@ -653,29 +653,29 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.3.3 (February 16, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed diagnostics always being filtered if `diagnosticsPathFilter` is set
 
 ### 1.3.2 (February 14, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - properly handle cancelled requests in the language server (so dead requests don't pile up inside VS Code)
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - no longer request diagnostics if `diagnosticsPathFilter` doesn't match
 
 ### 1.3.1 (February 9, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed invalid argument name generation with type parameters ([haxe-languageserver#28](https://github.com/vshaxe/haxe-languageserver/issues/28))
 - fixed inconsistent icon usage in field and toplevel completion
 - fixed diagnostics sometimes being reported for the wrong file
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - smarter error handling ([#20](https://github.com/vshaxe/vshaxe/issues/20), [haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
 - ignore hidden files in the "init project" command ([#10](https://github.com/vshaxe/vshaxe/issues/10))
@@ -685,12 +685,12 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.3.0 (February 2, 2017)
 
-**New Features**:
+**New Features:**
 
 - allow generation of anonymous functions in signature completion
 - added a `"haxe.codeGeneration"` setting
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed regex highlighting in VSCode 1.9.0
 - fixed highlighting of constructor references (`Class.new`)
@@ -701,14 +701,14 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - fixed toplevel completion with whitespace after `:` ([haxe-languageserver#22](https://github.com/vshaxe/haxe-languageserver/issues/22))
 - fixed some compiler errors not being highlighted by diagnostics ([#62](https://github.com/vshaxe/vshaxe/issues/62))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved handling of Haxe crashes, e.g. with invalid arguments ([haxe-languageserver#20](https://github.com/vshaxe/haxe-languageserver/issues/20))
 - support auto closing and surrounding brackets in hxml files (for `--macro` arguments)
 
 ### 1.2.0 (January 23, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed highlighting of variables and single quoted strings in the upcoming VSCode 1.9.0
 - fixed highlighting of identifiers starting with `var` / `function` ([#76](https://github.com/vshaxe/vshaxe/issues/76))
@@ -723,7 +723,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - fixed leading dots in `Float` literals not being highlighted (e.g. in `.52`)
 - fixed type names with leading underscores not being highlighted as such
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved highlighting for macro reification
 - improved highlighting for metadata
@@ -742,20 +742,20 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.1.1 (January 17, 2017)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed a highlighting-related crash when typing `static` before a field
 
 ### 1.1.0 (January 12, 2017)
 
-**New Features**:
+**New Features:**
 
 - added proper highlighting for string interpolation ([#26](https://github.com/vshaxe/vshaxe/issues/26))
 - added proper highlighting for regex literals
 - added proper highlighting for identifiers (method and variable names)
 - added highlighting for JavaDoc-tags in block comments (`@param`, `@return` etc)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed diagnostics not working if project path contains a `'` ([#64](https://github.com/vshaxe/vshaxe/issues/64))
 - fixed the import insert position with file header comments ([haxe-languageserver#27](https://github.com/vshaxe/haxe-languageserver/issues/27))
@@ -767,13 +767,13 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 
 ### 1.0.1 (December 6, 2016)
 
-**Bugfixes**:
+**Bugfixes:**
 
 - fixed parsing types of methods with 10+ arguments ([haxe-languageserver#26](https://github.com/vshaxe/haxe-languageserver/issues/26))
 
 ### 1.0.0 (December 1, 2016)
 
-**New Features**:
+**New Features:**
 
 - added a `Run Global Diagnostics Check` command
 - added support for Code Lens (needs to be enabled with `"haxe.enableCodeLens"`)
@@ -796,7 +796,7 @@ _These changes work with any Haxe version vshaxe is compatible with:_
 - fixed keyboard focus being stolen by the Haxe output channel sometimes
 - fixed display config dropdown in the status bar not showing right away ([#37](https://github.com/vshaxe/vshaxe/issues/37))
 
-**Changes and Improvements**:
+**Changes and Improvements:**
 
 - improved code highlighting
 - improved handling of unsupported Haxe versions ([#16](https://github.com/vshaxe/vshaxe/issues/16))
