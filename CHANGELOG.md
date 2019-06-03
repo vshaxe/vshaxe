@@ -3,6 +3,7 @@
 **Bugfixes:**
 
 - fixed highlighting of type names in `IntIterator` literals ([haxe-TmLanguage#43](https://github.com/vshaxe/haxe-TmLanguage/issues/43))
+- fixed highlighting of `#if` conditions with capitalized defines
 
 ### 2.12.1 (June 1, 2019)
 
