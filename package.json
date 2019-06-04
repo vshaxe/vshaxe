@@ -739,7 +739,7 @@
 				"category": "Haxe"
 			},
 			{
-				"title": "Initialize VS Code Project",
+				"title": "Initialize Project",
 				"command": "haxe.initProject",
 				"category": "Haxe"
 			},
