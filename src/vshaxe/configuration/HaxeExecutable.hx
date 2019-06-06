@@ -1,64 +1,47 @@
 package vshaxe.configuration;
 
+import js.node.Buffer;
+import js.node.ChildProcess;
 import haxe.DynamicAccess;
 import haxe.io.Path;
 import haxe.extern.EitherType;
 import sys.FileSystem;
-import vshaxe.HaxeExecutableConfiguration;
 import vshaxe.helper.PathHelper;
 
 /** unprocessed config **/
 private typedef RawHaxeExecutableConfig = {
-	var path:String;
-	var env:DynamicAccess<String>;
+	final path:String;
+	final env:DynamicAccess<String>;
 }
 
 private typedef HaxeExecutablePathOrConfigBase = EitherType<String, RawHaxeExecutableConfig>;
 
 typedef HaxeExecutablePathOrConfig = EitherType<String, RawHaxeExecutableConfig & {
-	var ?windows:RawHaxeExecutableConfig;
-	var ?linux:RawHaxeExecutableConfig;
-	var ?osx:RawHaxeExecutableConfig;
+	final ?windows:RawHaxeExecutableConfig;
+	final ?linux:RawHaxeExecutableConfig;
+	final ?osx:RawHaxeExecutableConfig;
 }>;
 
-class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration, RawHaxeExecutableConfig> {
+private typedef HaxeExecutableConfiguration = vshaxe.HaxeExecutableConfiguration & {
+	final ?version:String;
+}
+
+class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 	public static final SYSTEM_KEY = switch Sys.systemName() {
 			case "Windows": "windows";
 			case "Mac": "osx";
 			default: "linux";
 		};
 
+	var autoResolveValue:Null<String>;
+
 	public function new(folder) {
 		super("haxe.executable", folder);
 	}
 
-	override function isSame(oldConfig:RawHaxeExecutableConfig, newConfig:RawHaxeExecutableConfig):Bool {
-		// ouch...
-		if ((oldConfig is String) || (newConfig is String)) {
-			if (oldConfig != newConfig)
-				return false;
-		}
-
-		if (oldConfig.path != newConfig.path)
-			return false;
-
-		var oldKeys = oldConfig.env.keys();
-		var newKeys = newConfig.env.keys();
-		if (oldKeys.length != newKeys.length)
-			return false;
-
-		for (key in newKeys) {
-			var oldValue = oldConfig.env[key];
-			var newValue = newConfig.env[key];
-			if (oldValue != newValue)
-				return false;
-			oldKeys.remove(key);
-		}
-
-		if (oldKeys.length > 0)
-			return false;
-
-		return true;
+	public function setAutoResolveValue(value:Null<String>) {
+		autoResolveValue = value;
+		update();
 	}
 
 	override function updateConfig() {
@@ -84,7 +67,9 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration, R
 		if (systemConfig != null)
 			merge(systemConfig);
 
-		executable = ExecutableHelper.resolve(folder.uri, executable, "haxe");
+		if (executable == "auto") {
+			executable = if (autoResolveValue == null) "haxe" else autoResolveValue;
+		}
 
 		var isCommand = false;
 		if (!Path.isAbsolute(executable)) {
@@ -99,11 +84,26 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration, R
 			}
 		}
 
-		rawConfig = input;
 		configuration = {
 			executable: executable,
 			isCommand: isCommand,
-			env: env
+			env: env,
+			version: getVersion(executable)
 		}
+	}
+
+	function getVersion(haxeExecutable:String):Null<String> {
+		var result = ChildProcess.spawnSync(haxeExecutable, ["-version"], {cwd: folder.uri.fsPath});
+		if (result != null && result.stderr != null) {
+			var output = (result.stderr : Buffer).toString().trim();
+			if (output == "") {
+				output = (result.stdout : Buffer).toString().trim(); // haxe 4.0 prints -version output to stdout instead
+			}
+
+			if (output != null) {
+				return output.split(" ")[0].trim();
+			}
+		}
+		return null;
 	}
 }

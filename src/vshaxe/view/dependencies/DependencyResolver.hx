@@ -2,14 +2,11 @@ package vshaxe.view.dependencies;
 
 import haxe.Json;
 import haxe.io.Path;
-import js.node.Buffer;
-import js.node.ChildProcess;
 import sys.FileSystem;
 import sys.io.File;
-import vshaxe.configuration.HaxeExecutable;
-import vshaxe.configuration.HaxelibExecutable;
+import vshaxe.configuration.HaxeInstallation;
 import vshaxe.helper.PathHelper;
-import vshaxe.helper.HxmlParser;
+import vshaxe.helper.ProcessHelper;
 
 using Lambda;
 
@@ -20,72 +17,48 @@ typedef DependencyInfo = {
 }
 
 class DependencyResolver {
-	public static function resolveDependencies(dependencies:DependencyList, haxeExecutable:HaxeExecutable,
-			haxelibExecutable:HaxelibExecutable):Array<DependencyInfo> {
+	public static function resolveDependencies(dependencies:DependencyList, haxeInstallation:HaxeInstallation):Array<DependencyInfo> {
+		var haxe = haxeInstallation.haxe.configuration;
+		var haxelib = haxeInstallation.haxelib.configuration;
+
 		var paths = [];
 		for (lib in dependencies.libs) {
-			paths = paths.concat(resolveHaxelib(lib, haxelibExecutable.configuration));
+			paths = paths.concat(resolveHaxelib(lib, haxelib));
 		}
 		paths = paths.concat(dependencies.classPaths);
 		paths = pruneSubdirectories(paths);
 
 		var infos:Array<DependencyInfo> = [];
-		var haxelibRepo = getHaxelibRepo(haxelibExecutable.configuration);
-		if (haxelibRepo != null) {
-			for (info in paths.map(getDependencyInfo.bind(_, haxelibRepo))) {
+		var libraryBasePath = haxeInstallation.libraryBasePath;
+		if (libraryBasePath != null) {
+			for (info in paths.map(getDependencyInfo.bind(_, libraryBasePath))) {
 				if (info != null) {
 					infos.push(info);
 				}
 			}
 		}
 
-		/* var lixStdLib = getLixStandardLibrary(haxeExecutable);
-			if (lixStdLib != null) {
-				infos.push(lixStdLib);
-		} else {*/
-		var stdLibPath = getStandardLibraryPath(haxeExecutable.configuration);
+		var stdLibPath = haxeInstallation.standardLibraryPath;
 		if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
-			infos.push(getStandardLibraryInfo(stdLibPath, haxeExecutable.configuration.executable));
+			@:nullSafety(Off) infos.push({
+				name: "haxe",
+				version: if (haxe.version == null) "?" else haxe.version,
+				path: stdLibPath
+			});
 		}
-		// }
 
 		return infos;
 	}
 
-	static function getHaxelibRepo(haxelib:String):Null<String> {
-		var output = getProcessOutput('$haxelib config')[0];
-		return if (output == null) {
-			trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
-			null;
-		} else {
-			Path.normalize(output);
-		}
-	}
-
 	static function resolveHaxelib(lib:String, haxelib:String):Array<String> {
 		var paths = [];
-		for (line in getProcessOutput('$haxelib path $lib')) {
+		for (line in ProcessHelper.getOutput('$haxelib path $lib')) {
 			var potentialPath = Path.normalize(line);
 			if (FileSystem.exists(potentialPath)) {
 				paths.push(potentialPath);
 			}
 		}
 		return paths;
-	}
-
-	static function getProcessOutput(command:String):Array<String> {
-		try {
-			var oldCwd = Sys.getCwd();
-			if (workspace.workspaceFolders != null) {
-				Sys.setCwd(workspace.workspaceFolders[0].uri.fsPath);
-			}
-			var result:Buffer = ChildProcess.execSync(command);
-			Sys.setCwd(oldCwd);
-			var lines = result.toString().split("\n");
-			return [for (line in lines) line.trim()];
-		} catch (e:Any) {
-			return [];
-		}
 	}
 
 	// ignore directories that are subdirectories of others (#156)
@@ -96,17 +69,18 @@ class DependencyResolver {
 		});
 	}
 
-	static function getDependencyInfo(path:String, haxelibRepo:String):Null<DependencyInfo> {
+	static function getDependencyInfo(path:String, libraryBasePath:String):Null<DependencyInfo> {
 		if (workspace.workspaceFolders == null) {
 			return null;
 		}
 		var rootPath = workspace.workspaceFolders[0].uri.fsPath;
 		var absPath = PathHelper.absolutize(path, rootPath);
-		if (haxelibRepo == null || !FileSystem.exists(absPath)) {
+		if (libraryBasePath == null || !FileSystem.exists(absPath)) {
 			return null;
 		}
 
-		if (absPath.indexOf(haxelibRepo) == -1) {
+		libraryBasePath = Path.normalize(libraryBasePath);
+		if (absPath.indexOf(libraryBasePath) == -1) {
 			// dependencies outside of the haxelib repo (installed via "haxelib dev" or just classpaths)
 			// - only bother to show these if they're outside of the current workspace
 			if (absPath.indexOf(Path.normalize(rootPath)) == -1) {
@@ -121,12 +95,12 @@ class DependencyResolver {
 		}
 
 		// regular haxelibs inside the haxelib repo location
-		path = absPath.replace(haxelibRepo + "/", "");
+		path = absPath.replace(libraryBasePath + "/", "");
 		var segments = path.split("/");
 		var name = segments[0];
 		var version = segments[1];
 
-		path = '$haxelibRepo/$name';
+		path = '$libraryBasePath/$name';
 
 		if (name != null) {
 			name = name.replace(",", ".");
@@ -160,80 +134,5 @@ class DependencyResolver {
 			return {name: content.name, version: "dev", path: path};
 		}
 		return searchHaxelibJson(Path.join([path, ".."]), levels - 1);
-	}
-
-	static function getStandardLibraryPath(haxeExecutable:HaxeExecutableConfiguration):Null<String> {
-		// more or less a port of main.ml's get_std_class_paths()
-		var path = Sys.getEnv("HAXE_STD_PATH");
-		if (path != null) {
-			return path;
-		}
-
-		if (Sys.systemName() == "Windows") {
-			var path = if (haxeExecutable.isCommand) {
-				var exectuable = getProcessOutput("where " + haxeExecutable.executable)[0];
-				if (exectuable == null) {
-					return null;
-				}
-				exectuable;
-			} else {
-				haxeExecutable.executable;
-			}
-			return Path.join([Path.directory(path), "std"]);
-		} else {
-			for (path in [
-				"/usr/local/share/haxe/std/",
-				"/usr/local/lib/haxe/std/",
-				"/usr/share/haxe/std/",
-				"/usr/lib/haxe/std/"
-			]) {
-				if (FileSystem.exists(path)) {
-					return path;
-				}
-			}
-		}
-		return null;
-	}
-
-	static function getStandardLibraryInfo(path:String, haxeExecutable:String):DependencyInfo {
-		var version = "?";
-		var result = ChildProcess.spawnSync(haxeExecutable, ["-version"]);
-
-		if (result != null && result.stderr != null) {
-			var output = (result.stderr : Buffer).toString().trim();
-			if (output == "") {
-				output = (result.stdout : Buffer).toString().trim(); // haxe 4.0 prints -version output to stdout instead
-			}
-
-			if (output != null) {
-				version = output.split(" ")[0].trim();
-			}
-		}
-
-		return {name: "haxe", path: path, version: version};
-	}
-
-	static function getLixStandardLibrary(haxeExecutable:HaxeExecutable):Null<DependencyInfo> {
-		var lixStdLib = getProcessOutput(haxeExecutable.configuration.executable + " --run show-version");
-		if (lixStdLib.length == 0) {
-			return null;
-		}
-		var hxml = HxmlParser.parseFile(lixStdLib.join("\n"));
-		var version = switch hxml[0] {
-			case Param("-D", value): value.split("=")[1];
-			case _: null;
-		}
-		var path = switch hxml[1] {
-			case Param("-cp", path): path;
-			case _: null;
-		}
-		if (version != null && path != null) {
-			return {
-				name: "haxe",
-				version: version,
-				path: path
-			};
-		}
-		return null;
 	}
 }

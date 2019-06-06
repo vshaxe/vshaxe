@@ -4,8 +4,7 @@ import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
 import vshaxe.view.HaxeServerViewContainer;
 import vshaxe.view.dependencies.DependencyTreeView;
-import vshaxe.configuration.HaxeExecutable;
-import vshaxe.configuration.HaxelibExecutable;
+import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
 import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
@@ -36,34 +35,32 @@ class Main {
 		var displayArguments = new DisplayArguments(wsFolder, wsMementos);
 		context.subscriptions.push(displayArguments);
 
-		var haxeExecutable = new HaxeExecutable(wsFolder);
-		context.subscriptions.push(haxeExecutable);
-
-		var haxelibExecutable = new HaxelibExecutable(wsFolder);
-		context.subscriptions.push(haxelibExecutable);
+		var haxeInstallation = new HaxeInstallation(wsFolder);
+		context.subscriptions.push(haxeInstallation);
 
 		var problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
 		api = {
-			haxeExecutable: haxeExecutable,
+			haxeExecutable: haxeInstallation.haxe,
 			enableCompilationServer: true,
 			problemMatchers: problemMatchers.copy(),
 			taskPresentation: {},
 			registerDisplayArgumentsProvider: displayArguments.registerProvider,
+			registerHaxeInstallationProvider: haxeInstallation.registerProvider,
 			parseHxmlToArguments: HxmlParser.parseToArgs
 		};
 
-		var server = new LanguageServer(wsFolder, context, haxeExecutable, haxelibExecutable, displayArguments, api);
+		var server = new LanguageServer(wsFolder, context, haxeInstallation, displayArguments, api);
 		context.subscriptions.push(server);
 
 		new HaxeCodeLensProvider();
 		new HaxeServerViewContainer(context, server);
-		new DependencyTreeView(context, displayArguments, haxeExecutable, haxelibExecutable);
-		new EvalDebugger(displayArguments, haxeExecutable);
+		new DependencyTreeView(context, displayArguments, haxeInstallation);
+		new EvalDebugger(displayArguments, haxeInstallation.haxe);
 		new DisplayArgumentsSelector(context, displayArguments);
 		var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
 		new Commands(context, server, haxeDisplayArgumentsProvider);
 
-		var taskConfiguration = new TaskConfiguration(haxeExecutable, problemMatchers, server, api);
+		var taskConfiguration = new TaskConfiguration(haxeInstallation.haxe, problemMatchers, server, api);
 		new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
 		new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
 

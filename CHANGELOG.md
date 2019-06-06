@@ -1,3 +1,9 @@
+### 2.13.0 (to be released)
+
+**New Features:**
+
+- added a `HaxeInstallationProvider` extension API
+
 ### 2.12.2 (June 3, 2019)
 
 **Bugfixes:**

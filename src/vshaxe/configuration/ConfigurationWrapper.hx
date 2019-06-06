@@ -1,6 +1,8 @@
 package vshaxe.configuration;
 
-class ConfigurationWrapper<Config, RawConfig> {
+import haxe.Json;
+
+class ConfigurationWrapper<Config> {
 	@:nullSafety(Off) public var configuration(default, null):Config;
 	public var onDidChangeConfiguration(get, never):Event<Config>;
 
@@ -8,7 +10,6 @@ class ConfigurationWrapper<Config, RawConfig> {
 	final section:String;
 	final folder:WorkspaceFolder;
 	final changeConfigurationListener:Disposable;
-	@:nullSafety(Off) var rawConfig:RawConfig;
 
 	final function get_onDidChangeConfiguration()
 		return _onDidChangeConfiguration.event;
@@ -27,15 +28,19 @@ class ConfigurationWrapper<Config, RawConfig> {
 
 	final function onWorkspaceConfigurationChanged(change:ConfigurationChangeEvent) {
 		if (change.affectsConfiguration(section, folder.uri)) {
-			var oldConfig = rawConfig;
-			updateConfig();
-			if (!isSame(oldConfig, rawConfig))
-				_onDidChangeConfiguration.fire(configuration);
+			update();
 		}
 	}
 
-	function isSame(oldConfig:RawConfig, newConfig:RawConfig):Bool {
-		return oldConfig == newConfig;
+	function update() {
+		var oldConfig = configuration;
+		updateConfig();
+		if (!isSame(configuration, oldConfig))
+			_onDidChangeConfiguration.fire(configuration);
+	}
+
+	function isSame(oldConfig:Config, newConfig:Config):Bool {
+		return Json.stringify(oldConfig) == Json.stringify(newConfig);
 	}
 
 	function updateConfig() {

@@ -4,8 +4,7 @@ import haxe.extern.Rest;
 import js.lib.Promise;
 import jsonrpc.Types;
 import vshaxe.display.DisplayArguments;
-import vshaxe.configuration.HaxeExecutable;
-import vshaxe.configuration.HaxelibExecutable;
+import vshaxe.configuration.HaxeInstallation;
 import vshaxe.server.LanguageClient;
 import haxeLanguageServer.LanguageServerMethods;
 import haxeLanguageServer.Configuration.DisplayServerConfig;
@@ -21,8 +20,7 @@ class LanguageServer {
 
 	final folder:WorkspaceFolder;
 	final context:ExtensionContext;
-	final haxeExecutable:HaxeExecutable;
-	final haxelibExecutable:HaxelibExecutable;
+	final haxeInstallation:HaxeInstallation;
 	final displayArguments:DisplayArguments;
 	final api:Vshaxe;
 	final serverModulePath:String;
@@ -42,13 +40,11 @@ class LanguageServer {
 	inline function get_onDidChangeRequestQueue()
 		return _onDidChangeRequestQueue.event;
 
-	public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeExecutable:HaxeExecutable, haxelibExecutable:HaxelibExecutable,
-			displayArguments:DisplayArguments, api:Vshaxe) {
+	public function new(folder:WorkspaceFolder, context:ExtensionContext, haxeInstallation:HaxeInstallation, displayArguments:DisplayArguments, api:Vshaxe) {
 		this.folder = folder;
 		this.context = context;
 		this.displayArguments = displayArguments;
-		this.haxeExecutable = haxeExecutable;
-		this.haxelibExecutable = haxelibExecutable;
+		this.haxeInstallation = haxeInstallation;
 		this.api = api;
 
 		serverModulePath = context.asAbsolutePath("bin/server.js");
@@ -59,8 +55,8 @@ class LanguageServer {
 		restartDisposables = [];
 		disposables = [
 			hxFileWatcher,
-			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()),
-			haxeExecutable.onDidChangeConfiguration(_ -> refreshDisplayServerConfig()),
+			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(false)),
+			haxeInstallation.haxe.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(true)),
 			window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
 		];
 	}
@@ -95,8 +91,8 @@ class LanguageServer {
 			client.onNotification(method, handler);
 	}
 
-	function refreshDisplayServerConfig() {
-		if (prepareDisplayServerConfig())
+	function refreshDisplayServerConfig(force:Bool) {
+		if (prepareDisplayServerConfig() || force)
 			sendNotification(LanguageServerMethods.DidChangeDisplayServerConfig, displayServerConfig);
 	}
 
@@ -120,7 +116,7 @@ class LanguageServer {
 				displayArguments: displayArguments.arguments,
 				displayServerConfig: displayServerConfig,
 				haxelibConfig: {
-					executable: haxelibExecutable.configuration
+					executable: haxeInstallation.haxelib.configuration
 				},
 				sendMethodResults: true
 			},
@@ -203,6 +199,7 @@ class LanguageServer {
 		@return `true` if configuration was changed since last call
 	**/
 	function prepareDisplayServerConfig():Bool {
+		var haxeExecutable = haxeInstallation.haxe;
 		var path = haxeExecutable.configuration.executable;
 		var env = haxeExecutable.configuration.env;
 		var haxeConfig = workspace.getConfiguration("haxe");

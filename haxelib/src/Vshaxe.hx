@@ -1,5 +1,6 @@
 import vscode.Disposable;
 import vshaxe.DisplayArgumentsProvider;
+import vshaxe.HaxeInstallationProvider;
 import vshaxe.HaxeExecutable;
 import vshaxe.ReadOnlyArray;
 import vshaxe.TaskPresentationOptions;
@@ -62,6 +63,18 @@ typedef Vshaxe = {
 		@return A disposable which unregisters the provider.
 	**/
 	function registerDisplayArgumentsProvider(name:String, provider:DisplayArgumentsProvider):Disposable;
+
+	/**
+		Register a Haxe installation provider.
+
+		An extension should only register a provider if it handles the current workspace's Haxe setup
+		(for instance when a `.haxerc` is present in case of lix).
+
+		@param name A unique ID to identify the extension. No two providers with the same name can be registered.
+		@param provider A Haxe installation provider.
+		@return A disposable which unregisters the provider.
+	**/
+	function registerHaxeInstallationProvider(name:String, provider:HaxeInstallationProvider):Disposable;
 
 	/**
 		Parse contents of a hxml file into an array of Haxe command-line arguments.

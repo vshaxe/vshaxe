@@ -1,13 +1,21 @@
 package vshaxe.configuration;
 
-class HaxelibExecutable extends ConfigurationWrapper<String, String> {
+class HaxelibExecutable extends ConfigurationWrapper<String> {
+	var autoResolveValue:Null<String>;
+
 	public function new(folder) {
 		super("haxelib.executable", folder);
 	}
 
+	public function setAutoResolveValue(value:Null<String>) {
+		autoResolveValue = value;
+		update();
+	}
+
 	override function updateConfig() {
-		var path = workspace.getConfiguration("haxelib", folder.uri).get("executable", "haxelib");
-		rawConfig = path;
-		configuration = ExecutableHelper.resolve(folder.uri, path, "haxelib");
+		configuration = workspace.getConfiguration("haxelib", folder.uri).get("executable", "haxelib");
+		if (configuration == "auto") {
+			configuration = if (autoResolveValue == null) "haxelib" else autoResolveValue;
+		}
 	}
 }

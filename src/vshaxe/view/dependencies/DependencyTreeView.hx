@@ -5,13 +5,11 @@ import vshaxe.view.dependencies.DependencyResolver;
 import vshaxe.view.dependencies.Node;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.PathHelper;
-import vshaxe.configuration.HaxelibExecutable;
-import vshaxe.configuration.HaxeExecutable;
+import vshaxe.configuration.HaxeInstallation;
 
 class DependencyTreeView {
 	final context:ExtensionContext;
-	final haxeExecutable:HaxeExecutable;
-	final haxelibExecutable:HaxelibExecutable;
+	final haxeInstallation:HaxeInstallation;
 	@:nullSafety(Off) final view:TreeView<Node>;
 	var displayArguments:Null<Array<String>>;
 	var relevantHxmls:Array<String> = [];
@@ -24,11 +22,10 @@ class DependencyTreeView {
 
 	public var onDidChangeTreeData:Event<Node>;
 
-	public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeExecutable:HaxeExecutable, haxelibExecutable:HaxelibExecutable) {
+	public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeInstallation:HaxeInstallation) {
 		this.context = context;
 		this.displayArguments = displayArguments.arguments;
-		this.haxeExecutable = haxeExecutable;
-		this.haxelibExecutable = haxelibExecutable;
+		this.haxeInstallation = haxeInstallation;
 
 		onDidChangeTreeData = _onDidChangeTreeData.event;
 		inline updateAutoReveal();
@@ -52,8 +49,7 @@ class DependencyTreeView {
 		context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
 		context.subscriptions.push(hxmlFileWatcher);
 
-		context.subscriptions.push(haxeExecutable.onDidChangeConfiguration(_ -> refresh()));
-		context.subscriptions.push(haxelibExecutable.onDidChangeConfiguration(_ -> refresh()));
+		context.subscriptions.push(haxeInstallation.onDidChange(_ -> refresh()));
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateAutoReveal()));
 		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> autoReveal()));
@@ -83,7 +79,7 @@ class DependencyTreeView {
 		}
 		dependencies = newDependencies;
 
-		return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxeExecutable, haxelibExecutable));
+		return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxeInstallation));
 	}
 
 	function updateNodes(dependencyInfos:Array<DependencyInfo>):Array<Node> {
