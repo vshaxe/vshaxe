@@ -7,6 +7,7 @@ import haxe.io.Path;
 import haxe.extern.EitherType;
 import sys.FileSystem;
 import vshaxe.helper.PathHelper;
+import vshaxe.HaxeExecutableSource;
 
 /** unprocessed config **/
 private typedef RawHaxeExecutableConfig = {
@@ -33,13 +34,15 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 			default: "linux";
 		};
 
+	var autoResolveProvider:Null<String>;
 	var autoResolveValue:Null<String>;
 
 	public function new(folder) {
 		super("haxe.executable", folder);
 	}
 
-	public function setAutoResolveValue(value:Null<String>) {
+	public function setAutoResolveValue(provider:Null<String>, value:Null<String>) {
+		autoResolveProvider = provider;
 		autoResolveValue = value;
 		update();
 	}
@@ -67,8 +70,14 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 		if (systemConfig != null)
 			merge(systemConfig);
 
+		var source = Settings;
 		if (executable == "auto") {
-			executable = if (autoResolveValue == null) "haxe" else autoResolveValue;
+			if (autoResolveProvider == null || autoResolveValue == null) {
+				executable = "haxe";
+			} else {
+				executable = autoResolveValue;
+				source = Provider(autoResolveProvider);
+			}
 		}
 
 		var isCommand = false;
@@ -86,6 +95,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 
 		configuration = {
 			executable: executable,
+			source: source,
 			isCommand: isCommand,
 			env: env,
 			version: getVersion(executable)

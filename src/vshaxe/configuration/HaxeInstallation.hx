@@ -74,7 +74,7 @@ class HaxeInstallation {
 
 	function provideInstallation(installation:vshaxe.HaxeInstallation) {
 		ignoreEvents = true;
-		haxe.setAutoResolveValue(installation.haxeExecutable);
+		haxe.setAutoResolveValue(currentProvider, installation.haxeExecutable);
 		haxelib.setAutoResolveValue(installation.haxelibExecutable);
 		ignoreEvents = false;
 

@@ -3,6 +3,7 @@
 **New Features:**
 
 - added a `HaxeInstallationProvider` extension API
+- added a `source` to `HaxeExecutableConfiguration` in the extension API
 
 ### 2.12.2 (June 3, 2019)
 

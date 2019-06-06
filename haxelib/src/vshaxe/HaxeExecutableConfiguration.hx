@@ -11,6 +11,11 @@ typedef HaxeExecutableConfiguration = {
 	var executable(default, never):String;
 
 	/**
+		How `executable` was determined.
+	**/
+	var source(default, never):HaxeExecutableSource;
+
+	/**
 		Whether `executable` is a command (`true`) or an absolute path (`false`).
 	**/
 	var isCommand(default, never):Bool;
