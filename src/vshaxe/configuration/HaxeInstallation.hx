@@ -50,9 +50,9 @@ class HaxeInstallation {
 		}
 
 		return new Disposable(function() {
-			providers.remove(name);
 			if (name == currentProvider)
 				setCurrentProvider(null);
+			providers.remove(name);
 		});
 	}
 
@@ -69,6 +69,8 @@ class HaxeInstallation {
 			var provider = providers[name];
 			if (provider != null)
 				provider.activate(provideInstallation);
+		} else {
+			provideInstallation({});
 		}
 	}
 
