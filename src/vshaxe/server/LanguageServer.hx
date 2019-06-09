@@ -27,6 +27,8 @@ class LanguageServer {
 	final hxFileWatcher:FileSystemWatcher;
 	final disposables:Array<{function dispose():Void;}>;
 	var restartDisposables:Array<{function dispose():Void;}>;
+	var queuedNotifications:Array<{method:NotificationMethod<Dynamic>, ?params:Dynamic}>;
+	var clientStartingUp:Bool;
 	var progresses = new Map<Int, Void->Void>();
 	var displayServerConfig:DisplayServerConfig;
 	var displayServerConfigSerialized:Null<String>;
@@ -53,11 +55,14 @@ class LanguageServer {
 		inline prepareDisplayServerConfig();
 
 		restartDisposables = [];
+		queuedNotifications = [];
+		clientStartingUp = false;
 		disposables = [
 			hxFileWatcher,
 			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(false)),
 			haxeInstallation.haxe.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(true)),
 			window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
+			displayArguments.onDidChangeArguments(arguments -> sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {arguments: arguments}))
 		];
 	}
 
@@ -69,12 +74,17 @@ class LanguageServer {
 	}
 
 	function sendNotification<P>(method:NotificationMethod<P>, ?params:P) {
-		if (client != null) {
-			if (params == null) {
-				client.sendNotification(method);
-			} else {
-				client.sendNotification(method, params);
-			}
+		if (client == null) {
+			return;
+		}
+		if (clientStartingUp) {
+			queuedNotifications.push({method: method, params: params});
+			return;
+		}
+		if (params == null) {
+			client.sendNotification(method);
+		} else {
+			client.sendNotification(method, params);
 		}
 	}
 
@@ -151,29 +161,14 @@ class LanguageServer {
 		};
 
 		var client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
-
-		// If arguments change while we're starting language server we remember that fact
-		// and send updated arguments once language server is ready. this can often happen on startup
-		// due to asynchronous argument provider loading. I wonder if there's any way to handle this better...
-		var argumentsChanged = false;
-		var argumentChangeListenerDisposable = displayArguments.onDidChangeArguments(_ -> argumentsChanged = true);
-		restartDisposables.push(argumentChangeListenerDisposable);
-
 		client.onReady().then(function(_) {
 			client.outputChannel.appendLine("Haxe language server started");
-
-			restartDisposables.remove(argumentChangeListenerDisposable);
-			argumentChangeListenerDisposable.dispose();
-
-			if (argumentsChanged) {
-				var arguments:Array<String> = [];
-				if (displayArguments.arguments != null)
-					arguments = displayArguments.arguments;
-				sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {arguments: arguments});
+			
+			clientStartingUp = false;
+			for (notification in queuedNotifications) {
+				sendNotification(notification.method, notification.params);
 			}
-
-			restartDisposables.push(displayArguments.onDidChangeArguments(arguments -> sendNotification(LanguageServerMethods.DidChangeDisplayArguments,
-				{arguments: arguments})));
+			queuedNotifications = [];
 
 			restartDisposables.push(new PackageInserter(hxFileWatcher, this));
 
@@ -189,6 +184,7 @@ class LanguageServer {
 			client.onDidChangeState(onDidChangeState);
 		});
 
+		clientStartingUp = true;
 		restartDisposables.push(client.start());
 		this.client = client;
 	}
