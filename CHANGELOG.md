@@ -4,6 +4,7 @@
 
 - added a `HaxeInstallationProvider` extension API
 - added a `source` to `HaxeExecutableConfiguration` in the extension API
+- added automatic extension recommendations for lix, Lime and Kha projects
 
 ### 2.12.2 (June 3, 2019)
 

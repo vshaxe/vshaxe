@@ -21,21 +21,21 @@ class Main {
 	function new(context:ExtensionContext) {
 		new InitProject(context);
 
-		var wsFolder = if (workspace.workspaceFolders == null) null else workspace.workspaceFolders[0];
-		if (wsFolder == null)
+		var folder = if (workspace.workspaceFolders == null) null else workspace.workspaceFolders[0];
+		if (folder == null)
 			return; // TODO: look into this - we could support _some_ nice functionality (e.g. std lib completion or --interp task)
 
 		commands.executeCommand("setContext", "vshaxeActivated", true); // https://github.com/Microsoft/vscode/issues/10471
 
 		var wsMementos = new WorkspaceMementos(context.workspaceState);
 
-		var hxmlDiscovery = new HxmlDiscovery(wsFolder, wsMementos);
+		var hxmlDiscovery = new HxmlDiscovery(folder, wsMementos);
 		context.subscriptions.push(hxmlDiscovery);
 
-		var displayArguments = new DisplayArguments(wsFolder, wsMementos);
+		var displayArguments = new DisplayArguments(folder, wsMementos);
 		context.subscriptions.push(displayArguments);
 
-		var haxeInstallation = new HaxeInstallation(wsFolder);
+		var haxeInstallation = new HaxeInstallation(folder);
 		context.subscriptions.push(haxeInstallation);
 
 		var problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
@@ -49,7 +49,7 @@ class Main {
 			parseHxmlToArguments: HxmlParser.parseToArgs
 		};
 
-		var server = new LanguageServer(wsFolder, context, haxeInstallation, displayArguments, api);
+		var server = new LanguageServer(folder, context, haxeInstallation, displayArguments, api);
 		context.subscriptions.push(server);
 
 		new HaxeCodeLensProvider();
@@ -59,6 +59,7 @@ class Main {
 		new DisplayArgumentsSelector(context, displayArguments);
 		var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
 		new Commands(context, server, haxeDisplayArgumentsProvider);
+		new ExtensionRecommender(context, folder).run();
 
 		var taskConfiguration = new TaskConfiguration(haxeInstallation.haxe, problemMatchers, server, api);
 		new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);

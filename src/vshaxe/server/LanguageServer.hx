@@ -320,15 +320,12 @@ class LanguageServer {
 			+ detectedVersion
 			+ '. Consider upgrading to Haxe 4.0.0-rc.2 for improved completion features and stability.';
 		window.showInformationMessage(message, VisitDownloadPageOption, DontShowAgainOption).then(function(selection) {
-			if (selection == null) {
-				return;
-			}
 			switch selection {
+				case null:
 				case VisitDownloadPageOption:
 					env.openExternal(Uri.parse("https://haxe.org/download/version/4.0.0-rc.2/"));
 				case DontShowAgainOption:
 					globalState.update(DontShowOldPreviewHintAgainKey, true);
-				case _:
 			}
 		});
 	}
