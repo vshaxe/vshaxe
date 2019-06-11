@@ -39,6 +39,16 @@ class HaxeInstallation {
 		haxelib.dispose();
 	}
 
+	public function resolveLibrary(classpath:String):Null<Library> {
+		if (currentProvider != null) {
+			var provider = providers[currentProvider];
+			if (provider != null && provider.resolveLibrary != null) {
+				return provider.resolveLibrary(classpath);
+			}
+		}
+		return null;
+	}
+
 	public function registerProvider(name:String, provider:HaxeInstallationProvider):Disposable {
 		if (providers.exists(name)) {
 			throw new js.lib.Error('Haxe installation provider `$name` is already registered.');

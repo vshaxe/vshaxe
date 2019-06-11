@@ -16,4 +16,10 @@ typedef HaxeInstallationProvider = {
 		*Note:* a deactivated provider can be activated again!
 	**/
 	function deactivate():Void;
+
+	/**
+		Optionally resolves classpaths to libraries for the Haxe Dependencies view,
+		or `null`  if the classpath does not belong to a library.
+	**/
+	@:optional var resolveLibrary:(classpath:String) -> Null<Library>;
 }

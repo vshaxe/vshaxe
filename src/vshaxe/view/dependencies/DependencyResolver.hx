@@ -11,9 +11,9 @@ import vshaxe.helper.ProcessHelper;
 using Lambda;
 
 typedef DependencyInfo = {
-	name:String,
-	version:String,
-	path:String
+	var name(default, never):String;
+	var version(default, never):String;
+	var path(default, never):String;
 }
 
 class DependencyResolver {
@@ -31,7 +31,11 @@ class DependencyResolver {
 		var infos:Array<DependencyInfo> = [];
 		var libraryBasePath = haxeInstallation.libraryBasePath;
 		if (libraryBasePath != null) {
-			for (info in paths.map(getDependencyInfo.bind(_, libraryBasePath))) {
+			for (path in paths) {
+				var info = haxeInstallation.resolveLibrary(path);
+				if (info == null) {
+					info = getDependencyInfo(path, libraryBasePath);
+				}
 				if (info != null) {
 					infos.push(info);
 				}
