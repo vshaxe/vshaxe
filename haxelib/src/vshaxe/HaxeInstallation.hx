@@ -15,9 +15,4 @@ typedef HaxeInstallation = {
 		Path to the Haxe standard library.
 	**/
 	@:optional var standardLibraryPath(default, never):String;
-
-	/**
-		Path to the directory where libraries are stored.
-	**/
-	@:optional var libraryBasePath(default, never):String;
 }

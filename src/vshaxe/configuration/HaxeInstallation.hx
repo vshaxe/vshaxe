@@ -95,11 +95,6 @@ class HaxeInstallation {
 			standardLibraryPath = getStandardLibraryPath();
 		}
 
-		libraryBasePath = installation.libraryBasePath;
-		if (libraryBasePath == null) {
-			libraryBasePath = getLibraryBasePath();
-		}
-
 		_onDidChange.fire();
 	}
 
