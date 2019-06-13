@@ -996,7 +996,7 @@
 			},
 			{
 				"fileMatch": "hxformat.json",
-				"url": "./schemas/hxformat-schema.json"
+				"url": "./schemas/hxformat.schema.json"
 			}
 		],
 		"problemPatterns": [

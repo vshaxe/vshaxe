@@ -1,13 +1,9 @@
 import sys.io.File;
 import formatter.config.FormatterConfig;
-import json2object.utils.JsonSchemaWriter;
-
-using StringTools;
+import json2object.utils.special.VSCodeSchemaWriter;
 
 class SchemaGenerator {
 	static function main() {
-		var schema = new JsonSchemaWriter<FormatterConfig>("\t").schema;
-		schema = schema.replace('"description"', '"markdownDescription"');
-		File.saveContent("schemas/hxformat-schema.json", schema);
+		File.saveContent("schemas/hxformat.schema.json", new VSCodeSchemaWriter<FormatterConfig>("\t").schema);
 	}
 }
