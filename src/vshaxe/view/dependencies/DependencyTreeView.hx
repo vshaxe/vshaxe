@@ -19,6 +19,7 @@ class DependencyTreeView {
 	var previousSelection:Null<{node:Node, time:Float}>;
 	var autoRevealEnabled:Bool;
 	var _onDidChangeTreeData = new EventEmitter<Node>();
+	var providerWaitTimedOut = false;
 
 	public var onDidChangeTreeData:Event<Node>;
 
@@ -54,6 +55,16 @@ class DependencyTreeView {
 		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> autoReveal()));
 		context.subscriptions.push(view.onDidChangeVisibility(_ -> autoReveal()));
+
+		if (haxeInstallation.isWaitingForProvider()) {
+			// fallback in case the provider is not there anymore
+			haxe.Timer.delay(() -> {
+				providerWaitTimedOut = true;
+				if (refreshNeeded) {
+					refresh();
+				}
+			}, 2000);
+		}
 	}
 
 	function onDidChangeHxml(uri:Uri) {
@@ -182,6 +193,9 @@ class DependencyTreeView {
 	}
 
 	public function getChildren(?node:Node):Array<Node> {
+		if (haxeInstallation.isWaitingForProvider() && !providerWaitTimedOut) {
+			return [];
+		}
 		if (refreshNeeded) {
 			dependencyNodes = refreshDependencies();
 			refreshNeeded = false;
