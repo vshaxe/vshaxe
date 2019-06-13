@@ -37,7 +37,7 @@ class ExtensionRecommender {
 		if (!isExtensionRelevant) {
 			return;
 		}
-		var message = '$projectName project detected. It\'s recommended to install the $extensionName.';
+		var message = '$projectName project detected. For the best experience, the $extensionName should be installed.';
 		window.showInformationMessage(message, InstallExtension, DontShowAgainOption).then(function(choice) {
 			switch choice {
 				case null:
