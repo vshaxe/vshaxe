@@ -1,10 +1,14 @@
-### 2.13.0 (to be released)
+### 2.13.0 (June 13, 2019)
 
 **New Features:**
 
 - added a `HaxeInstallationProvider` extension API
 - added a `source` to `HaxeExecutableConfiguration` in the extension API
 - added automatic extension recommendations for lix, Lime and Kha projects
+
+**Bugfixes:**
+
+- fixed some "unhandled method" errors in the Haxe output channel on startup
 
 ### 2.12.2 (June 3, 2019)
 

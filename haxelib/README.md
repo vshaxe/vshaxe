@@ -4,7 +4,7 @@ This is a library providing type definitions for the API of the [Haxe Visual Stu
 
 - Registration of new _completion providers_ that are then selectable via a dropdown menu in the status bar:
 
-  ![](https://raw.githubusercontent.com/vshaxe/vshaxe/master/haxelib/images/completionProviders.png)
+  ![](images/completionProviders.png)
 
   Completion providers provide vshaxe with a list of compiler arguments to be used for code completion, so the extension can pass them on to the [Haxe Language Server](https://github.com/vshaxe/haxe-languageserver).
 
