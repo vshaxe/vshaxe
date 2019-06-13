@@ -57,6 +57,10 @@ class DisplayArguments {
 		setCurrentProvider(name, true);
 	}
 
+	public function isWaitingForProvider():Bool {
+		return arguments == null;
+	}
+
 	function setCurrentProvider(name:Null<String>, persist:Bool) {
 		if (currentProvider != null) {
 			var provider = providers[currentProvider];

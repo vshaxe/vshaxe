@@ -5,12 +5,16 @@ import haxe.io.Path;
 import vshaxe.helper.ProcessHelper;
 
 class HaxeInstallation {
+	public static final PreviousHaxeInstallationProviderKey = new HaxeMementoKey<String>("previousHaxeInstallationProvider");
+
 	public final haxe:HaxeExecutable;
 	public final haxelib:HaxelibExecutable;
 	public var standardLibraryPath(default, null):Null<String>;
 	public var libraryBasePath(default, null):Null<String>;
 	public var onDidChange(get, never):Event<Void>;
 
+	final folder:WorkspaceFolder;
+	final mementos:WorkspaceMementos;
 	final providers = new Map<String, HaxeInstallationProvider>();
 	var currentProvider:Null<String>;
 	var ignoreEvents:Bool = false;
@@ -19,7 +23,9 @@ class HaxeInstallation {
 	inline function get_onDidChange()
 		return _onDidChange.event;
 
-	public function new(folder:WorkspaceFolder) {
+	public function new(folder:WorkspaceFolder, mementos:WorkspaceMementos) {
+		this.folder = folder;
+		this.mementos = mementos;
 		haxe = new HaxeExecutable(folder);
 		haxelib = new HaxelibExecutable(folder);
 		haxe.onDidChangeConfiguration(_ -> onDidChangeConfiguration());
@@ -49,6 +55,11 @@ class HaxeInstallation {
 		return null;
 	}
 
+	public function isWaitingForProvider():Bool {
+		var previousProvider = mementos.get(folder, PreviousHaxeInstallationProviderKey);
+		return previousProvider != null && currentProvider == null;
+	}
+
 	public function registerProvider(name:String, provider:HaxeInstallationProvider):Disposable {
 		if (providers.exists(name)) {
 			throw new js.lib.Error('Haxe installation provider `$name` is already registered.');
@@ -74,6 +85,7 @@ class HaxeInstallation {
 		}
 
 		currentProvider = name;
+		mementos.set(folder, PreviousHaxeInstallationProviderKey, name);
 
 		if (name != null) {
 			var provider = providers[name];

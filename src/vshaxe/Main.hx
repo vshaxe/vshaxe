@@ -27,15 +27,15 @@ class Main {
 
 		commands.executeCommand("setContext", "vshaxeActivated", true); // https://github.com/Microsoft/vscode/issues/10471
 
-		var wsMementos = new WorkspaceMementos(context.workspaceState);
+		var mementos = new WorkspaceMementos(context.workspaceState);
 
-		var hxmlDiscovery = new HxmlDiscovery(folder, wsMementos);
+		var hxmlDiscovery = new HxmlDiscovery(folder, mementos);
 		context.subscriptions.push(hxmlDiscovery);
 
-		var displayArguments = new DisplayArguments(folder, wsMementos);
+		var displayArguments = new DisplayArguments(folder, mementos);
 		context.subscriptions.push(displayArguments);
 
-		var haxeInstallation = new HaxeInstallation(folder);
+		var haxeInstallation = new HaxeInstallation(folder, mementos);
 		context.subscriptions.push(haxeInstallation);
 
 		var problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
@@ -65,25 +65,45 @@ class Main {
 		new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
 		new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
 
-		// wait until we have display arguments before starting the server
-		if (displayArguments.arguments == null) {
-			var serverStarted = false;
-			var disposable:Disposable;
-			disposable = displayArguments.onDidChangeArguments(arguments -> {
-				disposable.dispose();
-				server.start();
+		scheduleServerStart(displayArguments, haxeInstallation, server);
+	}
+
+	function scheduleServerStart(displayArguments:DisplayArguments, haxeInstallation:HaxeInstallation, server:LanguageServer) {
+		// wait until we have the providers we need to avoid immediate server restarts
+		var waitingForDisplayArguments = displayArguments.isWaitingForProvider();
+		var waitingForInstallation = haxeInstallation.isWaitingForProvider();
+
+		var serverStarted = false;
+		var disposables = [];
+		function maybeStartServer() {
+			if (!waitingForInstallation && !waitingForDisplayArguments && !serverStarted) {
+				disposables.iter(d -> d.dispose());
 				serverStarted = true;
-			});
-			// if there's no provider, just start a server anyway after 5 seconds
-			haxe.Timer.delay(() -> {
-				if (!serverStarted) {
-					disposable.dispose();
-					server.start();
-				}
-			}, 5000);
-		} else {
-			server.start();
+				server.start();
+			}
 		}
+		if (waitingForDisplayArguments) {
+			disposables.push(displayArguments.onDidChangeArguments(_ -> {
+				waitingForDisplayArguments = false;
+				maybeStartServer();
+			}));
+		}
+		if (waitingForInstallation) {
+			disposables.push(haxeInstallation.onDidChange(_ -> {
+				waitingForInstallation = false;
+				maybeStartServer();
+			}));
+		}
+
+		// if there's no provider, just start a server anyway after 5 seconds
+		haxe.Timer.delay(() -> {
+			waitingForDisplayArguments = false;
+			waitingForInstallation = false;
+			maybeStartServer();
+		}, 5000);
+
+		// or maybe we're just ready right away
+		maybeStartServer();
 	}
 
 	@:expose("activate")
