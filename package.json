@@ -36,7 +36,7 @@
 		"url": "https://github.com/vshaxe/vshaxe.git"
 	},
 	"scripts": {
-		"vscode:prepublish": "npx run vshaxe-build -t vshaxe -t language-server-tests -t tm-language",
+		"vscode:prepublish": "npx lix run vshaxe-build -t vshaxe -t language-server-tests -t tm-language",
 		"postinstall": "npx lix download && cd syntaxes && npm install && cd ../server && npm install && cd ../eval-debugger && npm install"
 	},
 	"main": "bin/client.js",
