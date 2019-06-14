@@ -33,9 +33,6 @@
 		},
 		{
 			"name": "client",
-			"installCommands": [
-				["npm", "install"]
-			],
 			"afterBuildCommands": [
 				["npx", "webpack", "--mode", "production", "--silent"]
 			],
