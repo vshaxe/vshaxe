@@ -3,6 +3,7 @@
 **Changes and Improvements:**
 
 - updated to haxe-formatter version [1.8.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.8.0)
+- updated the "outdated Haxe 4 preview" message for Haxe 4.0.0-rc.3
 
 **Bugfixes:**
 
