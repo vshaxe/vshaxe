@@ -1,3 +1,9 @@
+### 2.13.1 (to be released)
+
+**Bugfixes:**
+
+- fixed "Internal" stack frames being clickable in eval debugging
+
 ### 2.13.0 (June 13, 2019)
 
 **New Features:**
