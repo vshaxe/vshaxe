@@ -1,0 +1,4 @@
+-D haxeparser=3.3.0
+# @install: lix --silent download "gh://github.com/Simn/haxeparser#48160b190cacafb0003d0c8d085dca2c85e21e31" into haxeparser/3.3.0/github/48160b190cacafb0003d0c8d085dca2c85e21e31
+-lib hxparse
+-cp ${HAXE_LIBCACHE}/haxeparser/3.3.0/github/48160b190cacafb0003d0c8d085dca2c85e21e31/src

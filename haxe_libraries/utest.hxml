@@ -1,0 +1,3 @@
+-D utest=1.9.6
+# @install: lix --silent download "haxelib:/utest#1.9.6" into utest/1.9.6/haxelib
+-cp ${HAXE_LIBCACHE}/utest/1.9.6/haxelib/src

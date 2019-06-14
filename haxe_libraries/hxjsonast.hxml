@@ -1,0 +1,3 @@
+-D hxjsonast=1.0.1
+# @install: lix --silent download "haxelib:/hxjsonast#1.0.1" into hxjsonast/1.0.1/haxelib
+-cp ${HAXE_LIBCACHE}/hxjsonast/1.0.1/haxelib/src

@@ -1,0 +1,3 @@
+-D haxe-hxparser=0.0.1
+# @install: lix --silent download "gh://github.com/vshaxe/haxe-hxparser#b27d7939dce2b6bc12a3d0b7e7dcca435f1ea125" into haxe-hxparser/0.0.1/github/b27d7939dce2b6bc12a3d0b7e7dcca435f1ea125
+-cp ${HAXE_LIBCACHE}/haxe-hxparser/0.0.1/github/b27d7939dce2b6bc12a3d0b7e7dcca435f1ea125/src

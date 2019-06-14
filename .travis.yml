@@ -1,11 +1,11 @@
-language: haxe
+language: node_js
+node_js:
+  - "10"
 dist: xenial
-haxe:
- - development
 
 install:
- - haxelib git vshaxe-build https://github.com/vshaxe/vshaxe-build
+  - npm install
 
 script:
- - haxelib run vshaxe-build -v --debug -t all -m both
- - haxelib run vshaxe-build -v -t vshaxe
+  - npx lix run vshaxe-build -v --debug -t all
+  - npx lix run vshaxe-build -v -t vshaxe

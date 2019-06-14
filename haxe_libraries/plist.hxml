@@ -1,0 +1,4 @@
+-D plist=0.0.5
+# @install: lix --silent download "gh://github.com/back2dos/plist#df2ca7837f6a2e12f9ec48f12f4e308e9f7ad1e7" into plist/0.0.5/github/df2ca7837f6a2e12f9ec48f12f4e308e9f7ad1e7
+-lib tink_core
+-cp ${HAXE_LIBCACHE}/plist/0.0.5/github/df2ca7837f6a2e12f9ec48f12f4e308e9f7ad1e7/src

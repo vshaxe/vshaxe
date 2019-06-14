@@ -1,24 +1,6 @@
 {
 	"inherit": "vshaxe-node",
 	"mainTarget": "all",
-	"haxelibs": [
-		{
-			"name": "vscode",
-			"installArgs": ["install", "vscode"]
-		},
-		{
-			"name": "vscode-json-rpc",
-			"installArgs": ["git", "vscode-json-rpc", "https://github.com/vshaxe/vscode-json-rpc"]
-		},
-		{
-			"name": "formatter",
-			"installArgs": ["git", "formatter", "https://github.com/HaxeCheckstyle/haxe-formatter"]
-		},
-		{
-			"name": "json2object",
-			"installArgs": ["install", "json2object"]
-		}
-	],
 	"targets": [
 		{
 			"name": "all",
