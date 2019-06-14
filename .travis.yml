@@ -5,6 +5,9 @@ dist: xenial
 
 install:
   - npm install
+  - cd syntaxes
+  - npm install
+  - cd ..
 
 script:
   - npx lix run vshaxe-build -v --debug -t all
