@@ -367,6 +367,11 @@
 					"markdownDescription": "same line policy for non block body of \"while\" (not \"do…while\")\n* same = place while and body on same line\n* next = place body on next line\n* keep = keep same / next line from source",
 					"$ref": "#/definitions/formatter.config.SameLinePolicy"
 				},
+				"untypedBody": {
+					"default": "same",
+					"markdownDescription": "same line policy for untyped {…} as a body\n* same = place return and body on same line\n* next = place body on next line\n* keep = keep same / next line from source",
+					"$ref": "#/definitions/formatter.config.SameLinePolicy"
+				},
 				"tryCatch": {
 					"default": "same",
 					"markdownDescription": "same line policy for \"catch\" part of \"try…catch\"\n* same = place function and body on same line\n* next = place body on next line\n* keep = keep same / next line from source",
@@ -663,6 +668,11 @@
 				"indentComplexValueExpressions": {
 					"default": false,
 					"markdownDescription": "indent complex value expressions:\n(true)\t\t\t\t\t\t(false)\nar a = if (true)\t\t\tvar a = if (true)\n\t10;\t\t\t\t\t\t10;\nelse\t\t\t\t\telse\n\t20;\t\t\tvs.\t\t\t20;\neturn if (true)\t\t\treturn if (true)\n\t10;\t\t\t\t\t\t10;\nelse\t\t\t\t\telse\n\t20;\t\t\t\t\t\t20;",
+					"type": "boolean"
+				},
+				"indentCaseLabels": {
+					"default": true,
+					"markdownDescription": "indent case / default labels (true) or keep them on same level as switch (false)",
 					"type": "boolean"
 				},
 				"conditionalPolicy": {

@@ -90,14 +90,12 @@ class HaxeDisplayArgumentsProvider {
 				.then(function(button) {
 					if (button == null)
 						return;
-					workspace.getConfiguration("haxe")
-						.update("configurations", [], false)
-						.then(function(_) {
-							if (workspace.workspaceFolders == null)
-								return;
-							workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
-								.then(document -> window.showTextDocument(document));
-						});
+					workspace.getConfiguration("haxe").update("configurations", [], false).then(function(_) {
+						if (workspace.workspaceFolders == null)
+							return;
+						workspace.openTextDocument(workspace.workspaceFolders[0].uri.fsPath + "/.vscode/settings.json")
+							.then(document -> window.showTextDocument(document));
+					});
 				});
 			return;
 		}

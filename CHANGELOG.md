@@ -1,5 +1,9 @@
 ### 2.13.1 (to be released)
 
+**Changes and Improvements:**
+
+- updated to haxe-formatter version [1.8.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.8.0)
+
 **Bugfixes:**
 
 - fixed "Internal" stack frames being clickable in eval debugging

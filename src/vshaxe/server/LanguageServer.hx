@@ -163,7 +163,7 @@ class LanguageServer {
 		var client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
 		client.onReady().then(function(_) {
 			client.outputChannel.appendLine("Haxe language server started");
-			
+
 			clientStartingUp = false;
 			for (notification in queuedNotifications) {
 				sendNotification(notification.method, notification.params);
