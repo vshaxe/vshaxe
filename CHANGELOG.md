@@ -1,5 +1,11 @@
+### 2.13.2 (to be released)
+
+**Bugfixes:**
+
+- fixed incorrect parameter highlighting in signature help in some cases ([#352](https://github.com/vshaxe/vshaxe/issues/352))
+
 ### 2.13.1 (June 14, 2019)
-	
+
 **Changes and Improvements:**
 
 - updated to haxe-formatter version [1.8.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.8.0)
