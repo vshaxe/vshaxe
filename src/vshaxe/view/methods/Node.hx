@@ -1,11 +1,13 @@
 package vshaxe.view.methods;
 
 import haxeLanguageServer.protocol.Protocol.Timer;
+import haxeLanguageServer.LanguageServerMethods.MethodResultKind;
 
 class Node extends TreeItem {
 	final context:ExtensionContext;
 	final timer:Null<Timer>;
 	final name:String;
+	final kind:Null<MethodResultKind>;
 	final debugInfo:Null<String>;
 	var isRoot(get, never):Bool;
 
@@ -16,11 +18,12 @@ class Node extends TreeItem {
 	public final method:String;
 	public final parent:Null<Node>;
 
-	public function new(context:ExtensionContext, ?parent:Node, ?timer:Timer, method:String, ?debugInfo:String, parentId:String = "") {
+	public function new(context:ExtensionContext, ?parent:Node, ?timer:Timer, ?kind:MethodResultKind, method:String, ?debugInfo:String, parentId:String = "") {
 		super("");
 		this.context = context;
 		this.parent = parent;
 		this.timer = timer;
+		this.kind = kind;
 		this.method = method;
 		this.debugInfo = debugInfo;
 
@@ -33,13 +36,14 @@ class Node extends TreeItem {
 		if (timer == null || timer.children == null) {
 			collapsibleState = None;
 		} else {
-			children = timer.children.map(Node.new.bind(context, this, _, method, null, id));
+			children = timer.children.map(Node.new.bind(context, this, _, kind, method, null, id));
 			collapsibleState = Collapsed;
 		}
 		if (isRoot) {
+			var file = if (kind == Lsp) 'lsp-method' else 'haxe-method';
 			iconPath = {
-				light: context.asAbsolutePath("images/light/method.svg"),
-				dark: context.asAbsolutePath("images/dark/method.svg")
+				light: context.asAbsolutePath('images/light/$file.svg'),
+				dark: context.asAbsolutePath('images/dark/$file.svg')
 			};
 		}
 	}
@@ -53,7 +57,7 @@ class Node extends TreeItem {
 	}
 
 	function formatLabel():String {
-		if (timer == null) {
+		if (timer == null || kind == Lsp) {
 			return name;
 		}
 		var seconds = truncate(timer.time, 5);

@@ -14,7 +14,7 @@ import languageServerProtocol.Types.DocumentUri;
 
 class LanguageServer {
 	public var displayPort(default, null):Null<Int>;
-	public var onDidRunHaxeMethod(get, never):Event<HaxeMethodResult>;
+	public var onDidRunMethod(get, never):Event<MethodResult>;
 	public var onDidChangeRequestQueue(get, never):Event<Array<String>>;
 	public var client(default, null):Null<LanguageClient>;
 
@@ -32,10 +32,10 @@ class LanguageServer {
 	var progresses = new Map<Int, Void->Void>();
 	var displayServerConfig:DisplayServerConfig;
 	var displayServerConfigSerialized:Null<String>;
-	final _onDidRunHaxeMethod = new EventEmitter<HaxeMethodResult>();
+	final _onDidRunMethod = new EventEmitter<MethodResult>();
 
-	inline function get_onDidRunHaxeMethod()
-		return _onDidRunHaxeMethod.event;
+	inline function get_onDidRunMethod()
+		return _onDidRunMethod.event;
 
 	final _onDidChangeRequestQueue = new EventEmitter<Array<String>>();
 
@@ -176,7 +176,7 @@ class LanguageServer {
 			onNotification(LanguageServerMethods.ProgressStop, onStopProgress);
 			onNotification(LanguageServerMethods.DidChangeDisplayPort, onDidChangeDisplayPort);
 			onNotification(LanguageServerMethods.DidRunRunGlobalDiagnostics, onDidRunGlobalDiangostics);
-			onNotification(LanguageServerMethods.DidRunHaxeMethod, onDidRunHaxeMethodCallback);
+			onNotification(LanguageServerMethods.DidRunMethod, onDidRunMethodCallback);
 			onNotification(LanguageServerMethods.DidChangeRequestQueue, onDidChangeRequestQueueCallback);
 			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
 			onNotification(LanguageServerMethods.HaxeKeepsCrashing, onHaxeKeepsCrashing);
@@ -264,8 +264,8 @@ class LanguageServer {
 		commands.executeCommand("workbench.action.problems.focus");
 	}
 
-	function onDidRunHaxeMethodCallback(data:HaxeMethodResult) {
-		_onDidRunHaxeMethod.fire(data);
+	function onDidRunMethodCallback(data:MethodResult) {
+		_onDidRunMethod.fire(data);
 		#if debug
 		commands.executeCommand("vshaxeDebugTools.methodResultsView.update", data);
 		#end

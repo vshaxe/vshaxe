@@ -32,7 +32,7 @@ class MethodTreeView {
 		window.registerTreeDataProvider("haxe.methods", this);
 		treeView = window.createTreeView("haxe.methods", {treeDataProvider: this, showCollapseAll: true});
 
-		server.onDidRunHaxeMethod(onDidRunHaxeMethod);
+		server.onDidRunMethod(onDidRunMethod);
 		server.onDidChangeRequestQueue(onDidChangeRequestQueue);
 
 		context.registerHaxeCommand(Methods_SwitchToQueue, switchTo.bind(Queue));
@@ -51,7 +51,7 @@ class MethodTreeView {
 		_onDidChangeTreeData.fire();
 	}
 
-	function onDidRunHaxeMethod(data:HaxeMethodResult) {
+	function onDidRunMethod(data:MethodResult) {
 		if (!enabled) {
 			return;
 		}
@@ -66,7 +66,7 @@ class MethodTreeView {
 
 		var method = data.method;
 		methods = methods.filter(item -> item.method != method);
-		var item = new Node(context, rootTimer, data.method, data.debugInfo);
+		var item = new Node(context, rootTimer, data.kind, data.method, data.debugInfo);
 		methods.push(item);
 		methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
 
@@ -104,7 +104,7 @@ class MethodTreeView {
 	function onDidChangeRequestQueue(queue:Array<String>) {
 		this.queue = [];
 		for (i in 0...queue.length) {
-			this.queue.push(new Node(context, null, null, queue[i], null, Std.string(i)));
+			this.queue.push(new Node(context, null, null, null, queue[i], null, Std.string(i)));
 		}
 		if (viewType == Queue) {
 			_onDidChangeTreeData.fire();
