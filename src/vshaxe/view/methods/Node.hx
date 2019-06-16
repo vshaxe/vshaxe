@@ -33,7 +33,7 @@ class Node extends TreeItem {
 		tooltip = formatTooltip();
 		id = parentId + ">" + name;
 
-		if (timer == null || timer.children == null) {
+		if (timer == null || timer.children == null || kind == Lsp) {
 			collapsibleState = None;
 		} else {
 			children = timer.children.map(Node.new.bind(context, this, _, kind, method, null, id));
