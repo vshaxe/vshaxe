@@ -33,7 +33,7 @@
 		},
 		{
 			"name": "client",
-			"afterBuildCommands": [
+			"releaseAfterBuildCommands": [
 				["npx", "webpack", "--mode", "production", "--silent"]
 			],
 			"args": {
