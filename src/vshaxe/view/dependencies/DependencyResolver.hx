@@ -84,10 +84,10 @@ class DependencyResolver {
 		}
 
 		libraryBasePath = Path.normalize(libraryBasePath);
-		if (absPath.indexOf(libraryBasePath) == -1) {
+		if (!absPath.contains(libraryBasePath)) {
 			// dependencies outside of the haxelib repo (installed via "haxelib dev" or just classpaths)
 			// - only bother to show these if they're outside of the current workspace
-			if (absPath.indexOf(Path.normalize(rootPath)) == -1) {
+			if (!absPath.contains(Path.normalize(rootPath))) {
 				// could be a "haxelib dev" haxelib
 				var haxelibInfo = searchHaxelibJson(absPath);
 				if (haxelibInfo == null) {
