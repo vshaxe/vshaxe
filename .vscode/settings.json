@@ -14,5 +14,7 @@
 	},
 	"haxeTestExplorer.testCommand": [
 		"haxelib", "run", "vshaxe-build", "-t", "language-server-tests", "--", "-lib", "test-adapter"
-	]
+	],
+	"haxe.executable": "auto",
+	"haxelib.executable": "auto"
 }
