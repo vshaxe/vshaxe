@@ -1,4 +1,4 @@
-### 2.13.2 (to be released)
+### 2.13.2 (June 17, 2019)
 
 **Bugfixes:**
 
