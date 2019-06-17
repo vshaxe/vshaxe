@@ -3,6 +3,7 @@
 **Bugfixes:**
 
 - fixed incorrect parameter highlighting in signature help in some cases ([#352](https://github.com/vshaxe/vshaxe/issues/352))
+- fixed mid-word invocation of completion with Haxe 4.0.0-rc.3 ([haxe#8438](https://github.com/HaxeFoundation/haxe/issues/8438))
 
 ### 2.13.1 (June 14, 2019)
 
