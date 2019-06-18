@@ -71,6 +71,24 @@
 				},
 				"debug": true
 			}
+		},
+		{
+			"name": "install",
+			"inherit": "empty",
+			"args": {
+				"main": "Install",
+				"output": {
+					"target": "interp"
+				}
+			}
+		},
+		{
+			"name": "build-and-install",
+			"composite": true,
+			"targetDependencies": [
+				"vshaxe",
+				"install"
+			]
 		}
 	]
 }
