@@ -1,4 +1,4 @@
-### 2.13.3 (to be released)
+### 2.13.3 (June 19, 2019)
 
 - fixed replace ranges of metadata completion
 - fixed HXML highlighting with Haxe arguments as substrings ([haxe-TmLanguage#44](https://github.com/vshaxe/haxe-TmLanguage/issues/44))
