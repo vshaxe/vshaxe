@@ -1,3 +1,7 @@
+### 2.13.3 (to be released)
+
+- fixed replace ranges of metadata completion
+
 ### 2.13.2 (June 17, 2019)
 
 **Bugfixes:**
