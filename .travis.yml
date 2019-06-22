@@ -3,6 +3,10 @@ node_js:
   - "10"
 dist: xenial
 
+env:
+  - HAXE_VERSION=haxerc
+  - HAXE_VERSION=nightly
+
 install:
   - npm install
   - cd syntaxes
@@ -10,5 +14,6 @@ install:
   - cd ..
 
 script:
+  - if [[ "$HAXE_VERSION" == "nightly" ]]; then npx lix use haxe nightly; fi
   - npx lix run vshaxe-build -v --debug -t all
   - npx lix run vshaxe-build -v -t vshaxe
