@@ -14,6 +14,7 @@ install:
   - cd ..
 
 script:
+  - if [[ "$HAXE_VERSION" == "nightly" ]]; then npx lix download haxe nightly; fi
   - if [[ "$HAXE_VERSION" == "nightly" ]]; then npx lix use haxe nightly; fi
   - npx lix run vshaxe-build -v --debug -t all
   - npx lix run vshaxe-build -v -t vshaxe
