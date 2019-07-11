@@ -1,5 +1,9 @@
 ### 2.13.4 (to be released)
 
+**Changes and Improvements:**
+
+- added manual links to metadata completion and hover ([haxe#8350](https://github.com/HaxeFoundation/haxe/issues/8350))
+
 **Bugfixes:**
 
 - fixed `macro` missing from modifier keyword completion
