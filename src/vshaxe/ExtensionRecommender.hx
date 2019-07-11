@@ -29,7 +29,7 @@ class ExtensionRecommender {
 		if (globalState.get(memento, false)) {
 			return;
 		}
-		var alreadyInstalled = extensions.all.exists(extension -> extension.id == extensionId);
+		var alreadyInstalled = extensions.all.get().exists(extension -> extension.id == extensionId);
 		if (alreadyInstalled) {
 			return;
 		}
