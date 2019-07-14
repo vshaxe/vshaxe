@@ -274,7 +274,7 @@ class DependencyTreeView {
 		}
 		commands.executeCommand("workbench.action.findInFiles", {
 			query: "",
-			filesToInclude: node.path
+			filesToInclude: PathHelper.capitalizeDriveLetter(node.path)
 		});
 	}
 
