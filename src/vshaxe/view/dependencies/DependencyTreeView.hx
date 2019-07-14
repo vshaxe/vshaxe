@@ -42,6 +42,7 @@ class DependencyTreeView {
 		context.registerHaxeCommand(Dependencies_OpenToTheSide, openToTheSide);
 		context.registerHaxeCommand(Dependencies_RevealInExplorer, revealInExplorer);
 		context.registerHaxeCommand(Dependencies_OpenInCommandPrompt, openInCommandPrompt);
+		context.registerHaxeCommand(Dependencies_FindInFolder, findInFolder);
 		context.registerHaxeCommand(Dependencies_CopyPath, copyPath);
 
 		var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
@@ -265,6 +266,16 @@ class DependencyTreeView {
 			cwd = Path.directory(node.path);
 		}
 		window.createTerminal({cwd: cwd}).show();
+	}
+
+	function findInFolder(node:Node) {
+		if (!node.isDirectory) {
+			return;
+		}
+		commands.executeCommand("workbench.action.findInFiles", {
+			query: "",
+			filesToInclude: node.path
+		});
 	}
 
 	function copyPath(node:Node) {

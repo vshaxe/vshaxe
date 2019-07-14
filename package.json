@@ -838,6 +838,11 @@
 				"category": "Haxe"
 			},
 			{
+				"title": "Find in Folder...",
+				"command": "haxe.dependencies.findInFolder",
+				"category": "Haxe"
+			},
+			{
 				"title": "Copy Path",
 				"command": "haxe.dependencies.copyPath",
 				"category": "Haxe"
@@ -1158,9 +1163,14 @@
 					"group": "1_vshaxe@4"
 				},
 				{
+					"command": "haxe.dependencies.findInFolder",
+					"when": "view == haxe.dependencies && viewItem =~ /(folder)/",
+					"group": "2_vshaxe@1"
+				},
+				{
 					"command": "haxe.dependencies.copyPath",
 					"when": "view == haxe.dependencies && viewItem =~ /(folder|file\\.*)/",
-					"group": "2_vshaxe@1"
+					"group": "3_vshaxe@1"
 				},
 				{
 					"command": "haxe.cache.copyNodeValue",
@@ -1208,6 +1218,10 @@
 				},
 				{
 					"command": "haxe.dependencies.openInCommandPrompt",
+					"when": "false"
+				},
+				{
+					"command": "haxe.dependencies.findInFolder",
 					"when": "false"
 				},
 				{

@@ -3,6 +3,7 @@
 **Changes and Improvements:**
 
 - added manual links to metadata completion and hover ([haxe#8350](https://github.com/HaxeFoundation/haxe/issues/8350))
+- added "Find in Folder..." to the context menu of folders in Haxe Dependencies
 
 **Bugfixes:**
 

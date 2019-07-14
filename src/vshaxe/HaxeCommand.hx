@@ -26,6 +26,7 @@ enum abstract HaxeCommand(String) to String {
 	var Dependencies_OpenToTheSide = command("dependencies.openToTheSide");
 	var Dependencies_RevealInExplorer = command("dependencies.revealInExplorer");
 	var Dependencies_OpenInCommandPrompt = command("dependencies.openInCommandPrompt");
+	var Dependencies_FindInFolder = command("dependencies.findInFolder");
 	var Dependencies_CopyPath = command("dependencies.copyPath");
 	var Cache_CopyNodeValue = command("cache.copyNodeValue");
 	var Cache_ReloadNode = command("cache.reloadNode");
