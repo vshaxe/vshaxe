@@ -1,4 +1,4 @@
-### 2.13.4 (to be released)
+### 2.13.4 (July 14, 2019)
 
 **Changes and Improvements:**
 
