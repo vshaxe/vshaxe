@@ -1,3 +1,10 @@
+### 2.13.5 (August 2, 2019)
+
+**Bugfixes:**
+
+- fixed filtering in toplevel completion
+- fixed type snippets appearing in import completion
+
 ### 2.13.4 (July 14, 2019)
 
 **Changes and Improvements:**
