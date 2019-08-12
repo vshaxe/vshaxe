@@ -1,3 +1,10 @@
+### 2.13.7 (August 12, 2019)
+
+**Changes and Improvements:**
+
+- changed the required VSCode version to 1.37.0
+- updated icons for VSCode 1.37.0
+
 ### 2.13.6 (August 12, 2019)
 
 **Changes and Improvements:**
