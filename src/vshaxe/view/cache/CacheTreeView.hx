@@ -1,7 +1,7 @@
 package vshaxe.view.cache;
 
 import vshaxe.server.LanguageServer;
-import haxeLanguageServer.protocol.Server;
+import haxe.display.Server;
 import haxe.display.JsonModuleTypes.JsonTypePath;
 import haxe.ds.ArraySort;
 

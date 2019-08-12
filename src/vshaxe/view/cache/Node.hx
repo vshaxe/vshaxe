@@ -1,6 +1,6 @@
 package vshaxe.view.cache;
 
-import haxeLanguageServer.protocol.Server;
+import haxe.display.Server;
 
 enum Kind {
 	ServerRoot;

@@ -1,6 +1,8 @@
 package vshaxe.server;
 
 import haxe.extern.Rest;
+import haxe.display.Protocol.Response;
+import haxe.display.Protocol.HaxeRequestMethod;
 import js.lib.Promise;
 import jsonrpc.Types;
 import vshaxe.display.DisplayArguments;
@@ -8,8 +10,6 @@ import vshaxe.configuration.HaxeInstallation;
 import vshaxe.server.LanguageClient;
 import haxeLanguageServer.LanguageServerMethods;
 import haxeLanguageServer.Configuration.DisplayServerConfig;
-import haxeLanguageServer.protocol.Protocol.Response;
-import haxeLanguageServer.protocol.Protocol.HaxeRequestMethod;
 import languageServerProtocol.Types.DocumentUri;
 
 class LanguageServer {
