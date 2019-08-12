@@ -1,3 +1,9 @@
+### 2.13.6 (August 12, 2019)
+
+**Changes and Improvements:**
+
+- improved completion to detect deletion and creation of types ([haxe#8451](https://github.com/HaxeFoundation/haxe/issues/8451))
+
 ### 2.13.5 (August 2, 2019)
 
 **Bugfixes:**
