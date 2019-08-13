@@ -1,3 +1,9 @@
+### 2.13.8 (to be released)
+
+**Changes and Improvements:**
+
+- added [strike-through rendering](https://code.visualstudio.com/updates/v1_37#_diagnosticstagdeprecated) for deprecation diagnostics ([haxe#8632](https://github.com/HaxeFoundation/haxe/issues/8632))
+
 ### 2.13.7 (August 12, 2019)
 
 **Changes and Improvements:**
