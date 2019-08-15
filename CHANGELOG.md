@@ -3,6 +3,7 @@
 **Changes and Improvements:**
 
 - added [strike-through rendering](https://code.visualstudio.com/updates/v1_37#_diagnosticstagdeprecated) for deprecation diagnostics ([haxe#8632](https://github.com/HaxeFoundation/haxe/issues/8632))
+- improved completion performance by limiting the number of results ([haxe#8642](https://github.com/HaxeFoundation/haxe/issues/8642))
 
 ### 2.13.7 (August 12, 2019)
 
