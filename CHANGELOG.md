@@ -4,6 +4,7 @@
 
 - added [strike-through rendering](https://code.visualstudio.com/updates/v1_37#_diagnosticstagdeprecated) for deprecation diagnostics ([haxe#8632](https://github.com/HaxeFoundation/haxe/issues/8632))
 - improved completion performance by limiting the number of results ([haxe#8642](https://github.com/HaxeFoundation/haxe/issues/8642))
+- improved error message for starting eval-debugger without a configuration ([#370](https://github.com/vshaxe/vshaxe/issues/370))
 
 ### 2.13.7 (August 12, 2019)
 

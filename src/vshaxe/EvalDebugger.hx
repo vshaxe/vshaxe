@@ -36,6 +36,11 @@ class EvalDebugger {
 			config.cwd = folder.uri.fsPath;
 		}
 		if (config.args == null) {
+			if (displayArguments.arguments == null) {
+				window.showErrorMessage('No Haxe configuration exists. '
+					+ 'Please create a HXML file, use the "haxe.configurations" setting or set `args` in the launch configuration.');
+				return js.Lib.undefined;
+			}
 			config.args = displayArguments.arguments;
 		}
 		config.haxeExecutable = haxeExecutable.configuration;
