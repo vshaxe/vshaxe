@@ -1,3 +1,9 @@
+### 2.14.1 (August 18, 2019)
+
+**Bugfixes:**
+
+- fixed keyword / snippet completion outside of functions
+
 ### 2.14.0 (August 17, 2019)
 
 **Changes and Improvements:**
