@@ -64,7 +64,7 @@ class Node extends TreeItem {
 		var percent = if (timer.percentTotal != null) truncate(timer.percentTotal, 4) else null;
 		var label = '$name - ${seconds}s';
 		if (!isRoot && percent != null) {
-			label += ' ($percent%)';
+			label += ' ($percent%) [${timer.calls} call${timer.calls == 1 ? "" : "s"}]';
 		}
 		if (debugInfo != null) {
 			label += ' [$debugInfo]';
