@@ -1,3 +1,9 @@
+### 2.14.2 (to be released)
+
+**Bugfixes:**
+
+- fixed names in type snippets with `Module.platform.hx`
+
 ### 2.14.1 (August 18, 2019)
 
 **Bugfixes:**
