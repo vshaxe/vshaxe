@@ -1,4 +1,9 @@
-### 2.14.2 (to be released)
+### 2.15.0 (to be released)
+
+**New Features:**
+
+- added support for fading out inactive conditional compilation blocks
+- added support for hover hints in compiler conditionals
 
 **Bugfixes:**
 
