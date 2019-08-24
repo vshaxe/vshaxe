@@ -65,7 +65,10 @@ class CacheTreeView {
 							{key: "total cache", value: formatSize(result.memory.totalCache)},
 							{key: "haxelib cache", value: formatSize(result.memory.haxelibCache)},
 							{key: "parser cache", value: formatSize(result.memory.parserCache)},
-							{key: "module cache", value: formatSize(result.memory.moduleCache)}
+							{key: "module cache", value: formatSize(result.memory.moduleCache)},
+							{key: "native lib cache", value: formatSize(result.memory.nativeLibCache)},
+							{key: "macro interpreter", value: formatSize(result.memory.macroInterpreter)},
+							{key: "completion result", value: formatSize(result.memory.completionResult)},
 						];
 						nodes.push(new Node("overview", null, StringMapping(kv), node));
 						for (ctx in result.contexts) {
