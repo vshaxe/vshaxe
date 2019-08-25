@@ -156,15 +156,6 @@ class LanguageServer {
 							});
 						}
 					});
-				},
-				// TODO: remove this once vscode-languageclient supports DiagnosticTag.Deprecated
-				handleDiagnostics: (uri, diagnostics, next) -> {
-					for (diagnostic in diagnostics) {
-						if (diagnostic.code == 5) {
-							diagnostic.tags = [Deprecated];
-						}
-					}
-					next(uri, diagnostics);
 				}
 			}
 		};
