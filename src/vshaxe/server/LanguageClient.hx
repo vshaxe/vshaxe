@@ -5,8 +5,8 @@ import jsonrpc.Types.Message;
 import jsonrpc.Types.NoData;
 import jsonrpc.ResponseError;
 import jsonrpc.Protocol;
-import languageServerProtocol.protocol.Protocol.RequestMethod;
-import languageServerProtocol.protocol.Protocol.NotificationMethod;
+import languageServerProtocol.protocol.Protocol.RequestType;
+import languageServerProtocol.protocol.Protocol.NotificationType;
 import languageServerProtocol.protocol.Protocol.InitializeParams;
 import languageServerProtocol.protocol.Protocol.InitializeResult;
 import languageServerProtocol.protocol.Protocol.InitializeError;
@@ -20,14 +20,13 @@ import js.lib.Error;
 extern class LanguageClient {
 	function new(id:String, name:String, serverOptions:ServerOptions, clientOptions:LanguageClientOptions, ?forceDebug:Bool);
 	var initializeResult(default, null):Null<InitializeResult>;
-	@:overload(function<R, E, RO>(type:RequestMethod<NoData, R, E, RO>, ?token:CancellationToken):Thenable<R> {})
-	@:overload(function<P, R, E, RO>(type:RequestMethod<P, R, E, RO>, params:P, ?token:CancellationToken):Thenable<R> {})
+	@:overload(function<R, E, RO>(type:RequestType<NoData, R, E, RO>, ?token:CancellationToken):Thenable<R> {})
+	@:overload(function<P, R, E, RO>(type:RequestType<P, R, E, RO>, params:P, ?token:CancellationToken):Thenable<R> {})
 	@:overload(function<R>(method:String, ?token:CancellationToken):Thenable<R> {})
 	function sendRequest<R>(method:String, param:Any, ?token:CancellationToken):Thenable<R>;
-	@:overload(function<R, E, RO>(type:RequestMethod<NoData, R, E, RO>, handler:RequestHandler<NoData, R, E>):Void {})
-	@:overload(function<P, R, E, RO>(type:RequestMethod<P, R, E, RO>, handler:RequestHandler<P, R, E>):Void {})
-	function onRequest<R, E>(method:String, handler:GenericRequestHandler<R, E>):Void;
-	@:overload(function<P, RO>(type:NotificationMethod<P, RO>, ?params:P):Void {})
+	@:overload(function<R, E, RO>(type:RequestType<NoData, R, E, RO>, handler:RequestHandler<NoData, R, E>):Void {})
+	@:overload(function<P, R, E, RO>(type:RequestType<P, R, E, RO>, handler:RequestHandler<P, R, E>):Void {})
+	@:overload(function<P, RO>(type:NotificationType<P, RO>, ?params:P):Void {})
 	@:overload(function(method:String):Void {})
 	function sendNotification(method:String, params:Any):Void;
 	function onNotification(method:String, handler:Dynamic->Void):Void;

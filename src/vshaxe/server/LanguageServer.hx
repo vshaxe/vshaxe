@@ -27,7 +27,7 @@ class LanguageServer {
 	final hxFileWatcher:FileSystemWatcher;
 	final disposables:Array<{function dispose():Void;}>;
 	var restartDisposables:Array<{function dispose():Void;}>;
-	var queuedNotifications:Array<{method:NotificationMethod<Dynamic>, ?params:Dynamic}>;
+	var queuedNotifications:Array<{method:NotificationType<Dynamic>, ?params:Dynamic}>;
 	var clientStartingUp:Bool;
 	var progresses = new Map<Int, Void->Void>();
 	var displayServerConfig:DisplayServerConfig;
@@ -73,7 +73,7 @@ class LanguageServer {
 			d.dispose();
 	}
 
-	function sendNotification<P>(method:NotificationMethod<P>, ?params:P) {
+	function sendNotification<P>(method:NotificationType<P>, ?params:P) {
 		if (client == null) {
 			return;
 		}
@@ -88,7 +88,7 @@ class LanguageServer {
 		}
 	}
 
-	public function sendRequest<P, R>(method:RequestMethod<P, R, NoData>, params:P):Thenable<R> {
+	public function sendRequest<P, R>(method:RequestType<P, R, NoData>, params:P):Thenable<R> {
 		return if (client != null) {
 			client.sendRequest(method, params);
 		} else {
@@ -96,7 +96,7 @@ class LanguageServer {
 		}
 	}
 
-	function onNotification<P>(method:NotificationMethod<P>, handler:(params:P) -> Void) {
+	function onNotification<P>(method:NotificationType<P>, handler:(params:P) -> Void) {
 		if (client != null)
 			client.onNotification(method, handler);
 	}
