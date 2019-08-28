@@ -856,6 +856,11 @@
 				"title": "Reload",
 				"command": "haxe.cache.reloadNode",
 				"category": "Haxe"
+			},
+			{
+				"title": "Go to",
+				"command": "haxe.cache.gotoNode",
+				"category": "Haxe"
 			}
 		],
 		"languages": [
@@ -1181,6 +1186,11 @@
 					"command": "haxe.cache.reloadNode",
 					"when": "view == haxe.cache && viewItem =~ /reloadable/",
 					"group": "2_vshaxe@1"
+				},
+				{
+					"command": "haxe.cache.gotoNode",
+					"when": "view == haxe.cache && viewItem =~ /gotoable/",
+					"group": "2_vshaxe@1"
 				}
 			],
 			"commandPalette": [
@@ -1234,6 +1244,10 @@
 				},
 				{
 					"command": "haxe.cache.reloadNode",
+					"when": "false"
+				},
+				{
+					"command": "haxe.cache.gotoNode",
 					"when": "false"
 				}
 			]

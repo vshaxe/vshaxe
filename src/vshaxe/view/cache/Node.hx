@@ -21,6 +21,7 @@ enum Kind {
 class Node extends TreeItem {
 	public final parent:Null<Node>;
 	public final kind:Kind;
+	public var gotoPosition:Null<haxe.display.Position.Location>;
 
 	public function new(label:String, description:Null<String>, kind:Kind, ?parent:Node) {
 		super(label, kind == Leaf ? None : Collapsed);
@@ -34,5 +35,10 @@ class Node extends TreeItem {
 				this.contextValue = "reloadable";
 			case _:
 		}
+	}
+
+	public function setGotoPosition(pos:haxe.display.Position.Location) {
+		gotoPosition = pos;
+		this.contextValue += "gotoable";
 	}
 }

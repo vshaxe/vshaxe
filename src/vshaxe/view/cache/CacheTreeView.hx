@@ -20,6 +20,7 @@ class CacheTreeView {
 		onDidChangeTreeData = didChangeTreeData.event;
 		context.registerHaxeCommand(Cache_CopyNodeValue, copyNodeValue);
 		context.registerHaxeCommand(Cache_ReloadNode, reloadNode);
+		context.registerHaxeCommand(Cache_GotoNode, gotoNode);
 		window.registerTreeDataProvider("haxe.cache", this);
 		view = window.createTreeView("haxe.cache", {treeDataProvider: this, showCollapseAll: true});
 	}
@@ -108,8 +109,18 @@ class CacheTreeView {
 						var types = [];
 						types.push(new Node("?module extra size", formatSize(result.moduleExtra), Leaf, node));
 						for (type in result.types) {
-							var subnodes = type.fields.map(field -> new Node(field.name, formatSize(field.size), Leaf, node));
-							types.push(new Node(type.name, formatSize(type.size), Nodes(subnodes), node));
+							var subnodes = type.fields.map(function(field) {
+								var fieldNode = new Node(field.name, formatSize(field.size), Leaf, node);
+								if (field.pos != null) {
+									fieldNode.setGotoPosition(field.pos);
+								}
+								return fieldNode;
+							});
+							var typeNode = new Node(type.name, formatSize(type.size), Nodes(subnodes), node);
+							if (type.pos != null) {
+								typeNode.setGotoPosition(type.pos);
+							}
+							types.push(typeNode);
 						};
 						return types;
 					}, reject -> reject);
@@ -191,6 +202,13 @@ class CacheTreeView {
 			case _: throw false;
 		}
 		env.clipboard.writeText(value);
+	}
+
+	function gotoNode(node:Node) {
+		if (node.gotoPosition != null) {
+			var pos = node.gotoPosition;
+			workspace.openTextDocument(pos.file.toString()).then(document -> window.showTextDocument(document, {selection: cast pos.range}));
+		}
 	}
 
 	function reloadNode(node:Node) {
