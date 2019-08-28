@@ -30,7 +30,7 @@ class Node extends TreeItem {
 		switch kind {
 			case StringList(_) | StringMapping(_) | Context(_):
 				this.contextValue = "copyable";
-			case ServerRoot | MemoryRoot | ContextModules(_) | ContextFiles(_) | ModuleInfo(_):
+			case ServerRoot | MemoryRoot | ContextModules(_) | ContextFiles(_) | ModuleInfo(_) | ContextMemory(_) | ModuleMemory(_):
 				this.contextValue = "reloadable";
 			case _:
 		}

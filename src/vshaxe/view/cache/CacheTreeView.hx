@@ -86,7 +86,7 @@ class CacheTreeView {
 				case ContextMemory(ctx):
 					return server.runMethod(ServerMethods.ContextMemory, {signature: ctx.signature}).then(function(result:HaxeContextMemoryResult) {
 						var a = result.moduleCache.list.map(module -> new Node(module.path, formatSize(module.size),
-							ModuleMemory(ctx.signature, module.path)));
+							module.hasTypes ? ModuleMemory(ctx.signature, module.path) : Leaf));
 						var sizeNodes = [
 							new Node("syntax cache", formatSize(result.syntaxCache.size), Leaf, node),
 							new Node("module cache", formatSize(result.moduleCache.size), Leaf, node)
