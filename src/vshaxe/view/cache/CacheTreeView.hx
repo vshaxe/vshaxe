@@ -207,7 +207,9 @@ class CacheTreeView {
 	function gotoNode(node:Node) {
 		if (node.gotoPosition != null) {
 			var pos = node.gotoPosition;
-			workspace.openTextDocument(pos.file.toString()).then(document -> window.showTextDocument(document, {selection: cast pos.range}));
+			var start = pos.range.start;
+			var selection = new Range(start.line, start.character, start.line, start.character);
+			workspace.openTextDocument(pos.file.toString()).then(document -> window.showTextDocument(document, {selection: selection}));
 		}
 	}
 
