@@ -5,8 +5,8 @@ import haxe.display.Server;
 enum Kind {
 	ServerRoot;
 	MemoryRoot;
-	ModuleMemory(types:Array<ModulesSizeResult>);
-	ModuleTypeMemory(types:Array<ModuleTypeSizeResult>);
+	ContextMemory(ctx:HaxeServerContext);
+	ModuleMemory(sign:String, path:String);
 	Context(ctx:HaxeServerContext);
 	ContextModules(ctx:HaxeServerContext);
 	ContextFiles(ctx:HaxeServerContext);
@@ -14,6 +14,7 @@ enum Kind {
 	ModuleList(modules:Array<ModuleId>);
 	StringList(strings:Array<String>);
 	StringMapping(mapping:Array<{var key:String; var value:String;}>);
+	Nodes(nodes:Array<Node>);
 	Leaf;
 }
 

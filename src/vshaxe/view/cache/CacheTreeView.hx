@@ -49,6 +49,8 @@ class CacheTreeView {
 				didChangeTreeData.fire(node);
 			}
 			switch node.kind {
+				case Nodes(nodes):
+					return nodes;
 				case ServerRoot:
 					server.runMethod(ServerMethods.Contexts).then(function(result:Array<HaxeServerContext>) {
 						var nodes = [];
@@ -62,30 +64,55 @@ class CacheTreeView {
 					server.runMethod(ServerMethods.Memory).then(function(result:HaxeMemoryResult) {
 						var nodes = [];
 						var kv = [
-							{key: "total cache", value: formatSize(result.memory.totalCache)},
+							{key: "context cache", value: formatSize(result.memory.contextCache)},
 							{key: "haxelib cache", value: formatSize(result.memory.haxelibCache)},
-							{key: "parser cache", value: formatSize(result.memory.parserCache)},
-							{key: "module cache", value: formatSize(result.memory.moduleCache)},
+							{key: "directory cache", value: formatSize(result.memory.directoryCache)},
 							{key: "native lib cache", value: formatSize(result.memory.nativeLibCache)},
-							{key: "macro interpreter", value: formatSize(result.memory.macroInterpreter)},
-							{key: "completion result", value: formatSize(result.memory.completionResult)},
 						];
-						nodes.push(new Node("overview", null, StringMapping(kv), node));
+						var cacheNode = new Node("total cache", formatSize(result.memory.totalCache), StringMapping(kv), node);
+						var subnodes = [cacheNode];
+						if (result.memory.additionalSizes != null) {
+							for (item in result.memory.additionalSizes) {
+								subnodes.push(new Node(item.name, formatSize(item.size), Leaf, node));
+							}
+						}
+						nodes.push(new Node("overview", null, Nodes(subnodes), node));
 						for (ctx in result.contexts) {
 							var name = ctx.context == null ? "?" : '${ctx.context.platform} (${ctx.context.desc}, ${ctx.context.index})';
-							nodes.push(new Node(name, formatSize(ctx.size), ModuleMemory(ctx.modules), node));
+							nodes.push(new Node(name, formatSize(ctx.size), ContextMemory(ctx.context), node));
 						}
 						return nodes;
 					}, reject -> reject);
-				case ModuleMemory(types):
-					return types.map(function(sizeResult) {
-						return new Node(sizeResult.path, formatSize(sizeResult.size), ModuleTypeMemory(sizeResult.types), node);
-					});
-				case ModuleTypeMemory(fields):
-					return fields.map(function(sizeResult) {
-						var kv = sizeResult.fields.map(sizeResult -> {key: sizeResult.path, value: formatSize(sizeResult.size)});
-						return new Node(sizeResult.path, formatSize(sizeResult.size), StringMapping(kv), node);
-					});
+				case ContextMemory(ctx):
+					return server.runMethod(ServerMethods.ContextMemory, {signature: ctx.signature}).then(function(result:HaxeContextMemoryResult) {
+						var a = result.moduleCache.list.map(module -> new Node(module.path, formatSize(module.size),
+							ModuleMemory(ctx.signature, module.path)));
+						var sizeNodes = [
+							new Node("syntax cache", formatSize(result.syntaxCache.size), Leaf, node),
+							new Node("module cache", formatSize(result.moduleCache.size), Leaf, node)
+						];
+						var sizeNode = new Node("?sizes", null, Nodes(sizeNodes), node);
+						a.unshift(sizeNode);
+						if (result.leaks != null) {
+							var leakNodes = [];
+							for (leak in result.leaks) {
+								leakNodes.push(new Node(leak.path, null, StringList(leak.leaks.map(leak -> leak.path))));
+							}
+							var leakNode = new Node("?LEAKS", null, Nodes(leakNodes), node);
+							a.unshift(leakNode);
+						}
+						return a;
+					}, reject -> reject);
+				case ModuleMemory(sign, path):
+					return server.runMethod(ServerMethods.ModuleMemory, {signature: sign, path: path}).then(function(result:HaxeModuleMemoryResult) {
+						var types = [];
+						types.push(new Node("?module extra size", formatSize(result.moduleExtra), Leaf, node));
+						for (type in result.types) {
+							var subnodes = type.fields.map(field -> new Node(field.name, formatSize(field.size), Leaf, node));
+							types.push(new Node(type.name, formatSize(type.size), Nodes(subnodes), node));
+						};
+						return types;
+					}, reject -> reject);
 				case Context(ctx):
 					[
 						new Node('index', "" + ctx.index, Leaf, node),
