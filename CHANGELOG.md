@@ -2,8 +2,13 @@
 
 **New Features:**
 
-- added support for fading out inactive conditional compilation blocks
-- added support for hover hints in compiler conditionals
+- added fading out of inactive conditional compilation blocks (requires Haxe 4.0.0-rc.4)
+- added hover hints in compiler conditionals (requires Haxe 4.0.0-rc.4)
+
+**Changes and Improvements:**
+
+- diagnostics are now removed when the file they belong to is closed
+- updated the Haxe cache view for changes in Haxe 4.0.0-rc.4
 
 **Bugfixes:**
 
