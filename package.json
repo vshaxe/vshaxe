@@ -571,6 +571,11 @@
 					"type": "boolean",
 					"default": true
 				},
+				"haxe.useLegacyCompletion": {
+					"markdownDescription": "Whether to revert to a Haxe 3 style completion where only toplevel packages and imported types are shown (effectively making it incompatible with auto-imports). *Note:* this setting has no effect with Haxe versions earlier than 4.0.0-rc.4.",
+					"type": "boolean",
+					"default": false
+				},
 				"haxe.codeGeneration": {
 					"markdownDescription": "Options for code generation",
 					"type": "object",

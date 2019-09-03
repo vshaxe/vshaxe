@@ -2,8 +2,11 @@
 
 **New Features:**
 
-- added fading out of inactive conditional compilation blocks (requires Haxe 4.0.0-rc.4)
-- added hover hints in compiler conditionals (requires Haxe 4.0.0-rc.4)
+- added fading out of inactive conditional compilation blocks *
+- added hover hints in compiler conditionals *
+- added a `"haxe.useLegacyCompletion"` setting *
+
+<sup>_* requires Haxe 4.0.0-rc.4_</sup>
 
 **Changes and Improvements:**
 
