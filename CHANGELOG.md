@@ -12,6 +12,7 @@
 
 - diagnostics are now removed when the file they belong to is closed
 - updated the Haxe cache view for changes in Haxe 4.0.0-rc.4
+- updated the "outdated Haxe 4 preview" message for Haxe 4.0.0-rc.4
 
 **Bugfixes:**
 
