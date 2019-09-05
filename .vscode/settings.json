@@ -1,5 +1,4 @@
 {
-	"haxe.diagnosticsPathFilter": "${workspaceRoot}/(?!syntaxes/cases)",
 	"codedox": {
 		"commentprefix": "    ",
 		"commentdescription": "",
