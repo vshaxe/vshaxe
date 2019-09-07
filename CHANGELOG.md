@@ -1,3 +1,17 @@
+### 2.16.0 (to be released)
+
+**New Features:**
+
+- added support for "Format Selection"
+
+**Changes and Improvements:**
+
+- updated to haxe-formatter version [1.9.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.9.0)
+
+**Bugfixes:**
+
+- fixed a hang when parsing macro reification in some situations ([#360](https://github.com/vshaxe/vshaxe/issues/360))
+
 ### 2.15.0 (September 4, 2019)
 
 **New Features:**
