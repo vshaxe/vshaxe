@@ -7,10 +7,6 @@ env:
   - HAXE_VERSION=haxerc
   - HAXE_VERSION=nightly
 
-matrix:
-  allow_failures:
-    - env: HAXE_VERSION=nightly
-
 install:
   - npm install
   - cd syntaxes
