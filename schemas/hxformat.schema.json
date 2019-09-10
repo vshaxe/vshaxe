@@ -677,7 +677,7 @@
 				},
 				"conditionalPolicy": {
 					"default": "aligned",
-					"markdownDescription": "only applies to non inlined conditionals\n\"fixedZero\" = all conditional statements should start in column 1\n\"aligned\" = conditional statements share indentation of surrounding code\n\"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code\n\"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
+					"markdownDescription": "only applies to non inlined conditionals\n\"fixedZero\" = all conditional statements should start in column 1\n\"fixedZeroIncrease\" = indentation for conditionals starts at 0 and increases for every level\n\"fixedZeroIncreaseBlocks\" = same as \"fixedZeroIncrease\" but increases only inside blocks, outside it's \"fixedZero\"\n\"aligned\" = conditional statements share indentation of surrounding code\n\"alignedNestedIncrease\" = conditionals align with surrounding code, but will increase indent when nested\n\"alignedIncrease\" = same as \"aligned\" but will increase indent by +1 for enclosed code\n\"alignedDecrease\" = same as \"aligned\" but will decrease indent by -1 for enclosed code",
 					"$ref": "#/definitions/formatter.config.ConditionalIndentationPolicy"
 				},
 				"character": {
@@ -932,7 +932,10 @@
 		"formatter.config.ConditionalIndentationPolicy": {
 			"enum": [
 				"fixedZero",
+				"fixedZeroIncrease",
+				"fixedZeroIncreaseBlocks",
 				"aligned",
+				"alignedNestedIncrease",
 				"alignedIncrease",
 				"alignedDecrease"
 			]
