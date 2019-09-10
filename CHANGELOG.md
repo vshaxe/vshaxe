@@ -1,4 +1,4 @@
-### 2.16.0 (to be released)
+### 2.16.0 (September 10, 2019)
 
 **New Features:**
 
