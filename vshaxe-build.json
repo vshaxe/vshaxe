@@ -37,10 +37,13 @@
 				["npx", "webpack", "--mode", "production", "--silent"]
 			],
 			"args": {
-				"haxelibs": ["vscode", "vscode-json-rpc"],
+				"haxelibs": [
+					"vscode",
+					"vscode-json-rpc",
+					"language-server-protocol"
+				],
 				"classPaths": [
 					"server/src",
-					"server/protocol/src",
 					"src",
 					"haxelib/src"
 				],
@@ -63,8 +66,13 @@
 			"name": "formatter-schema",
 			"inherit": "empty",
 			"args": {
-				"haxelibs": ["formatter", "json2object"],
-				"classPaths": ["schemas"],
+				"haxelibs": [
+					"formatter",
+					"json2object"
+				],
+				"classPaths": [
+					"schemas"
+				],
 				"main": "SchemaGenerator",
 				"output": {
 					"target": "interp"
