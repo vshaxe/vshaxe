@@ -6,9 +6,21 @@ using StringTools;
 class Install {
 	static function main() {
 		// this is not hacky at all... but seems there's no way to make `vsce package` skip prepublish
-		var restorePackageJson = tempModification("package.json", "vscode:prepublish");
+		var restorePackageJson = tempModification("package.json", function(content) {
+			return content.split("\n").map(line -> if (line.contains("vscode:prepublish")) "" else line).join("\n");
+		});
+		var restoreVscodeIgnore = tempModification(".vscodeignore", function(content) {
+			return content + [
+				"vscode-languageclient",
+				"semver",
+				"vscode-languageserver-protocol",
+				"vscode-jsonrpc",
+				"vscode-languageserver-types",
+			].map(lib -> '!node_modules/$lib/**/*').join("\n");
+		});
 		function restore() {
 			restorePackageJson();
+			restoreVscodeIgnore();
 		}
 		try {
 			Sys.command("vsce package");
@@ -28,9 +40,9 @@ class Install {
 		restore();
 	}
 
-	static function tempModification(file:String, lineToRemove:String):() -> Void {
+	static function tempModification(file:String, modify:(content:String) -> String):() -> Void {
 		var originalContent = File.getContent(file);
-		var newContent = originalContent.split("\n").map(line -> if (line.contains(lineToRemove)) "" else line).join("\n");
+		var newContent = modify(originalContent);
 		File.saveContent(file, newContent);
 		return function() {
 			File.saveContent(file, originalContent);
