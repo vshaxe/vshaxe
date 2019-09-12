@@ -1,8 +1,14 @@
+### 2.16.1 (to be released)
+
+**Bugfixes:**
+
+- fixed "Reveal In Explorer" in Haxe Dependencies on macOS ([#379](https://github.com/vshaxe/vshaxe/issues/379))
+
 ### 2.16.0 (September 10, 2019)
 
 **New Features:**
 
-- added support for "Format Selection"
+- added support for "Format Selection" and `"editor.formatOnPaste"`
 
 **Changes and Improvements:**
 

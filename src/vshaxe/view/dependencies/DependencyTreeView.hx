@@ -244,20 +244,15 @@ class DependencyTreeView {
 	}
 
 	function revealInExplorer(node:Node) {
-		var explorer = switch Sys.systemName() {
-			case "Windows": "explorer";
-			case "Linux": "xdg-open";
-			case "Mac": "open";
+		var path = '"${node.path}"';
+		var command = switch Sys.systemName() {
+			case "Windows": 'explorer /select,$path';
+			case "Linux": 'xdg-open $path';
+			case "Mac": 'open $path -R';
 			case _: throw "unsupported OS";
 		}
-		var arg = node.path;
-		if (Sys.systemName() == "Windows") {
-			arg = '/select,"$arg"';
-		}
-		// this isn't proper Sys.command() usage
-		// - but otherwise the quoting seems to work improperly :(
 		@:nullSafety(Off) // #7821
-		Sys.command('$explorer $arg');
+		Sys.command(command);
 	}
 
 	function openInCommandPrompt(node:Node) {
