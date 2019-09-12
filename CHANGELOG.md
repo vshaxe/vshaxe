@@ -1,3 +1,9 @@
+### 2.16.3 (to be released)
+
+**Bugfixes:**
+
+- fixed some issues with HXML files that contain `--next` ([#378](https://github.com/vshaxe/vshaxe/issues/378))
+
 ### 2.16.2 (September 12, 2019)
 
 **Bugfixes:**
