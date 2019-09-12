@@ -1,3 +1,9 @@
+### 2.16.2 (September 12, 2019)
+
+**Bugfixes:**
+
+- fixed an issue with whitespace handling in range formatting
+
 ### 2.16.1 (September 12, 2019)
 
 **Changes and Improvements:**
