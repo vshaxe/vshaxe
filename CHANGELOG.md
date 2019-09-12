@@ -1,5 +1,9 @@
 ### 2.16.3 (to be released)
 
+**Changes and Improvements:**
+
+- updated the "outdated Haxe 4 preview" message for Haxe 4.0.0-rc.5
+
 **Bugfixes:**
 
 - fixed some issues with HXML files that contain `--next` ([#378](https://github.com/vshaxe/vshaxe/issues/378))

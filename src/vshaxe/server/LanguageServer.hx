@@ -308,7 +308,7 @@ class LanguageServer {
 
 	inline static var VisitDownloadPageOption = "Visit Download Page";
 	inline static var DontShowAgainOption = "Don't Show Again";
-	public static final DontShowOldPreviewHintAgainKey = new HaxeMementoKey<Bool>("dontShowRC4HintAgain");
+	public static final DontShowOldPreviewHintAgainKey = new HaxeMementoKey<Bool>("dontShowRC5HintAgain");
 
 	function onDidDetectOldPreview(?data:{preview:String}) {
 		var globalState = context.globalState;
@@ -318,12 +318,12 @@ class LanguageServer {
 		var detectedVersion = if (data == null) "" else ' (${data.preview})';
 		final message = 'Old Haxe 4 preview build detected'
 			+ detectedVersion
-			+ '. Consider upgrading to Haxe 4.0.0-rc.4 for improved completion features and stability.';
+			+ '. Consider upgrading to Haxe 4.0.0-rc.5 for improved completion features and stability.';
 		window.showInformationMessage(message, VisitDownloadPageOption, DontShowAgainOption).then(function(selection) {
 			switch selection {
 				case null:
 				case VisitDownloadPageOption:
-					env.openExternal(Uri.parse("https://haxe.org/download/version/4.0.0-rc.4/"));
+					env.openExternal(Uri.parse("https://haxe.org/download/version/4.0.0-rc.5/"));
 				case DontShowAgainOption:
 					globalState.update(DontShowOldPreviewHintAgainKey, true);
 			}
