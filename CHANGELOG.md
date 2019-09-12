@@ -1,8 +1,13 @@
 ### 2.16.1 (to be released)
 
+**Changes and Improvements:**
+
+- updated to haxe-formatter version [1.9.1](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.9.1)
+
 **Bugfixes:**
 
 - fixed "Reveal In Explorer" in Haxe Dependencies on macOS ([#379](https://github.com/vshaxe/vshaxe/issues/379))
+- fixed tokens being duplicated in some cases with range formatting ([#381](https://github.com/vshaxe/vshaxe/issues/381))
 
 ### 2.16.0 (September 10, 2019)
 

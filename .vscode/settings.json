@@ -9,7 +9,8 @@
 		"neverAskTemplate": true
 	},
 	"[haxe]": {
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true
 	},
 	"haxeTestExplorer.testCommand": [
 		"haxelib", "run", "vshaxe-build", "-t", "language-server-tests", "--", "-lib", "test-adapter"
