@@ -1,4 +1,4 @@
-### 2.16.1 (to be released)
+### 2.16.1 (September 12, 2019)
 
 **Changes and Improvements:**
 
