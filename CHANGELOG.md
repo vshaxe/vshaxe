@@ -1,3 +1,9 @@
+### 2.16.4 (September 18, 2019)
+
+**Bugfixes:**
+
+- fixed issues with range formatting of multiline comments and strings ([#382](https://github.com/vshaxe/vshaxe/issues/382))
+
 ### 2.16.3 (September 13, 2019)
 
 **Changes and Improvements:**
