@@ -1,3 +1,3 @@
 -D language-server-protocol=3.15.0
-# @install: lix --silent download "gh://github.com/vshaxe/language-server-protocol-haxe#f55fa680bdced6bc4dd6e5a90497a29fd21c4999" into language-server-protocol/3.15.0/github/f55fa680bdced6bc4dd6e5a90497a29fd21c4999
--cp ${HAXE_LIBCACHE}/language-server-protocol/3.15.0/github/f55fa680bdced6bc4dd6e5a90497a29fd21c4999/src
+# @install: lix --silent download "gh://github.com/vshaxe/language-server-protocol-haxe#4208fde22ed6d047c9c9a6975482cc04287f3543" into language-server-protocol/3.15.0/github/4208fde22ed6d047c9c9a6975482cc04287f3543
+-cp ${HAXE_LIBCACHE}/language-server-protocol/3.15.0/github/4208fde22ed6d047c9c9a6975482cc04287f3543/src
