@@ -1,3 +1,13 @@
+### 2.16.5 (October 28, 2019)
+
+**Changes and Improvements:**
+
+- updated the "outdated Haxe 4 preview" message for Haxe 4.0.0
+
+**Bugfixes:**
+
+- fixed an incompatibility with the Haxe 4.0.0 release
+
 ### 2.16.4 (September 18, 2019)
 
 **Bugfixes:**
