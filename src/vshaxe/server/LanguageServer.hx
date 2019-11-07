@@ -200,12 +200,14 @@ class LanguageServer {
 		var env = haxeExecutable.configuration.env;
 		var haxeConfig = workspace.getConfiguration("haxe");
 		var arguments = haxeConfig.get("displayServer.arguments", []);
+		var useSocket = haxeConfig.get("displayServer.useSocket", false);
 		var print = haxeConfig.get("displayServer.print", {completion: false, reusing: false});
 		displayServerConfig = {
 			path: path,
 			env: env,
 			arguments: arguments,
-			print: print
+			print: print,
+			useSocket: useSocket
 		};
 		var oldSerialized = displayServerConfigSerialized;
 		displayServerConfigSerialized = haxe.Json.stringify(displayServerConfig);

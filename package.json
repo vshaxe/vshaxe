@@ -448,6 +448,10 @@
 									"type": "boolean"
 								}
 							}
+						},
+						"useSocket": {
+							"type": "boolean",
+							"default": false
 						}
 					}
 				},
