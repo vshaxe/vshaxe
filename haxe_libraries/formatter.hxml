@@ -1,3 +1,4 @@
--D formatter=1.9.1
-# @install: lix --silent download "gh://github.com/HaxeCheckstyle/haxe-formatter#d106f76292a2b4dfd5d06b1bab9c5c3eb0be161b" into formatter/1.9.1/github/d106f76292a2b4dfd5d06b1bab9c5c3eb0be161b
--cp ${HAXE_LIBCACHE}/formatter/1.9.1/github/d106f76292a2b4dfd5d06b1bab9c5c3eb0be161b/src
+-D formatter=1.9.2
+# @install: lix --silent download "haxelib:/formatter#1.9.2" into formatter/1.9.2/haxelib
+# @run: haxelib run-dir formatter ${HAXE_LIBCACHE}/formatter/1.9.2/haxelib
+-cp ${HAXE_LIBCACHE}/formatter/1.9.2/haxelib/src
