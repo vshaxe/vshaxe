@@ -1,5 +1,6 @@
 package vshaxe;
 
+import js.lib.RegExp;
 import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
 import vshaxe.view.HaxeServerViewContainer;
@@ -64,6 +65,7 @@ class Main {
 		var taskConfiguration = new TaskConfiguration(haxeInstallation.haxe, problemMatchers, server, api);
 		new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
 		new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
+		setLanguageConfiguration();
 
 		scheduleServerStart(displayArguments, haxeInstallation, server);
 	}
@@ -104,6 +106,27 @@ class Main {
 
 		// or maybe we're just ready right away
 		maybeStartServer();
+	}
+
+	function setLanguageConfiguration():Void {
+		// based on https://github.com/microsoft/vscode/blob/bb02817e2e549fd88710d0e0a0336b80648e90b5/extensions/typescript-language-features/src/features/languageConfiguration.ts#L15
+		var defaultWordPattern = "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)";
+		var wordPattern = defaultWordPattern + "|(@:\\w*)"; // metadata
+		languages.setLanguageConfiguration("haxe", {
+			wordPattern: new RegExp(wordPattern),
+			indentationRules: {
+				decreaseIndentPattern: new RegExp("^((?!.*?\\/\\*).*\\*\\/)?\\s*[\\}\\]].*$"),
+				increaseIndentPattern: new RegExp("^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$"),
+				indentNextLinePattern: new RegExp("(^\\s*(for|while|do|if|else|try|catch)|function)\\b(?!.*[;{}]\\s*(\\/\\/.*|\\/[*].*[*]\\/\\s*)?$)")
+			},
+			onEnterRules: [
+				{
+					beforeText: new RegExp("^\\s*(\\bcase\\s.+:|\\bdefault:)$"),
+					afterText: new RegExp("^(?!\\s*(\\bcase\\b|\\bdefault\\b))"),
+					action: {indentAction: vscode.IndentAction.Indent},
+				}
+			]
+		});
 	}
 
 	@:expose("activate")
