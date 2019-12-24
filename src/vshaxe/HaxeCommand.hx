@@ -31,6 +31,7 @@ enum abstract HaxeCommand(String) to String {
 	var Cache_CopyNodeValue = command("cache.copyNodeValue");
 	var Cache_ReloadNode = command("cache.reloadNode");
 	var Cache_GotoNode = command("cache.gotoNode");
+	var Type = "type";
 
 	inline static function command(name:String):String {
 		return "haxe." + name;

@@ -18,6 +18,7 @@ class Commands {
 		context.registerHaxeCommand(RunGlobalDiagnostics, server.runGlobalDiagnostics);
 		context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
 		context.registerHaxeCommand(DebugSelectedConfiguration, debugSelectedConfiguration);
+		context.registerHaxeCommand(Type, extendedTyping);
 
 		#if debug
 		context.registerHaxeCommand(ClearMementos, clearMementos);
@@ -70,6 +71,36 @@ class Commands {
 		debug.startDebugging(folder, label).then(_ -> {}, error -> {
 			window.showErrorMessage(Std.string(error));
 		});
+	}
+
+	function extendedTyping(args) {
+		if (args.text == "{")
+			indentCurlyBracket();
+		commands.executeCommand('default:type', args);
+	}
+
+	function indentCurlyBracket():Void {
+		var editor = window.activeTextEditor;
+		if (editor == null)
+			return;
+		for (selection in editor.selections) {
+			if (!selection.isEmpty)
+				continue;
+			if (selection.active.line <= 0)
+				continue;
+			var line = editor.document.lineAt(selection.active.line);
+			if (!line.isEmptyOrWhitespace)
+				continue;
+			var prevLine = editor.document.lineAt(selection.active.line - 1);
+			if (prevLine.text.length > 0) {
+				if (prevLine.text.fastCodeAt(prevLine.text.length - 1) == "{".code)
+					continue;
+			}
+			var spaces = prevLine.text.substr(0, prevLine.firstNonWhitespaceCharacterIndex);
+			editor.edit(edit -> {
+				edit.replace(line.range, spaces);
+			}, {undoStopBefore: false, undoStopAfter: false});
+		}
 	}
 
 	function clearMementos() {
