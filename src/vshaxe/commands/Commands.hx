@@ -83,24 +83,32 @@ class Commands {
 		var editor = window.activeTextEditor;
 		if (editor == null)
 			return;
+		var lines:Array<{range:Range, spaces:String}> = [];
 		for (selection in editor.selections) {
 			if (!selection.isEmpty)
 				continue;
-			if (selection.active.line <= 0)
+			if (selection.active.line == 0)
 				continue;
 			var line = editor.document.lineAt(selection.active.line);
 			if (!line.isEmptyOrWhitespace)
 				continue;
 			var prevLine = editor.document.lineAt(selection.active.line - 1);
 			if (prevLine.text.length > 0) {
-				if (prevLine.text.fastCodeAt(prevLine.text.length - 1) == "{".code)
+				var char = prevLine.text.fastCodeAt(prevLine.text.length - 1);
+				if (char == "{".code || char == "[".code || char == "(".code)
 					continue;
 			}
+			if (line.text.length < prevLine.firstNonWhitespaceCharacterIndex)
+				continue;
 			var spaces = prevLine.text.substr(0, prevLine.firstNonWhitespaceCharacterIndex);
-			editor.edit(edit -> {
-				edit.replace(line.range, spaces);
-			}, {undoStopBefore: false, undoStopAfter: false});
+			lines.push({range: line.range, spaces: spaces});
 		}
+		if (lines.length == 0)
+			return;
+		editor.edit(edit -> {
+			for (line in lines)
+				edit.replace(line.range, line.spaces);
+		}, {undoStopBefore: false, undoStopAfter: false});
 	}
 
 	function clearMementos() {
