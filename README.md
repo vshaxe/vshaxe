@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/vshaxe/vshaxe.svg?branch=master)](https://travis-ci.org/vshaxe/vshaxe) [![Version](https://vsmarketplacebadge.apphb.com/version-short/nadako.vshaxe.svg)](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/nadako.vshaxe.svg)](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) [![Downloads](https://vsmarketplacebadge.apphb.com/downloads-short/nadako.vshaxe.svg)](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) [![Rating](https://vsmarketplacebadge.apphb.com/rating-short/nadako.vshaxe.svg)](https://marketplace.visualstudio.com/items?itemName=nadako.vshaxe) [![](https://img.shields.io/discord/162395145352904705.svg?logo=discord)](https://discord.gg/6qCNtGj)
 
 This is an extension for [Visual Studio Code](https://code.visualstudio.com) that adds support for the [Haxe](http://haxe.org/) language,
-leveraging the [Haxe Language Server](https://github.com/vshaxe/haxe-language-server). It works best with [Haxe 4.0.0-rc.5](https://haxe.org/download/version/4.0.0-rc.5/), but supports any Haxe version starting from 3.4.0.
+leveraging the [Haxe Language Server](https://github.com/vshaxe/haxe-language-server). It works best with the [latest Haxe 4 release](https://haxe.org/download/), but supports any Haxe version starting from 3.4.0.
 
 ![demo](images/demo2.gif)
 
