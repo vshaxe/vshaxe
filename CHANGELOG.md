@@ -1,3 +1,19 @@
+### 2.17.0 (to be released)
+
+**New Features:**
+
+- added import/using sorting to "Organize Imports"
+- added a code action to extract constants from string literals
+
+**Changes and Improvements:**
+
+- improved compatibility with Haxe 4.1.0 nightly builds
+- updated to haxe-formatter version [1.9.2](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.9.2)
+
+**Bugfixes:**
+
+- fixed eval-debugger sessions not properly stopping on stop
+
 ### 2.16.5 (October 28, 2019)
 
 **Changes and Improvements:**
