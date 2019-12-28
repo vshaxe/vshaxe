@@ -1,9 +1,9 @@
 package vshaxe.view.methods;
 
-import vshaxe.server.LanguageServer;
-import haxeLanguageServer.LanguageServerMethods;
 import haxe.display.Protocol.Timer;
+import haxeLanguageServer.LanguageServerMethods;
 import js.lib.Date;
+import vshaxe.server.LanguageServer;
 
 enum abstract MethodTreeViewType(String) {
 	var Timers = "timers";

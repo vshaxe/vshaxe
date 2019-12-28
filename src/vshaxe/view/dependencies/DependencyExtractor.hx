@@ -3,8 +3,8 @@ package vshaxe.view.dependencies;
 import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
-import vshaxe.helper.PathHelper;
 import vshaxe.helper.HxmlParser;
+import vshaxe.helper.PathHelper;
 
 class DependencyExtractor {
 	public static function extractDependencies(args:Null<Array<String>>, cwd:String):DependencyList {

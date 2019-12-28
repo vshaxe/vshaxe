@@ -1,13 +1,13 @@
 package vshaxe.configuration;
 
+import haxe.DynamicAccess;
+import haxe.extern.EitherType;
+import haxe.io.Path;
 import js.node.Buffer;
 import js.node.ChildProcess;
-import haxe.DynamicAccess;
-import haxe.io.Path;
-import haxe.extern.EitherType;
 import sys.FileSystem;
-import vshaxe.helper.PathHelper;
 import vshaxe.HaxeExecutableSource;
+import vshaxe.helper.PathHelper;
 
 /** unprocessed config **/
 private typedef RawHaxeExecutableConfig = {

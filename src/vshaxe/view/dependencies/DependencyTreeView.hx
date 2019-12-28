@@ -1,11 +1,11 @@
 package vshaxe.view.dependencies;
 
 import haxe.io.Path;
-import vshaxe.view.dependencies.DependencyResolver;
-import vshaxe.view.dependencies.Node;
+import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.PathHelper;
-import vshaxe.configuration.HaxeInstallation;
+import vshaxe.view.dependencies.DependencyResolver;
+import vshaxe.view.dependencies.Node;
 
 class DependencyTreeView {
 	final context:ExtensionContext;

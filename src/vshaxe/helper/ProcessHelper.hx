@@ -1,7 +1,7 @@
 package vshaxe.helper;
 
-import js.node.ChildProcess;
 import js.node.Buffer;
+import js.node.ChildProcess;
 
 class ProcessHelper {
 	public static function getOutput(command:String):Array<String> {

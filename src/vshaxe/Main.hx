@@ -2,18 +2,18 @@ package vshaxe;
 
 import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
-import vshaxe.view.HaxeServerViewContainer;
-import vshaxe.view.dependencies.DependencyTreeView;
 import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
 import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
-import vshaxe.helper.HxmlParser;
 import vshaxe.helper.HaxeCodeLensProvider;
+import vshaxe.helper.HxmlParser;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HaxeTaskProvider;
 import vshaxe.tasks.HxmlTaskProvider;
 import vshaxe.tasks.TaskConfiguration;
+import vshaxe.view.HaxeServerViewContainer;
+import vshaxe.view.dependencies.DependencyTreeView;
 
 class Main {
 	var api:Vshaxe;

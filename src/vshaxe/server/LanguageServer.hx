@@ -1,16 +1,16 @@
 package vshaxe.server;
 
-import haxe.extern.Rest;
-import haxe.display.Protocol.Response;
 import haxe.display.Protocol.HaxeRequestMethod;
+import haxe.display.Protocol.Response;
+import haxe.extern.Rest;
+import haxeLanguageServer.Configuration.DisplayServerConfig;
+import haxeLanguageServer.LanguageServerMethods;
 import js.lib.Promise;
 import jsonrpc.Types;
-import vshaxe.display.DisplayArguments;
-import vshaxe.configuration.HaxeInstallation;
-import vshaxe.server.LanguageClient;
-import haxeLanguageServer.LanguageServerMethods;
-import haxeLanguageServer.Configuration.DisplayServerConfig;
 import languageServerProtocol.Types.DocumentUri;
+import vshaxe.configuration.HaxeInstallation;
+import vshaxe.display.DisplayArguments;
+import vshaxe.server.LanguageClient;
 
 class LanguageServer {
 	public var displayPort(default, null):Null<Int>;
@@ -318,9 +318,7 @@ class LanguageServer {
 			return;
 		}
 		var detectedVersion = if (data == null) "" else ' (${data.preview})';
-		final message = 'It appears you are using a preview build of Haxe 4'
-			+ detectedVersion
-			+ '. Consider upgrading to the official release of Haxe 4.0.0.';
+		final message = 'It appears you are using a preview build of Haxe 4' + detectedVersion + '. Consider upgrading to the official release of Haxe 4.0.0.';
 		window.showInformationMessage(message, VisitDownloadPageOption, DontShowAgainOption).then(function(selection) {
 			switch selection {
 				case null:

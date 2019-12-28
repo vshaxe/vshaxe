@@ -1,20 +1,20 @@
 package vshaxe.server;
 
 import haxe.extern.EitherType;
+import js.lib.Error;
+import js.lib.Promise;
+import jsonrpc.Protocol;
+import jsonrpc.ResponseError;
 import jsonrpc.Types.Message;
 import jsonrpc.Types.NoData;
-import jsonrpc.ResponseError;
-import jsonrpc.Protocol;
-import languageServerProtocol.protocol.Protocol.RequestType;
-import languageServerProtocol.protocol.Protocol.NotificationType;
+import languageServerProtocol.protocol.Protocol.ClientCapabilities;
+import languageServerProtocol.protocol.Protocol.InitializeError;
 import languageServerProtocol.protocol.Protocol.InitializeParams;
 import languageServerProtocol.protocol.Protocol.InitializeResult;
-import languageServerProtocol.protocol.Protocol.InitializeError;
-import languageServerProtocol.protocol.Protocol.ClientCapabilities;
+import languageServerProtocol.protocol.Protocol.NotificationType;
+import languageServerProtocol.protocol.Protocol.RequestType;
 import languageServerProtocol.protocol.Protocol.ServerCapabilities;
 import languageServerProtocol.protocol.Protocol.TraceMode;
-import js.lib.Promise;
-import js.lib.Error;
 
 @:jsRequire("vscode-languageclient", "LanguageClient")
 extern class LanguageClient {

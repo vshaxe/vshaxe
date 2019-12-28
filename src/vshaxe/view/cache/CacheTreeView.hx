@@ -1,9 +1,9 @@
 package vshaxe.view.cache;
 
-import vshaxe.server.LanguageServer;
-import haxe.display.Server;
 import haxe.display.JsonModuleTypes.JsonTypePath;
+import haxe.display.Server;
 import haxe.ds.ArraySort;
+import vshaxe.server.LanguageServer;
 
 class CacheTreeView {
 	final context:ExtensionContext;
