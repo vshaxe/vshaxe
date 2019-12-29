@@ -10,7 +10,10 @@
 	},
 	"[haxe]": {
 		"editor.formatOnSave": true,
-		"editor.formatOnPaste": true
+		"editor.formatOnPaste": true,
+		"editor.codeActionsOnSave": {
+			"source.sortImports": true
+		}
 	},
 	"haxeTestExplorer.testCommand": [
 		"haxelib", "run", "vshaxe-build", "-t", "language-server-tests", "--", "-lib", "test-adapter"

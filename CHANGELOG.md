@@ -3,6 +3,7 @@
 **New Features:**
 
 - added import/using sorting to "Organize Imports"
+- added a "Sort imports/usings" code action
 - added a code action to extract constants from string literals
 
 **Changes and Improvements:**
