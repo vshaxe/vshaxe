@@ -110,10 +110,7 @@ class Main {
 
 	function setLanguageConfiguration():Void {
 		// based on https://github.com/microsoft/vscode/blob/bb02817e2e549fd88710d0e0a0336b80648e90b5/extensions/typescript-language-features/src/features/languageConfiguration.ts#L15
-		var defaultWordPattern = "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)";
-		var wordPattern = defaultWordPattern + "|(@:\\w*)"; // metadata
 		languages.setLanguageConfiguration("haxe", {
-			wordPattern: new RegExp(wordPattern),
 			indentationRules: {
 				decreaseIndentPattern: new RegExp("^((?!.*?\\/\\*).*\\*\\/)?\\s*[\\}\\]].*$"),
 				increaseIndentPattern: new RegExp("^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$"),
@@ -121,7 +118,7 @@ class Main {
 			},
 			onEnterRules: [
 				{
-					beforeText: new RegExp("^\\s*(\\bcase\\s.+:|\\bdefault:)$"),
+					beforeText: new RegExp("^\\s*(\\bcase\\s.+:|\\bdefault:)\\s*$"),
 					afterText: new RegExp("^(?!\\s*(\\bcase\\b|\\bdefault\\b))"),
 					action: {indentAction: vscode.IndentAction.Indent},
 				}
