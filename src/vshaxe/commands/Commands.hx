@@ -19,7 +19,10 @@ class Commands {
 		context.registerHaxeCommand(RunGlobalDiagnostics, server.runGlobalDiagnostics);
 		context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
 		context.registerHaxeCommand(DebugSelectedConfiguration, debugSelectedConfiguration);
-		context.registerHaxeCommand(Type, extendedTyping);
+
+		var type:String = workspace.getConfiguration("haxe").get("extendedIndentation", "dynamic");
+		if (type == "dynamic")
+			context.registerCommand("type", extendedTyping);
 
 		#if debug
 		context.registerHaxeCommand(ClearMementos, clearMementos);

@@ -740,6 +740,20 @@
 							]
 						}
 					}
+				},
+				"haxe.extendedIndentation": {
+					"type": "string",
+					"default": "dynamic",
+					"enum": [
+						"dynamic",
+						"k&r",
+						"allman"
+					],
+					"enumDescriptions": [
+						"Editor will align new line brackets with Allman style. Can have typing overhead.",
+						"One-line blocks without brackets have next level of indentation.",
+						"One-line blocks without brackets do not have level of indentation."
+					]
 				}
 			}
 		},
