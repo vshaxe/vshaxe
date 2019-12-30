@@ -1,5 +1,6 @@
 package vshaxe.commands;
 
+import js.lib.RegExp;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.server.LanguageServer;
 
@@ -79,6 +80,9 @@ class Commands {
 		commands.executeCommand('default:type', args);
 	}
 
+	// With possible comments after bracket
+	final lineEndsWithOpenBracket = new RegExp("[([{]\\s*(\\/\\/.*|\\/[*].*[*]\\/\\s*)?$");
+
 	function indentCurlyBracket():Void {
 		var editor = window.activeTextEditor;
 		if (editor == null)
@@ -94,8 +98,8 @@ class Commands {
 				continue;
 			var prevLine = editor.document.lineAt(selection.active.line - 1);
 			if (prevLine.text.length > 0) {
-				var char = prevLine.text.fastCodeAt(prevLine.text.length - 1);
-				if (char == "{".code || char == "[".code || char == "(".code)
+				// Do not reindent if prev line has open bracket at the end
+				if (lineEndsWithOpenBracket.test(prevLine.text))
 					continue;
 			}
 			if (line.text.length < prevLine.firstNonWhitespaceCharacterIndex)
