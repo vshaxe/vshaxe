@@ -1,6 +1,8 @@
 package vshaxe;
 
-class ExtendedIndentation {
+import js.lib.RegExp;
+
+class AutoIndentation {
 	// With possible comments after bracket
 	static final lineEndsWithOpenBracket = ~/[([{][\t ]*(\/\/.*|\/[*].*[*]\/[\t ]*)?$/;
 
@@ -9,11 +11,32 @@ class ExtendedIndentation {
 
 	public function new(context:ExtensionContext) {
 		this.context = context;
-		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> update()));
-		update();
+
+		updateExtendedIndentation();
+		updateLanguageConfiguration();
+
+		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateExtendedIndentation()));
 	}
 
-	function update() {
+	function updateLanguageConfiguration() {
+		// based on https://github.com/microsoft/vscode/blob/bb02817e2e549fd88710d0e0a0336b80648e90b5/extensions/typescript-language-features/src/features/languageConfiguration.ts#L15
+		languages.setLanguageConfiguration("haxe", {
+			indentationRules: {
+				decreaseIndentPattern: new RegExp("^((?!.*?\\/\\*).*\\*\\/)?\\s*[\\}\\]].*$"),
+				increaseIndentPattern: new RegExp("^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$"),
+				indentNextLinePattern: new RegExp("(^\\s*(for|while|do|if|else|try|catch)|function)\\b(?!.*[;{}]\\s*(\\/\\/.*|\\/[*].*[*]\\/\\s*)?$)")
+			},
+			onEnterRules: [
+				{
+					beforeText: new RegExp("^\\s*(\\bcase\\s.+:|\\bdefault:)\\s*$"),
+					afterText: new RegExp("^(?!\\s*(\\bcase\\b|\\bdefault\\b))"),
+					action: {indentAction: vscode.IndentAction.Indent},
+				}
+			]
+		});
+	}
+
+	function updateExtendedIndentation() {
 		var wasEnabled = typeDisposable != null;
 		var enabled = workspace.getConfiguration("haxe").get("enableExtendedIndentation", false);
 		if (enabled == wasEnabled) {
