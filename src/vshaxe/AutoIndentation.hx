@@ -28,6 +28,17 @@ class AutoIndentation {
 			},
 			onEnterRules: [
 				{
+					// e.g. /** | **/
+					beforeText: new RegExp("^\\s*\\/\\*\\*(?!\\/)([^\\*]|\\*(?!\\/))*$"),
+					afterText: new RegExp("^\\s*\\*\\*\\/$"),
+					action: {indentAction: vscode.IndentAction.IndentOutdent},
+				},
+				{
+					// e.g. /** |
+					beforeText: new RegExp("^\\s*\\/\\*\\*(?!\\/)([^\\*]|\\*(?!\\/))*$"),
+					action: {indentAction: vscode.IndentAction.Indent},
+				},
+				{
 					beforeText: new RegExp("^\\s*(\\bcase\\s.+:|\\bdefault:)\\s*$"),
 					afterText: new RegExp("^(?!\\s*(\\bcase\\b|\\bdefault\\b))"),
 					action: {indentAction: vscode.IndentAction.Indent},
