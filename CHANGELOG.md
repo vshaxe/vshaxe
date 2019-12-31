@@ -3,8 +3,10 @@
 **New Features:**
 
 - added import/using sorting to "Organize Imports"
-- added a "Sort imports/usings" code action
+- added a "Sort imports/usings" source action
 - added a code action to extract constants from string literals
+- added auto indentation in `switch` and single line `if` / `else` / etc ([#133](https://github.com/vshaxe/vshaxe/issues/133), [#399](https://github.com/vshaxe/vshaxe/issues/399))
+- added a `"haxe.enableExtendedIndentation"` setting
 
 **Changes and Improvements:**
 
