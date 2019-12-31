@@ -18,6 +18,7 @@ class Commands {
 		context.registerHaxeCommand(RunGlobalDiagnostics, server.runGlobalDiagnostics);
 		context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
 		context.registerHaxeCommand(DebugSelectedConfiguration, debugSelectedConfiguration);
+		new ExtendedIndentation(context);
 
 		#if debug
 		context.registerHaxeCommand(ClearMementos, clearMementos);

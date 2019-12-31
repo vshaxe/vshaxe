@@ -740,6 +740,11 @@
 							]
 						}
 					}
+				},
+				"haxe.extendedIndentation": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Align new line brackets with Allman style. Can have typing overhead."
 				}
 			}
 		},
