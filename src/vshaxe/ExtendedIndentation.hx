@@ -1,5 +1,9 @@
 package vshaxe;
 
+private typedef TypeCommandArgs = {
+	text:String
+}
+
 class ExtendedIndentation {
 	final context:ExtensionContext;
 	var extendedIndentationDisposable:Null<Disposable>;
@@ -23,8 +27,9 @@ class ExtendedIndentation {
 		}
 	}
 
-	function extendedTyping(args) {
-		if (args.text == "{")
+	function extendedTyping(args:TypeCommandArgs) {
+		var editor = window.activeTextEditor;
+		if (editor != null && editor.document.languageId == "haxe" && args.text == "{")
 			indentCurlyBracket();
 		commands.executeCommand('default:type', args);
 	}
