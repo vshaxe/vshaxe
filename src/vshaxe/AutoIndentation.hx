@@ -1,6 +1,6 @@
 package vshaxe;
 
-import js.lib.RegExp;
+import vshaxe.helper.RegExpHelper.*;
 
 class AutoIndentation {
 	// With possible comments after bracket
@@ -22,25 +22,25 @@ class AutoIndentation {
 		// based on https://github.com/microsoft/vscode/blob/bb02817e2e549fd88710d0e0a0336b80648e90b5/extensions/typescript-language-features/src/features/languageConfiguration.ts#L15
 		languages.setLanguageConfiguration("haxe", {
 			indentationRules: {
-				decreaseIndentPattern: new RegExp("^((?!.*?\\/\\*).*\\*\\/)?\\s*[\\}\\]].*$"),
-				increaseIndentPattern: new RegExp("^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$"),
-				indentNextLinePattern: new RegExp("(^\\s*(for|while|do|if|else|try|catch)|function)\\b(?!.*[;{}]\\s*(\\/\\/.*|\\/[*].*[*]\\/\\s*)?$)")
+				decreaseIndentPattern: makeRegExp(~/^((?!.*?\/\*).*\*\/)?\s*[\}\]].*$/),
+				increaseIndentPattern: makeRegExp(~/^((?!\/\/).)*(\{[^}"'`]*|\([^)"'`]*|\[[^\]"'`]*)$/),
+				indentNextLinePattern: makeRegExp(~/(^\s*(for|while|do|if|else|try|catch)|function)\b(?!.*[;{}]\s*(\/\/.*|\/[*].*[*]\/\s*)?$)/)
 			},
 			onEnterRules: [
 				{
 					// e.g. /** | **/
-					beforeText: new RegExp("^\\s*\\/\\*\\*(?!\\/)([^\\*]|\\*(?!\\/))*$"),
-					afterText: new RegExp("^\\s*\\*\\*\\/$"),
+					beforeText: makeRegExp(~/^\s*\/\*\*(?!\/)([^\*]|\*(?!\/))*$/),
+					afterText: makeRegExp(~/^\s*\*\*\/$/),
 					action: {indentAction: vscode.IndentAction.IndentOutdent},
 				},
 				{
 					// e.g. /** |
-					beforeText: new RegExp("^\\s*\\/\\*\\*(?!\\/)([^\\*]|\\*(?!\\/))*$"),
+					beforeText: makeRegExp(~/^\s*\/\*\*(?!\/)([^\*]|\*(?!\/))*$/),
 					action: {indentAction: vscode.IndentAction.Indent},
 				},
 				{
-					beforeText: new RegExp("^\\s*(\\bcase\\s.+:|\\bdefault:)\\s*$"),
-					afterText: new RegExp("^(?!\\s*(\\bcase\\b|\\bdefault\\b))"),
+					beforeText: makeRegExp(~/^\s*(\bcase\s.+:|\bdefault:)\s*$/),
+					afterText: makeRegExp(~/^(?!\s*(\bcase\b|\bdefault\b))/),
 					action: {indentAction: vscode.IndentAction.Indent},
 				}
 			]

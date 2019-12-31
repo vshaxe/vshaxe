@@ -1,3 +1,4 @@
+#if !macro
 import Vscode.*;
 import vscode.*;
 import vshaxe.HaxeCommand;
@@ -8,3 +9,4 @@ using StringTools;
 using vshaxe.HaxeMemento;
 using vshaxe.helper.ArrayHelper;
 using vshaxe.helper.ContextHelper;
+#end
