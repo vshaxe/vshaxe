@@ -21,6 +21,7 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Debugging](https://github.com/vshaxe/vshaxe/wiki/Debugging) (<kbd>F5</kbd>)
 - [Commands](https://github.com/vshaxe/vshaxe/wiki/Commands) (<kbd>F1</kbd> -> search "Haxe")
 - [Dependency Explorer](https://github.com/vshaxe/vshaxe/wiki/Dependency-Explorer)
+- [Auto Indentation](https://github.com/vshaxe/vshaxe/wiki/Auto-Indentation)
 - [Completion](https://github.com/vshaxe/vshaxe/wiki/Completion)
 - [Postfix Completion](https://github.com/vshaxe/vshaxe/wiki/Postfix-Completion)
 - [Snippets](https://github.com/vshaxe/vshaxe/wiki/Snippets)
