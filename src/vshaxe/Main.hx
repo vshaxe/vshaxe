@@ -65,6 +65,7 @@ class Main {
 		var taskConfiguration = new TaskConfiguration(haxeInstallation.haxe, problemMatchers, server, api);
 		new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
 		new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
+		setLanguageConfiguration();
 
 		scheduleServerStart(displayArguments, haxeInstallation, server);
 	}
@@ -79,7 +80,6 @@ class Main {
 		function maybeStartServer() {
 			if (!waitingForInstallation && !waitingForDisplayArguments && !serverStarted) {
 				disposables.iter(d -> d.dispose());
-				setLanguageConfiguration();
 				serverStarted = true;
 				server.start();
 			}
@@ -109,9 +109,6 @@ class Main {
 	}
 
 	function setLanguageConfiguration():Void {
-		var type:String = workspace.getConfiguration("haxe").get("extendedIndentation", "dynamic");
-		if (type == "allman")
-			return;
 		// based on https://github.com/microsoft/vscode/blob/bb02817e2e549fd88710d0e0a0336b80648e90b5/extensions/typescript-language-features/src/features/languageConfiguration.ts#L15
 		languages.setLanguageConfiguration("haxe", {
 			indentationRules: {
