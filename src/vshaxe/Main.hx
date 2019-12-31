@@ -108,7 +108,7 @@ class Main {
 		maybeStartServer();
 	}
 
-	function setLanguageConfiguration():Void {
+	function setLanguageConfiguration() {
 		// based on https://github.com/microsoft/vscode/blob/bb02817e2e549fd88710d0e0a0336b80648e90b5/extensions/typescript-language-features/src/features/languageConfiguration.ts#L15
 		languages.setLanguageConfiguration("haxe", {
 			indentationRules: {
