@@ -20,6 +20,7 @@ class Main {
 
 	function new(context:ExtensionContext) {
 		new InitProject(context);
+		new AutoIndentation(context);
 
 		var folder = if (workspace.workspaceFolders == null) null else workspace.workspaceFolders[0];
 		if (folder == null)
@@ -60,7 +61,6 @@ class Main {
 		var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
 		new Commands(context, server, haxeDisplayArgumentsProvider);
 		new ExtensionRecommender(context, folder).run();
-		new AutoIndentation(context);
 
 		var taskConfiguration = new TaskConfiguration(haxeInstallation.haxe, problemMatchers, server, api);
 		new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
