@@ -1,4 +1,4 @@
-### 2.17.0 (to be released)
+### 2.17.0 (January 1, 2020)
 
 **New Features:**
 
