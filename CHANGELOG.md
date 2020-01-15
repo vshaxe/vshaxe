@@ -1,3 +1,9 @@
+### 2.17.1 (to be released)
+
+**Bugfixes:**
+
+- fixed `=>` in extractors not working with font ligatures
+
 ### 2.17.0 (January 1, 2020)
 
 **New Features:**
