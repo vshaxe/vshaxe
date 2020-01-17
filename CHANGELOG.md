@@ -7,6 +7,7 @@
 **Changes and Improvements:**
 
 - code lens now only show the subclass / -interface count when there are any
+- "This case is unused" diagnostics now gray out the code
 
 **Bugfixes:**
 
