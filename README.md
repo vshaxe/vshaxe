@@ -30,6 +30,7 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Hover Hints](https://github.com/vshaxe/vshaxe/wiki/Hover-Hints)
 - [Go to Definition](https://github.com/vshaxe/vshaxe/wiki/Go-to-Definition) (<kbd>F12</kbd>)
 - [Go to Type Definition](https://github.com/vshaxe/vshaxe/wiki/Go-to-Type-Definition)
+- [Go to Implementations](https://github.com/vshaxe/vshaxe/wiki/Go-to-Implementations) (<kbd>Ctrl</kbd>+<kbd>F12</kbd>)
 - [Peek Definition](https://github.com/vshaxe/vshaxe/wiki/Peek-Definition) (<kbd>Alt</kbd>+<kbd>F12</kbd>)
 - [Find All References](https://github.com/vshaxe/vshaxe/wiki/Find-All-References) (<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F12</kbd>)
 - [Peek References](https://github.com/vshaxe/vshaxe/wiki/Find-All-References) (<kbd>Shift</kbd>+<kbd>F12</kbd>)
