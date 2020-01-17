@@ -14,6 +14,7 @@
 
 - fixed `=>` in extractors not working with font ligatures
 - fixed code lens not working in some files ([haxe#9092](https://github.com/HaxeFoundation/haxe/issues/9092))
+- fixed completion breaking on `@:optional` functions ([#409](https://github.com/vshaxe/vshaxe/issues/409))
 
 ### 2.17.0 (January 1, 2020)
 
