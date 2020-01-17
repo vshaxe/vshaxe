@@ -745,6 +745,11 @@
 					"type": "boolean",
 					"default": false,
 					"markdownDescription": "Align new line brackets with Allman style. Can have typing overhead."
+				},
+				"haxe.maxCompletionItems": {
+					"type": "integer",
+					"default": 1000,
+					"markdownDescription": "Upper limit for the number of completion items that can be shown at once."
 				}
 			}
 		},

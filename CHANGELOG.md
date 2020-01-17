@@ -3,6 +3,7 @@
 **New Features:**
 
 - added support for "Go to Implementations" (requires [haxe#9079](https://github.com/HaxeFoundation/haxe/pull/9079))
+- added a `"haxe.maxCompletionItems"` setting
 
 **Changes and Improvements:**
 
