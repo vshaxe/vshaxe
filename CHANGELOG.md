@@ -4,6 +4,10 @@
 
 - added support for "Go to Implementations" (requires [haxe#9079](https://github.com/HaxeFoundation/haxe/pull/9079))
 
+**Changes and Improvements:**
+
+- code lens now only show the subclass / -interface count when there are any
+
 **Bugfixes:**
 
 - fixed `=>` in extractors not working with font ligatures
