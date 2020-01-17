@@ -1,4 +1,8 @@
-### 2.17.1 (to be released)
+### 2.18.0 (to be released)
+
+**New Features:**
+
+- added support for "Go to Implementation" (requires [haxe#9079](https://github.com/HaxeFoundation/haxe/pull/9079))
 
 **Bugfixes:**
 
