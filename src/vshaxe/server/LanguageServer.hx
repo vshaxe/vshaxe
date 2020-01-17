@@ -29,7 +29,7 @@ class LanguageServer {
 	var restartDisposables:Array<{function dispose():Void;}>;
 	var queuedNotifications:Array<{method:NotificationType<Dynamic>, ?params:Dynamic}>;
 	var clientStartingUp:Bool;
-	var progresses = new Map<Int, Void->Void>();
+	var progresses = new Map<Int, () -> Void>();
 	var displayServerConfig:DisplayServerConfig;
 	var displayServerConfigSerialized:Null<String>;
 	final _onDidRunMethod = new EventEmitter<MethodResult>();

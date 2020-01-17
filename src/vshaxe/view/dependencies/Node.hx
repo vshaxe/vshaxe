@@ -115,7 +115,7 @@ class Node extends TreeItem {
 		return children;
 	}
 
-	function forEachChild(f:String->String->Void) {
+	function forEachChild(f:(file:String, path:String) -> Void) {
 		for (file in FileSystem.readDirectory(path)) {
 			if (!isExcluded(file)) {
 				f(file, '$path/$file');
