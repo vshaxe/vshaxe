@@ -67,10 +67,12 @@ class LanguageServer {
 	}
 
 	public function dispose() {
-		for (d in restartDisposables)
+		for (d in restartDisposables) {
 			d.dispose();
-		for (d in disposables)
+		}
+		for (d in disposables) {
 			d.dispose();
+		}
 	}
 
 	function sendNotification<P>(method:NotificationType<P>, ?params:P) {
@@ -97,18 +99,21 @@ class LanguageServer {
 	}
 
 	function onNotification<P>(method:NotificationType<P>, handler:(params:P) -> Void) {
-		if (client != null)
+		if (client != null) {
 			client.onNotification(method, handler);
+		}
 	}
 
 	function refreshDisplayServerConfig(force:Bool) {
-		if (prepareDisplayServerConfig() || force)
+		if (prepareDisplayServerConfig() || force) {
 			sendNotification(LanguageServerMethods.DidChangeDisplayServerConfig, displayServerConfig);
+		}
 	}
 
 	function onDidChangeActiveTextEditor(editor:Null<TextEditor>) {
-		if (editor != null && editor.document.languageId == "haxe")
+		if (editor != null && editor.document.languageId == "haxe") {
 			sendNotification(LanguageServerMethods.DidChangeActiveTextEditor, {uri: new DocumentUri(editor.document.uri.toString())});
+		}
 	}
 
 	public function start() {
@@ -180,7 +185,7 @@ class LanguageServer {
 			onNotification(LanguageServerMethods.DidChangeRequestQueue, onDidChangeRequestQueueCallback);
 			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
 			onNotification(LanguageServerMethods.HaxeKeepsCrashing, onHaxeKeepsCrashing);
-			onNotification(LanguageServerMethods.DidDetectOldPreview, onDidDetectOldPreview);
+			onNotification(LanguageServerMethods.DidDetectOldHaxeVersion, onDidDetectOldHaxeVersion);
 			client.onDidChangeState(onDidChangeState);
 		});
 
@@ -312,13 +317,13 @@ class LanguageServer {
 	inline static var DontShowAgainOption = "Don't Show Again";
 	public static final DontShowOldPreviewHintAgainKey = new HaxeMementoKey<Bool>("dontShowHaxe4HintAgain");
 
-	function onDidDetectOldPreview(?data:{preview:String}) {
+	function onDidDetectOldHaxeVersion(data:{haxe4Preview:Bool, version:String}) {
 		var globalState = context.globalState;
 		if (globalState.get(DontShowOldPreviewHintAgainKey, false)) {
 			return;
 		}
-		var detectedVersion = if (data == null) "" else ' (${data.preview})';
-		var message = 'It appears you are using a preview build of Haxe 4' + detectedVersion + '. Consider upgrading to the official release of Haxe 4.';
+		var version = if (data.haxe4Preview) "a Haxe 4 preview build" else 'Haxe ${data.version}';
+		var message = 'You are using $version. Consider upgrading to Haxe 4 for greatly improved completion features and stability.';
 		if (!haxeInstallation.haxe.isDefault) {
 			message += " Current Haxe executable is " + haxeInstallation.haxe.configuration.executable;
 		}

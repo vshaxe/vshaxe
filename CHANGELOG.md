@@ -11,6 +11,7 @@
 - improved the stability of code lens by reusing old results
 - "This case is unused" diagnostics now gray out the code
 - included the current Haxe executable in the "outdated Haxe version" notification ([#390](https://github.com/vshaxe/vshaxe/issues/390))
+- extended the "outdated Haxe version" notification to Haxe 3
 
 **Bugfixes:**
 
