@@ -744,7 +744,7 @@
 				"haxe.enableExtendedIndentation": {
 					"type": "boolean",
 					"default": false,
-					"markdownDescription": "Align new line brackets with Allman style. Can have typing overhead."
+					"markdownDescription": "Align new line brackets with Allman style. Can have typing overhead and is incompatible with the Vim extension."
 				},
 				"haxe.maxCompletionItems": {
 					"type": "integer",
