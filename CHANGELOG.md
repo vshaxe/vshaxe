@@ -12,6 +12,7 @@
 - "This case is unused" diagnostics now gray out the code
 - included the current Haxe executable in the "outdated Haxe version" notification ([#390](https://github.com/vshaxe/vshaxe/issues/390))
 - extended the "outdated Haxe version" notification to Haxe 3
+- improved override completion to respect `@:noCompletion` metadata ([#398](https://github.com/vshaxe/vshaxe/issues/398))
 
 **Bugfixes:**
 
