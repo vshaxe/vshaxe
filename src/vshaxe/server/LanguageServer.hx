@@ -318,7 +318,10 @@ class LanguageServer {
 			return;
 		}
 		var detectedVersion = if (data == null) "" else ' (${data.preview})';
-		final message = 'It appears you are using a preview build of Haxe 4' + detectedVersion + '. Consider upgrading to the official release of Haxe 4.0.0.';
+		var message = 'It appears you are using a preview build of Haxe 4' + detectedVersion + '. Consider upgrading to the official release of Haxe 4.';
+		if (!haxeInstallation.haxe.isDefault) {
+			message += " Current Haxe executable is " + haxeInstallation.haxe.configuration.executable;
+		}
 		window.showInformationMessage(message, VisitDownloadPageOption, DontShowAgainOption).then(function(selection) {
 			switch selection {
 				case null:

@@ -8,7 +8,9 @@
 **Changes and Improvements:**
 
 - code lens now only show the subclass / -interface count when there are any
+- improved the stability of code lens by reusing old results
 - "This case is unused" diagnostics now gray out the code
+- included the current Haxe executable in the "outdated Haxe version" notification ([#390](https://github.com/vshaxe/vshaxe/issues/390))
 
 **Bugfixes:**
 

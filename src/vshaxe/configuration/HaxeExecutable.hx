@@ -34,6 +34,8 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 			default: "linux";
 		};
 
+	public var isDefault(default, null):Bool = false;
+
 	var autoResolveProvider:Null<String>;
 	var autoResolveValue:Null<String>;
 
@@ -52,6 +54,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 
 		var executable = "auto";
 		var env = new DynamicAccess<String>();
+		isDefault = false;
 
 		function merge(conf:HaxeExecutablePathOrConfigBase) {
 			if ((conf is String)) {
@@ -74,6 +77,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 		if (executable == "auto") {
 			if (autoResolveProvider == null || autoResolveValue == null) {
 				executable = "haxe";
+				isDefault = true;
 			} else {
 				executable = autoResolveValue;
 				source = Provider(autoResolveProvider);
