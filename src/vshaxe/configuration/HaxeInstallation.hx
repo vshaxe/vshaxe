@@ -1,7 +1,9 @@
 package vshaxe.configuration;
 
+import haxe.DynamicAccess;
 import haxe.io.Path;
 import sys.FileSystem;
+import vshaxe.helper.PathHelper;
 import vshaxe.helper.ProcessHelper;
 
 class HaxeInstallation {
@@ -12,6 +14,7 @@ class HaxeInstallation {
 	public var standardLibraryPath(default, null):Null<String>;
 	public var libraryBasePath(default, null):Null<String>;
 	public var onDidChange(get, never):Event<Void>;
+	public var env(default, null):DynamicAccess<String>;
 
 	final folder:WorkspaceFolder;
 	final mementos:WorkspaceMementos;
@@ -28,6 +31,8 @@ class HaxeInstallation {
 		this.mementos = mementos;
 		haxe = new HaxeExecutable(folder);
 		haxelib = new HaxelibExecutable(folder);
+		env = updateEnv();
+
 		haxe.onDidChangeConfiguration(_ -> onDidChangeConfiguration());
 		haxelib.onDidChangeConfiguration(_ -> onDidChangeConfiguration());
 		standardLibraryPath = getStandardLibraryPath();
@@ -36,8 +41,24 @@ class HaxeInstallation {
 
 	function onDidChangeConfiguration() {
 		if (!ignoreEvents) {
+			env = updateEnv();
 			_onDidChange.fire();
 		}
+	}
+
+	function updateEnv():DynamicAccess<String> {
+		@:nullSafety(Off) var env = haxe.configuration.env.copy();
+		// if we have a custom haxelib executable, we need to make sure it's in the PATH of Haxe
+		// - otherwise `haxelib run hxcpp/hxjava/hxcs` that Haxe runs on those targets will fail
+		var haxelib = haxelib.configuration;
+		if (!Path.isAbsolute(haxelib)) {
+			haxelib = PathHelper.absolutize(haxelib, folder.uri.fsPath);
+		}
+		if (FileSystem.exists(haxelib) && !FileSystem.isDirectory(haxelib)) {
+			var separator = if (Sys.systemName() == "Windows") ";" else ":";
+			env["PATH"] = Path.directory(haxelib) + separator + Sys.getEnv("PATH");
+		}
+		return env;
 	}
 
 	public function dispose() {
@@ -107,6 +128,7 @@ class HaxeInstallation {
 			standardLibraryPath = getStandardLibraryPath();
 		}
 
+		env = updateEnv();
 		_onDidChange.fire();
 	}
 

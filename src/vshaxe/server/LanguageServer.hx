@@ -60,7 +60,7 @@ class LanguageServer {
 		disposables = [
 			hxFileWatcher,
 			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(false)),
-			haxeInstallation.haxe.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(true)),
+			haxeInstallation.onDidChange(_ -> refreshDisplayServerConfig(true)),
 			window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
 			displayArguments.onDidChangeArguments(arguments -> sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {arguments: arguments}))
 		];
@@ -202,7 +202,7 @@ class LanguageServer {
 	function prepareDisplayServerConfig():Bool {
 		var haxeExecutable = haxeInstallation.haxe;
 		var path = haxeExecutable.configuration.executable;
-		var env = haxeExecutable.configuration.env;
+		var env = haxeInstallation.env;
 		var haxeConfig = workspace.getConfiguration("haxe");
 		var arguments = haxeConfig.get("displayServer.arguments", []);
 		var useSocket = haxeConfig.get("displayServer.useSocket", false);

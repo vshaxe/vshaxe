@@ -62,7 +62,7 @@ class Main {
 		new Commands(context, server, haxeDisplayArgumentsProvider);
 		new ExtensionRecommender(context, folder).run();
 
-		var taskConfiguration = new TaskConfiguration(haxeInstallation.haxe, problemMatchers, server, api);
+		var taskConfiguration = new TaskConfiguration(haxeInstallation, problemMatchers, server, api);
 		new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
 		new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
 

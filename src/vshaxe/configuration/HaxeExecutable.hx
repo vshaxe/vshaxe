@@ -61,10 +61,12 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 				executable = conf;
 			} else {
 				var conf:RawHaxeExecutableConfig = conf;
-				if (conf.path != null)
+				if (conf.path != null) {
 					executable = conf.path;
-				if (conf.env != null)
+				}
+				if (conf.env != null) {
 					env = conf.env;
+				}
 			}
 		}
 

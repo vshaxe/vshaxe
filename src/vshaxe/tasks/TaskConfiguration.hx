@@ -1,6 +1,8 @@
 package vshaxe.tasks;
 
+import haxe.SysTools;
 import vshaxe.configuration.HaxeExecutable;
+import vshaxe.configuration.HaxeInstallation;
 import vshaxe.server.LanguageServer;
 
 private typedef WriteableApi = {
@@ -9,15 +11,15 @@ private typedef WriteableApi = {
 }
 
 class TaskConfiguration {
-	final haxeExecutable:HaxeExecutable;
+	final haxeInstallation:HaxeInstallation;
 	final problemMatchers:Array<String>;
 	final server:LanguageServer;
 	final api:Vshaxe;
 	var enableCompilationServer:Bool;
 	var taskPresentation:TaskPresentationOptions;
 
-	public function new(haxeExecutable, problemMatchers, server, api) {
-		this.haxeExecutable = haxeExecutable;
+	public function new(haxeInstallation, problemMatchers, server, api) {
+		this.haxeInstallation = haxeInstallation;
 		this.problemMatchers = problemMatchers;
 		this.server = server;
 		this.api = api;
@@ -62,11 +64,11 @@ class TaskConfiguration {
 	}
 
 	public function createTask(definition:TaskDefinition, name:String, args:Array<String>):Task {
-		var exectuable = haxeExecutable.configuration.executable;
+		var exectuable = haxeInstallation.haxe.configuration.executable;
 		if (server.displayPort != null && enableCompilationServer) {
 			args = ["--connect", Std.string(server.displayPort)].concat(args);
 		}
-		var execution = new ProcessExecution(exectuable, args, {env: haxeExecutable.configuration.env});
+		var execution = new ProcessExecution(exectuable, args, {env: haxeInstallation.env});
 		var task = new Task(definition, TaskScope.Workspace, name, "haxe", execution, problemMatchers);
 		task.group = TaskGroup.Build;
 		task.presentationOptions = taskPresentation;
