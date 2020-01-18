@@ -1,7 +1,5 @@
 package vshaxe.tasks;
 
-import haxe.SysTools;
-import vshaxe.configuration.HaxeExecutable;
 import vshaxe.configuration.HaxeInstallation;
 import vshaxe.server.LanguageServer;
 

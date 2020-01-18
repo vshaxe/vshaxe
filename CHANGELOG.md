@@ -13,13 +13,14 @@
 - included the current Haxe executable in the "outdated Haxe version" notification ([#390](https://github.com/vshaxe/vshaxe/issues/390))
 - extended the "outdated Haxe version" notification to Haxe 3
 - improved override completion to respect `@:noCompletion` metadata ([#398](https://github.com/vshaxe/vshaxe/issues/398))
+- improved activation to avoid server and UI startup in non-Haxe projects
 
 **Bugfixes:**
 
 - fixed `=>` in extractors not working with font ligatures
 - fixed code lens not working in some files ([haxe#9092](https://github.com/HaxeFoundation/haxe/issues/9092))
 - fixed completion breaking on `@:optional` functions ([#409](https://github.com/vshaxe/vshaxe/issues/409))
-- fixed cpp/java/cs compilation with lix through build tasks and caching build
+- fixed cpp/java/cs compilation with lix through build tasks and the caching build
 
 ### 2.17.0 (January 1, 2020)
 

@@ -26,8 +26,6 @@ class Main {
 		if (folder == null)
 			return; // TODO: look into this - we could support _some_ nice functionality (e.g. std lib completion or --interp task)
 
-		commands.executeCommand("setContext", "vshaxeActivated", true); // https://github.com/Microsoft/vscode/issues/10471
-
 		var mementos = new WorkspaceMementos(context.workspaceState);
 
 		var hxmlDiscovery = new HxmlDiscovery(folder, mementos);
@@ -66,20 +64,22 @@ class Main {
 		new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
 		new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
 
-		scheduleServerStart(displayArguments, haxeInstallation, server);
+		scheduleStartup(displayArguments, haxeInstallation, server);
 	}
 
-	function scheduleServerStart(displayArguments:DisplayArguments, haxeInstallation:HaxeInstallation, server:LanguageServer) {
+	function scheduleStartup(displayArguments:DisplayArguments, haxeInstallation:HaxeInstallation, server:LanguageServer) {
 		// wait until we have the providers we need to avoid immediate server restarts
 		var waitingForDisplayArguments = displayArguments.isWaitingForProvider();
 		var waitingForInstallation = haxeInstallation.isWaitingForProvider();
+		var haxeFileOpened = false;
 
-		var serverStarted = false;
+		var started = false;
 		var disposables = [];
 		function maybeStartServer() {
-			if (!waitingForInstallation && !waitingForDisplayArguments && !serverStarted) {
+			if (!waitingForInstallation && (!waitingForDisplayArguments || haxeFileOpened) && !started) {
 				disposables.iter(d -> d.dispose());
-				serverStarted = true;
+				started = true;
+				commands.executeCommand("setContext", "vshaxeActivated", true);
 				server.start();
 			}
 		}
@@ -87,6 +87,12 @@ class Main {
 			disposables.push(displayArguments.onDidChangeArguments(_ -> {
 				waitingForDisplayArguments = false;
 				maybeStartServer();
+			}));
+			disposables.push(window.onDidChangeActiveTextEditor(function(editor) {
+				if (editor != null && editor.document.languageId == "haxe") {
+					haxeFileOpened = true;
+					maybeStartServer();
+				}
 			}));
 		}
 		if (waitingForInstallation) {
@@ -96,14 +102,7 @@ class Main {
 			}));
 		}
 
-		// if there's no provider, just start a server anyway after 5 seconds
-		haxe.Timer.delay(() -> {
-			waitingForDisplayArguments = false;
-			waitingForInstallation = false;
-			maybeStartServer();
-		}, 5000);
-
-		// or maybe we're just ready right away
+		// maybe we're ready right away
 		maybeStartServer();
 	}
 
