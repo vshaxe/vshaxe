@@ -1,4 +1,4 @@
-### 2.18.0 (to be released)
+### 2.18.0 (January 19, 2020)
 
 **New Features:**
 
