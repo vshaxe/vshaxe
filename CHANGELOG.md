@@ -14,12 +14,12 @@
 - extended the "outdated Haxe version" notification to Haxe 3
 - improved override completion to respect `@:noCompletion` metadata ([#398](https://github.com/vshaxe/vshaxe/issues/398))
 - improved activation to avoid server and UI startup in non-Haxe projects
-- improved Haxe communication to use a socket rather than stdio if possible ([#217](https://github.com/vshaxe/vshaxe/issues/217))
+- improved Haxe communication to use a socket rather than stdio if possible ([#217](https://github.com/vshaxe/vshaxe/issues/217), [#393](https://github.com/vshaxe/vshaxe/issues/393))
 - removed support for Haxe 4 preview builds earlier than 4.0.0-preview.4
 
 **Bugfixes:**
 
-- fixed `=>` in extractors not working with font ligatures
+- fixed `=>` in extractors not working with font ligatures in some themes
 - fixed code lens not working in some files ([haxe#9092](https://github.com/HaxeFoundation/haxe/issues/9092))
 - fixed completion breaking on `@:optional` functions ([#409](https://github.com/vshaxe/vshaxe/issues/409))
 - fixed cpp/java/cs compilation with lix through build tasks and the caching build
