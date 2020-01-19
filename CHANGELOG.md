@@ -23,6 +23,7 @@
 - fixed code lens not working in some files ([haxe#9092](https://github.com/HaxeFoundation/haxe/issues/9092))
 - fixed completion breaking on `@:optional` functions ([#409](https://github.com/vshaxe/vshaxe/issues/409))
 - fixed cpp/java/cs compilation with lix through build tasks and the caching build
+- fixed optional structure fields not being printed with a `?` ([#383](https://github.com/vshaxe/vshaxe/issues/383))
 
 ### 2.17.0 (January 1, 2020)
 
