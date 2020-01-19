@@ -450,8 +450,9 @@
 							}
 						},
 						"useSocket": {
+							"markdownDescription": "If possible, use a socket for communication with Haxe rather than stdio.",
 							"type": "boolean",
-							"default": false
+							"default": true
 						}
 					}
 				},

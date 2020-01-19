@@ -205,7 +205,7 @@ class LanguageServer {
 		var env = haxeInstallation.env;
 		var haxeConfig = workspace.getConfiguration("haxe");
 		var arguments = haxeConfig.get("displayServer.arguments", []);
-		var useSocket = haxeConfig.get("displayServer.useSocket", false);
+		var useSocket = haxeConfig.get("displayServer.useSocket", true);
 		var print = haxeConfig.get("displayServer.print", {completion: false, reusing: false});
 		displayServerConfig = {
 			path: path,

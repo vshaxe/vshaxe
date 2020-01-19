@@ -14,6 +14,8 @@
 - extended the "outdated Haxe version" notification to Haxe 3
 - improved override completion to respect `@:noCompletion` metadata ([#398](https://github.com/vshaxe/vshaxe/issues/398))
 - improved activation to avoid server and UI startup in non-Haxe projects
+- improved Haxe communication to use a socket rather than stdio if possible ([#217](https://github.com/vshaxe/vshaxe/issues/217))
+- removed support for Haxe 4 preview builds earlier than 4.0.0-preview.4
 
 **Bugfixes:**
 
