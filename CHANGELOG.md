@@ -1,3 +1,9 @@
+### 2.18.1 (to be released)
+
+**Bugfixes:**
+
+- fixed auto-imports with metadata and line comments ([#414](https://github.com/vshaxe/vshaxe/issues/414))
+
 ### 2.18.0 (January 19, 2020)
 
 **New Features:**
