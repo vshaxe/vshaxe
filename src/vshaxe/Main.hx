@@ -88,8 +88,8 @@ class Main {
 				waitingForDisplayArguments = false;
 				maybeStartServer();
 			}));
-			disposables.push(window.onDidChangeActiveTextEditor(function(editor) {
-				if (editor != null && editor.document.languageId == "haxe") {
+			disposables.push(workspace.onDidOpenTextDocument(function(document) {
+				if (document.languageId == "haxe") {
 					haxeFileOpened = true;
 					maybeStartServer();
 				}

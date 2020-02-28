@@ -3,6 +3,7 @@
 **Bugfixes:**
 
 - fixed auto-imports with metadata and line comments ([#414](https://github.com/vshaxe/vshaxe/issues/414))
+- fixed language mode of a file changing to Haxe not triggering language server startup
 
 ### 2.18.0 (January 19, 2020)
 
