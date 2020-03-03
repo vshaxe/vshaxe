@@ -1,3 +1,9 @@
+### 2.19.0 (to be released)
+
+**Changes and Improvements:**
+
+- changed the required VSCode version to 1.42.0
+
 ### 2.18.1 (March 3, 2020)
 
 **Bugfixes:**
