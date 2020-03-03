@@ -1,4 +1,4 @@
-### 2.18.1 (to be released)
+### 2.18.1 (March 3, 2020)
 
 **Bugfixes:**
 
