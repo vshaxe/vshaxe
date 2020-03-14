@@ -1,3 +1,3 @@
-# @install: lix --silent download "gh://github.com/vshaxe/vscode-json-rpc#a32a2649a659d0147085426b1db41f1bfa31727e" into vscode-json-rpc/0.0.1/github/a32a2649a659d0147085426b1db41f1bfa31727e
--cp ${HAXE_LIBCACHE}/vscode-json-rpc/0.0.1/github/a32a2649a659d0147085426b1db41f1bfa31727e/src
+# @install: lix --silent download "gh://github.com/vshaxe/vscode-json-rpc#d04426d35d9a404a1ebc36127ecbe93473f6adff" into vscode-json-rpc/0.0.1/github/d04426d35d9a404a1ebc36127ecbe93473f6adff
+-cp ${HAXE_LIBCACHE}/vscode-json-rpc/0.0.1/github/d04426d35d9a404a1ebc36127ecbe93473f6adff/src
 -D vscode-json-rpc=0.0.1
