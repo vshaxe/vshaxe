@@ -29,7 +29,6 @@ class LanguageServer {
 	var restartDisposables:Array<{function dispose():Void;}>;
 	var queuedNotifications:Array<{method:NotificationType<Dynamic>, ?params:Dynamic}>;
 	var clientStartingUp:Bool;
-	var progresses = new Map<Int, () -> Void>();
 	var displayServerConfig:DisplayServerConfig;
 	var displayServerConfigSerialized:Null<String>;
 	final _onDidRunMethod = new EventEmitter<MethodResult>();
@@ -177,8 +176,6 @@ class LanguageServer {
 
 			restartDisposables.push(new PackageInserter(hxFileWatcher, this));
 
-			onNotification(LanguageServerMethods.ProgressStart, onStartProgress);
-			onNotification(LanguageServerMethods.ProgressStop, onStopProgress);
 			onNotification(LanguageServerMethods.DidChangeDisplayPort, onDidChangeDisplayPort);
 			onNotification(LanguageServerMethods.DidRunRunGlobalDiagnostics, onDidRunGlobalDiangostics);
 			onNotification(LanguageServerMethods.DidRunMethod, onDidRunMethodCallback);
@@ -186,7 +183,6 @@ class LanguageServer {
 			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
 			onNotification(LanguageServerMethods.HaxeKeepsCrashing, onHaxeKeepsCrashing);
 			onNotification(LanguageServerMethods.DidDetectOldHaxeVersion, onDidDetectOldHaxeVersion);
-			client.onDidChangeState(onDidChangeState);
 		});
 
 		clientStartingUp = true;
@@ -219,22 +215,6 @@ class LanguageServer {
 		return displayServerConfigSerialized != oldSerialized;
 	}
 
-	function onStartProgress(data:{id:Int, title:String}) {
-		window.withProgress({location: Window, title: data.title}, function(_, _) {
-			return new js.lib.Promise(function(resolve:Null<Any>->Void, _) {
-				progresses[data.id] = function() resolve(null);
-			});
-		});
-	}
-
-	function onStopProgress(data:{id:Int}) {
-		var stop = progresses[data.id];
-		if (stop != null) {
-			progresses.remove(data.id);
-			stop();
-		}
-	}
-
 	function onDidChangeDisplayPort(data:{port:Int}) {
 		displayPort = data.port;
 		var writeableApi:{?displayPort:Int} = cast api;
@@ -249,14 +229,7 @@ class LanguageServer {
 			d.dispose();
 		restartDisposables = [];
 
-		stopAllProgresses();
 		start();
-	}
-
-	function stopAllProgresses() {
-		for (stop in progresses)
-			stop();
-		progresses = new Map();
 	}
 
 	public inline function runGlobalDiagnostics() {
@@ -336,11 +309,5 @@ class LanguageServer {
 					globalState.update(DontShowOldPreviewHintAgainKey, true);
 			}
 		});
-	}
-
-	function onDidChangeState(event:StateChangeEvent) {
-		if (event.newState == Stopped) {
-			stopAllProgresses();
-		}
 	}
 }
