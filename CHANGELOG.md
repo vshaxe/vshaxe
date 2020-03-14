@@ -3,6 +3,7 @@
 **Changes and Improvements:**
 
 - changed the required VSCode version to 1.42.0
+- changed the default of `"editor.suggestSelection"` to `"first"` in Haxe files ([requires VSCode 1.44](https://github.com/microsoft/vscode/issues/91180))
 
 ### 2.18.1 (March 3, 2020)
 

@@ -754,6 +754,11 @@
 				}
 			}
 		},
+		"configurationDefaults": {
+			"[haxe]": {
+				"editor.suggestSelection": "first"
+			}
+		},
 		"commands": [
 			{
 				"title": "Restart Language Server",
