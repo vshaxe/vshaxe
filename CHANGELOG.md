@@ -9,6 +9,7 @@
 **Bugfixes:**
 
 - fixed `import` and `using` being highlighted after `--macro` in HXML files ([haxe-TmLanguage#49](https://github.com/vshaxe/haxe-TmLanguage/issues/49))
+- fixed function arguments sometimes being shown as optional when they're only nullable
 
 ### 2.18.1 (March 3, 2020)
 
