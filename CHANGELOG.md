@@ -4,6 +4,11 @@
 
 - changed the required VSCode version to 1.42.0
 - changed the default of `"editor.suggestSelection"` to `"first"` in Haxe files ([requires VSCode 1.44](https://github.com/microsoft/vscode/issues/91180))
+- added a `HAXE_COMPLETION_SERVER` environment variable for tools like haxeshim
+
+**Bugfixes:**
+
+- fixed `import` and `using` being highlighted after `--macro` in HXML files ([haxe-TmLanguage#49](https://github.com/vshaxe/haxe-TmLanguage/issues/49))
 
 ### 2.18.1 (March 3, 2020)
 
