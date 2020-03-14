@@ -1,3 +1,5 @@
-# @install: lix --silent download "haxelib:/utest#1.10.1" into utest/1.10.1/haxelib
--cp ${HAXE_LIBCACHE}/utest/1.10.1/haxelib/src
+# @install: lix --silent download "gh://github.com/haxe-utest/utest#30a0f02553904e484a9968c376ef1c5a16b3295d" into utest/1.10.1/github/30a0f02553904e484a9968c376ef1c5a16b3295d
+-cp ${HAXE_LIBCACHE}/utest/1.10.1/github/30a0f02553904e484a9968c376ef1c5a16b3295d/src
 -D utest=1.10.1
+--macro utest.utils.Macro.checkHaxe()
+--macro utest.utils.Macro.importEnvSettings()
