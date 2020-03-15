@@ -5,6 +5,7 @@
 - changed the required VSCode version to 1.42.0
 - changed the default of `"editor.suggestSelection"` to `"first"` in Haxe files ([requires VSCode 1.44](https://github.com/microsoft/vscode/issues/91180))
 - added a `HAXE_COMPLETION_SERVER` environment variable for tools like haxeshim
+- added support for more icons in workspace symbols (requires Haxe 4.1.0)
 
 **Bugfixes:**
 
