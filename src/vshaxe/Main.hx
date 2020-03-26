@@ -88,12 +88,21 @@ class Main {
 				waitingForDisplayArguments = false;
 				maybeStartServer();
 			}));
-			disposables.push(workspace.onDidOpenTextDocument(function(document) {
+
+			function onDocument(document) {
 				if (document.languageId == "haxe") {
 					haxeFileOpened = true;
 					maybeStartServer();
 				}
-			}));
+			}
+			function onActiveEditor(editor:Null<TextEditor>) {
+				if (editor != null) {
+					onDocument(editor.document);
+				}
+			}
+			disposables.push(workspace.onDidOpenTextDocument(onDocument));
+			disposables.push(window.onDidChangeActiveTextEditor(onActiveEditor));
+			onActiveEditor(window.activeTextEditor);
 		}
 		if (waitingForInstallation) {
 			disposables.push(haxeInstallation.onDidChange(_ -> {
