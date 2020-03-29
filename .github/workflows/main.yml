@@ -1,0 +1,20 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        haxe-version: [nightly, haxerc]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: npm install
+    - run: npm install
+      working-directory: syntaxes
+    - if: matrix.haxe-version == 'nightly'
+      run: npx lix install haxe nightly
+    - run: npx lix run vshaxe-build -v --debug -t all
+    - run: npx lix run vshaxe-build -v -t vshaxe
