@@ -9,7 +9,7 @@
 
 **Bugfixes:**
 
-- fixed `import` and `using` being highlighted after `--macro` in HXML files ([haxe-TmLanguage#49](https://github.com/vshaxe/haxe-TmLanguage/issues/49))
+- fixed `import` and `using` being highlighted within words ([haxe-TmLanguage](https://github.com/vshaxe/haxe-TmLanguage)[[#49](https://github.com/vshaxe/haxe-TmLanguage/issues/49), [#50](https://github.com/vshaxe/haxe-TmLanguage/issues/50)])
 - fixed function arguments sometimes being shown as optional when they're only nullable
 - fixed only the type being shown in enum abstract value hover
 - fixed language server startup not being triggered in rare cases
