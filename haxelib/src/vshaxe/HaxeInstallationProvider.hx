@@ -1,5 +1,8 @@
 package vshaxe;
 
+/**
+	@since 2.13.0
+**/
 typedef HaxeInstallationProvider = {
 	/**
 		Called when vshaxe selects the provider for providing the Haxe installation.

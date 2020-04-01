@@ -1,5 +1,8 @@
 package vshaxe;
 
+/**
+	@since 2.13.0
+**/
 typedef HaxeInstallation = {
 	/**
 		The Haxe executable to be used for resolving `"haxe.executable": "auto"`.

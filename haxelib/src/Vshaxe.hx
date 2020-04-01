@@ -73,6 +73,7 @@ typedef Vshaxe = {
 		@param name A unique ID to identify the extension. No two providers with the same name can be registered.
 		@param provider A Haxe installation provider.
 		@return A disposable which unregisters the provider.
+		@since 2.13.0
 	**/
 	function registerHaxeInstallationProvider(name:String, provider:HaxeInstallationProvider):Disposable;
 

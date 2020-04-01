@@ -12,6 +12,7 @@ typedef HaxeExecutableConfiguration = {
 
 	/**
 		How `executable` was determined.
+		@since 2.13.0
 	**/
 	var source(default, never):HaxeExecutableSource;
 

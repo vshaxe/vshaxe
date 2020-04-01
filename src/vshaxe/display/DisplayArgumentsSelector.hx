@@ -1,7 +1,7 @@
 package vshaxe.display;
 
 class DisplayArgumentsSelector {
-	static var statusBarWarningThemeColor = new ThemeColor("errorForeground");
+	static final statusBarWarningThemeColor = new ThemeColor("errorForeground");
 
 	var displayArguments:DisplayArguments;
 	var statusBarItem:StatusBarItem;
