@@ -1,32 +1,21 @@
 package vshaxe.view.dependencies;
 
 import haxe.io.Path;
-import vshaxe.configuration.HaxeInstallation;
-import vshaxe.display.DisplayArguments;
 import vshaxe.helper.PathHelper;
-import vshaxe.view.dependencies.DependencyResolver;
 import vshaxe.view.dependencies.Node;
 
 class DependencyTreeView {
 	final context:ExtensionContext;
-	final haxeInstallation:HaxeInstallation;
 	@:nullSafety(Off) final view:TreeView<Node>;
-	var displayArguments:Null<Array<String>>;
-	var relevantHxmls:Array<String> = [];
 	var dependencyNodes:Array<Node> = [];
-	var dependencies:Null<DependencyList>;
-	var refreshNeeded:Bool = true;
 	var previousSelection:Null<{node:Node, time:Float}>;
 	var autoRevealEnabled:Bool;
 	var _onDidChangeTreeData = new EventEmitter<Node>();
-	var providerWaitTimedOut = false;
 
 	public var onDidChangeTreeData:Event<Node>;
 
-	public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeInstallation:HaxeInstallation) {
+	public function new(context:ExtensionContext, haxeConfiguration:HaxeConfiguration) {
 		this.context = context;
-		this.displayArguments = displayArguments.arguments;
-		this.haxeInstallation = haxeInstallation;
 
 		onDidChangeTreeData = _onDidChangeTreeData.event;
 		inline updateAutoReveal();
@@ -45,35 +34,14 @@ class DependencyTreeView {
 		context.registerHaxeCommand(Dependencies_FindInFolder, findInFolder);
 		context.registerHaxeCommand(Dependencies_CopyPath, copyPath);
 
-		var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
-		context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
-		context.subscriptions.push(hxmlFileWatcher.onDidChange(onDidChangeHxml));
-		context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
-		context.subscriptions.push(hxmlFileWatcher);
-
-		context.subscriptions.push(haxeInstallation.onDidChange(_ -> refresh()));
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateAutoReveal()));
-		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> autoReveal()));
 		context.subscriptions.push(view.onDidChangeVisibility(_ -> autoReveal()));
-
-		if (haxeInstallation.isWaitingForProvider()) {
-			// fallback in case the provider is not there anymore
-			haxe.Timer.delay(() -> {
-				providerWaitTimedOut = true;
-				if (refreshNeeded) {
-					refresh();
-				}
-			}, 2000);
-		}
+		context.subscriptions.push(haxeConfiguration.onDidChangeConfiguration(onDidChangeHaxeConfiguration));
 	}
 
-	function onDidChangeHxml(uri:Uri) {
-		for (hxml in relevantHxmls) {
-			if (PathHelper.areEqual(uri.fsPath, hxml)) {
-				refresh(false);
-			}
-		}
+	function onDidChangeHaxeConfiguration(configuration:ResolvedConfiguration) {
+
 	}
 
 	function refreshDependencies():Array<Node> {
@@ -142,11 +110,6 @@ class DependencyTreeView {
 		}
 		var type = if (info.name == "haxe") StandardLibrary else Haxelib;
 		return new Node(label, info.path, type);
-	}
-
-	function onDidChangeDisplayArguments(displayArguments:Array<String>) {
-		this.displayArguments = displayArguments;
-		refresh();
 	}
 
 	function updateAutoReveal() {

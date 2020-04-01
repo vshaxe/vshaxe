@@ -1,6 +1,8 @@
 import haxe.ds.ReadOnlyArray;
+import js.lib.Promise;
 import vscode.Disposable;
 import vshaxe.DisplayArgumentsProvider;
+import vshaxe.HaxeConfiguration;
 import vshaxe.HaxeExecutable;
 import vshaxe.HaxeInstallationProvider;
 import vshaxe.TaskPresentationOptions;
@@ -86,4 +88,15 @@ typedef Vshaxe = {
 		for providing display arguments.
 	**/
 	function parseHxmlToArguments(hxml:String):Array<String>;
+
+	/**
+		Allows to access the properties associated with the active "Haxe Configuration". The active configuration is
+		displayed in the status bar and can be changed with the `Haxe: Select Configuration` command.
+
+		The compiler arguments for the active configurations can come from auto-discovered HXML files,
+		the `"haxe.configurations"` setting or display argument providers.
+
+		@since 2.19.0
+	**/
+	function getActiveConfiguration():Promise<HaxeConfiguration>;
 }

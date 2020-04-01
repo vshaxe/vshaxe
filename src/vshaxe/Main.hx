@@ -37,6 +37,9 @@ class Main {
 		var haxeInstallation = new HaxeInstallation(folder, mementos);
 		context.subscriptions.push(haxeInstallation);
 
+		var haxeConfiguration = new HaxeConfiguration(folder, displayArguments, haxeInstallation);
+		context.subscriptions.push(haxeConfiguration);
+
 		var problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
 		api = {
 			haxeExecutable: haxeInstallation.haxe,
@@ -45,7 +48,8 @@ class Main {
 			taskPresentation: {},
 			registerDisplayArgumentsProvider: displayArguments.registerProvider,
 			registerHaxeInstallationProvider: haxeInstallation.registerProvider,
-			parseHxmlToArguments: HxmlParser.parseToArgs
+			parseHxmlToArguments: HxmlParser.parseToArgs,
+			getActiveConfiguration: null
 		};
 
 		var server = new LanguageServer(folder, context, haxeInstallation, displayArguments, api);
