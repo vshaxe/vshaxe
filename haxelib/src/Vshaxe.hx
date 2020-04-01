@@ -28,7 +28,7 @@ typedef Vshaxe = {
 
 		Should be respected by generated tasks that call Haxe directly or indirectly if `enableCompilationServer` is `true`.
 	**/
-	@:optional var displayPort(default, never):Int;
+	var ?displayPort(default, never):Int;
 
 	/**
 		Whether the `displayPort` should be used to connect to the compilation server for building.
