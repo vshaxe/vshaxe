@@ -34,10 +34,6 @@ class HaxeDisplayArgumentsProvider {
 		context.subscriptions.push(statusBarItem);
 
 		context.registerHaxeCommand(SelectConfiguration, selectConfiguration);
-		// legacy
-		context.registerHaxeCommand(SelectDisplayConfiguration, function() {
-			window.showWarningMessage('The "$SelectDisplayConfiguration" command is deprecated, use "$SelectConfiguration" instead.');
-		});
 
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
 		hxmlDiscovery.onDidChangeFiles(_ -> refresh());
