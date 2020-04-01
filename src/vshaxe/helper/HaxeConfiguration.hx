@@ -1,10 +1,12 @@
-package vshaxe;
+package vshaxe.helper;
 
 import haxe.Json;
 import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import vshaxe.configuration.HaxeInstallation;
+import vshaxe.display.DisplayArguments;
+import vshaxe.helper.HxmlParser.HxmlLine;
 import vshaxe.helper.PathHelper;
 import vshaxe.helper.ProcessHelper;
 
@@ -29,24 +31,27 @@ typedef DependencyInfo = {
 }
 
 class HaxeConfiguration {
-	public var onDidChangeConfiguration(get, never):Event<ResolvedConfiguration>;
+	public var onDidChange(get, never):Event<ResolvedConfiguration>;
+	public var resolvedConfiguration(default, null):Null<ResolvedConfiguration>;
 
 	final folder:WorkspaceFolder;
 	final haxeInstallation:HaxeInstallation;
-	final didChangeConfigurationEmitter:EventEmitter<ResolvedConfiguration>;
+	final didChangeEmitter:EventEmitter<ResolvedConfiguration>;
 
 	var rawArguments:Null<Array<String>>;
 	var extractedConfiguration:Null<ExtractedConfiguration>;
-	var resolvedConfiguration:Null<ResolvedConfiguration>;
 
-	var refreshNeeded:Bool = true;
 	var providerWaitTimedOut = false;
 
-	inline function get_onDidChangeConfiguration()
-		return didChangeConfigurationEmitter.event;
+	inline function get_onDidChange()
+		return didChangeEmitter.event;
 
-	public function new(folder:WorkspaceFolder, displayArguments:DisplayArguments, haxeInstallation:HaxeInstallation) {
+	public function new(context:ExtensionContext, folder:WorkspaceFolder, displayArguments:DisplayArguments, haxeInstallation:HaxeInstallation) {
 		this.folder = folder;
+		this.haxeInstallation = haxeInstallation;
+		didChangeEmitter = new EventEmitter();
+
+		rawArguments = displayArguments.arguments;
 
 		var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
 		context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
@@ -54,25 +59,25 @@ class HaxeConfiguration {
 		context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
 		context.subscriptions.push(hxmlFileWatcher);
 
-		context.subscriptions.push(haxeInstallation.onDidChange(_ -> refresh()));
+		context.subscriptions.push(haxeInstallation.onDidChange(_ -> update()));
 		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
 
 		if (haxeInstallation.isWaitingForProvider()) {
 			// fallback in case the provider is not there anymore
 			haxe.Timer.delay(() -> {
 				providerWaitTimedOut = true;
-				if (refreshNeeded) {
-					invalidate();
+				if (extractedConfiguration == null) {
+					update();
 				}
 			}, 2000);
 		}
 	}
 
 	function onDidChangeHxml(uri:Uri) {
-		if (extractedArguments != null) {
-			for (hxml in extractedArguments.hxmls) {
+		if (extractedConfiguration != null) {
+			for (hxml in extractedConfiguration.hxmls) {
 				if (PathHelper.areEqual(uri.fsPath, hxml)) {
-					invalidate();
+					update();
 					break;
 				}
 			}
@@ -81,14 +86,38 @@ class HaxeConfiguration {
 
 	function onDidChangeDisplayArguments(displayArguments:Array<String>) {
 		rawArguments = displayArguments;
-		invalidate();
+		update();
+	}
+
+	function update() {
+		if (haxeInstallation.isWaitingForProvider() && !providerWaitTimedOut) {
+			return;
+		}
+		var newExtractedConfiguration = extract(rawArguments);
+		// avoid FS access / creating processes unless there were _actually_ changes
+		if (extractedConfiguration != null
+			&& extractedConfiguration.libs.equals(newExtractedConfiguration.libs)
+			&& extractedConfiguration.classPaths.equals(newExtractedConfiguration.classPaths)) {
+			return;
+		}
+		extractedConfiguration = newExtractedConfiguration;
+
+		resolvedConfiguration = resolve(extractedConfiguration);
+		didChangeEmitter.fire(resolvedConfiguration);
 	}
 
 	public function dispose() {
-		didChangeConfigurationEmitter.dispose();
+		didChangeEmitter.dispose();
+	}
+
+	public function invalidate() {
+		extractedConfiguration = null;
+		resolvedConfiguration = null;
+		update();
 	}
 
 	function extract(args:Null<Array<String>>):ExtractedConfiguration {
+		var cwd = folder.uri.fsPath;
 		var result:ExtractedConfiguration = {
 			libs: [],
 			classPaths: [],
@@ -133,18 +162,18 @@ class HaxeConfiguration {
 		return result;
 	}
 
-	function resolve(dependencies:DependencyList):Array<DependencyInfo> {
+	function resolve(extractedConfiguration:ExtractedConfiguration):ResolvedConfiguration {
 		var haxe = haxeInstallation.haxe.configuration;
 		var haxelib = haxeInstallation.haxelib.configuration;
 
 		var paths = [];
-		for (lib in dependencies.libs) {
+		for (lib in extractedConfiguration.libs) {
 			paths = paths.concat(resolveHaxelib(lib, haxelib));
 		}
-		paths = paths.concat(dependencies.classPaths);
+		paths = paths.concat(extractedConfiguration.classPaths);
 		paths = pruneSubdirectories(paths);
 
-		var infos:Array<DependencyInfo> = [];
+		var dependencies:Array<DependencyInfo> = [];
 		var libraryBasePath = haxeInstallation.libraryBasePath;
 		if (libraryBasePath != null) {
 			for (path in paths) {
@@ -153,21 +182,23 @@ class HaxeConfiguration {
 					info = getDependencyInfo(path, libraryBasePath);
 				}
 				if (info != null) {
-					infos.push(info);
+					dependencies.push(info);
 				}
 			}
 		}
 
 		var stdLibPath = haxeInstallation.standardLibraryPath;
 		if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
-			@:nullSafety(Off) infos.push({
+			@:nullSafety(Off) dependencies.push({
 				name: "haxe",
 				version: if (haxe.version == null) "?" else haxe.version,
 				path: stdLibPath
 			});
 		}
 
-		return infos;
+		return {
+			dependencies: dependencies
+		};
 	}
 
 	function resolveHaxelib(lib:String, haxelib:String):Array<String> {

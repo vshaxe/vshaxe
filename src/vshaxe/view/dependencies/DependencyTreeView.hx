@@ -1,21 +1,25 @@
 package vshaxe.view.dependencies;
 
 import haxe.io.Path;
+import vshaxe.helper.HaxeConfiguration;
 import vshaxe.helper.PathHelper;
 import vshaxe.view.dependencies.Node;
 
 class DependencyTreeView {
 	final context:ExtensionContext;
+	final haxeConfiguration:HaxeConfiguration;
 	@:nullSafety(Off) final view:TreeView<Node>;
 	var dependencyNodes:Array<Node> = [];
 	var previousSelection:Null<{node:Node, time:Float}>;
 	var autoRevealEnabled:Bool;
+	var refreshNeeded:Bool = true;
 	var _onDidChangeTreeData = new EventEmitter<Node>();
 
 	public var onDidChangeTreeData:Event<Node>;
 
 	public function new(context:ExtensionContext, haxeConfiguration:HaxeConfiguration) {
 		this.context = context;
+		this.haxeConfiguration = haxeConfiguration;
 
 		onDidChangeTreeData = _onDidChangeTreeData.event;
 		inline updateAutoReveal();
@@ -37,29 +41,19 @@ class DependencyTreeView {
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateAutoReveal()));
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> autoReveal()));
 		context.subscriptions.push(view.onDidChangeVisibility(_ -> autoReveal()));
-		context.subscriptions.push(haxeConfiguration.onDidChangeConfiguration(onDidChangeHaxeConfiguration));
+		context.subscriptions.push(haxeConfiguration.onDidChange(onDidChangeHaxeConfiguration));
 	}
 
-	function onDidChangeHaxeConfiguration(configuration:ResolvedConfiguration) {
-
+	function onDidChangeHaxeConfiguration(_) {
+		refreshNeeded = true;
+		_onDidChangeTreeData.fire();
 	}
 
-	function refreshDependencies():Array<Node> {
-		if (workspace.workspaceFolders == null) {
-			return [];
+	function refresh() {
+		for (node in dependencyNodes) {
+			node.refresh();
 		}
-		var newDependencies = DependencyExtractor.extractDependencies(displayArguments, workspace.workspaceFolders[0].uri.fsPath);
-		relevantHxmls = newDependencies.hxmls;
-
-		// avoid FS access / creating processes unless there were _actually_ changes
-		if (dependencies != null
-			&& dependencies.libs.equals(newDependencies.libs)
-			&& dependencies.classPaths.equals(newDependencies.classPaths)) {
-			return dependencyNodes;
-		}
-		dependencies = newDependencies;
-
-		return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxeInstallation));
+		haxeConfiguration.invalidate();
 	}
 
 	function updateNodes(dependencyInfos:Array<DependencyInfo>):Array<Node> {
@@ -72,12 +66,10 @@ class DependencyTreeView {
 			}
 
 			// reuse existing nodes if possible to preserve their collapsibleState
-			if (dependencies != null) {
-				var oldNode = dependencyNodes.find(d -> d.path == info.path);
-				if (oldNode != null) {
-					newNodes.push(oldNode);
-					continue;
-				}
+			var oldNode = dependencyNodes.find(d -> d.path == info.path);
+			if (oldNode != null) {
+				newNodes.push(oldNode);
+				continue;
 			}
 
 			var node = createNode(info);
@@ -141,27 +133,17 @@ class DependencyTreeView {
 		return found;
 	}
 
-	function refresh(hard:Bool = true) {
-		if (hard) {
-			dependencies = null;
-			for (node in dependencyNodes) {
-				node.refresh();
-			}
-		}
-		refreshNeeded = true;
-		_onDidChangeTreeData.fire();
-	}
-
 	public function getTreeItem(element:Node):TreeItem {
 		return element;
 	}
 
 	public function getChildren(?node:Node):Array<Node> {
-		if (haxeInstallation.isWaitingForProvider() && !providerWaitTimedOut) {
+		var config = haxeConfiguration.resolvedConfiguration;
+		if (config == null) {
 			return [];
 		}
 		if (refreshNeeded) {
-			dependencyNodes = refreshDependencies();
+			dependencyNodes = updateNodes(config.dependencies);
 			refreshNeeded = false;
 		}
 		return if (node == null) dependencyNodes else node.children;
@@ -176,9 +158,7 @@ class DependencyTreeView {
 		if (editor == null) {
 			return;
 		}
-		if (dependencies == null) {
-			getChildren();
-		}
+		getChildren(); // trigger refresh if needed
 		var file = editor.document.fileName;
 		if (!reveal(file, true)) {
 			// if not found, try with the regular explorer
