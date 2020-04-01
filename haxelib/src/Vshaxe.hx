@@ -1,8 +1,8 @@
+import haxe.ds.ReadOnlyArray;
 import vscode.Disposable;
 import vshaxe.DisplayArgumentsProvider;
-import vshaxe.HaxeInstallationProvider;
 import vshaxe.HaxeExecutable;
-import vshaxe.ReadOnlyArray;
+import vshaxe.HaxeInstallationProvider;
 import vshaxe.TaskPresentationOptions;
 
 /**
