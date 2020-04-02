@@ -50,7 +50,7 @@ class Main {
 			registerDisplayArgumentsProvider: displayArguments.registerProvider,
 			registerHaxeInstallationProvider: haxeInstallation.registerProvider,
 			parseHxmlToArguments: HxmlParser.parseToArgs,
-			getActiveConfiguration: null
+			getActiveConfiguration: haxeConfiguration.getActiveConfiguration
 		};
 
 		var server = new LanguageServer(folder, context, haxeInstallation, displayArguments, api);

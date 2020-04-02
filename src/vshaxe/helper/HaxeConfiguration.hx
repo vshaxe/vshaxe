@@ -3,6 +3,7 @@ package vshaxe.helper;
 import haxe.Json;
 import haxe.ds.ReadOnlyArray;
 import haxe.io.Path;
+import js.lib.Promise;
 import sys.FileSystem;
 import sys.io.File;
 import vshaxe.HaxeConfiguration.ClassPath;
@@ -105,6 +106,33 @@ class HaxeConfiguration {
 		extractedConfiguration = null;
 		resolvedConfiguration = null;
 		update();
+	}
+
+	public function getActiveConfiguration():Promise<vshaxe.HaxeConfiguration> {
+		return new Promise(function(resolve, reject) {
+			function answer() {
+				var config = resolvedConfiguration;
+				if (config == null) { // shouldn't happen
+					reject("No Haxe configuration available");
+				} else {
+					resolve(({
+						classPaths: config.classPaths.copy(),
+						defines: config.defines.copy(),
+						target: config.target,
+						main: config.main
+					} : vshaxe.HaxeConfiguration));
+				}
+			}
+			if (haxeInstallation.isWaitingForProvider()) {
+				var disposable:Null<Disposable> = null;
+				disposable = onDidChange(function(_) {
+					@:nullSafety(Off) disposable.dispose();
+					answer();
+				});
+			} else {
+				answer();
+			}
+		});
 	}
 
 	function extract(lines:Array<HxmlLine>):ExtractedConfiguration {
