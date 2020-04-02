@@ -41,7 +41,11 @@ class HaxeInstallation {
 
 		if (isWaitingForProvider()) {
 			// fallback in case the provider is not there anymore
-			Timer.delay(setCurrentProvider.bind(null), 2000);
+			Timer.delay(() -> {
+				if (isWaitingForProvider()) {
+					setCurrentProvider(null);
+				}
+			}, 2000);
 		}
 	}
 
