@@ -1,9 +1,12 @@
 package vshaxe.helper;
 
 import haxe.Json;
+import haxe.ds.ReadOnlyArray;
 import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
+import vshaxe.HaxeConfiguration.ClassPath;
+import vshaxe.HaxeConfiguration.Target;
 import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
 import vshaxe.helper.HxmlParser.HxmlLine;
@@ -13,15 +16,14 @@ import vshaxe.helper.ProcessHelper;
 using Lambda;
 
 /** "extracted" compiler arguments without resolved libraries **/
-typedef ExtractedConfiguration = {
-	var libs:Array<String>;
-	var classPaths:Array<String>;
-	var hxmls:Array<String>;
+typedef ExtractedConfiguration = vshaxe.HaxeConfiguration & {
+	final libs:ReadOnlyArray<String>;
+	final hxmls:ReadOnlyArray<String>;
 }
 
 /** compiler arguments with resolved libraries **/
-typedef ResolvedConfiguration = {
-	var dependencies:Array<DependencyInfo>;
+typedef ResolvedConfiguration = vshaxe.HaxeConfiguration & {
+	final dependencies:ReadOnlyArray<DependencyInfo>;
 }
 
 typedef DependencyInfo = {
@@ -38,7 +40,7 @@ class HaxeConfiguration {
 	final haxeInstallation:HaxeInstallation;
 	final didChangeEmitter:EventEmitter<ResolvedConfiguration>;
 
-	var rawArguments:Null<Array<String>>;
+	var rawArguments:Array<String>;
 	var extractedConfiguration:Null<ExtractedConfiguration>;
 
 	inline function get_onDidChange()
@@ -49,7 +51,8 @@ class HaxeConfiguration {
 		this.haxeInstallation = haxeInstallation;
 		didChangeEmitter = new EventEmitter();
 
-		rawArguments = displayArguments.arguments;
+		var args = displayArguments.arguments;
+		rawArguments = if (args == null) [] else args;
 
 		var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
 		context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
@@ -81,12 +84,12 @@ class HaxeConfiguration {
 		if (haxeInstallation.isWaitingForProvider()) {
 			return;
 		}
-		var newExtractedConfiguration = extract(rawArguments);
+		var newExtractedConfiguration = extract(HxmlParser.parseArray(rawArguments));
 		// avoid FS access / creating processes unless there were _actually_ changes
-		if (extractedConfiguration != null
-			&& extractedConfiguration.libs.equals(newExtractedConfiguration.libs)
-			&& extractedConfiguration.classPaths.equals(newExtractedConfiguration.classPaths)) {
-			return;
+		@:nullSafety(Off) {
+			if (Json.stringify(extractedConfiguration) == Json.stringify(newExtractedConfiguration)) {
+				return;
+			}
 		}
 		extractedConfiguration = newExtractedConfiguration;
 
@@ -104,21 +107,19 @@ class HaxeConfiguration {
 		update();
 	}
 
-	function extract(args:Null<Array<String>>):ExtractedConfiguration {
+	function extract(lines:Array<HxmlLine>):ExtractedConfiguration {
 		var cwd = folder.uri.fsPath;
-		var result:ExtractedConfiguration = {
-			libs: [],
-			classPaths: [],
-			hxmls: []
-		}
 
-		if (args == null) {
-			return result;
-		}
+		var libs = [];
+		var hxmls = [];
+		var classPaths = [];
+		var defines = new Map<String, String>();
+		var target = None;
+		var main:Null<String> = null;
 
 		function processHxml(hxmlFile:String, cwd:String) {
 			hxmlFile = PathHelper.absolutize(hxmlFile, cwd);
-			result.hxmls.push(hxmlFile);
+			hxmls.push(hxmlFile);
 			if (hxmlFile == null || !FileSystem.exists(hxmlFile)) {
 				return [];
 			}
@@ -130,15 +131,54 @@ class HaxeConfiguration {
 			for (line in lines) {
 				switch line {
 					case Param("-lib" | "-L" | "--library", lib):
-						result.libs.push(lib);
+						libs.push(lib);
 					case Param("-cp" | "-p" | "--class-path", cp):
-						result.classPaths.push(cp);
+						classPaths.push({path: cp});
 					case Param("--cwd" | "-C", newCwd):
 						if (Path.isAbsolute(newCwd)) {
 							cwd = newCwd;
 						} else {
 							cwd = Path.join([cwd, newCwd]);
 						}
+					case Param("-D" | "--define", arg):
+						var parts = arg.split("=");
+						var name = parts[0];
+						var value = if (parts.length == 1) "1" else parts[1];
+						defines[name] = value;
+
+					case Param("-js" | "--js", file):
+						target = Js(file);
+					case Param("-lua" | "--lua", file):
+						target = Lua(file);
+					case Param("-swf" | "--swf", file):
+						target = Swf(file);
+					case Param("-as3" | "--as3", directory):
+						target = As3(directory);
+					case Param("-neko" | "--neko", file):
+						target = Neko(file);
+					case Param("-php" | "--php", directory):
+						target = Php(directory);
+					case Param("-cpp" | "--cpp", directory):
+						target = Cpp(directory);
+					case Param("-cppia" | "--cppia", file):
+						target = Cppia(file);
+					case Param("-cs" | "--cs", directory):
+						target = Cs(directory);
+					case Param("-java" | "--java", directory):
+						target = Java(directory);
+					case Param("-python" | "--python", file):
+						target = Python(file);
+					case Param("-hl" | "--hl", file):
+						target = Hl(file);
+					case Simple("-interp" | "--interp"):
+						target = Interp;
+
+					case Param("-m" | "-main" | "--main", mainClass):
+						main = mainClass;
+					case Param("--run", mainClass):
+						main = mainClass;
+						target = Interp;
+
 					case Simple(name) if (name.endsWith(".hxml")):
 						processLines(processHxml(name, cwd));
 					case _:
@@ -146,19 +186,65 @@ class HaxeConfiguration {
 			}
 		}
 
-		processLines(HxmlParser.parseArray(args));
-		return result;
+		processLines(lines);
+		return {
+			libs: libs,
+			hxmls: hxmls,
+			classPaths: classPaths,
+			defines: defines,
+			target: target,
+			main: main
+		};
 	}
 
 	function resolve(extractedConfiguration:ExtractedConfiguration):ResolvedConfiguration {
-		var haxe = haxeInstallation.haxe.configuration;
-		var haxelib = haxeInstallation.haxelib.configuration;
+		var classPaths = extractedConfiguration.classPaths.copy();
+		var defines = extractedConfiguration.defines.copy();
 
-		var paths = [];
+		var haxelib = haxeInstallation.haxelib.configuration;
 		for (lib in extractedConfiguration.libs) {
-			paths = paths.concat(resolveHaxelib(lib, haxelib));
+			var result = resolveHaxelib(lib, haxelib);
+			var extracted = extract(HxmlParser.parseFile(result.hxml.join("\n")));
+			// assume extracted has no libs or hxmls
+			classPaths = classPaths.concat(result.classPaths);
+			classPaths = classPaths.concat(cast extracted.classPaths);
+			for (name => value in extracted.defines) {
+				defines[name] = value;
+			}
 		}
-		paths = paths.concat(extractedConfiguration.classPaths);
+
+		var dependencies = resolveDependencies(classPaths.map(cp -> cp.path));
+		var stdLibPath = haxeInstallation.standardLibraryPath;
+		if (stdLibPath != null) {
+			classPaths.push({
+				path: (stdLibPath : String)
+			});
+		}
+		return {
+			dependencies: dependencies,
+			defines: defines,
+			classPaths: classPaths,
+			target: extractedConfiguration.target,
+			main: extractedConfiguration.main
+		};
+	}
+
+	function resolveHaxelib(lib:String, haxelib:String):{classPaths:Array<ClassPath>, hxml:Array<String>} {
+		var result = {
+			classPaths: [],
+			hxml: []
+		};
+		for (line in ProcessHelper.getOutput('$haxelib path $lib')) {
+			if (line.charCodeAt(0) == "-".code) {
+				result.hxml.push(line);
+			} else {
+				result.classPaths.push({path: Path.normalize(line)});
+			}
+		}
+		return result;
+	}
+
+	function resolveDependencies(paths:Array<String>):Array<DependencyInfo> {
 		paths = pruneSubdirectories(paths);
 
 		var dependencies:Array<DependencyInfo> = [];
@@ -175,6 +261,7 @@ class HaxeConfiguration {
 			}
 		}
 
+		var haxe = haxeInstallation.haxe.configuration;
 		var stdLibPath = haxeInstallation.standardLibraryPath;
 		if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
 			@:nullSafety(Off) dependencies.push({
@@ -183,21 +270,7 @@ class HaxeConfiguration {
 				path: stdLibPath
 			});
 		}
-
-		return {
-			dependencies: dependencies
-		};
-	}
-
-	function resolveHaxelib(lib:String, haxelib:String):Array<String> {
-		var paths = [];
-		for (line in ProcessHelper.getOutput('$haxelib path $lib')) {
-			var potentialPath = Path.normalize(line);
-			if (FileSystem.exists(potentialPath)) {
-				paths.push(potentialPath);
-			}
-		}
-		return paths;
+		return dependencies;
 	}
 
 	// ignore directories that are subdirectories of others (#156)

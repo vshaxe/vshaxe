@@ -1,5 +1,7 @@
 package vshaxe;
 
+import haxe.ds.ReadOnlyArray;
+
 /**
 	@since 2.19.0
 **/
@@ -8,7 +10,7 @@ typedef HaxeConfiguration = {
 		All class paths of the configuration. This includes class paths from `-cp`,
 		resolved `-lib` arguments and the standard library.
 	**/
-	final classPaths:Array<ClassPath>;
+	final classPaths:ReadOnlyArray<ClassPath>;
 
 	/**
 		All defines of the configuration. This includes defines from resolved `-lib` arguments,

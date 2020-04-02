@@ -1,5 +1,6 @@
 package vshaxe.view.dependencies;
 
+import haxe.ds.ReadOnlyArray;
 import haxe.io.Path;
 import vshaxe.helper.HaxeConfiguration;
 import vshaxe.helper.PathHelper;
@@ -56,7 +57,7 @@ class DependencyTreeView {
 		haxeConfiguration.invalidate();
 	}
 
-	function updateNodes(dependencyInfos:Array<DependencyInfo>):Array<Node> {
+	function updateNodes(dependencyInfos:ReadOnlyArray<DependencyInfo>):Array<Node> {
 		var newNodes:Array<Node> = [];
 
 		for (info in dependencyInfos) {
