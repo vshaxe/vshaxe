@@ -242,11 +242,11 @@ class HaxeConfiguration {
 
 		var stdLibPath = haxeInstallation.standardLibraryPath;
 		if (stdLibPath != null) {
-			classPaths.push({
+			classPaths.unshift({
 				path: (stdLibPath : String)
 			});
 		}
-		classPaths.push({
+		classPaths.unshift({
 			path: folder.uri.fsPath // implicit ./ classpath
 		});
 
@@ -274,7 +274,7 @@ class HaxeConfiguration {
 			if (line.charCodeAt(0) == "-".code) {
 				result.hxml.push(line);
 			} else {
-				result.classPaths.push({path: Path.normalize(line)});
+				result.classPaths.push({path: line});
 			}
 		}
 		return result;
