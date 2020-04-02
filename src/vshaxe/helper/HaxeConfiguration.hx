@@ -235,6 +235,10 @@ class HaxeConfiguration {
 			hxml: []
 		};
 		for (line in ProcessHelper.getOutput('$haxelib path $lib')) {
+			line = line.trim();
+			if (line.length == 0) {
+				continue;
+			}
 			if (line.charCodeAt(0) == "-".code) {
 				result.hxml.push(line);
 			} else {
