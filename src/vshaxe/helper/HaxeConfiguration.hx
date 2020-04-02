@@ -201,19 +201,17 @@ class HaxeConfiguration {
 		var classPaths = extractedConfiguration.classPaths.copy();
 		var defines = extractedConfiguration.defines.copy();
 
-		var haxelib = haxeInstallation.haxelib.configuration;
-		for (lib in extractedConfiguration.libs) {
-			var result = resolveHaxelib(lib, haxelib);
-			var extracted = extract(HxmlParser.parseFile(result.hxml.join("\n")));
-			// assume extracted has no libs or hxmls
-			classPaths = classPaths.concat(result.classPaths);
-			classPaths = classPaths.concat(cast extracted.classPaths);
-			for (name => value in extracted.defines) {
-				defines[name] = value;
-			}
+		var result = resolveHaxelibs(extractedConfiguration.libs);
+		var extracted = extract(HxmlParser.parseFile(result.hxml.join("\n")));
+		// assume extracted has no libs or hxmls
+		classPaths = classPaths.concat(result.classPaths);
+		classPaths = classPaths.concat(cast extracted.classPaths);
+		for (name => value in extracted.defines) {
+			defines[name] = value;
 		}
 
 		var dependencies = resolveDependencies(classPaths.map(cp -> cp.path));
+
 		var stdLibPath = haxeInstallation.standardLibraryPath;
 		if (stdLibPath != null) {
 			classPaths.push({
@@ -229,12 +227,14 @@ class HaxeConfiguration {
 		};
 	}
 
-	function resolveHaxelib(lib:String, haxelib:String):{classPaths:Array<ClassPath>, hxml:Array<String>} {
+	function resolveHaxelibs(libs:ReadOnlyArray<String>):{classPaths:Array<ClassPath>, hxml:Array<String>} {
 		var result = {
 			classPaths: [],
 			hxml: []
 		};
-		for (line in ProcessHelper.getOutput('$haxelib path $lib')) {
+		var haxelib = haxeInstallation.haxelib.configuration;
+		var output = ProcessHelper.getOutput('$haxelib path ${libs.join(" ")}');
+		for (line in output) {
 			line = line.trim();
 			if (line.length == 0) {
 				continue;
