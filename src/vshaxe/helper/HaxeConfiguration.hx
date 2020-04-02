@@ -218,6 +218,10 @@ class HaxeConfiguration {
 				path: (stdLibPath : String)
 			});
 		}
+		classPaths.push({
+			path: folder.uri.fsPath // implicit ./ classpath
+		});
+
 		return {
 			dependencies: dependencies,
 			defines: defines,
