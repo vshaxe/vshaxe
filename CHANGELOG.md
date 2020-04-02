@@ -1,5 +1,9 @@
 ### 2.19.0 (to be released)
 
+**New Features:**
+
+- added `getActiveConfiguration()` to the extension API ([#221](https://github.com/vshaxe/vshaxe/issues/221))
+
 **Changes and Improvements:**
 
 - changed the required VSCode version to 1.42.0
