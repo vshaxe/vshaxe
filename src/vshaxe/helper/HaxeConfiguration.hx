@@ -41,8 +41,6 @@ class HaxeConfiguration {
 	var rawArguments:Null<Array<String>>;
 	var extractedConfiguration:Null<ExtractedConfiguration>;
 
-	var providerWaitTimedOut = false;
-
 	inline function get_onDidChange()
 		return didChangeEmitter.event;
 
@@ -61,16 +59,6 @@ class HaxeConfiguration {
 
 		context.subscriptions.push(haxeInstallation.onDidChange(_ -> update()));
 		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
-
-		if (haxeInstallation.isWaitingForProvider()) {
-			// fallback in case the provider is not there anymore
-			haxe.Timer.delay(() -> {
-				providerWaitTimedOut = true;
-				if (extractedConfiguration == null) {
-					update();
-				}
-			}, 2000);
-		}
 	}
 
 	function onDidChangeHxml(uri:Uri) {
@@ -90,7 +78,7 @@ class HaxeConfiguration {
 	}
 
 	function update() {
-		if (haxeInstallation.isWaitingForProvider() && !providerWaitTimedOut) {
+		if (haxeInstallation.isWaitingForProvider()) {
 			return;
 		}
 		var newExtractedConfiguration = extract(rawArguments);
