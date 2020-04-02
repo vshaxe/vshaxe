@@ -133,7 +133,7 @@ class HaxeConfiguration {
 					case Param("-lib" | "-L" | "--library", lib):
 						libs.push(lib);
 					case Param("-cp" | "-p" | "--class-path", cp):
-						classPaths.push({path: cp});
+						classPaths.push({path: PathHelper.absolutize(cp, cwd)});
 					case Param("--cwd" | "-C", newCwd):
 						if (Path.isAbsolute(newCwd)) {
 							cwd = newCwd;
