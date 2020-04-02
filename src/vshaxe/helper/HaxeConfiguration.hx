@@ -57,7 +57,7 @@ class HaxeConfiguration {
 		context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
 		context.subscriptions.push(hxmlFileWatcher);
 
-		context.subscriptions.push(haxeInstallation.onDidChange(_ -> update()));
+		context.subscriptions.push(haxeInstallation.onDidChange(_ -> invalidate()));
 		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
 	}
 
