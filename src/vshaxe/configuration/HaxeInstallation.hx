@@ -1,6 +1,7 @@
 package vshaxe.configuration;
 
 import haxe.DynamicAccess;
+import haxe.Timer;
 import haxe.io.Path;
 import sys.FileSystem;
 import vshaxe.helper.PathHelper;
@@ -37,6 +38,15 @@ class HaxeInstallation {
 		haxelib.onDidChangeConfiguration(_ -> onDidChangeConfiguration());
 		standardLibraryPath = getStandardLibraryPath();
 		libraryBasePath = getLibraryBasePath();
+
+		if (isWaitingForProvider()) {
+			// fallback in case the provider is not there anymore
+			Timer.delay(() -> {
+				if (isWaitingForProvider()) {
+					setCurrentProvider(null);
+				}
+			}, 2000);
+		}
 	}
 
 	function onDidChangeConfiguration() {

@@ -7,6 +7,7 @@ import vshaxe.display.DisplayArguments;
 import vshaxe.display.DisplayArgumentsSelector;
 import vshaxe.display.HaxeDisplayArgumentsProvider;
 import vshaxe.helper.HaxeCodeLensProvider;
+import vshaxe.helper.HaxeConfiguration;
 import vshaxe.helper.HxmlParser;
 import vshaxe.server.LanguageServer;
 import vshaxe.tasks.HaxeTaskProvider;
@@ -37,6 +38,9 @@ class Main {
 		var haxeInstallation = new HaxeInstallation(folder, mementos);
 		context.subscriptions.push(haxeInstallation);
 
+		var haxeConfiguration = new HaxeConfiguration(context, folder, displayArguments, haxeInstallation);
+		context.subscriptions.push(haxeConfiguration);
+
 		var problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
 		api = {
 			haxeExecutable: haxeInstallation.haxe,
@@ -45,7 +49,8 @@ class Main {
 			taskPresentation: {},
 			registerDisplayArgumentsProvider: displayArguments.registerProvider,
 			registerHaxeInstallationProvider: haxeInstallation.registerProvider,
-			parseHxmlToArguments: HxmlParser.parseToArgs
+			parseHxmlToArguments: HxmlParser.parseToArgs,
+			getActiveConfiguration: haxeConfiguration.getActiveConfiguration
 		};
 
 		var server = new LanguageServer(folder, context, haxeInstallation, displayArguments, api);
@@ -53,7 +58,7 @@ class Main {
 
 		new HaxeCodeLensProvider();
 		new HaxeServerViewContainer(context, server);
-		new DependencyTreeView(context, displayArguments, haxeInstallation);
+		new DependencyTreeView(context, haxeConfiguration);
 		new EvalDebugger(displayArguments, haxeInstallation.haxe);
 		new DisplayArgumentsSelector(context, displayArguments);
 		var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);

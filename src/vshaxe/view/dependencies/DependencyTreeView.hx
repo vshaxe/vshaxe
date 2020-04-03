@@ -1,32 +1,26 @@
 package vshaxe.view.dependencies;
 
+import haxe.ds.ReadOnlyArray;
 import haxe.io.Path;
-import vshaxe.configuration.HaxeInstallation;
-import vshaxe.display.DisplayArguments;
+import vshaxe.helper.HaxeConfiguration;
 import vshaxe.helper.PathHelper;
-import vshaxe.view.dependencies.DependencyResolver;
 import vshaxe.view.dependencies.Node;
 
 class DependencyTreeView {
 	final context:ExtensionContext;
-	final haxeInstallation:HaxeInstallation;
+	final haxeConfiguration:HaxeConfiguration;
 	@:nullSafety(Off) final view:TreeView<Node>;
-	var displayArguments:Null<Array<String>>;
-	var relevantHxmls:Array<String> = [];
 	var dependencyNodes:Array<Node> = [];
-	var dependencies:Null<DependencyList>;
-	var refreshNeeded:Bool = true;
 	var previousSelection:Null<{node:Node, time:Float}>;
 	var autoRevealEnabled:Bool;
+	var refreshNeeded:Bool = true;
 	var _onDidChangeTreeData = new EventEmitter<Node>();
-	var providerWaitTimedOut = false;
 
 	public var onDidChangeTreeData:Event<Node>;
 
-	public function new(context:ExtensionContext, displayArguments:DisplayArguments, haxeInstallation:HaxeInstallation) {
+	public function new(context:ExtensionContext, haxeConfiguration:HaxeConfiguration) {
 		this.context = context;
-		this.displayArguments = displayArguments.arguments;
-		this.haxeInstallation = haxeInstallation;
+		this.haxeConfiguration = haxeConfiguration;
 
 		onDidChangeTreeData = _onDidChangeTreeData.event;
 		inline updateAutoReveal();
@@ -45,56 +39,25 @@ class DependencyTreeView {
 		context.registerHaxeCommand(Dependencies_FindInFolder, findInFolder);
 		context.registerHaxeCommand(Dependencies_CopyPath, copyPath);
 
-		var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
-		context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
-		context.subscriptions.push(hxmlFileWatcher.onDidChange(onDidChangeHxml));
-		context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
-		context.subscriptions.push(hxmlFileWatcher);
-
-		context.subscriptions.push(haxeInstallation.onDidChange(_ -> refresh()));
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateAutoReveal()));
-		context.subscriptions.push(displayArguments.onDidChangeArguments(onDidChangeDisplayArguments));
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(_ -> autoReveal()));
 		context.subscriptions.push(view.onDidChangeVisibility(_ -> autoReveal()));
-
-		if (haxeInstallation.isWaitingForProvider()) {
-			// fallback in case the provider is not there anymore
-			haxe.Timer.delay(() -> {
-				providerWaitTimedOut = true;
-				if (refreshNeeded) {
-					refresh();
-				}
-			}, 2000);
-		}
+		context.subscriptions.push(haxeConfiguration.onDidChange(onDidChangeHaxeConfiguration));
 	}
 
-	function onDidChangeHxml(uri:Uri) {
-		for (hxml in relevantHxmls) {
-			if (PathHelper.areEqual(uri.fsPath, hxml)) {
-				refresh(false);
-			}
-		}
+	function onDidChangeHaxeConfiguration(_) {
+		refreshNeeded = true;
+		_onDidChangeTreeData.fire();
 	}
 
-	function refreshDependencies():Array<Node> {
-		if (workspace.workspaceFolders == null) {
-			return [];
+	function refresh() {
+		for (node in dependencyNodes) {
+			node.refresh();
 		}
-		var newDependencies = DependencyExtractor.extractDependencies(displayArguments, workspace.workspaceFolders[0].uri.fsPath);
-		relevantHxmls = newDependencies.hxmls;
-
-		// avoid FS access / creating processes unless there were _actually_ changes
-		if (dependencies != null
-			&& dependencies.libs.equals(newDependencies.libs)
-			&& dependencies.classPaths.equals(newDependencies.classPaths)) {
-			return dependencyNodes;
-		}
-		dependencies = newDependencies;
-
-		return updateNodes(DependencyResolver.resolveDependencies(newDependencies, haxeInstallation));
+		haxeConfiguration.invalidate();
 	}
 
-	function updateNodes(dependencyInfos:Array<DependencyInfo>):Array<Node> {
+	function updateNodes(dependencyInfos:ReadOnlyArray<DependencyInfo>):Array<Node> {
 		var newNodes:Array<Node> = [];
 
 		for (info in dependencyInfos) {
@@ -104,12 +67,10 @@ class DependencyTreeView {
 			}
 
 			// reuse existing nodes if possible to preserve their collapsibleState
-			if (dependencies != null) {
-				var oldNode = dependencyNodes.find(d -> d.path == info.path);
-				if (oldNode != null) {
-					newNodes.push(oldNode);
-					continue;
-				}
+			var oldNode = dependencyNodes.find(d -> d.path == info.path);
+			if (oldNode != null) {
+				newNodes.push(oldNode);
+				continue;
 			}
 
 			var node = createNode(info);
@@ -144,11 +105,6 @@ class DependencyTreeView {
 		return new Node(label, info.path, type);
 	}
 
-	function onDidChangeDisplayArguments(displayArguments:Array<String>) {
-		this.displayArguments = displayArguments;
-		refresh();
-	}
-
 	function updateAutoReveal() {
 		autoRevealEnabled = workspace.getConfiguration("explorer").get("autoReveal", true);
 	}
@@ -178,27 +134,17 @@ class DependencyTreeView {
 		return found;
 	}
 
-	function refresh(hard:Bool = true) {
-		if (hard) {
-			dependencies = null;
-			for (node in dependencyNodes) {
-				node.refresh();
-			}
-		}
-		refreshNeeded = true;
-		_onDidChangeTreeData.fire();
-	}
-
 	public function getTreeItem(element:Node):TreeItem {
 		return element;
 	}
 
 	public function getChildren(?node:Node):Array<Node> {
-		if (haxeInstallation.isWaitingForProvider() && !providerWaitTimedOut) {
+		var config = haxeConfiguration.resolvedConfiguration;
+		if (config == null) {
 			return [];
 		}
 		if (refreshNeeded) {
-			dependencyNodes = refreshDependencies();
+			dependencyNodes = updateNodes(config.dependencies);
 			refreshNeeded = false;
 		}
 		return if (node == null) dependencyNodes else node.children;
@@ -213,9 +159,7 @@ class DependencyTreeView {
 		if (editor == null) {
 			return;
 		}
-		if (dependencies == null) {
-			getChildren();
-		}
+		getChildren(); // trigger refresh if needed
 		var file = editor.document.fileName;
 		if (!reveal(file, true)) {
 			// if not found, try with the regular explorer
