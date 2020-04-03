@@ -1,4 +1,4 @@
-### 2.19.0 (to be released)
+### 2.19.0 (April 3, 2020)
 
 **New Features:**
 
