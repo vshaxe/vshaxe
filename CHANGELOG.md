@@ -1,3 +1,9 @@
+### 2.19.1 (to be released)
+
+**Bugfixes:**
+
+- fixed order of class paths not being preserved correctly in `getActiveConfiguration()`
+
 ### 2.19.0 (April 3, 2020)
 
 **New Features:**

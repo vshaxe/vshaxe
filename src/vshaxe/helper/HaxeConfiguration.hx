@@ -6,7 +6,6 @@ import haxe.io.Path;
 import js.lib.Promise;
 import sys.FileSystem;
 import sys.io.File;
-import vshaxe.HaxeConfiguration.ClassPath;
 import vshaxe.HaxeConfiguration.Target;
 import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
@@ -16,10 +15,18 @@ import vshaxe.helper.ProcessHelper;
 
 using Lambda;
 
+enum ClassPathOrLib {
+	ClassPath(path:String);
+	Lib(name:String);
+}
+
 /** "extracted" compiler arguments without resolved libraries **/
-typedef ExtractedConfiguration = vshaxe.HaxeConfiguration & {
-	final libs:ReadOnlyArray<String>;
+typedef ExtractedConfiguration = {
 	final hxmls:ReadOnlyArray<String>;
+	final classPathsAndLibs:ReadOnlyArray<ClassPathOrLib>;
+	final defines:Map<String, String>;
+	final target:Target;
+	final ?main:String;
 }
 
 /** compiler arguments with resolved libraries **/
@@ -138,9 +145,8 @@ class HaxeConfiguration {
 	function extract(lines:Array<HxmlLine>):ExtractedConfiguration {
 		var cwd = folder.uri.fsPath;
 
-		var libs = [];
 		var hxmls = [];
-		var classPaths = [];
+		var classPathsAndLibs = [];
 		var defines = new Map<String, String>();
 		var target = None;
 		var main:Null<String> = null;
@@ -159,9 +165,9 @@ class HaxeConfiguration {
 			for (line in lines) {
 				switch line {
 					case Param("-lib" | "-L" | "--library", lib):
-						libs.push(lib);
+						classPathsAndLibs.push(Lib(lib));
 					case Param("-cp" | "-p" | "--class-path", cp):
-						classPaths.push({path: PathHelper.absolutize(cp, cwd)});
+						classPathsAndLibs.push(ClassPath(PathHelper.absolutize(cp, cwd)));
 					case Param("--cwd" | "-C", newCwd):
 						if (Path.isAbsolute(newCwd)) {
 							cwd = newCwd;
@@ -216,29 +222,53 @@ class HaxeConfiguration {
 
 		processLines(lines);
 		return {
-			libs: libs,
 			hxmls: hxmls,
-			classPaths: classPaths,
+			classPathsAndLibs: classPathsAndLibs,
 			defines: defines,
 			target: target,
-			main: main
+			main: main,
 		};
 	}
 
 	function resolve(extractedConfiguration:ExtractedConfiguration):ResolvedConfiguration {
-		var classPaths = extractedConfiguration.classPaths.copy();
+		var classPaths = [];
 		var defines = extractedConfiguration.defines.copy();
 
-		var result = resolveHaxelibs(extractedConfiguration.libs);
-		var extracted = extract(HxmlParser.parseFile(result.hxml.join("\n")));
-		// assume extracted has no libs or hxmls
-		classPaths = classPaths.concat(result.classPaths);
-		classPaths = classPaths.concat(cast extracted.classPaths);
-		for (name => value in extracted.defines) {
-			defines[name] = value;
+		var libs = [];
+
+		function flushLibs() {
+			var result = resolveHaxelibs(libs);
+			var extracted = extract(HxmlParser.parseFile(result.join("\n")));
+			// assume extracted has no libs or hxmls
+			for (value in extracted.classPathsAndLibs) {
+				switch value {
+					case ClassPath(path):
+						classPaths.push({path: path});
+					case Lib(_): // shouldn't happen
+				}
+			}
+			for (name => value in extracted.defines) {
+				defines[name] = value;
+			}
 		}
 
+		for (value in extractedConfiguration.classPathsAndLibs) {
+			switch value {
+				case ClassPath(path):
+					flushLibs();
+					classPaths.push({path: path});
+
+				case Lib(name):
+					libs.push(name);
+			}
+		}
+		flushLibs();
+
 		var dependencies = resolveDependencies(classPaths.map(cp -> cp.path));
+
+		classPaths.unshift({
+			path: folder.uri.fsPath // implicit ./ classpath
+		});
 
 		var stdLibPath = haxeInstallation.standardLibraryPath;
 		if (stdLibPath != null) {
@@ -246,9 +276,6 @@ class HaxeConfiguration {
 				path: (stdLibPath : String)
 			});
 		}
-		classPaths.unshift({
-			path: folder.uri.fsPath // implicit ./ classpath
-		});
 
 		return {
 			dependencies: dependencies,
@@ -259,11 +286,8 @@ class HaxeConfiguration {
 		};
 	}
 
-	function resolveHaxelibs(libs:ReadOnlyArray<String>):{classPaths:Array<ClassPath>, hxml:Array<String>} {
-		var result = {
-			classPaths: [],
-			hxml: []
-		};
+	function resolveHaxelibs(libs:ReadOnlyArray<String>):Array<String> {
+		var hxml = [];
 		var haxelib = haxeInstallation.haxelib.configuration;
 		var output = ProcessHelper.getOutput('$haxelib path ${libs.join(" ")}');
 		for (line in output) {
@@ -272,12 +296,12 @@ class HaxeConfiguration {
 				continue;
 			}
 			if (line.charCodeAt(0) == "-".code) {
-				result.hxml.push(line);
+				hxml.push(line);
 			} else {
-				result.classPaths.push({path: line});
+				hxml.push('-cp $line');
 			}
 		}
-		return result;
+		return hxml;
 	}
 
 	function resolveDependencies(paths:Array<String>):Array<DependencyInfo> {
