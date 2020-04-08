@@ -1,4 +1,4 @@
-### 2.19.1 (to be released)
+### 2.19.1 (April 8, 2020)
 
 **Bugfixes:**
 
