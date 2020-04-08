@@ -277,6 +277,8 @@ class HaxeConfiguration {
 			});
 		}
 
+		classPaths.reverse();
+
 		return {
 			dependencies: dependencies,
 			defines: defines,
