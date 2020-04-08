@@ -3,6 +3,7 @@
 **Bugfixes:**
 
 - fixed order of class paths not being preserved correctly in `getActiveConfiguration()`
+- fixed a race condition that could happen during language server startup
 
 ### 2.19.0 (April 3, 2020)
 
