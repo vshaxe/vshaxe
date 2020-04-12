@@ -1,4 +1,4 @@
-### 2.19.2 (to be released)
+### 2.19.2 (April 13, 2020)
 
 **Changes and Improvements:**
 
