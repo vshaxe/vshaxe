@@ -9,6 +9,15 @@
 				"fillLineWithLeadingBreak",
 				"noWrap",
 				"keep"
+			],
+			"markdownEnumDescriptions": [
+				"every item in a separate line, including first item",
+				"every item in a separate line, except first item",
+				"put an equal amount of items per line - not yet implemented",
+				"fill each line until maxLineLength - does not start with a newline",
+				"fill each line until maxLineLength, starts with a newline before first item",
+				"do not wrap items",
+				"use wrapping information from source"
 			]
 		},
 		"formatter.config.WrappingLocation": {
@@ -120,6 +129,10 @@
 					"markdownDescription": "named function signature wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
 				},
+				"casePattern": {
+					"markdownDescription": "chain wrapping rules for case patterns",
+					"$ref": "#/definitions/formatter.config.WrapRules"
+				},
 				"callParameter": {
 					"markdownDescription": "call parameter wrapping rules",
 					"$ref": "#/definitions/formatter.config.WrapRules"
@@ -154,7 +167,20 @@
 				"totalItemLength <= n",
 				"lineLength >= n",
 				"lineLength <= n",
-				"hasMultilineItems"
+				"hasMultilineItems",
+				"exceedsMaxLineLength"
+			],
+			"markdownEnumDescriptions": [
+				"condition matches if item count is larger than or equal n characters",
+				"condition matches if item count is less than or equal n characters",
+				"condition matches if max item length is larger than or equal n characters",
+				"condition matches if max item length is less than or equal n characters",
+				"condition matches if total length of all wrapable items is larger than or equal n characters",
+				"condition matches if total length of all wrapable items is less than or equal n characters",
+				"condition matches lines larger than or equal n characters",
+				"condition matches lines less than or equal n characters",
+				"condition value = 1 matches if line contains a multiline token (string literal, block comment)\nvalue = 0 matches if no multiline token is present",
+				"condition value = 1 matches if unwrapped line exceeds maxLineLength\nvalue = 0 matches unwrapped lines not exceeding maxLineLength"
 			]
 		},
 		"formatter.config.WrapCondition": {
@@ -591,6 +617,10 @@
 				"anonTypeCurly": {
 					"markdownDescription": "line end settings for anon type curlies",
 					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
+				},
+				"anonFunctionCurly": {
+					"markdownDescription": "line end settings for anon function body curlies",
+					"$ref": "#/definitions/formatter.config.CurlyLineEndPolicy"
 				}
 			},
 			"type": "object"
@@ -693,7 +723,7 @@
 			"properties": {
 				"betweenImportsLevel": {
 					"default": "all",
-					"markdownDescription": "restrict betweenImports setting to a specific level\n\"all\" - apply betweenImports to all imports/using entries\n\"topLevelPackage\" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names\n\"packages\" - group imports/using entries using full packages; no empty lines for identical package names",
+					"markdownDescription": "restrict betweenImports setting to a specific level\n\"all\" - apply betweenImports to all imports/using entries\n\"firstLevelPackage\" - group imports/using entries using toplevel package names; no empty lines for identical toplevel names\n\"secondLevelPackage\" - group imports/using entries using top- and secondlevel package names; no empty lines for identical toplevel and secondlevel names\n\"thirdLevelPackage\" - group imports/using entries using upto thirdlevel package names\n\"fourthLevelPackage\" - group imports/using entries using upto foruthlevel package names\n\"fifthLevelPackage\" - group imports/using entries using upto fifthlevel package names\n\"fullPackage\" - group imports/using entries using full packages; no empty lines for identical package names",
 					"$ref": "#/definitions/formatter.config.BetweenImportsEmptyLinesLevel"
 				},
 				"betweenImports": {

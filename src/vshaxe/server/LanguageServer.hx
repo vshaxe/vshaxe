@@ -61,7 +61,9 @@ class LanguageServer {
 			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(false)),
 			haxeInstallation.onDidChange(_ -> refreshDisplayServerConfig(true)),
 			window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
-			displayArguments.onDidChangeArguments(arguments -> sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {arguments: arguments}))
+			displayArguments.onDidChangeArguments(arguments -> sendNotification(LanguageServerMethods.DidChangeDisplayArguments, {
+				arguments: arguments
+			}))
 		];
 	}
 

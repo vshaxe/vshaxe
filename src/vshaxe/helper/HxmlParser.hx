@@ -9,10 +9,7 @@ enum HxmlLine {
 class HxmlParser {
 	static function unquote(s:String):String {
 		var len = s.length;
-		return if (len > 0 && s.fastCodeAt(0) == "\"".code && s.fastCodeAt(len - 1) == "\"".code)
-			s.substring(1, len - 1);
-		else
-			s;
+		return if (len > 0 && s.fastCodeAt(0) == "\"".code && s.fastCodeAt(len - 1) == "\"".code) s.substring(1, len - 1); else s;
 	}
 
 	public static function parseFile(src:String):Array<HxmlLine> {
