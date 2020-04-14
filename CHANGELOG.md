@@ -1,3 +1,9 @@
+### 2.19.3 (April 14, 2020)
+
+**Bugfixes:**
+
+- fixed text document cache getting out of sync in rare cases ([#376](https://github.com/vshaxe/vshaxe/issues/376))
+
 ### 2.19.2 (April 13, 2020)
 
 **Changes and Improvements:**
