@@ -1,3 +1,10 @@
+### 2.19.4 (April 18, 2020)
+
+**Bugfixes:**
+
+- fixed toplevel completion not working with a `private final class` ([#430](https://github.com/vshaxe/vshaxe/issues/430))
+- fixed deprecated types not showing up in toplevel completion
+
 ### 2.19.3 (April 14, 2020)
 
 **Bugfixes:**
