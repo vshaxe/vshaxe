@@ -1,3 +1,9 @@
+### 2.19.5 (Unreleased)
+
+**Changes and Improvements:**
+
+- include all method overrides when doing "Find References" on a method ([requires latest Haxe 4.1](https://github.com/HaxeFoundation/haxe/pull/9315))
+
 ### 2.19.4 (April 18, 2020)
 
 **Bugfixes:**
