@@ -30,7 +30,7 @@ class HaxeDisplayArgumentsProvider {
 
 		statusBarItem = window.createStatusBarItem(Left, 10);
 		statusBarItem.tooltip = "Select Haxe Configuration";
-		statusBarItem.command = SelectConfiguration;
+		statusBarItem.command = cast SelectConfiguration;
 		context.subscriptions.push(statusBarItem);
 
 		context.registerHaxeCommand(SelectConfiguration, selectConfiguration);
