@@ -33,7 +33,7 @@ class Install {
 				Sys.command('code --install-extension ${vsixFiles[0]}');
 				FileSystem.deleteFile(vsixFiles[0]);
 			}
-		} catch (e:Any) {
+		} catch (e) {
 			trace(e);
 			restore();
 		}

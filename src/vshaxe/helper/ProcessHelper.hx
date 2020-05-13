@@ -14,7 +14,7 @@ class ProcessHelper {
 			Sys.setCwd(oldCwd);
 			var lines = result.toString().split("\n");
 			return [for (line in lines) line.trim()];
-		} catch (e:Any) {
+		} catch (e) {
 			return [];
 		}
 	}
