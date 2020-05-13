@@ -25,8 +25,8 @@
 		"vscode-languageclient": "6.1.1"
 	},
 	"devDependencies": {
-		"lix": "^15.8.6",
-		"webpack": "^4.42.0",
+		"lix": "^15.9.0",
+		"webpack": "^4.43.0",
 		"webpack-cli": "^3.3.11"
 	},
 	"bugs": "https://github.com/vshaxe/vshaxe/issues",
