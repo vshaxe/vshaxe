@@ -54,4 +54,9 @@ enum Target {
 	Python(file:String);
 	Hl(file:String);
 	Interp;
+
+	/**
+		@since 2.20.0
+	**/
+	Jvm(file:String);
 }

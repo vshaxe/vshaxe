@@ -200,6 +200,8 @@ class HaxeConfiguration {
 						target = Cs(directory);
 					case Param("-java" | "--java", directory):
 						target = Java(directory);
+					case Param("--jvm", file):
+						target = Jvm(file);
 					case Param("-python" | "--python", file):
 						target = Python(file);
 					case Param("-hl" | "--hl", file):

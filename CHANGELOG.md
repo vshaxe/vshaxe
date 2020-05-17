@@ -1,3 +1,9 @@
+### 2.20.0 (to be released)
+
+**Changes and Improvements:**
+
+- added support for `--jvm` to HXML syntax highlighting and the extension API (Haxe 4.2)
+
 ### 2.19.5 (May 11, 2020)
 
 **Changes and Improvements:**
