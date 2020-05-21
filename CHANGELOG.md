@@ -3,7 +3,7 @@
 **New Features:**
 
 - added support for `--jvm` to HXML syntax highlighting and the extension API (Haxe 4.1.1)
-- added snippets for module-level fields ([HXP-0007](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0007-module-level-funcs.md#module-level-functions-and-variables))
+- added support for module-level fields in snippets, hover and completion ([HXP-0007](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0007-module-level-funcs.md#module-level-functions-and-variables))
 - added `var`, `final` and `function` snippets within fields
 
 **Bugfixes:**
