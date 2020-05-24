@@ -57,7 +57,9 @@ class AutoIndentation {
 			typeDisposable = commands.registerCommand("type", type);
 			context.subscriptions.push(typeDisposable);
 		} else {
-			typeDisposable.dispose();
+			if (typeDisposable != null) {
+				typeDisposable.dispose();
+			}
 			typeDisposable = null;
 		}
 	}
