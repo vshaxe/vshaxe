@@ -987,7 +987,7 @@
 			{
 				"type": "haxe-eval",
 				"label": "Haxe Interpreter",
-				"program": "./eval-debugger/bin/adapter.js",
+				"program": "./eval-debugger/bin/index.js",
 				"runtime": "node",
 				"configurationAttributes": {
 					"launch": {

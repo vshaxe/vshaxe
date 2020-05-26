@@ -3,7 +3,7 @@
 !bin/index.js
 !bin/server.js
 !server/bin/server.js
-!eval-debugger/bin/adapter.js
+!eval-debugger/bin/index.js
 !configurations/*
 !images/**
 !scaffold/**/*
