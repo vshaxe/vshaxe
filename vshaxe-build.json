@@ -34,7 +34,7 @@
 		{
 			"name": "client",
 			"releaseAfterBuildCommands": [
-				["npx", "webpack", "--mode", "production", "--silent"]
+				["npx", "ncc", "build", "bin/index.js", "-o", "bin", "-m", "-q"]
 			],
 			"args": {
 				"haxelibs": [
@@ -57,7 +57,7 @@
 				],
 				"output": {
 					"target": "js",
-					"path": "bin/client.js"
+					"path": "bin/index.js"
 				},
 				"packageName": "vshaxe.Main"
 			}

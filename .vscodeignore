@@ -1,6 +1,6 @@
 *
 */**
-!bin/client.js
+!bin/index.js
 !bin/server.js
 !server/bin/server.js
 !eval-debugger/bin/adapter.js

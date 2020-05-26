@@ -26,8 +26,7 @@
 	},
 	"devDependencies": {
 		"lix": "^15.9.0",
-		"webpack": "^4.43.0",
-		"webpack-cli": "^3.3.11"
+		"@zeit/ncc": "^0.22.3"
 	},
 	"bugs": "https://github.com/vshaxe/vshaxe/issues",
 	"homepage": "https://github.com/vshaxe/vshaxe/blob/master/README.md",
@@ -39,7 +38,7 @@
 		"vscode:prepublish": "npx lix run vshaxe-build -t vshaxe -t language-server-tests -t tm-language",
 		"postinstall": "npx lix download && cd server && npm install && cd ../eval-debugger && npm install"
 	},
-	"main": "bin/client.js",
+	"main": "bin/index.js",
 	"activationEvents": [
 		"onLanguage:haxe",
 		"onLanguage:hxml",
