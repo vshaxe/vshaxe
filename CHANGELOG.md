@@ -177,7 +177,7 @@
 
 **New Features:**
 
-- added fading out of inactive conditional compilation blocks *
+- added fading out of inactive conditional compilation blocks ([#271](https://github.com/vshaxe/vshaxe/issues/271)) *
 - added hover hints in compiler conditionals *
 - added a `"haxe.useLegacyCompletion"` setting *
 
