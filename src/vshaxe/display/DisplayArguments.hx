@@ -43,9 +43,10 @@ class DisplayArguments {
 		}
 
 		return new Disposable(function() {
-			providers.remove(name);
-			if (name == currentProvider)
-				setCurrentProvider(null, false);
+			if (providers.remove(name) && name == currentProvider) {
+				var nextProvider = providers.keys().next();
+				setCurrentProvider(nextProvider, false);
+			}
 		});
 	}
 
@@ -74,7 +75,7 @@ class DisplayArguments {
 		if (name != null) {
 			var provider = providers[name];
 			if (provider != null)
-				provider.activate(provideArguments);
+				provider.activate(provideArguments.bind(name));
 		}
 
 		if (persist) {
@@ -84,8 +85,8 @@ class DisplayArguments {
 		_onDidChangeCurrentProvider.fire(currentProvider);
 	}
 
-	function provideArguments(newArguments:Array<String>) {
-		if (!newArguments.equals(arguments)) {
+	function provideArguments(provider:String, newArguments:Array<String>) {
+		if (providers.exists(provider) && !newArguments.equals(arguments)) {
 			arguments = newArguments;
 			_onDidChangeArguments.fire(newArguments);
 		}

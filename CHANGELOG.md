@@ -1,3 +1,9 @@
+### 2.20.1 (to be released)
+
+**Bugfixes:**
+
+- fixed some issues with completion provider disposal and deactivation
+
 ### 2.20.0 (May 26, 2020)
 
 **New Features:**
