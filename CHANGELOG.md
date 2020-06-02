@@ -1,3 +1,9 @@
+### 2.20.2 (to be released)
+
+**Changes and Improvements:**
+
+- added support for `--java-lib-extern` to HXML syntax highlighting (Haxe 4.1.2)
+
 ### 2.20.1 (May 30, 2020)
 
 **Bugfixes:**
