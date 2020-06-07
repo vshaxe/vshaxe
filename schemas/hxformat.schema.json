@@ -508,8 +508,24 @@
 		"formatter.config.ParenWhitespaceConfig": {
 			"additionalProperties": false,
 			"properties": {
+				"whileConditionParens": {
+					"markdownDescription": "parens used for while conditions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"switchConditionParens": {
+					"markdownDescription": "parens used for switch conditions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"sharpConditionParens": {
+					"markdownDescription": "parens used for sharp conditions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
 				"metadataParens": {
 					"markdownDescription": "parens used for metadata",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"ifConditionParens": {
+					"markdownDescription": "parens used for if conditions",
 					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
 				},
 				"funcParamParens": {
@@ -526,6 +542,10 @@
 				},
 				"conditionParens": {
 					"markdownDescription": "parens used for conditions",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"catchParens": {
+					"markdownDescription": "parens used for catch",
 					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
 				},
 				"callParens": {
@@ -748,19 +768,54 @@
 			"additionalProperties": false,
 			"properties": {
 				"wrapping": {
-					"$ref": "#/definitions/formatter.config.WrapConfig"
+					"anyOf": [
+						{
+							"type": "null"
+						},
+						{
+							"$ref": "#/definitions/formatter.config.WrapConfig"
+						}
+					]
 				},
 				"whitespace": {
-					"$ref": "#/definitions/formatter.config.WhitespaceConfig"
+					"anyOf": [
+						{
+							"type": "null"
+						},
+						{
+							"$ref": "#/definitions/formatter.config.WhitespaceConfig"
+						}
+					]
 				},
 				"sameLine": {
-					"$ref": "#/definitions/formatter.config.SameLineConfig"
+					"anyOf": [
+						{
+							"type": "null"
+						},
+						{
+							"$ref": "#/definitions/formatter.config.SameLineConfig"
+						}
+					]
 				},
 				"lineEnds": {
-					"$ref": "#/definitions/formatter.config.LineEndConfig"
+					"anyOf": [
+						{
+							"type": "null"
+						},
+						{
+							"$ref": "#/definitions/formatter.config.LineEndConfig"
+						}
+					]
 				},
 				"indentation": {
-					"$ref": "#/definitions/formatter.config.IndentationConfig"
+					"anyOf": [
+						{
+							"type": "null"
+						},
+						{
+							"$ref": "#/definitions/formatter.config.IndentationConfig"
+						}
+					]
 				},
 				"excludes": {
 					"items": {
@@ -770,7 +825,14 @@
 					"type": "array"
 				},
 				"emptyLines": {
-					"$ref": "#/definitions/formatter.config.EmptyLinesConfig"
+					"anyOf": [
+						{
+							"type": "null"
+						},
+						{
+							"$ref": "#/definitions/formatter.config.EmptyLinesConfig"
+						}
+					]
 				},
 				"disableFormatting": {
 					"default": false,

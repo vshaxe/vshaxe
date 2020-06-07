@@ -2,7 +2,8 @@
 
 **Changes and Improvements:**
 
-- added support for `--java-lib-extern` to HXML syntax highlighting (Haxe 4.1.2)
+- added support for `--java-lib-extern` to HXML syntax highlighting
+- updated to haxe-formatter version [1.11.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.11.0)
 
 ### 2.20.1 (May 30, 2020)
 
