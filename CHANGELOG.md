@@ -1,4 +1,4 @@
-### 2.20.3 (to be released)
+### 2.20.3 (June 10, 2020)
 
 **Changes and Improvements:**
 
