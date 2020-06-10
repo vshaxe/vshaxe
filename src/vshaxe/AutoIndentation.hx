@@ -54,8 +54,13 @@ class AutoIndentation {
 			return;
 		}
 		if (enabled) {
-			typeDisposable = commands.registerCommand("type", type);
-			context.subscriptions.push(typeDisposable);
+			try {
+				typeDisposable = commands.registerCommand("type", type);
+				context.subscriptions.push(typeDisposable);
+			} catch (e) {
+				window.showErrorMessage("Failed to register the 'type' command needed for the \"haxe.enableExtendedIndentation\" setting"
+					+ " - there is probably a conflict with another extension such as Vim.");
+			}
 		} else {
 			if (typeDisposable != null) {
 				typeDisposable.dispose();

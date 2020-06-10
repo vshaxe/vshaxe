@@ -1,3 +1,9 @@
+### 2.20.3 (to be released)
+
+**Changes and Improvements:**
+
+- improved error handling for conflicts with `"haxe.enableExtendedIndentation"` ([#410](https://github.com/vshaxe/vshaxe/issues/410))
+
 ### 2.20.2 (June 7, 2020)
 
 **Changes and Improvements:**
