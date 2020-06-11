@@ -1,4 +1,4 @@
-# @install: lix --silent download "gh://github.com/vshaxe/vscode-extern#cd6c7cc347cf873b0dce732ed1b283bf116079ee" into vscode/1.45.0/github/cd6c7cc347cf873b0dce732ed1b283bf116079ee
+# @install: lix --silent download "haxelib:/vscode#1.46.0" into vscode/1.46.0/haxelib
 -lib hxnodejs
--cp ${HAXE_LIBCACHE}/vscode/1.45.0/github/cd6c7cc347cf873b0dce732ed1b283bf116079ee/src
--D vscode=1.45.0
+-cp ${HAXE_LIBCACHE}/vscode/1.46.0/haxelib/src
+-D vscode=1.46.0

@@ -286,7 +286,7 @@ enum abstract RevealOutputChannelOn(Int) {
 typedef HandleDiagnosticsSignature = (uri:Uri, diagnostics:Array<Diagnostic>) -> Void;
 
 typedef ProvideCompletionItemsSignature = (document:TextDocument, position:Position, context:CompletionContext,
-	token:CancellationToken) -> ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>;
+	token:CancellationToken) -> ProviderResult<EitherType<Array<CompletionItem>, CompletionList<Dynamic>>>;
 
 typedef ResolveCompletionItemSignature = (item:CompletionItem, token:CancellationToken) -> ProviderResult<CompletionItem>;
 typedef ProvideHoverSignature = (document:TextDocument, position:Position, token:CancellationToken) -> ProviderResult<Hover>;
@@ -338,7 +338,7 @@ typedef Middleware = {
 	?didClose:NextSignature<TextDocument, Void>,
 	?handleDiagnostics:(uri:Uri, diagnostics:Array<Diagnostic>, next:HandleDiagnosticsSignature) -> Void,
 	?provideCompletionItem:(document:TextDocument, position:Position, context:CompletionContext, token:CancellationToken,
-		next:ProvideCompletionItemsSignature) -> ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>,
+		next:ProvideCompletionItemsSignature) -> ProviderResult<EitherType<Array<CompletionItem>, CompletionList<Dynamic>>>,
 	?resolveCompletionItem:(item:CompletionItem, token:CancellationToken, next:ResolveCompletionItemSignature) -> ProviderResult<CompletionItem>,
 	?provideHover:(document:TextDocument, position:Position, token:CancellationToken, next:ProvideHoverSignature) -> ProviderResult<Hover>,
 	?provideSignatureHelp:(document:TextDocument, position:Position, token:CancellationToken,
