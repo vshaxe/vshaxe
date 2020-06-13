@@ -151,7 +151,7 @@ class HaxeInstallation {
 
 		if (Sys.systemName() == "Windows") {
 			var path = if (haxe.configuration.isCommand) {
-				var exectuable = ProcessHelper.getOutput("where " + haxe.configuration.executable)[0];
+				var exectuable = getProcessOutput("where " + haxe.configuration.executable)[0];
 				if (exectuable == null) {
 					return null;
 				}
@@ -176,7 +176,7 @@ class HaxeInstallation {
 	}
 
 	function getLibraryBasePath():Null<String> {
-		var output = ProcessHelper.getOutput('${haxelib.configuration} config')[0];
+		var output = getProcessOutput('${haxelib.configuration} config')[0];
 		return if (output == null) {
 			trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
 			null;

@@ -1,6 +1,6 @@
 package vshaxe;
 
-import vshaxe.helper.RegExpHelper.*;
+import vshaxe.helper.RegExpHelper;
 
 class AutoIndentation {
 	// With possible comments after bracket

@@ -293,7 +293,7 @@ class HaxeConfiguration {
 	function resolveHaxelibs(libs:ReadOnlyArray<String>):Array<String> {
 		var hxml = [];
 		var haxelib = haxeInstallation.haxelib.configuration;
-		var output = ProcessHelper.getOutput('$haxelib path ${libs.join(" ")}');
+		var output = getProcessOutput('$haxelib path ${libs.join(" ")}');
 		for (line in output) {
 			line = line.trim();
 			if (line.length == 0) {
