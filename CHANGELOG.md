@@ -1,3 +1,9 @@
+### 2.20.4 (to be released)
+
+**Changes and Improvements:**
+
+- improved import code actions to only be marked as "preferred" if there's only one option
+
 ### 2.20.3 (June 10, 2020)
 
 **Changes and Improvements:**
