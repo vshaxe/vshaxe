@@ -123,7 +123,12 @@ class LanguageServer {
 			debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6504"]}}
 		};
 		var clientOptions:LanguageClientOptions = {
-			documentSelector: [{scheme: "file", language: "haxe"}, {scheme: "untitled", language: "haxe"}],
+			documentSelector: [
+				{language: "haxe", scheme: "file"},
+				{language: "haxe", scheme: "untitled"},
+				{language: "hxml", scheme: "file"},
+				{language: "hxml", scheme: "untitled"}
+			],
 			synchronize: {
 				configurationSection: "haxe",
 				fileEvents: hxFileWatcher
