@@ -7,6 +7,6 @@ import vshaxe.WorkspaceMementos;
 using Lambda;
 using StringTools;
 using vshaxe.HaxeMemento;
-using vshaxe.helper.ArrayHelper;
-using vshaxe.helper.ContextHelper;
+using vshaxe.helper.ArrayExtensions;
+using vshaxe.helper.ContextExtensions;
 #end
