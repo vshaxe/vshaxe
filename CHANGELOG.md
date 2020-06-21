@@ -1,4 +1,8 @@
-### 2.20.4 (to be released)
+### 2.21.0 (to be released)
+
+**New Features:**
+
+- added expected type completion for array, map and regex literals
 
 **Changes and Improvements:**
 
