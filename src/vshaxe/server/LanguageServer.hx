@@ -3,7 +3,7 @@ package vshaxe.server;
 import haxe.display.Protocol.HaxeRequestMethod;
 import haxe.display.Protocol.Response;
 import haxe.extern.Rest;
-import haxeLanguageServer.Configuration.DisplayServerConfig;
+import haxeLanguageServer.DisplayServerConfig;
 import haxeLanguageServer.LanguageServerMethods;
 import js.lib.Promise;
 import jsonrpc.Types;
