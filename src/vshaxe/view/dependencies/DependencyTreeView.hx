@@ -58,7 +58,7 @@ class DependencyTreeView {
 	}
 
 	function updateNodes(dependencyInfos:ReadOnlyArray<DependencyInfo>):Array<Node> {
-		var newNodes:Array<Node> = [];
+		final newNodes:Array<Node> = [];
 
 		for (info in dependencyInfos) {
 			// don't add duplicates
@@ -67,13 +67,13 @@ class DependencyTreeView {
 			}
 
 			// reuse existing nodes if possible to preserve their collapsibleState
-			var oldNode = dependencyNodes.find(d -> d.path == info.path);
+			final oldNode = dependencyNodes.find(d -> d.path == info.path);
 			if (oldNode != null) {
 				newNodes.push(oldNode);
 				continue;
 			}
 
-			var node = createNode(info);
+			final node = createNode(info);
 			if (node != null) {
 				newNodes.push(node);
 			}
@@ -101,7 +101,7 @@ class DependencyTreeView {
 		if (info.version != null) {
 			label += ' (${info.version})';
 		}
-		var type = if (info.name == "haxe") StandardLibrary else Haxelib;
+		final type = if (info.name == "haxe") StandardLibrary else Haxelib;
 		return new Node(label, info.path, type);
 	}
 
@@ -110,7 +110,7 @@ class DependencyTreeView {
 	}
 
 	function autoReveal() {
-		var editor = window.activeTextEditor;
+		final editor = window.activeTextEditor;
 		if (editor == null || !view.visible || !autoRevealEnabled) {
 			return;
 		}
@@ -139,7 +139,7 @@ class DependencyTreeView {
 	}
 
 	public function getChildren(?node:Node):Array<Node> {
-		var config = haxeConfiguration.resolvedConfiguration;
+		final config = haxeConfiguration.resolvedConfiguration;
 		if (config == null) {
 			return [];
 		}
@@ -155,12 +155,12 @@ class DependencyTreeView {
 	}
 
 	function revealActiveFile() {
-		var editor = window.activeTextEditor;
+		final editor = window.activeTextEditor;
 		if (editor == null) {
 			return;
 		}
 		getChildren(); // trigger refresh if needed
-		var file = editor.document.fileName;
+		final file = editor.document.fileName;
 		if (!reveal(file, true)) {
 			// if not found, try with the regular explorer
 			commands.executeCommand("workbench.files.action.showActiveFileInExplorer");
@@ -168,9 +168,9 @@ class DependencyTreeView {
 	}
 
 	function openTextDocument(node:Node) {
-		var currentTime = Date.now().getTime();
-		var doubleClickTime = 500;
-		var preview = previousSelection == null
+		final currentTime = Date.now().getTime();
+		final doubleClickTime = 500;
+		final preview = previousSelection == null
 			|| previousSelection.node != node
 			|| (currentTime - previousSelection.time) >= doubleClickTime;
 		workspace.openTextDocument(node.path).then(document -> window.showTextDocument(document, {preview: preview}));
@@ -188,8 +188,8 @@ class DependencyTreeView {
 	}
 
 	function revealInExplorer(node:Node) {
-		var path = '"${node.path}"';
-		var command = switch Sys.systemName() {
+		final path = '"${node.path}"';
+		final command = switch Sys.systemName() {
 			case "Windows": 'explorer /select,$path';
 			case "Linux": 'xdg-open $path';
 			case "Mac": 'open $path -R';

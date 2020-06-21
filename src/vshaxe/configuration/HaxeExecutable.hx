@@ -50,7 +50,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 	}
 
 	override function updateConfig() {
-		var input:HaxeExecutablePathOrConfig = workspace.getConfiguration("haxe", folder.uri).get("executable", "haxe");
+		final input:HaxeExecutablePathOrConfig = workspace.getConfiguration("haxe", folder.uri).get("executable", "haxe");
 
 		var executable = "auto";
 		var env = new DynamicAccess<String>();
@@ -60,7 +60,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 			if ((conf is String)) {
 				executable = conf;
 			} else {
-				var conf:RawHaxeExecutableConfig = conf;
+				final conf:RawHaxeExecutableConfig = conf;
 				if (conf.path != null) {
 					executable = conf.path;
 				}
@@ -71,7 +71,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 		}
 
 		merge(input);
-		var systemConfig = Reflect.field(input, SYSTEM_KEY);
+		final systemConfig = Reflect.field(input, SYSTEM_KEY);
 		if (systemConfig != null)
 			merge(systemConfig);
 
@@ -88,7 +88,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 
 		var isCommand = false;
 		if (!Path.isAbsolute(executable)) {
-			var absolutePath = PathHelper.absolutize(executable, folder.uri.fsPath);
+			final absolutePath = PathHelper.absolutize(executable, folder.uri.fsPath);
 			if (FileSystem.exists(absolutePath) && !FileSystem.isDirectory(absolutePath)) {
 				executable = absolutePath;
 			} else {
@@ -109,7 +109,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 	}
 
 	function getVersion(haxeExecutable:String):Null<String> {
-		var result = ChildProcess.spawnSync(haxeExecutable, ["-version"], {cwd: folder.uri.fsPath});
+		final result = ChildProcess.spawnSync(haxeExecutable, ["-version"], {cwd: folder.uri.fsPath});
 		if (result != null && result.stderr != null) {
 			var output = (result.stderr : Buffer).toString().trim();
 			if (output == "") {

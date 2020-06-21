@@ -21,35 +21,38 @@ class WorkspaceMementos {
 	}
 
 	public function getDefault<T>(folder:WorkspaceFolder, key:MementoKey<T>, defaultValue:T):T {
-		var value = get(folder, key);
+		final value = get(folder, key);
 		return if (value == null) defaultValue else value;
 	}
 
 	public function get<T>(folder:WorkspaceFolder, key:MementoKey<T>):Null<T> {
 		var collection:Null<MementoCollection<T>> = storage.get(key);
-		if (collection == null)
+		if (collection == null) {
 			return null;
+		}
 		return collection[folder.uri.toString()];
 	}
 
 	public function set<T>(folder:WorkspaceFolder, key:MementoKey<T>, value:Null<T>):Thenable<Void> {
 		var collection:Null<MementoCollection<T>> = storage.get(key);
-		if (collection == null)
+		if (collection == null) {
 			collection = new MementoCollection();
+		}
 		collection[folder.uri.toString()] = value;
 		return storage.update(key, collection);
 	}
 
 	public function delete<T>(folder:WorkspaceFolder, key:MementoKey<T>):Thenable<Void> {
 		var collection:Null<MementoCollection<T>> = storage.get(key);
-		if (collection == null)
+		if (collection == null) {
 			collection = new MementoCollection();
+		}
 		collection.remove(folder.uri.toString());
 		return storage.update(key, collection);
 	}
 
 	function maybeMigrate() {
-		var version:Null<Int> = storage.get(MEMENTO_VERSION_KEY);
+		final version:Null<Int> = storage.get(MEMENTO_VERSION_KEY);
 		if (version == null) {
 			inline function clear(key)
 				storage.update(key, js.Lib.undefined);

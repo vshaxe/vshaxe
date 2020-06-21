@@ -28,7 +28,7 @@ class TaskConfiguration {
 
 	function update() {
 		enableCompilationServer = workspace.getConfiguration("haxe").get("enableCompilationServer", true);
-		var presentation:{
+		final presentation:{
 			?echo:Bool,
 			?reveal:String,
 			?focus:Bool,
@@ -56,18 +56,18 @@ class TaskConfiguration {
 			clear: presentation.clear
 		};
 
-		var writeableApi:WriteableApi = cast api;
+		final writeableApi:WriteableApi = cast api;
 		writeableApi.enableCompilationServer = enableCompilationServer;
 		writeableApi.taskPresentation = taskPresentation;
 	}
 
 	public function createTask(definition:TaskDefinition, name:String, args:Array<String>):Task {
-		var exectuable = haxeInstallation.haxe.configuration.executable;
+		final exectuable = haxeInstallation.haxe.configuration.executable;
 		if (server.displayPort != null && enableCompilationServer) {
 			args = ["--connect", Std.string(server.displayPort)].concat(args);
 		}
-		var execution = new ProcessExecution(exectuable, args, {env: haxeInstallation.env});
-		var task = new Task(definition, TaskScope.Workspace, name, "haxe", execution, problemMatchers);
+		final execution = new ProcessExecution(exectuable, args, {env: haxeInstallation.env});
+		final task = new Task(definition, TaskScope.Workspace, name, "haxe", execution, problemMatchers);
 		task.group = TaskGroup.Build;
 		task.presentationOptions = taskPresentation;
 		return task;

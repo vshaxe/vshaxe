@@ -15,7 +15,7 @@ class PathHelper {
 		path = Path.normalize(path);
 		cwd = Path.normalize(cwd) + "/";
 
-		var segments = path.split(cwd);
+		final segments = path.split(cwd);
 		segments.shift();
 		return segments.join(cwd);
 	}

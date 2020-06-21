@@ -20,11 +20,11 @@ class HaxeTaskProvider {
 			return [];
 		}
 
-		var definition:HaxeTaskDefinition = {
+		final definition:HaxeTaskDefinition = {
 			type: "haxe",
 			args: "active configuration"
 		};
-		var task = taskConfiguration.createTask(definition, "active configuration", displayArguments.arguments);
+		final task = taskConfiguration.createTask(definition, "active configuration", displayArguments.arguments);
 		return [task];
 	}
 

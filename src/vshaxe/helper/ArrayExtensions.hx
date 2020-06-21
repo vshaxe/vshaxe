@@ -17,7 +17,7 @@ function equals<T>(a1:Null<Array<T>>, a2:Null<Array<T>>):Bool {
 }
 
 function moveToStart<T>(array:Array<T>, f:T->Bool) {
-	var element = array.find(f);
+	final element = array.find(f);
 	if (element != null) {
 		array.remove(element);
 		array.unshift(element);

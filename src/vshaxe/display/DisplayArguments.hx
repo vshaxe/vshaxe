@@ -37,14 +37,14 @@ class DisplayArguments {
 
 		providers[name] = provider;
 
-		var savedProvider = mementos.get(folder, ProviderNameKey);
+		final savedProvider = mementos.get(folder, ProviderNameKey);
 		if (currentProvider == null || savedProvider == null || savedProvider == name) {
 			setCurrentProvider(name, false);
 		}
 
 		return new Disposable(function() {
 			if (providers.remove(name) && name == currentProvider) {
-				var nextProvider = providers.keys().next();
+				final nextProvider = providers.keys().next();
 				setCurrentProvider(nextProvider, false);
 			}
 		});
@@ -64,7 +64,7 @@ class DisplayArguments {
 
 	function setCurrentProvider(name:Null<String>, persist:Bool) {
 		if (currentProvider != null) {
-			var provider = providers[currentProvider];
+			final provider = providers[currentProvider];
 			if (provider != null)
 				provider.deactivate();
 		}
@@ -73,7 +73,7 @@ class DisplayArguments {
 		commands.executeCommand("setContext", "haxeCompletionProvider", name);
 
 		if (name != null) {
-			var provider = providers[name];
+			final provider = providers[name];
 			if (provider != null)
 				provider.activate(provideArguments.bind(name));
 		}

@@ -21,26 +21,26 @@ function main(context:ExtensionContext) {
 	new InitProject(context);
 	new AutoIndentation(context);
 
-	var folder = if (workspace.workspaceFolders == null) null else workspace.workspaceFolders[0];
+	final folder = if (workspace.workspaceFolders == null) null else workspace.workspaceFolders[0];
 	if (folder == null)
 		return js.Lib.undefined; // TODO: look into this - we could support _some_ nice functionality (e.g. std lib completion or --interp task)
 
-	var mementos = new WorkspaceMementos(context.workspaceState);
+	final mementos = new WorkspaceMementos(context.workspaceState);
 
-	var hxmlDiscovery = new HxmlDiscovery(folder, mementos);
+	final hxmlDiscovery = new HxmlDiscovery(folder, mementos);
 	context.subscriptions.push(hxmlDiscovery);
 
-	var displayArguments = new DisplayArguments(folder, mementos);
+	final displayArguments = new DisplayArguments(folder, mementos);
 	context.subscriptions.push(displayArguments);
 
-	var haxeInstallation = new HaxeInstallation(folder, mementos);
+	final haxeInstallation = new HaxeInstallation(folder, mementos);
 	context.subscriptions.push(haxeInstallation);
 
-	var haxeConfiguration = new HaxeConfiguration(context, folder, displayArguments, haxeInstallation);
+	final haxeConfiguration = new HaxeConfiguration(context, folder, displayArguments, haxeInstallation);
 	context.subscriptions.push(haxeConfiguration);
 
-	var problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
-	var api = {
+	final problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
+	final api = {
 		haxeExecutable: haxeInstallation.haxe,
 		enableCompilationServer: true,
 		problemMatchers: problemMatchers.copy(),
@@ -51,7 +51,7 @@ function main(context:ExtensionContext) {
 		getActiveConfiguration: haxeConfiguration.getActiveConfiguration
 	};
 
-	var server = new LanguageServer(folder, context, haxeInstallation, displayArguments, api);
+	final server = new LanguageServer(folder, context, haxeInstallation, displayArguments, api);
 	context.subscriptions.push(server);
 
 	new HaxeCodeLensProvider();
@@ -59,11 +59,11 @@ function main(context:ExtensionContext) {
 	new DependencyTreeView(context, haxeConfiguration);
 	new EvalDebugger(displayArguments, haxeInstallation.haxe);
 	new DisplayArgumentsSelector(context, displayArguments);
-	var haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
+	final haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
 	new Commands(context, server, haxeDisplayArgumentsProvider);
 	new ExtensionRecommender(context, folder).run();
 
-	var taskConfiguration = new TaskConfiguration(haxeInstallation, problemMatchers, server, api);
+	final taskConfiguration = new TaskConfiguration(haxeInstallation, problemMatchers, server, api);
 	new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
 	new HaxeTaskProvider(taskConfiguration, displayArguments, haxeDisplayArgumentsProvider);
 
@@ -78,7 +78,7 @@ private function scheduleStartup(displayArguments:DisplayArguments, haxeInstalla
 	var haxeFileOpened = false;
 
 	var started = false;
-	var disposables = [];
+	final disposables = [];
 	function maybeStartServer() {
 		if (!waitingForInstallation && (!waitingForDisplayArguments || haxeFileOpened) && !started) {
 			disposables.iter(d -> d.dispose());

@@ -7,7 +7,7 @@ package vshaxe.helper;
 	https://github.com/Microsoft/language-server-protocol/issues/192
 **/
 class HaxeCodeLensProvider {
-	var _onDidChangeCodeLenses = new EventEmitter<Void>();
+	final _onDidChangeCodeLenses = new EventEmitter<Void>();
 	var enableCodeLens:Bool;
 
 	public var onDidChangeCodeLenses:Event<Void>;
@@ -24,7 +24,7 @@ class HaxeCodeLensProvider {
 	}
 
 	function onDidChangeConfiguration(_) {
-		var enableCodeLens = getEnableCodeLens();
+		final enableCodeLens = getEnableCodeLens();
 		if (enableCodeLens != this.enableCodeLens) {
 			_onDidChangeCodeLenses.fire();
 			this.enableCodeLens = enableCodeLens;

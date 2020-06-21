@@ -48,8 +48,8 @@ class AutoIndentation {
 	}
 
 	function updateExtendedIndentation() {
-		var wasEnabled = typeDisposable != null;
-		var enabled = workspace.getConfiguration("haxe").get("enableExtendedIndentation", false);
+		final wasEnabled = typeDisposable != null;
+		final enabled = workspace.getConfiguration("haxe").get("enableExtendedIndentation", false);
 		if (enabled == wasEnabled) {
 			return;
 		}
@@ -70,7 +70,7 @@ class AutoIndentation {
 	}
 
 	function type(args:{text:String}) {
-		var editor = window.activeTextEditor;
+		final editor = window.activeTextEditor;
 		if (editor != null && editor.document.languageId == "haxe" && args.text == "{") {
 			indentCurlyBracket(editor);
 		}
@@ -78,16 +78,16 @@ class AutoIndentation {
 	}
 
 	function indentCurlyBracket(editor:TextEditor) {
-		var lines:Array<{range:Range, spaces:String}> = [];
+		final lines:Array<{range:Range, spaces:String}> = [];
 		for (selection in editor.selections) {
 			if (!selection.isEmpty || selection.active.line == 0) {
 				continue;
 			}
-			var line = editor.document.lineAt(selection.active.line);
+			final line = editor.document.lineAt(selection.active.line);
 			if (!line.isEmptyOrWhitespace) {
 				continue;
 			}
-			var prevLine = editor.document.lineAt(selection.active.line - 1);
+			final prevLine = editor.document.lineAt(selection.active.line - 1);
 			// Do not reindent if prev line has open bracket at the end
 			if (prevLine.text.length > 0 && lineEndsWithOpenBracket.match(prevLine.text)) {
 				continue;
@@ -95,7 +95,7 @@ class AutoIndentation {
 			if (line.text.length < prevLine.firstNonWhitespaceCharacterIndex) {
 				continue;
 			}
-			var spaces = prevLine.text.substr(0, prevLine.firstNonWhitespaceCharacterIndex);
+			final spaces = prevLine.text.substr(0, prevLine.firstNonWhitespaceCharacterIndex);
 			lines.push({range: line.range, spaces: spaces});
 		}
 		if (lines.length == 0) {

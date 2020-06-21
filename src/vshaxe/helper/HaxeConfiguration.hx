@@ -59,10 +59,10 @@ class HaxeConfiguration {
 		this.haxeInstallation = haxeInstallation;
 		didChangeEmitter = new EventEmitter();
 
-		var args = displayArguments.arguments;
+		final args = displayArguments.arguments;
 		rawArguments = if (args == null) [] else args;
 
-		var hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
+		final hxmlFileWatcher = workspace.createFileSystemWatcher("**/*.hxml");
 		context.subscriptions.push(hxmlFileWatcher.onDidCreate(onDidChangeHxml));
 		context.subscriptions.push(hxmlFileWatcher.onDidChange(onDidChangeHxml));
 		context.subscriptions.push(hxmlFileWatcher.onDidDelete(onDidChangeHxml));
@@ -92,7 +92,7 @@ class HaxeConfiguration {
 		if (haxeInstallation.isWaitingForProvider()) {
 			return;
 		}
-		var newExtractedConfiguration = extract(HxmlParser.parseArray(rawArguments));
+		final newExtractedConfiguration = extract(HxmlParser.parseArray(rawArguments));
 		// avoid FS access / creating processes unless there were _actually_ changes
 		@:nullSafety(Off) {
 			if (Json.stringify(extractedConfiguration) == Json.stringify(newExtractedConfiguration)) {
@@ -118,7 +118,7 @@ class HaxeConfiguration {
 	public function getActiveConfiguration():Promise<vshaxe.HaxeConfiguration> {
 		return new Promise(function(resolve, reject) {
 			function answer() {
-				var config = resolvedConfiguration;
+				final config = resolvedConfiguration;
 				if (config == null) { // shouldn't happen
 					reject("No Haxe configuration available");
 				} else {
@@ -145,9 +145,9 @@ class HaxeConfiguration {
 	function extract(lines:Array<HxmlLine>):ExtractedConfiguration {
 		var cwd = folder.uri.fsPath;
 
-		var hxmls = [];
-		var classPathsAndLibs = [];
-		var defines = new Map<String, String>();
+		final hxmls = [];
+		final classPathsAndLibs = [];
+		final defines = new Map<String, String>();
 		var target = None;
 		var main:Null<String> = null;
 
@@ -175,9 +175,9 @@ class HaxeConfiguration {
 							cwd = Path.join([cwd, newCwd]);
 						}
 					case Param("-D" | "--define", arg):
-						var parts = arg.split("=");
-						var name = parts[0];
-						var value = if (parts.length == 1) "1" else parts[1];
+						final parts = arg.split("=");
+						final name = parts[0];
+						final value = if (parts.length == 1) "1" else parts[1];
 						defines[name] = value;
 
 					case Param("-js" | "--js", file):
@@ -233,14 +233,14 @@ class HaxeConfiguration {
 	}
 
 	function resolve(extractedConfiguration:ExtractedConfiguration):ResolvedConfiguration {
-		var classPaths = [];
-		var defines = extractedConfiguration.defines.copy();
+		final classPaths = [];
+		final defines = extractedConfiguration.defines.copy();
 
-		var libs = [];
+		final libs = [];
 
 		function flushLibs() {
-			var result = resolveHaxelibs(libs);
-			var extracted = extract(HxmlParser.parseFile(result.join("\n")));
+			final result = resolveHaxelibs(libs);
+			final extracted = extract(HxmlParser.parseFile(result.join("\n")));
 			// assume extracted has no libs or hxmls
 			for (value in extracted.classPathsAndLibs) {
 				switch value {
@@ -266,13 +266,13 @@ class HaxeConfiguration {
 		}
 		flushLibs();
 
-		var dependencies = resolveDependencies(classPaths.map(cp -> cp.path));
+		final dependencies = resolveDependencies(classPaths.map(cp -> cp.path));
 
 		classPaths.unshift({
 			path: folder.uri.fsPath // implicit ./ classpath
 		});
 
-		var stdLibPath = haxeInstallation.standardLibraryPath;
+		final stdLibPath = haxeInstallation.standardLibraryPath;
 		if (stdLibPath != null) {
 			classPaths.unshift({
 				path: (stdLibPath : String)
@@ -291,9 +291,9 @@ class HaxeConfiguration {
 	}
 
 	function resolveHaxelibs(libs:ReadOnlyArray<String>):Array<String> {
-		var hxml = [];
-		var haxelib = haxeInstallation.haxelib.configuration;
-		var output = getProcessOutput('$haxelib path ${libs.join(" ")}');
+		final hxml = [];
+		final haxelib = haxeInstallation.haxelib.configuration;
+		final output = getProcessOutput('$haxelib path ${libs.join(" ")}');
 		for (line in output) {
 			line = line.trim();
 			if (line.length == 0) {
@@ -311,8 +311,8 @@ class HaxeConfiguration {
 	function resolveDependencies(paths:Array<String>):Array<DependencyInfo> {
 		paths = pruneSubdirectories(paths);
 
-		var dependencies:Array<DependencyInfo> = [];
-		var libraryBasePath = haxeInstallation.libraryBasePath;
+		final dependencies:Array<DependencyInfo> = [];
+		final libraryBasePath = haxeInstallation.libraryBasePath;
 		if (libraryBasePath != null) {
 			for (path in paths) {
 				var info = haxeInstallation.resolveLibrary(path);
@@ -325,8 +325,8 @@ class HaxeConfiguration {
 			}
 		}
 
-		var haxe = haxeInstallation.haxe.configuration;
-		var stdLibPath = haxeInstallation.standardLibraryPath;
+		final haxe = haxeInstallation.haxe.configuration;
+		final stdLibPath = haxeInstallation.standardLibraryPath;
 		if (stdLibPath != null && FileSystem.exists(stdLibPath)) {
 			@:nullSafety(Off) dependencies.push({
 				name: "haxe",
@@ -349,8 +349,8 @@ class HaxeConfiguration {
 		if (workspace.workspaceFolders == null) {
 			return null;
 		}
-		var rootPath = workspace.workspaceFolders[0].uri.fsPath;
-		var absPath = PathHelper.absolutize(path, rootPath);
+		final rootPath = workspace.workspaceFolders[0].uri.fsPath;
+		final absPath = PathHelper.absolutize(path, rootPath);
 		if (libraryBasePath == null || !FileSystem.exists(absPath)) {
 			return null;
 		}
@@ -361,7 +361,7 @@ class HaxeConfiguration {
 			// - only bother to show these if they're outside of the current workspace
 			if (!absPath.contains(Path.normalize(rootPath))) {
 				// could be a "haxelib dev" haxelib
-				var haxelibInfo = searchHaxelibJson(absPath);
+				final haxelibInfo = searchHaxelibJson(absPath);
 				if (haxelibInfo == null) {
 					return {name: path, version: null, path: absPath};
 				}
@@ -372,7 +372,7 @@ class HaxeConfiguration {
 
 		// regular haxelibs inside the haxelib repo location
 		path = absPath.replace(libraryBasePath + "/", "");
-		var segments = path.split("/");
+		final segments = path.split("/");
 		var name = segments[0];
 		var version = segments[1];
 
@@ -400,9 +400,9 @@ class HaxeConfiguration {
 			return null;
 		}
 
-		var haxelibFile = Path.join([path, "haxelib.json"]);
+		final haxelibFile = Path.join([path, "haxelib.json"]);
 		if (FileSystem.exists(haxelibFile)) {
-			var content:{?name:String} = Json.parse(File.getContent(haxelibFile));
+			final content:{?name:String} = Json.parse(File.getContent(haxelibFile));
 			if (content.name == null) {
 				return null;
 			}

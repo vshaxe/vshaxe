@@ -1,5 +1,6 @@
 package vshaxe.view.cache;
 
+import haxe.display.Position.Location;
 import haxe.display.Server;
 
 enum Kind {
@@ -13,7 +14,7 @@ enum Kind {
 	ModuleInfo(sign:String, path:String);
 	ModuleList(modules:Array<ModuleId>);
 	StringList(strings:Array<String>);
-	StringMapping(mapping:Array<{var key:String; var value:String;}>);
+	StringMapping(mapping:Array<{key:String, value:String}>);
 	Nodes(nodes:Array<Node>);
 	Leaf;
 }
@@ -21,24 +22,24 @@ enum Kind {
 class Node extends TreeItem {
 	public final parent:Null<Node>;
 	public final kind:Kind;
-	public var gotoPosition:Null<haxe.display.Position.Location>;
+	public var gotoPosition:Null<Location>;
 
 	public function new(label:String, description:Null<String>, kind:Kind, ?parent:Node) {
-		super(label, kind == Leaf ? None : Collapsed);
+		super(label, if (kind == Leaf) None else Collapsed);
 		this.description = description;
 		this.parent = parent;
 		this.kind = kind;
 		switch kind {
 			case StringList(_) | StringMapping(_) | Context(_):
-				this.contextValue = "copyable";
+				contextValue = "copyable";
 			case ServerRoot | MemoryRoot | ContextModules(_) | ContextFiles(_) | ModuleInfo(_) | ContextMemory(_) | ModuleMemory(_):
-				this.contextValue = "reloadable";
+				contextValue = "reloadable";
 			case _:
 		}
 	}
 
-	public function setGotoPosition(pos:haxe.display.Position.Location) {
+	public function setGotoPosition(pos:Location) {
 		gotoPosition = pos;
-		this.contextValue += "gotoable";
+		contextValue += "gotoable";
 	}
 }

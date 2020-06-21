@@ -83,9 +83,9 @@ typedef NodeModule = {
 abstract ServerOptions(Dynamic) from Executable from {run:Executable, debug:Executable} from {run:NodeModule, debug:NodeModule} from NodeModule {}
 
 enum abstract TransportKind(Int) {
-	var stdio;
-	var ipc;
-	var pipe;
+	final stdio;
+	final ipc;
+	final pipe;
 }
 
 typedef LanguageClientOptions = {
@@ -110,8 +110,8 @@ typedef LanguageClientOptions = {
 }
 
 enum abstract State(Int) {
-	var Stopped = 1;
-	var Running = 2;
+	final Stopped = 1;
+	final Running = 2;
 }
 
 typedef StateChangeEvent = {
@@ -230,12 +230,12 @@ enum abstract ErrorAction(Int) {
 	/**
 	 * Continue running the server.
 	 */
-	var Continue = 1;
+	final Continue = 1;
 
 	/**
 	 * Shutdown the server.
 	 */
-	var Shutdown = 2;
+	final Shutdown = 2;
 }
 
 /**
@@ -245,12 +245,12 @@ enum abstract CloseAction(Int) {
 	/**
 	 * Don't restart the server. The connection stays closed.
 	 */
-	var DoNotRestart = 1;
+	final DoNotRestart = 1;
 
 	/**
 	 * Restart the server.
 	 */
-	var Restart = 2;
+	final Restart = 2;
 }
 
 /**
@@ -277,10 +277,10 @@ typedef ErrorHandler = {
 typedef InitializationFailedHandler = (error:EitherType<ResponseError<InitializeError>, EitherType<Error, Any>>) -> Bool;
 
 enum abstract RevealOutputChannelOn(Int) {
-	var Info = 1;
-	var Warn = 2;
-	var Error = 3;
-	var Never = 4;
+	final Info = 1;
+	final Warn = 2;
+	final Error = 3;
+	final Never = 4;
 }
 
 typedef HandleDiagnosticsSignature = (uri:Uri, diagnostics:Array<Diagnostic>) -> Void;

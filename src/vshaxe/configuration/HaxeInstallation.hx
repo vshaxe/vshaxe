@@ -57,7 +57,7 @@ class HaxeInstallation {
 	}
 
 	function updateEnv():DynamicAccess<String> {
-		@:nullSafety(Off) var env = haxe.configuration.env.copy();
+		@:nullSafety(Off) final env = haxe.configuration.env.copy();
 		// if we have a custom haxelib executable, we need to make sure it's in the PATH of Haxe
 		// - otherwise `haxelib run hxcpp/hxjava/hxcs` that Haxe runs on those targets will fail
 		var haxelib = haxelib.configuration;
@@ -65,7 +65,7 @@ class HaxeInstallation {
 			haxelib = PathHelper.absolutize(haxelib, folder.uri.fsPath);
 		}
 		if (FileSystem.exists(haxelib) && !FileSystem.isDirectory(haxelib)) {
-			var separator = if (Sys.systemName() == "Windows") ";" else ":";
+			final separator = if (Sys.systemName() == "Windows") ";" else ":";
 			env["PATH"] = Path.directory(haxelib) + separator + Sys.getEnv("PATH");
 		}
 		return env;
@@ -78,7 +78,7 @@ class HaxeInstallation {
 
 	public function resolveLibrary(classpath:String):Null<Library> {
 		if (currentProvider != null) {
-			var provider = providers[currentProvider];
+			final provider = providers[currentProvider];
 			if (provider != null && provider.resolveLibrary != null) {
 				return provider.resolveLibrary(classpath);
 			}
@@ -87,7 +87,7 @@ class HaxeInstallation {
 	}
 
 	public function isWaitingForProvider():Bool {
-		var previousProvider = mementos.get(folder, PreviousHaxeInstallationProviderKey);
+		final previousProvider = mementos.get(folder, PreviousHaxeInstallationProviderKey);
 		return previousProvider != null && currentProvider == null;
 	}
 
@@ -110,7 +110,7 @@ class HaxeInstallation {
 
 	function setCurrentProvider(name:Null<String>) {
 		if (currentProvider != null) {
-			var provider = providers[currentProvider];
+			final provider = providers[currentProvider];
 			if (provider != null)
 				provider.deactivate();
 		}
@@ -119,7 +119,7 @@ class HaxeInstallation {
 		mementos.set(folder, PreviousHaxeInstallationProviderKey, name);
 
 		if (name != null) {
-			var provider = providers[name];
+			final provider = providers[name];
 			if (provider != null)
 				provider.activate(provideInstallation);
 		} else {
@@ -144,14 +144,14 @@ class HaxeInstallation {
 
 	function getStandardLibraryPath():Null<String> {
 		// more or less a port of main.ml's get_std_class_paths()
-		var path = Sys.getEnv("HAXE_STD_PATH");
+		final path = Sys.getEnv("HAXE_STD_PATH");
 		if (path != null) {
 			return path;
 		}
 
 		if (Sys.systemName() == "Windows") {
-			var path = if (haxe.configuration.isCommand) {
-				var exectuable = getProcessOutput("where " + haxe.configuration.executable)[0];
+			final path = if (haxe.configuration.isCommand) {
+				final exectuable = getProcessOutput("where " + haxe.configuration.executable)[0];
 				if (exectuable == null) {
 					return null;
 				}
@@ -176,7 +176,7 @@ class HaxeInstallation {
 	}
 
 	function getLibraryBasePath():Null<String> {
-		var output = getProcessOutput('${haxelib.configuration} config')[0];
+		final output = getProcessOutput('${haxelib.configuration} config')[0];
 		return if (output == null) {
 			trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
 			null;

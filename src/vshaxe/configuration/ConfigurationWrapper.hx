@@ -33,7 +33,7 @@ class ConfigurationWrapper<Config> {
 	}
 
 	function update() {
-		var oldConfig = configuration;
+		final oldConfig = configuration;
 		updateConfig();
 		if (!isSame(configuration, oldConfig))
 			_onDidChangeConfiguration.fire(configuration);

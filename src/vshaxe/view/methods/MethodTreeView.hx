@@ -64,9 +64,9 @@ class MethodTreeView {
 			rootTimer.children.push(createAdditionalTimers(data.additionalTimes, data.response.timestamp));
 		}
 
-		var method = data.method;
+		final method = data.method;
 		methods = methods.filter(item -> item.method != method);
-		var item = new Node(context, rootTimer, data.kind, data.method, data.debugInfo);
+		final item = new Node(context, rootTimer, data.kind, data.method, data.debugInfo);
 		methods.push(item);
 		methods.sort((item1, item2) -> Reflect.compare(item1.method, item2.method));
 
@@ -79,11 +79,11 @@ class MethodTreeView {
 	}
 
 	function createAdditionalTimers(additionalTimes:AdditionalTimes, timestamp:Float):Timer {
-		var displayCallTime = additionalTimes.arrival - additionalTimes.beforeCall;
-		var transmissionTime = additionalTimes.arrival - (timestamp * 1000.0);
-		var parsingTime = additionalTimes.beforeProcessing - additionalTimes.arrival;
-		var processingTime = additionalTimes.afterProcessing - additionalTimes.beforeProcessing;
-		var totalTime = transmissionTime + parsingTime + processingTime;
+		final displayCallTime = additionalTimes.arrival - additionalTimes.beforeCall;
+		final transmissionTime = additionalTimes.arrival - (timestamp * 1000.0);
+		final parsingTime = additionalTimes.beforeProcessing - additionalTimes.arrival;
+		final processingTime = additionalTimes.afterProcessing - additionalTimes.beforeProcessing;
+		final totalTime = transmissionTime + parsingTime + processingTime;
 		return makeTimer("vshaxe", totalTime, [
 			makeTimer("display call", displayCallTime),
 			makeTimer("transmission", transmissionTime),
@@ -93,7 +93,7 @@ class MethodTreeView {
 	}
 
 	function makeTimer(name:String, time:Float, ?children:Array<Timer>):Timer {
-		var date = new Date(time);
+		final date = new Date(time);
 		return {
 			name: name,
 			time: date.getSeconds() + (date.getMilliseconds() / 1000.0),

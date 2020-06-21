@@ -21,7 +21,7 @@ class DisplayArgumentsSelector {
 	}
 
 	function selectProvider() {
-		var items:Array<QuickPickItem> = [
+		final items:Array<QuickPickItem> = [
 			for (name => provider in displayArguments.providers)
 				{
 					label: name,

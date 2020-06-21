@@ -21,7 +21,7 @@ enum abstract HaxeMementoKey<T>(MementoKey<T>) to MementoKey<T> {
 		this = new MementoKey("haxe." + key);
 }
 
-class HaxeMementoTools {
+class HaxeMementoExtensions {
 	public static inline function getWorkspaceState(context:ExtensionContext):HaxeMemento {
 		return context.workspaceState;
 	}

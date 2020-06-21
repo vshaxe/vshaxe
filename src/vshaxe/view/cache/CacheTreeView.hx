@@ -38,12 +38,12 @@ class CacheTreeView {
 			return [new Node("server", null, ServerRoot), new Node("memory", null, MemoryRoot)];
 		}
 
-		var children = skipRefresh[node];
+		final children = skipRefresh[node];
 		return if (children != null) {
 			skipRefresh.remove(node);
 			children;
 		} else {
-			var node:Node = node;
+			final node:Node = node;
 			function updateCount(nodes:Array<Node>) {
 				node.description = Std.string(nodes.length);
 				skipRefresh[node] = nodes; // avoid endless refresh loop
@@ -54,7 +54,7 @@ class CacheTreeView {
 					return nodes;
 				case ServerRoot:
 					server.runMethod(ServerMethods.Contexts).then(function(result:Array<HaxeServerContext>) {
-						var nodes = [];
+						final nodes = [];
 						for (ctx in result) {
 							ArraySort.sort(ctx.defines, (kv1, kv2) -> Reflect.compare(kv1.key, kv2.key));
 							nodes.push(new Node(ctx.platform, ctx.desc, Context(ctx)));
@@ -63,15 +63,15 @@ class CacheTreeView {
 					}, reject -> reject);
 				case MemoryRoot:
 					server.runMethod(ServerMethods.Memory).then(function(result:HaxeMemoryResult) {
-						var nodes = [];
-						var kv = [
+						final nodes = [];
+						final kv = [
 							{key: "context cache", value: formatSize(result.memory.contextCache)},
 							{key: "haxelib cache", value: formatSize(result.memory.haxelibCache)},
 							{key: "directory cache", value: formatSize(result.memory.directoryCache)},
 							{key: "native lib cache", value: formatSize(result.memory.nativeLibCache)},
 						];
-						var cacheNode = new Node("total cache", formatSize(result.memory.totalCache), StringMapping(kv), node);
-						var subnodes = [cacheNode];
+						final cacheNode = new Node("total cache", formatSize(result.memory.totalCache), StringMapping(kv), node);
+						final subnodes = [cacheNode];
 						if (result.memory.additionalSizes != null) {
 							for (item in result.memory.additionalSizes) {
 								subnodes.push(new Node(item.name, formatSize(item.size), Leaf, node));
@@ -79,44 +79,44 @@ class CacheTreeView {
 						}
 						nodes.push(new Node("overview", null, Nodes(subnodes), node));
 						for (ctx in result.contexts) {
-							var name = ctx.context == null ? "?" : '${ctx.context.platform} (${ctx.context.desc}, ${ctx.context.index})';
+							final name = ctx.context == null ? "?" : '${ctx.context.platform} (${ctx.context.desc}, ${ctx.context.index})';
 							nodes.push(new Node(name, formatSize(ctx.size), ContextMemory(ctx.context), node));
 						}
 						return nodes;
 					}, reject -> reject);
 				case ContextMemory(ctx):
 					return server.runMethod(ServerMethods.ContextMemory, {signature: ctx.signature}).then(function(result:HaxeContextMemoryResult) {
-						var a = result.moduleCache.list.map(module -> new Node(module.path, formatSize(module.size),
+						final a = result.moduleCache.list.map(module -> new Node(module.path, formatSize(module.size),
 							module.hasTypes ? ModuleMemory(ctx.signature, module.path) : Leaf));
-						var sizeNodes = [
+						final sizeNodes = [
 							new Node("syntax cache", formatSize(result.syntaxCache.size), Leaf, node),
 							new Node("module cache", formatSize(result.moduleCache.size), Leaf, node)
 						];
-						var sizeNode = new Node("?sizes", null, Nodes(sizeNodes), node);
+						final sizeNode = new Node("?sizes", null, Nodes(sizeNodes), node);
 						a.unshift(sizeNode);
 						if (result.leaks != null) {
-							var leakNodes = [];
+							final leakNodes = [];
 							for (leak in result.leaks) {
 								leakNodes.push(new Node(leak.path, null, StringList(leak.leaks.map(leak -> leak.path))));
 							}
-							var leakNode = new Node("?LEAKS", null, Nodes(leakNodes), node);
+							final leakNode = new Node("?LEAKS", null, Nodes(leakNodes), node);
 							a.unshift(leakNode);
 						}
 						return a;
 					}, reject -> reject);
 				case ModuleMemory(sign, path):
 					return server.runMethod(ServerMethods.ModuleMemory, {signature: sign, path: path}).then(function(result:HaxeModuleMemoryResult) {
-						var types = [];
+						final types = [];
 						types.push(new Node("?module extra size", formatSize(result.moduleExtra), Leaf, node));
 						for (type in result.types) {
-							var subnodes = type.fields.map(function(field) {
-								var fieldNode = new Node(field.name, formatSize(field.size), Leaf, node);
+							final subnodes = type.fields.map(function(field) {
+								final fieldNode = new Node(field.name, formatSize(field.size), Leaf, node);
 								if (field.pos != null) {
 									fieldNode.setGotoPosition(field.pos);
 								}
 								return fieldNode;
 							});
-							var typeNode = new Node(type.name, formatSize(type.size), Nodes(subnodes), node);
+							final typeNode = new Node(type.name, formatSize(type.size), Nodes(subnodes), node);
 							if (type.pos != null) {
 								typeNode.setGotoPosition(type.pos);
 							}
@@ -140,7 +140,7 @@ class CacheTreeView {
 					mapping.map(kv -> new Node(kv.key, kv.value, Leaf, node));
 				case ContextModules(ctx):
 					server.runMethod(ServerMethods.Modules, {signature: ctx.signature}).then(function(result:Array<String>) {
-						var nodes = [];
+						final nodes = [];
 						ArraySort.sort(result, Reflect.compare);
 						for (s in result) {
 							nodes.push(new Node(s, null, ModuleInfo(ctx.signature, s)));
@@ -150,20 +150,20 @@ class CacheTreeView {
 					}, reject -> reject);
 				case ContextFiles(ctx):
 					server.runMethod(ServerMethods.Files, {signature: ctx.signature}).then(function(result:Array<JsonServerFile>) {
-						var nodes = result.map(file -> new Node(file.file, null,
+						final nodes = result.map(file -> new Node(file.file, null,
 							StringMapping([{key: "mtime", value: "" + file.time}, {key: "package", value: file.pack}]), node));
 						updateCount(nodes);
 						return nodes;
 					}, reject -> reject);
 				case ModuleList(modules):
-					var nodes = [];
+					final nodes = [];
 					for (module in modules) {
 						nodes.push(new Node(module.path, null, ModuleInfo(module.sign, module.path)));
 					}
 					return nodes;
 				case ModuleInfo(sign, path):
 					server.runMethod(ServerMethods.Module, {signature: sign, path: path}).then(function(result:JsonModule) {
-						var types = result.types.map(path -> path.typeName);
+						final types = result.types.map(path -> path.typeName);
 						ArraySort.sort(types, Reflect.compare);
 						return [
 							new Node("id", "" + result.id, Leaf, node),
@@ -184,11 +184,11 @@ class CacheTreeView {
 		function printKv(kv:Array<{key:String, value:String}>) {
 			return kv.map(kv -> '${kv.key}=${kv.value}').join(" ");
 		}
-		var value = switch node.kind {
+		final value = switch node.kind {
 			case StringList(strings): strings.join(" ");
 			case StringMapping(mapping): printKv(mapping);
 			case Context(ctx):
-				var buf = new StringBuf();
+				final buf = new StringBuf();
 				function add(key:String, value:String) {
 					buf.add('$key: $value\n');
 				}
@@ -206,9 +206,9 @@ class CacheTreeView {
 
 	function gotoNode(node:Node) {
 		if (node.gotoPosition != null) {
-			var pos = node.gotoPosition;
-			var start = pos.range.start;
-			var selection = new Range(start.line, start.character, start.line, start.character);
+			final pos = node.gotoPosition;
+			final start = pos.range.start;
+			final selection = new Range(start.line, start.character, start.line, start.character);
 			workspace.openTextDocument(pos.file.toString()).then(document -> window.showTextDocument(document, {selection: selection}));
 		}
 	}
@@ -218,7 +218,7 @@ class CacheTreeView {
 	}
 
 	static function printPath(path:JsonTypePath) {
-		var buf = new StringBuf();
+		final buf = new StringBuf();
 		if (path.pack.length > 0) {
 			buf.add(path.pack.join('.'));
 			buf.addChar('.'.code);
@@ -237,8 +237,8 @@ class CacheTreeView {
 		} else if (size < 1024 * 1024) {
 			(size >>> 10) + " KB";
 		} else {
-			var size = Std.string(size / (1024 * 1024));
-			var offset = size.indexOf(".");
+			final size = Std.string(size / (1024 * 1024));
+			final offset = size.indexOf(".");
 			if (offset < 0) {
 				size + " MB";
 			} else {

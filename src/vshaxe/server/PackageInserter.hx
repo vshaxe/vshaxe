@@ -12,7 +12,7 @@ class PackageInserter {
 		this.server = server;
 
 		createEvent = watcher.onDidCreate(function(uri) {
-			var editor = window.activeTextEditor;
+			final editor = window.activeTextEditor;
 			if (editor == null || editor.document.uri.fsPath != uri.fsPath) // not yet opened
 				lastCreatedFile = uri;
 			else

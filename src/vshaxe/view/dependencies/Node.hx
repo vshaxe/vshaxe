@@ -1,5 +1,6 @@
 package vshaxe.view.dependencies;
 
+import haxe.ds.ArraySort;
 import haxe.io.Path;
 import sys.FileSystem;
 import vscode.Uri;
@@ -49,7 +50,7 @@ class Node extends TreeItem {
 	}
 
 	public static function sort(nodes:Array<Node>) {
-		haxe.ds.ArraySort.sort(nodes, (c1, c2) -> {
+		ArraySort.sort(nodes, function(c1, c2) {
 			function compare(a:Null<String>, b:Null<String>) {
 				if (a == null || b == null)
 					return 0;
@@ -79,8 +80,8 @@ class Node extends TreeItem {
 			return;
 		}
 
-		var newChildren:Array<Node> = [];
-		forEachChild((file, path) -> {
+		final newChildren:Array<Node> = [];
+		forEachChild(function(file, path) {
 			var existingNode = null;
 			if (children != null) {
 				existingNode = children.find(node -> node.label == file);
@@ -109,7 +110,7 @@ class Node extends TreeItem {
 			return [];
 		}
 
-		var children = [];
+		final children = [];
 		forEachChild((file, path) -> children.push(new Node(this, file, path)));
 		sort(children);
 		return children;

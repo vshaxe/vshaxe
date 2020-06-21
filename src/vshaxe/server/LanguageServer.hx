@@ -118,11 +118,11 @@ class LanguageServer {
 	}
 
 	public function start() {
-		var serverOptions = {
+		final serverOptions = {
 			run: {module: serverModulePath, options: {env: js.Node.process.env}},
 			debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6504"]}}
 		};
-		var clientOptions:LanguageClientOptions = {
+		final clientOptions:LanguageClientOptions = {
 			documentSelector: [
 				{language: "haxe", scheme: "file"},
 				{language: "haxe", scheme: "untitled"},
@@ -145,7 +145,7 @@ class LanguageServer {
 			workspaceFolder: folder
 		};
 
-		var client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
+		final client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
 		client.onReady().then(function(_) {
 			client.outputChannel.appendLine("Haxe language server started");
 
@@ -177,13 +177,13 @@ class LanguageServer {
 		@return `true` if configuration was changed since last call
 	**/
 	function prepareDisplayServerConfig():Bool {
-		var haxeExecutable = haxeInstallation.haxe;
-		var path = haxeExecutable.configuration.executable;
-		var env = haxeInstallation.env;
-		var haxeConfig = workspace.getConfiguration("haxe");
-		var arguments = haxeConfig.get("displayServer.arguments", []);
-		var useSocket = haxeConfig.get("displayServer.useSocket", true);
-		var print = haxeConfig.get("displayServer.print", {completion: false, reusing: false});
+		final haxeExecutable = haxeInstallation.haxe;
+		final path = haxeExecutable.configuration.executable;
+		final env = haxeInstallation.env;
+		final haxeConfig = workspace.getConfiguration("haxe");
+		final arguments = haxeConfig.get("displayServer.arguments", []);
+		final useSocket = haxeConfig.get("displayServer.useSocket", true);
+		final print = haxeConfig.get("displayServer.print", {completion: false, reusing: false});
 		displayServerConfig = {
 			path: path,
 			env: env,
@@ -191,14 +191,14 @@ class LanguageServer {
 			print: print,
 			useSocket: useSocket
 		};
-		var oldSerialized = displayServerConfigSerialized;
+		final oldSerialized = displayServerConfigSerialized;
 		displayServerConfigSerialized = haxe.Json.stringify(displayServerConfig);
 		return displayServerConfigSerialized != oldSerialized;
 	}
 
 	function onDidChangeDisplayPort(data:{port:Int}) {
 		displayPort = data.port;
-		var writeableApi:{?displayPort:Int} = cast api;
+		final writeableApi:{?displayPort:Int} = cast api;
 		writeableApi.displayPort = data.port;
 	}
 
@@ -245,8 +245,8 @@ class LanguageServer {
 		showRestartLanguageServerMessage(window.showErrorMessage, "Haxe process has crashed 3 times, not attempting any more restarts.");
 	}
 
-	inline static var ShowErrorOption = "Show Error";
-	inline static var RetryOption = "Retry";
+	inline static final ShowErrorOption = "Show Error";
+	inline static final RetryOption = "Retry";
 
 	function showRestartLanguageServerMessage(method:(message:String, options:MessageOptions, items:Rest<String>) -> Thenable<Null<String>>, message:String) {
 		function showMessage(option1:String, option2:String) {
@@ -267,16 +267,16 @@ class LanguageServer {
 		showMessage(ShowErrorOption, RetryOption);
 	}
 
-	inline static var VisitDownloadPageOption = "Visit Download Page";
-	inline static var DontShowAgainOption = "Don't Show Again";
+	inline static final VisitDownloadPageOption = "Visit Download Page";
+	inline static final DontShowAgainOption = "Don't Show Again";
 	public static final DontShowOldPreviewHintAgainKey = new HaxeMementoKey<Bool>("dontShowHaxe4HintAgain");
 
 	function onDidDetectOldHaxeVersion(data:{haxe4Preview:Bool, version:String}) {
-		var globalState = context.globalState;
+		final globalState = context.globalState;
 		if (globalState.get(DontShowOldPreviewHintAgainKey, false)) {
 			return;
 		}
-		var version = if (data.haxe4Preview) "a Haxe 4 preview build" else 'Haxe ${data.version}';
+		final version = if (data.haxe4Preview) "a Haxe 4 preview build" else 'Haxe ${data.version}';
 		var message = 'You are using $version. Consider upgrading to Haxe 4 for greatly improved completion features and stability.';
 		if (!haxeInstallation.haxe.isDefault) {
 			message += " Current Haxe executable is " + haxeInstallation.haxe.configuration.executable;

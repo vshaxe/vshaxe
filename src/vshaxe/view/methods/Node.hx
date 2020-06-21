@@ -40,7 +40,7 @@ class Node extends TreeItem {
 			collapsibleState = Collapsed;
 		}
 		if (isRoot) {
-			var file = if (kind == Lsp) 'lsp-method' else 'haxe-method';
+			final file = if (kind == Lsp) 'lsp-method' else 'haxe-method';
 			iconPath = {
 				light: context.asAbsolutePath('images/light/$file.svg'),
 				dark: context.asAbsolutePath('images/dark/$file.svg')
@@ -60,8 +60,8 @@ class Node extends TreeItem {
 		if (timer == null || kind == Lsp) {
 			return name;
 		}
-		var seconds = truncate(timer.time, 5);
-		var percent = if (timer.percentTotal != null) truncate(timer.percentTotal, 4) else null;
+		final seconds = truncate(timer.time, 5);
+		final percent = if (timer.percentTotal != null) truncate(timer.percentTotal, 4) else null;
 		var label = '$name - ${seconds}s';
 		if (!isRoot && percent != null) {
 			label += ' ($percent%) [${timer.calls} call${timer.calls == 1 ? "" : "s"}]';
@@ -76,9 +76,9 @@ class Node extends TreeItem {
 		if (timer == null) {
 			return null;
 		}
-		var now = Date.now();
-		var timestamp = '[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]';
-		var calls = if (timer.calls != null) '${timer.calls} calls ' else "";
+		final now = Date.now();
+		final timestamp = '[${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]';
+		final calls = if (timer.calls != null) '${timer.calls} calls ' else "";
 		return '$timestamp $calls- ${truncate(timer.time, 7)}s';
 	}
 

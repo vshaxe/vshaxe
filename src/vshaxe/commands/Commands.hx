@@ -28,7 +28,7 @@ class Commands {
 		inline function copyPosition(position)
 			return new Position(position.line, position.character);
 		// this is retarded
-		var locations = locations.map(function(location) {
+		final locations = locations.map(function(location) {
 			return new Location(Uri.parse(cast location.uri), new Range(copyPosition(location.range.start), copyPosition(location.range.end)));
 		});
 		commands.executeCommand("editor.action.showReferences", Uri.parse(uri), copyPosition(position), locations)
@@ -36,9 +36,9 @@ class Commands {
 	}
 
 	function toggleCodeLens() {
-		var key = "enableCodeLens";
-		var config = workspace.getConfiguration("haxe");
-		var info = config.inspect(key);
+		final key = "enableCodeLens";
+		final config = workspace.getConfiguration("haxe");
+		final info = config.inspect(key);
 		if (info == null) {
 			return;
 		}
@@ -47,7 +47,7 @@ class Commands {
 			value = false;
 		}
 		// editing the global config only has an effect if there's no workspace value
-		var global = info.workspaceValue == null;
+		final global = info.workspaceValue == null;
 		config.update(key, !value, global);
 	}
 
@@ -57,7 +57,7 @@ class Commands {
 			return;
 		}
 
-		var label = haxeDisplayArgumentsProvider.getCurrentLabel();
+		final label = haxeDisplayArgumentsProvider.getCurrentLabel();
 		if (label == null) {
 			window.showErrorMessage("There is no configuration selected.");
 			return;

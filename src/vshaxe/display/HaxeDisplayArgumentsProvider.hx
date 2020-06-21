@@ -48,13 +48,13 @@ class HaxeDisplayArgumentsProvider {
 
 		configurations = [];
 		for (i in 0...configs.length) {
-			var config = configs[i];
+			final config = configs[i];
 			var args:Array<String>;
 			var label:Null<String> = null;
 			if (Std.is(config, Array)) {
 				args = config;
 			} else {
-				var config:ComplexSettingsConfiguration = cast config;
+				final config:ComplexSettingsConfiguration = cast config;
 				args = config.args;
 				label = config.label;
 			}
@@ -62,7 +62,7 @@ class HaxeDisplayArgumentsProvider {
 		}
 
 		for (hxmlFile in hxmlDiscovery.files) {
-			var hxmlConfig = [hxmlFile];
+			final hxmlConfig = [hxmlFile];
 			if (!configs.exists(config -> config.equals(hxmlConfig))) {
 				configurations.push({kind: Discovered(hxmlFile), args: hxmlConfig});
 			}
@@ -96,9 +96,9 @@ class HaxeDisplayArgumentsProvider {
 			return;
 		}
 
-		var items:Array<ConfigurationPickItem> = [];
+		final items:Array<ConfigurationPickItem> = [];
 		for (configuration in configurations) {
-			var description = if (configuration.kind.match(Discovered(_))) "auto-discovered" else "from settings.json";
+			final description = if (configuration.kind.match(Discovered(_))) "auto-discovered" else "from settings.json";
 			items.push({
 				label: getConfigurationLabel(configuration),
 				description: description,
@@ -106,7 +106,7 @@ class HaxeDisplayArgumentsProvider {
 			});
 		}
 
-		var current = getCurrent();
+		final current = getCurrent();
 		if (current != null)
 			items.moveToStart(item -> item.config == current);
 		window.showQuickPick(items, {matchOnDescription: true, placeHolder: "Select Haxe Configuration"}).then(function(choice:ConfigurationPickItem) {
@@ -121,7 +121,7 @@ class HaxeDisplayArgumentsProvider {
 	}
 
 	public function getCurrentLabel():Null<String> {
-		var current = getCurrent();
+		final current = getCurrent();
 		if (current == null) {
 			return null;
 		}
@@ -143,7 +143,7 @@ class HaxeDisplayArgumentsProvider {
 	public static final ConfigurationIndexKey = new HaxeMementoKey<SavedSelection>("displayConfigurationIndex");
 
 	function getCurrent():Null<Configuration> {
-		var selection:Null<Dynamic> = context.getWorkspaceState().get(ConfigurationIndexKey);
+		final selection:Null<Dynamic> = context.getWorkspaceState().get(ConfigurationIndexKey);
 		for (conf in configurations) {
 			switch conf.kind {
 				case Configured(idx, _) if (idx == selection):
@@ -169,7 +169,7 @@ class HaxeDisplayArgumentsProvider {
 	}
 
 	function updateDisplayArgumentsProviderRegistration() {
-		var isActive = configurations.length > 0;
+		final isActive = configurations.length > 0;
 		if (isActive && providerDisposable == null) {
 			providerDisposable = displayArguments.registerProvider("Haxe", this);
 		} else if (!isActive && providerDisposable != null) {
@@ -202,17 +202,17 @@ class HaxeDisplayArgumentsProvider {
 private typedef SettingsConfiguration = EitherType<Array<String>, ComplexSettingsConfiguration>;
 
 private typedef ComplexSettingsConfiguration = {
-	var label:String;
-	var args:Array<String>;
+	final label:String;
+	final args:Array<String>;
 }
 
 private typedef ConfigurationPickItem = QuickPickItem & {
-	var config:Configuration;
+	final config:Configuration;
 }
 
 private typedef Configuration = {
-	var kind:ConfigurationKind;
-	var args:Array<String>;
+	final kind:ConfigurationKind;
+	final args:Array<String>;
 }
 
 private enum ConfigurationKind {

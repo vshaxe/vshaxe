@@ -4,7 +4,7 @@ import sys.FileSystem;
 import sys.io.File;
 
 class InitProject {
-	var context:ExtensionContext;
+	final context:ExtensionContext;
 
 	public function new(context:ExtensionContext) {
 		this.context = context;
@@ -26,7 +26,7 @@ class InitProject {
 			case [folder]:
 				setupFolder(folder.uri.fsPath);
 			case folders:
-				var options = {
+				final options = {
 					placeHolder: "Select a folder to set up a Haxe project into...",
 				}
 				window.showWorkspaceFolderPick(options).then(function(folder) {
@@ -38,7 +38,7 @@ class InitProject {
 	}
 
 	function setupFolder(fsPath:String) {
-		var nonEmpty = FileSystem.readDirectory(fsPath).exists(f -> !f.startsWith("."));
+		final nonEmpty = FileSystem.readDirectory(fsPath).exists(f -> !f.startsWith("."));
 		if (nonEmpty) {
 			window.showErrorMessage("To set up sample Haxe project, the folder must be empty");
 			return;
@@ -50,8 +50,8 @@ class InitProject {
 
 	function copyRec(from:String, to:String):Void {
 		function loop(src, dst) {
-			var fromPath = from + src;
-			var toPath = to + dst;
+			final fromPath = from + src;
+			final toPath = to + dst;
 			if (FileSystem.isDirectory(fromPath)) {
 				FileSystem.createDirectory(toPath);
 				for (file in FileSystem.readDirectory(fromPath))

@@ -26,7 +26,7 @@ class EvalDebugger {
 
 	public function resolveDebugConfiguration(folder:Null<WorkspaceFolder>, config:DebugConfiguration,
 			?token:CancellationToken):ProviderResult<DebugConfiguration> {
-		var config:EvalLaunchDebugConfiguration = cast config;
+		final config:EvalLaunchDebugConfiguration = cast config;
 		if (config.type == null) {
 			config.type = DEBUG_TYPE;
 			config.name = "Haxe Interpreter";
