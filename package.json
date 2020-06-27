@@ -71,7 +71,7 @@
 							"type": "string",
 							"markdownDescription": "Path to the Haxe executable",
 							"default": "auto",
-							"anyOf": [
+							"oneOf": [
 								{
 									"type": "string",
 									"enum": [
@@ -95,7 +95,7 @@
 									"type": "string",
 									"markdownDescription": "Path to the Haxe executable",
 									"default": "auto",
-									"anyOf": [
+									"oneOf": [
 										{
 											"type": "string",
 											"enum": [
@@ -126,7 +126,7 @@
 											"type": "string",
 											"markdownDescription": "Path to the Haxe executable",
 											"default": "auto",
-											"anyOf": [
+											"oneOf": [
 												{
 													"type": "string",
 													"enum": [
@@ -151,7 +151,7 @@
 													"type": "string",
 													"markdownDescription": "Path to the Haxe executable",
 													"default": "auto",
-													"anyOf": [
+													"oneOf": [
 														{
 															"type": "string",
 															"enum": [
@@ -186,7 +186,7 @@
 											"type": "string",
 											"markdownDescription": "Path to the Haxe executable",
 											"default": "auto",
-											"anyOf": [
+											"oneOf": [
 												{
 													"type": "string",
 													"enum": [
@@ -211,7 +211,7 @@
 													"type": "string",
 													"markdownDescription": "Path to the Haxe executable",
 													"default": "auto",
-													"anyOf": [
+													"oneOf": [
 														{
 															"type": "string",
 															"enum": [
@@ -246,7 +246,7 @@
 											"type": "string",
 											"markdownDescription": "Path to the Haxe executable",
 											"default": "auto",
-											"anyOf": [
+											"oneOf": [
 												{
 													"type": "string",
 													"enum": [
@@ -271,7 +271,7 @@
 													"type": "string",
 													"markdownDescription": "Path to the Haxe executable",
 													"default": "auto",
-													"anyOf": [
+													"oneOf": [
 														{
 															"type": "string",
 															"enum": [
@@ -307,7 +307,7 @@
 					"markdownDescription": "Path to the Haxelib executable",
 					"type": "string",
 					"default": "auto",
-					"anyOf": [
+					"oneOf": [
 						{
 							"type": "string",
 							"enum": [
