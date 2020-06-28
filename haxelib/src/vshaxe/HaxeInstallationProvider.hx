@@ -28,6 +28,8 @@ typedef HaxeInstallationProvider = {
 
 	/** 
 		Optionally lists available libraries for HXML `--library` completion.
+
+		@since 2.21.0
 	**/
 	var ?listLibraries:() -> Array<{name:String}>;
 }
