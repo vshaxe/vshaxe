@@ -3,8 +3,8 @@
 	"description": "Visual Studio Code Haxe extension extern library.",
 	"url": "https://github.com/vshaxe/vshaxe",
 	"license": "MIT",
-	"version": "2.20.0",
-	"releasenote": "Add HaxeConfiguration.Target.Jvm.",
+	"version": "2.21.0",
+	"releasenote": "Add listLibraries() to HaxeInstallationProvider.",
 	"classPath": "src",
 	"contributors": ["nadako", "Gama11"],
 	"dependencies": {

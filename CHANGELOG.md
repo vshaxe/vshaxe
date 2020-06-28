@@ -1,8 +1,10 @@
-### 2.21.0 (to be released)
+### 2.21.0 (June 28, 2020)
 
 **New Features:**
 
+- added support for completion and hover in HXML files ([#28](https://github.com/vshaxe/vshaxe/issues/28))
 - added expected type completion for array, map and regex literals
+- added a `listLibraries()` method to the `HaxeInstallationProvider` extension API
 
 **Changes and Improvements:**
 
