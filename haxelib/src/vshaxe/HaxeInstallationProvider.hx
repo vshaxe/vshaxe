@@ -22,7 +22,12 @@ typedef HaxeInstallationProvider = {
 
 	/**
 		Optionally resolves classpaths to libraries for the Haxe Dependencies view,
-		or `null`  if the classpath does not belong to a library.
+		or `null` if the classpath does not belong to a library.
 	**/
 	var ?resolveLibrary:(classpath:String) -> Null<Library>;
+
+	/** 
+		Optionally lists available libraries for HXML `--library` completion.
+	**/
+	var ?listLibraries:() -> Array<{name:String}>;
 }

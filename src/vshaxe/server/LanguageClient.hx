@@ -30,6 +30,7 @@ extern class LanguageClient {
 	@:overload(function(method:String):Void {})
 	function sendNotification(method:String, params:Any):Void;
 	function onNotification(method:String, handler:Dynamic->Void):Void;
+	function onRequest(method:String, handler:Dynamic->Thenable<Dynamic>):Void;
 	var clientOptions(default, null):LanguageClientOptions;
 	// var protocol2CodeConverter(default,null):p2c.Converter;
 	// var code2ProtocolConverter(default,null):c2p.Converter;

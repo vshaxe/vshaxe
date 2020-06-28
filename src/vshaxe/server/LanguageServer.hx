@@ -105,6 +105,12 @@ class LanguageServer {
 		}
 	}
 
+	function onRequest<P, R, E>(method:RequestType<P, R, E>, handler:(params:P) -> Thenable<R>) {
+		if (client != null) {
+			client.onRequest(method, handler);
+		}
+	}
+
 	function refreshDisplayServerConfig(force:Bool) {
 		if (prepareDisplayServerConfig() || force) {
 			sendNotification(LanguageServerMethods.DidChangeDisplayServerConfig, displayServerConfig);
@@ -164,6 +170,7 @@ class LanguageServer {
 			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
 			onNotification(LanguageServerMethods.HaxeKeepsCrashing, onHaxeKeepsCrashing);
 			onNotification(LanguageServerMethods.DidDetectOldHaxeVersion, onDidDetectOldHaxeVersion);
+			onRequest(LanguageServerMethods.ListLibraries, onListLibraries);
 		});
 
 		clientStartingUp = true;
@@ -289,6 +296,12 @@ class LanguageServer {
 				case DontShowAgainOption:
 					globalState.update(DontShowOldPreviewHintAgainKey, true);
 			}
+		});
+	}
+
+	function onListLibraries(_):Thenable<Array<{name:String}>> {
+		return new Promise(function(resolve, reject) {
+			resolve(haxeInstallation.listLibraries());
 		});
 	}
 }

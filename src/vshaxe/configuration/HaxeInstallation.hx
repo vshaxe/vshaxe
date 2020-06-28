@@ -76,14 +76,27 @@ class HaxeInstallation {
 		haxelib.dispose();
 	}
 
+	function getCurrentProvider():Null<HaxeInstallationProvider> {
+		return if (currentProvider != null) providers[currentProvider] else null;
+	}
+
 	public function resolveLibrary(classpath:String):Null<Library> {
-		if (currentProvider != null) {
-			final provider = providers[currentProvider];
-			if (provider != null && provider.resolveLibrary != null) {
-				return provider.resolveLibrary(classpath);
-			}
+		final provider = getCurrentProvider();
+		if (provider != null && provider.resolveLibrary != null) {
+			return provider.resolveLibrary(classpath);
 		}
 		return null;
+	}
+
+	public function listLibraries():Array<{name:String}> {
+		final provider = getCurrentProvider();
+		if (provider != null && provider.listLibraries != null) {
+			return provider.listLibraries();
+		}
+		if (libraryBasePath == null || !FileSystem.exists(libraryBasePath) || !FileSystem.isDirectory(libraryBasePath)) {
+			return [];
+		}
+		return FileSystem.readDirectory(libraryBasePath).filter(file -> !file.startsWith(".")).map(file -> {name: file});
 	}
 
 	public function isWaitingForProvider():Bool {
