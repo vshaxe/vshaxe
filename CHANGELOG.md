@@ -1,3 +1,9 @@
+### 2.21.1 (to be released)
+
+**Changes and Improvements:**
+
+- added syntax highlighting support for the `is` operator outside of parens ([haxe#9672](https://github.com/HaxeFoundation/haxe/pull/9672))
+
 ### 2.21.0 (June 28, 2020)
 
 **New Features:**
