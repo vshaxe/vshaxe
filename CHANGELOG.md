@@ -6,6 +6,7 @@
 
 **Bugfixes:**
 
+- fixed struct completion with optional functions ([#449](https://github.com/vshaxe/vshaxe/issues/449))
 - fixed mid-word HXML completion with dashes ([#450](https://github.com/vshaxe/vshaxe/issues/450))
 
 ### 2.21.0 (June 28, 2020)
