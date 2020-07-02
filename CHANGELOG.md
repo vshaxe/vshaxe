@@ -1,4 +1,4 @@
-### 2.21.1 (to be released)
+### 2.21.1 (July 2, 2020)
 
 **Changes and Improvements:**
 
