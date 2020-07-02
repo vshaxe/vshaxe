@@ -4,6 +4,10 @@
 
 - added syntax highlighting support for the `is` operator outside of parens ([haxe#9672](https://github.com/HaxeFoundation/haxe/pull/9672))
 
+**Bugfixes:**
+
+- fixed mid-word HXML completion with dashes ([#450](https://github.com/vshaxe/vshaxe/issues/450))
+
 ### 2.21.0 (June 28, 2020)
 
 **New Features:**
