@@ -1,4 +1,4 @@
--D uglifyjs=0.0.91
-# @install: lix --silent download "haxelib:/uglifyjs#0.0.91" into uglifyjs/0.0.91/haxelib
--cp ${HAXE_LIBCACHE}/uglifyjs/0.0.91/haxelib/src/
+# @install: lix --silent download "haxelib:/uglifyjs#1.0.0" into uglifyjs/1.0.0/haxelib
+-cp ${HAXE_LIBCACHE}/uglifyjs/1.0.0/haxelib/src/
+-D uglifyjs=1.0.0
 --macro UglifyJS.run()

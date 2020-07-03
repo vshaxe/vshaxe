@@ -1,3 +1,9 @@
+### 2.21.2 (to be released)
+
+**Bugfixes:**
+
+- fixed rename symbol not working correctly ([#448](https://github.com/vshaxe/vshaxe/issues/448))
+
 ### 2.21.1 (July 2, 2020)
 
 **Changes and Improvements:**
