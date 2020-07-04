@@ -1,3 +1,9 @@
+### 2.21.3 (to be released)
+
+**Bugfixes:**
+
+- fixed diagnostics-based code actions not working anymore
+
 ### 2.21.2 (July 3, 2020)
 
 **Bugfixes:**
