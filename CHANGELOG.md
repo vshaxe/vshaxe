@@ -1,4 +1,4 @@
-### 2.21.3 (to be released)
+### 2.21.3 (July 4, 2020)
 
 **Bugfixes:**
 
