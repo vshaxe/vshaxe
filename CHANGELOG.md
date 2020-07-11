@@ -1,4 +1,4 @@
-### 2.21.4 (to be released)
+### 2.21.4 (July 11, 2020)
 
 **Bugfixes:**
 

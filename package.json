@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.21.3",
+	"version": "2.21.4",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.42.0"
