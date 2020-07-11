@@ -1,3 +1,9 @@
+### 2.21.4 (to be released)
+
+**Bugfixes:**
+
+- fixed hover hints for compiler metadata
+
 ### 2.21.3 (July 4, 2020)
 
 **Bugfixes:**
