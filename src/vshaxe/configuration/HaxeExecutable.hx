@@ -57,7 +57,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 		isDefault = false;
 
 		function merge(conf:HaxeExecutablePathOrConfigBase) {
-			if ((conf is String)) {
+			if (conf is String) {
 				executable = conf;
 			} else {
 				final conf:RawHaxeExecutableConfig = conf;

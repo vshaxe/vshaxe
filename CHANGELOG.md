@@ -1,3 +1,9 @@
+### 2.21.5 (t be released)
+
+**New Features:**
+
+- added support for abstract classes ([HXP-0012](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0012-abstract-classes.md#abstract-classes))
+
 ### 2.21.4 (July 11, 2020)
 
 **Bugfixes:**
