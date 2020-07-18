@@ -1,8 +1,10 @@
-### 2.21.5 (t be released)
+### 2.22.0 (to be released)
 
 **New Features:**
 
 - added support for abstract classes ([HXP-0012](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0012-abstract-classes.md#abstract-classes))
+- added a code action to implement missing interface and abstract class fields ([#205](https://github.com/vshaxe/vshaxe/issues/205))
+- added a code action to make a class with non-implemented fields `abstract`
 
 ### 2.21.4 (July 11, 2020)
 
