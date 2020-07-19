@@ -96,7 +96,7 @@ class HaxeInstallation {
 		if (libraryBasePath == null || !FileSystem.exists(libraryBasePath) || !FileSystem.isDirectory(libraryBasePath)) {
 			return [];
 		}
-		return FileSystem.readDirectory(libraryBasePath).filter(file -> !file.startsWith(".")).map(file -> {name: file});
+		return FileSystem.readDirectory(libraryBasePath).filter(file -> !file.startsWith(".")).map(file -> {name: file.replace(',', '.')});
 	}
 
 	public function isWaitingForProvider():Bool {
