@@ -26,7 +26,9 @@
 	},
 	"devDependencies": {
 		"lix": "^15.9.0",
-		"@zeit/ncc": "^0.22.3"
+		"@zeit/ncc": "^0.22.3",
+		"dts2hx": "0.13.3",
+		"vscode-test": "1.4.0"
 	},
 	"bugs": "https://github.com/vshaxe/vshaxe/issues",
 	"homepage": "https://github.com/vshaxe/vshaxe/blob/master/README.md",
@@ -36,7 +38,7 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npx lix run vshaxe-build -t vshaxe -t language-server-tests -t tm-language",
-		"postinstall": "npx lix download && cd server && npm install && cd ../eval-debugger && npm install"
+		"postinstall": "npx lix download && dts2hx vscode-test && cd server && npm install && cd ../eval-debugger && npm install"
 	},
 	"main": "bin/index.js",
 	"activationEvents": [

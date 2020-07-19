@@ -81,6 +81,48 @@
 			}
 		},
 		{
+			"name": "integration-tests",
+			"composite": true,
+			"targetDependencies": [
+				"integration-tests-suite",
+				"integration-tests-runner"
+			],
+			"afterBuildCommands": [
+				["node", "test/runner.js"]
+			]
+		},
+		{
+			"name": "integration-tests-suite",
+			"args": {
+				"haxelibs": [
+					"vscode",
+					"utest"
+				],
+				"classPaths": [
+					"test/suite"
+				],
+				"packageName": "Main",
+				"output": {
+					"target": "js",
+					"path": "test/suite/main.js"
+				}
+			}
+		},
+		{
+			"name": "integration-tests-runner",
+			"args": {
+				"classPaths": [
+					"test",
+					".haxelib/vscode-test/1,4,0"
+				],
+				"main": "Runner",
+				"output": {
+					"target": "js",
+					"path": "test/runner.js"
+				}
+			}
+		},
+		{
 			"name": "install",
 			"inherit": "empty",
 			"args": {

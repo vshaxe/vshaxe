@@ -3,4 +3,7 @@ node_modules
 dump
 *.log
 *.vsix
+*.js
 haxelib/haxelib.zip
+.haxelib
+.vscode-test
