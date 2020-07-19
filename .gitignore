@@ -7,3 +7,4 @@ dump
 haxelib/haxelib.zip
 .haxelib
 .vscode-test
+test/workspace

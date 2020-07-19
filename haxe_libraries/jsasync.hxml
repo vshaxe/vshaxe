@@ -1,0 +1,4 @@
+# @install: lix --silent download "haxelib:/jsasync#1.2.0" into jsasync/1.2.0/haxelib
+-cp ${HAXE_LIBCACHE}/jsasync/1.2.0/haxelib/src
+-D jsasync=1.2.0
+--macro jsasync.impl.Macro.init()

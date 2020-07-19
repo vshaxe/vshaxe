@@ -96,7 +96,7 @@
 			"args": {
 				"haxelibs": [
 					"vscode",
-					"utest"
+					"jsasync"
 				],
 				"classPaths": [
 					"test/suite"

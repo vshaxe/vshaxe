@@ -59,6 +59,18 @@
 				"${workspaceFolder}/eval-debugger/bin/*.js"
 			]
 		},
+		{
+			"name": "Integration Tests",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/test/suite/main.js"
+			],
+			
+			"preLaunchTask": "vshaxe-build: integration-tests"
+		}
 	],
 	"compounds": [
 		{
