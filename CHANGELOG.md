@@ -3,8 +3,16 @@
 **New Features:**
 
 - added support for abstract classes ([HXP-0012](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0012-abstract-classes.md#abstract-classes))
-- added a code action to implement missing interface and abstract class fields ([#205](https://github.com/vshaxe/vshaxe/issues/205))
+- added code actions to implement missing interface, abstract class and property fields ([#205](https://github.com/vshaxe/vshaxe/issues/205))
 - added a code action to make a class with non-implemented fields `abstract`
+
+**Changes and Improvements:**
+
+- added `..` to HXML file system completion
+
+**Bugfixes:**
+
+- fixed HXML completion for libraries with dots in their name ([#452](https://github.com/vshaxe/vshaxe/issues/452))
 
 ### 2.21.4 (July 11, 2020)
 
