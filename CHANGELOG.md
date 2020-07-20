@@ -5,6 +5,8 @@
 - added support for abstract classes ([HXP-0012](https://github.com/HaxeFoundation/haxe-evolution/blob/master/proposals/0012-abstract-classes.md#abstract-classes))
 - added code actions to implement missing interface, abstract class and property fields ([#205](https://github.com/vshaxe/vshaxe/issues/205))
 - added a code action to make a class with non-implemented fields `abstract`
+- added a code action to create non-existent fields ([#232](https://github.com/vshaxe/vshaxe/issues/232))
+- added syntax highlighting for `overload` modifiers
 
 **Changes and Improvements:**
 
