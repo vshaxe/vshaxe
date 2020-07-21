@@ -18,6 +18,7 @@ class Commands {
 		context.registerHaxeCommand(RunGlobalDiagnostics, server.runGlobalDiagnostics);
 		context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
 		context.registerHaxeCommand(DebugSelectedConfiguration, debugSelectedConfiguration);
+		context.registerHaxeCommand(CodeAction_HighlightInsertion, highlightInsertion);
 
 		#if debug
 		context.registerHaxeCommand(ClearMementos, clearMementos);
@@ -89,5 +90,9 @@ class Commands {
 		if (value == null)
 			value = info.defaultValue;
 		return value;
+	}
+
+	function highlightInsertion(uri:String, range:Range) {
+		window.showTextDocument(Uri.parse(uri)).then(editor -> editor.revealRange(range));
 	}
 }
