@@ -6,7 +6,8 @@
 - added code actions to implement missing interface, abstract class and property fields ([#205](https://github.com/vshaxe/vshaxe/issues/205))
 - added a code action to make a class with non-implemented fields `abstract`
 - added a code action to create non-existent fields ([#232](https://github.com/vshaxe/vshaxe/issues/232))
-- added syntax highlighting for `overload` modifiers
+- added syntax highlighting for `overload` and `abstract` modifiers
+- added syntax highlighting for `hlcode.txt` / HashLink bytecode dump files ([haxe-TmLanguage#51](https://github.com/vshaxe/haxe-TmLanguage/issues/51))
 
 **Changes and Improvements:**
 

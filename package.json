@@ -921,6 +921,15 @@
 				"configuration": "./configurations/haxe.language-configuration.json"
 			},
 			{
+				"id": "HashLink bytecode dump",
+				"aliases": [
+					"HashLink bytecode dump"
+				],
+				"filenames": [
+					"hlcode.txt"
+				]
+			},
+			{
 				"id": "haxe.type"
 			},
 			{
@@ -942,6 +951,11 @@
 				"language": "Haxe AST dump",
 				"scopeName": "source.hx",
 				"path": "./syntaxes/haxe.tmLanguage"
+			},
+			{
+				"language": "HashLink bytecode dump",
+				"scopeName": "source.hlcode",
+				"path": "./syntaxes/hlcode.json"
 			},
 			{
 				"language": "haxe.type",
