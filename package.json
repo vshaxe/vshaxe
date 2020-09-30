@@ -36,7 +36,7 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npx lix run vshaxe-build -t vshaxe -t language-server-tests -t tm-language",
-		"postinstall": "npx lix download && cd server && npm install && cd ../eval-debugger && npm install"
+		"postinstall": "npx lix download && (cd server && npm install) && (cd eval-debugger && npm install) && (cd syntaxes && npm install)"
 	},
 	"main": "bin/index.js",
 	"activationEvents": [
