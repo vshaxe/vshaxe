@@ -126,6 +126,8 @@ class MethodTreeView {
 		return element.parent;
 	}
 
+	public var resolveTreeItem = js.Lib.undefined;
+
 	function copy(?element:Node) {
 		env.clipboard.writeText(if (element == null) {
 			methods.map(method -> method.toString()).join("\n\n");

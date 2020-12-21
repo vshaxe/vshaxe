@@ -29,6 +29,8 @@ class CacheTreeView {
 		return node.parent;
 	}
 
+	public var resolveTreeItem = js.Lib.undefined;
+
 	public function getTreeItem(node:Node) {
 		return node;
 	}

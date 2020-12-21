@@ -153,6 +153,8 @@ class DependencyTreeView {
 	public var getParent = function(node:Node) {
 		return node.parent;
 	}
+	
+	public var resolveTreeItem = js.Lib.undefined;
 
 	function revealActiveFile() {
 		final editor = window.activeTextEditor;
