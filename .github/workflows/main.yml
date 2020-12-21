@@ -3,14 +3,14 @@ name: CI
 on:
   push:
   pull_request:
-  # schedule:
-  #   - cron: '0 4 * * *'
+  schedule:
+    - cron: '0 4 * * *'
 
 jobs:
   build:
     strategy:
       matrix:
-        haxe-version: [haxerc]
+        haxe-version: [nightly, haxerc]
       fail-fast: false
     runs-on: ubuntu-latest
     steps:
