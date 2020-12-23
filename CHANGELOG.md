@@ -12,6 +12,7 @@
 **Changes and Improvements:**
 
 - added `..` to HXML file system completion
+- improved goto definition performance when invoked through ctrl+click ([#366](https://github.com/vshaxe/vshaxe/issues/366))
 
 **Bugfixes:**
 
