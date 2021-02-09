@@ -1,4 +1,4 @@
-### 2.22.0 (to be released)
+### 2.22.0 (February 9, 2021)
 
 **New Features:**
 
@@ -12,11 +12,14 @@
 **Changes and Improvements:**
 
 - added `..` to HXML file system completion
+- updated to haxe-formatter version [1.11.2](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.11.2)
 - improved goto definition performance when invoked through ctrl+click ([#366](https://github.com/vshaxe/vshaxe/issues/366))
 
 **Bugfixes:**
 
 - fixed HXML completion for libraries with dots in their name ([#452](https://github.com/vshaxe/vshaxe/issues/452))
+- fixed organize imports cutting of trailing comments ([haxe-formatter#628](https://github.com/HaxeCheckstyle/haxe-formatter/issues/628))
+- fixed import sorting eating lines when formatting is turned off ([haxe-formatter#632](https://github.com/HaxeCheckstyle/haxe-formatter/issues/632))
 
 ### 2.21.4 (July 11, 2020)
 
