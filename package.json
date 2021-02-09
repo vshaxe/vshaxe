@@ -25,7 +25,7 @@
 		"vscode-languageclient": "6.1.1"
 	},
 	"devDependencies": {
-		"lix": "^15.9.0",
+		"lix": "^15.10.1",
 		"@zeit/ncc": "^0.22.3"
 	},
 	"bugs": "https://github.com/vshaxe/vshaxe/issues",
