@@ -1,4 +1,4 @@
-### 2.22.1 (???, 2021)
+### 2.22.1 (February 28, 2021)
 
 **Changes and Improvements:**
 
@@ -9,6 +9,7 @@
 - fixed missing abstract class fields being generated with `override`
 - fixed "implement missing fields" not working if a variable is one of them
 - fixed `static` missing from variables generated with missing field quickfix
+- fixed missing field quickfix not working at module level
 - fixed function arguments with default values being printed with `?` ([#468](https://github.com/vshaxe/vshaxe/issues/468))
 
 ### 2.22.0 (February 9, 2021)
