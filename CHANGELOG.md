@@ -1,3 +1,11 @@
+### 2.22.1 (???, 2021)
+
+**Bugfixes:**
+
+- fixed missing abstract class fields being generated with `override`
+- fixed "implement missing fields" not working if a variable is one of them
+- fixed `static` missing from variables generated with missing field quickfix
+
 ### 2.22.0 (February 9, 2021)
 
 **New Features:**
