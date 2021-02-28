@@ -616,6 +616,11 @@
 					"default": "none",
 					"$ref": "#/definitions/formatter.config.AtLineEndPolicy"
 				},
+				"lineEndCharacter": {
+					"default": "auto",
+					"markdownDescription": "line end character to use when outputting formatted code",
+					"$ref": "#/definitions/formatter.config.LineEndCharacter"
+				},
 				"leftCurly": {
 					"default": "after",
 					"markdownDescription": "global left curly line end setting",
@@ -644,6 +649,20 @@
 				}
 			},
 			"type": "object"
+		},
+		"formatter.config.LineEndCharacter": {
+			"enum": [
+				"auto",
+				"CR",
+				"LF",
+				"CRLF"
+			],
+			"markdownEnumDescriptions": [
+				"detect line end character from input (repeated for each input file)",
+				"output files with \\r line endings",
+				"output files with \\n line endings",
+				"output files with \\r\\n line endings"
+			]
 		},
 		"formatter.config.LineCommentEmptyLinePolicy": {
 			"enum": [
