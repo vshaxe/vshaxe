@@ -3,6 +3,7 @@
 **Changes and Improvements:**
 
 - improved missing field generation to sort them by declaration order
+- updated to haxe-formatter version [1.12.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.12.0)
 
 **Bugfixes:**
 
