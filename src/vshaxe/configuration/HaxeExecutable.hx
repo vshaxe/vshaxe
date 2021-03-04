@@ -93,6 +93,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 				executable = absolutePath;
 			} else {
 				isCommand = true;
+				// Fix tasks not working on Windows with a `haxe` folder next to `haxe.exe`
 				if (Sys.systemName() == "Windows" && Path.extension(executable) == "") {
 					executable += ".exe";
 				}

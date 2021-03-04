@@ -60,9 +60,19 @@ class HaxeInstallation {
 		@:nullSafety(Off) final env = haxe.configuration.env.copy();
 		// if we have a custom haxelib executable, we need to make sure it's in the PATH of Haxe
 		// - otherwise `haxelib run hxcpp/hxjava/hxcs` that Haxe runs on those targets will fail
-		var haxelib = haxelib.configuration;
-		if (!Path.isAbsolute(haxelib)) {
-			haxelib = PathHelper.absolutize(haxelib, folder.uri.fsPath);
+		final haxelib = if (haxelib.configuration.isCommand) {
+			final executable = getProcessOutput("where " + haxe.configuration.executable)[0];
+			if (executable == null) {
+				return env;
+			}
+			executable;
+		} else {
+			final path = haxelib.configuration.executable;
+			if (Path.isAbsolute(path)) {
+				path;
+			} else {
+				PathHelper.absolutize(path, folder.uri.fsPath);
+			}
 		}
 		if (FileSystem.exists(haxelib) && !FileSystem.isDirectory(haxelib)) {
 			final separator = if (Sys.systemName() == "Windows") ";" else ":";
@@ -143,7 +153,7 @@ class HaxeInstallation {
 	function provideInstallation(installation:vshaxe.HaxeInstallation) {
 		ignoreEvents = true;
 		haxe.setAutoResolveValue(currentProvider, installation.haxeExecutable);
-		haxelib.setAutoResolveValue(installation.haxelibExecutable);
+		haxelib.setAutoResolveValue(currentProvider, installation.haxelibExecutable);
 		ignoreEvents = false;
 
 		standardLibraryPath = installation.standardLibraryPath;
@@ -189,7 +199,12 @@ class HaxeInstallation {
 	}
 
 	function getLibraryBasePath():Null<String> {
-		final output = getProcessOutput('${haxelib.configuration} config')[0];
+		final haxelib = if (haxelib.configuration.isCommand) {
+			haxelib.configuration.executable;
+		} else {
+			'"' + haxelib.configuration.executable + '"';
+		}
+		final output = getProcessOutput('$haxelib config')[0];
 		return if (output == null) {
 			trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
 			null;
