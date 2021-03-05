@@ -14,7 +14,7 @@ typedef HaxelibExecutableConfiguration = {
 	/**
 		How `executable` was determined.
 	**/
-	var source(default, never):HaxelibExecutableSource;
+	var source(default, never):ExecutableSource;
 
 	/**
 		Whether `executable` is a command (`true`) or an absolute path (`false`).

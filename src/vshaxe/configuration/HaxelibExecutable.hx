@@ -1,12 +1,6 @@
 package vshaxe.configuration;
 
 import haxe.extern.EitherType;
-import haxe.io.Path;
-import js.node.Buffer;
-import js.node.ChildProcess;
-import sys.FileSystem;
-import vshaxe.HaxelibExecutableSource;
-import vshaxe.helper.PathHelper;
 
 private typedef RawHaxelibExecutableConfig = {
 	final path:String;
@@ -20,30 +14,13 @@ typedef HaxelibExecutablePathOrConfig = EitherType<String, RawHaxelibExecutableC
 	final ?osx:RawHaxelibExecutableConfig;
 }>;
 
-private typedef HaxeExecutableConfiguration = vshaxe.HaxelibExecutableConfiguration & {
+private typedef HaxelibExecutableConfiguration = vshaxe.HaxelibExecutableConfiguration & {
 	final ?version:String;
 }
 
-class HaxelibExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
-	public static final SYSTEM_KEY = switch Sys.systemName() {
-			case "Windows": "windows";
-			case "Mac": "osx";
-			default: "linux";
-		};
-
-	public var isDefault(default, null):Bool = false;
-
-	var autoResolveProvider:Null<String>;
-	var autoResolveValue:Null<String>;
-
+class HaxelibExecutable extends BaseExecutable<HaxelibExecutableConfiguration> {
 	public function new(folder) {
-		super("haxelib.executable", folder);
-	}
-
-	public function setAutoResolveValue(provider:Null<String>, value:Null<String>) {
-		autoResolveProvider = provider;
-		autoResolveValue = value;
-		update();
+		super("haxelib", folder);
 	}
 
 	override function updateConfig() {
@@ -64,53 +41,21 @@ class HaxelibExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration
 		}
 
 		merge(input);
-		final systemConfig = Reflect.field(input, SYSTEM_KEY);
+		final systemConfig = getSystemConfig(input);
 		if (systemConfig != null)
 			merge(systemConfig);
 
-		var source = Settings;
-		if (executable == "auto") {
-			if (autoResolveProvider == null || autoResolveValue == null) {
-				executable = "haxelib";
-				isDefault = true;
-			} else {
-				executable = autoResolveValue;
-				source = Provider(autoResolveProvider);
-			}
-		}
-
-		var isCommand = false;
-		if (!Path.isAbsolute(executable)) {
-			final absolutePath = PathHelper.absolutize(executable, folder.uri.fsPath);
-			if (FileSystem.exists(absolutePath) && !FileSystem.isDirectory(absolutePath)) {
-				executable = absolutePath;
-			} else {
-				isCommand = true;
-				// Fix tasks not working on Windows with a `haxelib` folder next to `haxelib.exe`
-				if (Sys.systemName() == "Windows" && Path.extension(executable) == "") {
-					executable += ".exe";
-				}
-			}
-		}
+		final executable = processExecutable(executable);
 
 		configuration = {
-			executable: executable,
-			source: source,
-			isCommand: isCommand,
-			version: getVersion(isCommand ? executable : '"' + executable + '"')
+			executable: executable.executable,
+			source: executable.source,
+			isCommand: executable.isCommand,
+			version: getVersion(executable.isCommand ? executable.executable : '"' + executable.executable + '"')
 		}
 	}
 
 	function getVersion(haxelibExecutable:String):Null<String> {
-		final result = ChildProcess.spawnSync(haxelibExecutable, ["version"], {cwd: folder.uri.fsPath});
-		if (result != null && result.stderr != null) {
-			var output = (result.stderr : Buffer).toString().trim();
-			if (output == "") {
-				output = (result.stdout : Buffer).toString().trim();
-			}
-
-			return output;
-		}
-		return null;
+		return readCommand(haxelibExecutable, ["version"]);
 	}
 }

@@ -2,12 +2,6 @@ package vshaxe.configuration;
 
 import haxe.DynamicAccess;
 import haxe.extern.EitherType;
-import haxe.io.Path;
-import js.node.Buffer;
-import js.node.ChildProcess;
-import sys.FileSystem;
-import vshaxe.HaxeExecutableSource;
-import vshaxe.helper.PathHelper;
 
 /** unprocessed config **/
 private typedef RawHaxeExecutableConfig = {
@@ -27,26 +21,9 @@ private typedef HaxeExecutableConfiguration = vshaxe.HaxeExecutableConfiguration
 	final ?version:String;
 }
 
-class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
-	public static final SYSTEM_KEY = switch Sys.systemName() {
-			case "Windows": "windows";
-			case "Mac": "osx";
-			default: "linux";
-		};
-
-	public var isDefault(default, null):Bool = false;
-
-	var autoResolveProvider:Null<String>;
-	var autoResolveValue:Null<String>;
-
+class HaxeExecutable extends BaseExecutable<HaxeExecutableConfiguration> {
 	public function new(folder) {
-		super("haxe.executable", folder);
-	}
-
-	public function setAutoResolveValue(provider:Null<String>, value:Null<String>) {
-		autoResolveProvider = provider;
-		autoResolveValue = value;
-		update();
+		super("haxe", folder);
 	}
 
 	override function updateConfig() {
@@ -71,56 +48,27 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 		}
 
 		merge(input);
-		final systemConfig = Reflect.field(input, SYSTEM_KEY);
+		final systemConfig = getSystemConfig(input);
 		if (systemConfig != null)
 			merge(systemConfig);
 
-		var source = Settings;
-		if (executable == "auto") {
-			if (autoResolveProvider == null || autoResolveValue == null) {
-				executable = "haxe";
-				isDefault = true;
-			} else {
-				executable = autoResolveValue;
-				source = Provider(autoResolveProvider);
-			}
-		}
-
-		var isCommand = false;
-		if (!Path.isAbsolute(executable)) {
-			final absolutePath = PathHelper.absolutize(executable, folder.uri.fsPath);
-			if (FileSystem.exists(absolutePath) && !FileSystem.isDirectory(absolutePath)) {
-				executable = absolutePath;
-			} else {
-				isCommand = true;
-				// Fix tasks not working on Windows with a `haxe` folder next to `haxe.exe`
-				if (Sys.systemName() == "Windows" && Path.extension(executable) == "") {
-					executable += ".exe";
-				}
-			}
-		}
+		final executable = processExecutable(executable);
 
 		configuration = {
-			executable: executable,
-			source: source,
-			isCommand: isCommand,
-			env: env,
-			version: getVersion(executable)
+			executable: executable.executable,
+			source: executable.source,
+			isCommand: executable.isCommand,
+			version: getVersion(executable.executable),
+			env: env
 		}
 	}
 
 	function getVersion(haxeExecutable:String):Null<String> {
-		final result = ChildProcess.spawnSync(haxeExecutable, ["-version"], {cwd: folder.uri.fsPath});
-		if (result != null && result.stderr != null) {
-			var output = (result.stderr : Buffer).toString().trim();
-			if (output == "") {
-				output = (result.stdout : Buffer).toString().trim(); // haxe 4.0 prints -version output to stdout instead
-			}
-
-			if (output != null) {
-				return output.split(" ")[0].trim();
-			}
+		final result = readCommand(haxeExecutable, ["-version"]);
+		return if (result != null) {
+			result.split(" ")[0].trim();
+		} else {
+			null;
 		}
-		return null;
 	}
 }
