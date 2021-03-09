@@ -42,7 +42,7 @@ function main(context:ExtensionContext) {
 	final problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
 	final api = {
 		haxeExecutable: haxeInstallation.haxe,
-		haxelibExecutable: haxeInstallation.haxelib,
+		haxelibExecutable: haxeInstallation.haxelib.accessor,
 		enableCompilationServer: true,
 		problemMatchers: problemMatchers.copy(),
 		taskPresentation: {},

@@ -23,6 +23,15 @@ class HaxelibExecutable extends BaseExecutable<HaxelibExecutableConfiguration> {
 		super("haxelib", folder);
 	}
 
+	override function copyConfig():HaxelibExecutableConfiguration {
+		return {
+			executable: configuration.executable,
+			source: configuration.source,
+			isCommand: configuration.isCommand,
+			version: configuration.version
+		}
+	}
+
 	override function updateConfig() {
 		final input:HaxelibExecutablePathOrConfig = workspace.getConfiguration("haxelib", folder.uri).get("executable", "haxelib");
 
