@@ -61,7 +61,7 @@ class HaxeInstallation {
 		// if we have a custom haxelib executable, we need to make sure it's in the PATH of Haxe
 		// - otherwise `haxelib run hxcpp/hxjava/hxcs` that Haxe runs on those targets will fail
 		final haxelib = if (haxelib.configuration.isCommand) {
-			final executable = getProcessOutput("where " + haxe.configuration.executable)[0];
+			final executable = getProcessOutput("where " + haxelib.configuration.executable)[0];
 			if (executable == null) {
 				return env;
 			}
