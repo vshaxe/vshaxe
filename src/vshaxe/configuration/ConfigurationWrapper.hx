@@ -19,6 +19,7 @@ class ConfigurationWrapper<Config> {
 		this.folder = folder;
 		accessor = new ConfigurationAccessor();
 		@:nullSafety(Off) updateConfig();
+		accessor.set(@:nullSafety(Off) copyConfig());
 		changeConfigurationListener = workspace.onDidChangeConfiguration(onWorkspaceConfigurationChanged);
 	}
 
