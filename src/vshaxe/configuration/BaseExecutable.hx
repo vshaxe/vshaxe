@@ -7,6 +7,8 @@ import sys.FileSystem;
 import vshaxe.ExecutableSource;
 import vshaxe.helper.PathHelper;
 
+using StringTools;
+
 typedef ExecutableConfiguration = {
 	var executable(default, never):String;
 	var source(default, never):ExecutableSource;
@@ -61,7 +63,7 @@ class BaseExecutable<Config> extends ConfigurationWrapper<Config> {
 			} else {
 				isCommand = true;
 				// Fix tasks not working on Windows with a `haxe` folder next to `haxe.exe`
-				if (Sys.systemName() == "Windows" && Path.extension(executable) == "") {
+				if (Sys.systemName() == "Windows" && !executable.contains(" ") && Path.extension(executable) == "") {
 					executable += ".exe";
 				}
 			}
