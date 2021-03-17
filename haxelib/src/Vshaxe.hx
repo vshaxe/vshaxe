@@ -27,8 +27,7 @@ typedef Vshaxe = {
 
 	/**
 		Contains the configuration for the Haxelib executable.
-		Corresponds to the `"haxelib.executable"` setting. `haxelibExecutable.config` is pre-processed,
-		meaning that the setting's OS-specific overrides don't need to be handled.
+		Corresponds to the `"haxelib.executable"` setting.
 
 		Should be respected by generated tasks that call Haxelib directly or indirectly.
 
