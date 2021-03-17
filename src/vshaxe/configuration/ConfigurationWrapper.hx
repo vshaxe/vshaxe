@@ -2,7 +2,7 @@ package vshaxe.configuration;
 
 import haxe.Json;
 
-class ConfigurationWrapper<Config> {
+abstract class ConfigurationWrapper<Config> {
 	public final accessor:ConfigurationAccessor<Config>;
 	@:nullSafety(Off) public var configuration(default, null):Config;
 	public var onDidChangeConfiguration(get, never):Event<Config>;
@@ -44,11 +44,7 @@ class ConfigurationWrapper<Config> {
 		return Json.stringify(oldConfig) == Json.stringify(newConfig);
 	}
 
-	function updateConfig() {
-		throw "to be implemented";
-	}
+	abstract function updateConfig():Void;
 
-	function copyConfig():Config {
-		throw "to be implemented";
-	}
+	abstract function copyConfig():Config;
 }

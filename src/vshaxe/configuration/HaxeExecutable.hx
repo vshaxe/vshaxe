@@ -49,7 +49,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 		update();
 	}
 
-	override function copyConfig():HaxeExecutableConfiguration {
+	function copyConfig():HaxeExecutableConfiguration {
 		return {
 			executable: configuration.executable,
 			source: configuration.source,
@@ -59,7 +59,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 		}
 	}
 
-	override function updateConfig() {
+	function updateConfig() {
 		final input:HaxeExecutablePathOrConfig = workspace.getConfiguration("haxe", folder.uri).get("executable", "haxe");
 
 		var executable = "auto";

@@ -12,13 +12,13 @@ class HaxelibExecutable extends ConfigurationWrapper<HaxelibExecutableConfigurat
 		update();
 	}
 
-	override function copyConfig():HaxelibExecutableConfiguration {
+	function copyConfig():HaxelibExecutableConfiguration {
 		return {
 			executable: configuration.executable
 		}
 	}
 
-	override function updateConfig() {
+	function updateConfig() {
 		var executable = workspace.getConfiguration("haxelib", folder.uri).get("executable", "haxelib");
 		if (executable == "auto") {
 			executable = if (autoResolveValue == null) "haxelib" else autoResolveValue;
