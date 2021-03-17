@@ -5,6 +5,7 @@ import vshaxe.DisplayArgumentsProvider;
 import vshaxe.HaxeConfiguration;
 import vshaxe.HaxeExecutable;
 import vshaxe.HaxeInstallationProvider;
+import vshaxe.HaxelibExecutable;
 import vshaxe.TaskPresentationOptions;
 
 /**
@@ -23,6 +24,16 @@ typedef Vshaxe = {
 		Should be respected by generated tasks that call Haxe directly or indirectly.
 	**/
 	var haxeExecutable(default, never):HaxeExecutable;
+
+	/**
+		Contains the configuration for the Haxelib executable.
+		Corresponds to the `"haxelib.executable"` setting.
+
+		Should be respected by generated tasks that call Haxelib directly or indirectly.
+
+		@since 2.23.0
+	**/
+	var haxelibExecutable(default, never):HaxelibExecutable;
 
 	/**
 		The port at which the completion server is reachable via `--connect`, or `null`.

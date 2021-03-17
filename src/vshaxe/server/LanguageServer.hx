@@ -143,7 +143,7 @@ class LanguageServer {
 				displayArguments: displayArguments.arguments,
 				displayServerConfig: displayServerConfig,
 				haxelibConfig: {
-					executable: haxeInstallation.haxelib.configuration
+					executable: haxeInstallation.haxelib.configuration.executable
 				},
 				sendMethodResults: true
 			},

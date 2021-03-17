@@ -1,3 +1,13 @@
+### 2.23.0 (to be released)
+
+**New Features:**
+
+- added `haxelibExecutable` to the extension API
+
+**Changes and Improvements:**
+
+**Bugfixes:**
+
 ### 2.22.1 (February 28, 2021)
 
 **Changes and Improvements:**

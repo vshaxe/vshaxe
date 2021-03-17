@@ -3,22 +3,23 @@ package vshaxe.configuration;
 import haxe.Json;
 
 class ConfigurationWrapper<Config> {
+	public final accessor:ConfigurationAccessor<Config>;
 	@:nullSafety(Off) public var configuration(default, null):Config;
 	public var onDidChangeConfiguration(get, never):Event<Config>;
 
-	final _onDidChangeConfiguration:EventEmitter<Config>;
 	final section:String;
 	final folder:WorkspaceFolder;
 	final changeConfigurationListener:Disposable;
 
 	final function get_onDidChangeConfiguration()
-		return _onDidChangeConfiguration.event;
+		return accessor.onDidChangeConfiguration;
 
 	public function new(section, folder) {
 		this.section = section;
 		this.folder = folder;
-		_onDidChangeConfiguration = new EventEmitter();
+		accessor = new ConfigurationAccessor();
 		@:nullSafety(Off) updateConfig();
+		accessor.set(@:nullSafety(Off) copyConfig());
 		changeConfigurationListener = workspace.onDidChangeConfiguration(onWorkspaceConfigurationChanged);
 	}
 
@@ -36,7 +37,7 @@ class ConfigurationWrapper<Config> {
 		final oldConfig = configuration;
 		updateConfig();
 		if (!isSame(configuration, oldConfig))
-			_onDidChangeConfiguration.fire(configuration);
+			accessor.set(copyConfig());
 	}
 
 	function isSame(oldConfig:Config, newConfig:Config):Bool {
@@ -44,6 +45,10 @@ class ConfigurationWrapper<Config> {
 	}
 
 	function updateConfig() {
+		throw "to be implemented";
+	}
+
+	function copyConfig():Config {
 		throw "to be implemented";
 	}
 }

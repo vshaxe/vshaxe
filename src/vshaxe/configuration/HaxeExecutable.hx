@@ -49,6 +49,16 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 		update();
 	}
 
+	override function copyConfig():HaxeExecutableConfiguration {
+		return {
+			executable: configuration.executable,
+			source: configuration.source,
+			isCommand: configuration.isCommand,
+			version: configuration.version,
+			env: configuration.env
+		}
+	}
+
 	override function updateConfig() {
 		final input:HaxeExecutablePathOrConfig = workspace.getConfiguration("haxe", folder.uri).get("executable", "haxe");
 

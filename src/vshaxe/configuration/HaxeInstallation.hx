@@ -60,7 +60,7 @@ class HaxeInstallation {
 		@:nullSafety(Off) final env = haxe.configuration.env.copy();
 		// if we have a custom haxelib executable, we need to make sure it's in the PATH of Haxe
 		// - otherwise `haxelib run hxcpp/hxjava/hxcs` that Haxe runs on those targets will fail
-		var haxelib = haxelib.configuration;
+		var haxelib = haxelib.configuration.executable;
 		if (!Path.isAbsolute(haxelib)) {
 			haxelib = PathHelper.absolutize(haxelib, folder.uri.fsPath);
 		}
@@ -189,7 +189,7 @@ class HaxeInstallation {
 	}
 
 	function getLibraryBasePath():Null<String> {
-		final output = getProcessOutput('${haxelib.configuration} config')[0];
+		final output = getProcessOutput('${haxelib.configuration.executable} config')[0];
 		return if (output == null) {
 			trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
 			null;
