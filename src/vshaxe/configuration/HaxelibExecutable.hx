@@ -1,70 +1,30 @@
 package vshaxe.configuration;
 
-import haxe.extern.EitherType;
+class HaxelibExecutable extends ConfigurationWrapper<HaxelibExecutableConfiguration> {
+	var autoResolveValue:Null<String>;
 
-private typedef RawHaxelibExecutableConfig = {
-	final path:String;
-}
-
-private typedef HaxelibExecutablePathOrConfigBase = EitherType<String, RawHaxelibExecutableConfig>;
-
-typedef HaxelibExecutablePathOrConfig = EitherType<String, RawHaxelibExecutableConfig & {
-	final ?windows:RawHaxelibExecutableConfig;
-	final ?linux:RawHaxelibExecutableConfig;
-	final ?osx:RawHaxelibExecutableConfig;
-}>;
-
-private typedef HaxelibExecutableConfiguration = vshaxe.HaxelibExecutableConfiguration & {
-	final ?version:String;
-}
-
-class HaxelibExecutable extends BaseExecutable<HaxelibExecutableConfiguration> {
 	public function new(folder) {
-		super("haxelib", folder);
+		super("haxelib.executable", folder);
+	}
+
+	public function setAutoResolveValue(value:Null<String>) {
+		autoResolveValue = value;
+		update();
 	}
 
 	override function copyConfig():HaxelibExecutableConfiguration {
 		return {
-			executable: configuration.executable,
-			source: configuration.source,
-			isCommand: configuration.isCommand,
-			version: configuration.version
+			executable: configuration.executable
 		}
 	}
 
 	override function updateConfig() {
-		final input:HaxelibExecutablePathOrConfig = workspace.getConfiguration("haxelib", folder.uri).get("executable", "haxelib");
-
-		var executable = "auto";
-		isDefault = false;
-
-		function merge(conf:HaxelibExecutablePathOrConfigBase) {
-			if (conf is String) {
-				executable = conf;
-			} else {
-				final conf:RawHaxelibExecutableConfig = conf;
-				if (conf.path != null) {
-					executable = conf.path;
-				}
-			}
+		var executable = workspace.getConfiguration("haxelib", folder.uri).get("executable", "haxelib");
+		if (executable == "auto") {
+			executable = if (autoResolveValue == null) "haxelib" else autoResolveValue;
 		}
-
-		merge(input);
-		final systemConfig = getSystemConfig(input);
-		if (systemConfig != null)
-			merge(systemConfig);
-
-		final executable = processExecutable(executable);
-
 		configuration = {
-			executable: executable.executable,
-			source: executable.source,
-			isCommand: executable.isCommand,
-			version: getVersion(executable.isCommand ? executable.executable : '"' + executable.executable + '"')
+			executable: executable
 		}
-	}
-
-	function getVersion(haxelibExecutable:String):Null<String> {
-		return readCommand(haxelibExecutable, ["version"]);
 	}
 }

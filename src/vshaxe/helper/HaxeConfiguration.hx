@@ -292,14 +292,7 @@ class HaxeConfiguration {
 
 	function resolveHaxelibs(libs:ReadOnlyArray<String>):Array<String> {
 		final hxml = [];
-		final haxelib = {
-			final config = haxeInstallation.haxelib.configuration;
-			if (config.isCommand) {
-				config.executable;
-			} else {
-				'"' + config.executable + '"';
-			}
-		}
+		final haxelib = haxeInstallation.haxelib.configuration.executable;
 		final output = getProcessOutput('$haxelib path ${libs.join(" ")}');
 		for (line in output) {
 			line = line.trim();

@@ -7,17 +7,6 @@ package vshaxe;
 typedef HaxelibExecutableConfiguration = {
 	/**
 		Absolute path to the Haxelib executable, or a command / alias like `"haxelib"`.
-		Use `isCommand` to check.
 	**/
 	var executable(default, never):String;
-
-	/**
-		How `executable` was determined.
-	**/
-	var source(default, never):ExecutableSource;
-
-	/**
-		Whether `executable` is a command (`true`) or an absolute path (`false`).
-	**/
-	var isCommand(default, never):Bool;
 }

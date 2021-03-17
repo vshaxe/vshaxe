@@ -6,11 +6,7 @@
 
 **Changes and Improvements:**
 
-- deprecated `vshaxe.HaxeExecutableSource` in favor of `vshaxe.ExecutableSource`
-
 **Bugfixes:**
-
-- fixed using Haxelib with whitespace in its path.
 
 ### 2.22.1 (February 28, 2021)
 

@@ -14,7 +14,7 @@ typedef HaxeExecutableConfiguration = {
 		How `executable` was determined.
 		@since 2.13.0
 	**/
-	var source(default, never):ExecutableSource;
+	var source(default, never):HaxeExecutableSource;
 
 	/**
 		Whether `executable` is a command (`true`) or an absolute path (`false`).
