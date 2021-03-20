@@ -8,6 +8,8 @@
 
 **Bugfixes:**
 
+- fixed env vars being lowercased on eval/Windows with compilation server ([#482](https://github.com/vshaxe/vshaxe/issues/482))
+
 ### 2.22.1 (February 28, 2021)
 
 **Changes and Improvements:**
