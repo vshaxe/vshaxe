@@ -2,9 +2,11 @@
 
 **New Features:**
 
-- added `haxelibExecutable` to the extension API
+- added `haxelibExecutable` to the extension API ([#479](https://github.com/vshaxe/vshaxe/issues/479))
 
 **Changes and Improvements:**
+
+- format unresolved identifier diagnostics the same as the corresponding Haxe error ([#483](https://github.com/vshaxe/vshaxe/issues/483))
 
 **Bugfixes:**
 
