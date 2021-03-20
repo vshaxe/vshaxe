@@ -1,4 +1,4 @@
-### 2.23.0 (to be released)
+### 2.23.0 (March 20, 2021)
 
 **New Features:**
 
