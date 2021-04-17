@@ -1,3 +1,9 @@
+### 2.23.1 (April 17, 2021)
+
+**Bugfixes:**
+
+- fixed case-sensitive env variable merging on Windows ([haxe-languageserver#52](https://github.com/vshaxe/haxe-languageserver/pull/52))
+
 ### 2.23.0 (March 20, 2021)
 
 **New Features:**
