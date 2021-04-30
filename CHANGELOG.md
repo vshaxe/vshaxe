@@ -1,3 +1,9 @@
+### 2.23.2 (April 30, 2021)
+
+**Bugfixes:**
+
+- fixed HashLink bytecode grammar file missing from releases ([#490](https://github.com/vshaxe/vshaxe/issues/490))
+
 ### 2.23.1 (April 17, 2021)
 
 **Bugfixes:**

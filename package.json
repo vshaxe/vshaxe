@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.23.1",
+	"version": "2.23.2",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.42.0"
@@ -955,7 +955,7 @@
 			{
 				"language": "HashLink bytecode dump",
 				"scopeName": "source.hlcode",
-				"path": "./syntaxes/hlcode.json"
+				"path": "./syntaxes/hlcode.tmLanguage"
 			},
 			{
 				"language": "haxe.type",
