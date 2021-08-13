@@ -1,4 +1,4 @@
-# @install: lix --silent download "haxelib:/vscode#1.52.0" into vscode/1.52.0/haxelib
+# @install: lix --silent download "haxelib:/vscode#1.59.0" into vscode/1.59.0/haxelib
 -lib hxnodejs
--cp ${HAXE_LIBCACHE}/vscode/1.52.0/haxelib/src
--D vscode=1.52.0
+-cp ${HAXE_LIBCACHE}/vscode/1.59.0/haxelib/src
+-D vscode=1.59.0
