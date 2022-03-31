@@ -1,3 +1,9 @@
+### 2.23.3 (March 31, 2022)
+
+**Changes and Improvements:**
+
+- updated to haxe-formatter version [1.13.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.13.0)
+
 ### 2.23.2 (April 30, 2021)
 
 **Bugfixes:**
