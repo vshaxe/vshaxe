@@ -1,8 +1,9 @@
 package vshaxe.view.cache;
 
-import haxe.display.JsonModuleTypes.JsonTypePath;
+import haxe.display.JsonModuleTypes;
 import haxe.display.Server;
 import haxe.ds.ArraySort;
+import haxe.format.JsonPrinter;
 import vshaxe.server.LanguageServer;
 
 class CacheTreeView {
@@ -172,10 +173,38 @@ class CacheTreeView {
 							new Node("path", printPath(cast result.path), Leaf, node),
 							new Node("file", result.file, Leaf, node),
 							new Node("sign", result.sign, Leaf, node),
-							new Node("types", Std.string(types.length), StringList(types), node),
+							new Node("types", Std.string(types.length), TypeList(sign, path, types), node),
 							new Node("dependencies", Std.string(result.dependencies.length), ModuleList(result.dependencies), node)
 						];
 					}, reject -> reject);
+				case TypeList(sign, modulePath, types):
+					final nodes = [];
+					for (name in types) {
+						nodes.push(new Node(name, null, TypeInfo(sign, modulePath, name)));
+					}
+					nodes;
+				case TypeInfo(sign, modulePath, typeName):
+					function process<T>(result:JsonModuleType<T>) {
+						final nodes = [new Node("name", result.name, Leaf, node)];
+						switch [result.kind, result.args] {
+							case [Class, args]:
+								if (args.statics.length > 0) {
+									nodes.push(new Node("statics", null, FieldList(args.statics), node));
+								}
+							case [Enum, args]:
+							case [Typedef, args]:
+							case [Abstract, args]:
+						}
+						return nodes;
+					}
+					server.runMethod(ServerMethods.Type, {signature: sign, modulePath: modulePath, typeName: typeName}).then(process, reject -> reject);
+				case FieldList(fields):
+					return fields.map(field -> new Node(field.name, null, FieldInfo(field), node));
+				case FieldInfo(field):
+					return [
+						new Node("name", field.name, Leaf, node),
+						new Node("type", JsonPrinter.print(field.type), Leaf, node) // TODO: figure out how to access DisplayPrinter
+					];
 				case Leaf:
 					[];
 			}

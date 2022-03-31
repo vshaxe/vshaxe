@@ -1,5 +1,6 @@
 package vshaxe.view.cache;
 
+import haxe.display.JsonModuleTypes;
 import haxe.display.Position.Location;
 import haxe.display.Server;
 
@@ -13,6 +14,10 @@ enum Kind {
 	ContextFiles(ctx:HaxeServerContext);
 	ModuleInfo(sign:String, path:String);
 	ModuleList(modules:Array<ModuleId>);
+	TypeList(sign:String, modulePath:String, types:Array<String>);
+	TypeInfo(sign:String, modulePath:String, typeName:String);
+	FieldList(fields:JsonClassFields);
+	FieldInfo(field:JsonClassField);
 	StringList(strings:Array<String>);
 	StringMapping(mapping:Array<{key:String, value:String}>);
 	Nodes(nodes:Array<Node>);
