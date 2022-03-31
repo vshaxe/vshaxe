@@ -197,7 +197,11 @@ class CacheTreeView {
 						}
 						return nodes;
 					}
+					#if (haxe_ver >= "4.3.0")
 					server.runMethod(ServerMethods.Type, {signature: sign, modulePath: modulePath, typeName: typeName}).then(process, reject -> reject);
+					#else
+					[];
+					#end
 				case FieldList(fields):
 					return fields.map(field -> new Node(field.name, null, FieldInfo(field), node));
 				case FieldInfo(field):
