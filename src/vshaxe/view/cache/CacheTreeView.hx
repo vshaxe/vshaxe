@@ -173,6 +173,8 @@ class CacheTreeView {
 							new Node("path", printPath(cast result.path), Leaf, node),
 							new Node("file", result.file, Leaf, node),
 							new Node("sign", result.sign, Leaf, node),
+							#if (haxe_ver >= "4.3.0") new Node("dirty", result.dirty == null ? "no" : result.dirty, Leaf, node),
+							#end
 							new Node("types", Std.string(types.length), TypeList(sign, path, types), node),
 							new Node("dependencies", Std.string(result.dependencies.length), ModuleList(result.dependencies), node)
 						];
