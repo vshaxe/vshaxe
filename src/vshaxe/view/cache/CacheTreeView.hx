@@ -193,6 +193,9 @@ class CacheTreeView {
 								if (args.statics.length > 0) {
 									nodes.push(new Node("statics", null, FieldList(args.statics), node));
 								}
+								if (args.fields.length > 0) {
+									nodes.push(new Node("fields", null, FieldList(args.fields), node));
+								}
 							case [Enum, args]:
 							case [Typedef, args]:
 							case [Abstract, args]:
