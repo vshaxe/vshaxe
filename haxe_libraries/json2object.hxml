@@ -1,4 +1,4 @@
-# @install: lix --silent download "haxelib:/json2object#3.9.0" into json2object/3.9.0/haxelib
+# @install: lix --silent download "haxelib:/json2object#3.10.0" into json2object/3.10.0/haxelib
 -lib hxjsonast
--cp ${HAXE_LIBCACHE}/json2object/3.9.0/haxelib/src
--D json2object=3.9.0
+-cp ${HAXE_LIBCACHE}/json2object/3.10.0/haxelib/src
+-D json2object=3.10.0
