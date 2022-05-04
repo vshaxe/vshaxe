@@ -750,6 +750,11 @@
 					"type": "integer",
 					"default": 1000,
 					"markdownDescription": "Upper limit for the number of completion items that can be shown at once."
+				},
+				"haxe.enableGutterColors": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Try to detect `0xAA/RRGGBB` colors in code and show in gutter"
 				}
 			}
 		},

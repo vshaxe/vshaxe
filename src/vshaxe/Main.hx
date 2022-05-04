@@ -39,6 +39,8 @@ function main(context:ExtensionContext) {
 	final haxeConfiguration = new HaxeConfiguration(context, folder, displayArguments, haxeInstallation);
 	context.subscriptions.push(haxeConfiguration);
 
+	ColorDecorations.init(context);
+
 	final problemMatchers = ["$haxe-absolute", "$haxe", "$haxe-error", "$haxe-trace"];
 	final api = {
 		haxeExecutable: haxeInstallation.haxe,
