@@ -7,7 +7,7 @@ import haxeLanguageServer.DisplayServerConfig;
 import haxeLanguageServer.LanguageServerMethods;
 import js.lib.Promise;
 import jsonrpc.Types;
-import languageServerProtocol.Types.DocumentUri;
+import languageServerProtocol.textdocument.TextDocument.DocumentUri;
 import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
 import vshaxe.server.LanguageClient;
