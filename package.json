@@ -741,6 +741,11 @@
 						}
 					}
 				},
+				"haxe.enableBraceBodyWrapping": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Add closing brace at the end of one-line `if/for/while` body expressions"
+				},
 				"haxe.enableExtendedIndentation": {
 					"type": "boolean",
 					"default": false,
