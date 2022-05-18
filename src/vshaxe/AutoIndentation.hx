@@ -8,13 +8,16 @@ class AutoIndentation {
 
 	final context:ExtensionContext;
 	var typeDisposable:Null<Disposable>;
+	var changeDisposable:Null<Disposable>;
 
 	public function new(context:ExtensionContext) {
 		this.context = context;
 
 		updateExtendedIndentation();
+		updateBraceBodyWrapping();
 		updateLanguageConfiguration();
 
+		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateBraceBodyWrapping()));
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> updateExtendedIndentation()));
 	}
 
@@ -72,12 +75,12 @@ class AutoIndentation {
 	function type(args:{text:String}) {
 		final editor = window.activeTextEditor;
 		if (editor != null && editor.document.languageId == "haxe" && args.text == "{") {
-			indentCurlyBracket(editor);
+			indentOpenBrace(editor);
 		}
 		commands.executeCommand('default:type', args);
 	}
 
-	function indentCurlyBracket(editor:TextEditor) {
+	function indentOpenBrace(editor:TextEditor) {
 		final lines:Array<{range:Range, spaces:String}> = [];
 		for (selection in editor.selections) {
 			if (!selection.isEmpty || selection.active.line == 0) {
@@ -106,5 +109,63 @@ class AutoIndentation {
 				edit.replace(line.range, line.spaces);
 			}
 		}, {undoStopBefore: false, undoStopAfter: false});
+	}
+
+	function updateBraceBodyWrapping() {
+		final wasEnabled = changeDisposable != null;
+		final enabled = workspace.getConfiguration("haxe").get("enableBraceBodyWrapping", false);
+		if (enabled == wasEnabled) {
+			return;
+		}
+		if (enabled) {
+			changeDisposable = workspace.onDidChangeTextDocument(wrapBraceBody);
+			context.subscriptions.push(changeDisposable);
+		} else {
+			if (changeDisposable != null) {
+				changeDisposable.dispose();
+			}
+			changeDisposable = null;
+		}
+	}
+
+	function wrapBraceBody(event:TextDocumentChangeEvent):Void {
+		final editor = window.activeTextEditor ?? return;
+		if (editor.document.fileName != event.document.fileName)
+			return;
+		final edits:Array<TextDocumentContentChangeEvent> = [];
+		for (change in event.contentChanges) {
+			if (change.rangeLength != 0 || change.text != '{}')
+				continue;
+			final lineCount = editor.document.lineCount;
+			final lineIndex = change.range.start.line;
+			final curLine = editor.document.lineAt(lineIndex);
+			if (lineCount > lineIndex + 1) {
+				final nextLine = editor.document.lineAt(lineIndex + 1);
+				if (curLine.firstNonWhitespaceCharacterIndex < nextLine.firstNonWhitespaceCharacterIndex) {
+					var surround = false;
+					if (lineCount > lineIndex + 1) {
+						final nextNextLine = editor.document.lineAt(lineIndex + 2);
+						if (nextNextLine.firstNonWhitespaceCharacterIndex < nextLine.firstNonWhitespaceCharacterIndex) {
+							surround = true;
+						}
+					} else {
+						surround = true;
+					}
+					if (surround) {
+						edits.push(change);
+					}
+				}
+			}
+		}
+		if (edits.length == 0)
+			return;
+		editor.edit(builder -> {
+			for (edit in edits) {
+				final curLine = editor.document.lineAt(edit.range.start.line);
+				final nextLine = editor.document.lineAt(edit.range.start.line + 1);
+				builder.delete(new Range(edit.range.end.translate(0, 1), edit.range.end.translate(0, 2)));
+				builder.insert(nextLine.range.end, '\n' + curLine.text.substr(0, curLine.firstNonWhitespaceCharacterIndex) + '}');
+			}
+		}, {undoStopBefore: false, undoStopAfter: true});
 	}
 }
