@@ -1,3 +1,3 @@
-# @install: lix --silent download "haxelib:/rename#2.2.1" into rename/2.2.1/haxelib
--cp ${HAXE_LIBCACHE}/rename/2.2.1/haxelib/src
--D rename=2.2.1
+# @install: lix --silent download "haxelib:/rename#2.2.2" into rename/2.2.2/haxelib
+-cp ${HAXE_LIBCACHE}/rename/2.2.2/haxelib/src
+-D rename=2.2.2
