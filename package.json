@@ -26,7 +26,7 @@
 	},
 	"devDependencies": {
 		"lix": "^15.10.1",
-		"@zeit/ncc": "^0.22.3"
+		"@vercel/ncc": "^0.33.4"
 	},
 	"bugs": "https://github.com/vshaxe/vshaxe/issues",
 	"homepage": "https://github.com/vshaxe/vshaxe/blob/master/README.md",
