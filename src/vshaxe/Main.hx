@@ -1,5 +1,7 @@
 package vshaxe;
 
+import js.lib.Promise;
+import sys.io.File;
 import vshaxe.commands.Commands;
 import vshaxe.commands.InitProject;
 import vshaxe.configuration.HaxeInstallation;
@@ -15,6 +17,8 @@ import vshaxe.tasks.HxmlTaskProvider;
 import vshaxe.tasks.TaskConfiguration;
 import vshaxe.view.HaxeServerViewContainer;
 import vshaxe.view.dependencies.DependencyTreeView;
+
+var server:Null<LanguageServer>;
 
 @:expose("activate")
 function main(context:ExtensionContext) {
@@ -52,7 +56,7 @@ function main(context:ExtensionContext) {
 		getActiveConfiguration: haxeConfiguration.getActiveConfiguration
 	};
 
-	final server = new LanguageServer(folder, context, haxeInstallation, displayArguments, api);
+	server = new LanguageServer(folder, context, haxeInstallation, displayArguments, api);
 	context.subscriptions.push(server);
 
 	new HaxeCodeLensProvider();
@@ -118,4 +122,12 @@ private function scheduleStartup(displayArguments:DisplayArguments, haxeInstalla
 
 	// maybe we're ready right away
 	maybeStartServer();
+}
+
+@:expose("deactivate")
+function deactivate() {
+	if (server != null) {
+		return server.stop();
+	}
+	return Promise.resolve();
 }

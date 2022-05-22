@@ -3,9 +3,9 @@ package vshaxe.server;
 import haxe.display.Protocol.HaxeRequestMethod;
 import haxe.display.Protocol.Response;
 import haxe.extern.Rest;
+import js.lib.Promise;
 import haxeLanguageServer.DisplayServerConfig;
 import haxeLanguageServer.LanguageServerMethods;
-import js.lib.Promise;
 import jsonrpc.Types;
 import languageServerProtocol.textdocument.TextDocument.DocumentUri;
 import vshaxe.configuration.HaxeInstallation;
@@ -152,7 +152,7 @@ class LanguageServer {
 		};
 
 		final client = new LanguageClient("haxe", "Haxe", serverOptions, clientOptions);
-		client.onReady().then(function(_) {
+		client.start().then(function(_) {
 			client.outputChannel.appendLine("Haxe language server started");
 
 			clientStartingUp = false;
@@ -174,8 +174,18 @@ class LanguageServer {
 		});
 
 		clientStartingUp = true;
-		restartDisposables.push(client.start());
 		this.client = client;
+	}
+
+	public function stop() {
+		dispose();
+		if (client != null) {
+			if (client.outputChannel != null) {
+				client.outputChannel.dispose();
+			}
+			return client.stop();
+		}
+		return Promise.resolve();
 	}
 
 	/**
@@ -210,14 +220,24 @@ class LanguageServer {
 	}
 
 	public function restart() {
-		if (client != null && client.outputChannel != null)
-			client.outputChannel.dispose();
+		function disposeAndRestart() {
+			for (d in restartDisposables) {
+				d.dispose();
+			}
+			restartDisposables = [];
+			start();
+		}
 
-		for (d in restartDisposables)
-			d.dispose();
-		restartDisposables = [];
-
-		start();
+		if (client != null) {
+			if (client.outputChannel != null) {
+				client.outputChannel.clear();
+			}
+			client.stop().then(function(_) {
+				disposeAndRestart();
+			});
+		} else {
+			disposeAndRestart();
+		}
 	}
 
 	public inline function runGlobalDiagnostics() {

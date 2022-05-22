@@ -7,6 +7,7 @@ import jsonrpc.Protocol;
 import jsonrpc.ResponseError;
 import jsonrpc.Types.Message;
 import jsonrpc.Types.NoData;
+import languageServerProtocol.Types.InlayHint;
 import languageServerProtocol.protocol.Protocol.ClientCapabilities;
 import languageServerProtocol.protocol.Protocol.InitializeError;
 import languageServerProtocol.protocol.Protocol.InitializeParams;
@@ -45,8 +46,7 @@ extern class LanguageClient {
 	function error(message:String, ?data:Any):Void;
 	function needsStart():Bool;
 	function needsStop():Bool;
-	function onReady():Promise<Void>;
-	function start():Disposable;
+	function start():Thenable<Void>;
 	function stop():Thenable<Void>;
 	function registerFeatures(features:Array<EitherType<StaticFeature, DynamicFeature<Any>>>):Void;
 	function registerFeature(feature:EitherType<StaticFeature, DynamicFeature<Any>>):Void;
@@ -304,6 +304,7 @@ typedef ProvideWorkspaceSymbolsSignature = (query:String, token:CancellationToke
 typedef ProvideCodeActionsSignature = (document:TextDocument, range:Range, context:CodeActionContext,
 	token:CancellationToken) -> ProviderResult<Array<Command>>;
 
+typedef ResolveCodeActionSignature = (item:CodeAction, token:CancellationToken) -> ProviderResult<CodeAction>;
 typedef ProvideCodeLensesSignature = (document:TextDocument, token:CancellationToken) -> ProviderResult<Array<CodeLens>>;
 typedef ResolveCodeLensSignature = (codeLens:CodeLens, token:CancellationToken) -> ProviderResult<CodeLens>;
 
@@ -321,6 +322,8 @@ typedef ProvideDocumentLinksSignature = (document:TextDocument, token:Cancellati
 typedef ResolveDocumentLinkSignature = (link:DocumentLink, token:CancellationToken) -> ProviderResult<DocumentLink>;
 typedef NextSignature<P, R> = (data:P, next:(data:P) -> R) -> R;
 typedef DidChangeConfigurationSignature = (sections:Null<Array<String>>) -> Void;
+typedef ProvideInlayHintsSignature = (document:TextDocument, viewPort:Range, token:CancellationToken) -> ProviderResult<Array<InlayHint>>;
+typedef ResolveInlayHintSignature = (item:InlayHint, token:CancellationToken) -> ProviderResult<InlayHint>;
 
 typedef WorkspaceMiddleware = {
 	?didChangeConfiguration:(sections:Null<Array<String>>, next:DidChangeConfigurationSignature) -> Void
@@ -353,6 +356,7 @@ typedef Middleware = {
 	?provideWorkspaceSymbols:(query:String, token:CancellationToken, next:ProvideWorkspaceSymbolsSignature) -> ProviderResult<Array<SymbolInformation>>,
 	?provideCodeActions:(document:TextDocument, range:Range, context:CodeActionContext, token:CancellationToken,
 		next:ProvideCodeActionsSignature) -> ProviderResult<Array<Command>>,
+	?resolveCodeAction:(item:CodeAction, token:CancellationToken, next:ResolveCodeActionSignature) -> ProviderResult<CodeAction>,
 	?provideCodeLenses:(document:TextDocument, token:CancellationToken, next:ProvideCodeLensesSignature) -> ProviderResult<Array<CodeLens>>,
 	?resolveCodeLens:(codeLens:CodeLens, token:CancellationToken, next:ResolveCodeLensSignature) -> ProviderResult<CodeLens>,
 	?provideDocumentFormattingEdits:(document:TextDocument, options:FormattingOptions, token:CancellationToken,
@@ -365,5 +369,7 @@ typedef Middleware = {
 		next:ProvideRenameEditsSignature) -> ProviderResult<WorkspaceEdit>,
 	?provideDocumentLinks:(document:TextDocument, token:CancellationToken, next:ProvideDocumentLinksSignature) -> ProviderResult<Array<DocumentLink>>,
 	?resolveDocumentLink:(link:DocumentLink, token:CancellationToken, next:ResolveDocumentLinkSignature) -> ProviderResult<DocumentLink>,
+	?provideInlayHints:(document:TextDocument, viewPort:Range, token:CancellationToken, next:ProvideInlayHintsSignature) -> ProviderResult<Array<InlayHint>>,
+	?resolveInlayHint:(item:InlayHint, token:CancellationToken, next:ResolveInlayHintSignature) -> ProviderResult<InlayHint>,
 	?workspace:WorkspaceMiddleware
 }
