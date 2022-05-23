@@ -3,7 +3,7 @@
 	"version": "2.23.3",
 	"publisher": "nadako",
 	"engines": {
-		"vscode": "^1.42.0"
+		"vscode": "^1.67.0"
 	},
 	"displayName": "Haxe",
 	"description": "Haxe language support",
