@@ -8,7 +8,8 @@ class VshaxeChangelogPrompt {
 	public function new(context:ExtensionContext) {
 		final memento = new HaxeMementoKey<String>("vshaxeVersion");
 		final globalState = context.globalState;
-		final version = readVersion() ?? return;
+		final packageJson:{version:String} = context.extension.packageJSON;
+		final version = packageJson.version;
 		final lastSeenVersion = globalState.get(memento, "");
 		if (lastSeenVersion == version)
 			return;
@@ -20,16 +21,5 @@ class VshaxeChangelogPrompt {
 				env.openExternal(Uri.parse("https://github.com/vshaxe/vshaxe/blob/master/CHANGELOG.md"));
 			globalState.update(memento, version);
 		});
-	}
-
-	function readVersion():Null<String> {
-		final ext = extensions.getExtension("nadako.vshaxe");
-		if (ext == null)
-			return null;
-		final extensionPath = ext.extensionPath;
-		if (extensionPath == null)
-			return null;
-		final path = Path.join([extensionPath, "package.json"]);
-		return Json.parse(File.getContent(path)).version;
 	}
 }
