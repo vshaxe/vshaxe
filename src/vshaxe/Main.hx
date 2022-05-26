@@ -67,6 +67,7 @@ function main(context:ExtensionContext) {
 	final haxeDisplayArgumentsProvider = new HaxeDisplayArgumentsProvider(context, displayArguments, hxmlDiscovery);
 	new Commands(context, server, haxeDisplayArgumentsProvider);
 	new ExtensionRecommender(context, folder).run();
+	new VshaxeChangelogPrompt(context);
 
 	final taskConfiguration = new TaskConfiguration(haxeInstallation, problemMatchers, server, api);
 	new HxmlTaskProvider(taskConfiguration, hxmlDiscovery);
