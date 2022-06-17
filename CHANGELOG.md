@@ -20,6 +20,7 @@ This version requires VSCode 1.67 or above.
 - fixed compilation server process might not terminate after closing workspace
 - fixed completion was triggered after `case:`
 - fixed type hint completion replace range
+- fixed `ctrl+hover` definition preview
 
 ### 2.23.3 (March 31, 2022)
 
