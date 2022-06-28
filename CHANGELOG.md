@@ -1,26 +1,28 @@
-### 2.24.0
+### 2.24.0 (June 28, 2022)
 
 This version requires VSCode 1.67 or above.
 
 **New Features:**
 
 - added `Rename Symbol` action support for renaming variables, fields, types and packages (learn more on [wiki/Rename-Symbol](https://github.com/vshaxe/vshaxe/wiki/Rename-Symbol))
-- `0xAARRGGBB` and `0xRRGGBB` hex values will now be highlighted as colors in code. You can disable this feature with `"[haxe]": {"editor.colorDecorators": false}` in your `settings.json`
-- added `"haxe.enableBraceBodyWrapping"` option (see [this issue](https://github.com/microsoft/vscode/issues/26968) for example)
-- added VSHaxe release notes prompt after extension update
+- `0xAARRGGBB` and `0xRRGGBB` hex values will now be highlighted as colors in code. You can disable this feature with `"[haxe]": {"editor.colorDecorators": false}` in your `settings.json` ([haxe-languageserver#59](https://github.com/vshaxe/haxe-languageserver/pull/59))
+- added `"haxe.enableBraceBodyWrapping"` option ([#525](https://github.com/vshaxe/vshaxe/pull/525), see [this issue](https://github.com/microsoft/vscode/issues/26968) for example)
+- added VSHaxe release notes prompt after extension update ([#528](https://github.com/vshaxe/vshaxe/pull/528))
 
 **Changes and Improvements:**
 
 - toplevel completion will be smarter for modules with same name ([#518](https://github.com/vshaxe/vshaxe/issues/518))
-- `{required fields...}` item is now before `{all fields...}` for objects generation
-- improved positions for generated class fields ([#62](https://github.com/vshaxe/haxe-language-server/pull/62))
+- `{required fields...}` item is now before `{all fields...}` for objects generation ([haxe-languageserver#56](https://github.com/vshaxe/haxe-language-server/pull/56))
+- improved positions for generated class fields ([haxe-languageserver#62](https://github.com/vshaxe/haxe-language-server/pull/62))
+- improved sorting for deprecated types in completion ([haxe-languageserver#66](https://github.com/vshaxe/haxe-language-server/pull/66))
 
 **Bugfixes:**
 
-- fixed compilation server process might not terminate after closing workspace
-- fixed completion was triggered after `case:`
-- fixed type hint completion replace range
-- fixed `ctrl+hover` definition preview
+- fixed compilation server process might not terminate after closing workspace ([#526](https://github.com/vshaxe/vshaxe/issues/526))
+- fixed type hint completion replace range ([haxe-languageserver#60](https://github.com/vshaxe/haxe-language-server/pull/60))
+- fixed completion was triggered after `case:` ([haxe-languageserver#61](https://github.com/vshaxe/haxe-language-server/pull/61))
+- fixed signature hints for functions without documentation ([haxe-languageserver#63](https://github.com/vshaxe/vshaxe/issues/63))
+- fixed <kbd>Ctrl</kbd>+<kbd>Hover</kbd> definition preview ([haxe-languageserver#64](https://github.com/vshaxe/haxe-language-server/pull/64))
 
 ### 2.23.3 (March 31, 2022)
 
