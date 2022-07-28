@@ -1,3 +1,8 @@
+### 2.24.1 (July 28, 2022)
+
+**Bugfixes:**
+ - fixed Organize Imports losing a final newline when formatter configuration has `emptyLines.finalNewline` set to `false`
+
 ### 2.24.0 (June 28, 2022)
 
 This version requires VSCode 1.67 or above.
