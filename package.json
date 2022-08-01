@@ -755,6 +755,11 @@
 					"type": "integer",
 					"default": 1000,
 					"markdownDescription": "Upper limit for the number of completion items that can be shown at once."
+				},
+				"haxe.renameSourceFolders": {
+					"deprecationMessage": "Folders to look for renamable identifiers. Rename will not see or touch files outside of those folders.",
+					"type": "array",
+					"default": ["src", "source", "Source", "test", "tests"]
 				}
 			}
 		},
