@@ -46,4 +46,9 @@ class PathHelper {
 		}
 		return path;
 	}
+
+	public static function sanitizeComas(path:String) {
+		// https://github.com/microsoft/vscode/issues/70830
+		return path.split(",").join("[,]");
+	}
 }
