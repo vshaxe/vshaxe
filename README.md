@@ -44,3 +44,7 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Code Lens](https://github.com/vshaxe/vshaxe/wiki/Code-Lens) (<kbd>F1</kbd> -> [Haxe: Toggle Code Lens](https://github.com/vshaxe/vshaxe/wiki/Commands#haxe-toggle-code-lens))
 - [Formatting](https://github.com/vshaxe/vshaxe/wiki/Formatting) (<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd>)
 - [Extension API](https://github.com/vshaxe/vshaxe/wiki/Extension-API)
+
+## Building
+
+For instructions on building/installing from source, please see the dedicated [wiki page.](https://github.com/vshaxe/vshaxe/wiki/Installation)
