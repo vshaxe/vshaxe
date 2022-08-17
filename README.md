@@ -45,28 +45,6 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Formatting](https://github.com/vshaxe/vshaxe/wiki/Formatting) (<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd>)
 - [Extension API](https://github.com/vshaxe/vshaxe/wiki/Extension-API)
 
-## Development
+## Building
 
-To work on this project locally, you must first install all the npm/lix dependencies:
-
-```sh
-npm install
-```
-
-You also must have [VSCode](https://code.visualstudio.com) and [vsce](https://github.com/microsoft/vscode-vsce#usage) installed and available in PATH.
-
-You can then build the extension using:
-
-```sh
-npx lix run vshaxe-build -t vshaxe
-```
-
-And then package and install the extension via:
-
-```sh
-npx lix Install
-```
-
-### Building in VSCode
-
-To work on `vshaxe` within VSCode, it is recommended to use the [vsbuild-haxe](https://github.com/vshaxe/vshaxe-build) extension, which integrates the build system used by `vshaxe` with VSCode. See the dedicated repository for detailed [installation instructions](https://github.com/vshaxe/vshaxe-build#building).
+For instructions on building/installing from source, please see the dedicated [wiki page.](https://github.com/vshaxe/vshaxe/wiki/Installation)
