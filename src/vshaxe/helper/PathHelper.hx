@@ -47,7 +47,7 @@ class PathHelper {
 		return path;
 	}
 
-	public static function sanitizeComas(path:String) {
+	public static function sanitizeCommasForFindInFiles(path:String) {
 		// https://github.com/microsoft/vscode/issues/70830
 		return path.split(",").join("[,]");
 	}
