@@ -22,7 +22,10 @@ function main() {
 		restoreVscodeIgnore();
 	}
 	try {
-		Sys.command("vsce package");
+		final out = Sys.command("vsce package");
+		if (out != 0) {
+			throw "Error: Failed to generate vsix file";
+		}
 
 		// if it didn't fail, there should be a .vsix now
 		final vsixFiles = FileSystem.readDirectory(".").filter(file -> file.endsWith(".vsix"));
