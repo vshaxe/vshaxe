@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.24.1",
+	"version": "2.25.0",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.67.0"
@@ -757,9 +757,44 @@
 					"markdownDescription": "Upper limit for the number of completion items that can be shown at once."
 				},
 				"haxe.renameSourceFolders": {
-					"deprecationMessage": "Folders to look for renamable identifiers. Rename will not see or touch files outside of those folders.",
+					"markdownDescription": "Folders to look for renamable identifiers. Rename will not see or touch files outside of those folders.",
 					"type": "array",
 					"default": ["src", "source", "Source", "test", "tests"]
+				},
+				"haxe.importsSortOrder": {
+					"markdownDescription": "Sort order of imports",
+					"type": "string",
+					"default": "all-alphabetical",
+					"enum": [
+						"all-alphabetical",
+						"stdlib -> libs -> project",
+						"non-project -> project"
+					]
+				},
+				"haxe.inlayHints.variableTypes": {
+					"markdownDescription": "Show inlay hints for variables",
+					"type": "boolean",
+					"default": true
+				},
+				"haxe.inlayHints.parameterNames": {
+					"markdownDescription": "Show inlay hints for parameter names",
+					"type": "boolean",
+					"default": true
+				},
+				"haxe.inlayHints.parameterTypes": {
+					"markdownDescription": "Show inlay hints for parameter types",
+					"type": "boolean",
+					"default": false
+				},
+				"haxe.inlayHints.functionReturnTypes": {
+					"markdownDescription": "Show inlay hints for function return types",
+					"type": "boolean",
+					"default": true
+				},
+				"haxe.inlayHints.conditionals": {
+					"markdownDescription": "Show inlay hints for conditionals",
+					"type": "boolean",
+					"default": false
 				}
 			}
 		},

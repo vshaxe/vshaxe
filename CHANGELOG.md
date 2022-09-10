@@ -1,3 +1,13 @@
+### 2.25.0 (xxx xx, 2022)
+
+**New Features:**
+
+- added inlay hints feature [wiki/Inlay Hints](https://github.com/vshaxe/vshaxe/wiki/Inlay-Hints)
+
+**Changes and Improvements:**
+
+- updated haxeparser, tokentree and formatter libs to support inline markup
+
 ### 2.24.1 (July 28, 2022)
 
 **Bugfixes:**
