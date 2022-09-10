@@ -771,30 +771,44 @@
 						"non-project -> project"
 					]
 				},
-				"haxe.inlayHints.variableTypes": {
-					"markdownDescription": "Show inlay hints for variables",
-					"type": "boolean",
-					"default": true
-				},
-				"haxe.inlayHints.parameterNames": {
-					"markdownDescription": "Show inlay hints for parameter names",
-					"type": "boolean",
-					"default": true
-				},
-				"haxe.inlayHints.parameterTypes": {
-					"markdownDescription": "Show inlay hints for parameter types",
-					"type": "boolean",
-					"default": false
-				},
-				"haxe.inlayHints.functionReturnTypes": {
-					"markdownDescription": "Show inlay hints for function return types",
-					"type": "boolean",
-					"default": true
-				},
-				"haxe.inlayHints.conditionals": {
-					"markdownDescription": "Show inlay hints for conditionals",
-					"type": "boolean",
-					"default": false
+				"haxe.inlayHints": {
+					"markdownDescription": "Options for inlay hints feature",
+					"type": "object",
+					"default": {
+						"variableTypes": true,
+						"parameterNames": true,
+						"parameterTypes": false,
+						"functionReturnTypes": true,
+						"conditionals": false
+					},
+					"additionalProperties": false,
+					"properties": {
+						"variableTypes": {
+							"markdownDescription": "Show inlay hints for variables",
+							"type": "boolean",
+							"default": true
+						},
+						"parameterNames": {
+							"markdownDescription": "Show inlay hints for parameter names",
+							"type": "boolean",
+							"default": true
+						},
+						"parameterTypes": {
+							"markdownDescription": "Show inlay hints for parameter types",
+							"type": "boolean",
+							"default": false
+						},
+						"functionReturnTypes": {
+							"markdownDescription": "Show inlay hints for function return types",
+							"type": "boolean",
+							"default": true
+						},
+						"conditionals": {
+							"markdownDescription": "Show inlay hints for conditionals",
+							"type": "boolean",
+							"default": false
+						}
+					}
 				}
 			}
 		},
