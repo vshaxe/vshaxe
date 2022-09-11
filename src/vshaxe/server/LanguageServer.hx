@@ -129,7 +129,7 @@ class LanguageServer {
 			debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6504"]}}
 		};
 		final clientOptions:LanguageClientOptions = {
-			documentSelector: [
+			documentSelector: cast [
 				{language: "haxe", scheme: "file"},
 				{language: "haxe", scheme: "untitled"},
 				{language: "hxml", scheme: "file"},

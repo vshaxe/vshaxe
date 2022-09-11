@@ -129,7 +129,9 @@ class AutoIndentation {
 	}
 
 	function wrapBraceBody(event:TextDocumentChangeEvent):Void {
-		final editor = window.activeTextEditor ?? return;
+		if (window.activeTextEditor == null)
+			return;
+		final editor:TextEditor = window.activeTextEditor;
 		if (editor.document.fileName != event.document.fileName)
 			return;
 		final edits:Array<TextDocumentContentChangeEvent> = [];
