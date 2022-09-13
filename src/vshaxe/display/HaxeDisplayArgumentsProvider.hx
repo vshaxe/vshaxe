@@ -38,6 +38,8 @@ class HaxeDisplayArgumentsProvider {
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
 		hxmlDiscovery.onDidChangeFiles(_ -> refresh());
 
+		window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor);
+
 		refresh();
 	}
 
@@ -165,6 +167,7 @@ class HaxeDisplayArgumentsProvider {
 	function refresh() {
 		updateConfigurations();
 		updateDisplayArgumentsProviderRegistration();
+		checkConfigurationComment(window.activeTextEditor != null ? window.activeTextEditor.document : null);
 		setCurrent(getCurrent());
 	}
 
@@ -196,6 +199,36 @@ class HaxeDisplayArgumentsProvider {
 		}
 
 		statusBarItem.hide();
+	}
+
+	function onDidChangeActiveTextEditor(editor:Null<TextEditor>) {
+		if (editor != null && editor.document.languageId == "haxe") {
+			if (checkConfigurationComment(editor.document)) {
+				setCurrent(getCurrent());
+			}
+		}
+	}
+
+	function checkConfigurationComment(document:Null<TextDocument>):Bool {
+		if (document == null || document.lineCount == 0) {
+			return false;
+		}
+		var matcher = ~/\/\/\s*--\*\s*config\s*:\s*(\S+)\s*\*--/;
+		if (matcher.match(document.lineAt(0).text)) {
+			var configID = matcher.matched(1);
+			for (conf in configurations) {
+				switch conf.kind {
+					case Configured(idx, _) if (Std.string(idx) == configID):
+						context.getWorkspaceState().update(ConfigurationIndexKey, idx);
+						return true;
+					case Discovered(id) if (id == configID):
+						context.getWorkspaceState().update(ConfigurationIndexKey, id);
+						return true;
+					case _:
+				}
+			}
+		}
+		return false;
 	}
 }
 
