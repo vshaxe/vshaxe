@@ -1,6 +1,8 @@
 package vshaxe.display;
 
 import haxe.extern.EitherType;
+import haxe.iterators.ArrayIterator;
+import js.lib.Promise;
 
 class HaxeDisplayArgumentsProvider {
 	final context:ExtensionContext;
@@ -38,6 +40,8 @@ class HaxeDisplayArgumentsProvider {
 		context.subscriptions.push(workspace.onDidChangeConfiguration(_ -> refresh()));
 		hxmlDiscovery.onDidChangeFiles(_ -> refresh());
 
+		window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor);
+
 		refresh();
 	}
 
@@ -51,14 +55,16 @@ class HaxeDisplayArgumentsProvider {
 			final config = configs[i];
 			var args:Array<String>;
 			var label:Null<String> = null;
+			var files:Null<Array<String>> = null;
 			if (Std.is(config, Array)) {
 				args = config;
 			} else {
 				final config:ComplexSettingsConfiguration = cast config;
 				args = config.args;
 				label = config.label;
+				files = config.files;
 			}
-			configurations.push({kind: Configured(i, label), args: args});
+			configurations.push({kind: Configured(i, label, files), args: args});
 		}
 
 		for (hxmlFile in hxmlDiscovery.files) {
@@ -113,7 +119,7 @@ class HaxeDisplayArgumentsProvider {
 			if (choice == null || choice.config == current)
 				return;
 			context.getWorkspaceState().update(ConfigurationIndexKey, switch choice.config.kind {
-				case Configured(index, _): index;
+				case Configured(index, _, _): index;
 				case Discovered(id): id;
 			});
 			setCurrent(choice.config);
@@ -130,7 +136,7 @@ class HaxeDisplayArgumentsProvider {
 
 	function getConfigurationLabel(configuration:Configuration):String {
 		return switch configuration.kind {
-			case Configured(_, label):
+			case Configured(_, label, _):
 				if (label != null) {
 					label;
 				} else {
@@ -146,7 +152,7 @@ class HaxeDisplayArgumentsProvider {
 		final selection:Null<Dynamic> = context.getWorkspaceState().get(ConfigurationIndexKey);
 		for (conf in configurations) {
 			switch conf.kind {
-				case Configured(idx, _) if (idx == selection):
+				case Configured(idx, _, _) if (idx == selection):
 					return conf;
 				case Discovered(id) if (id == selection):
 					return conf;
@@ -165,6 +171,7 @@ class HaxeDisplayArgumentsProvider {
 	function refresh() {
 		updateConfigurations();
 		updateDisplayArgumentsProviderRegistration();
+		setConfigurationFromFilePath(window.activeTextEditor != null ? window.activeTextEditor.document : null);
 		setCurrent(getCurrent());
 	}
 
@@ -181,7 +188,7 @@ class HaxeDisplayArgumentsProvider {
 	function updateStatusBarItem(config:Null<Configuration>) {
 		if (provideArguments != null && config != null) {
 			var label = switch config.kind {
-				case Configured(_, userLabel): userLabel;
+				case Configured(_, userLabel, _): userLabel;
 				case _: null;
 			}
 			if (label == null) {
@@ -197,6 +204,57 @@ class HaxeDisplayArgumentsProvider {
 
 		statusBarItem.hide();
 	}
+
+	function onDidChangeActiveTextEditor(editor:Null<TextEditor>) {
+		if (editor != null && editor.document.languageId == "haxe") {
+			setConfigurationFromFilePath(editor.document);
+		}
+	}
+
+	function setConfigurationFromFilePath(document:Null<TextDocument>) {
+		if (document != null && document.languageId == "haxe") {
+			setFirstMatchingConfiguration(new ArrayIterator(configurations), document.uri.fsPath);
+		}
+	}
+
+	function setFirstMatchingConfiguration(configurationsIt:ArrayIterator<Configuration>, documentFsPath:String) {
+		if (configurationsIt.hasNext()) {
+			var config = configurationsIt.next();
+			switch config.kind {
+				case Configured(idx, _, files) if (files != null):
+					matchFileWithPatterns(new ArrayIterator(files), documentFsPath).then((v) -> {
+						if (v) {
+							context.getWorkspaceState().update(ConfigurationIndexKey, idx);
+							setCurrent(getCurrent());
+						} else {
+							setFirstMatchingConfiguration(configurationsIt, documentFsPath);
+						}
+					});
+				case _:
+					setFirstMatchingConfiguration(configurationsIt, documentFsPath);
+			}
+		}
+	}
+
+	function matchFileWithPatterns(filePatternsIt:ArrayIterator<String>, documentFsPath:String):Promise<Bool> {
+		return new Promise(function(resolve, _) {
+			if (filePatternsIt.hasNext()) {
+				workspace.findFiles(filePatternsIt.next()).then(foundFiles -> {
+					for (file in foundFiles) {
+						if (file.fsPath.toLowerCase() == documentFsPath.toLowerCase()) {
+							resolve(true);
+							return;
+						}
+					}
+					matchFileWithPatterns(filePatternsIt, documentFsPath).then((v) -> {
+						resolve(v);
+					});
+				});
+			} else {
+				resolve(false);
+			}
+		});
+	}
 }
 
 private typedef SettingsConfiguration = EitherType<Array<String>, ComplexSettingsConfiguration>;
@@ -204,6 +262,7 @@ private typedef SettingsConfiguration = EitherType<Array<String>, ComplexSetting
 private typedef ComplexSettingsConfiguration = {
 	final label:String;
 	final args:Array<String>;
+	final files:Array<String>;
 }
 
 private typedef ConfigurationPickItem = QuickPickItem & {
@@ -216,7 +275,7 @@ private typedef Configuration = {
 }
 
 private enum ConfigurationKind {
-	Configured(index:Int, ?label:String);
+	Configured(index:Int, ?label:String, ?files:Array<String>);
 	Discovered(id:String);
 }
 

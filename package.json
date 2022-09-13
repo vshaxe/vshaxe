@@ -349,6 +349,13 @@
 										"items": {
 											"type": "string"
 										}
+									},
+									"files": {
+										"type": "array",
+										"markdownDescription": "Array of files/globbing patterns where the editor should automatically select this configuration.",
+										"items": {
+											"type": "string"
+										}
 									}
 								}
 							}
