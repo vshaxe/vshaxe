@@ -221,8 +221,8 @@ class HaxeDisplayArgumentsProvider {
 			var config = configurations.next();
 			switch config.kind {
 				case Configured(idx, _, files) if (files != null):
-					matchFileWithPatterns(files.iterator(), documentFsPath).then((v) -> {
-						if (v) {
+					matchFileWithPatterns(files.iterator(), documentFsPath).then((didMatch) -> {
+						if (didMatch) {
 							context.getWorkspaceState().update(ConfigurationIndexKey, idx);
 							setCurrent(getCurrent());
 						} else {
