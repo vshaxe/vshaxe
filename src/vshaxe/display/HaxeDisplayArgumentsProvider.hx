@@ -3,6 +3,7 @@ package vshaxe.display;
 import haxe.extern.EitherType;
 import haxe.iterators.ArrayIterator;
 import js.lib.Promise;
+import vshaxe.helper.PathHelper;
 
 class HaxeDisplayArgumentsProvider {
 	final context:ExtensionContext;
@@ -206,49 +207,45 @@ class HaxeDisplayArgumentsProvider {
 	}
 
 	function onDidChangeActiveTextEditor(editor:Null<TextEditor>) {
-		if (editor != null && editor.document.languageId == "haxe") {
-			setConfigurationFromFilePath(editor.document);
-		}
+		setConfigurationFromFilePath(editor != null ? editor.document : null);
 	}
 
 	function setConfigurationFromFilePath(document:Null<TextDocument>) {
 		if (document != null && document.languageId == "haxe") {
-			setFirstMatchingConfiguration(new ArrayIterator(configurations), document.uri.fsPath);
+			setFirstMatchingConfiguration(configurations.iterator(), document.uri.fsPath);
 		}
 	}
 
-	function setFirstMatchingConfiguration(configurationsIt:ArrayIterator<Configuration>, documentFsPath:String) {
-		if (configurationsIt.hasNext()) {
-			var config = configurationsIt.next();
+	function setFirstMatchingConfiguration(configurations:ArrayIterator<Configuration>, documentFsPath:String) {
+		if (configurations.hasNext()) {
+			var config = configurations.next();
 			switch config.kind {
 				case Configured(idx, _, files) if (files != null):
-					matchFileWithPatterns(new ArrayIterator(files), documentFsPath).then((v) -> {
+					matchFileWithPatterns(files.iterator(), documentFsPath).then((v) -> {
 						if (v) {
 							context.getWorkspaceState().update(ConfigurationIndexKey, idx);
 							setCurrent(getCurrent());
 						} else {
-							setFirstMatchingConfiguration(configurationsIt, documentFsPath);
+							setFirstMatchingConfiguration(configurations, documentFsPath);
 						}
 					});
 				case _:
-					setFirstMatchingConfiguration(configurationsIt, documentFsPath);
+					setFirstMatchingConfiguration(configurations, documentFsPath);
 			}
 		}
 	}
 
-	function matchFileWithPatterns(filePatternsIt:ArrayIterator<String>, documentFsPath:String):Promise<Bool> {
+	function matchFileWithPatterns(filePatterns:ArrayIterator<String>, documentFsPath:String):Promise<Bool> {
 		return new Promise(function(resolve, _) {
-			if (filePatternsIt.hasNext()) {
-				workspace.findFiles(filePatternsIt.next()).then(foundFiles -> {
+			if (filePatterns.hasNext()) {
+				workspace.findFiles(filePatterns.next()).then(foundFiles -> {
 					for (file in foundFiles) {
-						if (file.fsPath.toLowerCase() == documentFsPath.toLowerCase()) {
+						if (PathHelper.areEqual(file.fsPath, documentFsPath)) {
 							resolve(true);
 							return;
 						}
 					}
-					matchFileWithPatterns(filePatternsIt, documentFsPath).then((v) -> {
-						resolve(v);
-					});
+					matchFileWithPatterns(filePatterns, documentFsPath).then(resolve);
 				});
 			} else {
 				resolve(false);
