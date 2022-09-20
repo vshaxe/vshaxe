@@ -3,10 +3,17 @@
 **New Features:**
 
 - added inlay hints feature [wiki/Inlay Hints](https://github.com/vshaxe/vshaxe/wiki/Inlay-Hints)
+- added automatic selection of Haxe configuration based on file name ([#544](https://github.com/vshaxe/vshaxe/pull/544))
 
 **Changes and Improvements:**
 
 - updated haxeparser, tokentree and formatter libs to support inline markup
+- added `haxe.renameSourceFolders` setting description
+- updated syntax to support numeric literal changes
+
+**Bugfixes:**
+
+- fixed find-in-folder in the dependencies panel for paths containing commas ([#539](https://github.com/vshaxe/vshaxe/pull/539))
 
 ### 2.24.1 (July 28, 2022)
 
