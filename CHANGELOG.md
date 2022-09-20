@@ -1,4 +1,4 @@
-### 2.25.0 (xxx xx, 2022)
+### 2.25.0 (September 20, 2022)
 
 **New Features:**
 
