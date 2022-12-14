@@ -1,4 +1,4 @@
-# @install: lix --silent download "haxelib:/json2object#3.10.0" into json2object/3.10.0/haxelib
+# @install: lix --silent download "gh://github.com/elnabo/json2object#64b46769a143207f266010997ea24aa9764505ce" into json2object/3.10.0/github/64b46769a143207f266010997ea24aa9764505ce
 -lib hxjsonast
--cp ${HAXE_LIBCACHE}/json2object/3.10.0/haxelib/src
+-cp ${HAXE_LIBCACHE}/json2object/3.10.0/github/64b46769a143207f266010997ea24aa9764505ce/src
 -D json2object=3.10.0
