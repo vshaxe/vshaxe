@@ -83,7 +83,7 @@ class Commands {
 		context.getGlobalState().delete(vshaxe.server.LanguageServer.DontShowOldPreviewHintAgainKey);
 	}
 
-	function getCurrentConfigValue<T>(info, config:WorkspaceConfiguration):T {
+	function getCurrentConfigValue<T>(info, config:WorkspaceConfiguration):Null<T> {
 		var value = info.workspaceValue;
 		if (value == null)
 			value = info.globalValue;
