@@ -12,6 +12,7 @@ enum abstract HaxeCommand(String) to String {
 	final ToggleCodeLens = command("toggleCodeLens");
 	final RefreshDependencies = command("refreshDependencies");
 	final RevealActiveFileInSideBar = command("revealActiveFileInSideBar");
+	final ExportServerRecording = command("exportServerRecording");
 	/* internal commands, either not defined in `package.json` at all or hidden from command palette */
 	final ShowReferences = command("showReferences");
 	final ClearMementos = command("clearMementos");
