@@ -91,7 +91,7 @@ class LanguageServer {
 		}
 	}
 
-	public function sendRequest<P, R>(method:RequestType<P, R, NoData>, params:P):Thenable<R> {
+	public function sendRequest<P, R, E>(method:RequestType<P, R, E>, params:P):Thenable<R> {
 		return if (client != null) {
 			client.sendRequest(method, params);
 		} else {
@@ -238,6 +238,15 @@ class LanguageServer {
 		} else {
 			disposeAndRestart();
 		}
+	}
+
+	public function exportRecording() {
+		sendRequest(LanguageServerMethods.ExportServerRecording, null)
+		.then(function(res) {
+			window.showInformationMessage(res);
+		}, function(err) {
+			window.showWarningMessage(err.message);
+		});
 	}
 
 	public inline function runGlobalDiagnostics() {

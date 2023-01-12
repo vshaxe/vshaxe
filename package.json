@@ -51,6 +51,7 @@
 		"onCommand:haxe.toggleCodeLens",
 		"onCommand:haxe.dependencies.refresh",
 		"onCommand:haxe.revealActiveFileInSideBar",
+		"onCommand:haxe.exportServerRecording",
 		"onCommand:workbench.action.tasks.runTask",
 		"onDebugResolve:haxe-eval",
 		"onView:haxe.methods",
@@ -869,6 +870,11 @@
 			{
 				"title": "Reveal Active File in Side Bar",
 				"command": "haxe.revealActiveFileInSideBar",
+				"category": "Haxe"
+			},
+			{
+				"title": "Export current server recording",
+				"command": "haxe.exportServerRecording",
 				"category": "Haxe"
 			},
 			{

@@ -14,6 +14,7 @@ class Commands {
 		this.haxeDisplayArgumentsProvider = haxeDisplayArgumentsProvider;
 
 		context.registerHaxeCommand(RestartLanguageServer, server.restart);
+		context.registerHaxeCommand(ExportServerRecording, server.exportRecording);
 		context.registerHaxeCommand(ShowReferences, showReferences);
 		context.registerHaxeCommand(RunGlobalDiagnostics, server.runGlobalDiagnostics);
 		context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
