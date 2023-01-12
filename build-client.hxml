@@ -1,0 +1,16 @@
+-lib hxnodejs
+-D analyzer-optimize
+-D js-unflatten
+-D js-es=6
+-cp server/shared
+-cp src
+-cp haxelib/src
+-D JSTACK_MAIN=vshaxe.Main.main
+-D JSTACK_ASYNC_ENTRY
+-D JSTACK_NO_SHUTDOWN
+-lib vscode
+-lib vscode-json-rpc
+-lib language-server-protocol
+-js bin/index.js
+vshaxe.Main
+-cmd npx ncc build bin/index.js -o bin -m -q
