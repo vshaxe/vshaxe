@@ -1,6 +1,7 @@
 [submodule "server"]
 	path = server
-	url = https://github.com/vshaxe/haxe-language-server
+	url = https://github.com/kLabz/haxe-languageserver
+	branch = poc/server-recording-with-prs
 [submodule "syntaxes"]
 	path = syntaxes
 	url = https://github.com/vshaxe/haxe-TmLanguage
