@@ -12,5 +12,6 @@
 -lib vscode-json-rpc
 -lib language-server-protocol
 -js bin/index.js
+--macro nullSafety('vshaxe')
 vshaxe.Main
 -cmd npx ncc build bin/index.js -o bin -m -q
