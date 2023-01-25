@@ -203,7 +203,8 @@ class CacheTreeView {
 					server.runMethod(ServerMethods.Module, {signature: sign, path: path}).then(function(result:JsonModule) {
 						final types = result.types.map(path -> path.typeName);
 						ArraySort.sort(types, Reflect.compare);
-						return [
+
+						final ret = [
 							new Node("id", "" + result.id, Leaf, node),
 							new Node("path", printPath(cast result.path), Leaf, node),
 							new Node("file", result.file, Leaf, node),
@@ -213,6 +214,14 @@ class CacheTreeView {
 							new Node("types", Std.string(types.length), TypeList(sign, path, types), node),
 							new Node("dependencies", Std.string(result.dependencies.length), ModuleList(result.dependencies), node)
 						];
+
+						#if (haxe_ver >= "4.3.0")
+						if (result.dependents != null) {
+							ret.push(new Node("dependents", Std.string(result.dependents.length), ModuleList(result.dependents), node));
+						}
+						#end
+
+						return ret;
 					}, reject -> reject);
 				case TypeList(sign, modulePath, types):
 					final nodes = [];
