@@ -6,6 +6,8 @@ import haxe.ds.ArraySort;
 import haxe.format.JsonPrinter;
 import vshaxe.server.LanguageServer;
 
+using Safety;
+
 class CacheTreeView {
 	final context:ExtensionContext;
 	final server:LanguageServer;
@@ -48,7 +50,17 @@ class CacheTreeView {
 		} else {
 			final node:Node = node;
 			function updateCount(nodes:Array<Node>) {
-				node.description = Std.string(nodes.length);
+				function countNodes(nodes:Array<Node>, count:Int = 0):Int {
+					return Lambda.fold(nodes, function(n, count) {
+						return switch (n.kind) {
+							case Nodes(nodes): countNodes(nodes, count);
+							case _: ++count;
+						};
+					}, count);
+				}
+
+				final len = countNodes(nodes);
+				node.description = Std.string(len);
 				skipRefresh[node] = nodes; // avoid endless refresh loop
 				didChangeTreeData.fire(node);
 			}
@@ -89,8 +101,18 @@ class CacheTreeView {
 					}, reject -> reject);
 				case ContextMemory(ctx):
 					return server.runMethod(ServerMethods.ContextMemory, {signature: ctx.signature}).then(function(result:HaxeContextMemoryResult) {
-						final a = result.moduleCache.list.map(module -> new Node(module.path, formatSize(module.size),
-							module.hasTypes ? ModuleMemory(ctx.signature, module.path) : Leaf));
+						final a = modulesTree(
+							result.moduleCache.list,
+							m -> m.path,
+							(module, moduleName, ?parent) -> new Node(
+								moduleName,
+								formatSize(module.size),
+								module.hasTypes ? ModuleMemory(ctx.signature, module.path) : Leaf,
+								parent
+							),
+							node
+						);
+
 						final sizeNodes = [
 							new Node("syntax cache", formatSize(result.syntaxCache.size), Leaf, node),
 							new Node("module cache", formatSize(result.moduleCache.size), Leaf, node)
@@ -143,11 +165,18 @@ class CacheTreeView {
 					mapping.map(kv -> new Node(kv.key, kv.value, Leaf, node));
 				case ContextModules(ctx):
 					server.runMethod(ServerMethods.Modules, {signature: ctx.signature}).then(function(result:Array<String>) {
-						final nodes = [];
-						ArraySort.sort(result, Reflect.compare);
-						for (s in result) {
-							nodes.push(new Node(s, null, ModuleInfo(ctx.signature, s)));
-						}
+						final nodes = modulesTree(
+							result,
+							m -> m,
+							(module, moduleName, ?parent) -> new Node(
+								moduleName,
+								null,
+								ModuleInfo(ctx.signature, module),
+								parent
+							),
+							node
+						);
+
 						updateCount(nodes);
 						return nodes;
 					}, reject -> reject);
@@ -217,6 +246,84 @@ class CacheTreeView {
 				case Leaf:
 					[];
 			}
+		}
+	}
+
+	function modulesTree<T>(
+		modules:Array<T>,
+		getPath:T->String,
+		buildNode:(module:T, name:String, ?parent:Node)->Node,
+		?parent:Node
+	):Array<Node> {
+		final ret = [];
+		final packMap = new Map<String, {node:Node, nodes: Array<Node>}>();
+
+		for (module in modules) {
+			final path = getPath(module);
+			if (path == "") continue;
+
+			final path = path.split('.');
+			final moduleName = path.pop().sure();
+
+			// Ignore `import.hx` entries
+			if (moduleName == "hx") continue;
+
+			var pack = Lambda.fold(path, function(p, path) {
+				var cur = path == "" ? p : '$path.$p';
+
+				if (!packMap.exists(cur)) {
+					var nodes = [];
+					var parentNode = parent;
+					var targetArray = ret;
+
+					if (packMap.exists(path)) {
+						final parent = packMap.get(path).sure();
+						parentNode = parent.node;
+						targetArray = parent.nodes;
+					}
+
+					var packNode = new Node(p, null, Nodes(nodes), parentNode);
+					packMap.set(cur, {node: packNode, nodes: nodes});
+					targetArray.push(packNode);
+				}
+
+				return cur;
+			}, "");
+
+			var parentNode = parent;
+			var targetArray = ret;
+
+			if (packMap.exists(pack)) {
+				final parent = packMap.get(pack).sure();
+				parentNode = parent.node;
+				targetArray = parent.nodes;
+			}
+
+			final leaf = buildNode(module, moduleName, parentNode);
+			targetArray.push(leaf);
+		}
+
+		ret.sort(sortModuleTreeNodes);
+		return ret;
+	}
+
+	function sortModuleTreeNodes(a:Node, b:Node):Int {
+		return switch [a.kind, b.kind] {
+			case [Nodes(nodesA), Leaf | ModuleMemory(_) | ModuleInfo(_)]:
+				nodesA.sort(sortModuleTreeNodes);
+				-1;
+
+			case [Leaf | ModuleMemory(_) | ModuleInfo(_), Nodes(nodesB)]:
+				nodesB.sort(sortModuleTreeNodes);
+				1;
+
+			case [Nodes(nodesA), Nodes(nodesB)]:
+				nodesA.sort(sortModuleTreeNodes);
+				nodesB.sort(sortModuleTreeNodes);
+				Std.string(a.label) > Std.string(b.label) ? 1 : -1;
+
+			case _:
+				Std.string(a.label) > Std.string(b.label) ? 1 : -1;
 		}
 	}
 
