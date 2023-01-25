@@ -102,7 +102,7 @@ class CacheTreeView {
 				case ContextMemory(ctx):
 					return server.runMethod(ServerMethods.ContextMemory, {signature: ctx.signature}).then(function(result:HaxeContextMemoryResult) {
 						final a = modulesTree(
-							result.moduleCache.list,
+							result.moduleCache.list.filter(m -> !m.path.endsWith('import.hx')),
 							m -> m.path,
 							(module, moduleName, ?parent) -> new Node(
 								moduleName,
@@ -166,7 +166,7 @@ class CacheTreeView {
 				case ContextModules(ctx):
 					server.runMethod(ServerMethods.Modules, {signature: ctx.signature}).then(function(result:Array<String>) {
 						final nodes = modulesTree(
-							result,
+							result.filter(m -> !m.endsWith('import.hx')),
 							m -> m,
 							(module, moduleName, ?parent) -> new Node(
 								moduleName,
@@ -188,11 +188,17 @@ class CacheTreeView {
 						return nodes;
 					}, reject -> reject);
 				case ModuleList(modules):
-					final nodes = [];
-					for (module in modules) {
-						nodes.push(new Node(module.path, null, ModuleInfo(module.sign, module.path)));
-					}
-					return nodes;
+					modulesTree(
+						modules,
+						m -> m.path,
+						(module, moduleName, ?parent) -> new Node(
+							moduleName,
+							null,
+							ModuleInfo(module.sign, module.path),
+							parent
+						),
+						node
+					);
 				case ModuleInfo(sign, path):
 					server.runMethod(ServerMethods.Module, {signature: sign, path: path}).then(function(result:JsonModule) {
 						final types = result.types.map(path -> path.typeName);
@@ -263,10 +269,8 @@ class CacheTreeView {
 			if (path == "") continue;
 
 			final path = path.split('.');
-			final moduleName = path.pop().sure();
-
-			// Ignore `import.hx` entries
-			if (moduleName == "hx") continue;
+			var moduleName = path.pop().sure();
+			if (moduleName == "hx") moduleName = path.pop().sure() + '.hx';
 
 			var pack = Lambda.fold(path, function(p, path) {
 				var cur = path == "" ? p : '$path.$p';
