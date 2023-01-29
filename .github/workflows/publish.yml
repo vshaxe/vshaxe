@@ -1,0 +1,23 @@
+name: Publish
+
+on:
+  push:
+    tags:
+       - '\d+\.\d+\.\d+'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - run: npm install
+    - run: npm install
+      working-directory: syntaxes
+    - run: npx lix run vshaxe-build -v -t vshaxe
+    - name: Publish to Visual Studio Marketplace
+      uses: HaaLeo/publish-vscode-extension@v1
+      with:
+        pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+        registryUrl: https://marketplace.visualstudio.com

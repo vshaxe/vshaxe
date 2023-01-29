@@ -1,3 +1,21 @@
+### 2.26.0 (January 29, 2023)
+
+**New Features:**
+
+- added module dependents to Haxe cache view ([#563](https://github.com/vshaxe/vshaxe/pull/563))
+
+**Changes and Improvements:**
+
+- updated to haxe-formatter version [1.14.4](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.14.4)
+- changed Haxe server view module list display to trees ([#561](https://github.com/vshaxe/vshaxe/pull/561), [#562](https://github.com/vshaxe/vshaxe/pull/562))
+- changed the default value of `"editor.inlayHints.enabled"` to `"off"` for Haxe files ([#555](https://github.com/vshaxe/vshaxe/issues/555))
+
+**Bugfixes:**
+
+- fixed offsets with surrogates pairs ([haxe-languageserver#76](https://github.com/vshaxe/haxe-languageserver/pull/76))
+- fixed some replace ranges with disabled auto-imports ([haxe-languageserver](https://github.com/vshaxe/haxe-languageserver)[[#77](https://github.com/vshaxe/haxe-languageserver/pull/77), [#78](https://github.com/vshaxe/haxe-languageserver/pull/78)])
+- fixed type parameter snippet being triggered if there already is one ([haxe-languageserver#79](https://github.com/vshaxe/haxe-languageserver/pull/79))
+
 ### 2.25.0 (September 20, 2022)
 
 **New Features:**
