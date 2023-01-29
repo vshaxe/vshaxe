@@ -821,7 +821,8 @@
 		},
 		"configurationDefaults": {
 			"[haxe]": {
-				"editor.suggestSelection": "first"
+				"editor.suggestSelection": "first",
+				"editor.inlayHints.enabled": "off"
 			}
 		},
 		"commands": [
