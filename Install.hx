@@ -9,13 +9,7 @@ function main() {
 		return content.split("\n").map(line -> if (line.contains("vscode:prepublish")) "" else line).join("\n");
 	});
 	final restoreVscodeIgnore = tempModification(".vscodeignore", function(content) {
-		return content + [
-			"vscode-languageclient",
-			"semver",
-			"vscode-languageserver-protocol",
-			"vscode-jsonrpc",
-			"vscode-languageserver-types",
-		].map(lib -> '!node_modules/$lib/**/*').join("\n");
+		return content + '!node_modules/**/*\n';
 	});
 	function restore() {
 		restorePackageJson();
