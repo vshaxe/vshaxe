@@ -101,17 +101,11 @@ class CacheTreeView {
 					}, reject -> reject);
 				case ContextMemory(ctx):
 					return server.runMethod(ServerMethods.ContextMemory, {signature: ctx.signature}).then(function(result:HaxeContextMemoryResult) {
-						final a = modulesTree(
-							result.moduleCache.list.filter(m -> !m.path.endsWith('import.hx')),
-							m -> m.path,
-							(module, moduleName, ?parent) -> new Node(
-								moduleName,
-								formatSize(module.size),
-								module.hasTypes ? ModuleMemory(ctx.signature, module.path) : Leaf,
-								parent
-							),
-							node
-						);
+						final a = modulesTree(result.moduleCache.list.filter(m -> !m.path.endsWith('import.hx')), m -> m.path,
+							(module, moduleName,
+									?parent) -> new Node(moduleName, formatSize(module.size), module.hasTypes ? ModuleMemory(ctx.signature, module.path) : Leaf,
+									parent),
+							node);
 
 						final sizeNodes = [
 							new Node("syntax cache", formatSize(result.syntaxCache.size), Leaf, node),
@@ -165,17 +159,8 @@ class CacheTreeView {
 					mapping.map(kv -> new Node(kv.key, kv.value, Leaf, node));
 				case ContextModules(ctx):
 					server.runMethod(ServerMethods.Modules, {signature: ctx.signature}).then(function(result:Array<String>) {
-						final nodes = modulesTree(
-							result.filter(m -> !m.endsWith('import.hx')),
-							m -> m,
-							(module, moduleName, ?parent) -> new Node(
-								moduleName,
-								null,
-								ModuleInfo(ctx.signature, module),
-								parent
-							),
-							node
-						);
+						final nodes = modulesTree(result.filter(m -> !m.endsWith('import.hx')), m -> m,
+							(module, moduleName, ?parent) -> new Node(moduleName, null, ModuleInfo(ctx.signature, module), parent), node);
 
 						updateCount(nodes);
 						return nodes;
@@ -188,17 +173,8 @@ class CacheTreeView {
 						return nodes;
 					}, reject -> reject);
 				case ModuleList(modules):
-					modulesTree(
-						modules,
-						m -> m.path,
-						(module, moduleName, ?parent) -> new Node(
-							moduleName,
-							null,
-							ModuleInfo(module.sign, module.path),
-							parent
-						),
-						node
-					);
+					modulesTree(modules, m -> m.path,
+						(module, moduleName, ?parent) -> new Node(moduleName, null, ModuleInfo(module.sign, module.path), parent), node);
 				case ModuleInfo(sign, path):
 					server.runMethod(ServerMethods.Module, {signature: sign, path: path}).then(function(result:JsonModule) {
 						final types = result.types.map(path -> path.typeName);
@@ -209,7 +185,8 @@ class CacheTreeView {
 							new Node("path", printPath(cast result.path), Leaf, node),
 							new Node("file", result.file, Leaf, node),
 							new Node("sign", result.sign, Leaf, node),
-							#if (haxe_ver >= "4.3.0") new Node("dirty", result.dirty == null ? "no" : result.dirty, Leaf, node),
+							#if (haxe_ver >= "4.3.0")
+							new Node("dirty", result.dirty == null ? "no" : result.dirty, Leaf, node),
 							#end
 							new Node("types", Std.string(types.length), TypeList(sign, path, types), node),
 							new Node("dependencies", Std.string(result.dependencies.length), ModuleList(result.dependencies), node)
@@ -264,22 +241,19 @@ class CacheTreeView {
 		}
 	}
 
-	function modulesTree<T>(
-		modules:Array<T>,
-		getPath:T->String,
-		buildNode:(module:T, name:String, ?parent:Node)->Node,
-		?parent:Node
-	):Array<Node> {
+	function modulesTree<T>(modules:Array<T>, getPath:T->String, buildNode:(module:T, name:String, ?parent:Node) -> Node, ?parent:Node):Array<Node> {
 		final ret = [];
-		final packMap = new Map<String, {node:Node, nodes: Array<Node>}>();
+		final packMap = new Map<String, {node:Node, nodes:Array<Node>}>();
 
 		for (module in modules) {
 			final path = getPath(module);
-			if (path == "") continue;
+			if (path == "")
+				continue;
 
 			final path = path.split('.');
 			var moduleName = path.pop().sure();
-			if (moduleName == "hx") moduleName = path.pop().sure() + '.hx';
+			if (moduleName == "hx")
+				moduleName = path.pop().sure() + '.hx';
 
 			var pack = Lambda.fold(path, function(p, path) {
 				var cur = path == "" ? p : '$path.$p';
