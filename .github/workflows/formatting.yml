@@ -1,0 +1,16 @@
+name: Formatting
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - run: |
+        npm install
+        npx lix run formatter -s . --check
