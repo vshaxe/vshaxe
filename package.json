@@ -563,15 +563,41 @@
 					"default": false,
 					"deprecationMessage": "Use \"haxe.enableServerView\" instead"
 				},
-				"haxe.enableServerRecording": {
-					"markdownDescription": "Enable recording of communication with Haxe Server to produce reproducible logs.",
-					"type": "boolean",
-					"default": false
-				},
-				"haxe.serverRecordingPath": {
-					"markdownDescription": "Root folder to use to save data related to server recording when `haxe.enableServerRecording` is `true`. Defaults to `\".haxelsp/recording/\"`.",
-					"type": "string",
-					"default": ".haxelsp/recording/"
+				"haxe.serverRecording": {
+					"markdownDescription": "Options for compilation server recording",
+					"type": "object",
+					"default": {
+						"enabled": false,
+						"path": ".haxelsp/recording/"
+					},
+					"additionalProperties": false,
+					"properties": {
+						"enabled": {
+							"markdownDescription": "Enable recording of communication with Haxe Server to produce reproducible logs.",
+							"type": "boolean",
+							"default": false
+						},
+						"path": {
+							"markdownDescription": "Root folder to use to save data related to server recording.",
+							"type": "string",
+							"default": ".haxelsp/recording/"
+						},
+						"exclude": {
+							"markdownDescription": "Do not track these files in git/svn logged changes.",
+							"type": "array",
+							"default": []
+						},
+						"excludeUntracked": {
+							"markdownDescription": "Do not add untracked files to recording.",
+							"type": "boolean",
+							"default": false
+						},
+						"watch": {
+							"markdownDescription": "Additional paths to watch for changes (e.g. resources used for compilation)",
+							"type": "array",
+							"default": []
+						}
+					}
 				},
 				"haxe.enableSignatureHelpDocumentation": {
 					"markdownDescription": "Whether signature help should include documentation or not.",
