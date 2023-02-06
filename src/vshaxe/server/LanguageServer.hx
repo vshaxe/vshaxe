@@ -12,6 +12,8 @@ import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
 import vshaxe.server.LanguageClient;
 
+using Safety;
+
 class LanguageServer {
 	public var displayPort(default, null):Null<Int>;
 	public var onDidRunMethod(get, never):Event<MethodResult>;
@@ -57,7 +59,7 @@ class LanguageServer {
 		var watchHxChanges = !serverRecordingConfig.enabled;
 		hxFileWatcher = workspace.createFileSystemWatcher(new RelativePattern(folder, "**/*.hx"), false, watchHxChanges, false);
 
-		var resPatterns = serverRecordingConfig.watch;
+		var resPatterns = serverRecordingConfig.watch.or([]);
 		resFileWatcher = resPatterns.map(
 			p -> workspace.createFileSystemWatcher(new RelativePattern(folder, p), false, false, false)
 		);
