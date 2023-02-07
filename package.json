@@ -568,7 +568,10 @@
 					"type": "object",
 					"default": {
 						"enabled": false,
-						"path": ".haxelsp/recording/"
+						"path": ".haxelsp/recording/",
+						"watch": [],
+						"exclude": [],
+						"excludeUntracked": false
 					},
 					"additionalProperties": false,
 					"properties": {
