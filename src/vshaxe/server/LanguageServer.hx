@@ -60,9 +60,7 @@ class LanguageServer {
 		hxFileWatcher = workspace.createFileSystemWatcher(new RelativePattern(folder, "**/*.hx"), false, watchHxChanges, false);
 
 		var resPatterns = serverRecordingConfig.watch.or([]);
-		resFileWatcher = resPatterns.map(
-			p -> workspace.createFileSystemWatcher(new RelativePattern(folder, p), false, false, false)
-		);
+		resFileWatcher = resPatterns.map(p -> workspace.createFileSystemWatcher(new RelativePattern(folder, p), false, false, false));
 
 		inline prepareDisplayServerConfig();
 
@@ -71,7 +69,8 @@ class LanguageServer {
 		clientStartingUp = false;
 		disposables = [
 			hxFileWatcher,
-			{dispose: () -> for (w in resFileWatcher) w.dispose()},
+			{dispose: () -> for (w in resFileWatcher)
+				w.dispose()},
 			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(false)),
 			haxeInstallation.onDidChange(_ -> refreshDisplayServerConfig(true)),
 			window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
@@ -255,8 +254,7 @@ class LanguageServer {
 	}
 
 	public function exportRecording() {
-		sendRequest(LanguageServerMethods.ExportServerRecording, null)
-		.then(function(res) {
+		sendRequest(LanguageServerMethods.ExportServerRecording, null).then(function(res) {
 			window.showInformationMessage(res);
 		}, function(err) {
 			window.showWarningMessage(err.message);
