@@ -69,8 +69,10 @@ class LanguageServer {
 		clientStartingUp = false;
 		disposables = [
 			hxFileWatcher,
-			{dispose: () -> for (w in resFileWatcher)
-				w.dispose()},
+			{
+				dispose: () -> for (w in resFileWatcher)
+					w.dispose()
+			},
 			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(false)),
 			haxeInstallation.onDidChange(_ -> refreshDisplayServerConfig(true)),
 			window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
