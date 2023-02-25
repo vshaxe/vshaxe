@@ -171,8 +171,8 @@
 				"exceedsMaxLineLength"
 			],
 			"markdownEnumDescriptions": [
-				"condition matches if item count is larger than or equal n characters",
-				"condition matches if item count is less than or equal n characters",
+				"condition matches if item count is larger than or equal n items",
+				"condition matches if item count is less than or equal n items",
 				"condition matches if max item length is larger than or equal n characters",
 				"condition matches if max item length is less than or equal n characters",
 				"condition matches if total length of all wrapable items is larger than or equal n characters",

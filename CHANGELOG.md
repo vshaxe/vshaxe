@@ -1,3 +1,15 @@
+### 2.27.0 (February xxx, 2023)
+
+**New Features:**
+
+- added server communication recording ([#566](https://github.com/vshaxe/vshaxe/pull/566))
+
+**Changes and Improvements:**
+
+- updated to haxe-formatter version [1.14.6](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.14.6)
+- updated to tokentree [1.2.8](https://github.com/HaxeCheckstyle/tokentree/releases/tag/v1.2.8)
+- changed server/invalidate calls to occur only once per file between compilations ([haxe-languageserver#84](https://github.com/vshaxe/haxe-language-server/pull/84))
+
 ### 2.26.0 (January 29, 2023)
 
 **New Features:**
@@ -36,7 +48,8 @@
 ### 2.24.1 (July 28, 2022)
 
 **Bugfixes:**
- - fixed Organize Imports losing a final newline when formatter configuration has `emptyLines.finalNewline` set to `false`
+
+- fixed Organize Imports losing a final newline when formatter configuration has `emptyLines.finalNewline` set to `false`
 
 ### 2.24.0 (June 28, 2022)
 
@@ -566,12 +579,12 @@ This version requires VSCode 1.67 or above.
 
 - added [snippet completion](https://github.com/vshaxe/vshaxe/wiki/Snippets) for generating type, field and `package` boilerplate
 - added a large number of postfix completion items:
-	- forwards and backwards `while` loops
-	- `trace` / `print` / `string`
-	- `null` / `not null`
-	- `is` / `type check` / `unsafe cast` / `safe cast`
-	- `not` / `else` on `Bool`
-	- `return`
+  - forwards and backwards `while` loops
+  - `trace` / `print` / `string`
+  - `null` / `not null`
+  - `is` / `type check` / `unsafe cast` / `safe cast`
+  - `not` / `else` on `Bool`
+  - `return`
 - added a `"haxe.postfixCompletion.level"` setting
 - added field modifier keywords to completion
 
