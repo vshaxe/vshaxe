@@ -12,6 +12,8 @@ import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
 import vshaxe.server.LanguageClient;
 
+using Safety;
+
 class LanguageServer {
 	public var displayPort(default, null):Null<Int>;
 	public var onDidRunMethod(get, never):Event<MethodResult>;
@@ -25,6 +27,7 @@ class LanguageServer {
 	final api:Vshaxe;
 	final serverModulePath:String;
 	final hxFileWatcher:FileSystemWatcher;
+	final resFileWatcher:Array<FileSystemWatcher>;
 	final disposables:Array<{function dispose():Void;}>;
 	var restartDisposables:Array<{function dispose():Void;}>;
 	var queuedNotifications:Array<{method:NotificationType<Dynamic>, ?params:Dynamic}>;
@@ -48,8 +51,16 @@ class LanguageServer {
 		this.haxeInstallation = haxeInstallation;
 		this.api = api;
 
+		final haxeConfig = workspace.getConfiguration("haxe");
+		final serverRecordingConfig = haxeConfig.get("serverRecording", {enabled: false, watch: []});
+
 		serverModulePath = context.asAbsolutePath("bin/server.js");
-		hxFileWatcher = workspace.createFileSystemWatcher(new RelativePattern(folder, "**/*.hx"), false, true, false);
+
+		var watchHxChanges = !serverRecordingConfig.enabled;
+		hxFileWatcher = workspace.createFileSystemWatcher(new RelativePattern(folder, "**/*.hx"), false, watchHxChanges, false);
+
+		var resPatterns = serverRecordingConfig.watch.or([]);
+		resFileWatcher = resPatterns.map(p -> workspace.createFileSystemWatcher(new RelativePattern(folder, p), false, false, false));
 
 		inline prepareDisplayServerConfig();
 
@@ -58,6 +69,8 @@ class LanguageServer {
 		clientStartingUp = false;
 		disposables = [
 			hxFileWatcher,
+			{dispose: () -> for (w in resFileWatcher)
+				w.dispose()},
 			workspace.onDidChangeConfiguration(_ -> refreshDisplayServerConfig(false)),
 			haxeInstallation.onDidChange(_ -> refreshDisplayServerConfig(true)),
 			window.onDidChangeActiveTextEditor(onDidChangeActiveTextEditor),
@@ -91,7 +104,7 @@ class LanguageServer {
 		}
 	}
 
-	public function sendRequest<P, R>(method:RequestType<P, R, NoData>, params:P):Thenable<R> {
+	public function sendRequest<P, R, E>(method:RequestType<P, R, E>, params:P):Thenable<R> {
 		return if (client != null) {
 			client.sendRequest(method, params);
 		} else {
@@ -137,7 +150,7 @@ class LanguageServer {
 			],
 			synchronize: {
 				configurationSection: "haxe",
-				fileEvents: hxFileWatcher
+				fileEvents: resFileWatcher.concat([hxFileWatcher])
 			},
 			initializationOptions: {
 				displayArguments: displayArguments.arguments,
@@ -238,6 +251,14 @@ class LanguageServer {
 		} else {
 			disposeAndRestart();
 		}
+	}
+
+	public function exportRecording() {
+		sendRequest(LanguageServerMethods.ExportServerRecording, null).then(function(res) {
+			window.showInformationMessage(res);
+		}, function(err) {
+			window.showWarningMessage(err.message);
+		});
 	}
 
 	public inline function runGlobalDiagnostics() {

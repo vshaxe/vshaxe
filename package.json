@@ -51,6 +51,7 @@
 		"onCommand:haxe.toggleCodeLens",
 		"onCommand:haxe.dependencies.refresh",
 		"onCommand:haxe.revealActiveFileInSideBar",
+		"onCommand:haxe.exportServerRecording",
 		"onCommand:workbench.action.tasks.runTask",
 		"onDebugResolve:haxe-eval",
 		"onView:haxe.methods",
@@ -562,6 +563,45 @@
 					"default": false,
 					"deprecationMessage": "Use \"haxe.enableServerView\" instead"
 				},
+				"haxe.serverRecording": {
+					"markdownDescription": "Options for compilation server recording",
+					"type": "object",
+					"default": {
+						"enabled": false,
+						"path": ".haxelsp/recording/",
+						"watch": [],
+						"exclude": [],
+						"excludeUntracked": false
+					},
+					"additionalProperties": false,
+					"properties": {
+						"enabled": {
+							"markdownDescription": "Enable recording of communication with Haxe Server to produce reproducible logs.",
+							"type": "boolean",
+							"default": false
+						},
+						"path": {
+							"markdownDescription": "Root folder to use to save data related to server recording.",
+							"type": "string",
+							"default": ".haxelsp/recording/"
+						},
+						"exclude": {
+							"markdownDescription": "Do not track these files in git/svn logged changes.",
+							"type": "array",
+							"default": []
+						},
+						"excludeUntracked": {
+							"markdownDescription": "Do not add untracked files to recording.",
+							"type": "boolean",
+							"default": false
+						},
+						"watch": {
+							"markdownDescription": "Additional paths to watch for changes (e.g. resources used for compilation)",
+							"type": "array",
+							"default": []
+						}
+					}
+				},
 				"haxe.enableSignatureHelpDocumentation": {
 					"markdownDescription": "Whether signature help should include documentation or not.",
 					"type": "boolean",
@@ -869,6 +909,11 @@
 			{
 				"title": "Reveal Active File in Side Bar",
 				"command": "haxe.revealActiveFileInSideBar",
+				"category": "Haxe"
+			},
+			{
+				"title": "Export current server recording",
+				"command": "haxe.exportServerRecording",
 				"category": "Haxe"
 			},
 			{
