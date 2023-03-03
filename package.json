@@ -997,6 +997,11 @@
 				"title": "Go to",
 				"command": "haxe.cache.gotoNode",
 				"category": "Haxe"
+			},
+			{
+				"title": "Show Output Channel",
+				"command": "haxe.showOutputChannel",
+				"category": "Haxe"
 			}
 		],
 		"languages": [

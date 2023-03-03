@@ -20,6 +20,7 @@ class Commands {
 		context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
 		context.registerHaxeCommand(DebugSelectedConfiguration, debugSelectedConfiguration);
 		context.registerHaxeCommand(CodeAction_HighlightInsertion, highlightInsertion);
+		context.registerHaxeCommand(ShowOutputChannel, showOutputChannel);
 
 		#if debug
 		context.registerHaxeCommand(ClearMementos, clearMementos);
@@ -95,5 +96,10 @@ class Commands {
 
 	function highlightInsertion(uri:String, range:Range) {
 		window.showTextDocument(Uri.parse(uri)).then(editor -> editor.revealRange(range));
+	}
+
+	function showOutputChannel():Void {
+		final serverClient = server.client ?? return;
+		serverClient.outputChannel.show();
 	}
 }
