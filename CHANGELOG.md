@@ -1,4 +1,4 @@
-### 2.27.0 (February xxx, 2023)
+### 2.27.0 (February 26, 2023)
 
 **New Features:**
 
@@ -7,7 +7,7 @@
 **Changes and Improvements:**
 
 - updated to haxe-formatter version [1.14.6](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.14.6)
-- updated to tokentree [1.2.8](https://github.com/HaxeCheckstyle/tokentree/releases/tag/v1.2.8)
+- updated to tokentree version [1.2.8](https://github.com/HaxeCheckstyle/tokentree/releases/tag/v1.2.8)
 - changed server/invalidate calls to occur only once per file between compilations ([haxe-languageserver#84](https://github.com/vshaxe/haxe-language-server/pull/84))
 
 ### 2.26.0 (January 29, 2023)
