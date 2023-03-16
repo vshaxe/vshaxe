@@ -1,3 +1,15 @@
+### upcoming 2.28.0 (----)
+
+**New Features:**
+
+- added Show Output Channel command [#568](https://github.com/vshaxe/vshaxe/issues/568)
+
+**Changes and Improvements:**
+
+- fixed replace range for missing override code action ([haxe-languageserver#88](https://github.com/vshaxe/haxe-language-server/pull/88))
+- fixed "[rename] error: could not find identifier to rename ([haxe-languageserver#86](https://github.com/vshaxe/haxe-language-server/pull/86))
+- fixed hxml debug flag description ([haxe-languageserver#85](https://github.com/vshaxe/haxe-language-server/pull/85))
+
 ### 2.27.0 (February 26, 2023)
 
 **New Features:**
