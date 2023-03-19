@@ -3,9 +3,9 @@ package vshaxe.server;
 import haxe.display.Protocol.HaxeRequestMethod;
 import haxe.display.Protocol.Response;
 import haxe.extern.Rest;
-import js.lib.Promise;
 import haxeLanguageServer.DisplayServerConfig;
 import haxeLanguageServer.LanguageServerMethods;
+import js.lib.Promise;
 import jsonrpc.Types;
 import languageServerProtocol.textdocument.TextDocument.DocumentUri;
 import vshaxe.configuration.HaxeInstallation;
@@ -185,6 +185,7 @@ class LanguageServer {
 			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
 			onNotification(LanguageServerMethods.HaxeKeepsCrashing, onHaxeKeepsCrashing);
 			onNotification(LanguageServerMethods.DidDetectOldHaxeVersion, onDidDetectOldHaxeVersion);
+			onNotification(LanguageServerMethods.ExecuteClientCommand, onExecuteClientCommand);
 			onRequest(LanguageServerMethods.ListLibraries, onListLibraries);
 		});
 
@@ -346,5 +347,9 @@ class LanguageServer {
 		return new Promise(function(resolve, reject) {
 			resolve(haxeInstallation.listLibraries());
 		});
+	}
+
+	function onExecuteClientCommand(p:{command:String, arguments:Array<Any>}):Void {
+		commands.executeCommand(p.command, ...haxe.Rest.of(p.arguments));
 	}
 }
