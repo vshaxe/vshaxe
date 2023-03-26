@@ -12,5 +12,5 @@ jobs:
       with:
         submodules: true
     - run: |
-        npm install
+        npm ci
         npx lix run formatter -s . --check
