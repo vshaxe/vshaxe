@@ -5,13 +5,19 @@
 - added Show Output Channel command [#568](https://github.com/vshaxe/vshaxe/issues/568)
 - added "Add argument" code action for "Too many arguments" compiler diagnostic ([haxe-languageserver#87](https://github.com/vshaxe/haxe-language-server/pull/87))
 - added notification for server-client commands [#573](https://github.com/vshaxe/vshaxe/issues/573)
+- added support for new Haxe 4.3 diagnostics with related information ([haxe-languageserver#91](https://github.com/vshaxe/haxe-language-server/pull/91))
 
 **Changes and Improvements:**
+
+- added support for commented out imports when sorting imports [#574](https://github.com/vshaxe/vshaxe/issues/574)
+
+**Bugfixes:**
 
 - fixed replace range for missing override code action ([haxe-languageserver#88](https://github.com/vshaxe/haxe-language-server/pull/88))
 - fixed "[rename] error: could not find identifier to rename ([haxe-languageserver#86](https://github.com/vshaxe/haxe-language-server/pull/86))
 - fixed hxml debug flag description ([haxe-languageserver#85](https://github.com/vshaxe/haxe-language-server/pull/85))
 - fixed using `npm ci` for github workflows ([haxe-languageserver#89](https://github.com/vshaxe/haxe-language-server/pull/89))
+- fixed duplicate registration ids [#564](https://github.com/vshaxe/vshaxe/issues/564)
 
 ### 2.27.0 (February 26, 2023)
 
