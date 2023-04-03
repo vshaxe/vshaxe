@@ -1002,6 +1002,11 @@
 				"title": "Show Output Channel",
 				"command": "haxe.showOutputChannel",
 				"category": "Haxe"
+			},
+			{
+				"title": "Fix All",
+				"command": "haxe.fixAll",
+				"category": "Haxe"
 			}
 		],
 		"languages": [
