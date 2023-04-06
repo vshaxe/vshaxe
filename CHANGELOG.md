@@ -1,4 +1,4 @@
-### upcoming 2.28.0 (----)
+### upcoming 2.28.0 (April 6, 2023)
 
 **New Features:**
 
@@ -6,10 +6,12 @@
 - added "Add argument" code action for "Too many arguments" compiler diagnostic ([haxe-languageserver#87](https://github.com/vshaxe/haxe-language-server/pull/87))
 - added notification for server-client commands [#573](https://github.com/vshaxe/vshaxe/issues/573)
 - added support for new Haxe 4.3 diagnostics with related information ([haxe-languageserver#91](https://github.com/vshaxe/haxe-language-server/pull/91))
+- added quickfixes for parser error diagnostics ([haxe-languageserver#93](https://github.com/vshaxe/haxe-language-server/pull/93))
 
 **Changes and Improvements:**
 
 - added support for commented out imports when sorting imports [#574](https://github.com/vshaxe/vshaxe/issues/574)
+- added hint for haxe.renameSourceFolders setting [#578](https://github.com/vshaxe/vshaxe/issues/578)
 
 **Bugfixes:**
 

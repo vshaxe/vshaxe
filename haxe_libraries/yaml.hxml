@@ -1,3 +1,3 @@
--D yaml=0.0.0
-# @install: lix --silent download "gh://github.com/Gama11/hx-yaml#a13e4d571b8cf38ae392a32ee80d95b841424784" into hx-yaml/0.0.0/github/a13e4d571b8cf38ae392a32ee80d95b841424784
--cp ${HAXE_LIBCACHE}/hx-yaml/0.0.0/github/a13e4d571b8cf38ae392a32ee80d95b841424784/src
+# @install: lix --silent download "gh://github.com/Gama11/hx-yaml#a90c5a93ec8ca07bd73889c1707945e02903de8e" into hx-yaml/0.0.0/github/a90c5a93ec8ca07bd73889c1707945e02903de8e
+-cp ${HAXE_LIBCACHE}/hx-yaml/0.0.0/github/a90c5a93ec8ca07bd73889c1707945e02903de8e/src
+-D hx-yaml=0.0.0
