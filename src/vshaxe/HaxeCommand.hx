@@ -33,6 +33,7 @@ enum abstract HaxeCommand(String) to String {
 	final Cache_ReloadNode = command("cache.reloadNode");
 	final Cache_GotoNode = command("cache.gotoNode");
 	final ShowOutputChannel = command("showOutputChannel");
+	final FixAll = command("fixAll");
 
 	inline static function command(name:String):String {
 		return "haxe." + name;

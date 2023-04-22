@@ -21,6 +21,7 @@ class Commands {
 		context.registerHaxeCommand(DebugSelectedConfiguration, debugSelectedConfiguration);
 		context.registerHaxeCommand(CodeAction_HighlightInsertion, highlightInsertion);
 		context.registerHaxeCommand(ShowOutputChannel, showOutputChannel);
+		context.registerHaxeCommand(FixAll, fixAll);
 
 		#if debug
 		context.registerHaxeCommand(ClearMementos, clearMementos);
@@ -101,5 +102,36 @@ class Commands {
 	function showOutputChannel():Void {
 		final serverClient = server.client ?? return;
 		serverClient.outputChannel.show();
+	}
+
+	function fixAll():Void {
+		final editor = window.activeTextEditor;
+		if (editor == null)
+			return;
+		final document = editor.document;
+		if (document.isDirty)
+			return;
+		final range = new Range(0, 0, document.lineCount, 0);
+		commands.executeCommand('vscode.executeCodeActionProvider', document.uri, range, CodeActionKind.QuickFix.value).then((actions:Array<CodeAction>) -> {
+			if (actions == null)
+				return;
+			editor.edit((editBuilder) -> {
+				for (action in actions) {
+					final kind = action.kind;
+					if (kind == null || !kind.value.endsWith("auto"))
+						continue;
+					final wedit = action.edit;
+					if (wedit == null)
+						continue;
+					for (tuple in wedit.entries()) {
+						final edits = tuple.edits;
+						final uri = tuple.uri;
+						for (edit in edits) {
+							editBuilder.replace(edit.range, edit.newText);
+						}
+					}
+				}
+			});
+		});
 	}
 }
