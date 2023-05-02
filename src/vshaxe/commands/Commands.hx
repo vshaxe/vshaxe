@@ -20,6 +20,8 @@ class Commands {
 		context.registerHaxeCommand(ToggleCodeLens, toggleCodeLens);
 		context.registerHaxeCommand(DebugSelectedConfiguration, debugSelectedConfiguration);
 		context.registerHaxeCommand(CodeAction_HighlightInsertion, highlightInsertion);
+		context.registerHaxeCommand(CodeAction_InsertSnippet, insertSnippet);
+		context.registerHaxeCommand(CodeAction_SelectRanges, selectRanges);
 		context.registerHaxeCommand(ShowOutputChannel, showOutputChannel);
 		context.registerHaxeCommand(FixAll, fixAll);
 
@@ -97,6 +99,78 @@ class Commands {
 
 	function highlightInsertion(uri:String, range:Range) {
 		window.showTextDocument(Uri.parse(uri)).then(editor -> editor.revealRange(range));
+	}
+
+	function insertSnippet(uri:String, range:Range, snippet:String):Void {
+		window.showTextDocument(Uri.parse(uri)).then(editor -> {
+			final firstLine = editor.document.lineAt(range.start.line);
+			final indentNum = lineIndentationCount(firstLine.text);
+			snippet = prepateSnippetIndentation(snippet, indentNum);
+			final range = new Range(range.start, range.end);
+			final str = new SnippetString(snippet);
+			editor.insertSnippet(str, range);
+		});
+	}
+
+	function selectRanges(uri:String, ranges:Array<Range>):Void {
+		window.showTextDocument(Uri.parse(uri)).then(editor -> {
+			// editor.selections = ranges.map(range -> {
+			// 	new Selection(range.start, range.end);
+			// });
+			final ranges = ranges.map(range -> new Range(range.start, range.end));
+			final fullRange = ranges.fold((item, result:Range) -> {
+				if (result == item)
+					return result;
+				return result.union(item);
+			}, ranges[0]);
+			ranges.sort((range1, range2) -> {
+				return range1.start.isBefore(range2.start) ? -1 : 1;
+			});
+			final docText = editor.document.getText();
+			final fullEnd = editor.document.offsetAt(fullRange.end);
+			var pos = editor.document.offsetAt(fullRange.start);
+			var snippet = "";
+			for (i => r in ranges) {
+				final start = editor.document.offsetAt(r.start);
+				final end = editor.document.offsetAt(r.end);
+				snippet += docText.substring(pos, start);
+				snippet += "${1:" + docText.substring(start, end) + "}";
+				pos = end;
+				if (i == ranges.length - 1) {
+					snippet += "${0}" + docText.substring(end, fullEnd);
+				}
+			}
+			final firstLine = editor.document.lineAt(fullRange.start.line);
+			final indentNum = lineIndentationCount(firstLine.text);
+			snippet = prepateSnippetIndentation(snippet, indentNum);
+			final str = new SnippetString(snippet);
+			editor.insertSnippet(str, fullRange);
+		});
+	}
+
+	function lineIndentationCount(s:String):Int {
+		var spaces = 0;
+		for (i => _ in s) {
+			if (!s.isSpace(i))
+				break;
+			spaces++;
+		}
+		return spaces;
+	}
+
+	function prepateSnippetIndentation(snippet:String, indent:Int):String {
+		// snippet adds first line indentation to all next lines,
+		// so we need to remove next line indentations
+		final startIndentCount = indent;
+		final snippetLines = snippet.split("\n");
+		for (i => line in snippetLines) {
+			if (i == 0)
+				continue;
+			if (lineIndentationCount(line) < startIndentCount)
+				continue;
+			snippetLines[i] = line.substr(startIndentCount);
+		}
+		return snippetLines.join("\n");
 	}
 
 	function showOutputChannel():Void {
