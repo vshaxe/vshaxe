@@ -105,7 +105,7 @@ class Commands {
 		window.showTextDocument(Uri.parse(uri)).then(editor -> {
 			final firstLine = editor.document.lineAt(range.start.line);
 			final indentNum = lineIndentationCount(firstLine.text);
-			snippet = prepateSnippetIndentation(snippet, indentNum);
+			snippet = prepareSnippetIndentation(snippet, indentNum);
 			final range = new Range(range.start, range.end);
 			final str = new SnippetString(snippet);
 			editor.insertSnippet(str, range);
@@ -142,7 +142,7 @@ class Commands {
 			}
 			final firstLine = editor.document.lineAt(fullRange.start.line);
 			final indentNum = lineIndentationCount(firstLine.text);
-			snippet = prepateSnippetIndentation(snippet, indentNum);
+			snippet = prepareSnippetIndentation(snippet, indentNum);
 			final str = new SnippetString(snippet);
 			editor.insertSnippet(str, fullRange);
 		});
@@ -158,7 +158,7 @@ class Commands {
 		return spaces;
 	}
 
-	function prepateSnippetIndentation(snippet:String, indent:Int):String {
+	function prepareSnippetIndentation(snippet:String, indent:Int):String {
 		// snippet adds first line indentation to all next lines,
 		// so we need to remove next line indentations
 		final startIndentCount = indent;
