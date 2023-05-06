@@ -93,7 +93,7 @@ abstract SemVer(String) to String {
 	@:to function get_data():SemVerData {
 		if (!cache.exists(this))
 			cache[this] = getData();
-		return cache[this];
+		@:nullSafety(Off) return cache[this];
 	}
 
 	@:from static function fromData(data:SemVerData)

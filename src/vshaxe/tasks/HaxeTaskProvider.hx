@@ -29,7 +29,7 @@ class HaxeTaskProvider {
 	}
 
 	public function resolveTask(task:Task, ?token:CancellationToken):ProviderResult<Task> {
-		return taskConfiguration.createTask(task.definition, "active configuration", displayArguments.arguments);
+		return taskConfiguration.createTask(task.definition, "active configuration", displayArguments.arguments ?? []);
 	}
 }
 
