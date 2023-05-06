@@ -205,6 +205,8 @@ class Commands {
 						}
 					}
 				}
+			}).then(canBeApplied -> {
+				document.save();
 			});
 		});
 	}
