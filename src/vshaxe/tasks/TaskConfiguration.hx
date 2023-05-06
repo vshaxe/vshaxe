@@ -103,7 +103,7 @@ class TaskConfiguration {
 			final defineNamespace = haxeVersion == haxe_4_3_0 ? "message-" : "message.";
 
 			args = args.concat([
-				"-D", '${defineNamespace}log-file=$path',
+				"-D",  '${defineNamespace}log-file=$path',
 				"-D", '${defineNamespace}log-format=indent'
 			]);
 		}
