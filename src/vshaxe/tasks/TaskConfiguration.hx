@@ -147,11 +147,13 @@ class TaskConfiguration {
 			}
 
 			function postProcess(diagnostic:Diagnostic) {
-				if (diagnostic.relatedInformation.or([]).length == 0) return;
+				if (diagnostic.relatedInformation.or([]).length == 0)
+					return;
 
 				var message = diagnostic.message;
 				for (rel in diagnostic.relatedInformation.or([])) {
-					if (!rel.location.range.isEqual(diagnostic.range)) return;
+					if (!rel.location.range.isEqual(diagnostic.range))
+						return;
 					message += "\n" + rel.message;
 				}
 
@@ -168,7 +170,8 @@ class TaskConfiguration {
 					final uri = Uri.file(file);
 
 					if (isEmpty(problemMatcher.matched(1))) {
-						if (diagnostic != null) postProcess(diagnostic);
+						if (diagnostic != null)
+							postProcess(diagnostic);
 
 						diagnostic = new Diagnostic(createRange(), problemMatcher.matched(9), switch problemMatcher.matched(7) {
 							case null | "": Error;
@@ -200,7 +203,8 @@ class TaskConfiguration {
 				}
 			}
 
-			if (diagnostic != null) postProcess(diagnostic);
+			if (diagnostic != null)
+				postProcess(diagnostic);
 			server.client?.diagnostics?.set([for (file => diag in diagnostics) [(Uri.file(file) : Any), (diag : Any)]]);
 
 			// TODO: add some settings to _not_ delete the file?
