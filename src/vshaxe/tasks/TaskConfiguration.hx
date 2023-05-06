@@ -54,7 +54,7 @@ class TaskConfiguration {
 	}
 
 	function update() {
-		haxeVersion = try SemVer.ofString(haxeInstallation.haxe.configuration.version) catch(_) SemVer.DEFAULT;
+		haxeVersion = try SemVer.ofString(haxeInstallation.haxe.configuration.version) catch (_) SemVer.DEFAULT;
 
 		enableCompilationServer = workspace.getConfiguration("haxe").get("enableCompilationServer", true);
 		final presentation:{
@@ -117,14 +117,16 @@ class TaskConfiguration {
 	}
 
 	function onTaskEnd(name:String):Void {
-		if (haxeVersion < SemVer.ofString('4.3.0')) return;
+		if (haxeVersion < SemVer.ofString('4.3.0'))
+			return;
 		final path = getLogFile(name);
 
 		if (FileSystem.exists(path) && !FileSystem.isDirectory(path)) {
 			final diagnostics:Map<String, Array<Diagnostic>> = [];
 			final problemMatcher = ~/^(\s*)(.+):(\d+): (?:lines \d+-(\d+)|character(?:s (\d+)-| )(\d+)) : (?:(Warning|Info) : (?:\((W[^\)]+)\) )?)?(.*)$/;
 
-			function isEmpty(s:String) return s == null || s == "";
+			function isEmpty(s:String)
+				return s == null || s == "";
 
 			function createRange() {
 				var line = Std.parseInt(problemMatcher.matched(3));
@@ -133,11 +135,12 @@ class TaskConfiguration {
 				var colEnd = Std.parseInt(problemMatcher.matched(6));
 				var col = isEmpty(problemMatcher.matched(5)) ? colEnd : Std.parseInt(problemMatcher.matched(5));
 
-				return new Range(new Position(line-1, col-1), new Position(lineEnd-1, colEnd-1));
+				return new Range(new Position(line - 1, col - 1), new Position(lineEnd - 1, colEnd - 1));
 			}
 
 			function convertIndentation(s:String):String {
-				if (s.length < 3) return s;
+				if (s.length < 3)
+					return s;
 				return s.substring(2).replace("  ", "⋅⋅⋅") + " ";
 			}
 
@@ -147,16 +150,12 @@ class TaskConfiguration {
 			for (line in logs.split("\n")) {
 				if (problemMatcher.match(line)) {
 					if (isEmpty(problemMatcher.matched(1))) {
-						diagnostic = new Diagnostic(
-							createRange(),
-							problemMatcher.matched(9),
-							switch problemMatcher.matched(7) {
-								case null | "": Error;
-								case "Warning": Warning;
-								case "Info": Information;
-								case _: Error;
-							}
-						);
+						diagnostic = new Diagnostic(createRange(), problemMatcher.matched(9), switch problemMatcher.matched(7) {
+							case null | "": Error;
+							case "Warning": Warning;
+							case "Info": Information;
+							case _: Error;
+						});
 
 						diagnostic.code = problemMatcher.matched(8);
 						if (diagnostic.code == "WDeprecated") {
@@ -167,25 +166,27 @@ class TaskConfiguration {
 						final file = PathHelper.absolutize(problemMatcher.matched(2), workspace.rootPath);
 						final uri = Uri.file(file);
 
-						if (!diagnostics.exists(file)) diagnostics.set(file, [diagnostic]);
-						else diagnostics.get(file).push(diagnostic);
+						if (!diagnostics.exists(file))
+							diagnostics.set(file, [diagnostic]);
+						else
+							diagnostics.get(file).push(diagnostic);
 					} else if (diagnostic != null) {
 						final file = PathHelper.absolutize(problemMatcher.matched(2), workspace.rootPath);
 						final uri = Uri.file(file);
 
 						// Add related info
-						var rel = new DiagnosticRelatedInformation(
-							new Location(uri, createRange()),
-							convertIndentation(problemMatcher.matched(1)) + problemMatcher.matched(9)
-						);
+						var rel = new DiagnosticRelatedInformation(new Location(uri, createRange()),
+							convertIndentation(problemMatcher.matched(1)) + problemMatcher.matched(9));
 
-						if (diagnostic.relatedInformation == null) diagnostic.relatedInformation = [rel];
-						else diagnostic.relatedInformation.push(rel);
+						if (diagnostic.relatedInformation == null)
+							diagnostic.relatedInformation = [rel];
+						else
+							diagnostic.relatedInformation.push(rel);
 					}
 				}
 			}
 
-			server.client.diagnostics.set([for (file => diag in diagnostics) [(Uri.file(file) :Any), (diag :Any)]]);
+			server.client.diagnostics.set([for (file => diag in diagnostics) [(Uri.file(file) : Any), (diag : Any)]]);
 
 			// TODO: add some settings to _not_ delete the file?
 			Fs.unlink(path, (err) -> if (err != null) outputChannel.appendLine('Error while removing log file: ' + err.message));

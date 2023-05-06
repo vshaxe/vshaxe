@@ -11,7 +11,6 @@ enum Preview {
 }
 
 abstract SemVer(String) to String {
-
 	public var major(get, never):Int;
 	public var minor(get, never):Int;
 	public var patch(get, never):Int;
@@ -20,7 +19,8 @@ abstract SemVer(String) to String {
 	public var data(get, never):SemVerData;
 	public var valid(get, never):Bool;
 
-	inline function new(s) this = s;
+	inline function new(s)
+		this = s;
 
 	static public function compare(a:SemVer, b:SemVer) {
 		function toArray(data:SemVerData)
@@ -28,17 +28,23 @@ abstract SemVer(String) to String {
 				data.major,
 				data.minor,
 				data.patch,
-				if (data.preview == null) 100 else data.preview.getIndex(),
-				if (data.previewNum == null) -1 else data.previewNum
+				if (data.preview == null)
+					100
+				else
+					data.preview.getIndex(),
+				if (data.previewNum == null)
+					-1
+				else
+					data.previewNum
 			];
 
-		var a = toArray(a.data),
-			b = toArray(b.data);
+		var a = toArray(a.data), b = toArray(b.data);
 
 		for (i in 0...a.length)
 			switch Reflect.compare(a[i], b[i]) {
 				case 0:
-				case v: return v;
+				case v:
+					return v;
 			}
 
 		return 0;
@@ -91,37 +97,30 @@ abstract SemVer(String) to String {
 	}
 
 	@:from static function fromData(data:SemVerData)
-		return
-			new SemVer(
-				data.major + '.' + data.minor + '.' + data.patch +
-					if (data.preview == null) ''
-					else '-' + data.preview.getName().toLowerCase() +
-						if (data.previewNum == null) '';
-						else '.' + data.previewNum
-			);
+		return new SemVer(data.major
+			+ '.'
+			+ data.minor
+			+ '.'
+			+ data.patch
+			+ if (data.preview == null) '' else '-' + data.preview.getName().toLowerCase() + if (data.previewNum == null) ''; else '.' + data.previewNum);
 
 	function getData():SemVerData
-		return
-			if (valid) {//RAPTORS: This query will already cause the matching.
-				major: FORMAT.matched(1).parseInt(),
-				minor: FORMAT.matched(2).parseInt(),
-				patch: FORMAT.matched(3).parseInt(),
-				preview:
-					switch FORMAT.matched(5) {
-						case 'alpha': ALPHA;
-						case 'beta': BETA;
-						case 'rc': RC;
-						case v if (v == null): null;
-						case v: throw 'unrecognized preview tag $v';
-					},
-				previewNum:
-					switch FORMAT.matched(7) {
-						case null: null;
-						case v: v.parseInt();
-					}
+		return if (valid) { // RAPTORS: This query will already cause the matching.
+			major: FORMAT.matched(1).parseInt(),
+			minor: FORMAT.matched(2).parseInt(),
+			patch: FORMAT.matched(3).parseInt(),
+			preview: switch FORMAT.matched(5) {
+				case 'alpha': ALPHA;
+				case 'beta': BETA;
+				case 'rc': RC;
+				case v if (v == null): null;
+				case v: throw 'unrecognized preview tag $v';
+			},
+			previewNum: switch FORMAT.matched(7) {
+				case null: null;
+				case v: v.parseInt();
 			}
-			else
-				throw '$this is not a valid version string';//TODO: include some URL for reference
+		} else throw '$this is not a valid version string'; // TODO: include some URL for reference
 
 	static public function isValid(s:String)
 		return Std.is(s, String) && FORMAT.match(s.toLowerCase());
@@ -135,7 +134,7 @@ abstract SemVer(String) to String {
 	static public var DEFAULT(default, null) = new SemVer('0.0.0');
 }
 
-typedef SemVerData =  {
+typedef SemVerData = {
 	major:Int,
 	minor:Int,
 	patch:Int,
