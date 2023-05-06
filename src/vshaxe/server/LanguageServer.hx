@@ -160,7 +160,10 @@ class LanguageServer {
 				haxelibConfig: {
 					executable: haxeInstallation.haxelib.configuration.executable
 				},
-				sendMethodResults: true
+				sendMethodResults: true,
+				experimentalClientCapabilities: {
+					supportedCommands: [CodeAction_InsertSnippet]
+				}
 			},
 			revealOutputChannelOn: Never,
 			workspaceFolder: folder
