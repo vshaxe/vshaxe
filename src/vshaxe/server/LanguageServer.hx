@@ -150,6 +150,7 @@ class LanguageServer {
 				{language: "hxml", scheme: "file"},
 				{language: "hxml", scheme: "untitled"}
 			],
+			diagnosticCollectionName: "haxe",
 			synchronize: {
 				configurationSection: "haxe",
 				fileEvents: resFileWatcher.concat([hxFileWatcher])
