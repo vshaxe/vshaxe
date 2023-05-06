@@ -1,7 +1,15 @@
 package vshaxe.tasks;
 
+import haxe.io.Path;
+import js.node.Fs.Fs;
+import js.node.Os;
+import sys.FileSystem;
+import sys.io.File;
 import vshaxe.configuration.HaxeInstallation;
+import vshaxe.helper.PathHelper;
+import vshaxe.helper.SemVer;
 import vshaxe.server.LanguageServer;
+import vshaxe.tasks.HxmlTaskProvider.HxmlTaskDefinition;
 
 private typedef WriteableApi = {
 	enableCompilationServer:Bool,
@@ -13,6 +21,9 @@ class TaskConfiguration {
 	final problemMatchers:Array<String>;
 	final server:LanguageServer;
 	final api:Vshaxe;
+	final outputChannel:OutputChannel;
+
+	var haxeVersion:SemVer;
 	var enableCompilationServer:Bool;
 	var taskPresentation:TaskPresentationOptions;
 
@@ -21,12 +32,30 @@ class TaskConfiguration {
 		this.problemMatchers = problemMatchers;
 		this.server = server;
 		this.api = api;
+		this.outputChannel = window.createOutputChannel("haxe-task");
 
 		inline update();
 		workspace.onDidChangeConfiguration(_ -> update());
+
+		tasks.onDidEndTask(e -> {
+			var name = e.execution.task.name;
+			var type = e.execution.task.definition.type;
+			switch (type) {
+				case "haxe":
+					onTaskEnd("active configuration");
+
+				case "hxml":
+					final def:HxmlTaskDefinition = cast e.execution.task.definition;
+					onTaskEnd(def.file);
+
+				case _:
+			}
+		});
 	}
 
 	function update() {
+		haxeVersion = try SemVer.ofString(haxeInstallation.haxe.configuration.version) catch(_) SemVer.DEFAULT;
+
 		enableCompilationServer = workspace.getConfiguration("haxe").get("enableCompilationServer", true);
 		final presentation:{
 			?echo:Bool,
@@ -62,14 +91,108 @@ class TaskConfiguration {
 	}
 
 	public function createTask(definition:TaskDefinition, name:String, args:Array<String>):Task {
-		final exectuable = haxeInstallation.haxe.configuration.executable;
+		final executable = haxeInstallation.haxe.configuration.executable;
+
 		if (server.displayPort != null && enableCompilationServer) {
 			args = ["--connect", Std.string(server.displayPort)].concat(args);
 		}
-		final execution = new ProcessExecution(exectuable, args, {env: haxeInstallation.env});
-		final task = new Task(definition, TaskScope.Workspace, name, "haxe", execution, problemMatchers);
+
+		final haxe_4_3_0 = SemVer.ofString('4.3.0');
+		if (haxeVersion >= haxe_4_3_0) {
+			final path = getLogFile(name);
+			final defineNamespace = haxeVersion == haxe_4_3_0 ? "message-" : "message.";
+
+			args = args.concat([
+				"-D", '${defineNamespace}log-file=$path',
+				"-D", '${defineNamespace}log-format=indent'
+			]);
+		}
+
+		final execution = new ProcessExecution(executable, args, {env: haxeInstallation.env});
+		final problemMatchers = haxeVersion < haxe_4_3_0 ? problemMatchers : [];
+		final task = new Task(definition, TaskScope.Workspace, name, definition.type, execution, problemMatchers);
 		task.group = TaskGroup.Build;
 		task.presentationOptions = taskPresentation;
 		return task;
+	}
+
+	function onTaskEnd(name:String):Void {
+		if (haxeVersion < SemVer.ofString('4.3.0')) return;
+		final path = getLogFile(name);
+
+		if (FileSystem.exists(path) && !FileSystem.isDirectory(path)) {
+			final diagnostics:Map<String, Array<Diagnostic>> = [];
+			final problemMatcher = ~/^(\s*)(.+):(\d+): (?:lines \d+-(\d+)|character(?:s (\d+)-| )(\d+)) : (?:(Warning|Info) : (?:\((W[^\)]+)\) )?)?(.*)$/;
+
+			function isEmpty(s:String) return s == null || s == "";
+
+			function createRange() {
+				var line = Std.parseInt(problemMatcher.matched(3));
+				var lineEnd = isEmpty(problemMatcher.matched(4)) ? line : Std.parseInt(problemMatcher.matched(4));
+
+				var colEnd = Std.parseInt(problemMatcher.matched(6));
+				var col = isEmpty(problemMatcher.matched(5)) ? colEnd : Std.parseInt(problemMatcher.matched(5));
+
+				return new Range(new Position(line-1, col-1), new Position(lineEnd-1, colEnd-1));
+			}
+
+			function convertIndentation(s:String):String {
+				if (s.length < 3) return s;
+				return s.substring(2).replace("  ", "⋅⋅⋅") + " ";
+			}
+
+			var diagnostic = null;
+			final logs = File.getContent(path);
+
+			for (line in logs.split("\n")) {
+				if (problemMatcher.match(line)) {
+					if (isEmpty(problemMatcher.matched(1))) {
+						diagnostic = new Diagnostic(
+							createRange(),
+							problemMatcher.matched(9),
+							switch problemMatcher.matched(7) {
+								case null | "": Error;
+								case "Warning": Warning;
+								case "Info": Information;
+								case _: Error;
+							}
+						);
+
+						diagnostic.code = problemMatcher.matched(8);
+						if (diagnostic.code == "WDeprecated") {
+							diagnostic.tags ??= [];
+							diagnostic.tags.push(Deprecated);
+						}
+
+						final file = PathHelper.absolutize(problemMatcher.matched(2), workspace.rootPath);
+						final uri = Uri.file(file);
+
+						if (!diagnostics.exists(file)) diagnostics.set(file, [diagnostic]);
+						else diagnostics.get(file).push(diagnostic);
+					} else if (diagnostic != null) {
+						final file = PathHelper.absolutize(problemMatcher.matched(2), workspace.rootPath);
+						final uri = Uri.file(file);
+
+						// Add related info
+						var rel = new DiagnosticRelatedInformation(
+							new Location(uri, createRange()),
+							convertIndentation(problemMatcher.matched(1)) + problemMatcher.matched(9)
+						);
+
+						if (diagnostic.relatedInformation == null) diagnostic.relatedInformation = [rel];
+						else diagnostic.relatedInformation.push(rel);
+					}
+				}
+			}
+
+			server.client.diagnostics.set([for (file => diag in diagnostics) [(Uri.file(file) :Any), (diag :Any)]]);
+
+			// TODO: add some settings to _not_ delete the file?
+			Fs.unlink(path, (err) -> if (err != null) outputChannel.appendLine('Error while removing log file: ' + err.message));
+		}
+	}
+
+	function getLogFile(taskName:String):String {
+		return Path.join([Os.tmpdir(), 'vshaxe-${workspace.name}-$taskName-errors.log']);
 	}
 }
