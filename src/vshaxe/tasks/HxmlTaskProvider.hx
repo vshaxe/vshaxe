@@ -13,7 +13,7 @@ class HxmlTaskProvider {
 	public function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>> {
 		return [
 			for (file in hxmlDiscovery.files) {
-				final definition:HaxeTaskDefinition = {
+				final definition:HxmlTaskDefinition = {
 					type: "hxml",
 					file: file
 				};
@@ -23,8 +23,10 @@ class HxmlTaskProvider {
 	}
 
 	public function resolveTask(task:Task, ?token:CancellationToken):ProviderResult<Task> {
-		return task;
+		final definition:HxmlTaskDefinition = cast task.definition;
+		final file = definition.file;
+		return taskConfiguration.createTask(definition, file, [file]);
 	}
 }
 
-private typedef HaxeTaskDefinition = TaskDefinition & {file:String};
+typedef HxmlTaskDefinition = TaskDefinition & {file:String};
