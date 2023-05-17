@@ -143,7 +143,7 @@ class AutoIndentation {
 			// cursor at the end of line
 			if (startLine.text.substr(charIndex + 2).rtrim().length != 0)
 				continue;
-			// there is next line (body) in file
+			// there is no next line (body) in file
 			if (lineCount <= lineIndex + 1)
 				continue;
 			if (isSingleLineBlockWithoutBrackets(editor, startLine)) {
