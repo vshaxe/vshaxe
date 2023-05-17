@@ -129,9 +129,7 @@ class AutoIndentation {
 	}
 
 	function wrapBraceBody(event:TextDocumentChangeEvent):Void {
-		if (window.activeTextEditor == null)
-			return;
-		final editor:TextEditor = window.activeTextEditor;
+		final editor:TextEditor = window.activeTextEditor ?? return;
 		if (editor.document.fileName != event.document.fileName)
 			return;
 		final edits:Array<TextDocumentContentChangeEvent> = [];
@@ -140,23 +138,16 @@ class AutoIndentation {
 				continue;
 			final lineCount = editor.document.lineCount;
 			final lineIndex = change.range.start.line;
-			final curLine = editor.document.lineAt(lineIndex);
-			if (lineCount > lineIndex + 1) {
-				final nextLine = editor.document.lineAt(lineIndex + 1);
-				if (curLine.firstNonWhitespaceCharacterIndex < nextLine.firstNonWhitespaceCharacterIndex) {
-					var surround = false;
-					if (lineCount > lineIndex + 1) {
-						final nextNextLine = editor.document.lineAt(lineIndex + 2);
-						if (nextNextLine.firstNonWhitespaceCharacterIndex < nextLine.firstNonWhitespaceCharacterIndex) {
-							surround = true;
-						}
-					} else {
-						surround = true;
-					}
-					if (surround) {
-						edits.push(change);
-					}
-				}
+			final startLine = editor.document.lineAt(lineIndex);
+			final charIndex = change.range.start.character;
+			// cursor at the end of line
+			if (startLine.text.substr(charIndex + 2).rtrim().length != 0)
+				continue;
+			// there is next line (body) in file
+			if (lineCount <= lineIndex + 1)
+				continue;
+			if (isSingleLineBlockWithoutBrackets(editor, startLine)) {
+				edits.push(change);
 			}
 		}
 		if (edits.length == 0)
@@ -169,5 +160,26 @@ class AutoIndentation {
 				builder.insert(nextLine.range.end, '\n' + curLine.text.substr(0, curLine.firstNonWhitespaceCharacterIndex) + '}');
 			}
 		}, {undoStopBefore: false, undoStopAfter: true});
+	}
+
+	function isSingleLineBlockWithoutBrackets(editor:TextEditor, startLine:TextLine):Bool {
+		final bodyLine = editor.document.lineAt(startLine.lineNumber + 1);
+		final startCharIndex = startLine.firstNonWhitespaceCharacterIndex;
+		// body in not on +1 indentation level
+		if (startCharIndex >= bodyLine.firstNonWhitespaceCharacterIndex)
+			return false;
+		// no end line is fine
+		if (editor.document.lineCount <= bodyLine.lineNumber + 1)
+			return true;
+		final endLine = editor.document.lineAt(startLine.lineNumber + 2);
+		final endCharIndex = endLine.firstNonWhitespaceCharacterIndex;
+		// end line is below start line
+		if (endCharIndex < startCharIndex) {
+			return true;
+		} else {
+			// do not make block inside of block
+			return endLine.text.charAt(endCharIndex) != "}";
+		}
+		return true;
 	}
 }
