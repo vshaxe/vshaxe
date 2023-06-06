@@ -7,11 +7,7 @@
 - added quick fix for `modifier is not supported for module-level fields` ([haxe-languageserver#92](https://github.com/vshaxe/haxe-language-server/pull/92))
 - added `Extract to var in enclosing scope` action ([haxe-languageserver#95](https://github.com/vshaxe/haxe-language-server/pull/95)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#extract-var-to-enclosing-scope)
 - added `Change final to var` quick fix ([haxe-languageserver#96](https://github.com/vshaxe/haxe-language-server/pull/96))
-- added update syntax code actions for null operators: ([haxe-languageserver#97](https://github.com/vshaxe/haxe-language-server/pull/97))
-  - `var a = b; if (a == null) a = c` to `var a = b ?? c`
-  - `if (a == null) a = b` to `a ??= b`
-  - `if (a.b != null) a.b.c` to `a.b?.c`
-  - `a == null ? 0 : a` to `a ?? 0` ([haxe-languageserver#106](https://github.com/vshaxe/haxe-language-server/pull/106)), see [examples](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#update-to-null-operators)
+- added update syntax code actions for null operators: ([haxe-languageserver#97](https://github.com/vshaxe/haxe-language-server/pull/97), [haxe-languageserver#106](https://github.com/vshaxe/haxe-language-server/pull/106)), see [examples](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#update-to-null-operators)
 - added `Invert if` action ([haxe-languageserver#108](https://github.com/vshaxe/haxe-language-server/pull/108)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#invert-if)
 - added `Add type hint` action ([haxe-languageserver#115](https://github.com/vshaxe/haxe-language-server/pull/115)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#add-type-hint)
 
