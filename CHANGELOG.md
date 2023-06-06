@@ -1,17 +1,48 @@
-### upcoming 2.28.0 (April 6, 2023)
+### upcoming 2.29.0 (----)
 
 **New Features:**
 
-- added Show Output Channel command [#568](https://github.com/vshaxe/vshaxe/issues/568)
+- added Fix All command ([#576](https://github.com/vshaxe/vshaxe/pull/576)). You can enable autofixes on save for simple compiler errors, like missing semicolons, see [Fix All](https://github.com/vshaxe/vshaxe/wiki/Commands#haxe-fix-all)
+- added `-D message-reporting=pretty` mode support to build tasks ([#587](https://github.com/vshaxe/vshaxe/pull/587))
+- added quick fix for `modifier is not supported for module-level fields` ([haxe-languageserver#92](https://github.com/vshaxe/haxe-language-server/pull/92))
+- added `Extract to var in enclosing scope` action ([haxe-languageserver#95](https://github.com/vshaxe/haxe-language-server/pull/95)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#extract-var-to-enclosing-scope)
+- added `Change final to var` quick fix ([haxe-languageserver#96](https://github.com/vshaxe/haxe-language-server/pull/96))
+- added update syntax code actions for null operators: ([haxe-languageserver#97](https://github.com/vshaxe/haxe-language-server/pull/97))
+  - `var a = b; if (a == null) a = c` to `var a = b ?? c`
+  - `if (a == null) a = b` to `a ??= b`
+  - `if (a.b != null) a.b.c` to `a.b?.c`
+  - `a == null ? 0 : a` to `a ?? 0` ([haxe-languageserver#106](https://github.com/vshaxe/haxe-language-server/pull/106)), see [examples](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#update-to-null-operators)
+- added `Invert if` action ([haxe-languageserver#108](https://github.com/vshaxe/haxe-language-server/pull/108)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#invert-if)
+- added `Add type hint` action ([haxe-languageserver#115](https://github.com/vshaxe/haxe-language-server/pull/115)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#add-type-hint)
+
+**Changes and Improvements:**
+
+- improve `haxe.enableBraceBodyWrapping` setting ([#588](https://github.com/vshaxe/vshaxe/pull/588))
+- improve error message for `could not find identifier to rename` ([#578](https://github.com/vshaxe/vshaxe/issues/578))
+- code actions now support snippets in code generation ([#585](https://github.com/vshaxe/vshaxe/pull/585)).
+- improve problems view: indent related information to show sub error depth ([#105](https://github.com/vshaxe/haxe-language-server/pull/105))
+
+**Bugfixes:**
+
+- fixes ANSI codes in haxe server output ([haxe-languageserver#102](https://github.com/vshaxe/haxe-language-server/pull/102))
+- fixes unicode offsets in actions ([haxe-languageserver#98](https://github.com/vshaxe/haxe-language-server/pull/98))
+- fixes type generation in missing argument action ([haxe-languageserver#109](https://github.com/vshaxe/haxe-language-server/pull/109))
+- fixes file switching breaks completion before active code editor save ([#591](https://github.com/vshaxe/vshaxe/issues/591))
+
+### 2.28.0 (April 6, 2023)
+
+**New Features:**
+
+- added Show Output Channel command ([#568](https://github.com/vshaxe/vshaxe/issues/568))
 - added "Add argument" code action for "Too many arguments" compiler diagnostic ([haxe-languageserver#87](https://github.com/vshaxe/haxe-language-server/pull/87))
-- added notification for server-client commands [#573](https://github.com/vshaxe/vshaxe/issues/573)
+- added notification for server-client commands ([#573](https://github.com/vshaxe/vshaxe/issues/573))
 - added support for new Haxe 4.3 diagnostics with related information ([haxe-languageserver#91](https://github.com/vshaxe/haxe-language-server/pull/91))
 - added quickfixes for parser error diagnostics ([haxe-languageserver#93](https://github.com/vshaxe/haxe-language-server/pull/93))
 
 **Changes and Improvements:**
 
-- added support for commented out imports when sorting imports [#574](https://github.com/vshaxe/vshaxe/issues/574)
-- added hint for haxe.renameSourceFolders setting [#578](https://github.com/vshaxe/vshaxe/issues/578)
+- added support for commented out imports when sorting imports ([#574](https://github.com/vshaxe/vshaxe/issues/574))
+- added hint for haxe.renameSourceFolders setting ([#578](https://github.com/vshaxe/vshaxe/issues/578))
 
 **Bugfixes:**
 
@@ -19,7 +50,7 @@
 - fixed "[rename] error: could not find identifier to rename ([haxe-languageserver#86](https://github.com/vshaxe/haxe-language-server/pull/86))
 - fixed hxml debug flag description ([haxe-languageserver#85](https://github.com/vshaxe/haxe-language-server/pull/85))
 - fixed using `npm ci` for github workflows ([haxe-languageserver#89](https://github.com/vshaxe/haxe-language-server/pull/89))
-- fixed duplicate registration ids [#564](https://github.com/vshaxe/vshaxe/issues/564)
+- fixed duplicate registration ids ([#564](https://github.com/vshaxe/vshaxe/issues/564))
 
 ### 2.27.0 (February 26, 2023)
 
