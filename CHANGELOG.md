@@ -2,28 +2,33 @@
 
 **New Features:**
 
-- added Fix All command ([#576](https://github.com/vshaxe/vshaxe/pull/576)). You can enable autofixes on save for simple compiler errors, like missing semicolons, see [Fix All](https://github.com/vshaxe/vshaxe/wiki/Commands#haxe-fix-all)
-- added `-D message-reporting=pretty` mode support to build tasks ([#587](https://github.com/vshaxe/vshaxe/pull/587))
+- added `Fix All` command ([#576](https://github.com/vshaxe/vshaxe/pull/576), [#586](https://github.com/vshaxe/vshaxe/pull/586), [haxe-languageserver#101](https://github.com/vshaxe/haxe-language-server/pull/101)). You can enable autofixes on save for simple compiler errors, like missing semicolons, see [Fix All](https://github.com/vshaxe/vshaxe/wiki/Commands#haxe-fix-all)
+- added `-D message-reporting=pretty` mode support to build tasks ([#587](https://github.com/vshaxe/vshaxe/pull/587), [haxe-languageserver#103](https://github.com/vshaxe/haxe-language-server/pull/103), [haxe-languageserver#107](https://github.com/vshaxe/haxe-language-server/pull/107))
 - added quick fix for `modifier is not supported for module-level fields` ([haxe-languageserver#92](https://github.com/vshaxe/haxe-language-server/pull/92))
 - added `Extract to var in enclosing scope` action ([haxe-languageserver#95](https://github.com/vshaxe/haxe-language-server/pull/95)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#extract-var-to-enclosing-scope)
 - added `Change final to var` quick fix ([haxe-languageserver#96](https://github.com/vshaxe/haxe-language-server/pull/96))
 - added update syntax code actions for null operators: ([haxe-languageserver#97](https://github.com/vshaxe/haxe-language-server/pull/97), [haxe-languageserver#106](https://github.com/vshaxe/haxe-language-server/pull/106)), see [examples](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#update-to-null-operators)
 - added `Invert if` action ([haxe-languageserver#108](https://github.com/vshaxe/haxe-language-server/pull/108)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#invert-if)
 - added `Add type hint` action ([haxe-languageserver#115](https://github.com/vshaxe/haxe-language-server/pull/115)), see [example](https://github.com/vshaxe/vshaxe/wiki/Code-Actions#add-type-hint)
+- added missing comma generation for anon structs ([haxe-languageserver#100](https://github.com/vshaxe/haxe-language-server/pull/100))
+- added unittests for code actions ([haxe-languageserver#110](https://github.com/vshaxe/haxe-language-server/pull/110))
+- added `populateCacheFromDisplay` config ([haxe-languageserver#111](https://github.com/vshaxe/haxe-language-server/pull/111))
 
 **Changes and Improvements:**
 
 - improve `haxe.enableBraceBodyWrapping` setting ([#588](https://github.com/vshaxe/vshaxe/pull/588))
 - improve error message for `could not find identifier to rename` ([#578](https://github.com/vshaxe/vshaxe/issues/578))
-- code actions now support snippets in code generation ([#585](https://github.com/vshaxe/vshaxe/pull/585)).
+- code actions now support snippets in code generation ([#585](https://github.com/vshaxe/vshaxe/pull/585), [haxe-languageserver#99](https://github.com/vshaxe/haxe-language-server/pull/99)).
 - improve problems view: indent related information to show sub error depth ([#105](https://github.com/vshaxe/haxe-language-server/pull/105))
 
 **Bugfixes:**
 
-- fixes ANSI codes in haxe server output ([haxe-languageserver#102](https://github.com/vshaxe/haxe-language-server/pull/102))
+- fixes ANSI codes in haxe server output ([haxe-languageserver#102](https://github.com/vshaxe/haxe-language-server/pull/102), [haxe-languageserver#104](https://github.com/vshaxe/haxe-language-server/pull/104))
 - fixes unicode offsets in actions ([haxe-languageserver#98](https://github.com/vshaxe/haxe-language-server/pull/98))
-- fixes type generation in missing argument action ([haxe-languageserver#109](https://github.com/vshaxe/haxe-language-server/pull/109))
-- fixes file switching breaks completion before active code editor save ([#591](https://github.com/vshaxe/vshaxe/issues/591))
+- fixes type generation in missing argument action ([haxe-languageserver#109](https://github.com/vshaxe/haxe-language-server/pull/109), [haxe-languageserver#112](https://github.com/vshaxe/haxe-language-server/pull/112))
+- fixes file switching breaks completion before active code editor save ([#591](https://github.com/vshaxe/vshaxe/issues/591), [haxe-languageserver#113](https://github.com/vshaxe/haxe-language-server/pull/113))
+- fixes null access in GotoDefinitionFeature ([haxe-languageserver#94](https://github.com/vshaxe/haxe-language-server/pull/94))
+- fixes interface fields generation ([haxe-languageserver#114](https://github.com/vshaxe/haxe-language-server/pull/114))
 
 ### 2.28.0 (April 6, 2023)
 
