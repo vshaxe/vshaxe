@@ -173,13 +173,12 @@ class AutoIndentation {
 			return true;
 		final endLine = editor.document.lineAt(startLine.lineNumber + 2);
 		final endCharIndex = endLine.firstNonWhitespaceCharacterIndex;
-		// end line is below start line
-		if (endCharIndex < startCharIndex) {
-			return true;
-		} else {
+		// end line is below body line
+		if (endCharIndex <= startCharIndex) {
 			// do not make block inside of block
 			return endLine.text.charAt(endCharIndex) != "}";
+		} else {
+			return false;
 		}
-		return true;
 	}
 }
