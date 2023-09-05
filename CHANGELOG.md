@@ -1,4 +1,4 @@
-### upcoming 2.29.0 (----)
+### upcoming 2.29.0 (September 5, 2023)
 
 **New Features:**
 
@@ -29,6 +29,7 @@
 - fixes file switching breaks completion before active code editor save ([#591](https://github.com/vshaxe/vshaxe/issues/591), [haxe-languageserver#113](https://github.com/vshaxe/haxe-language-server/pull/113))
 - fixes null access in GotoDefinitionFeature ([haxe-languageserver#94](https://github.com/vshaxe/haxe-language-server/pull/94))
 - fixes interface fields generation ([haxe-languageserver#114](https://github.com/vshaxe/haxe-language-server/pull/114))
+- fixes server recording with no svn / git binaries in path ([#590](https://github.com/vshaxe/vshaxe/pull/590)
 
 ### 2.28.0 (April 6, 2023)
 
