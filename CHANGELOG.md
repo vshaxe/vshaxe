@@ -1,4 +1,4 @@
-### upcoming 2.29.0 (----)
+### 2.29.0 (September 5, 2023)
 
 **New Features:**
 
