@@ -215,8 +215,8 @@ class TaskConfiguration {
 
 					// Clear previous diagnostics
 					clientDiagnostics.forEach(function(uri,_,_) {
-						final uri = uri.toString();
-						if (!diagnostics.exists(item -> uri == (item[0]:Uri).toString())) diagnostics.push([uri, []]);
+						final uriStr = uri.toString();
+						if (!diagnostics.exists(item -> uriStr == (item[0]:Uri).toString())) diagnostics.push([uri, []]);
 					});
 
 					clientDiagnostics.set(diagnostics);
