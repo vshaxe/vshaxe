@@ -205,10 +205,17 @@ class TaskConfiguration {
 
 			if (diagnostic != null)
 				postProcess(diagnostic);
-			server.client?.diagnostics?.set([for (file => diag in diagnostics) [(Uri.file(file) : Any), (diag : Any)]]);
+
+			if (diagnostics.empty()) {
+				server.client?.diagnostics?.clear();
+			} else {
+				server.client?.diagnostics?.set([for (file => diag in diagnostics) [(Uri.file(file) : Any), (diag : Any)]]);
+			}
 
 			// TODO: add some settings to _not_ delete the file?
 			Fs.unlink(path, (err) -> if (err != null) outputChannel.appendLine('Error while removing log file: ' + err.message));
+		} else {
+			server.client?.diagnostics?.clear();
 		}
 	}
 
