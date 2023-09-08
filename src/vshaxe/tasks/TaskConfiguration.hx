@@ -206,10 +206,21 @@ class TaskConfiguration {
 			if (diagnostic != null)
 				postProcess(diagnostic);
 
-			if (diagnostics.empty()) {
-				server.client?.diagnostics?.clear();
-			} else {
-				server.client?.diagnostics?.set([for (file => diag in diagnostics) [(Uri.file(file) : Any), (diag : Any)]]);
+			final clientDiagnostics = server.client?.diagnostics;
+			if (clientDiagnostics != null) {
+				if (diagnostics.empty()) {
+					clientDiagnostics.clear();
+				} else {
+					final diagnostics = [for (file => diag in diagnostics) [(Uri.file(file) : Any), (diag : Any)]];
+
+					// Clear previous diagnostics
+					clientDiagnostics.forEach(function(uri,_,_) {
+						final uri = uri.toString();
+						if (!diagnostics.exists(item -> uri == (item[0]:Uri).toString())) diagnostics.push([uri, []]);
+					});
+
+					clientDiagnostics.set(diagnostics);
+				}
 			}
 
 			// TODO: add some settings to _not_ delete the file?
