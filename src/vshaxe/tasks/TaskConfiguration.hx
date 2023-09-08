@@ -214,9 +214,10 @@ class TaskConfiguration {
 					final diagnostics = [for (file => diag in diagnostics) [(Uri.file(file) : Any), (diag : Any)]];
 
 					// Clear previous diagnostics
-					clientDiagnostics.forEach(function(uri,_,_) {
+					clientDiagnostics.forEach(function(uri, _, _) {
 						final uriStr = uri.toString();
-						if (!diagnostics.exists(item -> uriStr == (item[0]:Uri).toString())) diagnostics.push([uri, []]);
+						if (!diagnostics.exists(item -> uriStr == (item[0] : Uri).toString()))
+							diagnostics.push([uri, []]);
 					});
 
 					clientDiagnostics.set(diagnostics);
