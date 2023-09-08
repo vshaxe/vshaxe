@@ -183,7 +183,7 @@ class LanguageServer {
 			restartDisposables.push(new PackageInserter(hxFileWatcher, this));
 
 			onNotification(LanguageServerMethods.DidChangeDisplayPort, onDidChangeDisplayPort);
-			onNotification(LanguageServerMethods.DidRunRunGlobalDiagnostics, onDidRunGlobalDiangostics);
+			onNotification(LanguageServerMethods.DidRunRunGlobalDiagnostics, onDidRunGlobalDiagnostics);
 			onNotification(LanguageServerMethods.DidRunMethod, onDidRunMethodCallback);
 			onNotification(LanguageServerMethods.DidChangeRequestQueue, onDidChangeRequestQueueCallback);
 			onNotification(LanguageServerMethods.CacheBuildFailed, onCacheBuildFailed);
@@ -276,7 +276,7 @@ class LanguageServer {
 		return sendRequest(LanguageServerMethods.RunMethod, {method: method, params: params});
 	}
 
-	function onDidRunGlobalDiangostics(_) {
+	function onDidRunGlobalDiagnostics(_) {
 		commands.executeCommand("workbench.action.problems.focus");
 	}
 
