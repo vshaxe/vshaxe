@@ -3,9 +3,9 @@ package vshaxe.server;
 import haxe.display.Protocol.HaxeRequestMethod;
 import haxe.display.Protocol.Response;
 import haxe.extern.Rest;
+import js.lib.Promise;
 import haxeLanguageServer.DisplayServerConfig;
 import haxeLanguageServer.LanguageServerMethods;
-import js.lib.Promise;
 import jsonrpc.Types;
 import languageServerProtocol.textdocument.TextDocument.DocumentUri;
 import vshaxe.configuration.HaxeInstallation;
@@ -15,6 +15,7 @@ import vshaxe.server.LanguageClient;
 using Safety;
 
 class LanguageServer {
+	public var displayHost(default, null):Null<String>;
 	public var displayPort(default, null):Null<Int>;
 	public var onDidRunMethod(get, never):Event<MethodResult>;
 	public var onDidChangeRequestQueue(get, never):Event<Array<String>>;
@@ -233,9 +234,11 @@ class LanguageServer {
 		return displayServerConfigSerialized != oldSerialized;
 	}
 
-	function onDidChangeDisplayPort(data:{port:Int}) {
+	function onDidChangeDisplayPort(data:ServerAddress) {
+		displayHost = data.host;
 		displayPort = data.port;
-		final writeableApi:{?displayPort:Int} = cast api;
+		final writeableApi:{?displayHost:String, ?displayPort:Int} = cast api;
+		writeableApi.displayHost = data.host;
 		writeableApi.displayPort = data.port;
 	}
 

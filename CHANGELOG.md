@@ -1,3 +1,13 @@
+### 2.30.0 (September 14, 2023)
+
+**New Features:**
+
+- added `displayHost` setting to allow changing host ip address for completion server
+
+**Bugfixes:**
+
+- fixed connection issues after updating to vscode 1.82.0 ([#602](https://github.com/vshaxe/vshaxe/issues/602) + [#589](https://github.com/vshaxe/vshaxe/issues/589))
+
 ### 2.29.1 (September 6, 2023)
 
 **Bugfixes:**
