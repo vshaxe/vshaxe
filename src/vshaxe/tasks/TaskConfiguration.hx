@@ -96,7 +96,8 @@ class TaskConfiguration {
 		final executable = haxeInstallation.haxe.configuration.executable;
 
 		if (server.displayPort != null && enableCompilationServer) {
-			args = ["--connect", Std.string(server.displayPort)].concat(args);
+			var host = server.displayHost ?? "127.0.0.1";
+			args = ["--connect", host + ":" + Std.string(server.displayPort)].concat(args);
 		}
 
 		final haxe_4_3_0 = SemVer.ofString('4.3.0');

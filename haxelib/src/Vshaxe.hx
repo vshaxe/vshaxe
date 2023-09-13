@@ -36,6 +36,17 @@ typedef Vshaxe = {
 	var haxelibExecutable(default, never):HaxelibExecutable;
 
 	/**
+		The host (ip address) at which the completion server is reachable via `--connect`, or `null`.
+		Corresponds to the `"haxe.displayHost"` setting.
+
+		Note: currently Haxe (4.3.2) only supports IPv4 addresses for `--connect`.
+		also: vshaxe cannot spawn a Haxe display server on an ip address that is not local.
+
+		Should be respected by generated tasks that call Haxe directly or indirectly if `enableCompilationServer` is `true`.
+	**/
+	var ?displayHost(default, never):String;
+
+	/**
 		The port at which the completion server is reachable via `--connect`, or `null`.
 		Corresponds to the `"haxe.displayPort"` setting.
 
