@@ -3,9 +3,9 @@ package vshaxe.server;
 import haxe.display.Protocol.HaxeRequestMethod;
 import haxe.display.Protocol.Response;
 import haxe.extern.Rest;
-import js.lib.Promise;
 import haxeLanguageServer.DisplayServerConfig;
 import haxeLanguageServer.LanguageServerMethods;
+import js.lib.Promise;
 import jsonrpc.Types;
 import languageServerProtocol.textdocument.TextDocument.DocumentUri;
 import vshaxe.configuration.HaxeInstallation;
@@ -164,7 +164,8 @@ class LanguageServer {
 				},
 				sendMethodResults: true,
 				experimentalClientCapabilities: {
-					supportedCommands: [CodeAction_InsertSnippet]
+					supportedCommands: [CodeAction_InsertSnippet],
+					vscodeVersion: Vscode.version,
 				}
 			},
 			revealOutputChannelOn: Never,
