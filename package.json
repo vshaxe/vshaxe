@@ -1211,6 +1211,10 @@
 				"file": 1,
 				"line": 2,
 				"message": 3
+			},
+			{
+				"name": "haxe-fake",
+				"regexp": "^## Fake problem matcher ##$"
 			}
 		],
 		"problemMatchers": [
