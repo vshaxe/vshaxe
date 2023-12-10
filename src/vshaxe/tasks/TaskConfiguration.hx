@@ -111,8 +111,11 @@ class TaskConfiguration {
 			]);
 		}
 
+		// We're not using problem matchers there but vscode needs some to
+		// know that the task is running etc.
+		final problemMatchers = haxeVersion < haxe_4_3_0 ? problemMatchers : ["haxe-fake"];
+
 		final execution = new ProcessExecution(executable, args, {env: haxeInstallation.env});
-		final problemMatchers = haxeVersion < haxe_4_3_0 ? problemMatchers : [];
 		final task = new Task(definition, TaskScope.Workspace, name, definition.type, execution, problemMatchers);
 		task.group = TaskGroup.Build;
 		task.presentationOptions = taskPresentation;
