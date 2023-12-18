@@ -1,3 +1,9 @@
+### 2.31.0 (December 18, 2023)
+
+**Changes and Improvements:**
+
+- added a problem matcher when using recent Haxe versions to align behavior ([#614](https://github.com/vshaxe/vshaxe/issues/614))
+
 ### 2.30.0 (September 14, 2023)
 
 **New Features:**
