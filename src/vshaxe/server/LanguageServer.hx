@@ -3,13 +3,14 @@ package vshaxe.server;
 import haxe.display.Protocol.HaxeRequestMethod;
 import haxe.display.Protocol.Response;
 import haxe.extern.Rest;
-import js.lib.Promise;
 import haxeLanguageServer.DisplayServerConfig;
 import haxeLanguageServer.LanguageServerMethods;
+import js.lib.Promise;
 import jsonrpc.Types;
 import languageServerProtocol.textdocument.TextDocument.DocumentUri;
 import vshaxe.configuration.HaxeInstallation;
 import vshaxe.display.DisplayArguments;
+import vshaxe.helper.SemVer;
 import vshaxe.server.LanguageClient;
 
 using Safety;
@@ -144,6 +145,14 @@ class LanguageServer {
 			run: {module: serverModulePath, options: {env: js.Node.process.env}},
 			debug: {module: serverModulePath, options: {env: js.Node.process.env, execArgv: ["--nolazy", "--inspect=6504"]}}
 		};
+		var forceCommandResolveSupport = false;
+		if (SemVer.isValid(Vscode.version)) {
+			final ver = SemVer.ofString(Vscode.version);
+			// vscode currently has support, but doesn't have "command" field
+			// in node lsp codeAction capabilities
+			if (ver >= SemVer.ofString("1.81.0"))
+				forceCommandResolveSupport = true;
+		}
 		final clientOptions:LanguageClientOptions = {
 			documentSelector: cast [
 				{language: "haxe", scheme: "file"},
@@ -164,7 +173,8 @@ class LanguageServer {
 				},
 				sendMethodResults: true,
 				experimentalClientCapabilities: {
-					supportedCommands: [CodeAction_InsertSnippet]
+					supportedCommands: [CodeAction_InsertSnippet],
+					forceCommandResolveSupport: forceCommandResolveSupport,
 				}
 			},
 			revealOutputChannelOn: Never,
