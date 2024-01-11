@@ -175,7 +175,7 @@ class Commands {
 
 	function showOutputChannel():Void {
 		final serverClient = server.client ?? return;
-		serverClient.outputChannel.show();
+		serverClient.outputChannel.show(true);
 	}
 
 	function fixAll():Void {
