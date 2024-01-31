@@ -111,6 +111,9 @@ class CacheTreeView {
 							new Node("syntax cache", formatSize(result.syntaxCache.size), Leaf, node),
 							new Node("module cache", formatSize(result.moduleCache.size), Leaf, node)
 						];
+						if (result.binaryCache != null) {
+							sizeNodes.push(new Node("binary cache", formatSize(result.binaryCache.size), Leaf, node));
+						}
 						final sizeNode = new Node("?sizes", null, Nodes(sizeNodes), node);
 						a.unshift(sizeNode);
 						if (result.leaks != null) {
