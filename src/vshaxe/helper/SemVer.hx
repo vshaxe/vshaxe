@@ -28,14 +28,8 @@ abstract SemVer(String) to String {
 				data.major,
 				data.minor,
 				data.patch,
-				if (data.preview == null)
-					100
-				else
-					data.preview.getIndex(),
-				if (data.previewNum == null)
-					-1
-				else
-					data.previewNum
+				if (data.preview == null) 100 else data.preview.getIndex(),
+				if (data.previewNum == null) -1 else data.previewNum
 			];
 
 		var a = toArray(a.data), b = toArray(b.data);
