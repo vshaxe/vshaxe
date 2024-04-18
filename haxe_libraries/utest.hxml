@@ -1,5 +1,4 @@
-# @install: lix --silent download "gh://github.com/haxe-utest/utest#a94f8812e8786f2b5fec52ce9f26927591d26327" into utest/1.13.2/github/a94f8812e8786f2b5fec52ce9f26927591d26327
--cp ${HAXE_LIBCACHE}/utest/1.13.2/github/a94f8812e8786f2b5fec52ce9f26927591d26327/src
--D utest=1.13.2
---macro utest.utils.Macro.checkHaxe()
+# @install: lix --silent download "gh://github.com/haxe-utest/utest#bdb5fec4b8e77d9a3c079d9cfb108f29f153721a" into utest/2.0.0-alpha/github/bdb5fec4b8e77d9a3c079d9cfb108f29f153721a
+-cp ${HAXE_LIBCACHE}/utest/2.0.0-alpha/github/bdb5fec4b8e77d9a3c079d9cfb108f29f153721a/src
+-D utest=2.0.0-alpha
 --macro utest.utils.Macro.importEnvSettings()
