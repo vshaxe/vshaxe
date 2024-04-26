@@ -86,11 +86,11 @@ class CacheTreeView {
 							{key: "native lib cache", value: formatSize(result.memory.nativeLibCache)},
 						];
 						final cacheNode = new Node("total cache", formatSize(result.memory.totalCache), StringMapping(kv), node);
-						function buildsubnodes(subnodes:Array<Node>, items:Array<AdditionalSize>) {
+						function buildSubnodes(subnodes:Array<Node>, items:Array<AdditionalSize>) {
 							for (item in items) {
 								if (item.child != null && item.child.length > 0) {
 									var subsubnodes = [];
-									buildsubnodes(subsubnodes, item.child);
+									buildSubnodes(subsubnodes, item.child);
 									subnodes.push(new Node(item.name, formatSize(item.size), Nodes(subsubnodes), node));
 								} else
 									subnodes.push(new Node(item.name, formatSize(item.size), Leaf, node));
@@ -98,7 +98,7 @@ class CacheTreeView {
 						}
 						final subnodes = [cacheNode];
 						if (result.memory.additionalSizes != null) {
-							buildsubnodes(subnodes, result.memory.additionalSizes);
+							buildSubnodes(subnodes, result.memory.additionalSizes);
 						}
 						nodes.push(new Node("overview", null, Nodes(subnodes), node));
 						for (ctx in result.contexts) {
