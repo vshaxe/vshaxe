@@ -617,6 +617,11 @@
 					"type": "string",
 					"default": "${workspaceRoot}"
 				},
+				"haxe.diagnosticsForAllOpenFiles": {
+					"markdownDescription": "When using Haxe >= 4.3.5, diagnostics will run for all open Haxe files instead of current file unless this option is set to false",
+					"type": "boolean",
+					"default": true
+				},
 				"haxe.buildCompletionCache": {
 					"markdownDescription": "Speed up completion by building the project once on startup to initialize the cache.",
 					"type": "boolean",
