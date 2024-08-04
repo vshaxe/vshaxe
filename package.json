@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.31.0",
+	"version": "2.32.0",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.67.0"
@@ -634,6 +634,11 @@
 				},
 				"haxe.useLegacyCompletion": {
 					"markdownDescription": "Whether to revert to a Haxe 3 style completion where only toplevel packages and imported types are shown (effectively making it incompatible with auto-imports). *Note:* this setting has no effect with Haxe versions earlier than 4.0.0-rc.4.",
+					"type": "boolean",
+					"default": false
+				},
+				"haxe.useLegacyDiagnostics": {
+					"markdownDescription": "Haxe 4.3.5 introduces new Json RPC based diagnostics. in order to be able to opt out of them set option to true. *Note:* will stop working on nightlies once #11413 gets merged",
 					"type": "boolean",
 					"default": false
 				},

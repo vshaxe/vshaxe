@@ -1,3 +1,20 @@
+### 2.32.0 (August XX, 2024)
+
+**New Features:**
+
+- added support for new Json RPC based diagnostics introduced in 4.3.5 ([#629](https://github.com/vshaxe/vshaxe/issues/629))
+- added option `useLegacyDiagnostics` to allow opt out of Json RPC
+- added syntax support for binary literals
+- added support for child nodes in cache tree view ([#626](https://github.com/vshaxe/vshaxe/issues/626))
+- added binary cache size to cache tree view
+
+**Bugfixes:**
+
+- fixed dirty status of cache tree view
+- fixed output channel taking focus
+- fixed postfix trace emitting a second semicolon ([haxe-languageserver#126](https://github.com/vshaxe/haxe-language-server/pull/126))
+- fixed async code actions ([haxe-languageserver#120](https://github.com/vshaxe/haxe-language-server/pull/120))
+
 ### 2.31.0 (December 18, 2023)
 
 **Changes and Improvements:**
