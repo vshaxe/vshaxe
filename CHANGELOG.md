@@ -8,6 +8,10 @@
 - added support for child nodes in cache tree view ([#626](https://github.com/vshaxe/vshaxe/issues/626))
 - added binary cache size to cache tree view
 
+**Changes and Improvements:**
+
+- replaced safe navigation macro uses with null-safe field access operator ([haxe-languageserver#127](https://github.com/vshaxe/haxe-language-server/pull/127) + [haxe-languageserver#128](https://github.com/vshaxe/haxe-language-server/pull/128))
+
 **Bugfixes:**
 
 - fixed dirty status of cache tree view
