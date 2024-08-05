@@ -1,4 +1,4 @@
-### 2.32.0 (August XX, 2024)
+### 2.32.0 (August 5, 2024)
 
 **New Features:**
 
