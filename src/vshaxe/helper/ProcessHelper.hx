@@ -9,7 +9,7 @@ function getProcessOutput(command:String):Array<String> {
 		if (workspace.workspaceFolders != null) {
 			Sys.setCwd(workspace.workspaceFolders[0].uri.fsPath);
 		}
-		final result:Buffer = ChildProcess.execSync(command);
+		final result:Buffer = ChildProcess.execSync(command, {shell: true});
 		Sys.setCwd(oldCwd);
 		final lines = result.toString().split("\n");
 		[for (line in lines) line.trim()];
