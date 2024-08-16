@@ -1,3 +1,9 @@
+### 2.32.1 (August XX, 2024)
+
+**Bugfixes:**
+
+- fixes spawnSync throwing an excetion when Haxe is run through a `.cmd` shell script on Windows ([#635](https://github.com/vshaxe/vshaxe/issues/635))
+
 ### 2.32.0 (August 5, 2024)
 
 **New Features:**
