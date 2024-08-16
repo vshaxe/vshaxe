@@ -119,7 +119,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 	}
 
 	function getVersion(haxeExecutable:String):Null<String> {
-		final result = ChildProcess.spawnSync(haxeExecutable, ["-version"], {cwd: folder.uri.fsPath});
+		final result = ChildProcess.spawnSync(haxeExecutable, ["-version"], {cwd: folder.uri.fsPath, shell: true});
 		if (result != null && result.stderr != null) {
 			var output = (result.stderr : Buffer).toString().trim();
 			if (output == "") {
