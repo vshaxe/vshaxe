@@ -2,7 +2,7 @@
 
 **Bugfixes:**
 
-- fixed spawnSync throwing an excetion when Haxe is run through a `.cmd` shell script on Windows ([#635](https://github.com/vshaxe/vshaxe/issues/635))
+- fixed spawnSync throwing an exception when Haxe is run through a `.cmd` shell script on Windows ([#635](https://github.com/vshaxe/vshaxe/issues/635))
 - fixed exception on didChangeWatchedFiles event with server recording turned off ([#636](https://github.com/vshaxe/vshaxe/issues/636))
 
 ### 2.32.0 (August 5, 2024)
