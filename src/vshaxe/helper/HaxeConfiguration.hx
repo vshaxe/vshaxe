@@ -3,6 +3,7 @@ package vshaxe.helper;
 import haxe.Json;
 import haxe.ds.ReadOnlyArray;
 import haxe.io.Path;
+import haxeLanguageServer.ProcessUtil.shellEscapeCommand;
 import js.lib.Promise;
 import sys.FileSystem;
 import sys.io.File;
@@ -292,7 +293,7 @@ class HaxeConfiguration {
 
 	function resolveHaxelibs(libs:ReadOnlyArray<String>):Array<String> {
 		final hxml = [];
-		final haxelib = haxeInstallation.haxelib.configuration.executable;
+		final haxelib = shellEscapeCommand(haxeInstallation.haxelib.configuration.executable);
 		final output = getProcessOutput('$haxelib path ${libs.join(" ")}');
 		for (line in output) {
 			line = line.trim();

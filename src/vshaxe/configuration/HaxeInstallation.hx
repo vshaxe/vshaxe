@@ -3,6 +3,7 @@ package vshaxe.configuration;
 import haxe.DynamicAccess;
 import haxe.Timer;
 import haxe.io.Path;
+import haxeLanguageServer.ProcessUtil.shellEscapeCommand;
 import sys.FileSystem;
 import vshaxe.helper.PathHelper;
 import vshaxe.helper.ProcessHelper;
@@ -189,7 +190,8 @@ class HaxeInstallation {
 	}
 
 	function getLibraryBasePath():Null<String> {
-		final output = getProcessOutput('${haxelib.configuration.executable} config')[0];
+		final haxelibExe = shellEscapeCommand(haxelib.configuration.executable);
+		final output = getProcessOutput('$haxelibExe config')[0];
 		return if (output == null) {
 			trace("`haxelib config` call failed, Haxe Dependencies won't be populated.");
 			null;

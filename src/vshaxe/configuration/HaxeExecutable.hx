@@ -3,6 +3,7 @@ package vshaxe.configuration;
 import haxe.DynamicAccess;
 import haxe.extern.EitherType;
 import haxe.io.Path;
+import haxeLanguageServer.ProcessUtil.shellEscapeCommand;
 import js.node.Buffer;
 import js.node.ChildProcess;
 import sys.FileSystem;
@@ -108,6 +109,7 @@ class HaxeExecutable extends ConfigurationWrapper<HaxeExecutableConfiguration> {
 				}
 			}
 		}
+		executable = shellEscapeCommand(executable);
 
 		configuration = {
 			executable: executable,
