@@ -1,4 +1,4 @@
-# @install: lix --silent download "gh://github.com/elnabo/json2object#429986134031cbb1980f09d0d3d642b4b4cbcd6a" into json2object/3.11.0/github/429986134031cbb1980f09d0d3d642b4b4cbcd6a
+# @install: lix --silent download "gh://github.com/elnabo/json2object#a75859de1e966c09e73591b6c9186086c143fe60" into json2object/3.11.0/github/a75859de1e966c09e73591b6c9186086c143fe60
 -lib hxjsonast
--cp ${HAXE_LIBCACHE}/json2object/3.11.0/github/429986134031cbb1980f09d0d3d642b4b4cbcd6a/src
+-cp ${HAXE_LIBCACHE}/json2object/3.11.0/github/a75859de1e966c09e73591b6c9186086c143fe60/src
 -D json2object=3.11.0

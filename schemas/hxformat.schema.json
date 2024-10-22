@@ -166,25 +166,31 @@
 				"itemCount >= n",
 				"itemCount <= n",
 				"anyItemLength >= n",
+				"allItemLengths <= n",
+				"allItemLengths >= n",
 				"anyItemLength <= n",
 				"totalItemLength >= n",
 				"totalItemLength <= n",
 				"lineLength >= n",
 				"lineLength <= n",
 				"hasMultilineItems",
-				"exceedsMaxLineLength"
+				"exceedsMaxLineLength",
+				"equalItemLengths"
 			],
 			"markdownEnumDescriptions": [
 				"condition matches if item count is larger than or equal n items",
 				"condition matches if item count is less than or equal n items",
 				"condition matches if max item length is larger than or equal n characters",
 				"condition matches if max item length is less than or equal n characters",
+				"condition matches if min item length is larger than or equal n characters",
+				"condition matches if min item length is less than or equal n characters",
 				"condition matches if total length of all wrapable items is larger than or equal n characters",
 				"condition matches if total length of all wrapable items is less than or equal n characters",
 				"condition matches lines larger than or equal n characters",
 				"condition matches lines less than or equal n characters",
 				"condition value = 1 matches if line contains a multiline token (string literal, block comment)\nvalue = 0 matches if no multiline token is present",
-				"condition value = 1 matches if unwrapped line exceeds maxLineLength\nvalue = 0 matches unwrapped lines not exceeding maxLineLength"
+				"condition value = 1 matches if unwrapped line exceeds maxLineLength\nvalue = 0 matches unwrapped lines not exceeding maxLineLength",
+				"condition value = 1 matches if all items have identical item length\nvalue = 0 matches any two items having different item lengths"
 			]
 		},
 		"formatter.config.WrapCondition": {
@@ -264,11 +270,6 @@
 					"markdownDescription": "\"(\" + \")\"",
 					"$ref": "#/definitions/formatter.config.ParenWhitespaceConfig"
 				},
-				"openingBracketPolicy": {
-					"default": "noneAfter",
-					"markdownDescription": "\"[\"",
-					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
-				},
 				"objectFieldColonPolicy": {
 					"default": "after",
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
@@ -319,11 +320,6 @@
 					"default": "none",
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
 				},
-				"closingBracketPolicy": {
-					"default": "none",
-					"markdownDescription": "\"]\"",
-					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
-				},
 				"catchPolicy": {
 					"default": "after",
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
@@ -331,6 +327,10 @@
 				"caseColonPolicy": {
 					"default": "onlyAfter",
 					"$ref": "#/definitions/formatter.config.WhitespacePolicy"
+				},
+				"bracketConfig": {
+					"markdownDescription": "\"[\" + \"]\"",
+					"$ref": "#/definitions/formatter.config.BracketWhitespaceConfig"
 				},
 				"bracesConfig": {
 					"markdownDescription": "\"{\" + \"}\"",
@@ -1158,6 +1158,32 @@
 				"none",
 				"after"
 			]
+		},
+		"formatter.config.BracketWhitespaceConfig": {
+			"additionalProperties": false,
+			"properties": {
+				"unknownBrackets": {
+					"markdownDescription": "unknown brackets",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"mapLiteralBrackets": {
+					"markdownDescription": "brackets for map literals",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"comprehensionBrackets": {
+					"markdownDescription": "brackets for array and map comprehension",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"arrayLiteralBrackets": {
+					"markdownDescription": "brackets for array literals",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				},
+				"accessBrackets": {
+					"markdownDescription": "brackets for array access",
+					"$ref": "#/definitions/formatter.config.OpenClosePolicy"
+				}
+			},
+			"type": "object"
 		},
 		"formatter.config.BracesWhitespaceConfig": {
 			"additionalProperties": false,

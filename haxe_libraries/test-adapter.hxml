@@ -1,0 +1,5 @@
+# @install: lix --silent download "haxelib:/test-adapter#2.0.7" into test-adapter/2.0.7/haxelib
+-lib json2object
+-cp ${HAXE_LIBCACHE}/test-adapter/2.0.7/haxelib/
+-D test-adapter=2.0.7
+--macro _testadapter.Macro.init()
