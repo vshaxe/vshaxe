@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.32.1",
+	"version": "2.32.2",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.67.0"
@@ -40,23 +40,8 @@
 	},
 	"main": "bin/index.js",
 	"activationEvents": [
-		"onLanguage:haxe",
-		"onLanguage:hxml",
-		"onCommand:haxe.restartLanguageServer",
-		"onCommand:haxe.initProject",
-		"onCommand:haxe.selectConfiguration",
-		"onCommand:haxe.selectDisplayArgumentsProvider",
-		"onCommand:haxe.debugSelectedConfiguration",
-		"onCommand:haxe.runGlobalDiagnostics",
-		"onCommand:haxe.toggleCodeLens",
-		"onCommand:haxe.dependencies.refresh",
-		"onCommand:haxe.revealActiveFileInSideBar",
-		"onCommand:haxe.exportServerRecording",
 		"onCommand:workbench.action.tasks.runTask",
 		"onDebugResolve:haxe-eval",
-		"onView:haxe.methods",
-		"onView:haxe.dependencies",
-		"onView:haxe.cache",
 		"workspaceContains:./*.hxml"
 	],
 	"contributes": {
@@ -837,10 +822,10 @@
 					"markdownDescription": "Options for inlay hints feature",
 					"type": "object",
 					"default": {
-						"variableTypes": true,
-						"parameterNames": true,
+						"variableTypes": false,
+						"parameterNames": false,
 						"parameterTypes": false,
-						"functionReturnTypes": true,
+						"functionReturnTypes": false,
 						"conditionals": false
 					},
 					"additionalProperties": false,
@@ -848,12 +833,12 @@
 						"variableTypes": {
 							"markdownDescription": "Show inlay hints for variables",
 							"type": "boolean",
-							"default": true
+							"default": false
 						},
 						"parameterNames": {
 							"markdownDescription": "Show inlay hints for parameter names",
 							"type": "boolean",
-							"default": true
+							"default": false
 						},
 						"parameterTypes": {
 							"markdownDescription": "Show inlay hints for parameter types",
@@ -863,7 +848,7 @@
 						"functionReturnTypes": {
 							"markdownDescription": "Show inlay hints for function return types",
 							"type": "boolean",
-							"default": true
+							"default": false
 						},
 						"conditionals": {
 							"markdownDescription": "Show inlay hints for conditionals",

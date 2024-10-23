@@ -1,3 +1,12 @@
+### 2.32.2 (October 23, 2024)
+
+- fixed multiple issues with rename symbol ([#631](https://github.com/vshaxe/vshaxe/issues/631))
+- fixed issue with Haxe executable in path with spaces ([#639](https://github.com/vshaxe/vshaxe/issues/639))
+- disabled completion popup after #if and #end ([haxe-languageserver#132](https://github.com/vshaxe/haxe-language-server/pull/132))
+- updated to haxe-formatter version [1.17.1](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.17.1)
+- updated to haxe-rename version [2.2.3](https://github.com/HaxeCheckstyle/haxe-rename/releases/tag/v2.2.3)
+- removed obsolete activationEvents from package.json
+
 ### 2.32.1 (August 17, 2024)
 
 **Bugfixes:**
