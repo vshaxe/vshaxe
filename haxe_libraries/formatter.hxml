@@ -1,4 +1,4 @@
-# @install: lix --silent download "haxelib:/formatter#1.17.1" into formatter/1.17.1/haxelib
-# @run: haxelib run-dir formatter "${HAXE_LIBCACHE}/formatter/1.17.1/haxelib"
--cp ${HAXE_LIBCACHE}/formatter/1.17.1/haxelib/src
--D formatter=1.17.1
+# @install: lix --silent download "haxelib:/formatter#1.18.0" into formatter/1.18.0/haxelib
+# @run: haxelib run-dir formatter "${HAXE_LIBCACHE}/formatter/1.18.0/haxelib"
+-cp ${HAXE_LIBCACHE}/formatter/1.18.0/haxelib/src
+-D formatter=1.18.0
