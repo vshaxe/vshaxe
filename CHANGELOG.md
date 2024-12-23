@@ -1,3 +1,24 @@
+### 2.33.0 (December 23, 2024)
+
+**New Features:**
+
+- added Extract Type refactor module
+- added Extract Interface refactor module ([#649](https://github.com/vshaxe/vshaxe/issues/649))
+- added Extract Method refactor module ([#632](https://github.com/vshaxe/vshaxe/issues/632))
+- added Extract Constructor Params refactor module as vars or finals
+- added Rewrite Vars To Finals refactor module
+- added Rewrite Finals to Vars refactor module
+- added Wrap With Try…Catch refactor module
+
+**Bugfixes:**
+
+- fixed issue with hover range being null ([#641](https://github.com/vshaxe/vshaxe/issues/641))
+
+**Changes and Improvements:**
+
+- updated to haxe-formatter version [1.18.0](https://github.com/HaxeCheckstyle/haxe-formatter/releases/tag/v1.18.0)
+- updated to haxe-rename version [3.0.0](https://github.com/HaxeCheckstyle/haxe-rename/releases/tag/v3.0.0)
+
 ### 2.32.2 (October 23, 2024)
 
 **Bugfixes:**

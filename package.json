@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.32.2",
+	"version": "2.33.0",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.67.0"
@@ -807,6 +807,11 @@
 					"markdownDescription": "Folders to look for renamable identifiers. Rename will not see or touch files outside of those folders.",
 					"type": "array",
 					"default": ["src", "source", "Source", "test", "tests"]
+				},
+				"haxe.disableRefactorCache": {
+					"markdownDescription": "Disable refactor / rename cache. Will also disbale all rename and refactor options.",
+					"type": "boolean",
+					"default": false
 				},
 				"haxe.importsSortOrder": {
 					"markdownDescription": "Sort order of imports",
