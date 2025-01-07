@@ -1,0 +1,46 @@
+name: CI - Vanilla
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-13, windows-latest]
+        haxe: [latest, "2024-12-20_development_9a7121e"]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - uses: krdlab/setup-haxe@v1
+      with:
+        haxe-version: ${{ matrix.haxe }}
+
+    - name: Cache haxelib
+      id: cache-haxelib
+      uses: actions/cache@v3.0.11
+      with:
+        path: .haxelib
+        key: ${{ hashFiles('./install.hxml') }}
+
+    - name: Install npm dependencies
+      run: |
+        npm ci --ignore-scripts
+        npm run postinstall-vanilla
+
+    - name: Install haxelib dependencies
+      if: steps.cache-haxelib.outputs.cache-hit != 'true'
+      run: |
+        haxelib newrepo
+        haxelib state load install.hxml
+
+    - name: Check dependencies
+      run: |
+        haxe -version
+        haxelib list
+
+    - name: Build VsHaxe
+      run: haxe build.hxml
