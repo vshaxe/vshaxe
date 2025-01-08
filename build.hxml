@@ -1,0 +1,29 @@
+-lib hxnodejs
+-D analyzer-optimize
+-D js-unflatten
+-D js-es=6
+-D haxe-next
+-D nodejs=1
+-cp server/shared
+-cp src
+-cp haxelib/src
+-D JSTACK_MAIN=vshaxe.Main.main
+-D JSTACK_ASYNC_ENTRY
+-D JSTACK_NO_SHUTDOWN
+-lib vscode
+-lib vscode-json-rpc
+-lib language-server-protocol
+-lib safety
+-js bin/index.js
+--macro Safety.safeNavigation('vshaxe')
+--macro nullSafety('vshaxe')
+vshaxe.Main
+
+-D dump
+
+# Get rid of some warnings
+-w -WDeprecatedEnumAbstract
+
+# Don't minimize (-m) so I can get better error positions
+-cmd npx ncc build bin/index.js -o bin -q
+# -cmd npx ncc build bin/index.js -o bin -m -q
