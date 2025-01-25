@@ -43,6 +43,7 @@ This is just a brief overview of the supported features. [**For more details, ch
 - [Formatting](https://github.com/vshaxe/vshaxe/wiki/Formatting) (<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd>)
 - [Extension API](https://github.com/vshaxe/vshaxe/wiki/Extension-API)
 - [Inlay Hints](https://github.com/vshaxe/vshaxe/wiki/Inlay-Hints)
+- [Inline Values](https://github.com/vshaxe/vshaxe/wiki/Inline-Values)
 
 ## Building
 

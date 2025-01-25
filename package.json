@@ -1,6 +1,6 @@
 {
 	"name": "vshaxe",
-	"version": "2.33.0",
+	"version": "2.34.0",
 	"publisher": "nadako",
 	"engines": {
 		"vscode": "^1.67.0"
@@ -809,7 +809,12 @@
 					"default": ["src", "source", "Source", "test", "tests"]
 				},
 				"haxe.disableRefactorCache": {
-					"markdownDescription": "Disable refactor / rename cache. Will also disbale all rename and refactor options.",
+					"markdownDescription": "Disable refactor / rename cache. Will also disbale all rename and refactor options (and inline value feature).",
+					"type": "boolean",
+					"default": false
+				},
+				"haxe.disableInlineValue": {
+					"markdownDescription": "Disable inline value feature. Stops value annotations from showing up during debugging.",
 					"type": "boolean",
 					"default": false
 				},
