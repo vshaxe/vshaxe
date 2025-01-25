@@ -14,6 +14,7 @@
 - updated to haxe-rename version [3.0.1](https://github.com/HaxeCheckstyle/haxe-rename/releases/tag/v3.0.1)
 - updated to tokentree version [1.2.18](https://github.com/HaxeCheckstyle/tokentree/releases/tag/v1.2.18)
 - updated to language-server-protocol lib
+- added non-lix / vshaxe-build based compilation option to vshaxe / haxe-languageserver
 
 ### 2.33.0 (December 23, 2024)
 
