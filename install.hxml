@@ -9,7 +9,7 @@
 -lib utest:git:https://github.com/haxe-utest/utest#bdb5fec4b8e77d9a3c079d9cfb108f29f153721a
 -lib hxnodejs:git:https://github.com/HaxeFoundation/hxnodejs#504066d
 -lib tokentree:1.2.18
--lib language-server-protocol:git:https://github.com/vshaxe/language-server-protocol-haxe#280498b4dbe8b55c512d223d347c21b01f218ea4
+-lib language-server-protocol:git:https://github.com/vshaxe/language-server-protocol-haxe#20a7f976bc83ec6623cc25144c88f4c15a799586
 # -lib yaml:git:https://github.com/Gama11/hx-yaml#a90c5a93ec8ca07bd73889c1707945e02903de8e
 -lib hxjsonast:1.1.0
 # -lib tink_core:1.26.0

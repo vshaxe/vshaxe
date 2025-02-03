@@ -1,3 +1,16 @@
+### 2.34.1 (February 3, 2025)
+
+**Bugfixes:**
+
+- fixed inline values trying to show out-of-scope values
+- fixed JS broswer debugger not evaluating variable values
+- fixed inline values showing for sharp conditions, type names and enum fields
+
+**Changes and Improvements:**
+
+- changed default of `haxe.disableInlineValue` to true
+- updated language-server-protocol lib
+
 ### 2.34.0 (January 25, 2025)
 
 **New Features:**
@@ -13,7 +26,7 @@
 
 - updated to haxe-rename version [3.0.1](https://github.com/HaxeCheckstyle/haxe-rename/releases/tag/v3.0.1)
 - updated to tokentree version [1.2.18](https://github.com/HaxeCheckstyle/tokentree/releases/tag/v1.2.18)
-- updated to language-server-protocol lib
+- updated language-server-protocol lib
 - added non-lix / vshaxe-build based compilation option to vshaxe / haxe-languageserver
 
 ### 2.33.0 (December 23, 2024)
