@@ -37,7 +37,7 @@ typedef ResolvedConfiguration = vshaxe.HaxeConfiguration & {
 
 typedef DependencyInfo = {
 	var name(default, never):String;
-	var version(default, never):String;
+	var version(default, never):Null<String>;
 	var path(default, never):String;
 }
 
