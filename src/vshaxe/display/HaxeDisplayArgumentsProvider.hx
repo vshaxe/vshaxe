@@ -57,7 +57,7 @@ class HaxeDisplayArgumentsProvider {
 			var args:Array<String>;
 			var label:Null<String> = null;
 			var files:Null<Array<String>> = null;
-			if (Std.is(config, Array)) {
+			if (Std.isOfType(config, Array)) {
 				args = config;
 			} else {
 				final config:ComplexSettingsConfiguration = cast config;

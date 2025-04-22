@@ -4,3 +4,4 @@ dump
 *.log
 *.vsix
 haxelib/haxelib.zip
+.haxelib

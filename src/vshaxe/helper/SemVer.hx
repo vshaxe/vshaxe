@@ -117,7 +117,7 @@ abstract SemVer(String) to String {
 		} else throw '$this is not a valid version string'; // TODO: include some URL for reference
 
 	static public function isValid(s:String)
-		return Std.is(s, String) && FORMAT.match(s.toLowerCase());
+		return Std.isOfType(s, String) && FORMAT.match(s.toLowerCase());
 
 	static public function ofString(s:String) {
 		var ret = new SemVer(s);
