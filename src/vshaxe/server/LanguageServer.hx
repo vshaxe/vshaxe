@@ -84,11 +84,9 @@ class LanguageServer {
 			}))
 		];
 
-		#if debug
 		commands.getCommands(true).then(items -> {
 			hasVshaxeDebugTools = items.contains("vshaxeDebugTools.methodResultsView.update");
 		});
-		#end
 	}
 
 	public function dispose() {
@@ -302,11 +300,9 @@ class LanguageServer {
 
 	function onDidRunMethodCallback(data:MethodResult) {
 		_onDidRunMethod.fire(data);
-		#if debug
 		if (hasVshaxeDebugTools) {
 			commands.executeCommand("vshaxeDebugTools.methodResultsView.update", data);
 		}
-		#end
 	}
 
 	function onDidChangeRequestQueueCallback(data:{queue:Array<String>}) {
