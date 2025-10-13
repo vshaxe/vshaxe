@@ -1,3 +1,10 @@
+### 2.34.2 (October 13, 2025)
+
+**Bugfixes:**
+
+- fixed handling of Haxe 5 previews and recent nightlies ([#677](https://github.com/vshaxe/vshaxe/pull/677))
+- fixed Haxe 5 warnings with display-details, macro-times ([haxe-language-server#140](https://github.com/vshaxe/haxe-language-server/pull/140))
+
 ### 2.34.1 (February 3, 2025)
 
 **Bugfixes:**
