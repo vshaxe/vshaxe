@@ -376,6 +376,9 @@
 							},
 							"additionalProperties": false,
 							"properties": {
+								"compilerStage": {
+									"type": "boolean"
+								},
 								"addedDirectory": {
 									"type": "boolean"
 								},
@@ -398,6 +401,9 @@
 									"type": "boolean"
 								},
 								"reusing": {
+									"type": "boolean"
+								},
+								"retyping": {
 									"type": "boolean"
 								},
 								"skippingDep": {
@@ -425,6 +431,9 @@
 									"type": "boolean"
 								},
 								"stats": {
+									"type": "boolean"
+								},
+								"gcStats": {
 									"type": "boolean"
 								},
 								"message": {
