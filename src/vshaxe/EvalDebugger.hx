@@ -1,5 +1,6 @@
 package vshaxe;
 
+import haxe.io.Path;
 import vshaxe.HaxeExecutableConfiguration;
 import vshaxe.display.DisplayArguments;
 
@@ -37,11 +38,23 @@ class EvalDebugger {
 		}
 		if (config.args == null) {
 			if (displayArguments.arguments == null) {
-				window.showErrorMessage('No Haxe configuration exists. '
-					+ 'Please create a HXML file, use the "haxe.configurations" setting or set `args` in the launch configuration.');
-				return js.Lib.undefined;
+				if (window.activeTextEditor != null) {
+					var document = window.activeTextEditor.document;
+					var baseFileName = Path.withoutDirectory(document.fileName);
+					if (baseFileName.endsWith(".hx")) {
+						var dirPath = Path.directory(document.fileName);
+						var mainClassName = baseFileName.substr(0, baseFileName.length - 3);
+						config.args = ["--interp", "-cp", dirPath, "--main", mainClassName];
+					}
+				}
+				if (config.args == null) {
+					window.showErrorMessage('No Haxe configuration exists. '
+						+ 'Please create a HXML file, use the "haxe.configurations" setting or set `args` in the launch configuration.');
+					return js.Lib.undefined;
+				}
+			} else {
+				config.args = displayArguments.arguments;
 			}
-			config.args = displayArguments.arguments;
 		}
 		config.haxeExecutable = haxeExecutable.configuration;
 		config.mergeScopes = workspace.getConfiguration("haxe.debug").get("mergeScopes", true);
