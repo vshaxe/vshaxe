@@ -37,6 +37,7 @@ class LanguageServer {
 	var displayServerConfig:DisplayServerConfig;
 	var displayServerConfigSerialized:Null<String>;
 	final _onDidRunMethod = new EventEmitter<MethodResult>();
+	var hasVshaxeDebugTools = false;
 
 	inline function get_onDidRunMethod()
 		return _onDidRunMethod.event;
@@ -82,6 +83,10 @@ class LanguageServer {
 				arguments: arguments
 			}))
 		];
+
+		commands.getCommands(true).then(items -> {
+			hasVshaxeDebugTools = items.contains("vshaxeDebugTools.methodResultsView.update");
+		});
 	}
 
 	public function dispose() {
@@ -295,9 +300,9 @@ class LanguageServer {
 
 	function onDidRunMethodCallback(data:MethodResult) {
 		_onDidRunMethod.fire(data);
-		#if debug
-		commands.executeCommand("vshaxeDebugTools.methodResultsView.update", data);
-		#end
+		if (hasVshaxeDebugTools) {
+			commands.executeCommand("vshaxeDebugTools.methodResultsView.update", data);
+		}
 	}
 
 	function onDidChangeRequestQueueCallback(data:{queue:Array<String>}) {
