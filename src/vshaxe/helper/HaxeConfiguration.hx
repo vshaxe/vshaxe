@@ -316,10 +316,8 @@ class HaxeConfiguration {
 		final libraryBasePath = haxeInstallation.libraryBasePath;
 		if (libraryBasePath != null) {
 			for (path in paths) {
-				var info = haxeInstallation.resolveLibrary(path);
-				if (info == null) {
-					info = getDependencyInfo(path, libraryBasePath);
-				}
+				var info:Null<DependencyInfo> = haxeInstallation.resolveLibrary(path);
+				info ??= getDependencyInfo(path, libraryBasePath);
 				if (info != null) {
 					dependencies.push(info);
 				}
