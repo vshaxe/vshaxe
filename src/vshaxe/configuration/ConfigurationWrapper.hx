@@ -18,9 +18,11 @@ abstract class ConfigurationWrapper<Config> {
 		this.section = section;
 		this.folder = folder;
 		accessor = new ConfigurationAccessor();
-		@:nullSafety(Off) updateConfig();
-		accessor.set(@:nullSafety(Off) copyConfig());
-		changeConfigurationListener = workspace.onDidChangeConfiguration(onWorkspaceConfigurationChanged);
+		@:nullSafety(Off) {
+			updateConfig();
+			accessor.set(copyConfig());
+			changeConfigurationListener = workspace.onDidChangeConfiguration(onWorkspaceConfigurationChanged);
+		}
 	}
 
 	public function dispose() {

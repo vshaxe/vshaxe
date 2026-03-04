@@ -70,6 +70,7 @@ class LanguageServer {
 		restartDisposables = [];
 		queuedNotifications = [];
 		clientStartingUp = false;
+		@:nullSafety(Off)
 		disposables = [
 			hxFileWatcher,
 			{
