@@ -1,3 +1,3 @@
-# @install: lix --silent download "gh://github.com/realyuniquename/safety#89e49c01964d4966e3266c818dbb4bd8b07cd092" into safety/1.1.1/github/89e49c01964d4966e3266c818dbb4bd8b07cd092
--cp ${HAXE_LIBCACHE}/safety/1.1.1/github/89e49c01964d4966e3266c818dbb4bd8b07cd092/src
--D safety=1.1.1
+# @install: lix --silent download "gh://github.com/realyuniquename/safety#b3f1c34ef185d127196b04541950c32b7683863f" into safety/1.1.2/github/b3f1c34ef185d127196b04541950c32b7683863f
+-cp ${HAXE_LIBCACHE}/safety/1.1.2/github/b3f1c34ef185d127196b04541950c32b7683863f/src
+-D safety=1.1.2

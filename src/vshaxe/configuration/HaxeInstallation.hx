@@ -33,7 +33,7 @@ class HaxeInstallation {
 		this.mementos = mementos;
 		haxe = new HaxeExecutable(folder);
 		haxelib = new HaxelibExecutable(folder);
-		env = updateEnv();
+		env = @:nullSafety(Off) updateEnv();
 
 		haxe.onDidChangeConfiguration(_ -> onDidChangeConfiguration());
 		haxelib.onDidChangeConfiguration(_ -> onDidChangeConfiguration());

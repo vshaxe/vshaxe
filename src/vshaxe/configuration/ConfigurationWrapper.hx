@@ -20,6 +20,7 @@ abstract class ConfigurationWrapper<Config> {
 		accessor = new ConfigurationAccessor();
 		@:nullSafety(Off) updateConfig();
 		accessor.set(@:nullSafety(Off) copyConfig());
+		@:nullSafety(Off)
 		changeConfigurationListener = workspace.onDidChangeConfiguration(onWorkspaceConfigurationChanged);
 	}
 

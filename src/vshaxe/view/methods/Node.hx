@@ -28,7 +28,7 @@ class Node extends TreeItem {
 		this.debugInfo = debugInfo;
 
 		children = [];
-		name = formatName();
+		name = @:nullSafety(Off) formatName();
 		label = formatLabel();
 		tooltip = formatTooltip();
 		id = parentId + ">" + name;

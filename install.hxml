@@ -6,7 +6,7 @@
 -lib hxparse:git:https://github.com/simn/hxparse#876070ec62a4869de60081f87763e23457a3bda8
 -lib json2object:git:https://github.com/elnabo/json2object#a75859de1e966c09e73591b6c9186086c143fe60
 -lib test-adapter:3.0.0
--lib utest:git:https://github.com/haxe-utest/utest#bdb5fec4b8e77d9a3c079d9cfb108f29f153721a
+-lib utest:git:https://github.com/haxe-utest/utest#a055e05e2e872ae12a32b53d0200612345059c38
 -lib hxnodejs:git:https://github.com/HaxeFoundation/hxnodejs#504066d
 -lib tokentree:1.2.18
 -lib language-server-protocol:git:https://github.com/vshaxe/language-server-protocol-haxe#20a7f976bc83ec6623cc25144c88f4c15a799586
@@ -17,4 +17,4 @@
 -lib vscode-json-rpc:git:https://github.com/vshaxe/vscode-json-rpc#d04426d35d9a404a1ebc36127ecbe93473f6adff
 -lib rename:3.0.1
 -lib vshaxe-build:git:https://github.com/vshaxe/vshaxe-build#de0c13838c4a8bad282ef8924aa71e34a315a245
--lib safety:git:https://github.com/realyuniquename/safety#89e49c01964d4966e3266c818dbb4bd8b07cd092
+-lib safety:git:https://github.com/RealyUniqueName/Safety#b3f1c34ef185d127196b04541950c32b7683863f

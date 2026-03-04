@@ -15,8 +15,8 @@
 -lib language-server-protocol
 -lib safety
 -js bin/index.js
---macro Safety.safeNavigation('vshaxe')
 --macro nullSafety('vshaxe')
+# -w +WRedundantNullCheck
 vshaxe.Main
 
 -D dump

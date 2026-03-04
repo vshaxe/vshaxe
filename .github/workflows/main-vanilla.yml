@@ -8,9 +8,9 @@ jobs:
       fail-fast: false
       matrix:
         # TODO: enable on windows too (currently failing to install haxelibs?!)
-        # os: [ubuntu-latest, macos-13, windows-latest]
-        os: [ubuntu-latest, macos-13]
-        haxe: [latest, "2025-02-03_development_e30a2fd"]
+        # os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
+        haxe: [latest, "2026-03-04_development_033a9fd"]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
