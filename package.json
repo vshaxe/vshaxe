@@ -451,7 +451,7 @@
 							}
 						},
 						"useSocket": {
-							"markdownDescription": "If possible, use a socket for communication with Haxe rather than stdio.",
+							"markdownDescription": "If possible, use a socket for communication with Haxe rather than stdio. Always true for Haxe 5.",
 							"type": "boolean",
 							"default": true
 						}
