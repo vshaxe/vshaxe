@@ -1,0 +1,52 @@
+name: Publish prerelease
+
+on: [push, pull_request]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - run: npm ci
+
+    - name: Set pre-release version
+      run: |
+        BASE=$(node -p "require('./package.json').version.split('.').slice(0,2).join('.')")
+        npm version "$BASE.$((1000 + ${{ github.run_number }}))" --no-git-tag-version --allow-same-version
+
+    - name: Package VSIX
+      run: npx @vscode/vsce package --pre-release -o vshaxe-dev.vsix
+
+    - name: Upload VSIX artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: vshaxe-dev.vsix
+        path: vshaxe-dev.vsix
+
+  publish:
+    needs: package
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    env:
+      VS_MARKETPLACE_TOKEN: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+
+    steps:
+    - name: Download VSIX artifact
+      uses: actions/download-artifact@v5
+      with:
+        name: vshaxe-dev.vsix
+
+    - name: Publish prerelease to Visual Studio Marketplace
+      if: env.VS_MARKETPLACE_TOKEN != ''
+      uses: HaaLeo/publish-vscode-extension@v2
+      with:
+        pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+        preRelease: true
+        extensionFile: vshaxe-dev.vsix
+        registryUrl: https://marketplace.visualstudio.com
+        skipDuplicate: true
